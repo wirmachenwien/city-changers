@@ -17,7 +17,6 @@ import ogImage from '../assets/book/lendplatz-graz-tactical-urbanism.jpg';
 interface Props {
   lang: Language;
   title: string;
-  description?: string;
   kind: 'page' | 'book';
   file: string;
   currentUrl: string;
@@ -25,15 +24,14 @@ interface Props {
   hreflang?: boolean;
 }
 
-const { lang, title, description, kind, file, currentUrl, noindex = false, hreflang = true } = Astro.props;
+const { lang, title, kind, file, currentUrl, noindex = false, hreflang = true } = Astro.props;
 // Frontmatter strings bypass the markdown pipeline, so quotes are
 // localised here to match the rehype-transformed prose.
 const displayTitle = smartQuotes(title, lang);
-const displayDescription = description ? smartQuotes(description, lang) : undefined;
 const text = projectText(lang);
 const projectName = smartQuotes(text.name, lang);
 const fullTitle = `${displayTitle}${settings.web.titleDivider}${projectName}`;
-const metaDescription = displayDescription ?? text.description;
+const metaDescription = smartQuotes(text.description, lang);
 const hideFromIndex = noindex || !settings.web.indexing;
 ---
 <!doctype html>

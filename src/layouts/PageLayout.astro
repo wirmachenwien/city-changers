@@ -15,14 +15,13 @@ interface Props {
   lang: Language;
   file: string;
   title: string;
-  description?: string;
   layout: 'home' | 'page' | 'search';
   currentUrl: string;
   openerImage?: string;
   openerImageAlt?: string;
 }
 
-const { lang, file, title, description, layout, currentUrl, openerImage, openerImageAlt } = Astro.props;
+const { lang, file, title, layout, currentUrl, openerImage, openerImageAlt } = Astro.props;
 // The frontmatter title bypasses the markdown pipeline, so quotes are
 // localised once here and reused below.
 const displayTitle = smartQuotes(title, lang);
@@ -33,7 +32,6 @@ const neighbours = paginationNeighbours(lang, 'page', file);
 <BaseLayout
   lang={lang}
   title={title}
-  description={description}
   kind="page"
   file={file}
   currentUrl={currentUrl}

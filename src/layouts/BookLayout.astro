@@ -17,12 +17,11 @@ interface Props {
   lang: Language;
   file: string;
   title: string;
-  description?: string;
   layout: 'chapter' | 'section';
   currentUrl: string;
 }
 
-const { lang, file, title, description, layout, currentUrl } = Astro.props;
+const { lang, file, title, layout, currentUrl } = Astro.props;
 // The frontmatter title bypasses the markdown pipeline, so quotes are
 // localised once here; crumbs, share links and sheets reuse it.
 const displayTitle = smartQuotes(title, lang);
@@ -33,7 +32,6 @@ const neighbours = paginationNeighbours(lang, 'book', file);
 <BaseLayout
   lang={lang}
   title={title}
-  description={description}
   kind="book"
   file={file}
   currentUrl={currentUrl}

@@ -81,9 +81,6 @@ function chaptersCollection(lang) {
             component: language
           - name: template
             component: book_template
-          - name: description
-            label: Description
-            type: text
           - name: body
             component: markdown_body
             options:

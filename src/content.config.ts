@@ -19,7 +19,6 @@ const book = defineCollection({
     template: z
       .enum(['chapter', 'section'])
       .default('chapter'),
-    description: z.string().optional(),
   }),
 });
 
@@ -29,7 +28,6 @@ const pages = defineCollection({
     title: z.string(),
     lang,
     template: z.enum(['home', 'page', 'search']).default('page'),
-    description: z.string().optional(),
     openerImage: z.string().optional(),
     openerImageAlt: z.string().optional(),
   }),

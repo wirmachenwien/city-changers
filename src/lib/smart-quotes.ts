@@ -3,7 +3,7 @@
 // Source text keeps straight `"` / `'`; rendering maps them per language:
 // de/sl: „ “ (‚ ‘), en: “ ” (‘ ’), apostrophe always ’.
 // Pure function, no dependencies — shared by the rehype plugin (prose)
-// and BaseLayout (frontmatter title/description bypass the pipeline).
+// and BaseLayout (frontmatter title bypasses the pipeline).
 
 export type QuoteLang = 'de' | 'en' | 'sl';
 
