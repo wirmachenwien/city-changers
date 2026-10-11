@@ -1,1 +1,1 @@
-Sitemap: https://wirmachenwien.github.io/toolbox-city-changer/sitemap.xml
+Sitemap: https://toolbox.wirmachen.wien/sitemap.xml

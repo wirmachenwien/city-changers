@@ -35,6 +35,15 @@ jobs:
 
       - name: Build static site, PDFs, EPUBs and search index
         run: npm run build
+        env:
+          # Plausible analytics (self-hosted): set as repository Variables
+          # (Settings → Secrets and variables → Actions → Variables).
+          # PLAUSIBLE_DOMAIN is the site identifier registered in Plausible
+          # (data-domain); PLAUSIBLE_SCRIPT_SRC is the full script URL on the
+          # self-hosted instance (file-downloads + outbound-links variant).
+          # Unset values leave tracking disabled without failing the build.
+          PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
+          PLAUSIBLE_SCRIPT_SRC: ${{ vars.PLAUSIBLE_SCRIPT_SRC }}
 
       - name: Check translations, links, sitemap and search index
         run: npm run check:site

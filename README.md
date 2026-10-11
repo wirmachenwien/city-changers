@@ -41,6 +41,12 @@ English is the default language and lives at the root (`/`, `/book/…`);
 other languages live under `/<lang>/` and `/book/<lang>/…`. Prefixed default
 language URLs (`/en/…`) redirect to the canonical root locations.
 
+## Analytics
+
+Cookieless [Plausible](https://plausible.io) tracking (production builds only,
+via `PLAUSIBLE_DOMAIN` and `PLAUSIBLE_SCRIPT_SRC` build env vars, wired to
+repository Variables in `deploy.yml`). Unset = tracking disabled.
+
 ## Project layout
 
 - `src/content/book/<lang>/`, `src/content/pages/<lang>/` — chapters and home/search pages (MDX)

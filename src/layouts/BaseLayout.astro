@@ -12,6 +12,7 @@ import NavDrawer from '../components/NavDrawer.astro';
 import SideNav from '../components/SideNav.astro';
 import Footer from '../components/Footer.astro';
 import AlternateLinks from '../components/AlternateLinks.astro';
+import Plausible from '../components/Plausible.astro';
 import ogImage from '../assets/book/lendplatz-graz-tactical-urbanism.jpg';
 
 interface Props {
@@ -54,6 +55,7 @@ const hideFromIndex = noindex || !settings.web.indexing;
     <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <link rel="manifest" href={withBase('/site.webmanifest')} />
     <link rel="sitemap" href={withBase('/sitemap.xml')} type="application/xml" title="Sitemap" />
+    <Plausible noindex={hideFromIndex} />
   </head>
   <body
     data-pagefind-ignore={noindex ? '' : undefined}
