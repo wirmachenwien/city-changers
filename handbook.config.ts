@@ -34,3 +34,14 @@ export type Language = (typeof languages)[number];
 /** Language served without a URL prefix (/ and /book/); the rest live
  *  under /<lang>/ and /book/<lang>/. Must be a member of `languages`. */
 export const defaultLang: Language = 'en';
+
+/** Plausible analytics (self-hosted instance, privacy-friendly, cookieless).
+ *  Configured at build time via environment so no tracker URL is hardcoded:
+ *  - PLAUSIBLE_DOMAIN: site identifier registered in Plausible (data-domain).
+ *  - PLAUSIBLE_SCRIPT_SRC: full script URL on the self-hosted instance, e.g.
+ *    the `script.file-downloads.outbound-links.js` variant.
+ *  Empty values disable tracking (dev default, and safe until configured). */
+export const plausible = {
+  domain: process.env.PLAUSIBLE_DOMAIN ?? '',
+  scriptSrc: process.env.PLAUSIBLE_SCRIPT_SRC ?? '',
+};

@@ -1,0 +1,31 @@
+---
+// Plausible analytics snippet (self-hosted, cookieless).
+// Renders nothing unless a production build provides both
+// PLAUSIBLE_DOMAIN and PLAUSIBLE_SCRIPT_SRC (see handbook.config.ts),
+// so dev servers, PR preview artifacts and unconfigured builds stay
+// untracked. `noindex` pages (e.g. the component showcase) are skipped
+// to keep internal previews out of stats.
+import { plausible } from '../../handbook.config.ts';
+
+interface Props {
+  noindex?: boolean;
+}
+
+const { noindex = false } = Astro.props;
+
+let scriptOrigin = '';
+try {
+  scriptOrigin = plausible.scriptSrc ? new URL(plausible.scriptSrc).origin : '';
+} catch {
+  scriptOrigin = '';
+}
+
+const enabled =
+  import.meta.env.PROD && !noindex && plausible.domain !== '' && scriptOrigin !== '';
+---
+{enabled && (
+  <>
+    <link rel="preconnect" href={scriptOrigin} crossorigin />
+    <script defer data-domain={plausible.domain} src={plausible.scriptSrc}></script>
+  </>
+)}
