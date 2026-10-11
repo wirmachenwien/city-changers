@@ -14,10 +14,10 @@
 // inside it) and run `npm run sync:config`, then rebuild.
 
 /** Canonical origin the site is published at. */
-export const site = 'https://wirmachenwien.github.io';
+export const site = 'https://toolbox.wirmachen.wien';
 
 /** Project subpath (Astro form, with leading and trailing slash). */
-export const base = '/toolbox-city-changer/';
+export const base = '/';
 
 /** Filename stem for the generated PDF/EPUB downloads: `<slug>-<lang>.pdf`. */
 export const slug = 'toolbox-city-changer';

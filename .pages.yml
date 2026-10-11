@@ -1328,7 +1328,7 @@ content:
       - name: title
         type: string
         readonly: true
-        description: "Preview: https://wirmachenwien.github.io/toolbox-city-changer/preview/component-showcase.html"
+        description: "Preview: https://toolbox.wirmachen.wien/preview/component-showcase.html"
       - name: lang
         component: language
         readonly: true
