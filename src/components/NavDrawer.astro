@@ -4,7 +4,7 @@
 // as the desktop sidebar). The list itself is rendered client-side from
 // localStorage when marks exist (see bookmarks.ts, which fills every
 // [data-bookmark-list] on the page, sidebar and drawer alike).
-import { combinedNav } from '../lib/nav';
+import { combinedNav, type NavLink } from '../lib/nav';
 import { t } from '../lib/i18n';
 import { settings } from '../data/settings';
 import type { Language } from '../data/locales';
@@ -19,7 +19,7 @@ interface Props {
 interface LinkSection {
   kind: 'links';
   heading: string | null;
-  links: ReturnType<typeof combinedNav>['book'];
+  links: NavLink[];
 }
 
 interface BookmarkSection {
