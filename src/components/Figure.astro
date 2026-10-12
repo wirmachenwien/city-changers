@@ -12,9 +12,12 @@ interface Props {
   caption?: string;
   eager?: boolean;
   lang?: Language;
+  /** Render the image on a white card (brand lockups such as the
+   *  Erasmus+ logo that must sit on white per brand rules). */
+  frame?: 'white';
 }
 
-const { src, alt, caption, eager = false, lang } = Astro.props;
+const { src, alt, caption, eager = false, lang, frame } = Astro.props;
 // Prop-supplied text bypasses the markdown pipeline, so quotes are localised
 // here to match the hast-transformed prose (only when lang is known).
 const displayAlt = lang ? smartQuotes(alt, lang) : alt;
@@ -34,7 +37,7 @@ if (!match) {
 const image = match[1].default;
 const hasCaption = displayCaption || Astro.slots.has('default');
 ---
-<figure class="figure">
+<figure class:list={['figure', frame === 'white' && 'figure--framed']}>
   <Image
     src={image}
     alt={displayAlt}
