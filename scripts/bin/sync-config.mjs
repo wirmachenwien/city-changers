@@ -11,7 +11,7 @@
 // in sync.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parseDocument } from 'yaml';
-import { site, base, languages, languageNames, defaultLang } from '../../handbook.config.ts';
+import { site, base, languages, languageNames, defaultLang, themeColor } from '../../handbook.config.ts';
 import { normalizeBase } from '../lib/paths.mjs';
 
 const LANGS = [...languages];
@@ -699,8 +699,8 @@ function webmanifest() {
     { "src": "${BASE_PATH}/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "${BASE_PATH}/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#fdfcf9",
-  "background_color": "#fdfcf9",
+  "theme_color": ${JSON.stringify(themeColor)},
+  "background_color": ${JSON.stringify(themeColor)},
   "display": "standalone"
 }
 `;

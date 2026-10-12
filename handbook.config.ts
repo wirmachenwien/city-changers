@@ -1,6 +1,6 @@
 // Handbook site configuration — the single source of truth.
 //
-// site, base, slug, languages and defaultLang are defined exactly once here.
+// site, base, slug, languages, defaultLang and themeColor are defined exactly once here.
 // Everything else derives from them:
 // - astro.config.mjs (site, base, default-language redirects)
 // - src/lib/site.ts (SITE_URL, BASE_PATH, DEFAULT_LANG, URL helpers)
@@ -34,6 +34,11 @@ export type Language = (typeof languages)[number];
 /** Language served without a URL prefix (/ and /book/); the rest live
  *  under /<lang>/ and /book/<lang>/. Must be a member of `languages`. */
 export const defaultLang: Language = 'en';
+
+/** Chrome / safe-area background: paper tone. Single source for the
+ *  theme-color meta (BaseLayout), site.webmanifest (via sync-config.mjs),
+ *  and --paper in src/styles/global.css (kept in sync by hand). */
+export const themeColor = '#fdfcf9';
 
 /** Plausible analytics (self-hosted instance, privacy-friendly, cookieless).
  *  Configured at build time via environment so no tracker URL is hardcoded:

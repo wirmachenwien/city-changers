@@ -57,6 +57,7 @@
 }
 
 :root {
+  /* Keep in sync with themeColor in handbook.config.ts (theme-color meta + webmanifest). */
   --paper: #fdfcf9;
   --ink: #1d1a16;
   --ink-soft: #4a443c;
@@ -148,7 +149,7 @@ a[x-apple-data-detectors] {
 }
 
 .skip-link:focus {
-  inset-block-start: 1rem;
+  inset-block-start: calc(1rem + env(safe-area-inset-top, 0px));
   color: #fff;
 }
 
@@ -160,6 +161,10 @@ a[x-apple-data-detectors] {
   position: sticky;
   inset-block-start: 0;
   z-index: 40;
+  /* With viewport-fit=cover the layout viewport extends under the
+     notch / Dynamic Island. Keep top: 0 and pad inside so the opaque
+     background covers the safe area instead of scrolling text showing past. */
+  padding-block-start: env(safe-area-inset-top, 0px);
 }
 
 .site-head-inner {
@@ -170,7 +175,7 @@ a[x-apple-data-detectors] {
   max-inline-size: 70rem;
   margin-inline: auto;
   padding-block: 0.6rem;
-  padding-inline: 1rem;
+  padding-inline: max(1rem, env(safe-area-inset-left, 0px)) max(1rem, env(safe-area-inset-right, 0px));
 }
 
 .brand {
@@ -439,8 +444,8 @@ a[x-apple-data-detectors] {
     display: inline-flex;
     position: fixed;
     z-index: 60;
-    inset-block-start: 0.6rem;
-    inset-inline-end: 1rem;
+    inset-block-start: calc(0.6rem + env(safe-area-inset-top, 0px));
+    inset-inline-end: max(1rem, env(safe-area-inset-right, 0px));
     border: 0;
     padding: 0.45rem;
     min-inline-size: 2.75rem;
@@ -501,7 +506,8 @@ body.drawer-open {
   padding: 1.25rem;
   /* Live masthead height: first links start below the toggle row, since
      the sheet covers the sticky bar while open. */
-  padding-block-start: var(--site-head-height, 5rem);
+  padding-block-start: calc(var(--site-head-height, 5rem) + env(safe-area-inset-top, 0px));
+  padding-block-end: calc(1.25rem + env(safe-area-inset-bottom, 0px));
   font-family: var(--font-ui);
   max-block-size: 100dvb;
   overflow: auto;
@@ -548,7 +554,7 @@ body.drawer-open {
 .shell {
   max-inline-size: 70rem;
   margin-inline: auto;
-  padding-inline: 1rem;
+  padding-inline: max(1rem, env(safe-area-inset-left, 0px)) max(1rem, env(safe-area-inset-right, 0px));
 }
 
 .main-grid {
@@ -1313,7 +1319,7 @@ html:not(.js-fold) .accordion-content {
 
 .reading-progress {
   position: fixed;
-  inset-block-start: 0;
+  inset-block-start: env(safe-area-inset-top, 0px);
   inset-inline-start: 0;
   block-size: 4px;
   inline-size: 100%;
@@ -1482,8 +1488,8 @@ html:not(.js-fold) .accordion-content {
    fixed card, never auto-dismisses, closes via its close button. */
 .last-visit-toast {
   position: fixed;
-  inset-block-end: 1rem;
-  inset-inline-end: 1rem;
+  inset-block-end: calc(1rem + env(safe-area-inset-bottom, 0px));
+  inset-inline-end: max(1rem, env(safe-area-inset-right, 0px));
   z-index: 70;
   display: flex;
   align-items: center;
@@ -1721,7 +1727,7 @@ html:not(.js-fold) .accordion-content {
 .site-footer {
   border-block-start: 2px solid var(--ink);
   margin-block-start: 2rem;
-  padding-block: 1.5rem 2.5rem;
+  padding-block: 1.5rem calc(2.5rem + env(safe-area-inset-bottom, 0px));
   font-family: var(--font-ui);
   font-size: 0.94rem;
   color: var(--ink-soft);

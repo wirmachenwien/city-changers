@@ -14,6 +14,7 @@ import Footer from '../components/Footer.astro';
 import AlternateLinks from '../components/AlternateLinks.astro';
 import Plausible from '../components/Plausible.astro';
 import ogImage from '../assets/book/lendplatz-graz-tactical-urbanism.jpg';
+import { themeColor } from '../../handbook.config';
 
 interface Props {
   lang: Language;
@@ -39,7 +40,8 @@ const hideFromIndex = noindex || !settings.web.indexing;
 <html lang={lang} dir={htmlDir(lang)}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content={themeColor} />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     {hideFromIndex && <meta name="robots" content="noindex" />}
