@@ -1503,9 +1503,10 @@ html:not(.js-fold) .accordion-content {
   box-shadow: 0 0.15rem 0.5rem rgb(0 0 0 / 0.2);
   cursor: pointer;
   pointer-events: auto;
+  /* No top/left transition: pins must sit fixed in their gutter column
+     and never slide ("fly in") from their 0,0 initial position on first
+     placement, reposition, or touch-tap parking. */
   transition:
-    top 0.15s ease-out,
-    left 0.15s ease-out,
     opacity 0.15s ease-out,
     background-color 0.15s ease-out,
     color 0.15s ease-out;
@@ -1517,6 +1518,14 @@ html:not(.js-fold) .accordion-content {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
+}
+
+/* Parked by JS (placePin sets inline top/left): keep the pending pin out
+   of paint until then so it never flashes at the gutter origin. Opacity
+   fades in via the pin transition once parked (no position slide). */
+.article [data-bookmark-add]:not([style*="top"]) {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .bookmark-pin .icon {
