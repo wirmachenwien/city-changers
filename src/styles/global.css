@@ -407,6 +407,11 @@ a[x-apple-data-detectors] {
   .site-head-tools .lang-menu {
     order: -1;
     flex: none;
+    font-size: 16px;
+  }
+
+  .site-head-tools .lang-menu select {
+    font-size: 16px;
   }
 
   .search-form--mini {
