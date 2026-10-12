@@ -36,17 +36,29 @@ export type Language = (typeof languages)[number];
 export const defaultLang: Language = 'en';
 
 /** Chrome / safe-area background: paper tone. Single source for the
- *  theme-color meta (BaseLayout), site.webmanifest (via sync-config.mjs),
- *  and --paper in src/styles/global.css (kept in sync by hand). */
+ *  theme-color metas (BaseLayout), site.webmanifest (via sync-config.mjs),
+ *  and --paper in src/styles/global.css (kept in sync by hand).
+ *  themeColor stays as the light default for backwards compatibility. */
 export const themeColor = '#fdfcf9';
+
+/** Light chrome background (default paper). */
+export const themeColorLight = themeColor;
+
+/** Dark chrome background (dark --paper). */
+export const themeColorDark = '#161511';
 
 /** Plausible analytics (self-hosted instance, privacy-friendly, cookieless).
  *  Configured at build time via environment so no tracker URL is hardcoded:
  *  - PLAUSIBLE_DOMAIN: site identifier registered in Plausible (data-domain).
  *  - PLAUSIBLE_SCRIPT_SRC: full script URL on the self-hosted instance, e.g.
  *    the `script.file-downloads.outbound-links.js` variant.
- *  Empty values disable tracking (dev default, and safe until configured). */
+ *  Empty values disable tracking (dev default, and safe until configured).
+ *  This module is also bundled for the browser (via src/lib/site.ts), where
+ *  `process` does not exist — hence the guarded access. */
+const nodeEnv: Record<string, string | undefined> =
+  typeof process !== 'undefined' && process.env ? process.env : {};
+
 export const plausible = {
-  domain: process.env.PLAUSIBLE_DOMAIN ?? '',
-  scriptSrc: process.env.PLAUSIBLE_SCRIPT_SRC ?? '',
+  domain: nodeEnv.PLAUSIBLE_DOMAIN ?? '',
+  scriptSrc: nodeEnv.PLAUSIBLE_SCRIPT_SRC ?? '',
 };

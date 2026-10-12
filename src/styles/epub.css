@@ -59,6 +59,39 @@ img {
 figure {
   margin: 1.5em 0;
 }
+figure.figure--small {
+  max-width: 18em;
+}
+figure.figure--medium {
+  max-width: 28em;
+}
+figure.figure--float-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+figure.figure--float-left,
+figure.figure--float-right {
+  width: 45%;
+  max-width: 22em;
+  margin-top: 0.3em;
+}
+figure.figure--float-left {
+  float: left;
+  margin-right: 1em;
+}
+figure.figure--float-right {
+  float: right;
+  margin-left: 1em;
+}
+figure.figure--float-left.figure--small,
+figure.figure--float-right.figure--small {
+  max-width: 18em;
+}
+figure.figure--float-left.figure--medium,
+figure.figure--float-right.figure--medium {
+  width: 50%;
+  max-width: 28em;
+}
 figcaption {
   font-size: 0.9em;
   margin-top: 0.5em;

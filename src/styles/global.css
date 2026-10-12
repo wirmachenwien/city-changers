@@ -57,7 +57,8 @@
 }
 
 :root {
-  /* Keep in sync with themeColor in handbook.config.ts (theme-color meta + webmanifest). */
+  color-scheme: light dark;
+  /* Keep in sync with themeColorLight in handbook.config.ts (theme-color meta + webmanifest). */
   --paper: #fdfcf9;
   --ink: #1d1a16;
   --ink-soft: #4a443c;
@@ -68,11 +69,83 @@
   --panel: #f4efe4;
   --warn: #8a4b00;
   --warn-soft: #fbf0dc;
+  --error: #a31f1f;
+  --mark: #ffe08a;
+  --mark-ink: #1d1a16;
   --radius: 0.6rem;
   --measure: 44rem;
   --font-text: "Newsreader", Georgia, "Times New Roman", serif;
   --font-title: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-ui: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Explicit light choice: pin native widgets to light. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --paper: #fdfcf9;
+  --ink: #1d1a16;
+  --ink-soft: #4a443c;
+  --accent: #0c6b3c;
+  --accent-ink: #ffffff;
+  --accent-soft: #e3f0e6;
+  --line: #ddd5c7;
+  --panel: #f4efe4;
+  --warn: #8a4b00;
+  --warn-soft: #fbf0dc;
+  --error: #a31f1f;
+  --mark: #ffe08a;
+  --mark-ink: #1d1a16;
+}
+
+/* Explicit dark choice. All dark values meet WCAG AA (≥4.5:1) against --paper. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #161511;
+  --ink: #f2ede3;
+  --ink-soft: #c2bbae;
+  --accent: #4cc38a;
+  --accent-ink: #062915;
+  --accent-soft: #1d3527;
+  --line: #3a362f;
+  --panel: #23211c;
+  --warn: #e8a33d;
+  --warn-soft: #33260f;
+  --error: #ff8a7a;
+  --mark: #5c4d0f;
+  --mark-ink: #f6f1e5;
+}
+
+/* System choice (no data-theme): follow the OS. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --paper: #161511;
+    --ink: #f2ede3;
+    --ink-soft: #c2bbae;
+    --accent: #4cc38a;
+    --accent-ink: #062915;
+    --accent-soft: #1d3527;
+    --line: #3a362f;
+    --panel: #23211c;
+    --warn: #e8a33d;
+    --warn-soft: #33260f;
+    --error: #ff8a7a;
+    --mark: #5c4d0f;
+    --mark-ink: #f6f1e5;
+  }
+}
+
+/* Theme switch cross-fade: swapping data-theme re-resolves every var() at
+   once, so without this the whole page snaps. A short color-only transition
+   softens it. Scoped to motion-safe users; the low specificity leaves the
+   component-level transitions above (drawer slide, icon morph, …) intact. */
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  body *,
+  body *::before,
+  body *::after {
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
 }
 
 *,
@@ -144,7 +217,7 @@ a[x-apple-data-detectors] {
   inset-inline-start: 1rem;
   inset-block-start: -4rem;
   background: var(--ink);
-  color: #fff;
+  color: var(--paper);
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   z-index: 100;
@@ -153,7 +226,7 @@ a[x-apple-data-detectors] {
 
 .skip-link:focus {
   inset-block-start: calc(1rem + env(safe-area-inset-top, 0px));
-  color: #fff;
+  color: var(--paper);
 }
 
 /* ---------- Masthead ---------- */
@@ -232,7 +305,7 @@ a[x-apple-data-detectors] {
 
 .menu-toggle:hover {
   background: var(--ink);
-  color: #fff;
+  color: var(--paper);
 }
 
 /* Row wrappers only take effect on narrow screens (see below); on desktop
@@ -334,6 +407,11 @@ a[x-apple-data-detectors] {
   .site-head-tools .lang-menu {
     order: -1;
     flex: none;
+    font-size: 16px;
+  }
+
+  .site-head-tools .lang-menu select {
+    font-size: 16px;
   }
 
   .search-form--mini {
@@ -478,6 +556,30 @@ a[x-apple-data-detectors] {
   body.drawer-open .drawer-toggle-float:hover {
     background: transparent;
     color: var(--ink);
+  }
+
+  /* Theme float: same side as the close float, one row, directly beside
+     it — both sit on the drawer paper. Anchored to inset-inline-end (the
+     drawer's side, mirrored automatically for RTL) offset by the close
+     button's 2.75rem width plus a 0.5rem gap, so it never strands over the
+     dimmed backdrop. Like the close float it only exists while the drawer
+     is open; the masthead toggle hides on mobile so there is exactly one
+     visible theme button. */
+  body.drawer-open .theme-toggle--float {
+    display: inline-flex;
+    position: fixed;
+    z-index: 60;
+    inset-block-start: calc(0.6rem + env(safe-area-inset-top, 0px));
+    inset-inline-end: calc(max(1rem, env(safe-area-inset-right, 0px)) + 2.75rem + 0.5rem);
+    animation: float-in 0.18s ease-out;
+  }
+
+  body.drawer-open .theme-toggle--float:hover {
+    background: var(--panel);
+  }
+
+  .site-head .theme-toggle {
+    display: none;
   }
 }
 
@@ -734,6 +836,46 @@ body.drawer-open {
   margin-inline: 0;
 }
 
+.figure--small {
+  max-inline-size: 18rem;
+}
+
+.figure--medium {
+  max-inline-size: 28rem;
+}
+
+.figure--float-center {
+  margin-inline: auto;
+}
+
+@media (min-width: 48rem) {
+  .figure--float-left,
+  .figure--float-right {
+    max-inline-size: min(45%, 22rem);
+    margin-block-start: 0.35rem;
+  }
+
+  .figure--float-left {
+    float: left;
+    margin-inline-end: 1.25rem;
+  }
+
+  .figure--float-right {
+    float: right;
+    margin-inline-start: 1.25rem;
+  }
+
+  .figure--float-left.figure--small,
+  .figure--float-right.figure--small {
+    max-inline-size: min(45%, 18rem);
+  }
+
+  .figure--float-left.figure--medium,
+  .figure--float-right.figure--medium {
+    max-inline-size: min(50%, 28rem);
+  }
+}
+
 .figure img {
   display: block;
   border-radius: var(--radius);
@@ -745,6 +887,16 @@ body.drawer-open {
   font-size: 0.91rem;
   color: var(--ink-soft);
   margin-block-start: 0.4rem;
+}
+
+/* Framed variant for brand lockups (e.g. Erasmus+ logo) that must sit on
+   white per brand rules: white card with clear space, identical in light
+   and dark mode. Never dimmed or filtered. */
+.figure--framed > img,
+.figure--framed > picture > img {
+  background: #fff;
+  padding: 1rem;
+  border-radius: var(--radius);
 }
 
 .opener {
@@ -847,17 +999,47 @@ body.drawer-open {
 
 .feature-box,
 .color-panel {
+  position: relative;
   border: 1px solid var(--line);
-  border-inline-start: 6px solid var(--accent);
   background: var(--panel);
   border-radius: var(--radius);
+  overflow: hidden;
   padding: 1rem 1.25rem;
+  padding-inline-start: calc(1.25rem + 6px);
   margin-block: 1.5rem;
 }
 
+/* Straight accent bar overlaying the inline-start border: a thick border
+   would meet the 1px top/bottom borders with a diagonal miter joint, so
+   the stripe is a separate square-ended bar instead. */
+.feature-box::before,
+.color-panel::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 6px;
+  background: var(--accent);
+}
+
+.color-panel[data-tone="warm"]::before {
+  background: var(--warn);
+}
+
 .color-panel[data-tone="warm"] {
-  border-inline-start-color: var(--warn);
   background: var(--warn-soft);
+}
+
+/* Inner copy carries its own block margins (e.g. .prose p); without a
+   reset the last child's bottom margin stacks on the box padding while
+   the first child has no top margin — leaving more space at the bottom
+   than the top. */
+.feature-box > :first-child {
+  margin-block-start: 0;
+}
+
+.feature-box > :last-child {
+  margin-block-end: 0;
 }
 
 .pullquote {
@@ -875,7 +1057,7 @@ body.drawer-open {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   margin-block: 1rem;
-  background: #fff;
+  background: var(--paper);
 }
 
 .accordion summary {
@@ -996,12 +1178,12 @@ html:not(.js-fold) .accordion-content {
 }
 
 .quiz .quiz-mark.is-incorrect {
-  color: #a31f1f;
+  color: var(--error);
 }
 
 .quiz .quiz-feedback[data-state="incorrect"],
 .quiz .quiz-feedback[data-state="unfinished"] {
-  color: #a31f1f;
+  color: var(--error);
 }
 
 .quiz button[type="submit"] {
@@ -1097,11 +1279,12 @@ html:not(.js-fold) .accordion-content {
   z-index: 50;
   max-inline-size: 20rem;
   background: var(--ink);
-  color: #fff;
+  color: var(--paper);
   font-family: var(--font-ui);
   font-size: 0.91rem;
   padding: 0.6rem 0.8rem;
   border-radius: var(--radius);
+  border: 1px solid var(--line);
 }
 
 .footnote-popup button {
@@ -1110,8 +1293,8 @@ html:not(.js-fold) .accordion-content {
   align-items: center;
   justify-content: center;
   background: transparent;
-  color: #fff;
-  border: 1px solid #fff;
+  color: inherit;
+  border: 1px solid currentColor;
   border-radius: 0.3rem;
   cursor: pointer;
   margin-inline-start: 0.5rem;
@@ -1203,7 +1386,7 @@ html:not(.js-fold) .accordion-content {
 .share a:hover,
 .share-btn:hover {
   background: var(--ink);
-  color: #fff;
+  color: var(--paper);
 }
 
 .share {
@@ -1302,6 +1485,14 @@ html:not(.js-fold) .accordion-content {
   display: block;
 }
 
+/* QR codes need a white quiet zone to stay scannable on dark paper. */
+.qr [role="img"] {
+  display: inline-block;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+}
+
 /* ---------- Bibliography ---------- */
 
 .bibliography {
@@ -1382,9 +1573,10 @@ html:not(.js-fold) .accordion-content {
   box-shadow: 0 0.15rem 0.5rem rgb(0 0 0 / 0.2);
   cursor: pointer;
   pointer-events: auto;
+  /* No top/left transition: pins must sit fixed in their gutter column
+     and never slide ("fly in") from their 0,0 initial position on first
+     placement, reposition, or touch-tap parking. */
   transition:
-    top 0.15s ease-out,
-    left 0.15s ease-out,
     opacity 0.15s ease-out,
     background-color 0.15s ease-out,
     color 0.15s ease-out;
@@ -1396,6 +1588,14 @@ html:not(.js-fold) .accordion-content {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
+}
+
+/* Parked by JS (placePin sets inline top/left): keep the pending pin out
+   of paint until then so it never flashes at the gutter origin. Opacity
+   fades in via the pin transition once parked (no position slide). */
+.article [data-bookmark-add]:not([style*="top"]) {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .bookmark-pin .icon {
@@ -1422,14 +1622,14 @@ html:not(.js-fold) .accordion-content {
 
 .bookmark-pin.is-pending:hover {
   background: var(--ink);
-  color: #fff;
+  color: var(--paper);
 }
 
 /* Saved pins stay visible; hover/focus swaps the bookmark for an x icon. */
 .bookmark-pin.is-saved {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: var(--accent-ink);
 }
 
 .bookmark-pin.is-saved:hover,
@@ -1508,7 +1708,7 @@ html:not(.js-fold) .accordion-content {
 
 .bookmark-delete:hover,
 .bookmark-delete:focus-visible {
-  color: #fff;
+  color: var(--paper);
   background: var(--ink);
 }
 
@@ -1524,7 +1724,7 @@ html:not(.js-fold) .accordion-content {
   gap: 0.75rem;
   max-inline-size: min(24rem, calc(100dvw - 2rem));
   background: var(--ink);
-  color: #fff;
+  color: var(--paper);
   border-radius: var(--radius);
   padding: 0.8rem 1rem;
   font-family: var(--font-ui);
@@ -1542,7 +1742,7 @@ html:not(.js-fold) .accordion-content {
 }
 
 .last-visit-toast a {
-  color: #fff;
+  color: inherit;
   font-weight: 700;
 }
 
@@ -1567,7 +1767,7 @@ html:not(.js-fold) .accordion-content {
 }
 
 .last-visit-toast button:hover {
-  background: #fff;
+  background: var(--paper);
   color: var(--ink);
 }
 
@@ -1635,7 +1835,8 @@ html:not(.js-fold) .accordion-content {
 }
 
 .search-results mark {
-  background: #ffe08a;
+  background: var(--mark);
+  color: var(--mark-ink);
 }
 
 /* ---------- Front/back matter sheets ---------- */
@@ -1849,7 +2050,7 @@ html:not(.js-fold) .accordion-content {
 
 .language-switcher a[aria-current="true"] {
   background: var(--ink);
-  color: #fff;
+  color: var(--paper);
   border-color: var(--ink);
 }
 
@@ -1866,6 +2067,7 @@ html:not(.js-fold) .accordion-content {
 /* ---------- Component showcase ---------- */
 
 .showcase-demo {
+  display: flow-root;
   border: 1px dashed var(--ink-soft);
   border-radius: var(--radius);
   padding: 1rem;
@@ -1977,6 +2179,111 @@ html:not(.js-fold) .accordion-content {
   transform: rotate(180deg);
 }
 
+/* ---------- Theme toggle (masthead) ---------- */
+/* Icon-only binary dark/light switch: no border, no text, no tooltip. The
+   icon depicts the action target; the accessible name does too. */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  padding: 0.45rem;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--panel);
+}
+
+.theme-toggle:active {
+  transform: scale(0.9);
+}
+
+.theme-toggle .icon {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+.theme-toggle-icon {
+  display: none;
+  align-items: center;
+}
+
+.theme-toggle[data-mode="light"] .theme-toggle-icon[data-show-on="light"],
+.theme-toggle[data-mode="dark"] .theme-toggle-icon[data-show-on="dark"] {
+  display: inline-flex;
+  /* The newly shown icon flips from display: none, which restarts this
+     animation on every toggle: a slight rotate-and-settle. */
+  animation: theme-icon-in 0.25s ease-out;
+}
+
+@keyframes theme-icon-in {
+  from {
+    opacity: 0;
+    transform: rotate(-50deg) scale(0.7);
+  }
+}
+
+/* Floating variant: body-level like .drawer-toggle-float, hidden unless the
+   drawer is open. Shares its top offset so both sit on one row. */
+.theme-toggle--float {
+  display: none;
+}
+
+/* Native controls follow the theme via color-scheme, with explicit
+   paper/ink so inputs never keep a light UA default in dark mode. */
+input[type="search"],
+select {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+input[type="search"]::placeholder {
+  color: var(--ink-soft);
+  opacity: 1;
+}
+
+/* Content photos stay slightly dimmed in dark mode so they don't glare;
+   QR codes, logos and CC badges are excluded (QR carries its own backing,
+   framed brand lockups carry a white card). */
+:root[data-theme="dark"] .figure:not(.figure--framed) img,
+:root[data-theme="dark"] .opener img,
+:root[data-theme="dark"] .prose img,
+:root[data-theme="dark"] .cover-sheet img {
+  filter: brightness(0.92) contrast(1.02);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .figure:not(.figure--framed) img,
+  :root:not([data-theme]) .opener img,
+  :root:not([data-theme]) .prose img,
+  :root:not([data-theme]) .cover-sheet img {
+    filter: brightness(0.92) contrast(1.02);
+  }
+}
+
+/* Framed brand lockups are never dimmed (same specificity as the rules
+   above, later in source, so this reset wins for .figure--framed). */
+:root[data-theme="dark"] .figure--framed img,
+:root[data-theme="dark"] .figure--framed picture > img {
+  filter: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .figure--framed img,
+  :root:not([data-theme]) .figure--framed picture > img {
+    filter: none;
+  }
+}
+
 /* ---------- Utilities ---------- */
 
 .visually-hidden {
@@ -2005,12 +2312,39 @@ html:not(.js-fold) .accordion-content {
     transition: none;
   }
 
+  .theme-toggle {
+    transition: none;
+  }
+
+  .theme-toggle-icon {
+    animation: none;
+  }
+
   .spoiler-text {
     transition: none;
   }
 }
 
 @media print {
+  :root,
+  :root[data-theme="dark"],
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --paper: #ffffff;
+    --ink: #111111;
+    --ink-soft: #444444;
+    --accent: #0c6b3c;
+    --accent-ink: #ffffff;
+    --accent-soft: #eef5ef;
+    --line: #999999;
+    --panel: #ffffff;
+    --warn: #8a4b00;
+    --warn-soft: #ffffff;
+    --error: #a31f1f;
+    --mark: #ffffff;
+    --mark-ink: #111111;
+  }
+
   .site-head,
   .drawer,
   .bookmark-gutter,

@@ -2,6 +2,7 @@
 // presence of its DOM hooks and the typed settings rendered as data
 // attributes by the layouts, so pages only pay for what they use.
 import { initScrollOffset } from './scroll-offset';
+import { initTheme } from './theme';
 import { initDrawer } from './drawer';
 import { initVideos } from './videos';
 import { initQuiz } from './quiz';
@@ -22,6 +23,7 @@ import { initImageTitles } from './image-titles';
 import { initSpoiler } from './spoiler';
 
 initScrollOffset();
+initTheme();
 initDrawer();
 initVideos();
 initQuiz();

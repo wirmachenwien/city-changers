@@ -8,6 +8,7 @@ import { withBase, DEFAULT_LANG } from '../lib/site';
 import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
 import LanguageMenu from './LanguageMenu.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   lang: Language;
@@ -49,6 +50,7 @@ const searchParam = settings.web.search.param;
         </span>
       </form>
       <LanguageMenu lang={lang} kind={kind} file={file} />
+      <ThemeToggle lang={lang} />
     </div>
   </div>
 </header>

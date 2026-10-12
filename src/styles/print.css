@@ -214,6 +214,47 @@ figure {
   margin: 12pt 0;
 }
 
+figure.figure--small {
+  max-width: 70mm;
+}
+
+figure.figure--medium {
+  max-width: 105mm;
+}
+
+figure.figure--float-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+figure.figure--float-left,
+figure.figure--float-right {
+  width: 45%;
+  max-width: 85mm;
+  margin-top: 2pt;
+}
+
+figure.figure--float-left {
+  float: left;
+  margin-right: 12pt;
+}
+
+figure.figure--float-right {
+  float: right;
+  margin-left: 12pt;
+}
+
+figure.figure--float-left.figure--small,
+figure.figure--float-right.figure--small {
+  max-width: 70mm;
+}
+
+figure.figure--float-left.figure--medium,
+figure.figure--float-right.figure--medium {
+  width: 50%;
+  max-width: 105mm;
+}
+
 figure img {
   max-width: 100%;
 }
@@ -227,6 +268,7 @@ figcaption {
 ul.toc {
   list-style: none;
   padding: 0;
+  margin-top: 32pt;
 }
 
 ul.toc a {

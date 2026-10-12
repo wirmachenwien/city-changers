@@ -196,8 +196,14 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
         src, alt = values.get("src", ""), values.get("alt", "")
         caption = (values.get("caption") or match.group(3) or "").strip()
         caption_html = f"<figcaption>{caption}</figcaption>" if caption else ""
+        classes = ["figure"]
+        if values.get("size") in {"small", "medium"}:
+            classes.append(f'figure--{values["size"]}')
+        if values.get("float") in {"left", "right", "center"}:
+            classes.append(f'figure--float-{values["float"]}')
+        class_attr = f' class="{" ".join(classes)}"'
         return (
-            f'<figure><img src="{image_uri(src)}" alt="{alt}"/>{caption_html}</figure>'
+            f'<figure{class_attr}><img src="{image_uri(src)}" alt="{alt}"/>{caption_html}</figure>'
         )
 
     text = FIGURE_RE.sub(figure, text)

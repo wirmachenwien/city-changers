@@ -165,7 +165,13 @@ class EpubBook:
             href = html.escape(self.add_image(src), quote=True)
             alt_text = html.escape(alt, quote=True)
             caption_html = f"<figcaption>{html.escape(caption)}</figcaption>" if caption else ""
-            return f'<figure><img src="{href}" alt="{alt_text}" />{caption_html}</figure>'
+            classes = ["figure"]
+            if values.get("size") in {"small", "medium"}:
+                classes.append(f'figure--{values["size"]}')
+            if values.get("float") in {"left", "right", "center"}:
+                classes.append(f'figure--float-{values["float"]}')
+            class_attr = html.escape(" ".join(classes), quote=True)
+            return f'<figure class="{class_attr}"><img src="{href}" alt="{alt_text}" />{caption_html}</figure>'
 
         text = FIGURE_RE.sub(figure, text)
         def video(match: re.Match[str]) -> str:

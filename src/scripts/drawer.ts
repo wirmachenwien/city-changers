@@ -51,6 +51,13 @@ export function initDrawer(): void {
     });
   }
   backdrop?.addEventListener('click', close);
+  // Links inside the sheet navigate away (page reload discards the sheet
+  // anyway) or — for same-page targets like drawer bookmarks — scroll in
+  // place via pushState, which would otherwise leave the sheet open over
+  // the target. Dismiss on any drawer link click.
+  drawer.addEventListener('click', (event) => {
+    if ((event.target as Element | null)?.closest('a')) close();
+  });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') close();
   });
