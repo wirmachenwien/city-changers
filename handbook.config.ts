@@ -45,8 +45,13 @@ export const themeColor = '#fdfcf9';
  *  - PLAUSIBLE_DOMAIN: site identifier registered in Plausible (data-domain).
  *  - PLAUSIBLE_SCRIPT_SRC: full script URL on the self-hosted instance, e.g.
  *    the `script.file-downloads.outbound-links.js` variant.
- *  Empty values disable tracking (dev default, and safe until configured). */
+ *  Empty values disable tracking (dev default, and safe until configured).
+ *  This module is also bundled for the browser (via src/lib/site.ts), where
+ *  `process` does not exist — hence the guarded access. */
+const nodeEnv: Record<string, string | undefined> =
+  typeof process !== 'undefined' && process.env ? process.env : {};
+
 export const plausible = {
-  domain: process.env.PLAUSIBLE_DOMAIN ?? '',
-  scriptSrc: process.env.PLAUSIBLE_SCRIPT_SRC ?? '',
+  domain: nodeEnv.PLAUSIBLE_DOMAIN ?? '',
+  scriptSrc: nodeEnv.PLAUSIBLE_SCRIPT_SRC ?? '',
 };
