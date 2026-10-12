@@ -36,9 +36,16 @@ export type Language = (typeof languages)[number];
 export const defaultLang: Language = 'en';
 
 /** Chrome / safe-area background: paper tone. Single source for the
- *  theme-color meta (BaseLayout), site.webmanifest (via sync-config.mjs),
- *  and --paper in src/styles/global.css (kept in sync by hand). */
+ *  theme-color metas (BaseLayout), site.webmanifest (via sync-config.mjs),
+ *  and --paper in src/styles/global.css (kept in sync by hand).
+ *  themeColor stays as the light default for backwards compatibility. */
 export const themeColor = '#fdfcf9';
+
+/** Light chrome background (default paper). */
+export const themeColorLight = themeColor;
+
+/** Dark chrome background (dark --paper). */
+export const themeColorDark = '#161511';
 
 /** Plausible analytics (self-hosted instance, privacy-friendly, cookieless).
  *  Configured at build time via environment so no tracker URL is hardcoded:

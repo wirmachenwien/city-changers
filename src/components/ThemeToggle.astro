@@ -1,0 +1,32 @@
+---
+// Binary dark/light toggle for the masthead: icon only, no border, no text,
+// no tooltip. The icon shows the action target (moon while light, sun while
+// dark); the accessible name names the target mode. First visit follows the
+// OS until the first click stores an explicit choice (see theme.ts).
+import { t } from '../lib/i18n';
+import type { Language } from '../data/locales';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Language;
+  /** Body-level floating variant pinned inside the open drawer (mobile). */
+  float?: boolean;
+}
+
+const { lang, float = false } = Astro.props;
+const themeLabel = t(lang, 'theme.theme', 'Theme');
+const toDark = `${themeLabel}: ${t(lang, 'theme.dark', 'Dark')}`;
+const toLight = `${themeLabel}: ${t(lang, 'theme.light', 'Light')}`;
+---
+<button
+  type="button"
+  class:list={['theme-toggle', float && 'theme-toggle--float']}
+  data-theme-toggle
+  data-mode="light"
+  data-label-to-dark={toDark}
+  data-label-to-light={toLight}
+  aria-label={toDark}
+>
+  <span class="theme-toggle-icon" data-show-on="light"><Icon name="moon" /></span>
+  <span class="theme-toggle-icon" data-show-on="dark"><Icon name="sun" /></span>
+</button>

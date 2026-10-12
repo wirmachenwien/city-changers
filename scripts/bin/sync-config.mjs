@@ -484,6 +484,18 @@ function localeStrings(lang) {
                     type: string
                   - name: choose-chapter
                     type: string
+              - name: theme
+                label: Theme labels
+                type: object
+                fields:
+                  - name: theme
+                    type: string
+                  - name: system
+                    type: string
+                  - name: light
+                    type: string
+                  - name: dark
+                    type: string
               - name: metadata
                 label: Metadata labels
                 type: object

@@ -48,6 +48,12 @@
       "language-select": "Sprache auswählen",
       "choose-chapter": "Kapitel wählen…"
     },
+    "theme": {
+      "theme": "Farbschema",
+      "system": "System",
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
     "metadata": {
       "title": "Titel",
       "subtitle": "Untertitel",
@@ -150,6 +156,12 @@
       "language-select": "Select language",
       "choose-chapter": "Choose chapter…"
     },
+    "theme": {
+      "theme": "Theme",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
     "metadata": {
       "title": "Title",
       "subtitle": "Subtitle",
@@ -251,6 +263,12 @@
     "controls": {
       "language-select": "Izberi jezik",
       "choose-chapter": "Izberi poglavje…"
+    },
+    "theme": {
+      "theme": "Barvna shema",
+      "system": "Sistem",
+      "light": "Svetlo",
+      "dark": "Temno"
     },
     "metadata": {
       "title": "Naslov",

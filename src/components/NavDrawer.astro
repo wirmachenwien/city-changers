@@ -10,6 +10,7 @@ import { combinedNav } from '../lib/nav';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   lang: Language;
@@ -57,3 +58,4 @@ const sections =
   <span class="menu-icon menu-icon--close"><Icon name="x" /></span>
   <span class="menu-label">{t(lang, 'input.close', 'Close')}</span>
 </button>
+<ThemeToggle lang={lang} float />
