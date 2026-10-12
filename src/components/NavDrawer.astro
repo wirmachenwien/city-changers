@@ -1,13 +1,12 @@
 ---
-// Slide-over navigation: project links plus the expandable book index.
-// The sheet covers the sticky masthead when open; the floating toggle below
-// sits at the exact spot of the header hamburger (which ends up behind the
-// sheet in its own stacking context) and doubles as the close control. It
-// lives at body level with position: fixed so it stays pinned while the
-// sheet slides in underneath it — preserving the same-button illusion.
-// Both toggles share data-drawer-toggle so drawer.ts keeps them in sync.
+// Slide-over navigation: project links plus the expandable book index,
+// with the personal bookmark list directly after Inhalt (same position
+// as the desktop sidebar). The list itself is rendered client-side from
+// localStorage when marks exist (see bookmarks.ts, which fills every
+// [data-bookmark-list] on the page, sidebar and drawer alike).
 import { combinedNav } from '../lib/nav';
 import { t } from '../lib/i18n';
+import { settings } from '../data/settings';
 import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
@@ -17,37 +16,64 @@ interface Props {
   currentUrl: string;
 }
 
+interface LinkSection {
+  kind: 'links';
+  heading: string | null;
+  links: ReturnType<typeof combinedNav>['book'];
+}
+
+interface BookmarkSection {
+  kind: 'bookmarks';
+}
+
+type Section = LinkSection | BookmarkSection;
+
 const { lang, currentUrl } = Astro.props;
 const { project: projectLinks, book, position } = combinedNav(lang, currentUrl);
 
-const sections =
-  position === 'before'
-    ? [
-        { heading: null as string | null, links: projectLinks },
-        { heading: t(lang, 'nav.toc', 'Contents'), links: book },
-      ]
-    : [
-        { heading: t(lang, 'nav.toc', 'Contents'), links: book },
-        { heading: null as string | null, links: projectLinks },
-      ];
+const projectSection: LinkSection = { kind: 'links', heading: null, links: projectLinks };
+const bookSection: LinkSection = { kind: 'links', heading: t(lang, 'nav.toc', 'Contents'), links: book };
+const bookmarkSection: BookmarkSection = { kind: 'bookmarks' };
+
+const sections: Section[] =
+  position === 'before' ? [projectSection, bookSection] : [bookSection, projectSection];
+// The bookmark list always sits directly after Inhalt (the book section).
+if (settings.web.bookmarks.enabled) {
+  sections.splice(sections.indexOf(bookSection) + 1, 0, bookmarkSection);
+}
+
+const bookmarkHeading = t(lang, 'bookmarks.bookmarks', 'Bookmarks');
+const deleteLabel = t(lang, 'bookmarks.delete-bookmark', 'Delete');
 ---
 <div class="drawer" data-drawer role="dialog" aria-modal="true" aria-label={t(lang, 'nav.menu', 'Menu')} tabindex="-1" hidden>
   <div class="drawer-inner">
     {sections.map(
       (section) =>
-        section.links.length > 0 && (
-          <section class="nav-section">
-            {section.heading && <h2>{section.heading}</h2>}
-            <ul class="nav-list">
-              {section.links.map((link) => (
-                <li>
-                  <a href={link.url} aria-current={link.current ? 'page' : undefined}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+        section.kind === 'bookmarks' ? (
+          <section class="nav-section" data-bookmark-nav hidden>
+            <h2>{bookmarkHeading}</h2>
+            <ul
+              class="nav-list bookmark-list"
+              data-bookmark-list
+              data-lang={lang}
+              data-delete-label={deleteLabel}
+            />
           </section>
+        ) : (
+          section.links.length > 0 && (
+            <section class="nav-section">
+              {section.heading && <h2>{section.heading}</h2>}
+              <ul class="nav-list">
+                {section.links.map((link) => (
+                  <li>
+                    <a href={link.url} aria-current={link.current ? 'page' : undefined}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
         ),
     )}
   </div>
