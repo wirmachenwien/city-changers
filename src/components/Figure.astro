@@ -15,9 +15,13 @@ interface Props {
   /** Render the image on a white card (brand lockups such as the
    *  Erasmus+ logo that must sit on white per brand rules). */
   frame?: 'white';
+  /** Constrain the rendered figure width without changing image optimisation. */
+  size?: 'small' | 'medium';
+  /** Let prose wrap around the figure on wide screens, or center it as a block. */
+  float?: 'left' | 'right' | 'center';
 }
 
-const { src, alt, caption, eager = false, lang, frame } = Astro.props;
+const { src, alt, caption, eager = false, lang, frame, size, float } = Astro.props;
 // Prop-supplied text bypasses the markdown pipeline, so quotes are localised
 // here to match the hast-transformed prose (only when lang is known).
 const displayAlt = lang ? smartQuotes(alt, lang) : alt;
@@ -36,14 +40,27 @@ if (!match) {
 }
 const image = match[1].default;
 const hasCaption = displayCaption || Astro.slots.has('default');
+const imageSizes =
+  size === 'small'
+    ? 'min(100vw, 18rem)'
+    : size === 'medium'
+      ? 'min(100vw, 28rem)'
+      : '(max-width: 44rem) 100vw, 44rem';
 ---
-<figure class:list={['figure', frame === 'white' && 'figure--framed']}>
+<figure
+  class:list={[
+    'figure',
+    frame === 'white' && 'figure--framed',
+    size && `figure--${size}`,
+    float && `figure--float-${float}`,
+  ]}
+>
   <Image
     src={image}
     alt={displayAlt}
     title={displayAlt || undefined}
     widths={[400, 800, 1200]}
-    sizes="(max-width: 44rem) 100vw, 44rem"
+    sizes={imageSizes}
     loading={eager ? 'eager' : 'lazy'}
     decoding="async"
   />

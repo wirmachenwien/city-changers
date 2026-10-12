@@ -836,6 +836,46 @@ body.drawer-open {
   margin-inline: 0;
 }
 
+.figure--small {
+  max-inline-size: 18rem;
+}
+
+.figure--medium {
+  max-inline-size: 28rem;
+}
+
+.figure--float-center {
+  margin-inline: auto;
+}
+
+@media (min-width: 48rem) {
+  .figure--float-left,
+  .figure--float-right {
+    max-inline-size: min(45%, 22rem);
+    margin-block-start: 0.35rem;
+  }
+
+  .figure--float-left {
+    float: left;
+    margin-inline-end: 1.25rem;
+  }
+
+  .figure--float-right {
+    float: right;
+    margin-inline-start: 1.25rem;
+  }
+
+  .figure--float-left.figure--small,
+  .figure--float-right.figure--small {
+    max-inline-size: min(45%, 18rem);
+  }
+
+  .figure--float-left.figure--medium,
+  .figure--float-right.figure--medium {
+    max-inline-size: min(50%, 28rem);
+  }
+}
+
 .figure img {
   display: block;
   border-radius: var(--radius);
@@ -2027,6 +2067,7 @@ html:not(.js-fold) .accordion-content {
 /* ---------- Component showcase ---------- */
 
 .showcase-demo {
+  display: flow-root;
   border: 1px dashed var(--ink-soft);
   border-radius: var(--radius);
   padding: 1rem;
