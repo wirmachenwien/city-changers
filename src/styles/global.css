@@ -959,16 +959,34 @@ body.drawer-open {
 
 .feature-box,
 .color-panel {
+  position: relative;
   border: 1px solid var(--line);
-  border-inline-start: 6px solid var(--accent);
   background: var(--panel);
   border-radius: var(--radius);
+  overflow: hidden;
   padding: 1rem 1.25rem;
+  padding-inline-start: calc(1.25rem + 6px);
   margin-block: 1.5rem;
 }
 
+/* Straight accent bar overlaying the inline-start border: a thick border
+   would meet the 1px top/bottom borders with a diagonal miter joint, so
+   the stripe is a separate square-ended bar instead. */
+.feature-box::before,
+.color-panel::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 6px;
+  background: var(--accent);
+}
+
+.color-panel[data-tone="warm"]::before {
+  background: var(--warn);
+}
+
 .color-panel[data-tone="warm"] {
-  border-inline-start-color: var(--warn);
   background: var(--warn-soft);
 }
 
