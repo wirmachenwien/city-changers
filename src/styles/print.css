@@ -268,6 +268,7 @@ figcaption {
 ul.toc {
   list-style: none;
   padding: 0;
+  margin-top: 32pt;
 }
 
 ul.toc a {
