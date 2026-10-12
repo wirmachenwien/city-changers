@@ -315,12 +315,6 @@ a[x-apple-data-detectors] {
     min-inline-size: 0;
     max-inline-size: none;
   }
-
-  /* iOS zooms (and pans the page) when focusing inputs below 16px; keep the
-     mobile search at 16px so entering text never zooms or scrolls. */
-  .search-form--mini input[type="search"] {
-    font-size: 16px;
-  }
 }
 
 /* ---------- Icons ---------- */
@@ -1583,6 +1577,15 @@ html:not(.js-fold) .accordion-content {
   padding: 0.3rem 0.6rem;
   padding-inline-start: 2rem;
   font-size: 0.91rem;
+}
+
+/* iOS zooms (and pans the page) when focusing inputs below 16px; keep the
+   mobile search at 16px so entering text never zooms or scrolls.
+   Co-located after the base rule so it wins on equal specificity. */
+@media (max-width: 59.99rem) {
+  .search-form--mini input[type="search"] {
+    font-size: 16px;
+  }
 }
 
 .search-results {
