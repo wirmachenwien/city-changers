@@ -1109,6 +1109,13 @@ html:not(.js-fold) .accordion-content {
   padding-block-start: 1rem;
 }
 
+.footnote-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem;
+  margin: -0.25rem;
+}
+
 /* ---------- Definitions / glossary ---------- */
 
 .glossary {

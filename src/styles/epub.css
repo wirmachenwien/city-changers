@@ -161,6 +161,14 @@ dl.glossary dd {
 .quiz ol {
   margin-bottom: 0;
 }
+.icon {
+  height: 1.1em;
+  width: 1.1em;
+  vertical-align: -0.2em;
+}
+.footnote-back {
+  text-decoration: none;
+}
 table {
   border-collapse: collapse;
   width: 100%;

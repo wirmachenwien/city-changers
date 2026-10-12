@@ -5,6 +5,11 @@ import { t } from '../lib/i18n';
 const X_ICON_SVG =
   '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l16 16" /><path d="M20 4L4 20" /></svg>';
 
+// Mirrors Icon.astro `back` (feather corner-up-left). Duplicated as a string
+// because this bundle runs at runtime and cannot import an .astro component.
+const BACK_ICON_SVG =
+  '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4" /><path d="M20 20v-7a4 4 0 0 0-4-4H4" /></svg>';
+
 function currentLanguage(): Language {
   const lang = document.documentElement.lang as Language;
   return languages.includes(lang) ? lang : 'en';
@@ -79,8 +84,12 @@ export function initFootnotePopups(closeLabel = 'Close'): void {
     item.textContent = target.textContent.trim();
     const back = document.createElement('a');
     back.href = `#${ref.id}`;
-    back.textContent = ' ↩';
-    item.append(back);
+    back.className = 'footnote-back';
+    const backLabel = t(lang, 'footnotes.back-to-text', 'Back to text');
+    back.title = backLabel;
+    back.setAttribute('aria-label', backLabel);
+    back.innerHTML = BACK_ICON_SVG;
+    item.append(' ', back);
     list.append(item);
   }
   if (list.children.length === 0) return;

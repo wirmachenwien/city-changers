@@ -194,9 +194,21 @@ class EpubBook:
 
         text = FOOTNOTE_RE.sub(footnote, text)
         if chapter_notes:
+            # Same icon as Icon.astro `back` (feather corner-up-left). Inline SVG
+            # avoids the emoji presentation iOS gives the raw ↩ character.
+            back_label = html.escape(
+                locale_text(self.lang, "footnotes.back-to-text", "Back to text"), quote=True
+            )
+            back_icon = (
+                '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" '
+                'aria-hidden="true" focusable="false" fill="none" stroke="currentColor" '
+                'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+                '<polyline points="9 14 4 9 9 4" />'
+                '<path d="M20 20v-7a4 4 0 0 0-4-4H4" /></svg>'
+            )
             items = ''.join(
                 f'<li id="note-{_attr(note_id)}">{_attr(note_text)} '
-                f'<a href="#ref-{_attr(note_id)}">↩</a></li>'
+                f'<a class="footnote-back" href="#ref-{_attr(note_id)}" aria-label="{back_label}">{back_icon}</a></li>'
                 for note_id, _, note_text in chapter_notes
             )
             text += f'\n\n<section class="footnotes"><ol>{items}</ol></section>\n'
