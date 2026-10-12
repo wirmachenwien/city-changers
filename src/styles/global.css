@@ -972,6 +972,18 @@ body.drawer-open {
   background: var(--warn-soft);
 }
 
+/* Inner copy carries its own block margins (e.g. .prose p); without a
+   reset the last child's bottom margin stacks on the box padding while
+   the first child has no top margin — leaving more space at the bottom
+   than the top. */
+.feature-box > :first-child {
+  margin-block-start: 0;
+}
+
+.feature-box > :last-child {
+  margin-block-end: 0;
+}
+
 .pullquote {
   font-size: 1.44rem;
   line-height: 1.5;
