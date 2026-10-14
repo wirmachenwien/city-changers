@@ -1,0 +1,531 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+import { smartQuotes } from '../lib/smart-quotes';
+import type { Language } from '../data/locales';
+
+interface ChecklistSection {
+  title: string;
+  description?: string;
+  limit?: string;
+  items: (string | { label: string; key: string })[];
+}
+
+interface NoteField {
+  type?: 'text';
+  key?: string;
+  label: string;
+  prompt?: string;
+  lines?: number;
+}
+
+interface ListColumn {
+  key: string;
+  label: string;
+  kind?: 'text' | 'tags';
+  collapsed?: boolean;
+  fullRow?: boolean;
+  commit?: boolean;
+  bullets?: boolean;
+  suggestions?: string[];
+  placeholder?: string;
+}
+
+interface ListField {
+  type: 'list';
+  key: string;
+  label: string;
+  prompt?: string;
+  icon?: string;
+  initialRows?: number;
+  addLabel?: string;
+  columns: ListColumn[];
+}
+
+interface Props {
+  id: string;
+  title: string;
+  intro?: string;
+  sections: ChecklistSection[];
+  noteFields?: (NoteField | ListField)[];
+  lang?: Language;
+  variant?: 'inline' | 'worksheet' | 'steckbrief';
+  resetLabel?: string;
+  showReset?: boolean;
+}
+
+const {
+  id,
+  title,
+  intro,
+  sections,
+  noteFields = [],
+  lang = 'en',
+  variant = 'worksheet',
+  resetLabel = 'Auswahl zurücksetzen',
+  showReset = false,
+} = Astro.props;
+const displayTitle = smartQuotes(title, lang);
+const displayIntro = intro ? smartQuotes(intro, lang) : undefined;
+---
+<form class:list={["initiative-checklist", `initiative-checklist--${variant}`]} data-checklist={id}>
+  <div class="initiative-checklist-head">
+    <div>
+      <h2>{displayTitle}</h2>
+      {displayIntro && <p>{displayIntro}</p>}
+    </div>
+  </div>
+
+  {variant !== 'steckbrief' && sections.map((section, sectionIndex) => (
+    <fieldset class="initiative-checklist-section">
+      <legend>{smartQuotes(section.title, lang)}</legend>
+      {section.description && <p>{smartQuotes(section.description, lang)}</p>}
+      {section.limit && <p class="initiative-checklist-hint">{smartQuotes(section.limit, lang)}</p>}
+      <ul>
+        {section.items.map((item, itemIndex) => {
+          const label = typeof item === 'string' ? item : item.label;
+          const name = typeof item === 'string' ? `${id}-${sectionIndex}-${itemIndex}` : item.key;
+          const inputId = `${id}-${sectionIndex}-${itemIndex}`;
+          return (
+            <li>
+              <input id={inputId} type="checkbox" name={name} value="1" data-checklist-field={name} />
+              <label for={inputId}>{smartQuotes(label, lang)}</label>
+            </li>
+          );
+        })}
+      </ul>
+    </fieldset>
+  ))}
+
+  {noteFields.length > 0 && (
+    <section class="initiative-notes" aria-label={displayTitle}>
+      {noteFields.map((field, index) => {
+        const fieldKey = field.key ?? `${id}-note-${index}`;
+        if (field.type === 'list') {
+          const initialRows = field.initialRows ?? 1;
+          const addLabel = field.addLabel ?? 'Eintrag hinzufügen';
+          const inlineColumns = field.columns.filter((column) => !column.fullRow);
+          const belowColumns = field.columns.filter((column) => column.fullRow);
+          const hasBelow = belowColumns.length > 0;
+          const isPeopleList = field.key === 'initiative-active';
+          const tableColumns = isPeopleList ? [...inlineColumns, ...belowColumns] : inlineColumns;
+          return (
+            <div class={`initiative-note-field initiative-list-field${field.icon ? ' initiative-list-field--with-icons' : ''}${hasBelow ? ' initiative-list-field--steckbrief' : ''}${isPeopleList ? ' initiative-list-field--people' : ''}`} data-checklist-list={field.key} data-checklist-list-initial={initialRows}>
+              <span class="initiative-list-title">
+                {smartQuotes(field.label, lang)}
+              </span>
+              {field.prompt && <small>{smartQuotes(field.prompt, lang)}</small>}
+              <div class={`initiative-list-table${isPeopleList ? ' initiative-list-table--people' : ''}`} role="group" aria-label={smartQuotes(field.label, lang)} style={`--list-cols: ${tableColumns.length}`}>
+                {!isPeopleList && (
+                <div class="initiative-list-head" aria-hidden="true">
+                  {field.icon && <span class="initiative-list-marker-spacer" />}
+                  {inlineColumns.map((column) => (
+                    <span class={`initiative-list-headcell${column.collapsed ? ' initiative-list-headcell--collapsed' : ''}${column.kind === 'tags' ? ' initiative-list-headcell--tags' : ''}`}>{smartQuotes(column.label, lang)}</span>
+                  ))}
+                  <span class="initiative-list-remove-spacer" />
+                </div>
+                )}
+                <div class="initiative-list-rows" data-checklist-list-rows>
+                  {Array.from({ length: initialRows }, (_, rowIndex) => (
+                    <div class={`initiative-list-row${isPeopleList ? ' initiative-person-card' : ''}`} data-checklist-list-row>
+                      {field.icon && (
+                        <span class="initiative-list-marker">
+                          <Icon name={field.icon as IconName} />
+                        </span>
+                      )}
+                      {inlineColumns.map((column) => {
+                        const inputName = `${field.key}.${rowIndex}.${column.key}`;
+                        const columnLabel = smartQuotes(column.label, lang);
+                        const inputPlaceholder = column.placeholder ?? columnLabel;
+                        const optionsId = column.suggestions?.length ? `${inputName}-options` : undefined;
+                        if (column.kind === 'tags' && column.commit) {
+                          return (
+                            <div class="initiative-list-cell initiative-roles-cell initiative-tag-commit-cell initiative-commit-cell" data-tags-root data-commit-root data-tag-commit-root data-commit-bullets={column.bullets ? true : undefined}>
+                              <span class="initiative-list-cell-label">{columnLabel}</span>
+                              <input type="text" class="initiative-tags-value" name={inputName} data-checklist-field={inputName} data-tags-value hidden tabindex="-1" aria-hidden="true" />
+                              {column.bullets ? (
+                                <div class="initiative-tag-commit-box initiative-tag-commit-box--list" data-tags>
+                                  <ul class="initiative-tag-list" data-tags-list aria-live="polite"></ul>
+                                  <div class="initiative-tag-add-row">
+                                    <span class="initiative-tag-add-dash" aria-hidden="true">–</span>
+                                    <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div class="initiative-tag-commit-box" data-tags>
+                                  <span class="initiative-roles-chips initiative-tag-commit-chips" data-tags-list aria-live="polite"></span>
+                                  <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                                </div>
+                              )}
+                              {optionsId && (
+                                <datalist id={optionsId}>
+                                  {(column.suggestions ?? []).map((option) => <option value={smartQuotes(option, lang)} />)}
+                                </datalist>
+                              )}
+                              {column.bullets ? (
+                                <div class="initiative-commit-display initiative-commit-display--list" data-commit-display hidden>
+                                  <ul class="initiative-commit-list" data-commit-pills></ul>
+                                  <button type="button" class="initiative-commit-add-row" data-commit-add aria-label={`${columnLabel} hinzufügen`}><span class="initiative-commit-add-dash" aria-hidden="true">–</span><span>{smartQuotes(inputPlaceholder, lang)}</span></button>
+                                </div>
+                              ) : (
+                                <button type="button" class="initiative-commit-display" data-commit-display hidden>
+                                  <span class="initiative-commit-pills" data-commit-pills></span>
+                                  <span class="initiative-commit-pencil"><Icon name="pencil" /></span>
+                                </button>
+                              )}
+                            </div>
+                          );
+                        }
+                        if (column.kind === 'tags') {
+                          return (
+                            <div class="initiative-list-cell initiative-roles-cell" data-tags-root data-roles-root>
+                              <span class="initiative-list-cell-label">{columnLabel}</span>
+                              <input type="text" class="initiative-tags-value" name={inputName} data-checklist-field={inputName} data-tags-value hidden tabindex="-1" aria-hidden="true" />
+                              <span class="initiative-roles-chips" data-tags-list aria-live="polite"></span>
+                              <div class="initiative-roles-combo" data-tags>
+                                <input type="text" class="initiative-roles-input" data-tags-input data-roles-combobox placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-autocomplete="list" />
+                                <button type="button" class="initiative-roles-toggle" data-roles-toggle aria-expanded="false" aria-label="Rollenliste öffnen" title="Rollenliste öffnen" tabindex="-1">
+                                  <Icon name="chevron" />
+                                </button>
+                                <ul class="initiative-roles-menu" data-roles-menu hidden role="listbox" aria-label={columnLabel}>
+                                  {(column.suggestions ?? []).map((option) => (
+                                    <li role="presentation">
+                                      <button type="button" role="option" data-role-option={smartQuotes(option, lang)}>
+                                        <span>{smartQuotes(option, lang)}</span>
+                                        <span class="initiative-roles-check" data-role-check aria-hidden="true">✓</span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                          );
+                        }
+                        if (column.collapsed) {
+                          return (
+                            <details class="initiative-list-cell initiative-collapsed-cell" data-collapsed-cell>
+                              <summary class="initiative-collapsed-toggle">{columnLabel}</summary>
+                              <label class="initiative-collapsed-field">
+                                <span class="initiative-list-cell-label">{columnLabel}</span>
+                                <input type="text" name={inputName} data-checklist-field={inputName} placeholder={columnLabel} aria-label={columnLabel} />
+                              </label>
+                            </details>
+                          );
+                        }
+                        if (column.commit) {
+                          return (
+                            <div class="initiative-list-cell initiative-commit-cell" data-commit-root data-commit-text-root>
+                              <span class="initiative-list-cell-label">{columnLabel}</span>
+                              <input type="text" class="initiative-commit-input" data-commit-input name={inputName} data-checklist-field={inputName} placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" />
+                              <div class="initiative-commit-display initiative-commit-display--text" data-commit-display hidden>
+                                <span class="initiative-commit-value" data-commit-text></span>
+                                <button type="button" class="initiative-commit-pencil" data-commit-edit aria-label={`${columnLabel} bearbeiten`}><Icon name="pencil" /></button>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return (
+                          <label class="initiative-list-cell">
+                            <span class="initiative-list-cell-label">{columnLabel}</span>
+                            <input type="text" name={inputName} data-checklist-field={inputName} placeholder={columnLabel} aria-label={columnLabel} />
+                          </label>
+                        );
+                      })}
+                      <button type="button" class="initiative-list-remove" data-checklist-list-remove aria-label="Eintrag entfernen" title="Eintrag entfernen">
+                        <Icon name="minus" />
+                      </button>
+                      {belowColumns.map((column) => {
+                        const inputName = `${field.key}.${rowIndex}.${column.key}`;
+                        const columnLabel = smartQuotes(column.label, lang);
+                        const inputPlaceholder = column.placeholder ?? columnLabel;
+                        const optionsId = column.suggestions?.length ? `${inputName}-options` : undefined;
+                        if (column.kind === 'tags') {
+                          return (
+                            <div class="initiative-list-cell initiative-below-cell initiative-roles-cell initiative-tag-commit-cell initiative-commit-cell" data-tags-root data-commit-root data-tag-commit-root data-commit-bullets={column.bullets ? true : undefined}>
+                              <span class="initiative-below-label">{columnLabel}</span>
+                              <input type="text" class="initiative-tags-value" name={inputName} data-checklist-field={inputName} data-tags-value hidden tabindex="-1" aria-hidden="true" />
+                              {column.bullets ? (
+                                <div class="initiative-tag-commit-box initiative-tag-commit-box--list" data-tags>
+                                  <ul class="initiative-tag-list" data-tags-list aria-live="polite"></ul>
+                                  <div class="initiative-tag-add-row">
+                                    <span class="initiative-tag-add-dash" aria-hidden="true">–</span>
+                                    <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div class="initiative-tag-commit-box" data-tags>
+                                  <span class="initiative-roles-chips initiative-tag-commit-chips" data-tags-list aria-live="polite"></span>
+                                  <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                                </div>
+                              )}
+                              {optionsId && (
+                                <datalist id={optionsId}>
+                                  {(column.suggestions ?? []).map((option) => <option value={smartQuotes(option, lang)} />)}
+                                </datalist>
+                              )}
+                              {column.bullets ? (
+                                <div class="initiative-commit-display initiative-commit-display--list" data-commit-display hidden>
+                                  <ul class="initiative-commit-list" data-commit-pills></ul>
+                                  <button type="button" class="initiative-commit-add-row" data-commit-add aria-label={`${columnLabel} hinzufügen`}><span class="initiative-commit-add-dash" aria-hidden="true">–</span><span>{smartQuotes(inputPlaceholder, lang)}</span></button>
+                                </div>
+                              ) : (
+                                <button type="button" class="initiative-commit-display" data-commit-display hidden>
+                                  <span class="initiative-commit-pills" data-commit-pills></span>
+                                  <span class="initiative-commit-pencil"><Icon name="pencil" /></span>
+                                </button>
+                              )}
+                            </div>
+                          );
+                        }
+                        if (column.commit) {
+                          return (
+                            <div class="initiative-list-cell initiative-below-cell initiative-commit-cell" data-commit-root data-commit-text-root>
+                              <span class="initiative-below-label">{columnLabel}</span>
+                              <input type="text" class="initiative-commit-input" data-commit-input name={inputName} data-checklist-field={inputName} placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" />
+                              <div class="initiative-commit-display initiative-commit-display--text" data-commit-display hidden>
+                                <span class="initiative-commit-value" data-commit-text></span>
+                                <button type="button" class="initiative-commit-pencil" data-commit-edit aria-label={`${columnLabel} bearbeiten`}><Icon name="pencil" /></button>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return (
+                          <label class="initiative-list-cell initiative-below-cell">
+                            <span class="initiative-below-label">{columnLabel}</span>
+                            <input type="text" name={inputName} data-checklist-field={inputName} placeholder={columnLabel} aria-label={columnLabel} />
+                          </label>
+                        );
+                      })}
+                    </div>
+                  ))}
+                  {isPeopleList && (
+                    <button type="button" class="initiative-list-add initiative-person-add" data-checklist-list-add>{field.icon && <Icon name={field.icon as IconName} />}{smartQuotes(addLabel, lang)}</button>
+                  )}
+                </div>
+              </div>
+              <template data-checklist-list-template>
+                <div class={`initiative-list-row${isPeopleList ? ' initiative-person-card' : ''}`} data-checklist-list-row>
+                  {field.icon && (
+                    <span class="initiative-list-marker">
+                      <Icon name={field.icon as IconName} />
+                    </span>
+                  )}
+                  {inlineColumns.map((column) => {
+                    const columnLabel = smartQuotes(column.label, lang);
+                    const inputPlaceholder = column.placeholder ?? columnLabel;
+                    const optionsId = column.suggestions?.length ? `${field.key}.__INDEX__.${column.key}-options` : undefined;
+                    if (column.kind === 'tags' && column.commit) {
+                      return (
+                        <div class="initiative-list-cell initiative-roles-cell initiative-tag-commit-cell initiative-commit-cell" data-tags-root data-commit-root data-tag-commit-root data-commit-bullets={column.bullets ? true : undefined}>
+                          <span class="initiative-list-cell-label">{columnLabel}</span>
+                          <input type="text" class="initiative-tags-value" name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} data-tags-value hidden tabindex="-1" aria-hidden="true" />
+                          {column.bullets ? (
+                            <div class="initiative-tag-commit-box initiative-tag-commit-box--list" data-tags>
+                              <ul class="initiative-tag-list" data-tags-list aria-live="polite"></ul>
+                              <div class="initiative-tag-add-row">
+                                <span class="initiative-tag-add-dash" aria-hidden="true">–</span>
+                                <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                              </div>
+                            </div>
+                          ) : (
+                            <div class="initiative-tag-commit-box" data-tags>
+                              <span class="initiative-roles-chips initiative-tag-commit-chips" data-tags-list aria-live="polite"></span>
+                              <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                            </div>
+                          )}
+                          {optionsId && (
+                            <datalist id={optionsId}>
+                              {(column.suggestions ?? []).map((option) => <option value={smartQuotes(option, lang)} />)}
+                            </datalist>
+                          )}
+                          {column.bullets ? (
+                            <div class="initiative-commit-display initiative-commit-display--list" data-commit-display hidden>
+                              <ul class="initiative-commit-list" data-commit-pills></ul>
+                              <button type="button" class="initiative-commit-add-row" data-commit-add aria-label={`${columnLabel} hinzufügen`}><span class="initiative-commit-add-dash" aria-hidden="true">–</span><span>{smartQuotes(inputPlaceholder, lang)}</span></button>
+                            </div>
+                          ) : (
+                            <button type="button" class="initiative-commit-display" data-commit-display hidden>
+                              <span class="initiative-commit-pills" data-commit-pills></span>
+                              <span class="initiative-commit-pencil"><Icon name="pencil" /></span>
+                            </button>
+                          )}
+                        </div>
+                      );
+                    }
+                    if (column.kind === 'tags') {
+                      return (
+                        <div class="initiative-list-cell initiative-roles-cell" data-tags-root data-roles-root>
+                          <span class="initiative-list-cell-label">{columnLabel}</span>
+                          <input type="text" class="initiative-tags-value" name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} data-tags-value hidden tabindex="-1" aria-hidden="true" />
+                          <span class="initiative-roles-chips" data-tags-list aria-live="polite"></span>
+                          <div class="initiative-roles-combo" data-tags>
+                            <input type="text" class="initiative-roles-input" data-tags-input data-roles-combobox placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-autocomplete="list" />
+                            <button type="button" class="initiative-roles-toggle" data-roles-toggle aria-expanded="false" aria-label="Rollenliste öffnen" title="Rollenliste öffnen" tabindex="-1">
+                              <Icon name="chevron" />
+                            </button>
+                            <ul class="initiative-roles-menu" data-roles-menu hidden role="listbox" aria-label={columnLabel}>
+                              {(column.suggestions ?? []).map((option) => (
+                                <li role="presentation">
+                                  <button type="button" role="option" data-role-option={smartQuotes(option, lang)}>
+                                    <span>{smartQuotes(option, lang)}</span>
+                                    <span class="initiative-roles-check" data-role-check aria-hidden="true">✓</span>
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      );
+                    }
+                    if (column.collapsed) {
+                      return (
+                        <details class="initiative-list-cell initiative-collapsed-cell" data-collapsed-cell>
+                          <summary class="initiative-collapsed-toggle">{columnLabel}</summary>
+                          <label class="initiative-collapsed-field">
+                            <span class="initiative-list-cell-label">{columnLabel}</span>
+                            <input type="text" name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} placeholder={columnLabel} aria-label={columnLabel} />
+                          </label>
+                        </details>
+                      );
+                    }
+                    if (column.commit) {
+                      return (
+                        <div class="initiative-list-cell initiative-commit-cell" data-commit-root data-commit-text-root>
+                          <span class="initiative-list-cell-label">{columnLabel}</span>
+                          <input type="text" class="initiative-commit-input" data-commit-input name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" />
+                          <div class="initiative-commit-display initiative-commit-display--text" data-commit-display hidden>
+                            <span class="initiative-commit-value" data-commit-text></span>
+                            <button type="button" class="initiative-commit-pencil" data-commit-edit aria-label={`${columnLabel} bearbeiten`}><Icon name="pencil" /></button>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return (
+                      <label class="initiative-list-cell">
+                        <span class="initiative-list-cell-label">{columnLabel}</span>
+                        <input type="text" name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} placeholder={columnLabel} aria-label={columnLabel} />
+                      </label>
+                    );
+                  })}
+                  <button type="button" class="initiative-list-remove" data-checklist-list-remove aria-label="Eintrag entfernen" title="Eintrag entfernen">
+                    <Icon name="minus" />
+                  </button>
+                  {belowColumns.map((column) => {
+                    const columnLabel = smartQuotes(column.label, lang);
+                    const inputPlaceholder = column.placeholder ?? columnLabel;
+                    const optionsId = column.suggestions?.length ? `${field.key}.__INDEX__.${column.key}-options` : undefined;
+                    if (column.kind === 'tags') {
+                      return (
+                        <div class="initiative-list-cell initiative-below-cell initiative-roles-cell initiative-tag-commit-cell initiative-commit-cell" data-tags-root data-commit-root data-tag-commit-root data-commit-bullets={column.bullets ? true : undefined}>
+                          <span class="initiative-below-label">{columnLabel}</span>
+                          <input type="text" class="initiative-tags-value" name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} data-tags-value hidden tabindex="-1" aria-hidden="true" />
+                          {column.bullets ? (
+                            <div class="initiative-tag-commit-box initiative-tag-commit-box--list" data-tags>
+                              <ul class="initiative-tag-list" data-tags-list aria-live="polite"></ul>
+                              <div class="initiative-tag-add-row">
+                                <span class="initiative-tag-add-dash" aria-hidden="true">–</span>
+                                <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                              </div>
+                            </div>
+                          ) : (
+                            <div class="initiative-tag-commit-box" data-tags>
+                              <span class="initiative-roles-chips initiative-tag-commit-chips" data-tags-list aria-live="polite"></span>
+                              <input type="text" class="initiative-tag-commit-input" data-tags-input data-tag-commit-input data-commit-input placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" list={optionsId} />
+                            </div>
+                          )}
+                          {optionsId && (
+                            <datalist id={optionsId}>
+                              {(column.suggestions ?? []).map((option) => <option value={smartQuotes(option, lang)} />)}
+                            </datalist>
+                          )}
+                          {column.bullets ? (
+                            <div class="initiative-commit-display initiative-commit-display--list" data-commit-display hidden>
+                              <ul class="initiative-commit-list" data-commit-pills></ul>
+                              <button type="button" class="initiative-commit-add-row" data-commit-add aria-label={`${columnLabel} hinzufügen`}><span class="initiative-commit-add-dash" aria-hidden="true">–</span><span>{smartQuotes(inputPlaceholder, lang)}</span></button>
+                            </div>
+                          ) : (
+                            <button type="button" class="initiative-commit-display" data-commit-display hidden>
+                              <span class="initiative-commit-pills" data-commit-pills></span>
+                              <span class="initiative-commit-pencil"><Icon name="pencil" /></span>
+                            </button>
+                          )}
+                        </div>
+                      );
+                    }
+                    if (column.commit) {
+                      return (
+                        <div class="initiative-list-cell initiative-below-cell initiative-commit-cell" data-commit-root data-commit-text-root>
+                          <span class="initiative-below-label">{columnLabel}</span>
+                          <input type="text" class="initiative-commit-input" data-commit-input name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} placeholder={smartQuotes(inputPlaceholder, lang)} aria-label={columnLabel} autocomplete="off" />
+                          <div class="initiative-commit-display initiative-commit-display--text" data-commit-display hidden>
+                            <span class="initiative-commit-value" data-commit-text></span>
+                            <button type="button" class="initiative-commit-pencil" data-commit-edit aria-label={`${columnLabel} bearbeiten`}><Icon name="pencil" /></button>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return (
+                      <label class="initiative-list-cell initiative-below-cell">
+                        <span class="initiative-below-label">{columnLabel}</span>
+                        <input type="text" name={`${field.key}.__INDEX__.${column.key}`} data-checklist-field={`${field.key}.__INDEX__.${column.key}`} placeholder={columnLabel} aria-label={columnLabel} />
+                      </label>
+                    );
+                  })}
+                </div>
+              </template>
+              {!isPeopleList && (
+                <button type="button" class="initiative-list-add" data-checklist-list-add>{smartQuotes(addLabel, lang)}</button>
+              )}
+            </div>
+          );
+        }
+        if (variant === 'steckbrief') {
+          return (
+            <div class="initiative-note-field initiative-commit-cell initiative-textarea-commit" data-commit-root data-commit-text-root>
+              <span>{smartQuotes(field.label, lang)}</span>
+              {field.prompt && <small>{smartQuotes(field.prompt, lang)}</small>}
+              <textarea class="initiative-commit-input initiative-note-textarea" name={fieldKey} data-checklist-field={fieldKey} data-commit-input rows={field.lines ?? 3} aria-label={smartQuotes(field.label, lang)}></textarea>
+              <div class="initiative-commit-display initiative-commit-display--text" data-commit-display hidden>
+                <span class="initiative-commit-value initiative-commit-value--long" data-commit-text></span>
+                <button type="button" class="initiative-commit-pencil" data-commit-edit aria-label={`${smartQuotes(field.label, lang)} bearbeiten`}><Icon name="pencil" /></button>
+              </div>
+            </div>
+          );
+        }
+        return (
+          <label class="initiative-note-field">
+            <span>{smartQuotes(field.label, lang)}</span>
+            {field.prompt && <small>{smartQuotes(field.prompt, lang)}</small>}
+            <textarea name={fieldKey} data-checklist-field={fieldKey} rows={field.lines ?? 3}></textarea>
+          </label>
+        );
+      })}
+    </section>
+  )}
+
+  {variant === 'steckbrief' && sections.map((section, sectionIndex) => (
+    <fieldset class="initiative-checklist-section initiative-section-commit" data-section-commit>
+      <legend>{smartQuotes(section.title, lang)}</legend>
+      {section.description && <p>{smartQuotes(section.description, lang)}</p>}
+      {section.limit && <p class="initiative-checklist-hint">{smartQuotes(section.limit, lang)}</p>}
+      <ul>
+        {section.items.map((item, itemIndex) => {
+          const label = typeof item === 'string' ? item : item.label;
+          const name = typeof item === 'string' ? `${id}-${sectionIndex}-${itemIndex}` : item.key;
+          const inputId = `${id}-${sectionIndex}-${itemIndex}`;
+          return (
+            <li>
+              <input id={inputId} type="checkbox" name={name} value="1" data-checklist-field={name} />
+              <label for={inputId}>{smartQuotes(label, lang)}</label>
+            </li>
+          );
+        })}
+      </ul>
+      <button type="button" class="initiative-commit-display initiative-section-commit-display" data-section-commit-display hidden>
+        <span class="initiative-commit-pills" data-section-commit-values></span>
+        <span class="initiative-commit-pencil"><Icon name="pencil" /></span>
+      </button>
+    </fieldset>
+  ))}
+
+  {showReset && <button type="button" class="initiative-checklist-reset" data-checklist-reset>{smartQuotes(resetLabel, lang)}</button>}
+</form>

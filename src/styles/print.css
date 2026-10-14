@@ -132,6 +132,11 @@ figure, table, blockquote, .feature-box, .color-panel, .quiz {
   break-inside: avoid;
 }
 
+.initiative-checklist-section,
+.initiative-note-field {
+  break-inside: avoid;
+}
+
 /* The A–Z glossary is long by design: it may flow across pages, but a term
    always stays with its own definition. */
 dl.glossary {
@@ -351,6 +356,392 @@ dl.glossary dd {
 
 .quiz ol {
   margin-bottom: 0;
+}
+
+.initiative-checklist {
+  counter-reset: initiative-field;
+  border: 0.5pt solid #111;
+  padding: 10pt;
+  margin: 12pt 0;
+  font-family: "Clarity City", system-ui, sans-serif;
+}
+
+.initiative-checklist h2,
+.initiative-checklist h3 {
+  margin: 0 0 5pt;
+}
+
+.initiative-checklist-head {
+  border-bottom: 0.5pt solid #999;
+  margin-bottom: 6pt;
+  padding-bottom: 6pt;
+}
+
+.initiative-checklist-reset,
+.initiative-list-add,
+.initiative-list-remove,
+.initiative-list-remove-spacer {
+  display: none;
+}
+
+.initiative-checklist--inline .initiative-checklist-section,
+.initiative-checklist--inline .initiative-notes {
+  display: none;
+}
+
+.initiative-checklist--inline .initiative-checklist-head {
+  border-bottom: 0;
+  margin-bottom: 4pt;
+  padding-bottom: 0;
+}
+
+.initiative-checklist-print-ref {
+  display: block;
+  font-weight: 700;
+  margin: 0;
+}
+
+.initiative-checklist--worksheet .initiative-checklist-print-ref {
+  display: none;
+}
+
+.initiative-checklist fieldset {
+  counter-increment: initiative-field;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.initiative-checklist fieldset + fieldset {
+  margin-top: 8pt;
+}
+
+.initiative-checklist legend {
+  font-weight: 700;
+  padding: 0;
+}
+
+.initiative-checklist ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 4pt 0 0;
+}
+
+.initiative-checklist li {
+  margin: 2pt 0;
+}
+
+.initiative-checklist legend::before,
+.initiative-note-field > span::before {
+  content: counter(initiative-field, upper-alpha) ". ";
+  font-weight: 700;
+  color: #555;
+}
+
+.initiative-checklist input[type="checkbox"] {
+  width: 10pt;
+  height: 10pt;
+  margin-right: 5pt;
+  vertical-align: -1pt;
+}
+
+.initiative-note-field {
+  counter-increment: initiative-field;
+  display: block;
+  margin: 7pt 0;
+}
+
+.initiative-note-field > span,
+.initiative-note-field small {
+  display: block;
+}
+
+.initiative-note-field > span {
+  font-weight: 700;
+}
+
+.initiative-note-field textarea {
+  width: 100%;
+  border: 0.5pt solid #999;
+  min-height: 24pt;
+  margin-top: 3pt;
+}
+
+.initiative-list-table {
+  border: 0.5pt solid #111;
+  margin-top: 5pt;
+}
+
+.initiative-list-head,
+.initiative-list-row {
+  display: grid;
+  grid-template-columns: 14pt 1fr 1.6fr;
+  gap: 5pt;
+  align-items: center;
+}
+
+.initiative-list-head {
+  background: #eee;
+  border-bottom: 0.5pt solid #111;
+  padding: 3pt 5pt;
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #333;
+}
+
+.initiative-list-marker-spacer {
+  width: 14pt;
+}
+
+.initiative-list-rows {
+  display: block;
+}
+
+.initiative-list-row {
+  padding: 3pt 5pt;
+}
+
+.initiative-list-row + .initiative-list-row {
+  border-top: 0.5pt solid #999;
+}
+
+.initiative-list-row:nth-child(even) {
+  background: #f4f4f4;
+}
+
+.initiative-list-marker .icon {
+  width: 10pt;
+  height: 10pt;
+  vertical-align: -1pt;
+}
+
+.initiative-list-cell-label {
+  display: none;
+}
+
+.initiative-list-cell input {
+  width: 100%;
+  border: 0.5pt solid #999;
+  min-height: 18pt;
+}
+
+/* Steckbrief rows print the Fähigkeiten line full width below name/roles. */
+.initiative-below-cell {
+  grid-column: 2 / -1;
+}
+
+/* People lists print as cards: icon, name, roles/skills stacked vertically. */
+.initiative-list-table--people {
+  border: 0;
+}
+
+.initiative-list-table--people .initiative-list-rows {
+  display: block;
+}
+
+.initiative-list-table--people .initiative-list-row.initiative-person-card {
+  display: block;
+  border: 0.5pt solid #111;
+  padding: 6pt;
+  break-inside: avoid;
+}
+
+.initiative-list-table--people .initiative-list-row.initiative-person-card + .initiative-list-row.initiative-person-card {
+  border-top: 0.5pt solid #111;
+  margin-top: 6pt;
+}
+
+.initiative-list-table--people .initiative-person-card .initiative-list-marker {
+  margin-bottom: 4pt;
+}
+
+.initiative-list-table--people .initiative-person-card .initiative-list-cell,
+.initiative-list-table--people .initiative-person-card .initiative-below-cell {
+  grid-column: 1 / -1;
+  margin-top: 4pt;
+}
+
+.initiative-list-table--people .initiative-person-card .initiative-list-cell-label {
+  display: block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #333;
+  margin-bottom: 2pt;
+}
+
+.initiative-list-table--people .initiative-person-card .initiative-list-cell[data-commit-text-root] .initiative-list-cell-label {
+  display: none;
+}
+
+.initiative-below-label {
+  display: block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #333;
+  margin-bottom: 2pt;
+}
+
+/* Role chips print as plain bordered pills; combo box and menu stay hidden. */
+.initiative-roles-chips {
+  display: block;
+  border: 0.5pt solid #999;
+  padding: 3pt 4pt;
+  min-height: 18pt;
+}
+
+.initiative-roles-chips:empty::after {
+  content: "—";
+  color: #999;
+}
+
+.initiative-tag-chip {
+  display: inline-block;
+  border: 0.5pt solid #555;
+  border-radius: 8pt;
+  padding: 1pt 7pt;
+  margin: 1pt 3pt 1pt 0;
+  font-size: 8.5pt;
+  font-weight: 700;
+}
+
+.initiative-tag-remove,
+.initiative-tag-row-remove,
+.initiative-tag-row-edit,
+.initiative-tag-row-actions,
+.initiative-commit-actions,
+.initiative-commit-item-edit,
+.initiative-commit-item-remove,
+.initiative-commit-add-row,
+.initiative-roles-combo {
+  display: none;
+}
+
+/* Screen hides the virtual add row until hover/focus; print always shows
+   the input so empty skills can be filled in by hand. Locked cells hide
+   the whole box via [hidden] above, so this only affects empty cells. */
+.initiative-tag-commit-box--list .initiative-tag-add-row {
+  opacity: 1;
+  max-block-size: none;
+  border: 0.5pt solid #999;
+  padding: 3pt 4pt;
+}
+
+/* Locked skills print as plain bullets, not boxed screen rows. Screen
+   rows are single-line grids; on paper they flow as normal text. */
+.initiative-commit-item {
+  border: 0;
+  background: none;
+}
+
+.initiative-commit-item,
+.initiative-tag-row {
+  display: block;
+  white-space: normal;
+}
+
+.initiative-commit-label,
+.initiative-tag-row-label {
+  white-space: normal;
+}
+
+/* Commit cells print as stable text/pills; inputs stay hidden when locked,
+   the pencil affordance is screen-only. */
+.initiative-commit-cell [hidden] {
+  display: none !important;
+}
+
+.initiative-commit-display {
+  display: flex;
+  align-items: center;
+  gap: 5pt;
+  width: 100%;
+  border: 0;
+  padding: 2pt 0;
+  font-size: 9.5pt;
+  text-align: left;
+}
+
+.initiative-commit-display[hidden] {
+  display: none;
+}
+
+.initiative-commit-value {
+  flex: 1;
+  font-weight: 700;
+}
+
+.initiative-commit-pills {
+  display: block;
+  flex: 1;
+}
+
+.initiative-commit-list {
+  display: block;
+  flex: 1;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.initiative-commit-item {
+  font-size: 9.5pt;
+  margin: 1pt 0;
+  padding-left: 12pt;
+}
+
+.initiative-commit-item::before {
+  content: "–";
+  display: inline-block;
+  width: 12pt;
+  margin-left: -12pt;
+  font-weight: 700;
+}
+
+.initiative-commit-pill {
+  display: inline-block;
+  border: 0.5pt solid #555;
+  border-radius: 8pt;
+  padding: 1pt 7pt;
+  margin: 1pt 3pt 1pt 0;
+  font-size: 8.5pt;
+  font-weight: 700;
+}
+
+.initiative-commit-pencil,
+.initiative-commit-input {
+  display: none;
+}
+
+/* When a commit cell has no value yet, keep the empty input box visible. */
+.initiative-commit-cell:not([data-locked]) .initiative-commit-input {
+  display: block;
+}
+
+.initiative-tag-commit-cell:not([data-locked]) .initiative-tag-commit-box {
+  display: block;
+}
+
+/* Tag pills live inside the single input box, not in a separate chips row. */
+.initiative-tag-commit-cell .initiative-tag-commit-chips {
+  display: contents;
+  border: 0;
+  padding: 0;
+  min-height: 0;
+}
+
+/* Collapsed columns print expanded (JS opens them on beforeprint as well). */
+details.initiative-list-cell.initiative-collapsed-cell {
+  border: 0.5pt solid #999;
+}
+
+.initiative-collapsed-toggle {
+  display: none;
 }
 
 table {

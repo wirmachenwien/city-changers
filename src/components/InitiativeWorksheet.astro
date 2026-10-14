@@ -1,0 +1,11 @@
+---
+import InitiativeSteckbrief from './InitiativeSteckbrief.astro';
+import type { Language } from '../data/locales';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'de' } = Astro.props;
+---
+<InitiativeSteckbrief lang={lang} />

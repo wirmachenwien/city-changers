@@ -194,6 +194,207 @@ dl.glossary dd {
 .quiz ol {
   margin-bottom: 0;
 }
+.initiative-checklist {
+  counter-reset: initiative-field;
+  border: 0.5pt solid #111;
+  padding: 0.9em;
+  margin: 1em 0;
+}
+.initiative-checklist-head {
+  border-bottom: 0.5pt solid #999;
+  margin-bottom: 0.55em;
+  padding-bottom: 0.55em;
+}
+.initiative-checklist-reset,
+.initiative-list-add,
+.initiative-list-remove,
+.initiative-list-remove-spacer {
+  display: none;
+}
+.initiative-checklist--inline .initiative-checklist-section,
+.initiative-checklist--inline .initiative-notes {
+  display: none;
+}
+.initiative-checklist-print-ref {
+  display: block;
+  font-weight: 700;
+}
+.initiative-checklist fieldset {
+  counter-increment: initiative-field;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.initiative-checklist fieldset + fieldset {
+  margin-top: 0.8em;
+}
+.initiative-checklist legend,
+.initiative-note-field span {
+  font-weight: 700;
+}
+.initiative-checklist ul {
+  list-style: none;
+  padding-left: 0;
+}
+.initiative-checklist li {
+  margin: 0.25em 0;
+}
+.initiative-checklist legend::before,
+.initiative-note-field > span::before {
+  content: counter(initiative-field, upper-alpha) ". ";
+  font-weight: 700;
+  color: #555;
+}
+.initiative-note-field,
+.initiative-note-field > span,
+.initiative-note-field small {
+  display: block;
+}
+.initiative-note-field {
+  counter-increment: initiative-field;
+}
+.initiative-note-field textarea {
+  display: block;
+  width: 100%;
+  min-height: 2.5em;
+  border: 0.5pt solid #999;
+  margin-top: 0.3em;
+}
+.initiative-list-table {
+  border: 0.5pt solid #111;
+  margin-top: 0.45em;
+}
+.initiative-list-head,
+.initiative-list-row {
+  display: grid;
+  grid-template-columns: 1.4em 1fr 1.6fr;
+  gap: 0.4em;
+  align-items: center;
+}
+.initiative-list-head {
+  background: #eee;
+  border-bottom: 0.5pt solid #111;
+  padding: 0.3em 0.4em;
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.initiative-list-row {
+  padding: 0.3em 0.4em;
+}
+.initiative-list-row + .initiative-list-row {
+  border-top: 0.5pt solid #999;
+}
+.initiative-list-marker .icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+}
+.initiative-list-cell-label {
+  display: none;
+}
+.initiative-list-cell {
+  min-width: 0;
+}
+.initiative-list-cell input {
+  display: block;
+  width: 100%;
+  min-height: 1.8em;
+  border: 0.5pt solid #999;
+}
+.initiative-below-cell {
+  grid-column: 2 / -1;
+}
+/* People lists export as cards: icon, name, roles/skills stacked vertically. */
+.initiative-list-table--people {
+  border: 0;
+}
+.initiative-list-table--people .initiative-list-rows {
+  display: block;
+}
+.initiative-list-table--people .initiative-list-row.initiative-person-card {
+  display: block;
+  border: 0.5pt solid #111;
+  padding: 0.6em;
+  margin-bottom: 0.6em;
+}
+.initiative-list-table--people .initiative-person-card .initiative-list-cell,
+.initiative-list-table--people .initiative-person-card .initiative-below-cell {
+  grid-column: 1 / -1;
+  margin-top: 0.4em;
+}
+.initiative-list-table--people .initiative-person-card .initiative-list-cell-label {
+  display: block;
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.2em;
+}
+
+.initiative-list-table--people .initiative-person-card .initiative-list-cell[data-commit-text-root] .initiative-list-cell-label {
+  display: none;
+}
+.initiative-below-label {
+  display: block;
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.2em;
+}
+.initiative-roles-chips {
+  display: block;
+  border: 0.5pt solid #999;
+  padding: 0.25em 0.35em;
+  min-height: 1.8em;
+}
+.initiative-tag-chip {
+  display: inline-block;
+  border: 0.5pt solid #555;
+  border-radius: 1em;
+  padding: 0.1em 0.6em;
+  margin: 0.1em 0.3em 0.1em 0;
+  font-weight: 700;
+}
+.initiative-tag-remove,
+.initiative-tag-row-remove,
+.initiative-tag-row-edit,
+.initiative-tag-row-actions,
+.initiative-commit-actions,
+.initiative-commit-item-edit,
+.initiative-commit-item-remove,
+.initiative-commit-add-row,
+.initiative-roles-combo {
+  display: none;
+}
+/* Commit cells are static in EPUB exports (no JS): show inputs, hide the
+   screen-only pencil display button. */
+.initiative-commit-cell [hidden] {
+  display: none !important;
+}
+.initiative-commit-display,
+.initiative-commit-pencil,
+.initiative-commit-pills,
+.initiative-commit-list,
+.initiative-commit-item {
+  display: none;
+}
+.initiative-tag-commit-cell .initiative-tag-commit-box {
+  display: block;
+  border: 0.5pt solid #999;
+  padding: 0.1em 0.3em;
+}
+.initiative-tag-commit-cell .initiative-tag-commit-input {
+  display: block;
+  width: 100%;
+  border: 0;
+  min-height: 1.8em;
+}
+details.initiative-list-cell.initiative-collapsed-cell {
+  border: 0.5pt solid #999;
+}
+.initiative-collapsed-toggle {
+  display: none;
+}
 .icon {
   height: 1.1em;
   width: 1.1em;
