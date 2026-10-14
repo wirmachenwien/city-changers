@@ -63,6 +63,7 @@ from handbook.mdx import (
     footnote_attrs,
     glossary_html,
     glossary_lang_html,
+    licence_html,
     pullquote_html,
     question_html,
     quiz_html,
@@ -343,7 +344,8 @@ def build_document(lang: str) -> str:
                 f"<h1>{title}</h1><p>{works.get('subtitle', '')}</p>"
                 f"<p>{works.get('creator', '')}</p>"
                 f"<p>{works.get('contributor', '')}</p>"
-                f"<p>{works.get('publisher', '')}</p></section>"
+                f"<p>{works.get('publisher', '')}</p>"
+                f"{cc_badge_html()}{licence_html(lang)}</section>"
             )
             continue
         # The contents sheet is virtual too: generated from the catalogue.

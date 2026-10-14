@@ -13,8 +13,9 @@ DefinitionTerm, PageRef, SelectList, Math).
 Deliberately NOT shared (kept in each builder):
 - PDF: figure -> file-URI <img>, CC badge with embedded PNG, WeasyPrint
   CSS, cover-resolution warnings.
-- EPUB: figure -> packaged-image href with html.escape, CC badge without
-  images, OPF/nav/XHTML packaging, font embedding.
+- EPUB: figure -> packaged-image href with html.escape, inline CC badge
+  markers without images (the print-only title page embeds the badge PNG
+  via its own builder method), OPF/nav/XHTML packaging, font embedding.
 
 FOOTNOTE DIVERGENCE (deliberate, keep in sync):
 - PDF (print on paper): <Footnote text={"..."} /> renders either as page
@@ -228,6 +229,37 @@ def glossary_lang_html(lang: str, data: dict, escape_fn: EscapeFn = _identity) -
         for entry in data.get(lang, [])
     )
     return f'\n\n<dl class="glossary">{items}</dl>\n'
+
+
+# Licence sentence for the print-only title page (PDF + EPUB builders).
+# Source texts match the Licence sections of the language start pages
+# (src/content/pages/<lang>/index.mdx), which the web keeps; print reuses
+# them here because the About page that carried them was removed.
+LICENCE_TEXT: dict[str, dict[str, str]] = {
+    "de": {
+        "deed": "https://creativecommons.org/licenses/by/4.0/deed.de",
+        "pre": "Sofern nicht anders angegeben, stehen die Inhalte dieses Handbuchs unter der Creative-Commons-Lizenz ",
+        "post": " Wir machen Wien, Changing Cities & Prostorož. Sie dürfen geteilt und bearbeitet werden, sofern die Urheber:innen genannt werden.",
+    },
+    "en": {
+        "deed": "https://creativecommons.org/licenses/by/4.0/",
+        "pre": "Unless stated otherwise, the contents of this handbook are licensed under the Creative Commons license ",
+        "post": " Wir machen Wien, Changing Cities & Prostorož. You may share and adapt the contents as long as you give appropriate credit to the authors.",
+    },
+    "sl": {
+        "deed": "https://creativecommons.org/licenses/by/4.0/",
+        "pre": "Če ni navedeno drugače, so vsebine tega priročnika licencirane pod licenco Creative Commons ",
+        "post": " Wir machen Wien, Changing Cities & Prostorož. Vsebine lahko delite in prirejate, če navedete avtorje.",
+    },
+}
+
+
+def licence_html(lang: str, escape_fn: EscapeFn = _identity) -> str:
+    """Licence sentence paragraph. The deed link stays markup so it
+    survives escaping of the surrounding prose."""
+    entry = LICENCE_TEXT.get(lang, LICENCE_TEXT["en"])
+    link = f'<a href="{entry["deed"]}">CC BY 4.0</a>'
+    return f"<p>{escape_fn(entry['pre'])}{link}{escape_fn(entry['post'])}</p>"
 
 
 def pullquote_html(match: re.Match[str], escape_fn: EscapeFn = _identity) -> str:

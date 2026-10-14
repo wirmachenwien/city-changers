@@ -67,6 +67,7 @@ from handbook.mdx import (
     footnote_attrs,
     glossary_html,
     glossary_lang_html,
+    licence_html,
     pullquote_html,
     question_html,
     quiz_html,
@@ -235,6 +236,17 @@ class EpubBook:
         # Render-time typographic quotes (source keeps straight quotes).
         return as_xhtml(render_math_html(markdown_to_html(self.convert_mdx(md_text), self.lang)))
 
+    def cc_badge_html(self) -> str:
+        """CC badge with packaged image for the print-only title page
+        (inline <CcBadge/> markers stay text-only per the deliberate
+        PDF/EPUB divergence noted in handbook/mdx.py)."""
+        href = html.escape(self.add_image("cc-by-88x31.png"), quote=True)
+        return (
+            f'<p><img src="{href}" alt="CC BY 4.0" /> '
+            '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> Wir machen Wien, '
+            "Changing Cities &amp; Prostorož</p>"
+        )
+
     def add_chapter(self, slug: str, title: str, body: str) -> None:
         filename = f"{slug}.xhtml"
         self.chapters.append({"slug": slug, "title": title, "filename": filename, "body": body})
@@ -279,7 +291,8 @@ class EpubBook:
                     f'<p>{html.escape(self.works.get("subtitle", ""))}</p>'
                     f'<p>{html.escape(self.works.get("creator", ""))}</p>'
                     f'<p>{html.escape(self.works.get("contributor", ""))}</p>'
-                    f'<p>{html.escape(self.works.get("publisher", ""))}</p></section>'
+                    f'<p>{html.escape(self.works.get("publisher", ""))}</p>'
+                    f"{self.cc_badge_html()}{licence_html(self.lang, html.escape)}</section>"
                 )
                 self.add_chapter(slug, title, body)
                 continue
