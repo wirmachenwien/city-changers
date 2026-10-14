@@ -28,6 +28,7 @@ if (!entry) throw new Error(`Missing ${language} home page`);
   currentUrl={pageUrl(language, 'index')}
   openerImage={entry.data.openerImage}
   openerImageAlt={entry.data.openerImageAlt}
+  openerImageCaption={entry.data.openerImageCaption}
 >
   <MdxContent entry={entry} />
 </PageLayout>

@@ -19,16 +19,8 @@
         "web": false
       },
       {
-        "file": "about",
-        "label": "Über"
-      },
-      {
         "file": "contents",
         "label": "Inhalt"
-      },
-      {
-        "file": "glossary",
-        "label": "Glossar"
       },
       {
         "file": "01",
@@ -53,6 +45,10 @@
       {
         "file": "06",
         "label": "6. Arbeitsplan und Quellen"
+      },
+      {
+        "file": "glossary",
+        "label": "Glossar"
       }
     ]
   },
@@ -76,16 +72,8 @@
         "web": false
       },
       {
-        "file": "about",
-        "label": "About"
-      },
-      {
         "file": "contents",
         "label": "Contents"
-      },
-      {
-        "file": "glossary",
-        "label": "Glossary"
       },
       {
         "file": "01",
@@ -110,6 +98,10 @@
       {
         "file": "06",
         "label": "6. Work plan and sources"
+      },
+      {
+        "file": "glossary",
+        "label": "Glossary"
       }
     ]
   },
@@ -133,16 +125,8 @@
         "web": false
       },
       {
-        "file": "about",
-        "label": "O nas"
-      },
-      {
         "file": "contents",
         "label": "Vsebina"
-      },
-      {
-        "file": "glossary",
-        "label": "Glosar"
       },
       {
         "file": "01",
@@ -167,6 +151,10 @@
       {
         "file": "06",
         "label": "6. Delovni načrt in viri"
+      },
+      {
+        "file": "glossary",
+        "label": "Glosar"
       }
     ]
   }

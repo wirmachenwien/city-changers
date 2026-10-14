@@ -1,9 +1,9 @@
 ---
 // Slide-over navigation: project links plus the expandable book index,
-// with the personal bookmark list directly after Inhalt (same position
-// as the desktop sidebar). The list itself is rendered client-side from
-// localStorage when marks exist (see bookmarks.ts, which fills every
-// [data-bookmark-list] on the page, sidebar and drawer alike).
+// with the personal bookmark list directly after the main section
+// (same position as the desktop sidebar). The list itself is rendered
+// client-side from localStorage when marks exist (see bookmarks.ts, which
+// fills every [data-bookmark-list] on the page, sidebar and drawer alike).
 import { combinedNav, type NavLink } from '../lib/nav';
 import { t } from '../lib/i18n';
 import { settings } from '../data/settings';
@@ -31,15 +31,17 @@ type Section = LinkSection | BookmarkSection;
 const { lang, currentUrl } = Astro.props;
 const { project: projectLinks, book, position } = combinedNav(lang, currentUrl);
 
-const projectSection: LinkSection = { kind: 'links', heading: null, links: projectLinks };
-const bookSection: LinkSection = { kind: 'links', heading: t(lang, 'nav.toc', 'Contents'), links: book };
+// Project (Start) and book (Contents … Glossary) render as one continuous
+// list so there is no gap between Start and Contents.
+const mainLinks: NavLink[] =
+  position === 'before' ? [...projectLinks, ...book] : [...book, ...projectLinks];
+const mainSection: LinkSection = { kind: 'links', heading: null, links: mainLinks };
 const bookmarkSection: BookmarkSection = { kind: 'bookmarks' };
 
-const sections: Section[] =
-  position === 'before' ? [projectSection, bookSection] : [bookSection, projectSection];
-// The bookmark list always sits directly after Inhalt (the book section).
+const sections: Section[] = [mainSection];
+// The bookmark list always sits directly after the main section.
 if (settings.web.bookmarks.enabled) {
-  sections.splice(sections.indexOf(bookSection) + 1, 0, bookmarkSection);
+  sections.splice(sections.indexOf(mainSection) + 1, 0, bookmarkSection);
 }
 
 const bookmarkHeading = t(lang, 'bookmarks.bookmarks', 'Bookmarks');

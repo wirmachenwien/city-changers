@@ -362,16 +362,18 @@ def build_document(lang: str) -> str:
         if md_text is None:
             print(f"warning: missing chapter {CONTENT / lang / f'{slug}.mdx'}", file=sys.stderr)
             continue
-        if slug == "about":
+        if slug == "01":
             body = render_math_html(markdown_to_html(convert_mdx(md_text, lang), lang))
             # The CC BY badge is print-only (absent from the web page): place
-            # it under the first heading after the title, which is always
-            # the licence section (the body opens with the h1 + intro).
-            body = body.replace("</h2>", f"</h2>{cc_badge_html()}", 1)
-            parts.append(
-                '<section class="chapter frontmatter-sheet" id="file-about">'
-                f"{body}</section>"
+            # it under the licence heading of the About section merged into
+            # the end of chapter 1.
+            body = re.sub(
+                r"(Licence|Lizenz|Licenca)</h2>",
+                lambda m: f"{m.group(0)}{cc_badge_html()}",
+                body,
+                count=1,
             )
+            parts.append(f'<section class="chapter" id="file-{slug}">\n{body}\n</section>')
         else:
             parts.append(chapter_html(slug, md_text, lang))
     if pdf_notes_mode() == "book-footnotes" and BOOK_FOOTNOTES:

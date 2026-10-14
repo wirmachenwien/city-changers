@@ -876,13 +876,15 @@ body.drawer-open {
   }
 }
 
-.figure img {
+.figure img,
+.opener img {
   display: block;
   border-radius: var(--radius);
   inline-size: 100%;
 }
 
-.figure figcaption {
+.figure figcaption,
+.opener figcaption {
   font-family: var(--font-ui);
   font-size: 0.91rem;
   color: var(--ink-soft);
@@ -901,12 +903,8 @@ body.drawer-open {
 
 .opener {
   margin-block-end: 1.5rem;
+  margin-inline: 0;
   max-inline-size: var(--measure);
-}
-
-.opener img {
-  inline-size: 100%;
-  border-radius: var(--radius);
 }
 
 /* ---------- Buttons ---------- */

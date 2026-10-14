@@ -30,7 +30,7 @@ export function pageUrl(lang: Language, file: string): string {
   return withBase(`${langPrefix(lang)}/${file}.html`);
 }
 
-/** URL of a book file ("01", "about", "contents", ...). The cover entry
+/** URL of a book file ("01", "contents", ...). The cover entry
  *  resolves to the book directory itself. */
 export function bookUrl(lang: Language, file: string): string {
   const folder = lang === DEFAULT_LANG ? 'book' : `book/${lang}`;

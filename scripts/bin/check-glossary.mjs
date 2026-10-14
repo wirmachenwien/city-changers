@@ -65,7 +65,7 @@ for (const lang of languages) {
     for (const m of matches) {
       if (!lookup(m[0])) fail(`${lang}/${file}: no definition for surface form "${m[0]}"`);
     }
-    if (!['about.mdx', 'glossary.mdx'].includes(file) && matches.length === 0) {
+    if (file !== 'glossary.mdx' && matches.length === 0) {
       fail(`${lang}/${file}: zero term matches`);
     }
     total += matches.length;

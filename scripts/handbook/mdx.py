@@ -105,7 +105,7 @@ def make_glossary_lang_re(langs: tuple[str, ...]) -> re.Pattern[str]:
 
 
 # Chapter slugs styled as front matter (mirrors src/data/works.ts).
-FRONTMATTER_FILES = {"0-0-cover", "0-1-titlepage", "about", "contents"}
+FRONTMATTER_FILES = {"0-0-cover", "0-1-titlepage", "contents"}
 
 
 def chapter_lists(work: dict) -> tuple[list[str], list[dict]]:
