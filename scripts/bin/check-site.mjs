@@ -27,7 +27,7 @@ function downloadsBuilt() {
   }
 }
 const HAS_DOWNLOADS = downloadsBuilt();
-// Cover/title sheets are print-only; the web book starts at the about
+// Cover/title sheets are print-only; the web book starts at the contents
 // page and the "index" entry is a redirect to the contents page. Reading
 // order comes from works.json (same source the site renders from).
 const WORKS = JSON.parse(readFileSync('src/data/works.json', 'utf8'));

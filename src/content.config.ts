@@ -30,6 +30,7 @@ const pages = defineCollection({
     template: z.enum(['home', 'page', 'search']).default('page'),
     openerImage: z.string().optional(),
     openerImageAlt: z.string().optional(),
+    openerImageCaption: z.string().optional(),
   }),
 });
 

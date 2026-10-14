@@ -19,9 +19,10 @@ interface Props {
   currentUrl: string;
   openerImage?: string;
   openerImageAlt?: string;
+  openerImageCaption?: string;
 }
 
-const { lang, file, title, layout, currentUrl, openerImage, openerImageAlt } = Astro.props;
+const { lang, file, title, layout, currentUrl, openerImage, openerImageAlt, openerImageCaption } = Astro.props;
 // The frontmatter title bypasses the markdown pipeline, so quotes are
 // localised once here and reused below.
 const displayTitle = smartQuotes(title, lang);
@@ -37,7 +38,7 @@ const neighbours = paginationNeighbours(lang, 'page', file);
   currentUrl={currentUrl}
 >
   {!isHome && <Breadcrumbs items={crumbs} lang={lang} />}
-  {isHome && openerImage && <OpenerImage file={openerImage} alt={openerImageAlt ?? ''} lang={lang} />}
+  {isHome && openerImage && <OpenerImage file={openerImage} alt={openerImageAlt ?? ''} caption={openerImageCaption} lang={lang} />}
   <div class="prose" data-prose>
     <slot />
   </div>

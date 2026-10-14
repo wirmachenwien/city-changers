@@ -83,7 +83,7 @@ for (const work of Object.values(works)) {
 }
 
 /** Chapter slugs styled as front matter (print sheets + about/contents). */
-const FRONTMATTER_FILES = new Set(['0-0-cover', '0-1-titlepage', 'about', 'contents']);
+const FRONTMATTER_FILES = new Set(['0-0-cover', '0-1-titlepage', 'contents']);
 
 function chapterTocEntry(chapter: Work['chapters'][number]): TocEntry {
   return FRONTMATTER_FILES.has(chapter.file)

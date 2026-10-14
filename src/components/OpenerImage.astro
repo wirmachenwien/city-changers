@@ -8,13 +8,15 @@ interface Props {
   file: string;
   alt: string;
   lang?: Language;
+  caption?: string;
 }
 
-const { file, alt, lang } = Astro.props;
+const { file, alt, lang, caption } = Astro.props;
 // Frontmatter alt text bypasses the markdown pipeline, so quotes are
 // localised here to match the hast-transformed prose (only when lang is
 // known).
 const displayAlt = lang ? smartQuotes(alt, lang) : alt;
+const displayCaption = caption && lang ? smartQuotes(caption, lang) : caption;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/**/*.{jpg,jpeg,png,webp,avif,gif}',
@@ -28,7 +30,7 @@ if (!match) {
   throw new Error(`OpenerImage: unknown image "${file}"`);
 }
 ---
-<div class="opener">
+<figure class="opener">
   <Image
     src={match[1].default}
     alt={displayAlt}
@@ -38,4 +40,5 @@ if (!match) {
     loading="eager"
     decoding="async"
   />
-</div>
+  {displayCaption && <figcaption>{displayCaption}</figcaption>}
+</figure>

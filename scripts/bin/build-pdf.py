@@ -63,6 +63,7 @@ from handbook.mdx import (
     footnote_attrs,
     glossary_html,
     glossary_lang_html,
+    licence_html,
     pullquote_html,
     question_html,
     quiz_html,
@@ -343,7 +344,8 @@ def build_document(lang: str) -> str:
                 f"<h1>{title}</h1><p>{works.get('subtitle', '')}</p>"
                 f"<p>{works.get('creator', '')}</p>"
                 f"<p>{works.get('contributor', '')}</p>"
-                f"<p>{works.get('publisher', '')}</p></section>"
+                f"<p>{works.get('publisher', '')}</p>"
+                f"{cc_badge_html()}{licence_html(lang)}</section>"
             )
             continue
         # The contents sheet is virtual too: generated from the catalogue.
@@ -362,18 +364,7 @@ def build_document(lang: str) -> str:
         if md_text is None:
             print(f"warning: missing chapter {CONTENT / lang / f'{slug}.mdx'}", file=sys.stderr)
             continue
-        if slug == "about":
-            body = render_math_html(markdown_to_html(convert_mdx(md_text, lang), lang))
-            # The CC BY badge is print-only (absent from the web page): place
-            # it under the first heading after the title, which is always
-            # the licence section (the body opens with the h1 + intro).
-            body = body.replace("</h2>", f"</h2>{cc_badge_html()}", 1)
-            parts.append(
-                '<section class="chapter frontmatter-sheet" id="file-about">'
-                f"{body}</section>"
-            )
-        else:
-            parts.append(chapter_html(slug, md_text, lang))
+        parts.append(chapter_html(slug, md_text, lang))
     if pdf_notes_mode() == "book-footnotes" and BOOK_FOOTNOTES:
         items = ''.join(
             f'<li id="note-{note_id}"><span class="footnote-marker">{marker}</span> {note_text}</li>'
