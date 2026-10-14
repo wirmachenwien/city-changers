@@ -27,6 +27,10 @@ const { lang, file, title, layout, currentUrl } = Astro.props;
 const displayTitle = smartQuotes(title, lang);
 const crumbs = bookCrumbs(lang, file, displayTitle);
 const isChapter = layout === 'chapter';
+// The Steckbrief worksheet (07) is an interactive form, not prose:
+// bookmark pins cannot anchor to its dynamic fields and heading
+// permalinks serve no section navigation, so both stay off.
+const isWorksheet = file === '07';
 const neighbours = paginationNeighbours(lang, 'book', file);
 ---
 <BaseLayout
@@ -48,8 +52,8 @@ const neighbours = paginationNeighbours(lang, 'book', file);
     </div>
   )}
   {file === 'contents' && <ContentsPage lang={lang} title={displayTitle} />}
-  {isChapter && <BookmarkAdd lang={lang} />}
-  <div class="prose" data-prose data-glossary-terms>
+  {isChapter && !isWorksheet && <BookmarkAdd lang={lang} />}
+  <div class="prose" data-prose data-glossary-terms data-no-anchors={isWorksheet ? '' : undefined}>
     <slot />
   </div>
   {isChapter && <Share lang={lang} url={currentUrl} title={displayTitle} />}

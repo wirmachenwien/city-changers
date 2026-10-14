@@ -3,6 +3,7 @@
  // select that navigates on change (wired by the shared select enhancer).
  // The full link list in the footer stays the no-JS fallback.
 import { alternates } from '../lib/site';
+import { webBookToc } from '../data/works';
 import { locales } from '../data/locales';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
@@ -16,7 +17,10 @@ interface Props {
 }
 
 const { lang, kind, file, id = 'head-language' } = Astro.props;
-const targets = alternates(kind, file);
+const targets = alternates(kind, file).filter((target) => (
+  kind === 'book' ? webBookToc(target.lang).some((entry) => entry.file === file) : true
+));
+const fallbackTarget = targets.find((target) => target.lang !== lang);
 ---
 <span class="lang-menu" data-select-list>
   <label class="visually-hidden" for={id}>
@@ -30,9 +34,9 @@ const targets = alternates(kind, file);
       </option>
     ))}
   </select>
-  <noscript>
-    <a href={targets.find((target) => target.lang !== lang)?.url}>
+  {fallbackTarget && <noscript>
+    <a href={fallbackTarget.url}>
       {t(lang, 'controls.language-select', 'Select language')}
     </a>
-  </noscript>
+  </noscript>}
 </span>

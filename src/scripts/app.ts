@@ -21,6 +21,8 @@ import { initHeadings } from './headings';
 import { initSearchHighlight } from './search-highlight';
 import { initImageTitles } from './image-titles';
 import { initSpoiler } from './spoiler';
+import { initResizeGuard } from './resize-guard';
+import { initChecklist } from './checklist';
 
 initScrollOffset();
 initTheme();
@@ -42,3 +44,5 @@ initHeadings();
 initSearchHighlight();
 initImageTitles();
 initSpoiler();
+initResizeGuard();
+initChecklist();

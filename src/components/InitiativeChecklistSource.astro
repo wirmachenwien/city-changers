@@ -1,0 +1,29 @@
+---
+import InitiativeChecklist from './InitiativeChecklist.astro';
+import { getInitiativeChecklist, type InitiativeChecklistKey } from '../data/initiative-checklists';
+import type { Language } from '../data/locales';
+
+interface Props {
+  id: InitiativeChecklistKey;
+  lang?: Language;
+  variant?: 'inline' | 'worksheet';
+  resetLabel?: string;
+  showReset?: boolean;
+}
+
+const {
+  id,
+  lang = 'de',
+  variant = 'worksheet',
+  resetLabel,
+  showReset,
+} = Astro.props;
+const checklist = getInitiativeChecklist(id);
+---
+<InitiativeChecklist
+  {...checklist}
+  lang={lang}
+  variant={variant}
+  resetLabel={resetLabel}
+  showReset={showReset}
+/>

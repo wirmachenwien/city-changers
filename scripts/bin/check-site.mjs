@@ -2,9 +2,9 @@
 // Built-site integrity checks against the static build (dist/).
 // Covers every language: each expected page exists with the right
 // <html lang>, the search form routes to the language-local search page,
-// every page links to its equivalents in the other languages, every local
-// link/image/form target resolves to a built file, the contents page links
-// every chapter, and every language has searchable content for a
+// every page links to existing equivalents in the other languages, every
+// local link/image/form target resolves to a built file, the contents page
+// links every configured chapter, and every language has searchable content for a
 // representative query term.
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, posix } from 'node:path';
@@ -73,7 +73,10 @@ function searchFormAction(html) {
 function links(html) {
   const out = [];
   for (const match of html.matchAll(/<(?:a|link)[^>]*href="([^"]+)"/g)) out.push(match[1]);
-  for (const match of html.matchAll(/<option[^>]*value="([^"]+)"/g)) out.push(match[1]);
+  // <select> options navigate (language menu); <datalist> options are
+  // plain-text suggestions for checklist inputs, not link targets.
+  const withoutDatalists = html.replace(/<datalist[\s\S]*?<\/datalist>/g, '');
+  for (const match of withoutDatalists.matchAll(/<option[^>]*value="([^"]+)"/g)) out.push(match[1]);
   for (const match of html.matchAll(/<img[^>]*src="([^"]+)"/g)) out.push(match[1]);
   const action = searchFormAction(html);
   if (action) out.push(action);
@@ -115,7 +118,7 @@ for (const lang of LANGS) {
       }
     }
 
-    // Language switcher: links to the same page in the other languages.
+    // Language switcher: links to existing same-page variants in the other languages.
     const expectedAlt = (other) => {
       if (file === 'index') {
         if (kind === 'book') return `${BASE}/${other === defaultLang ? 'book/' : `book/${other}/`}`;
@@ -124,7 +127,10 @@ for (const lang of LANGS) {
       const target = pagePath(other, kind, file);
       return `${BASE}/${target}`;
     };
-    const others = LANGS.filter((other) => other !== lang).map(expectedAlt);
+    const others = LANGS
+      .filter((other) => other !== lang)
+      .filter((other) => kind !== 'book' || bookFiles(other).includes(file))
+      .map(expectedAlt);
     const rawLinks = links(html);
     const hrefs = rawLinks.map((href) => resolveUrl(rel, href));
     for (const other of others) {
@@ -151,12 +157,10 @@ for (const lang of LANGS) {
     }
 
     if (file === 'contents') {
-      for (let chapter = 1; chapter <= 6; chapter += 1) {
-        const target = `${BASE}/${lang === defaultLang ? 'book' : `book/${lang}`}/${String(chapter).padStart(2, '0')}.html`;
+      for (const chapter of bookFiles(lang).filter((entry) => entry !== 'index')) {
+        const target = `${BASE}/${pagePath(lang, 'book', chapter)}`;
         if (!hrefs.includes(target)) fail(`${rel}: contents missing chapter link ${target}`);
       }
-      const glossaryTarget = `${BASE}/${lang === defaultLang ? 'book' : `book/${lang}`}/glossary.html`;
-      if (!hrefs.includes(glossaryTarget)) fail(`${rel}: contents missing chapter link ${glossaryTarget}`);
     }
   }
 

@@ -1196,6 +1196,2043 @@ html:not(.js-fold) .accordion-content {
   cursor: pointer;
 }
 
+/* ---------- Initiative checklist ---------- */
+
+.initiative-checklist {
+  counter-reset: initiative-field;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-block: 2rem;
+  background: var(--panel);
+  font-family: var(--font-ui);
+}
+
+.initiative-checklist-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-block-end: 1px solid var(--line);
+  padding-block-end: 0.875rem;
+  margin-block-end: 0.875rem;
+}
+
+.initiative-checklist h2,
+.initiative-checklist h3 {
+  margin-block: 0 0.35rem;
+}
+
+.initiative-checklist-head p,
+.initiative-checklist-section p,
+.initiative-note-field small {
+  color: var(--ink-soft);
+}
+
+.initiative-checklist-print-ref {
+  display: none;
+  font-weight: 700;
+}
+
+.initiative-checklist-section {
+  counter-increment: initiative-field;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.initiative-checklist-section + .initiative-checklist-section {
+  margin-block-start: 1rem;
+}
+
+.initiative-checklist-section legend {
+  padding: 0;
+  font-weight: 700;
+  font-size: 1.08rem;
+}
+
+.initiative-checklist-hint {
+  font-style: italic;
+}
+
+.initiative-checklist ul {
+  list-style: none;
+  padding: 0;
+  margin-block: 0.5rem 0;
+}
+
+/* Checkbox rows only: scoped to sections so tag/skill/commit <li>s keep
+   their own row layout (a bare `.initiative-checklist li` selector would
+   outrank those rules and push per-row buttons onto a second row). */
+.initiative-checklist-section li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem;
+  align-items: start;
+  padding-block: 0.28rem;
+}
+
+.prose .initiative-checklist li + li {
+  margin-block-start: 0;
+}
+
+.initiative-checklist input[type="checkbox"] {
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  margin-block-start: 0.18rem;
+  accent-color: var(--accent);
+}
+
+.initiative-checklist-section legend::before,
+.initiative-note-field > span::before {
+  content: counter(initiative-field, upper-alpha) ". ";
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.initiative-notes {
+  margin-block-start: 0.35rem;
+}
+
+.initiative-note-field {
+  counter-increment: initiative-field;
+  display: block;
+  margin-block: 0.8rem;
+}
+
+.initiative-note-field > span,
+.initiative-note-field small {
+  display: block;
+}
+
+.initiative-note-field > span {
+  font-weight: 700;
+}
+
+.initiative-note-field textarea {
+  display: block;
+  inline-size: 100%;
+  margin-block-start: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  padding: 0.5rem 0.65rem;
+  resize: vertical;
+}
+
+.initiative-list-title {
+  display: block;
+}
+
+.initiative-list-field > small {
+  margin-block-start: 0.15rem;
+}
+
+/* Condensed table look: one bordered table with a header row, per-person
+   marker icons as row bullets, and compact zebra rows. Overflow stays
+   visible so open role dropdowns overlay following rows instead of
+   clipping; corners are rounded on head and last row instead. */
+.initiative-list-table {
+  margin-block-start: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  interpolate-size: allow-keywords;
+}
+
+.initiative-list-head,
+.initiative-list-row {
+  display: grid;
+  grid-template-columns: repeat(var(--list-cols, 2), minmax(0, 1fr)) max-content;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.initiative-list-field--with-icons .initiative-list-head,
+.initiative-list-field--with-icons .initiative-list-row {
+  grid-template-columns: 2.25rem repeat(var(--list-cols, 2), minmax(0, 1fr)) max-content;
+}
+
+/* Name column stays narrower than the skills column. */
+.initiative-list-table[style*="--list-cols: 2"] .initiative-list-head,
+.initiative-list-table[style*="--list-cols: 2"] .initiative-list-row {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr) max-content;
+}
+
+.initiative-list-field--with-icons .initiative-list-table[style*="--list-cols: 2"] .initiative-list-head,
+.initiative-list-field--with-icons .initiative-list-table[style*="--list-cols: 2"] .initiative-list-row {
+  grid-template-columns: 2.25rem minmax(0, 5fr) minmax(0, 8fr) max-content;
+}
+
+.initiative-list-head {
+  background: var(--panel);
+  border-block-end: 1px solid var(--line);
+  padding: 0.35rem 0.6rem 0.35rem 0.25rem;
+  border-start-start-radius: calc(var(--radius) - 1px);
+  border-start-end-radius: calc(var(--radius) - 1px);
+}
+
+.initiative-list-headcell {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.initiative-list-marker-spacer {
+  display: block;
+  inline-size: 2.25rem;
+}
+
+.initiative-list-rows {
+  display: grid;
+}
+
+.initiative-list-rows > .initiative-list-row:last-child {
+  border-end-start-radius: calc(var(--radius) - 1px);
+  border-end-end-radius: calc(var(--radius) - 1px);
+}
+
+.initiative-list-row {
+  padding: 0.3rem 0.6rem 0.3rem 0.25rem;
+  transition:
+    background-color 160ms ease,
+    grid-template-columns 180ms ease;
+}
+
+.initiative-list-row + .initiative-list-row {
+  border-block-start: 1px solid var(--line);
+}
+
+.initiative-list-row:nth-child(even) {
+  background: var(--panel);
+}
+
+@supports (background: color-mix(in srgb, red 50%, white)) {
+  .initiative-list-row:nth-child(even) {
+    background: color-mix(in srgb, var(--panel) 55%, var(--paper));
+  }
+}
+
+.initiative-list-row:focus-within {
+  /* Warm highlight for the active row; no outline/border here since the
+     focused field itself already shows its own focus ring. */
+  background: var(--warn-soft);
+}
+
+.initiative-list-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  min-width: 1.7rem;
+  min-height: 1.7rem;
+  inline-size: 1.7rem;
+  block-size: 1.7rem;
+  margin: 0;
+  justify-self: center;
+  align-self: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  flex: none;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.initiative-list-marker .icon {
+  display: block;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
+  inline-size: 1rem;
+  block-size: 1rem;
+  max-inline-size: none;
+}
+
+.initiative-list-remove-spacer {
+  inline-size: 1.7rem;
+}
+
+.initiative-list-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.7rem;
+  min-inline-size: 1.7rem;
+  block-size: 1.7rem;
+  margin-inline: auto;
+  border-radius: 50%;
+  border: 1px solid var(--error);
+  background: transparent;
+  color: var(--error);
+  cursor: pointer;
+  flex: none;
+  padding: 0;
+  transition:
+    inline-size 180ms ease,
+    min-inline-size 180ms ease,
+    border-radius 180ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    padding-inline 180ms ease;
+}
+
+.initiative-list-remove .icon {
+  display: block;
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.initiative-list-remove:hover {
+  background: var(--error);
+  color: var(--paper);
+}
+
+.initiative-list-remove[data-armed="true"] {
+  inline-size: 3.7rem;
+  min-inline-size: 3.7rem;
+  border-radius: 999px;
+  background: var(--error);
+  color: var(--paper);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding-inline: 0.5rem;
+  box-shadow: 0 0 0 3px rgb(190 55 55 / 0.18);
+}
+
+.initiative-list-remove[data-armed="true"] .icon {
+  display: none;
+}
+
+.initiative-list-remove[data-armed="true"]::before {
+  content: "Sicher?";
+}
+
+.initiative-list-remove:focus-visible {
+  outline: 2px solid var(--error);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .initiative-list-row,
+  .initiative-list-remove {
+    transition: none;
+  }
+}
+
+.initiative-list-cell {
+  display: block;
+  min-inline-size: 0;
+}
+
+/* Column label lives in the table head; keep the per-row label for
+   screen readers only since the input also carries aria-label. */
+.initiative-list-cell-label {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.initiative-list-cell input {
+  inline-size: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.initiative-list-cell input::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.65;
+}
+
+.initiative-list-cell input:hover {
+  border-color: var(--ink-soft);
+}
+
+.initiative-list-cell input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.initiative-list-add {
+  inline-size: 100%;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink-soft);
+  font-weight: 600;
+  padding: 0.45rem 0.75rem;
+  margin-block-start: 0.55rem;
+  cursor: pointer;
+}
+
+.initiative-list-add::before {
+  content: "+ ";
+  font-weight: 700;
+}
+
+.initiative-list-add:hover {
+  border-color: var(--accent);
+  border-style: solid;
+  color: var(--accent);
+}
+
+/* Steckbrief rows (e.g. chapter 2 persons): name + roles stay on the top
+   row, Fähigkeiten span full width below with a visible label. */
+.initiative-below-cell {
+  grid-column: 1 / -2;
+  display: grid;
+  gap: 0.2rem;
+  align-content: start;
+  margin-block-start: 0.1rem;
+}
+
+.initiative-list-field--with-icons .initiative-below-cell {
+  grid-column: 2 / -2;
+}
+
+.initiative-below-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* Flat roles picker: chips live outside the single bordered combo box,
+   so there is no field-inside-a-field layering. */
+.initiative-roles-cell {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+  min-inline-size: 0;
+}
+
+.initiative-roles-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.initiative-roles-chips:empty {
+  display: none;
+}
+
+.initiative-roles-combo {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  /* Same outer height as sibling text inputs: the chevron is an
+     affordance, not a button-box inside the field. */
+  padding: 0.15rem 0.15rem 0.15rem 0.5rem;
+}
+
+.initiative-roles-combo:hover {
+  border-color: var(--ink-soft);
+}
+
+.initiative-roles-combo:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.initiative-roles-input {
+  flex: 1 1 5rem;
+  min-inline-size: 0;
+  align-self: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.2rem 0;
+}
+
+.initiative-roles-input:focus {
+  outline: none;
+}
+
+.initiative-roles-input::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.65;
+}
+
+.initiative-roles-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  flex: none;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+}
+
+.initiative-roles-toggle:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.initiative-roles-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.initiative-roles-toggle .icon {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.initiative-roles-toggle[aria-expanded="true"] .icon {
+  transform: rotate(180deg);
+}
+
+.initiative-roles-menu {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(100% + 4px);
+  z-index: 30;
+  display: block;
+  max-block-size: 12rem;
+  overflow: auto;
+  margin: 0;
+  /* No padding, no gaps: every pixel inside the menu border belongs to
+     exactly one option row, so the whole row is clickable. */
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 0.14);
+}
+
+.initiative-roles-menu[hidden] {
+  display: none;
+}
+
+.initiative-roles-menu li {
+  margin: 0;
+}
+
+.initiative-roles-menu button[role="option"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  inline-size: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: start;
+  padding: 0.55rem 0.65rem;
+  cursor: pointer;
+}
+
+.initiative-roles-menu button[role="option"]:hover,
+.initiative-roles-menu button[role="option"][data-active="true"] {
+  background: var(--panel);
+}
+
+.initiative-roles-menu button[role="option"]:focus-visible {
+  background: var(--panel);
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.initiative-roles-menu button[role="option"][aria-selected="true"] {
+  font-weight: 700;
+}
+
+.initiative-roles-check {
+  visibility: hidden;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.initiative-roles-menu button[role="option"][aria-selected="true"] .initiative-roles-check {
+  visibility: visible;
+}
+
+.initiative-roles-menu li[data-hidden="true"] {
+  display: none;
+}
+
+.initiative-roles-empty {
+  padding: 0.55rem 0.65rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.initiative-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  max-inline-size: 100%;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.15rem 0.15rem 0.15rem 0.6rem;
+}
+
+.initiative-tag-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.initiative-tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* WCAG 2.2 target-size minimum: 24 × 24 px. */
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  flex: none;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.initiative-tag-remove:hover {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.initiative-tag-remove:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Commit cells (people list name + skills): typing commits on Enter/blur
+   into stable text/pills; the pencil display button re-opens editing. */
+.initiative-commit-cell {
+  min-inline-size: 0;
+}
+
+.initiative-commit-cell [hidden] {
+  display: none !important;
+}
+
+.initiative-commit-input {
+  inline-size: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.initiative-commit-input::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.65;
+}
+
+.initiative-commit-input:hover {
+  border-color: var(--ink-soft);
+}
+
+.initiative-commit-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.initiative-commit-display {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  inline-size: 100%;
+  min-inline-size: 0;
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: start;
+  padding: 0.35rem 0.25rem;
+  cursor: pointer;
+}
+
+.initiative-commit-display:hover {
+  border-color: var(--line);
+  background: var(--paper);
+}
+
+.initiative-commit-display:hover .initiative-commit-pencil {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.initiative-commit-display:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.initiative-commit-value {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.initiative-commit-value--long {
+  white-space: pre-wrap;
+}
+
+.initiative-textarea-commit .initiative-commit-display {
+  align-items: flex-start;
+  margin-block-start: 0.35rem;
+  padding-inline: 0.5rem;
+}
+
+.initiative-section-commit[data-locked] ul {
+  display: none;
+}
+
+.initiative-section-commit-display {
+  margin-block-start: 0.5rem;
+  padding-inline: 0.25rem;
+}
+
+/* ---------- Initiative Steckbrief ---------- */
+/* Fused sheet: hero + sections share one outer box, separated by dividers
+   instead of individual boxes with gaps. Inner cards and the team table
+   keep their own paper boxes so fields stay distinct on the panel sheet. */
+
+.initiative-steckbrief {
+  display: grid;
+  gap: 0;
+  margin-block: 2rem;
+  font-family: var(--font-ui);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  overflow: clip;
+}
+
+.initiative-steckbrief-hero,
+.initiative-steckbrief-section {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.initiative-steckbrief > * + * {
+  border-block-start: 1px solid var(--line);
+}
+
+.initiative-steckbrief-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.initiative-steckbrief-hero {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.25rem;
+}
+
+.initiative-steckbrief-title-row,
+.initiative-steckbrief-location {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-inline-size: 0;
+}
+
+.initiative-steckbrief-hero-icon,
+.initiative-steckbrief-section-icon,
+.initiative-steckbrief-card-icon,
+.initiative-steckbrief-inline-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.initiative-steckbrief-hero-icon {
+  inline-size: 3rem;
+  block-size: 3rem;
+}
+
+.initiative-steckbrief-hero-icon .icon {
+  inline-size: 1.55rem;
+  block-size: 1.55rem;
+}
+
+.initiative-steckbrief-inline-icon,
+.initiative-steckbrief-section-icon,
+.initiative-steckbrief-card-icon {
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+}
+
+.initiative-steckbrief-title-display,
+.initiative-steckbrief-inline-display {
+  flex: 1 1 auto;
+}
+
+.initiative-steckbrief-title {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  line-height: 1.15;
+}
+
+.initiative-steckbrief-title-input {
+  flex: 1 1 auto;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+}
+
+.initiative-steckbrief-section {
+  padding: 1.1rem;
+}
+
+.initiative-steckbrief-section > h3,
+.initiative-steckbrief-section-head h3 {
+  margin-block: 0 0.35rem;
+}
+
+.initiative-steckbrief-section-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-block-end: 0.8rem;
+}
+
+.initiative-steckbrief-section-head p,
+.initiative-steckbrief-card p {
+  margin-block: 0;
+  color: var(--ink-soft);
+}
+
+.initiative-steckbrief-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: 0.9rem;
+}
+
+.initiative-steckbrief-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.85rem;
+}
+
+.initiative-steckbrief-card--wide {
+  grid-column: 1 / -1;
+}
+
+.initiative-steckbrief-card-body {
+  min-inline-size: 0;
+}
+
+.initiative-steckbrief-label {
+  display: block;
+  font-weight: 700;
+  margin-block-end: 0.35rem;
+}
+
+.initiative-steckbrief-card .initiative-commit-display,
+.initiative-steckbrief-card textarea {
+  margin-block-start: 0;
+}
+
+.initiative-steckbrief-card legend {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  padding: 0;
+}
+
+.initiative-steckbrief-card ul {
+  grid-column: 1 / -1;
+  list-style: none;
+  padding: 0;
+  margin-block: 0.75rem 0;
+}
+
+.initiative-steckbrief-card li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem;
+  align-items: start;
+  padding-block: 0.22rem;
+}
+
+.initiative-steckbrief-card input[type="checkbox"] {
+  inline-size: 1.05rem;
+  block-size: 1.05rem;
+  margin-block-start: 0.2rem;
+  accent-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .initiative-steckbrief-card {
+    grid-template-columns: 1fr;
+  }
+
+  .initiative-steckbrief-title-row,
+  .initiative-steckbrief-location {
+    align-items: flex-start;
+  }
+}
+
+.initiative-commit-pencil {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.7rem;
+  block-size: 1.7rem;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  transition:
+    transform 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+/* Every pencil inverts on hover: green fill, light icon. This covers all
+   commit pencils on checklists and the Steckbrief, standalone or inside
+   a commit display button. */
+.initiative-commit-pencil:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.initiative-commit-pencil:active {
+  transform: scale(0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .initiative-commit-pencil {
+    transition: none;
+  }
+}
+
+.initiative-commit-pencil .icon {
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
+}
+
+/* Tag commit fields (roles/skills): a single input box like the name field,
+   with pills living inside it; locked pills are static (no remove affordance)
+   with the pencil signalling re-edit. */
+.initiative-tag-commit-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  inline-size: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.2rem 0.35rem 0.2rem 0.5rem;
+  cursor: text;
+}
+
+.initiative-tag-commit-box:hover {
+  border-color: var(--ink-soft);
+}
+
+.initiative-tag-commit-box:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.initiative-tag-commit-chips {
+  display: contents;
+}
+
+.initiative-tag-commit-chips:empty {
+  display: none;
+}
+
+/* Skills editing as a list: one bordered row per skill plus a dashed
+   virtual add row that reads as the next empty bullet. The outer box
+   loses its own border since the rows carry theirs. */
+.initiative-tag-commit-box--list {
+  display: grid;
+  gap: 0.35rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  cursor: default;
+}
+
+/* No box-level focus ring here: the focused control already draws its own
+   (add row and row buttons each have one) — a second ring around the
+   whole list only reads as phantom spacing. */
+.initiative-tag-commit-box--list:focus-within {
+  outline: none;
+}
+
+.initiative-tag-commit-box--list:hover {
+  border-color: transparent;
+}
+
+.initiative-tag-commit-box--list:focus-within {
+  outline: none;
+  border-color: transparent;
+}
+
+.initiative-tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+/* Prose rhythm (.prose ul) must not leak into these gap-managed lists:
+   it outranks a lone class and would inject a 1rem margin. */
+.prose .initiative-tag-list,
+.prose .initiative-commit-list {
+  margin-block: 0;
+}
+
+.initiative-tag-list:empty {
+  display: none;
+}
+
+/* Each skill is exactly one line: a strict grid (dash | label | actions)
+   with the label clamped to minmax(0, 1fr) and ellipsis, so nothing can
+   ever wrap or push the buttons onto a second row. */
+.initiative-tag-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.35rem 0.35rem 0.35rem 0.5rem;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  /* Cap so the remove exit can collapse the track smoothly. Content is
+     always a single line well below this. */
+  max-block-size: 3rem;
+}
+
+.initiative-tag-add-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.35rem 0.35rem 0.35rem 0.5rem;
+  font-size: 0.95rem;
+}
+
+.initiative-tag-add-row {
+  border-style: dashed;
+  cursor: text;
+}
+
+.initiative-tag-add-row:hover {
+  border-color: var(--ink-soft);
+}
+
+.initiative-tag-add-row:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.initiative-tag-row-dash,
+.initiative-tag-add-dash {
+  flex: none;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.initiative-tag-row-label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Inline row editing: the row itself becomes the input. The label and
+   row buttons hide (no display transition — plain mode switch), the
+   input spans their columns. The accent border marks edit mode; the
+   input itself stays outline-free like other commit inputs. */
+.initiative-tag-row-input {
+  grid-column: 2 / -1;
+  min-inline-size: 0;
+  inline-size: 100%;
+  /* Borderless: the row's own accent border is the single edit indicator.
+     The transparent border preserves the box metrics so the row keeps its
+     height when toggling between label and input. */
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.initiative-tag-row-input:focus {
+  outline: none;
+}
+
+.initiative-tag-row.is-editing {
+  border-color: var(--accent);
+}
+
+.initiative-tag-row.is-editing .initiative-tag-row-label,
+.initiative-tag-row.is-editing .initiative-tag-row-actions {
+  display: none;
+}
+
+/* ---------- Skills rows: shared per-row controls ---------- */
+/* Each skill is one grid row (dash | label | edit + delete). The actions
+   fade in fast on row/list hover or keyboard focus — opacity only, while
+   the buttons keep full size at all times, so nothing can desync, jump,
+   or strobe. Opacity (not display) keeps buttons tabbable while hidden. */
+.initiative-tag-row-actions,
+.initiative-commit-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+.initiative-tag-row:hover .initiative-tag-row-actions,
+.initiative-tag-row:focus-within .initiative-tag-row-actions,
+.initiative-tag-commit-box--list:hover .initiative-tag-row-actions,
+.initiative-tag-commit-box--list:focus-within .initiative-tag-row-actions,
+.initiative-commit-item:hover .initiative-commit-actions,
+.initiative-commit-item:focus-within .initiative-commit-actions,
+.initiative-commit-display--list:hover .initiative-commit-actions,
+.initiative-commit-display--list:focus-within .initiative-commit-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Per-row edit: standard pencil look (1.7rem paper circle). Hover and
+   keyboard focus fill green with a light icon; press gently scales. */
+.initiative-tag-row-edit,
+.initiative-commit-item-edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.7rem;
+  block-size: 1.7rem;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease,
+    transform 120ms ease;
+}
+
+.initiative-tag-row-edit .icon,
+.initiative-commit-item-edit .icon {
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
+}
+
+.initiative-tag-row-edit:hover,
+.initiative-commit-item-edit:hover,
+.initiative-tag-row-edit:focus-visible,
+.initiative-commit-item-edit:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.initiative-tag-row-edit:active,
+.initiative-commit-item-edit:active {
+  transform: scale(0.92);
+}
+
+.initiative-tag-row-edit:focus-visible,
+.initiative-commit-item-edit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Per-row delete: list-remove look (1.7rem circle, red). Same behavior. */
+.initiative-tag-row-remove,
+.initiative-commit-item-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.7rem;
+  min-inline-size: 1.7rem;
+  block-size: 1.7rem;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--error);
+  background: transparent;
+  color: var(--error);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease,
+    transform 120ms ease;
+}
+
+.initiative-tag-row-remove:hover,
+.initiative-commit-item-remove:hover,
+.initiative-tag-row-remove:focus-visible,
+.initiative-commit-item-remove:focus-visible {
+  background: var(--error);
+  border-color: var(--error);
+  color: var(--paper);
+}
+
+.initiative-tag-row-remove:active,
+.initiative-commit-item-remove:active {
+  transform: scale(0.92);
+}
+
+.initiative-tag-row-remove:focus-visible,
+.initiative-commit-item-remove:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* After a row button is used, the list re-renders under the cursor and
+   hover can flicker — pinning (data-keep-open, set briefly by JS) holds
+   the reveals through those micro-gaps. */
+[data-keep-open] .initiative-tag-row-actions,
+[data-keep-open] .initiative-commit-actions,
+[data-keep-open] .initiative-tag-add-row,
+[data-keep-open] .initiative-commit-add-row {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-keep-open] .initiative-tag-add-row,
+[data-keep-open] .initiative-commit-add-row {
+  max-block-size: 3rem;
+  padding-block: 0.35rem;
+  border-width: 1px;
+}
+
+[data-keep-open] .initiative-commit-add-row {
+  margin-block-start: 0.35rem;
+}
+
+/* Row motion for skills lists: freshly added rows slide in (JS tags them
+   .is-added on render); removed rows fade out first and are deleted from
+   storage once the exit finishes. Compositor-only, 150ms. */
+@keyframes initiative-skill-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.initiative-tag-row.is-added {
+  animation: initiative-skill-in 150ms ease-out;
+}
+
+.initiative-tag-row.is-removing,
+.initiative-commit-item.is-removing {
+  opacity: 0;
+  transform: translateY(-4px);
+  max-block-size: 0;
+  padding-block: 0;
+  border-width: 0;
+  overflow: clip;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease,
+    max-block-size 160ms ease,
+    padding-block 160ms ease,
+    border-width 160ms ease;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .initiative-tag-row.is-added {
+    animation: none;
+  }
+
+  .initiative-tag-row.is-removing,
+  .initiative-commit-item.is-removing {
+    transition: none;
+  }
+}
+
+/* ---------- Single text fields: two-stage pencil ---------- */
+/* Same language as the skills rows. Stage 1 — hovering (or tabbing to)
+   the field grows the pencil and turns icon + circle green, without
+   filling it (this also overrides the generic display-hover fill below
+   by source order at equal specificity). */
+[data-commit-text-root]:hover .initiative-commit-pencil,
+[data-commit-text-root]:focus-within .initiative-commit-pencil {
+  background: var(--paper);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Stage 2 — hovering the pencil itself fills it green with a light icon.
+   Ties stage 1 at (0,3,0); placed after, so the fill wins on the pencil. */
+[data-commit-text-root] .initiative-commit-pencil:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* The locked value is plain text: selectable with a text cursor. The
+   container is not clickable (only the pencil unlocks), so no pointer. */
+[data-commit-text-root] .initiative-commit-display--text {
+  cursor: default;
+}
+
+[data-commit-text-root] [data-commit-text] {
+  -webkit-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+/* Tag-row actions, edit, and delete share the rules above. */
+
+/* The virtual add row stays out of the way until the editing area is
+   hovered or focused; an empty list always shows it so the first skill
+   can be added. Opacity + max-height (not display) keeps the input
+   tabbable: focusing it triggers :focus-within and reveals the row. */
+.initiative-tag-commit-box--list .initiative-tag-add-row {
+  opacity: 0;
+  max-block-size: 0;
+  margin: 0;
+  padding-block: 0;
+  overflow: clip;
+  border-width: 0;
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    max-block-size 150ms ease,
+    padding-block 150ms ease,
+    border-width 150ms ease;
+}
+
+.initiative-tag-commit-box--list:hover .initiative-tag-add-row,
+.initiative-tag-commit-box--list:focus-within .initiative-tag-add-row,
+.initiative-tag-list:empty + .initiative-tag-add-row {
+  opacity: 1;
+  max-block-size: 3rem;
+  padding-block: 0.35rem;
+  border-width: 1px;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .initiative-tag-row-actions,
+  .initiative-tag-commit-box--list .initiative-tag-add-row {
+    transition: none;
+  }
+}
+
+/* Unlocking via the locked add row must not replay an opening: it already
+   looked like the input, so everything appears at once (set briefly by
+   JS, same shape as the reduced-motion rule). */
+[data-no-motion] .initiative-tag-add-row,
+[data-no-motion] .initiative-tag-row-actions {
+  transition: none !important;
+  animation: none !important;
+}
+
+.initiative-list-cell .initiative-tag-commit-input {
+  flex: 1 1 8rem;
+  min-inline-size: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.15rem 0;
+}
+
+.initiative-list-cell .initiative-tag-commit-input:focus,
+.initiative-list-cell .initiative-tag-commit-input:focus-visible {
+  outline: none;
+}
+
+.initiative-tag-commit-input::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.65;
+}
+
+.initiative-tag-commit-cell[data-locked] .initiative-commit-display {
+  align-items: flex-start;
+}
+
+.initiative-commit-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.initiative-commit-pills[data-empty="true"] {
+  display: none;
+}
+
+.initiative-commit-pill {
+  display: inline-flex;
+  align-items: center;
+  max-inline-size: 100%;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.25rem 0.6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Bullet-list commit display (skills): a nicely styled list matching the
+   editing rows — one bordered row per skill with the dash column, the
+   label, and per-row edit + delete actions on the same row.
+   Hovering the list introduces no outer border or shift: only the rows'
+   own actions and the dashed add row appear. */
+.initiative-commit-display--list {
+  /* Grid like the editing box: inter-element whitespace collapses to
+     nothing and margins can't leak, so the list starts flush. */
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  cursor: default;
+  border-color: transparent;
+  background: transparent;
+  padding-block: 0;
+}
+
+.initiative-commit-display--list:hover,
+.initiative-commit-display--list:focus-visible,
+.initiative-commit-display--list:focus-within {
+  border-color: transparent;
+  background: transparent;
+}
+
+.initiative-commit-list {
+  display: grid;
+  gap: 0.35rem;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.initiative-commit-list[data-empty="true"] {
+  display: none;
+}
+
+.initiative-commit-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.35rem 0.35rem 0.35rem 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-block: 0;
+  padding-inline-start: 0.5rem;
+  white-space: nowrap;
+  /* Same collapse cap as the editing rows (see above). */
+  max-block-size: 3rem;
+}
+
+.initiative-commit-item::before {
+  content: "–";
+  flex: none;
+  inline-size: auto;
+  margin-inline-start: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.initiative-commit-label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Commit-item actions, edit, and delete share the rules above. */
+
+/* Dashed add row inside the locked display: hidden until the list is
+   hovered or focused (same opacity technique, stays tabbable), so the
+   add skill section already shows on hover — no click needed. */
+.initiative-commit-add-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  inline-size: 100%;
+  border: 1px dashed var(--line);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: start;
+  padding: 0.35rem 0.35rem 0.35rem 0.5rem;
+  cursor: pointer;
+  opacity: 0;
+  max-block-size: 0;
+  margin-block: 0;
+  padding-block: 0;
+  overflow: clip;
+  border-width: 0;
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    max-block-size 150ms ease,
+    padding-block 150ms ease,
+    border-width 150ms ease,
+    color 120ms ease,
+    border-color 120ms ease,
+    background-color 120ms ease,
+    transform 120ms ease;
+}
+
+.initiative-commit-display--list:hover .initiative-commit-add-row,
+.initiative-commit-display--list:focus-within .initiative-commit-add-row {
+  opacity: 1;
+  max-block-size: 3rem;
+  padding-block: 0.35rem;
+  border-width: 1px;
+  pointer-events: auto;
+}
+
+.initiative-commit-add-row:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.initiative-commit-add-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.initiative-commit-add-row:active {
+  transform: scale(0.99);
+}
+
+.initiative-commit-add-dash {
+  flex: none;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* While the window resizes, reflowing layout under a stationary cursor
+   would strobe :hover and replay the grow/fill animations on
+   hover-revealed controls — freeze hover hit-testing until resizing
+   settles (JS toggles .is-resizing with a debounce). Keyboard focus
+   (:focus-within/:focus-visible) keeps working throughout. */
+.is-resizing .initiative-tag-commit-box--list,
+.is-resizing .initiative-commit-display--list,
+.is-resizing .initiative-commit-display,
+.is-resizing .initiative-list-remove {
+  pointer-events: none;
+}
+
+/* No animation replays mid-resize either: state changes snap instead of
+   flashing. Scoped and transient — lifted when resizing settles. */
+.is-resizing .initiative-commit-pencil,
+.is-resizing .initiative-tag-row-edit,
+.is-resizing .initiative-tag-row-remove,
+.is-resizing .initiative-commit-item-edit,
+.is-resizing .initiative-commit-item-remove,
+.is-resizing .initiative-tag-row-actions,
+.is-resizing .initiative-commit-actions,
+.is-resizing .initiative-tag-add-row,
+.is-resizing .initiative-commit-add-row,
+.is-resizing .initiative-list-remove,
+.is-resizing .initiative-commit-display {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .initiative-commit-actions,
+  .initiative-commit-add-row,
+  .initiative-commit-item-edit,
+  .initiative-commit-item-remove,
+  .initiative-tag-row-edit,
+  .initiative-tag-row-remove {
+    transition: none;
+  }
+}
+
+button.initiative-commit-pencil {
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+button.initiative-commit-pencil:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Collapsed columns: details/summary keeps the row compact while the
+   synced input stays editable when expanded. */
+details.initiative-list-cell.initiative-collapsed-cell {
+  border: 1px dashed var(--line);
+  border-radius: 0.4rem;
+  background: transparent;
+  padding: 0;
+}
+
+details.initiative-list-cell.initiative-collapsed-cell[open] {
+  border-style: solid;
+}
+
+.initiative-collapsed-toggle {
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  padding: 0.35rem 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.initiative-collapsed-toggle:hover {
+  color: var(--accent);
+}
+
+.initiative-collapsed-field {
+  display: block;
+  padding: 0 0.35rem 0.35rem;
+}
+
+.initiative-checklist-reset {
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  padding: 0.35rem 0.75rem;
+  margin-block-start: 0.5rem;
+  cursor: pointer;
+}
+
+.initiative-checklist-reset:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (max-width: 640px) {
+  .initiative-list-head,
+  .initiative-list-row {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr) 1.7rem;
+    gap: 0.4rem;
+  }
+
+  .initiative-list-field--with-icons .initiative-list-head,
+  .initiative-list-field--with-icons .initiative-list-row,
+  .initiative-list-table[style*="--list-cols: 2"] .initiative-list-head,
+  .initiative-list-table[style*="--list-cols: 2"] .initiative-list-row,
+  .initiative-list-field--with-icons .initiative-list-table[style*="--list-cols: 2"] .initiative-list-head,
+  .initiative-list-field--with-icons .initiative-list-table[style*="--list-cols: 2"] .initiative-list-row {
+    grid-template-columns: 1.9rem minmax(0, 5fr) minmax(0, 7fr) max-content;
+    gap: 0.4rem;
+  }
+
+  .initiative-list-head {
+    padding: 0.3rem 0.45rem 0.3rem 0.2rem;
+  }
+
+  .initiative-list-row {
+    padding: 0.28rem 0.45rem 0.28rem 0.2rem;
+  }
+
+  .initiative-list-marker {
+    width: 1.45rem;
+    height: 1.45rem;
+    min-width: 1.45rem;
+    min-height: 1.45rem;
+    inline-size: 1.45rem;
+    block-size: 1.45rem;
+  }
+
+  .initiative-list-marker .icon {
+    width: 0.85rem;
+    height: 0.85rem;
+    min-width: 0.85rem;
+    min-height: 0.85rem;
+    inline-size: 0.85rem;
+    block-size: 0.85rem;
+  }
+
+  .initiative-list-remove {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+  }
+
+  .initiative-list-remove .icon {
+    inline-size: 0.85rem;
+    block-size: 0.85rem;
+  }
+
+  .initiative-list-remove[data-armed="true"] {
+    inline-size: 3.3rem;
+    min-inline-size: 3.3rem;
+    font-size: 0.62rem;
+    padding-inline: 0.38rem;
+  }
+
+  .initiative-list-remove-spacer {
+    inline-size: 1.7rem;
+  }
+
+  .initiative-list-cell input {
+    font-size: 0.9rem;
+    padding: 0.32rem 0.45rem;
+  }
+}
+
+/* ---------- People lists as cards ---------- */
+/* The "Aktive"/Team people lists (chapter checklists + Steckbrief) render
+   each person as a card: icon, name, roles/skills stack vertically.
+   Commit gates (data-commit-root / data-tag-commit-root) are untouched —
+   only layout changes from table rows to cards. */
+.initiative-list-field--people .initiative-list-table--people {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.initiative-list-field--people .initiative-list-table--people .initiative-list-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr));
+  gap: 0.9rem;
+}
+
+/* The add button flows as a card in the same grid, taking the next free
+   slot (e.g. the 4th card next to three people). */
+.initiative-list-field--people .initiative-list-table--people .initiative-list-rows > .initiative-list-add {
+  inline-size: auto;
+  margin-block-start: 0;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-block-size: 8rem;
+  padding: 1rem 0.85rem;
+  text-align: center;
+}
+
+.initiative-list-field--people .initiative-list-table--people .initiative-list-rows > .initiative-list-add .icon {
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  flex: none;
+}
+
+.initiative-list-field--people .initiative-list-table--people .initiative-list-rows > .initiative-person-card:last-child {
+  border-end-start-radius: var(--radius);
+  border-end-end-radius: var(--radius);
+}
+
+.initiative-list-field--people .initiative-list-table--people .initiative-list-row.initiative-person-card,
+.initiative-steckbrief-team.initiative-list-field--people .initiative-list-table--people .initiative-list-row.initiative-person-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-content: start;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  padding: 0.85rem;
+}
+
+.initiative-list-field--people .initiative-list-table--people .initiative-list-row.initiative-person-card + .initiative-list-row.initiative-person-card {
+  border-block-start: 1px solid var(--line);
+}
+
+.initiative-list-field--people .initiative-list-table--people .initiative-list-row.initiative-person-card:nth-child(even) {
+  background: var(--paper);
+}
+
+.initiative-list-field--people .initiative-list-table--people .initiative-list-row.initiative-person-card:focus-within {
+  background: var(--paper);
+  border-color: var(--accent);
+}
+
+.initiative-list-field--people .initiative-person-card .initiative-list-marker {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  align-self: start;
+  width: 2.1rem;
+  height: 2.1rem;
+  min-width: 2.1rem;
+  min-height: 2.1rem;
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+}
+
+.initiative-list-field--people .initiative-person-card .initiative-list-marker .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  min-width: 1.1rem;
+  min-height: 1.1rem;
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+}
+
+.initiative-list-field--people .initiative-person-card .initiative-list-remove {
+  position: static;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+  margin-inline: 0;
+}
+
+/* Every other field spans full width and stacks below the icon row. */
+.initiative-list-field--people .initiative-person-card .initiative-list-cell,
+.initiative-list-field--people .initiative-person-card .initiative-below-cell {
+  grid-column: 1 / -1;
+  margin-block-start: 0;
+}
+
+/* The Fähigkeiten label sits tight on its list; the card's row gap
+   already separates it from the roles above — no extra margins. */
+.initiative-list-field--people .initiative-person-card .initiative-list-cell.initiative-below-cell {
+  gap: 0.1rem;
+}
+
+/* The name sits on the top row right next to the icon. It is the only
+   plain text cell on a person card (roles/skills are tag cells), so the
+   text-root hook identifies it without markup changes. Its visible label
+   is dropped — icon + placeholder carry it visually, the input keeps its
+   accessible name. */
+.initiative-list-field--people .initiative-person-card > .initiative-list-cell[data-commit-text-root] {
+  grid-column: 2;
+  grid-row: 1;
+  min-inline-size: 0;
+}
+
+.initiative-list-field--people .initiative-person-card > .initiative-list-cell[data-commit-text-root] .initiative-list-cell-label {
+  display: none;
+}
+
+/* The name field hugs its value instead of stretching across the card,
+   so the pencil sits right next to the name. The grid column keeps its
+   share of space, parking the remove button at the card edge. */
+.initiative-list-field--people .initiative-person-card > .initiative-list-cell[data-commit-text-root] .initiative-commit-display--text {
+  display: inline-flex;
+  inline-size: auto;
+  max-inline-size: 100%;
+  justify-self: start;
+}
+
+/* The top row (icon, name, remove) centers vertically: the icon circle,
+   the name field, and the delete button all have different heights. */
+.initiative-list-field--people .initiative-person-card .initiative-list-marker,
+.initiative-list-field--people .initiative-person-card > .initiative-list-cell[data-commit-text-root],
+.initiative-list-field--people .initiative-person-card .initiative-list-remove {
+  align-self: center;
+}
+
+/* Card labels stay visible (the table head is gone for people lists),
+   flowing vertically above each field: icon → name → roles → skills. */
+.initiative-list-field--people .initiative-person-card .initiative-list-cell-label {
+  position: static;
+  inline-size: auto;
+  block-size: auto;
+  margin: 0 0 0.25rem;
+  padding: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  border: 0;
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.initiative-list-field--people .initiative-person-card .initiative-list-cell {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+}
+
+/* Committed values on person cards render in regular weight. */
+.initiative-list-field--people .initiative-person-card .initiative-commit-value,
+.initiative-list-field--people .initiative-person-card .initiative-commit-pill,
+.initiative-list-field--people .initiative-person-card .initiative-commit-item {
+  font-weight: 400;
+}
+
+/* Committed rows line up with the icon/delete row above them: the value
+   starts at the label edge and the pencil sits flush with the delete
+   button. Padding never shifts on hover/focus — content keeps its line
+   instead of resizing horizontally. */
+.initiative-list-field--people .initiative-person-card .initiative-commit-display,
+.initiative-list-field--people .initiative-person-card .initiative-commit-display:hover,
+.initiative-list-field--people .initiative-person-card .initiative-commit-display:focus-visible,
+.initiative-list-field--people .initiative-person-card .initiative-commit-display:focus-within {
+  padding-inline: 0;
+}
+
+/* Compact edit affordance on person cards: the pencil keeps its full layout
+   size at all times and only scales visually, so hovering never shifts the
+   field box. Scoped to person cards; other commit cells keep the standard
+   pencil. */
+.initiative-list-field--people .initiative-person-card .initiative-commit-pencil {
+  transform: scale(0.68);
+  transform-origin: center;
+  transition:
+    transform 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease,
+    background-color 120ms ease;
+}
+
+.initiative-list-field--people .initiative-person-card .initiative-commit-display:hover .initiative-commit-pencil,
+.initiative-list-field--people .initiative-person-card .initiative-commit-display:focus-visible .initiative-commit-pencil,
+.initiative-list-field--people .initiative-person-card .initiative-commit-display:focus-within .initiative-commit-pencil {
+  transform: scale(1);
+}
+
+.initiative-list-field--people .initiative-person-card .initiative-commit-display .initiative-commit-pencil:active {
+  transform: scale(0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .initiative-list-field--people .initiative-person-card .initiative-commit-pencil {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .initiative-list-field--people .initiative-list-table--people .initiative-list-row.initiative-person-card,
+  .initiative-steckbrief-team.initiative-list-field--people .initiative-list-table--people .initiative-list-row.initiative-person-card {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.6rem;
+    padding: 0.85rem;
+  }
+
+  .initiative-list-field--people .initiative-person-card .initiative-list-marker {
+    width: 2.1rem;
+    height: 2.1rem;
+    min-width: 2.1rem;
+    min-height: 2.1rem;
+    inline-size: 2.1rem;
+    block-size: 2.1rem;
+  }
+}
+
 /* ---------- Select list ---------- */
 /* Same look as the language dropdown (.lang-menu): inline label plus a
    bordered native select. Block-level here so it holds its own line in
@@ -2358,5 +4395,21 @@ input[type="search"]::placeholder {
 
   body {
     font-size: 11pt;
+  }
+
+  .initiative-checklist--inline {
+    border: 0.5pt solid var(--line);
+    padding: 8pt 10pt;
+    break-inside: avoid;
+  }
+
+  .initiative-checklist--inline .initiative-checklist-section,
+  .initiative-checklist--inline .initiative-notes {
+    display: none;
+  }
+
+  .initiative-checklist-print-ref {
+    display: block;
+    margin: 0;
   }
 }

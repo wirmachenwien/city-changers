@@ -11,7 +11,8 @@ function currentLanguage(): Language {
 
 export function initHeadings(): void {
   const prose = document.querySelector('[data-prose]');
-  if (!prose) return;
+  // Pages like the Steckbrief worksheet opt out via data-no-anchors.
+  if (!prose || prose.hasAttribute('data-no-anchors')) return;
   const lang = currentLanguage();
   for (const heading of prose.querySelectorAll('h2[id], h3[id]')) {
     if (heading.querySelector('[data-heading-anchor]')) continue;
