@@ -65,7 +65,7 @@ COPY_RE = re.compile(r'<CopyText\s+[^>]*/>')
 TOC_RE = re.compile(r'<Toc\s+[^>]*/>')
 SPOILER_RE = re.compile(r'<Spoiler\b[^>]*>(.*?)</Spoiler>', re.DOTALL)
 CCBADGE_RE = re.compile(r'<CcBadge\s*/>')
-OPENER_RE = re.compile(r'^openerImage:\s*"([^"]+)"', re.MULTILINE)
+OPENER_RE = re.compile(r"""^openerImage:\s*(?:"([^"]+)"|'([^']+)'|([^\s#]+))""", re.MULTILINE)
 FEATURE_OPEN_RE = re.compile(r'<FeatureBox\b([^>]*)>')
 FEATURE_CLOSE_RE = re.compile(r'</FeatureBox>')
 PULLQUOTE_RE = re.compile(r'<PullQuote\b([^>]*)>(.*?)</PullQuote>', re.DOTALL)
@@ -207,7 +207,9 @@ def front_opener_for_pages(pages_dir: Path, lang: str) -> str:
     if not index.exists():
         return ""
     match = OPENER_RE.search(index.read_text(encoding="utf-8"))
-    return match.group(1) if match else ""
+    if not match:
+        return ""
+    return next((group for group in match.groups() if group), "")
 
 
 def object_entries(source: str) -> list[tuple[str, str]]:
