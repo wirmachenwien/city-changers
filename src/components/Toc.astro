@@ -1,20 +1,19 @@
 ---
 // Book table of contents, ordered by the web product definition
 // (print-only front matter such as cover/title is excluded).
-import { webBookToc } from '../data/works';
-import { bookUrl } from '../lib/site';
+import { bookToc } from '../data/book-toc';
 import type { Language } from '../data/locales';
 
 interface Props {
   lang: Language;
 }
 const { lang } = Astro.props;
-const entries = webBookToc(lang);
+const entries = await bookToc(lang);
 ---
 <ol class="contents-list">
   {entries.map((entry) => (
     <li>
-      <a href={bookUrl(lang, entry.file)} class={entry.class}>{entry.label}</a>
+      <a href={entry.url} class={entry.class}>{entry.label}</a>
     </li>
   ))}
 </ol>

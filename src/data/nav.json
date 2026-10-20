@@ -3,18 +3,33 @@
     {
       "label": "Start",
       "file": "index"
+    },
+    {
+      "label": "Inhalt",
+      "file": "book/contents",
+      "nav": false
     }
   ],
   "en": [
     {
       "label": "Home",
       "file": "index"
+    },
+    {
+      "label": "Contents",
+      "file": "book/contents",
+      "nav": false
     }
   ],
   "sl": [
     {
       "label": "Domov",
       "file": "index"
+    },
+    {
+      "label": "Vsebina",
+      "file": "book/contents",
+      "nav": false
     }
   ]
 }

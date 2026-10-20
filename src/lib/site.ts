@@ -30,12 +30,12 @@ export function pageUrl(lang: Language, file: string): string {
   return withBase(`${langPrefix(lang)}/${file}.html`);
 }
 
-/** URL of a book file ("01", "contents", ...). The cover entry
- *  resolves to the book directory itself. */
-export function bookUrl(lang: Language, file: string): string {
+/** URL of a book slug ("01-why-this-toolbox", "contents", ...). The
+ *  "index" entry resolves to the book directory itself (redirect stub). */
+export function bookUrl(lang: Language, slug: string): string {
   const folder = lang === DEFAULT_LANG ? 'book' : `book/${lang}`;
-  if (file === 'index') return withBase(`/${folder}/`);
-  return withBase(`/${folder}/${file}.html`);
+  if (slug === 'index') return withBase(`/${folder}/`);
+  return withBase(`/${folder}/${slug}.html`);
 }
 
 /** Resolve a nav "file" value (e.g. "index" or "book/contents") to a URL. */
@@ -49,12 +49,4 @@ export function navFileUrl(lang: Language, file: string, fallbackLang: Language 
 /** Absolute canonical URL for a site-relative URL. */
 export function canonical(url: string): string {
   return `${SITE_URL}${url}`;
-}
-
-/** Same-page URLs in every language (for the language switcher + hreflang). */
-export function alternates(kind: 'page' | 'book', file: string): { lang: Language; url: string }[] {
-  return languages.map((lang) => ({
-    lang,
-    url: kind === 'book' ? bookUrl(lang, file) : pageUrl(lang, file),
-  }));
 }

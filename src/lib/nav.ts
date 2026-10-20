@@ -1,6 +1,6 @@
 // Navigation model: project nav + expandable book nav + breadcrumbs.
 import { nav } from '../data/nav';
-import { webBookToc } from '../data/works';
+import { bookToc } from '../data/book-toc';
 import { smartQuotes } from './smart-quotes';
 import type { Language } from '../data/locales';
 import { bookUrl, navFileUrl } from './site';
@@ -12,57 +12,56 @@ export interface NavLink {
   current: boolean;
 }
 
-export interface BookNavEntry extends NavLink {
-  slug: string;
-}
-
 /** Project navigation links for a language, with the current page flagged.
  *  Nav labels bypass the markdown pipeline, so quotes are localised here to
- *  match the hast-transformed prose. (Book labels arrive via webBookToc,
- *  already localised in works.ts.) */
+ *  match the hast-transformed prose. (Book labels arrive via bookToc,
+ *  already localised in works.ts.) Virtual entries (nav: false, e.g. the
+ *  contents sheet) are rendered by the book navigation instead. */
 export function projectNav(lang: Language, currentUrl: string): NavLink[] {
-  return nav[lang].map((item) => {
-    const url = navFileUrl(lang, item.file, lang);
-    return { label: smartQuotes(item.label, lang), url, current: url === currentUrl };
-  });
-}
-
-/** Book chapter navigation (expandable on the landing page per settings). */
-export function bookNav(lang: Language, currentUrl: string): BookNavEntry[] {
-  return webBookToc(lang)
-    .map((entry) => {
-      const url = bookUrl(lang, entry.file);
-      return { label: entry.label, url, current: url === currentUrl, slug: entry.file };
+  return nav[lang]
+    .filter((item) => item.nav)
+    .map((item) => {
+      const url = navFileUrl(lang, item.file, lang);
+      return { label: smartQuotes(item.label, lang), url, current: url === currentUrl };
     });
 }
 
+/** Book chapter navigation (expandable on the landing page per settings). */
+export async function bookNav(lang: Language, currentUrl: string): Promise<NavLink[]> {
+  const toc = await bookToc(lang);
+  return toc.map((entry) => ({
+    label: entry.label,
+    url: entry.url,
+    current: entry.url === currentUrl,
+  }));
+}
+
 /** Project + book navigation in the configured order. */
-export function combinedNav(
+export async function combinedNav(
   lang: Language,
   currentUrl: string,
-): { project: NavLink[]; book: BookNavEntry[]; position: 'before' | 'after' } {
+): Promise<{ project: NavLink[]; book: NavLink[]; position: 'before' | 'after' }> {
   return {
     project: projectNav(lang, currentUrl),
-    book: settings.web.nav.expandBooks ? bookNav(lang, currentUrl) : [],
+    book: settings.web.nav.expandBooks ? await bookNav(lang, currentUrl) : [],
     position: settings.web.nav.projectNavPosition,
   };
 }
 
 /** Breadcrumb trail for a book page: home > chapter (> subchapter)*.
- *  The parent chain derives from the slash-separated file slug
+ *  The parent chain derives from the slash-separated catalogue file
  *  ("02/a/b" -> home > 02 > a > b), so flat chapters render two layers
- *  and future subchapters nest to any depth. Parent labels resolve via
- *  the book catalogue with a raw-slug fallback. */
-export function bookCrumbs(lang: Language, file: string, title: string): NavLink[] {
-  const homeLabel = nav[lang][0]?.label ?? '';
+ *  and future subchapters nest to any depth. Parent labels and URLs
+ *  resolve via the book TOC with a raw-slug fallback. */
+export async function bookCrumbs(lang: Language, file: string, title: string): Promise<NavLink[]> {
+  const homeLabel = nav[lang].find((item) => item.nav)?.label ?? '';
   const segments = file.split('/').filter(Boolean);
-  const toc = webBookToc(lang);
+  const toc = await bookToc(lang);
   const parents = segments.slice(0, -1).map((segment, index) => {
     const path = segments.slice(0, index + 1).join('/');
-    const label = toc.find((entry) => entry.file === path)?.label
-      ?? toc.find((entry) => entry.file === segment)?.label
-      ?? segment;
-    return { label, url: bookUrl(lang, path), current: false };
+    const entry = toc.find((chapter) => chapter.file === path)
+      ?? toc.find((chapter) => chapter.file === segment);
+    return { label: entry?.label ?? segment, url: entry?.url ?? bookUrl(lang, path), current: false };
   });
   return [
     { label: homeLabel, url: navFileUrl(lang, 'index', lang), current: false },
@@ -73,7 +72,7 @@ export function bookCrumbs(lang: Language, file: string, title: string): NavLink
 
 /** Breadcrumb trail for a project page: home > page. */
 export function pageCrumbs(lang: Language, title: string): NavLink[] {
-  const homeLabel = nav[lang][0]?.label ?? '';
+  const homeLabel = nav[lang].find((item) => item.nav)?.label ?? '';
   return [
     { label: homeLabel, url: navFileUrl(lang, 'index', lang), current: false },
     { label: title, url: '', current: true },

@@ -346,6 +346,12 @@ function navigation(lang) {
               - name: file
                 type: string
                 required: true
+              - name: nav
+                label: Show in main navigation
+                description: Virtual pages (e.g. the book contents sheet) carry a label here but render via the book navigation. Leave on for header/footer links.
+                type: boolean
+                required: false
+                default: true
 `;
 }
 

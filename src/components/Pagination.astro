@@ -5,9 +5,8 @@
 // settings.web.paginationType: previous-next | titles | title-arrows | arrows.
 import { settings } from '../data/settings';
 import { t } from '../lib/i18n';
-import { bookUrl, pageUrl } from '../lib/site';
 import type { Language } from '../data/locales';
-import type { NeighbourEntry } from '../data/works';
+import type { NeighbourEntry } from '../data/book-toc';
 
 interface Props {
   lang: Language;
@@ -17,10 +16,6 @@ interface Props {
 
 const { lang, prev, next } = Astro.props;
 const type = settings.web.paginationType;
-
-function href(entry: NeighbourEntry): string {
-  return entry.kind === 'page' ? pageUrl(lang, entry.file) : bookUrl(lang, entry.file);
-}
 
 function label(entry: NeighbourEntry, direction: 'prev' | 'next'): string {
   const arrow = direction === 'prev' ? '←' : '→';
@@ -35,12 +30,12 @@ function label(entry: NeighbourEntry, direction: 'prev' | 'next'): string {
   <div class="pagination">
     <nav aria-label={t(lang, 'nav.toc', 'Contents')}>
       {prev ? (
-        <a class="prev" rel="prev" href={href(prev)}>{label(prev, 'prev')}</a>
+        <a class="prev" rel="prev" href={prev.url}>{label(prev, 'prev')}</a>
       ) : (
         <span />
       )}
       {next && (
-        <a class="next" rel="next" href={href(next)}>{label(next, 'next')}</a>
+        <a class="next" rel="next" href={next.url}>{label(next, 'next')}</a>
       )}
     </nav>
   </div>
