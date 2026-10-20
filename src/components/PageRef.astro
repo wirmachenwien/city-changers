@@ -1,8 +1,11 @@
 ---
 // Cross-reference to another book page, with the localised page-wording.
+// Authors pass the catalogue file stem ("02"); the URL slug is resolved
+// from the book TOC (frontmatter title per language).
 import { t } from '../lib/i18n';
 import { bookUrl } from '../lib/site';
 import { smartQuotes } from '../lib/smart-quotes';
+import { bookToc } from '../data/book-toc';
 import type { Language } from '../data/locales';
 
 interface Props {
@@ -15,7 +18,8 @@ const { lang, file, label, page } = Astro.props;
 // Author-supplied labels bypass the markdown pipeline, so quotes are
 // localised here to match the hast-transformed prose.
 const displayLabel = smartQuotes(label, lang);
+const entry = (await bookToc(lang)).find((chapter) => chapter.file === file);
 ---
-<a href={bookUrl(lang, file)}>
+<a href={entry?.url ?? bookUrl(lang, file)}>
   {displayLabel}{page && ` ${t(lang, 'cross-references.pre-page-number', '(page ')}${page}${t(lang, 'cross-references.post-page-number', ')')}`}
 </a>

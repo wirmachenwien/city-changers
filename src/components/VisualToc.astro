@@ -1,7 +1,6 @@
 ---
 // Card-style visual table of contents for chapter overviews.
-import { webBookToc } from '../data/works';
-import { bookUrl } from '../lib/site';
+import { bookToc } from '../data/book-toc';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
 
@@ -9,11 +8,11 @@ interface Props {
   lang: Language;
 }
 const { lang } = Astro.props;
-const entries = webBookToc(lang);
+const entries = await bookToc(lang);
 ---
 <nav class="visual-toc" aria-label={t(lang, 'nav.toc', 'Contents')}>
   {entries.map((entry) => (
-    <a href={bookUrl(lang, entry.file)} aria-label={`${t(lang, 'visual-toc.link-to-page-assistive-text', 'Link to page')}: ${entry.label}`}>
+    <a href={entry.url} aria-label={`${t(lang, 'visual-toc.link-to-page-assistive-text', 'Link to page')}: ${entry.label}`}>
       {entry.label}
     </a>
   ))}

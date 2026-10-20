@@ -5,10 +5,12 @@
 // every page links to its equivalents in the other languages, every local
 // link/image/form target resolves to a built file, the contents page links
 // every chapter, and every language has searchable content for a
-// representative query term.
+// representative query term. Chapter URLs use the title-slug scheme
+// (src/lib/chapter-slug.ts); missing frontmatter titles fail here too.
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, posix } from 'node:path';
 import { site, base, defaultLang, languages } from '../../handbook.config.ts';
+import { chapterUrlSlug } from '../../src/lib/chapter-slug.ts';
 import { DIST_DIR, normalizeBase } from '../lib/paths.mjs';
 import { createReporter } from '../lib/reporter.mjs';
 
@@ -29,26 +31,45 @@ function downloadsBuilt() {
 const HAS_DOWNLOADS = downloadsBuilt();
 // Cover/title sheets are print-only; the web book starts at the contents
 // page and the "index" entry is a redirect to the contents page. Reading
-// order comes from works.json (same source the site renders from).
+// order comes from works.json (same source the site renders from); titles
+// and URL slugs come from the MDX frontmatter (same source the site
+// resolves at build time).
 const WORKS = JSON.parse(readFileSync('src/data/works.json', 'utf8'));
+const NAV = JSON.parse(readFileSync('src/data/nav.json', 'utf8'));
 const PAGE_FILES = ['index', 'search'];
 const SEARCH_TERMS = { de: 'Superblocks', en: 'superblocks', sl: 'superbloki' };
-
-function bookFiles(lang) {
-  const chapters = WORKS[lang]?.chapters ?? [];
-  return [...chapters.filter((chapter) => chapter.web !== false).map((chapter) => chapter.file), 'index'];
-}
 
 const reporter = createReporter();
 const fail = (message) => reporter.fail(message);
 
-function pagePath(lang, kind, file) {
+function mdxTitle(lang, file) {
+  const text = readFileSync(`src/content/book/${lang}/${file}.mdx`, 'utf8');
+  const title = text.match(/^title:\s*(.+)$/m)?.[1]?.trim().replace(/^["'](.*)["']$/, '$1');
+  if (!title) fail(`src/content/book/${lang}/${file}.mdx: missing frontmatter title`);
+  return title ?? '';
+}
+
+function bookChapters(lang) {
+  const chapters = WORKS[lang]?.chapters ?? [];
+  return chapters
+    .filter((chapter) => chapter.web !== false)
+    .map((chapter) => {
+      if (chapter.file === 'contents') {
+        const label = (NAV[lang] ?? []).find((item) => item.file === 'book/contents');
+        if (!label) fail(`nav.json: missing "book/contents" label for "${lang}"`);
+        return { file: 'contents', slug: 'contents' };
+      }
+      return { file: chapter.file, slug: chapterUrlSlug(chapter.file, mdxTitle(lang, chapter.file)) };
+    });
+}
+
+function pagePath(lang, kind, fileOrSlug) {
   if (kind === 'book') {
     const folder = lang === defaultLang ? 'book' : `book/${lang}`;
-    return file === 'index' ? `${folder}/index.html` : `${folder}/${file}.html`;
+    return fileOrSlug === 'index' ? `${folder}/index.html` : `${folder}/${fileOrSlug}.html`;
   }
-  if (file === 'index') return lang === defaultLang ? 'index.html' : `${lang}/index.html`;
-  return lang === defaultLang ? `${file}.html` : `${lang}/${file}.html`;
+  if (fileOrSlug === 'index') return lang === defaultLang ? 'index.html' : `${lang}/index.html`;
+  return lang === defaultLang ? `${fileOrSlug}.html` : `${lang}/${fileOrSlug}.html`;
 }
 
 function readPage(rel) {
@@ -87,14 +108,18 @@ function resolveUrl(from, url) {
   return posix.normalize(posix.join(dir, url));
 }
 
+// Per-language chapter slugs, keyed by catalogue file stem (titles differ
+// per language, so the same chapter has different slugs per language).
+const CHAPTERS = Object.fromEntries(LANGS.map((lang) => [lang, bookChapters(lang)]));
+
 let checked = 0;
 for (const lang of LANGS) {
   const expected = [
-    ...PAGE_FILES.map((file) => ({ kind: 'page', file })),
-    ...bookFiles(lang).map((file) => ({ kind: 'book', file })),
+    ...PAGE_FILES.map((file) => ({ kind: 'page', file, path: pagePath(lang, 'page', file) })),
+    ...CHAPTERS[lang].map(({ file, slug }) => ({ kind: 'book', file, path: pagePath(lang, 'book', slug) })),
+    { kind: 'book', file: 'index', path: pagePath(lang, 'book', 'index') },
   ];
-  for (const { kind, file } of expected) {
-    const rel = pagePath(lang, kind, file);
+  for (const { kind, file, path: rel } of expected) {
     const html = readPage(rel);
     if (!html) continue;
     checked += 1;
@@ -116,15 +141,25 @@ for (const lang of LANGS) {
     }
 
     // Language switcher: links to the same page in the other languages.
+    // Book chapters resolve their per-language slug from the title.
     const expectedAlt = (other) => {
       if (file === 'index') {
         if (kind === 'book') return `${BASE}/${other === defaultLang ? 'book/' : `book/${other}/`}`;
         return `${BASE}/${other === defaultLang ? '' : `${other}/`}`;
       }
-      const target = pagePath(other, kind, file);
-      return `${BASE}/${target}`;
+      if (kind === 'book') {
+        const otherChapter = CHAPTERS[other].find((chapter) => chapter.file === file);
+        if (!otherChapter) {
+          fail(`${lang}: chapter ${file} missing in ${other}`);
+          return null;
+        }
+        return `${BASE}/${pagePath(other, 'book', otherChapter.slug)}`;
+      }
+      return `${BASE}/${pagePath(other, kind, file)}`;
     };
-    const others = LANGS.filter((other) => other !== lang).map(expectedAlt);
+    const others = LANGS.filter((other) => other !== lang)
+      .map(expectedAlt)
+      .filter(Boolean);
     const rawLinks = links(html);
     const hrefs = rawLinks.map((href) => resolveUrl(rel, href));
     for (const other of others) {
@@ -151,12 +186,11 @@ for (const lang of LANGS) {
     }
 
     if (file === 'contents') {
-      for (let chapter = 1; chapter <= 6; chapter += 1) {
-        const target = `${BASE}/${lang === defaultLang ? 'book' : `book/${lang}`}/${String(chapter).padStart(2, '0')}.html`;
+      const folder = lang === defaultLang ? 'book' : `book/${lang}`;
+      for (const chapter of CHAPTERS[lang].filter((entry) => entry.file !== 'contents')) {
+        const target = `${BASE}/${folder}/${chapter.slug}.html`;
         if (!hrefs.includes(target)) fail(`${rel}: contents missing chapter link ${target}`);
       }
-      const glossaryTarget = `${BASE}/${lang === defaultLang ? 'book' : `book/${lang}`}/glossary.html`;
-      if (!hrefs.includes(glossaryTarget)) fail(`${rel}: contents missing chapter link ${glossaryTarget}`);
     }
   }
 
@@ -168,14 +202,16 @@ for (const lang of LANGS) {
     continue;
   }
   const hits = [];
-  for (const file of [...PAGE_FILES, ...bookFiles(lang)]) {
-    for (const kind of ['pages', 'book']) {
-      const src = kind === 'pages'
-        ? `src/content/pages/${lang}/${file}.mdx`
-        : `src/content/book/${lang}/${file}.mdx`;
-      if (existsSync(src) && readFileSync(src, 'utf8').toLowerCase().includes(term.toLowerCase())) {
-        hits.push(pagePath(lang, kind === 'pages' ? 'page' : 'book', file));
-      }
+  for (const file of PAGE_FILES) {
+    const src = `src/content/pages/${lang}/${file}.mdx`;
+    if (existsSync(src) && readFileSync(src, 'utf8').toLowerCase().includes(term.toLowerCase())) {
+      hits.push(pagePath(lang, 'page', file));
+    }
+  }
+  for (const { file, slug } of CHAPTERS[lang]) {
+    const src = `src/content/book/${lang}/${file}.mdx`;
+    if (existsSync(src) && readFileSync(src, 'utf8').toLowerCase().includes(term.toLowerCase())) {
+      hits.push(pagePath(lang, 'book', slug));
     }
   }
   if (hits.length === 0) fail(`${lang}: no content hits for representative term "${term}"`);
@@ -213,8 +249,8 @@ if (!existsSync(sitemapFile)) {
   };
   for (const lang of LANGS) {
     for (const file of PAGE_FILES) expected.push(canonical(pagePath(lang, 'page', file)));
-    for (const file of bookFiles(lang).filter((file) => file !== 'index')) {
-      expected.push(canonical(pagePath(lang, 'book', file)));
+    for (const { slug } of CHAPTERS[lang].filter((chapter) => chapter.file !== 'index')) {
+      expected.push(canonical(pagePath(lang, 'book', slug)));
     }
   }
   for (const url of expected) {

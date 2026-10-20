@@ -25,7 +25,7 @@ interface BookmarkSection {
 type Section = LinkSection | BookmarkSection;
 
 const { lang, currentUrl } = Astro.props;
-const { project: projectLinks, book, position } = combinedNav(lang, currentUrl);
+const { project: projectLinks, book, position } = await combinedNav(lang, currentUrl);
 
 // Project (Start) and book (Contents … Glossary) render as one continuous
 // list so there is no gap between Start and Contents.

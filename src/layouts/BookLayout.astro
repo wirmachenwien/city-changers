@@ -9,7 +9,7 @@ import ReadingProgress from '../components/ReadingProgress.astro';
 import ContentsPage from '../components/ContentsPage.astro';
 import { settings } from '../data/settings';
 import { bookCrumbs } from '../lib/nav';
-import { paginationNeighbours } from '../data/works';
+import { paginationNeighbours } from '../data/book-toc';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
 
@@ -25,9 +25,9 @@ const { lang, file, title, layout, currentUrl } = Astro.props;
 // The frontmatter title bypasses the markdown pipeline, so quotes are
 // localised once here; crumbs, share links and sheets reuse it.
 const displayTitle = smartQuotes(title, lang);
-const crumbs = bookCrumbs(lang, file, displayTitle);
+const crumbs = await bookCrumbs(lang, file, displayTitle);
 const isChapter = layout === 'chapter';
-const neighbours = paginationNeighbours(lang, 'book', file);
+const neighbours = await paginationNeighbours(lang, 'book', file);
 ---
 <BaseLayout
   lang={lang}

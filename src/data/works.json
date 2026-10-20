@@ -10,45 +10,35 @@
     "chapters": [
       {
         "file": "0-0-cover",
-        "label": "Cover",
         "web": false
       },
       {
         "file": "0-1-titlepage",
-        "label": "Titel",
         "web": false
       },
       {
-        "file": "contents",
-        "label": "Inhalt"
+        "file": "contents"
       },
       {
-        "file": "01",
-        "label": "1. Wozu diese Toolbox?"
+        "file": "01"
       },
       {
-        "file": "02",
-        "label": "2. Superblocks starten"
+        "file": "02"
       },
       {
-        "file": "03",
-        "label": "3. Tactical Urbanism und Street Design"
+        "file": "03"
       },
       {
-        "file": "04",
-        "label": "4. Mobilisierung und Strategien des Wandels"
+        "file": "04"
       },
       {
-        "file": "05",
-        "label": "5. Monitoring: Wirkung sichtbar machen"
+        "file": "05"
       },
       {
-        "file": "06",
-        "label": "6. Arbeitsplan und Quellen"
+        "file": "06"
       },
       {
-        "file": "glossary",
-        "label": "Glossar"
+        "file": "glossary"
       }
     ]
   },
@@ -63,45 +53,35 @@
     "chapters": [
       {
         "file": "0-0-cover",
-        "label": "Cover",
         "web": false
       },
       {
         "file": "0-1-titlepage",
-        "label": "Title page",
         "web": false
       },
       {
-        "file": "contents",
-        "label": "Contents"
+        "file": "contents"
       },
       {
-        "file": "01",
-        "label": "1. Why this toolbox?"
+        "file": "01"
       },
       {
-        "file": "02",
-        "label": "2. Starting superblocks"
+        "file": "02"
       },
       {
-        "file": "03",
-        "label": "3. Tactical urbanism and street design"
+        "file": "03"
       },
       {
-        "file": "04",
-        "label": "4. Mobilisation and strategies for change"
+        "file": "04"
       },
       {
-        "file": "05",
-        "label": "5. Monitoring: making impact visible"
+        "file": "05"
       },
       {
-        "file": "06",
-        "label": "6. Work plan and sources"
+        "file": "06"
       },
       {
-        "file": "glossary",
-        "label": "Glossary"
+        "file": "glossary"
       }
     ]
   },
@@ -116,45 +96,35 @@
     "chapters": [
       {
         "file": "0-0-cover",
-        "label": "Naslovnica",
         "web": false
       },
       {
         "file": "0-1-titlepage",
-        "label": "Naslovna stran",
         "web": false
       },
       {
-        "file": "contents",
-        "label": "Vsebina"
+        "file": "contents"
       },
       {
-        "file": "01",
-        "label": "1. Zakaj ta zbirka orodij?"
+        "file": "01"
       },
       {
-        "file": "02",
-        "label": "2. Kako začeti s superbloki"
+        "file": "02"
       },
       {
-        "file": "03",
-        "label": "3. Taktični urbanizem in oblikovanje ulic"
+        "file": "03"
       },
       {
-        "file": "04",
-        "label": "4. Mobilizacija in strategije sprememb"
+        "file": "04"
       },
       {
-        "file": "05",
-        "label": "5. Spremljanje: pokažimo učinek"
+        "file": "05"
       },
       {
-        "file": "06",
-        "label": "6. Delovni načrt in viri"
+        "file": "06"
       },
       {
-        "file": "glossary",
-        "label": "Glosar"
+        "file": "glossary"
       }
     ]
   }

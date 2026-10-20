@@ -1,43 +1,53 @@
 ---
-// Non-default language books (/book/de/01.html, ...). The contents page is
-// virtual (no MDX source file); its title comes from the book catalogue.
-// The bare landing (/book/<lang>/) redirects to the contents page since the
-// print-only cover/title sheets have no web version.
+// Non-default language books (/book/de/01-wozu-diese-toolbox.html, ...).
+// URL slugs are derived from the MDX frontmatter title (see
+// src/lib/chapter-slug.ts); the catalogue file stays the identity for
+// cross-references and pagination. The contents page is virtual (no MDX
+// body); its label comes from nav.json. The bare landing (/book/<lang>/)
+// redirects to the contents page since the print-only cover/title sheets
+// have no web version.
 import { getCollection } from 'astro:content';
 import BookLayout from '../../../layouts/BookLayout.astro';
 import MdxContent from '../../../components/MdxContent.astro';
 import Redirect from '../../../components/Redirect.astro';
-import { WEB_EXCLUDED_FILES, contentsLabel } from '../../../data/works';
+import { bookToc } from '../../../data/book-toc';
+import { contentsLabel } from '../../../data/nav';
 import { bookUrl } from '../../../lib/site';
 import { defaultLang, languages } from '../../../../handbook.config.ts';
 import type { Language } from '../../../data/locales';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('book');
-  return languages
-    .filter((lang) => lang !== defaultLang)
-    .flatMap((lang) => {
-      const slugs = entries
-        .filter((entry) => entry.id.startsWith(`${lang}/`))
-        .map((entry) => entry.id.slice(lang.length + 1))
-        .filter((slug) => !WEB_EXCLUDED_FILES.includes(slug))
-        .map((slug) => ({ params: { lang, slug } }));
-      return [...slugs, { params: { lang, slug: 'contents' } }, { params: { lang, slug: undefined } }];
-    });
+  const perLanguage = await Promise.all(
+    languages
+      .filter((lang) => lang !== defaultLang)
+      .map(async (lang) => {
+        const toc = await bookToc(lang);
+        return [
+          ...toc.map((entry) => ({ params: { lang, slug: entry.slug } })),
+          { params: { lang, slug: undefined } },
+        ];
+      }),
+  );
+  return perLanguage.flat();
 }
 
 const language = Astro.params.lang as Language;
 const { slug } = Astro.params;
 const file = slug ?? 'index';
-const entries = await getCollection('book');
-const entry = file === 'contents' || file === 'index'
-  ? undefined
-  : entries.find((item) => item.id === `${language}/${file}`);
-if (!entry && file !== 'contents' && file !== 'index') {
-  throw new Error(`Missing ${language} chapter: ${file}`);
+const toc = await bookToc(language);
+const chapter = file === 'index' ? undefined : toc.find((entry) => entry.slug === slug);
+if (!chapter && file !== 'index') {
+  throw new Error(`Unknown ${language} book slug: ${slug}`);
 }
-const title = entry?.data.title ?? contentsLabel(language);
-const url = bookUrl(language, file);
+const entries = await getCollection('book');
+const entry = chapter && chapter.file !== 'contents'
+  ? entries.find((item) => item.id === `${language}/${chapter.file}`)
+  : undefined;
+if (chapter && chapter.file !== 'contents' && !entry) {
+  throw new Error(`Missing ${language} chapter: ${chapter.file}`);
+}
+const title = chapter?.label ?? contentsLabel(language);
+const url = file === 'index' ? bookUrl(language, 'contents') : (chapter?.url ?? bookUrl(language, file));
 ---
 {file === 'index' ? (
   <Redirect
@@ -50,7 +60,7 @@ const url = bookUrl(language, file);
 ) : (
   <BookLayout
     lang={language}
-    file={file}
+    file={chapter?.file ?? file}
     title={title}
     layout={entry?.data.template ?? 'section'}
     currentUrl={url}

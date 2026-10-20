@@ -1,6 +1,7 @@
 ---
 // hreflang alternates (plus x-default) for the document head.
-import { alternates, canonical, DEFAULT_LANG } from '../lib/site';
+import { alternates } from '../lib/alternates';
+import { canonical, DEFAULT_LANG } from '../lib/site';
 import type { Language } from '../data/locales';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const { kind, file } = Astro.props;
-const targets = alternates(kind, file);
+const targets = await alternates(kind, file);
 const fallback = targets.find((target) => target.lang === DEFAULT_LANG) ?? targets[0];
 ---
 {targets.map((target) => (

@@ -26,11 +26,17 @@ FOOTNOTE DIVERGENCE (deliberate, keep in sync):
 
 from __future__ import annotations
 
+import json
 import re
+from functools import lru_cache
 from pathlib import Path
 from typing import Callable
 
 EscapeFn = Callable[[str], str]
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+BOOK_CONTENT = ROOT / "src" / "content" / "book"
+NAV_DATA = ROOT / "src" / "data" / "nav.json"
 
 
 def _identity(text: str) -> str:
@@ -108,22 +114,74 @@ def make_glossary_lang_re(langs: tuple[str, ...]) -> re.Pattern[str]:
 # Chapter slugs styled as front matter (mirrors src/data/works.ts).
 FRONTMATTER_FILES = {"0-0-cover", "0-1-titlepage", "contents"}
 
+# Print-only sheets have no MDX source file, so their TOC labels live here
+# (works.json carries only the ordered file list, mirroring src/data/works.ts).
+PRINT_SHEET_LABELS: dict[str, dict[str, str]] = {
+    "de": {"0-0-cover": "Cover", "0-1-titlepage": "Titel"},
+    "en": {"0-0-cover": "Cover", "0-1-titlepage": "Title page"},
+    "sl": {"0-0-cover": "Naslovnica", "0-1-titlepage": "Naslovna stran"},
+}
+
+FRONTMATTER_TITLE_RE = re.compile(r"^title:\s*(.+?)\s*$", re.MULTILINE)
+
+
+@lru_cache(maxsize=None)
+def nav_data() -> dict:
+    """Parsed src/data/nav.json (labels of virtual pages, e.g. contents)."""
+    return json.loads(NAV_DATA.read_text(encoding="utf-8"))
+
+
+def contents_label(lang: str) -> str:
+    """Label of the virtual book contents page (nav.json, file book/contents)."""
+    for item in nav_data().get(lang, []):
+        if item.get("file") == "book/contents":
+            return item["label"]
+    return "Contents"
+
+
+@lru_cache(maxsize=None)
+def chapter_title(lang: str, file: str) -> str | None:
+    """Frontmatter title of a chapter (single source of truth, same file the
+    web build reads via the Astro book collection)."""
+    path = BOOK_CONTENT / lang / f"{file}.mdx"
+    if not path.exists():
+        return None
+    match = FRONTMATTER_TITLE_RE.search(path.read_text(encoding="utf-8"))
+    if not match:
+        return None
+    return match.group(1).strip().strip('"').strip("'")
+
 
 def chapter_lists(work: dict) -> tuple[list[str], list[dict]]:
     """Derive print order + TOC from the single `chapters` list per language.
 
     Single source of truth (mirrors src/data/works.ts): `files` is every
     chapter in order, `toc` carries each label plus the frontmatter class.
+    Chapter labels come from the MDX frontmatter titles; the virtual
+    contents sheet from nav.json; the print-only sheets from
+    PRINT_SHEET_LABELS.
     """
+    lang = work["language"]
     files = [chapter["file"] for chapter in work["chapters"]]
-    toc = [
-        {
-            "label": chapter["label"],
-            "file": chapter["file"],
-            **({"class": "frontmatter-entry"} if chapter["file"] in FRONTMATTER_FILES else {}),
-        }
-        for chapter in work["chapters"]
-    ]
+    toc = []
+    for chapter in work["chapters"]:
+        file = chapter["file"]
+        if file == "contents":
+            label = contents_label(lang)
+        else:
+            label = chapter_title(lang, file) or PRINT_SHEET_LABELS.get(lang, {}).get(file)
+        if not label:
+            raise SystemExit(
+                f"missing label for {lang}/{file}: no MDX frontmatter title "
+                f"and no print-sheet label"
+            )
+        toc.append(
+            {
+                "label": label,
+                "file": file,
+                **({"class": "frontmatter-entry"} if file in FRONTMATTER_FILES else {}),
+            }
+        )
     return files, toc
 
 

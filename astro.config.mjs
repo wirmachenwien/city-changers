@@ -1,5 +1,7 @@
 // @ts-check
 import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import { unified } from '@astrojs/markdown-remark';
@@ -7,20 +9,53 @@ import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { remarkBackslashMath } from './src/lib/remark-backslash-math.mjs';
 import { smartQuotesRehypePlugin } from './src/lib/satteri-smart-quotes.ts';
-import { site, base, defaultLang } from './handbook.config.ts';
+import { chapterUrlSlug } from './src/lib/chapter-slug.ts';
+import { site, base, defaultLang, languages } from './handbook.config.ts';
 
 /** @typedef {{ file: string, web?: boolean }} Chapter */
 /** @typedef {{ chapters?: Chapter[] }} Work */
 
-const works = /** @type {Record<string, Work>} */ (
-  JSON.parse(readFileSync(new URL('./src/data/works.json', import.meta.url), 'utf8'))
-);
-const defaultLanguageBookRedirects = Object.fromEntries(
-  [...new Set([...(works[defaultLang]?.chapters ?? [])
-    .filter((chapter) => chapter.web !== false)
-    .map((chapter) => chapter.file), 'contents'])]
-    .map((file) => [`/book/${defaultLang}/${file}`, `/book/${file}`]),
-);
+const root = dirname(fileURLToPath(import.meta.url));
+const readJson = (/** @type {string} */ path) =>
+  JSON.parse(readFileSync(join(root, path), 'utf8'));
+
+const works = /** @type {Record<string, Work>} */ (readJson('src/data/works.json'));
+
+/** Frontmatter title of a book chapter (mirrors the content collection). */
+function mdxTitle(/** @type {string} */ lang, /** @type {string} */ file) {
+  const text = readFileSync(join(root, `src/content/book/${lang}/${file}.mdx`), 'utf8');
+  const frontmatter = text.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? '';
+  const title = frontmatter.match(/^title:\s*(.+)$/m)?.[1]?.trim().replace(/^["'](.*)["']$/, '$1');
+  if (!title) throw new Error(`astro.config: missing frontmatter title in src/content/book/${lang}/${file}.mdx`);
+  return title;
+}
+
+/** URL slug of a web chapter (contents is virtual; label lives in nav.json). */
+function chapterSlug(/** @type {string} */ lang, /** @type {string} */ file) {
+  if (file === 'contents') return 'contents';
+  return chapterUrlSlug(file, mdxTitle(lang, file));
+}
+
+// Legacy numbered URLs (/book/01.html, /book/de/01.html, ...) redirect to the
+// title-slug URLs, and the default language stays canonical at the root
+// (/book/en/<slug> -> /book/<slug>). Single hop: prefixed legacy URLs point
+// straight at the new unprefixed target.
+/** @type {Record<string, string>} */
+const bookRedirects = {};
+for (const lang of languages) {
+  const prefix = lang === defaultLang ? '' : `/${lang}`;
+  for (const chapter of works[lang]?.chapters ?? []) {
+    if (chapter.web === false) continue;
+    const slug = chapterSlug(lang, chapter.file);
+    if (slug !== chapter.file) {
+      bookRedirects[`/book${prefix}/${chapter.file}`] = `/book${prefix}/${slug}`;
+    }
+    if (lang === defaultLang) {
+      bookRedirects[`/book/${defaultLang}/${chapter.file}`] = `/book/${slug}`;
+      bookRedirects[`/book/${defaultLang}/${slug}`] = `/book/${slug}`;
+    }
+  }
+}
 
 export default defineConfig({
   site,
@@ -28,16 +63,18 @@ export default defineConfig({
   output: 'static',
   build: {
     // Keep the historic URL scheme: about.astro -> about.html,
-    // book/01 -> book/01.html (no trailing-slash directories).
+    // book/01-slug -> book/01-slug.html (no trailing-slash directories).
     format: 'file',
   },
   // The default language is canonical at the root (/ and /book/), but the
-  // prefixed form should still resolve and redirect consistently.
+  // prefixed form should still resolve and redirect consistently. Legacy
+  // numbered chapter URLs keep working via redirects after the
+  // title-slug migration.
   redirects: {
     [`/${defaultLang}`]: '/',
     [`/${defaultLang}/search`]: '/search',
     [`/book/${defaultLang}`]: '/book',
-    ...defaultLanguageBookRedirects,
+    ...bookRedirects,
   },
   integrations: [mdx()],
   markdown: {

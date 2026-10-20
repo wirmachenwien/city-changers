@@ -6,7 +6,7 @@ import OpenerImage from '../components/OpenerImage.astro';
 import LastVisit from '../components/LastVisit.astro';
 import Pagination from '../components/Pagination.astro';
 import { settings } from '../data/settings';
-import { paginationNeighbours } from '../data/works';
+import { paginationNeighbours } from '../data/book-toc';
 import { pageCrumbs } from '../lib/nav';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
@@ -28,7 +28,7 @@ const { lang, file, title, layout, currentUrl, openerImage, openerImageAlt, open
 const displayTitle = smartQuotes(title, lang);
 const crumbs = pageCrumbs(lang, displayTitle);
 const isHome = layout === 'home';
-const neighbours = paginationNeighbours(lang, 'page', file);
+const neighbours = await paginationNeighbours(lang, 'page', file);
 ---
 <BaseLayout
   lang={lang}

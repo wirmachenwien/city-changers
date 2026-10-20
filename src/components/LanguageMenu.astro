@@ -2,7 +2,7 @@
  // Compact language dropdown for the masthead: globe icon plus a native
  // select that navigates on change (wired by the shared select enhancer).
  // The full link list in the footer stays the no-JS fallback.
-import { alternates } from '../lib/site';
+import { alternates } from '../lib/alternates';
 import { locales } from '../data/locales';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { lang, kind, file, id = 'head-language' } = Astro.props;
-const targets = alternates(kind, file);
+const targets = await alternates(kind, file);
 ---
 <span class="lang-menu" data-select-list>
   <label class="visually-hidden" for={id}>
