@@ -1,0 +1,51 @@
+---
+import { withBase } from '../lib/site';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+
+const partners = [
+  {
+    name: 'Wir machen Wien',
+    href: 'https://wirmachen.wien',
+    src: '/images/partners/wirmachen-wien.svg',
+    width: 1000,
+    height: 750,
+    mod: 'wirmachen-wien',
+  },
+  {
+    name: 'Changing Cities',
+    href: 'https://changing-cities.org',
+    src: '/images/partners/changing-cities.svg',
+    width: 801,
+    height: 367,
+  },
+  {
+    name: 'Prostorož',
+    href: 'https://www.prostoroz.org',
+    src: '/images/partners/prostoroz.png',
+    width: 1000,
+    height: 263,
+  },
+];
+---
+<ul class:list={['partner-logos', { 'partner-logos--compact': compact }]}>
+  {partners.map((partner) => (
+    <li class="partner-logos__item">
+      <a class="partner-logos__link" href={partner.href}>
+        <img
+          class:list={['partner-logos__logo', partner.mod && `partner-logos__logo--${partner.mod}`]}
+          src={withBase(partner.src)}
+          alt={partner.name}
+          width={partner.width}
+          height={partner.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    </li>
+  ))}
+</ul>

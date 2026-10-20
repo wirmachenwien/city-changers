@@ -907,6 +907,79 @@ body.drawer-open {
   max-inline-size: var(--measure);
 }
 
+/* Partner logos (home page): equal-height marks on the page background. */
+.partner-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  margin-block: 2.25rem;
+  margin-inline: 0;
+  padding-inline: 2rem;
+  justify-content: space-between;
+}
+
+.partner-logos__item {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.partner-logos__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  transition: transform 0.15s ease;
+}
+
+.partner-logos__link:hover {
+  transform: scale(1.06);
+}
+
+.partner-logos__link:active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-logos__link {
+    transition: none;
+  }
+}
+
+.partner-logos__logo {
+  display: block;
+  block-size: 3.25rem;
+  inline-size: auto;
+  max-inline-size: 100%;
+}
+
+.partner-logos__logo--wirmachen-wien {
+  block-size: 4.75rem;
+}
+
+.partner-logos--compact {
+  gap: 1.25rem;
+  margin-block: 0 0.4rem;
+  padding-inline: 0;
+  inline-size: fit-content;
+}
+
+.prose .partner-logos {
+  margin-block: 2.25rem;
+}
+
+.partner-logos--compact .partner-logos__item {
+  flex: 0 0 auto;
+}
+
+.partner-logos--compact .partner-logos__logo {
+  block-size: 1.75rem;
+}
+
+.partner-logos--compact .partner-logos__logo--wirmachen-wien {
+  block-size: 2.5rem;
+}
+
 /* ---------- Buttons ---------- */
 
 .button-link {
