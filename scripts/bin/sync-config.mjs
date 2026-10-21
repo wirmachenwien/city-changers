@@ -631,7 +631,6 @@ function componentShowcase() {
         readonly: true
       - name: body
         component: markdown_body
-        readonly: true
     operations:
       create: false
       delete: false
