@@ -1,0 +1,47 @@
+---
+// Shared active identity. The wordmark is outlined from the user's v5;
+// duplicate artwork is decorative, with one accessible name on the wrapper.
+import lockup from '../assets/site/logo-lockup.svg?url';
+import lockupDark from '../assets/site/logo-lockup-dark.svg?url';
+import symbol from '../assets/site/logo.svg?url';
+import symbolDark from '../assets/site/logo-dark.svg?url';
+
+interface Props {
+  variant?: 'lockup' | 'symbol';
+  label?: string;
+}
+
+const { variant = 'lockup', label = '' } = Astro.props;
+const width = variant === 'lockup' ? 960 : 256;
+---
+<span class:list={['brand-art', `brand-art--${variant}`]} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'}>
+  <img class="brand-art__light" src={variant === 'lockup' ? lockup : symbol} alt="" width={width} height="256" loading="eager" decoding="async" />
+  <img class="brand-art__dark" src={variant === 'lockup' ? lockupDark : symbolDark} alt="" width={width} height="256" loading="eager" decoding="async" />
+</span>
+
+<style>
+  .brand-art {
+    display: inline-block;
+    /* A percentage inside min() has no intrinsic contribution in the
+       desktop auto-sized flex item. Use a definite preferred width instead. */
+    inline-size: 15rem;
+    max-inline-size: 100%;
+    flex: 0 1 auto;
+    padding-block: 0.375rem;
+    vertical-align: middle;
+    line-height: 0;
+  }
+  .brand-art--symbol { inline-size: 5rem; }
+  .brand-art img { display: block; inline-size: 100%; block-size: auto; }
+  .brand-art .brand-art__dark { display: none; }
+  :global(:root[data-theme="dark"]) .brand-art__light { display: none; }
+  :global(:root[data-theme="dark"]) .brand-art__dark { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme])) .brand-art__light { display: none; }
+    :global(:root:not([data-theme])) .brand-art__dark { display: block; }
+  }
+  @media print {
+    .brand-art .brand-art__light { display: block !important; }
+    .brand-art .brand-art__dark { display: none !important; }
+  }
+</style>

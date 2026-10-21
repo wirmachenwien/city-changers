@@ -1,5 +1,23 @@
 ---
-import { withBase } from '../lib/site';
+// Partner marks on the home page and title sheet. Each entry in
+// partners.json names an image in src/assets/site by filename; the URL
+// comes from the bundler (hashed, base-aware) rather than from public/.
+import partners from '../data/partners.json';
+
+const assets = import.meta.glob<{ default: ImageMetadata | string }>(
+  '/src/assets/site/*.{svg,png}',
+  { eager: true },
+);
+
+const urlFor = (file: string): string => {
+  const name = file.split('/').pop();
+  const match = Object.entries(assets).find(([path]) => path.endsWith(`/${name}`));
+  if (!match) {
+    throw new Error(`PartnerLogos: unknown image "${file}" in src/assets/site`);
+  }
+  const imported = match[1].default;
+  return typeof imported === 'string' ? imported : imported.src;
+};
 
 interface Props {
   compact?: boolean;
@@ -7,30 +25,6 @@ interface Props {
 
 const { compact = false } = Astro.props;
 
-const partners = [
-  {
-    name: 'Wir machen Wien',
-    href: 'https://wirmachen.wien',
-    src: '/images/partners/wirmachen-wien.svg',
-    width: 1000,
-    height: 750,
-    mod: 'wirmachen-wien',
-  },
-  {
-    name: 'Changing Cities',
-    href: 'https://changing-cities.org',
-    src: '/images/partners/changing-cities.svg',
-    width: 801,
-    height: 367,
-  },
-  {
-    name: 'Prostorož',
-    href: 'https://www.prostoroz.org',
-    src: '/images/partners/prostoroz.png',
-    width: 1000,
-    height: 263,
-  },
-];
 ---
 <ul class:list={['partner-logos', { 'partner-logos--compact': compact }]}>
   {partners.map((partner) => (
@@ -38,7 +32,7 @@ const partners = [
       <a class="partner-logos__link" href={partner.href}>
         <img
           class:list={['partner-logos__logo', partner.mod && `partner-logos__logo--${partner.mod}`]}
-          src={withBase(partner.src)}
+          src={urlFor(partner.src)}
           alt={partner.name}
           width={partner.width}
           height={partner.height}

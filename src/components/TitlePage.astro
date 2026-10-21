@@ -2,7 +2,10 @@
 // Title sheet for front matter.
 import { getWork } from '../data/works';
 import { smartQuotes } from '../lib/smart-quotes';
+import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
+import BrandLogo from './BrandLogo.astro';
+import PartnerLogos from './PartnerLogos.astro';
 
 interface Props {
   lang: Language;
@@ -14,10 +17,32 @@ const work = getWork(lang);
 const sq = (value: string) => smartQuotes(value, lang);
 ---
 <div class="sheet title-sheet">
-  <p>{sq(work.type)}</p>
-  <h1>{sq(work.title)}</h1>
-  {work.subtitle && <p>{sq(work.subtitle)}</p>}
-  {work.creator && <p>{sq(work.creator)}</p>}
-  {work.contributor && <p>{sq(work.contributor)}</p>}
-  {work.publisher && <p>{sq(work.publisher)}</p>}
+  <h1 class="title-sheet__logo"><BrandLogo label={sq(work.title)} /></h1>
+  <div class="title-sheet__details">
+    <PartnerLogos />
+    {work.contributor && <p><small>{t(lang, 'metadata.contributor', 'Contributors')}</small><br />{sq(work.contributor)}</p>}
+  </div>
 </div>
+
+<style>
+  .title-sheet {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-block-size: 38rem;
+    gap: 5rem;
+  }
+  .title-sheet__details { font-family: var(--font-ui); font-size: 0.9rem; }
+  .title-sheet__details :global(.partner-logos) {
+    padding-inline: 0;
+    margin-block: 0 2rem;
+  }
+  .title-sheet__details small { color: var(--ink-soft); }
+  .title-sheet__logo :global(.brand-art) {
+    inline-size: 32rem;
+    max-inline-size: 100%;
+  }
+  @media print {
+    .title-sheet { min-block-size: 255mm; }
+  }
+</style>

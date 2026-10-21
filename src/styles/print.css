@@ -1,8 +1,7 @@
 /* Print stylesheet for the WeasyPrint PDF pipeline (scripts/bin/build-pdf.py).
    Screen styles live in global.css; this file only ships to print.
    The font url() paths below are logical: build-pdf.py rewrites them to
-   file:// URIs of the self-hosted Newsreader files so the PDF embeds
-   the same body font as the website. */
+   file:// URIs of the self-hosted fonts so the PDF embeds them. */
 @font-face {
   font-family: "Newsreader";
   font-style: normal;
@@ -31,9 +30,10 @@
   src: url("fonts/NewsreaderText-BoldItalic.ttf") format("truetype");
 }
 
-/* Self-hosted Clarity City (OFL): the PDF's title face, embedded so
-   headings and the cover render identically on every platform instead of
-   falling back to whatever sans-serif Pango happens to resolve. */
+/* Self-hosted Clarity City (OFL): the PDF's UI face for running headers,
+   captions and tables, embedded so they render identically on every
+   platform instead of falling back to whatever sans-serif Pango happens to
+   resolve. */
 @font-face {
   font-family: "Clarity City";
   font-style: normal;
@@ -46,6 +46,26 @@
   font-style: normal;
   font-weight: 700;
   src: url("fonts/ClarityCity-Bold.ttf") format("truetype");
+}
+
+/* Self-hosted Fraunces (OFL, see OFL-Fraunces.txt): the PDF's headline
+   face, matching the website (src/styles/global.css). Variable font, so the
+   same SOFT/WONK/opsz presets work here — WeasyPrint applies them through
+   font-variation-settings (verified: all four axes change the rendered
+   output). Pango resolves no automatic optical sizing, unlike the browser,
+   so opsz is always set explicitly below. */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  src: url("fonts/Fraunces[SOFT,WONK,opsz,wght].ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  src: url("fonts/Fraunces-Italic[SOFT,WONK,opsz,wght].ttf") format("truetype");
 }
 @page {
   size: A4;
@@ -86,30 +106,37 @@ body {
   margin: 0;
 }
 
+/* Fraunces variable-axis presets, mirroring --fraunces-vars /
+   --fraunces-vars-display in src/styles/global.css. Pango resolves no
+   optical sizing on its own, so each rule pins opsz explicitly: the cover
+   and chapter titles get the cut matching their rendered size (opsz tracks
+   the font size in CSS px in the browser), everything smaller gets the
+   80pt display cut, exactly like h2–h4 on the web. */
 h1, h2, h3 {
-  font-family: "Clarity City", system-ui, sans-serif;
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
   font-weight: 700;
   line-height: 1.25;
+  break-after: avoid;
 }
 
-/* Only top-level chapter titles feed the running header (sections must
-   not override it). */
+/* Chapter title: 22pt ≈ 29px, so the browser would pick opsz ≈ 29. */
 h1 {
+  /* Only chapter titles feed the running header, not section headings. */
   string-set: chapter content();
-}
-
-h1 {
   font-size: 22pt;
   margin: 0 0 12pt;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 29;
 }
 
 h2 {
   font-size: 15pt;
   margin: 18pt 0 6pt;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 80;
 }
 
 h3 {
   font-size: 12pt;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 80;
 }
 
 section.chapter {
@@ -122,10 +149,6 @@ section.chapter {
 p, li, dd, blockquote, figcaption {
   orphans: 3;
   widows: 3;
-}
-
-h1, h2, h3 {
-  break-after: avoid;
 }
 
 figure, table, blockquote, .feature-box, .color-panel, .quiz {
@@ -194,11 +217,14 @@ dl.glossary dt {
   padding: 18mm 16mm 14mm;
 }
 
+/* Cover title: 34pt ≈ 45px, so opsz ≈ 45 to match what the browser
+   auto-sizes on the web cover sheet. */
 .cover-sheet h1 {
   font-size: 34pt;
   line-height: 1.1;
   color: #fff;
   margin: 0 0 8pt;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 45;
 }
 
 .cover-sheet .cover-sub {
@@ -208,6 +234,72 @@ dl.glossary dt {
 
 .frontmatter-sheet {
   page: frontmatter;
+}
+
+/* Page two uses the complete outlined wordmark instead of a separate title.
+   The cover remains photo + ordinary title, without a mascot. */
+.title-page-sheet {
+  /* A4 content height: 297mm minus the 20mm/22mm page margins above. */
+  height: 255mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.frontmatter-sheet .title-page-heading {
+  margin: 0 0 8mm;
+  line-height: 1;
+  flex: none;
+}
+.handbook-lockup {
+  display: block;
+  width: 160mm;
+  max-width: 100%;
+  height: auto;
+}
+.title-page-details {
+  flex: none;
+  font-family: "Clarity City", sans-serif;
+  font-size: 9pt;
+  line-height: 1.5;
+}
+.title-page-partners {
+  display: flex;
+  align-items: center;
+  gap: 12mm;
+  list-style: none;
+  margin: 0 0 7mm;
+  padding: 0;
+}
+.title-page-partner img {
+  display: block;
+  height: 12mm;
+  width: auto;
+  max-width: 48mm;
+  object-fit: contain;
+}
+.title-page-partner--wirmachen-wien img { height: 18mm; }
+.title-page-contributors { margin: 0; }
+.title-page-label {
+  font-size: 7.5pt;
+  color: #555;
+}
+.title-page-licence {
+  display: flex;
+  align-items: flex-start;
+  gap: 4mm;
+  border-top: 0.5pt solid #999;
+  padding-top: 5mm;
+  margin-top: 8mm;
+  font-size: 8pt;
+  line-height: 1.5;
+  color: #555;
+}
+.title-page-licence p { margin: 0; }
+.title-page-licence .title-page-cc {
+  flex: none;
+  width: 18mm;
+  height: auto;
+  margin-top: 0.5mm;
 }
 
 figure {

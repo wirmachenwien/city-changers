@@ -28,13 +28,15 @@ from __future__ import annotations
 
 import argparse
 import functools
+from html import escape
 import json
 import re
 import subprocess
 from pathlib import Path
+from typing import Callable
 
 from handbook.config import load_config
-from handbook.mdx import find_asset_by_basename, front_opener_for_pages, make_glossary_lang_re
+from handbook.mdx import find_asset_by_basename, front_opener_for_pages, make_glossary_lang_re, licence_html
 from handbook.typography import smart_quotes_html
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -104,14 +106,46 @@ def front_opener(lang: str) -> str:
     return front_opener_for_pages(PAGES, lang)
 
 
-def find_asset(filename: str) -> Path | None:
-    """Repo file backing a content image name (book, site, then public).
+def title_page_details_html(lang: str, work: dict, image_src: Callable[[str], str]) -> str:
+    """Shared PDF/EPUB credits: partner marks, contributors and legal attribution.
 
-    Site chrome lives in public/ (e.g. the official CC badge PNG, which
-    WeasyPrint can embed; SVG is not a supported image format for print).
+    Creator/publisher metadata stays in the catalogue and EPUB package, but
+    is not repeated as extra lines on the visual title page. The subtitle
+    already names the same organisations, so it remains on the cover only.
+    """
+    partners = json.loads((ROOT / "src/data/partners.json").read_text(encoding="utf-8"))
+    marks = []
+    for partner in partners:
+        modifier = f' title-page-partner--{partner["mod"]}' if partner.get("mod") else ""
+        marks.append(
+            f'<li class="title-page-partner{modifier}">'
+            f'<a href="{escape(partner["href"], quote=True)}">'
+            f'<img src="{escape(image_src(Path(partner["src"]).name), quote=True)}" '
+            f'alt="{escape(partner["name"], quote=True)}" '
+            f'width="{partner["width"]}" height="{partner["height"]}" /></a></li>'
+        )
+    contributor = work.get("contributor", "")
+    credits = (
+        '<p class="title-page-contributors">'
+        f'<span class="title-page-label">{escape(locale_text(lang, "metadata.contributor", "Contributors"))}</span>'
+        f'<br />{escape(contributor)}</p>'
+    ) if contributor else ""
+    return (
+        '<div class="title-page-details">'
+        f'<ul class="title-page-partners">{"".join(marks)}</ul>{credits}'
+        '<div class="title-page-licence">'
+        f'<img class="title-page-cc" src="{escape(image_src("cc-by-88x31.png"), quote=True)}" '
+        'alt="CC BY 4.0" width="88" height="31" />'
+        f'<div>{licence_html(lang, escape)}</div></div></div>'
+    )
+
+
+def find_asset(filename: str) -> Path | None:
+    """Repo file backing a content image name (book or site assets).
+
     The CMS image picker may store a repo-relative path; match by basename.
     """
-    return find_asset_by_basename(filename, ASSETS, ROOT)
+    return find_asset_by_basename(filename, ASSETS)
 
 
 def read_chapter_mdx(lang: str, slug: str) -> str | None:

@@ -3,9 +3,11 @@
 
 @import "katex/dist/katex.css";
 
-/* Self-hosted Newsreader Text (OFL, see OFL-Newsreader.txt) so body copy
-   renders identically online and in the WeasyPrint PDF, which embeds the
-   same files. Static instances at the text optical size (opsz 16). */
+/* Self-hosted Newsreader Text (OFL, see OFL-Newsreader.txt). Static instances
+   at the text optical size (opsz 16). It is the print body face: the
+   WeasyPrint PDF (src/styles/print.css) embeds the same files, and the
+   @media print block at the end of this stylesheet restores it for
+   browser printouts. On screens body copy now sets in Clarity City. */
 @font-face {
   font-family: "Newsreader";
   font-style: normal;
@@ -38,8 +40,31 @@
   src: url("../assets/fonts/NewsreaderText-BoldItalic.woff2") format("woff2");
 }
 
-/* Self-hosted Clarity City (OFL, see OFL-ClarityCity.txt): the title
-   face, in Regular and Bold (both from the @cds/city 1.1.0 release). */
+/* Self-hosted Fraunces (OFL, see OFL-Fraunces.txt): the headline face for
+   screens and browser printouts (the PDF pipeline uses its own TTF copy in
+   src/styles/print.css). Variable font — weight 100–900 plus the opsz, SOFT
+   and WONK axes. The axes stay open in the file; the presets
+   (--fraunces-vars, --fraunces-vars-display in :root) apply them per
+   element. */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fonts/Fraunces-Italic[SOFT,WONK,opsz,wght].woff2") format("woff2");
+}
+
+/* Self-hosted Clarity City (OFL, see OFL-ClarityCity.txt): Regular and Bold
+   (both from the @cds/city 1.1.0 release). On screens it sets body copy and
+   UI chrome (--font-text / --font-ui); in print it remains the UI face. */
 @font-face {
   font-family: "Clarity City";
   font-style: normal;
@@ -74,8 +99,20 @@
   --mark-ink: #1d1a16;
   --radius: 0.6rem;
   --measure: 44rem;
-  --font-text: "Newsreader", Georgia, "Times New Roman", serif;
-  --font-title: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Fraunces variable-axis presets, applied with font-variation-settings on
+     every element that sets in Fraunces (--font-title). Softness 75 and the
+     wonky alternates everywhere; the -display preset additionally pins the
+     optical size to the 80pt display cut (which also disables automatic
+     optical sizing for that element). Inert on Clarity City, which is not a
+     variable font. */
+  --fraunces-vars: "SOFT" 75, "WONK" 1;
+  --fraunces-vars-display: "SOFT" 75, "WONK" 1, "opsz" 80;
+  /* Web screens: headlines set in Fraunces (variable serif display face),
+     running text and UI in Clarity City (sans). The WeasyPrint PDF and
+     browser printouts keep the serif Newsreader body face but share the
+     Fraunces headlines; see src/styles/print.css. */
+  --font-text: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-title: "Fraunces", Georgia, "Times New Roman", serif;
   --font-ui: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -274,19 +311,12 @@ a[x-apple-data-detectors] {
 
 .brand {
   display: inline-flex;
+  flex: 0 0 auto;
+  min-inline-size: 0;
   align-items: center;
-  gap: 0.6rem;
   color: var(--ink);
   text-decoration: none;
-  font-family: var(--font-title);
-  font-weight: 700;
-  font-size: 1rem;
   margin-inline-end: auto;
-}
-
-.brand img {
-  inline-size: 2rem;
-  block-size: 2rem;
 }
 
 .menu-toggle {
@@ -724,6 +754,17 @@ body.drawer-open {
   font-weight: 700;
   line-height: 1.25;
   text-wrap: balance;
+  font-variation-settings: var(--fraunces-vars);
+}
+
+/* Everything below the h1 pins Fraunces to the 80pt display cut, so the
+   small subheads get the same high-contrast, delicate-serif drawing as the
+   big ones instead of the sturdier text cut that automatic optical sizing
+   would pick for their rendered size. h1 keeps automatic optical sizing. */
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-variation-settings: var(--fraunces-vars-display);
 }
 
 .prose h1 {
@@ -1925,6 +1966,14 @@ html:not(.js-fold) .accordion-content {
   font-weight: 700;
   line-height: 1.25;
   text-wrap: balance;
+  font-variation-settings: var(--fraunces-vars);
+}
+
+/* Same display-cut rule as .prose above: only h1 stays on automatic
+   optical sizing. */
+.sheet h2,
+.sheet h3 {
+  font-variation-settings: var(--fraunces-vars-display);
 }
 
 /* The contents sheet heading matches a chapter h1 exactly (same size and
@@ -1965,12 +2014,14 @@ html:not(.js-fold) .accordion-content {
 .metadata-table dt {
   font-family: var(--font-title);
   font-weight: 700;
+  font-variation-settings: var(--fraunces-vars);
 }
 
 .metadata-table dd {
   margin: 0;
   font-family: var(--font-title);
   font-weight: 400;
+  font-variation-settings: var(--fraunces-vars);
 }
 
 /* ---------- Contents ---------- */
@@ -2401,6 +2452,10 @@ input[type="search"]::placeholder {
   :root[data-theme="dark"],
   :root:not([data-theme]) {
     color-scheme: light;
+    /* Print keeps the serif Newsreader body face (as does the WeasyPrint
+       PDF, src/styles/print.css) but now shares the web's Fraunces
+       headlines — same --fraunces-vars presets as on screen. */
+    --font-text: "Newsreader", Georgia, "Times New Roman", serif;
     --paper: #ffffff;
     --ink: #111111;
     --ink-soft: #444444;

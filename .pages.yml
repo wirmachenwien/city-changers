@@ -200,6 +200,53 @@ content:
                   - name: margin
                     type: string
 
+  - name: partners
+    label: Partner organisations
+    type: file
+    path: src/data/partners.json
+    format: json
+    list: true
+    operations:
+      create: false
+      delete: false
+    fields:
+      - name: name
+        label: Name
+        description: Used as the alt text of the mark.
+        type: string
+        required: true
+      - name: href
+        label: Website
+        type: string
+        required: true
+      - name: src
+        label: Logo
+        description: Pick a mark from Site images (src/assets/site).
+        type: image
+        required: true
+        options:
+          media: site_images
+          path: src/assets/site
+          extensions: [svg, png]
+      - name: width
+        label: Width (px)
+        description: Intrinsic pixel width of the logo file. Sets the aspect ratio in HTML; the PDF/EPUB title page sizes the mark from it.
+        type: number
+        required: true
+        options:
+          min: 1
+      - name: height
+        label: Height (px)
+        description: Intrinsic pixel height of the logo file.
+        type: number
+        required: true
+        options:
+          min: 1
+      - name: mod
+        label: Style modifier
+        description: CSS class suffix (partner-logos__logo--…) for marks that need a different height. Leave empty for the default.
+        type: string
+
   - name: language_de
     label: "Deutsch"
     type: group

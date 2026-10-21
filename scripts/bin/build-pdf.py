@@ -19,6 +19,7 @@ import json
 import math
 import re
 import sys
+from html import escape
 from pathlib import Path
 
 # Entry point in scripts/bin/: add scripts/ to sys.path so the handbook
@@ -43,6 +44,7 @@ from handbook.book import (
     read_chapter_mdx,
     render_math_html,
     resolve_jobs,
+    title_page_details_html,
 )
 from handbook.mdx import (
     CCBADGE_RE,
@@ -340,12 +342,11 @@ def build_document(lang: str) -> str:
             continue
         if slug == "0-1-titlepage":
             parts.append(
-                '<section class="chapter frontmatter-sheet" id="file-0-1-titlepage">'
-                f"<h1>{title}</h1><p>{works.get('subtitle', '')}</p>"
-                f"<p>{works.get('creator', '')}</p>"
-                f"<p>{works.get('contributor', '')}</p>"
-                f"<p>{works.get('publisher', '')}</p>"
-                f"{cc_badge_html()}{licence_html(lang)}</section>"
+                '<section class="chapter frontmatter-sheet title-page-sheet" id="file-0-1-titlepage">'
+                '<h1 class="title-page-heading">'
+                f'<img class="handbook-lockup" src="{image_uri("logo-lockup.png")}" alt="{escape(title, quote=True)}" width="960" height="256">'
+                '</h1>'
+                f'{title_page_details_html(lang, works, image_uri)}</section>'
             )
             continue
         # The contents sheet is virtual too: generated from the catalogue.

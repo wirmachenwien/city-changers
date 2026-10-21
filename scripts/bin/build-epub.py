@@ -48,6 +48,7 @@ from handbook.book import (
     read_chapter_mdx,
     render_math_html,
     resolve_jobs,
+    title_page_details_html,
 )
 from handbook.mdx import (
     CCBADGE_RE,
@@ -81,8 +82,11 @@ def _attr(text: str) -> str:
     """Escape a string for use in an id/href/alt attribute value."""
     return html.escape(text, quote=True)
 
-# Body and title faces embedded in every EPUB so covers and chapters render
-# in Newsreader/Clarity City on any reader.
+# Body, UI and headline faces embedded in every EPUB so covers and chapters
+# render in Newsreader/Clarity City/Fraunces on any reader. The Fraunces
+# files are static instances of the variable font (see src/styles/epub.css
+# for the axis values and the one-line instancer commands) — reading systems
+# apply font-variation-settings too inconsistently to ship the live file.
 EPUB_FONTS = (
     "NewsreaderText-Regular.ttf",
     "NewsreaderText-Italic.ttf",
@@ -90,6 +94,10 @@ EPUB_FONTS = (
     "NewsreaderText-BoldItalic.ttf",
     "ClarityCity-Regular.ttf",
     "ClarityCity-Bold.ttf",
+    "FrauncesText-Bold.ttf",
+    "FrauncesText-BoldItalic.ttf",
+    "FrauncesDisplay-Bold.ttf",
+    "FrauncesDisplay-BoldItalic.ttf",
 )
 
 
@@ -262,6 +270,12 @@ class EpubBook:
 
         cover_name = front_opener(self.lang) or self.works.get("image") or ""
         self.cover_image = self.add_image(cover_name) if cover_name else ""
+        lockup = self.add_image("logo-lockup.png")
+        title_heading = (
+            '<h1 class="title-page-heading">'
+            f'<img class="handbook-lockup" src="{_attr(lockup)}" alt="{_attr(self.works["title"])}" width="960" height="256" />'
+            '</h1>'
+        )
 
         for slug in files:
             title = labels.get(slug, self.works["title"])
@@ -287,12 +301,8 @@ class EpubBook:
                 continue
             if slug == "0-1-titlepage":
                 body = (
-                    f'<section><h1>{html.escape(self.works["title"])}</h1>'
-                    f'<p>{html.escape(self.works.get("subtitle", ""))}</p>'
-                    f'<p>{html.escape(self.works.get("creator", ""))}</p>'
-                    f'<p>{html.escape(self.works.get("contributor", ""))}</p>'
-                    f'<p>{html.escape(self.works.get("publisher", ""))}</p>'
-                    f"{self.cc_badge_html()}{licence_html(self.lang, html.escape)}</section>"
+                    f'<section class="title-page-sheet">{title_heading}'
+                    f'{title_page_details_html(self.lang, self.works, self.add_image)}</section>'
                 )
                 self.add_chapter(slug, title, body)
                 continue

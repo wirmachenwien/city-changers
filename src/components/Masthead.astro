@@ -9,6 +9,7 @@ import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
 import LanguageMenu from './LanguageMenu.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import BrandLogo from './BrandLogo.astro';
 
 interface Props {
   lang: Language;
@@ -24,8 +25,7 @@ const searchParam = settings.web.search.param;
   <div class="site-head-inner">
     <div class="site-head-main">
       <a class="brand" href={withBase(lang === DEFAULT_LANG ? '/' : `/${lang}/`)}>
-        <img src={withBase('/logo.svg')} alt="" width="32" height="32" loading="eager" decoding="async" />
-        <span>{smartQuotes(text.name, lang)}</span>
+        <BrandLogo label={smartQuotes(text.name, lang)} />
       </a>
       <button type="button" class="menu-toggle" data-drawer-toggle aria-expanded="false" aria-label={t(lang, 'nav.menu', 'Menu')}>
         <span class="menu-icon"><Icon name="menu" /></span>

@@ -1,6 +1,8 @@
 # build output
 dist/
 dist-pdf/
+# local design explorations, source artwork, export tooling and previews
+/design/
 # generated types
 .astro/
 
