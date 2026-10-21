@@ -2,7 +2,6 @@
 title: Component Showcase
 lang: en
 ---
-
 # Component Showcase
 
 This page is your Markdown reference. Markdown is the simple formatting language used to write all handbook chapters.
@@ -108,6 +107,31 @@ Here are all components specific to this handbook. You can copy and paste them f
     Bellermann neighbourhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.
   </Figure>
 </div>
+
+Here’s a ready-to-paste English version of the instructions from the current page: [[1]](https://app.notion.com/p/Feedback-von-Zala-und-Valentina-einarbeiten-Zala-slowenische-Version-bersetzen-lassen-Manual-ab-3f170b0af75280a68d5dee8ec5459464?pvs=21)
+
+## Adding images
+
+For examples, see the photos in Chapter 2:
+
+```
+<Figure src={"src/assets/book/berlin-kiezblock-bellermann.jpg"} alt={"Temporary closure and public space in the Bellermann neighborhood block in Berlin-Mitte."}>
+Bellermann neighborhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.
+</Figure>
+```
+
+Manually change the filename in `src`—for example, from `src/assets/book/berlin-kiezblock-bellermann.jpg` to `src/assets/book/conversation-tool.png`.
+
+Be sure to update the alt text too. It’s used by screen readers and displayed if the image doesn’t load. The text inside the `<Figure>` tag becomes the caption underneath the image.
+
+You can also put several figures in a slideshow:
+
+```
+<Slideshow label="Sample images">
+  <Figure src="lendplatz-graz-tactical-urbanism.jpg" alt="Lendplatz in Graz">Lendplatz in Graz.</Figure>
+  <Figure src="galileigasse-tactical-urbanism.jpg" alt="Galileigasse in Vienna">Galileigasse in Vienna.</Figure>
+</Slideshow>
+```
 
 Use <code>size="small"</code> or <code>size="medium"</code> to make a figure narrower without floating it. Add <code>float="left"</code> or <code>float="right"</code> when surrounding text should wrap around the image on wider screens; <code>float="center"</code> centers a narrower figure as a block.
 
