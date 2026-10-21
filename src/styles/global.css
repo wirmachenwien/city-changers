@@ -102,11 +102,11 @@
   /* Fraunces variable-axis presets, applied with font-variation-settings on
      every element that sets in Fraunces (--font-title). Softness 75 and the
      wonky alternates everywhere; the -display preset additionally pins the
-     optical size to the 144pt display cut (which also disables automatic
+     optical size to the 80pt display cut (which also disables automatic
      optical sizing for that element). Inert on Clarity City, which is not a
      variable font. */
   --fraunces-vars: "SOFT" 75, "WONK" 1;
-  --fraunces-vars-display: "SOFT" 75, "WONK" 1, "opsz" 144;
+  --fraunces-vars-display: "SOFT" 75, "WONK" 1, "opsz" 80;
   /* Web screens: headlines set in Fraunces (variable serif display face),
      running text and UI in Clarity City (sans). The WeasyPrint PDF and
      browser printouts keep the serif Newsreader body face but share the
@@ -757,7 +757,7 @@ body.drawer-open {
   font-variation-settings: var(--fraunces-vars);
 }
 
-/* Everything below the h1 pins Fraunces to the 144pt display cut, so the
+/* Everything below the h1 pins Fraunces to the 80pt display cut, so the
    small subheads get the same high-contrast, delicate-serif drawing as the
    big ones instead of the sturdier text cut that automatic optical sizing
    would pick for their rendered size. h1 keeps automatic optical sizing. */

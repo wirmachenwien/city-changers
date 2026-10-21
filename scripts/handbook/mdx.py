@@ -185,19 +185,18 @@ def chapter_lists(work: dict) -> tuple[list[str], list[dict]]:
     return files, toc
 
 
-def find_asset_by_basename(filename: str, assets_dir: Path, root: Path) -> Path | None:
-    """Repo file backing a content image name (book, site, then public).
+def find_asset_by_basename(filename: str, assets_dir: Path) -> Path | None:
+    """Repo file backing a content image name (book, then site assets).
 
-    The CMS image picker may store a repo-relative path; match by basename.
+    Site chrome (CC badge, partner marks) lives in src/assets/site alongside
+    the book images. The CMS image picker may store a repo-relative path;
+    match by basename.
     """
     name = filename.rsplit("/", 1)[-1]
     for folder in ("book", "site"):
         candidate = assets_dir / folder / name
         if candidate.exists():
             return candidate
-    candidate = root / "public" / "images" / name
-    if candidate.exists():
-        return candidate
     return None
 
 

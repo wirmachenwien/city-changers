@@ -48,6 +48,7 @@ from handbook.book import (
     read_chapter_mdx,
     render_math_html,
     resolve_jobs,
+    title_page_details_html,
 )
 from handbook.mdx import (
     CCBADGE_RE,
@@ -300,12 +301,8 @@ class EpubBook:
                 continue
             if slug == "0-1-titlepage":
                 body = (
-                    f'<section>{title_heading}'
-                    f'<p>{html.escape(self.works.get("subtitle", ""))}</p>'
-                    f'<p>{html.escape(self.works.get("creator", ""))}</p>'
-                    f'<p>{html.escape(self.works.get("contributor", ""))}</p>'
-                    f'<p>{html.escape(self.works.get("publisher", ""))}</p>'
-                    f"{self.cc_badge_html()}{licence_html(self.lang, html.escape)}</section>"
+                    f'<section class="title-page-sheet">{title_heading}'
+                    f'{title_page_details_html(self.lang, self.works, self.add_image)}</section>'
                 )
                 self.add_chapter(slug, title, body)
                 continue

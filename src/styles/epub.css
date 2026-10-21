@@ -50,12 +50,12 @@
    Fraunces' default: wght 900, opsz 9 — nothing like the intended cut). So the
    two optical cuts are baked into static instances instead, named as two
    families so they can coexist in one book:
-     Fraunces Text    — opsz 29,  the cut for chapter titles (h1, cover)
-     Fraunces Display — opsz 144, the cut for subheads (h2, h3), as on the web
+     Fraunces Text    — opsz 29, the cut for chapter titles (h1, cover)
+     Fraunces Display — opsz 80, the cut for subheads (h2, h3), as on the web
    Both are instanced at wght 700 with SOFT 75 and WONK 1 baked in, so every
    reader shows exactly the same letterforms. Regenerate with:
      fonttools varLib.instancer "Fraunces[SOFT,WONK,opsz,wght].ttf" \
-       wght=700 opsz=<29|144> SOFT=75 WONK=1
+       wght=700 opsz=<29|80> SOFT=75 WONK=1
    (scripts/bin/build-epub.py embeds the four files listed in EPUB_FONTS.) */
 @font-face {
   font-family: "Fraunces Text";
@@ -183,6 +183,12 @@ figcaption {
   font-size: 1.1em;
   margin: 0;
 }
+.title-page-sheet {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .title-page-heading {
   margin: 0 0 1em;
   line-height: 1;
@@ -192,6 +198,42 @@ figcaption {
   width: 100%;
   max-width: 36rem;
   height: auto;
+}
+.title-page-details {
+  margin-top: 4em;
+  font-family: "Clarity City", sans-serif;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+.title-page-partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5em;
+  list-style: none;
+  margin: 0 0 1.5em;
+  padding: 0;
+}
+.title-page-partner img {
+  height: 2.5em;
+  width: auto;
+  max-width: 10em;
+  object-fit: contain;
+}
+.title-page-partner--wirmachen-wien img { height: 3.75em; }
+.title-page-contributors { margin: 0; }
+.title-page-label { font-size: 0.85em; }
+.title-page-licence {
+  border-top: 1px solid #999;
+  padding-top: 1em;
+  margin-top: 2em;
+  font-size: 0.85em;
+}
+.title-page-licence p { margin: 0; }
+.title-page-licence .title-page-cc {
+  width: 5em;
+  height: auto;
+  margin-bottom: 0.75em;
 }
 /* Component styles mirror the print stylesheet (src/styles/print.css):
    tip boxes, pull quotes, glossary lists, quiz boxes and tables.

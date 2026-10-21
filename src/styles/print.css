@@ -111,7 +111,7 @@ body {
    optical sizing on its own, so each rule pins opsz explicitly: the cover
    and chapter titles get the cut matching their rendered size (opsz tracks
    the font size in CSS px in the browser), everything smaller gets the
-   144pt display cut, exactly like h2–h4 on the web. */
+   80pt display cut, exactly like h2–h4 on the web. */
 h1, h2, h3 {
   font-family: "Fraunces", Georgia, "Times New Roman", serif;
   font-weight: 700;
@@ -131,12 +131,12 @@ h1 {
 h2 {
   font-size: 15pt;
   margin: 18pt 0 6pt;
-  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 144;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 80;
 }
 
 h3 {
   font-size: 12pt;
-  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 144;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 80;
 }
 
 section.chapter {
@@ -238,15 +238,68 @@ dl.glossary dt {
 
 /* Page two uses the complete outlined wordmark instead of a separate title.
    The cover remains photo + ordinary title, without a mascot. */
+.title-page-sheet {
+  /* A4 content height: 297mm minus the 20mm/22mm page margins above. */
+  height: 255mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .frontmatter-sheet .title-page-heading {
   margin: 0 0 8mm;
   line-height: 1;
+  flex: none;
 }
 .handbook-lockup {
   display: block;
   width: 160mm;
   max-width: 100%;
   height: auto;
+}
+.title-page-details {
+  flex: none;
+  font-family: "Clarity City", sans-serif;
+  font-size: 9pt;
+  line-height: 1.5;
+}
+.title-page-partners {
+  display: flex;
+  align-items: center;
+  gap: 12mm;
+  list-style: none;
+  margin: 0 0 7mm;
+  padding: 0;
+}
+.title-page-partner img {
+  display: block;
+  height: 12mm;
+  width: auto;
+  max-width: 48mm;
+  object-fit: contain;
+}
+.title-page-partner--wirmachen-wien img { height: 18mm; }
+.title-page-contributors { margin: 0; }
+.title-page-label {
+  font-size: 7.5pt;
+  color: #555;
+}
+.title-page-licence {
+  display: flex;
+  align-items: flex-start;
+  gap: 4mm;
+  border-top: 0.5pt solid #999;
+  padding-top: 5mm;
+  margin-top: 8mm;
+  font-size: 8pt;
+  line-height: 1.5;
+  color: #555;
+}
+.title-page-licence p { margin: 0; }
+.title-page-licence .title-page-cc {
+  flex: none;
+  width: 18mm;
+  height: auto;
+  margin-top: 0.5mm;
 }
 
 figure {

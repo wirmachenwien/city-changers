@@ -1,7 +1,10 @@
 ---
 // Shared active identity. The wordmark is outlined from the user's v5;
 // duplicate artwork is decorative, with one accessible name on the wrapper.
-import { withBase } from '../lib/site';
+import lockup from '../assets/site/logo-lockup.svg?url';
+import lockupDark from '../assets/site/logo-lockup-dark.svg?url';
+import symbol from '../assets/site/logo.svg?url';
+import symbolDark from '../assets/site/logo-dark.svg?url';
 
 interface Props {
   variant?: 'lockup' | 'symbol';
@@ -9,12 +12,11 @@ interface Props {
 }
 
 const { variant = 'lockup', label = '' } = Astro.props;
-const stem = variant === 'lockup' ? 'logo-lockup' : 'logo';
 const width = variant === 'lockup' ? 960 : 256;
 ---
 <span class:list={['brand-art', `brand-art--${variant}`]} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'}>
-  <img class="brand-art__light" src={withBase(`/${stem}.svg`)} alt="" width={width} height="256" loading="eager" decoding="async" />
-  <img class="brand-art__dark" src={withBase(`/${stem}-dark.svg`)} alt="" width={width} height="256" loading="eager" decoding="async" />
+  <img class="brand-art__light" src={variant === 'lockup' ? lockup : symbol} alt="" width={width} height="256" loading="eager" decoding="async" />
+  <img class="brand-art__dark" src={variant === 'lockup' ? lockupDark : symbolDark} alt="" width={width} height="256" loading="eager" decoding="async" />
 </span>
 
 <style>
