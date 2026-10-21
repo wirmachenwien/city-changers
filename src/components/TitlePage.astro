@@ -3,6 +3,7 @@
 import { getWork } from '../data/works';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import BrandLogo from './BrandLogo.astro';
 
 interface Props {
   lang: Language;
@@ -14,10 +15,17 @@ const work = getWork(lang);
 const sq = (value: string) => smartQuotes(value, lang);
 ---
 <div class="sheet title-sheet">
+  <h1 class="title-sheet__logo"><BrandLogo label={sq(work.title)} /></h1>
   <p>{sq(work.type)}</p>
-  <h1>{sq(work.title)}</h1>
   {work.subtitle && <p>{sq(work.subtitle)}</p>}
   {work.creator && <p>{sq(work.creator)}</p>}
   {work.contributor && <p>{sq(work.contributor)}</p>}
   {work.publisher && <p>{sq(work.publisher)}</p>}
 </div>
+
+<style>
+  .title-sheet__logo :global(.brand-art) {
+    inline-size: 32rem;
+    max-inline-size: 100%;
+  }
+</style>

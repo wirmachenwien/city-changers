@@ -30,6 +30,7 @@
   font-weight: 700;
   src: url("../fonts/NewsreaderText-BoldItalic.ttf");
 }
+/* Self-hosted Clarity City (OFL, see OFL-ClarityCity.txt): the UI face. */
 @font-face {
   font-family: "Clarity City";
   font-style: normal;
@@ -42,14 +43,59 @@
   font-weight: 700;
   src: url("../fonts/ClarityCity-Bold.ttf");
 }
+/* Self-hosted Fraunces (OFL, see OFL-Fraunces.txt): the headline face,
+   matching the website and the PDF. The source is a variable font with
+   wght/opsz/SOFT/WONK axes; EPUB reading systems apply font-variation-settings
+   inconsistently (and where they ignore it, the instance they fall back to is
+   Fraunces' default: wght 900, opsz 9 — nothing like the intended cut). So the
+   two optical cuts are baked into static instances instead, named as two
+   families so they can coexist in one book:
+     Fraunces Text    — opsz 29,  the cut for chapter titles (h1, cover)
+     Fraunces Display — opsz 144, the cut for subheads (h2, h3), as on the web
+   Both are instanced at wght 700 with SOFT 75 and WONK 1 baked in, so every
+   reader shows exactly the same letterforms. Regenerate with:
+     fonttools varLib.instancer "Fraunces[SOFT,WONK,opsz,wght].ttf" \
+       wght=700 opsz=<29|144> SOFT=75 WONK=1
+   (scripts/bin/build-epub.py embeds the four files listed in EPUB_FONTS.) */
+@font-face {
+  font-family: "Fraunces Text";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/FrauncesText-Bold.ttf");
+}
+@font-face {
+  font-family: "Fraunces Text";
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/FrauncesText-BoldItalic.ttf");
+}
+@font-face {
+  font-family: "Fraunces Display";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/FrauncesDisplay-Bold.ttf");
+}
+@font-face {
+  font-family: "Fraunces Display";
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/FrauncesDisplay-BoldItalic.ttf");
+}
 body {
   font-family: "Newsreader", Georgia, serif;
   line-height: 1.45;
 }
+/* Headlines set in Fraunces, as on the web and in the PDF: chapter titles
+   in the text cut, everything below them in the display cut. Georgia is the
+   serif fallback, so a reader that refuses the embedded faces still gets a
+   matching texture rather than a sans headline. */
 h1, h2, h3 {
-  font-family: "Clarity City", Helvetica, sans-serif;
+  font-family: "Fraunces Text", "Fraunces Display", Georgia, serif;
   font-weight: 700;
   line-height: 1.15;
+}
+h2, h3 {
+  font-family: "Fraunces Display", Georgia, serif;
 }
 img {
   display: block;
@@ -136,6 +182,16 @@ figcaption {
 .cover-full .cover-sub {
   font-size: 1.1em;
   margin: 0;
+}
+.title-page-heading {
+  margin: 0 0 1em;
+  line-height: 1;
+}
+.handbook-lockup {
+  display: block;
+  width: 100%;
+  max-width: 36rem;
+  height: auto;
 }
 /* Component styles mirror the print stylesheet (src/styles/print.css):
    tip boxes, pull quotes, glossary lists, quiz boxes and tables.

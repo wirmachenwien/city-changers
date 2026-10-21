@@ -22,12 +22,13 @@ const DARK_PAPER = '#161511';
 
 type ThemeMode = 'light' | 'dark' | 'system';
 
-function readMode(): ThemeMode {
+function readMode(fallback: ThemeMode = 'system'): ThemeMode {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw === 'light' || raw === 'dark') return raw;
   } catch {
-    // Private mode / disabled storage: fall through to system.
+    // Preserve the in-memory choice if storage is unavailable.
+    return fallback;
   }
   return 'system';
 }
@@ -85,18 +86,23 @@ export function applyTheme(mode: ThemeMode): void {
 }
 
 export function initTheme(): void {
-  applyTheme(readMode());
+  // Track the current choice in memory too: blocked localStorage must not
+  // make every click behave like the first one.
+  let mode = readMode();
+  applyTheme(mode);
+
+  function selectMode(next: ThemeMode): void {
+    mode = next;
+    writeMode(next);
+    applyTheme(next);
+  }
 
   for (const button of document.querySelectorAll('[data-theme-toggle]')) {
     button.addEventListener('click', () => {
-      // Alternate between "system" and an explicit override opposite to it:
-      // leaving system pins the opposite theme, leaving an override returns
-      // to following the OS. The opposite is resolved live so an OS change
-      // while overridden still lands on the correct counterpart.
-      const next: ThemeMode =
-        readMode() === 'system' ? (systemIsDark() ? 'light' : 'dark') : 'system';
-      writeMode(next);
-      applyTheme(next);
+      // Always change the visible theme, including when a stored explicit
+      // choice already equals the OS. Still return to system when possible.
+      const target = effective(mode) === 'dark' ? 'light' : 'dark';
+      selectMode(target === effective('system') ? 'system' : target);
     });
   }
 
@@ -106,19 +112,23 @@ export function initTheme(): void {
   // it back to system. A pin that still differs is genuine user intent and
   // is left alone.
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    const stored = readMode();
-    if (stored === 'system') {
+    if (mode === 'system') {
       applyTheme('system');
-    } else if (stored === effective('system')) {
-      writeMode('system');
-      applyTheme('system');
+    } else if (mode === effective('system')) {
+      selectMode('system');
     }
   });
 
   // bfcache restores can skip suspended listeners across an OS flip while
   // frozen; re-sync on return. Same for a toggle made in another tab.
-  window.addEventListener('pageshow', () => applyTheme(readMode()));
+  window.addEventListener('pageshow', () => {
+    mode = readMode(mode);
+    applyTheme(mode);
+  });
   window.addEventListener('storage', (event) => {
-    if (event.key === STORAGE_KEY) applyTheme(readMode());
+    if (event.key === STORAGE_KEY || event.key === null) {
+      mode = readMode();
+      applyTheme(mode);
+    }
   });
 }

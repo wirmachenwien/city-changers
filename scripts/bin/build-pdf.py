@@ -19,6 +19,7 @@ import json
 import math
 import re
 import sys
+from html import escape
 from pathlib import Path
 
 # Entry point in scripts/bin/: add scripts/ to sys.path so the handbook
@@ -341,7 +342,9 @@ def build_document(lang: str) -> str:
         if slug == "0-1-titlepage":
             parts.append(
                 '<section class="chapter frontmatter-sheet" id="file-0-1-titlepage">'
-                f"<h1>{title}</h1><p>{works.get('subtitle', '')}</p>"
+                '<h1 class="title-page-heading">'
+                f'<img class="handbook-lockup" src="{image_uri("logo-lockup.png")}" alt="{escape(title, quote=True)}" width="960" height="256">'
+                f"</h1><p>{works.get('subtitle', '')}</p>"
                 f"<p>{works.get('creator', '')}</p>"
                 f"<p>{works.get('contributor', '')}</p>"
                 f"<p>{works.get('publisher', '')}</p>"
