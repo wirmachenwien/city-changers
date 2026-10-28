@@ -235,7 +235,7 @@ function partnersFile() {
         required: true
       - name: src
         label: Logo
-        description: Pick a mark from Site images (src/assets/site).
+        description: Pick a mark from the canonical partner and credit marks library.
         type: image
         required: true
         options:

@@ -262,6 +262,32 @@ if (!existsSync(sitemapFile)) {
   console.log(`sitemap: ${locs.length} entries, all expected pages covered`);
 }
 
+// Team references must remain reachable by URL, but never discoverable from
+// public navigation, the sitemap, or search content. Also verify their downloads.
+for (const preview of ['component-showcase', 'brand-guide']) {
+  const rel = `preview/${preview}.html`;
+  const html = readPage(rel);
+  if (!html) continue;
+  if (!/<meta[^>]*name="robots"[^>]*content="noindex"/.test(html)) fail(`${rel}: missing noindex`);
+  if (!/<body[^>]*data-pagefind-ignore/.test(html)) fail(`${rel}: missing Pagefind exclusion`);
+  const expectedCanonical = `${site}${BASE}/${rel}`;
+  if (!html.includes(`rel="canonical" href="${expectedCanonical}"`)) fail(`${rel}: incorrect canonical URL`);
+  for (const href of links(html)) {
+    const resolved = resolveUrl(rel, href);
+    if (!resolved?.startsWith(`${BASE}/brand-assets/`)) continue;
+    const local = decodeURIComponent(resolved.slice(BASE.length + 1).split(/[?#]/)[0]);
+    if (!existsSync(join(DIST_DIR, local))) fail(`${rel}: missing asset download ${href}`);
+  }
+  for (const lang of LANGS) {
+    for (const file of PAGE_FILES) {
+      const page = readPage(pagePath(lang, 'page', file));
+      if (page && links(page).some((href) => href.includes(`/preview/${preview}.html`))) {
+        fail(`${rel}: linked from public navigation`);
+      }
+    }
+  }
+}
+
 console.log(`Checked ${checked} pages: language, switching, navigation, search routing, images and local links.`);
 if (reporter.hasFailures()) {
   console.error(`${reporter.failures} check(s) failed`);

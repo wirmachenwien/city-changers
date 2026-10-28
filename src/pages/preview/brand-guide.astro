@@ -1,0 +1,69 @@
+---
+import { readFileSync } from 'node:fs';
+import Guide from '../../../design/brand-guide.md';
+import guideSource from '../../../design/brand-guide.md?raw';
+import PreviewLayout from '../../layouts/PreviewLayout.astro';
+import { withBase } from '../../lib/site';
+
+type Asset = { file: string; title: string; bytes: number };
+const assets: Asset[] = JSON.parse(readFileSync(new URL('../../../public/brand-assets/catalog.json', import.meta.url), 'utf8'));
+const groups = [...new Set(assets.map((asset) => asset.title))];
+const assetUrl = (file: string) => withBase(`/brand-assets/files/${file.split('/').map(encodeURIComponent).join('/')}`);
+const colours = [...guideSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
+---
+<PreviewLayout lang="en" title="Brand guide" path="/preview/brand-guide.html">
+  <p class="team-note">Team reference · unlisted, not private. Check permissions before reusing supporting images.</p>
+  <Guide />
+  <h2>Brand examples</h2>
+  <h3>Colour reference</h3>
+  <ul class="asset-grid">
+    {colours.map(([, name, hex, description]) => (
+      <li>
+        <span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span>
+        <strong>{name.trim()}</strong> <code>{hex}</code>
+        <small>{description}</small>
+      </li>
+    ))}
+  </ul>
+  <h3>Typography</h3>
+  <p class="type-headline">Fraunces — Small steps. Better streets.</p>
+  <p class="type-caption">Clarity City — Practical tools for community action.</p>
+  <p class="type-editorial">Newsreader — Longer stories from the neighbourhood.</p>
+  <h2>Asset library</h2>
+  <p>These downloads and the handoff kit come from the same asset manifest. Generated animations still need visual review before publication.</p>
+  <p><a href={withBase('/brand-assets/city-changers-brand-kit.zip')} download>Download the complete brand kit (ZIP)</a></p>
+  <p><a href={assetUrl('BRAND-GUIDE.md')} download>Download this guide (Markdown)</a></p>
+  {groups.map((title) => (
+    <section aria-label={title}>
+      <h3>{title}</h3>
+      <ul class="asset-grid">
+        {assets.filter((asset) => asset.title === title).map((asset) => (
+          <li>
+            {/\.(png|svg|jpg)$/i.test(asset.file) && (
+              <div class:list={['asset-preview', { 'asset-preview-dark': /linen|dark/.test(asset.file) }]}>
+                <img src={assetUrl(asset.file)} alt="" loading="lazy" width="240" height="180" />
+              </div>
+            )}
+            <a href={assetUrl(asset.file)} download>{asset.file.split('/').slice(-2).join('/')}</a>
+            <small>{asset.bytes < 1024 * 1024 ? `${Math.ceil(asset.bytes / 1024)} KB` : `${(asset.bytes / 1024 / 1024).toFixed(1)} MB`}</small>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</PreviewLayout>
+
+<style>
+  .team-note { border-inline-start: 3px solid currentColor; padding-inline-start: 1rem; }
+  .asset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; list-style: none; padding: 0; }
+  .asset-grid li { border: 1px solid currentColor; border-radius: .5rem; padding: .75rem; min-width: 0; }
+  .asset-grid a { display: flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
+  .asset-grid small { display: block; }
+  .asset-preview { background: #fdfcf9; border-radius: .25rem; padding: .75rem; }
+  .asset-preview-dark { background: #161511; }
+  .asset-preview img { width: 100%; height: 180px; object-fit: contain; }
+  .swatch { display: block; height: 3rem; border: 1px solid currentColor; margin-block-end: .75rem; }
+  .type-headline { font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; }
+  .type-caption { font-family: 'Clarity City', sans-serif; }
+  .type-editorial { font-family: 'Newsreader', Georgia, serif; font-size: 1.25rem; }
+</style>

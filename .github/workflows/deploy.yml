@@ -27,6 +27,9 @@ jobs:
       - name: Set up toolchain
         uses: ./.github/actions/setup
 
+      - name: Rebuild changed design assets
+        uses: ./.github/actions/design
+
       - name: Set up GitHub Pages
         uses: actions/configure-pages@v5
 

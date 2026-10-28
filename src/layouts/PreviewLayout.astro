@@ -8,10 +8,11 @@ import type { Language } from '../data/locales';
 interface Props {
   lang: Language;
   title?: string;
+  path?: string;
 }
 
-const { lang, title = 'Preview' } = Astro.props;
-const url = withBase('/preview/component-showcase.html');
+const { lang, title = 'Preview', path = '/preview/component-showcase.html' } = Astro.props;
+const url = withBase(path);
 ---
 <BaseLayout lang={lang} title={title} kind="page" file="index" currentUrl={url} noindex hreflang={false}>
   <div class="prose" data-prose>

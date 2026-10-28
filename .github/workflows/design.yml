@@ -1,0 +1,32 @@
+name: Design assets
+
+# Main pushes and pull requests are also covered by deploy.yml and ci.yml.
+# This additionally builds design edits pushed to branches without an open PR.
+on:
+  push:
+    branches-ignore: [main]
+    paths:
+      - 'design/**'
+      - 'src/assets/**'
+      - 'public/favicon.*'
+      - 'public/apple-touch-icon.png'
+      - 'public/icon-*.png'
+      - 'public/site.webmanifest'
+      - '.github/actions/design/**'
+      - '.github/workflows/design.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: design-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/design
