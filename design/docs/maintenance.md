@@ -1,0 +1,106 @@
+# Maintaining the brand library
+
+## Ownership and edit points
+
+| Location | Responsibility |
+| --- | --- |
+| `design/brand-guide.md` | Sole brand-guide source for the website and handoff |
+| `design/manifest.json` | Shared inventory of application assets for website downloads and the handoff |
+| `design/assets/logo/logo-lockup.svg` | Sole editable full-logo master; never overwritten by generation |
+| `src/assets/site/` | Derived logos, application lockup copy, PNGs, link preview and supporting marks |
+| `design/assets/mascot/source/poses.json` | Static pose definitions, also consumed by motion |
+| `src/assets/mascot/` | Stills, preview sheet, Lottie and transparent MOV exports |
+| `src/assets/fonts/` | Fonts with their OFL notices |
+| `src/assets/book/` | Handbook reference images |
+| `public/` | Generated web icons and `site.webmanifest` derived from handbook config |
+| `design/motion/` | Editable animation code and Studio defaults |
+| `design/docs/handoff/START-HERE.txt` | Recipient workflow instructions, not a second brand guide |
+
+Application assets live directly at their normal codebase paths; there is no
+parallel media library in `design/assets/`. Fonts, handbook images and supporting
+marks are edited in `src/assets/`, including through the CMS. Logos, mascot media
+and web icons are generated there (or in `public/`) from their design sources.
+`public/brand-assets/` is a disposable delivery copy for the team page, not an
+independent source library.
+
+`design/assets/logo/logo-lockup.svg` is the sole editable logo master and the
+source for every derived logo and web icon. Generation copies it unchanged to
+`src/assets/site/logo-lockup.svg` for application use; never edit that copy.
+The still-mascot generator reads the derived `src/assets/site/logo.svg`.
+The six animated rigs intentionally retain independent part instances so Studio
+can save edits to one animation without changing the other five. Static pose
+rebuilds do not rewrite separately authored animation paths.
+
+## Automatic, incremental builds
+
+```sh
+pip install -r design/requirements.txt
+npm run design:plan
+npm run design:build
+python3 -m unittest discover -s design/tests -v
+```
+
+Node is needed only when an animation product must be rebuilt. The pipeline
+installs the motion project's locked dependencies with `npm ci` on demand.
+Use the root Node engine requirement (22.12 or newer, subject to motion's engine
+constraint). Image tools are pinned in `design/requirements.txt`; packaging and
+delivery copying use Python's standard library. The contact sheet uses our bundled font
+rather than an operating-system font.
+
+The pipeline fingerprints both inputs and outputs, rather than modification
+times. `design/build-state.json` records the migration baseline of the existing
+approved exports; subsequent build state is disposable in `design/.cache/`.
+Missing, changed or corrupt outputs are rebuilt even if sources did not change.
+
+- Logo-source changes rebuild identity exports, icons and stills.
+- Pose changes rebuild stills and all affected animation products.
+- An action's component/rig changes rebuild that action's two Lotties and two MOVs.
+- Shared motion/defaults/toolchain changes conservatively rebuild all animations.
+- Lottie-exporter changes rebuild Lottie, not MOV.
+- Guide, photo, font or inventory changes refresh only dependent products and
+  delivery copies. The still contact sheet depends on Clarity City Regular.
+
+CI and deployment run the same pipeline on pull requests and pushes to main.
+A targeted design workflow also handles source edits pushed to other branches,
+including branches without an open pull request, and supports manual dispatch.
+GitHub Actions caches generated products, not editable sources. Source hashes
+validate restored products before reuse. The updated kit is uploaded as a review
+artifact and included in the website deployment; Actions never commits to Git.
+An automatically rebuilt export is **not** a new artistic or rights approval.
+
+## Preview and release
+
+The website's `/preview/brand-guide.html` renders the sole Markdown guide and
+lists downloads from the same manifest as the ZIP. It stays out of navigation,
+Pagefind and the sitemap, with `noindex` and no analytics. This is not access
+control. The downloadable files are public too; add authentication separately
+if confidential material is ever introduced.
+
+For an immutable recipient folder and ZIP, first run the incremental build,
+then package to a fresh output directory:
+
+```sh
+python3 design/scripts/package-brand-kit.py --output design/handoff/2026-10-28
+```
+
+The kit has one top-level folder, a browser-readable start page, plain-text
+instructions, the exact brand-guide Markdown, font licences, and an inventory
+with canonical source paths and SHA-256 hashes. No source code, dependencies,
+scratch renders or old ZIPs are included. Existing releases are not overwritten.
+
+Before publication:
+
+- Preview logos, all six still poses, and twelve animations in each format.
+- Check MOV alpha in a compatible editor and Lottie playback in the target app.
+- Review font notices and individual photo/partner-mark permissions and credits.
+- Open the ZIP independently and check its start page and guide.
+- Do not treat the repository licence as blanket photo/trademark clearance.
+
+Supporting photos and partner marks are reference material, not a cleared stock
+library. Check creator credits, permissions and third-party mark rules before
+reuse; a repository licence or CC badge alone does not establish clearance.
+
+For specialist source handoffs, preserve the repository-relative layout of
+`design/motion/`, `design/assets/` and the required `src/assets/` files, excluding
+dependencies, scratch output and caches.
+Include the repository licence and review Remotion's separate commercial terms.

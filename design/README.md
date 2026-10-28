@@ -1,36 +1,42 @@
-# Current design
+# City Changers brand library
 
-Only the identity used by the live site belongs here: **The Green Fix** mascot
-with the approved, user-edited Fraunces wordmark. Dropped concepts, iterations,
-palette options and old asset backups have been removed.
+**Start here:** the team reference is published at `/preview/brand-guide.html`.
+It is unlisted, excluded from search and the sitemap, and marked `noindex`.
+It is not authenticated: anyone with its URL can access it.
 
-## Logo — light and dark
+## Single sources of truth
 
-![Current logo on light and dark backgrounds](logo/imports/6ecb90ab3ea5/lockup-proof.png)
+- **`brand-guide.md`** — the only authored brand guide, rendered on the website
+  and included unchanged as `BRAND-GUIDE.md` in the downloadable kit.
+- **`assets/`** — the sole logo master (`logo/logo-lockup.svg`) and mascot pose
+  definitions. Derived logos live in `src/assets/site/`, mascot media in
+  `src/assets/mascot/`, fonts in `src/assets/fonts/`, supporting images in
+  `src/assets/book/` and `src/assets/site/`, and web icons in `public/`.
+  Edit the design logo master, not its generated application copy.
+- **`manifest.json`** — one inventory for website downloads and recipient kits.
+- **`motion/`** — the editable animation project, with independent Studio rigs.
+- **`docs/`** — [maintenance](docs/maintenance.md) and recipient instructions.
+- **`scripts/`, `tests/`** — production tools and checks.
+- **`handoff/`** — generated deliveries; ignored.
 
-## Browser icon
-
-![Current favicon at 128, 48, 32 and 16 pixels on light and dark backgrounds](logo/imports/6ecb90ab3ea5/favicon-proof.png)
-
-These proofs are rendered from the actual production assets, not concept files.
-See [the identity notes](logo/ACTIVE.md) for masters and integration details.
-
-## Tooling
-
-- `logo/`: approved source artwork and current proofs only.
-- `scripts/build-brand-assets.py`: regenerate production exports from the active masters.
-- `scripts/verify-logo-import.py`: verify the approved source and refresh the proofs and asset hashes.
-- `tests/`: identity and front-matter regression checks.
-
-From the repo root:
+## Build and share
 
 ```sh
-python3 design/scripts/build-brand-assets.py
-python3 design/scripts/verify-logo-import.py
-python3 -m unittest discover -s design/tests -v
+npm run design:plan   # list stale asset groups without changing files
+npm run design:build  # rebuild only stale groups and refresh the website ZIP
+npm run design:check  # fail if any generated artwork is stale
 ```
 
-Image tooling requires CairoSVG and Pillow; front-matter checks also use the
-handbook Python dependencies. This folder and the production assets in
-`src/assets/site/` and `public/` are versioned; normal site/download builds
-do not depend on this folder. Python bytecode caches remain ignored.
+Normal `npm run build` and `npm run dev` prepare the library automatically.
+CI and deployment also rebuild changed sources automatically and cache the
+outputs. No bot commits or manual render step are required.
+
+Download the current kit from the team page, or send
+`public/brand-assets/city-changers-brand-kit.zip`. For an immutable local handoff:
+
+```sh
+python3 design/scripts/package-brand-kit.py --output design/handoff/2026-10-28
+```
+
+Packaging refuses to overwrite an existing release. Human review of artwork,
+animation transparency, permissions and credits is still required before use.

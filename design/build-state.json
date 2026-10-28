@@ -1,0 +1,58 @@
+{
+  "logo": {
+    "inputs": "c6668821c438eee8f09caa59b4618f5ae04bd28560f97b8060494187779cb898",
+    "outputs": "f73e4bee51e53e3ab132f2124af8c852a15b18b547e140eae23b8c0d73a1bbe9"
+  },
+  "stills": {
+    "inputs": "b215ef75ef7479aa214229282d4fc228974248725741816e2f0c14820d70871a",
+    "outputs": "4d16310cb5117e63ba1d49c0d69dc0094e79705be52360d70bc02d03b5e907e5"
+  },
+  "lottie:idle": {
+    "inputs": "4a0afae2f583b4eabfa700d42b80d16f2d6f49e0274b924b1a676fd6a07115fe",
+    "outputs": "c43f8ca37eea98236890b823c03774015f2829359084cc7dfa14791fd68df70a"
+  },
+  "video:idle": {
+    "inputs": "723c19b08966dc169fecc4899c90516c9aa435fc91f6f02e0c6baf3b8cbf6432",
+    "outputs": "4204255e61d9898c2a471c462108ef977945e2d80825a75376f368c6400ecefa"
+  },
+  "lottie:wave": {
+    "inputs": "936bb7dd0eb1255979b1afeb71b41607ae552e658ffdbefea769bce68f7dda58",
+    "outputs": "4f7e2c3e95f0c76006f3ea72075df193b72b5ca2f6af48e5247b3bfc23e9b88b"
+  },
+  "video:wave": {
+    "inputs": "82afc12afd99303c0124ac0586b3989f1b4422d682f8a78b6ffb4642e64c655e",
+    "outputs": "9a74e8906f2d456092b31474fe1a65b1e453875835a3ee56a85225aeec97c537"
+  },
+  "lottie:point": {
+    "inputs": "203b6ef937288455c485643a62108d01122a3618a0dd25cd890a22cada08ecb6",
+    "outputs": "62b0dee5ded46f0ab5fa9e0cd754bca635cc5695771a6ac660793882173a96d3"
+  },
+  "video:point": {
+    "inputs": "ca8c22635ae23d5c45f871150b0fb48800d14d2366a97174d8a4ec803b4624fa",
+    "outputs": "f619a7979b8af643bdec288fca910f3ce9ec99c820160a6f8f3de0438e05a4aa"
+  },
+  "lottie:celebrate": {
+    "inputs": "37dfaf1ad60164e02db1ef784b77a06fad77507007b6ccc5e6d06f645b532baf",
+    "outputs": "301fad83e6b26b976ab57d6eddd598c5924ad0bbc554a6cc888fefe69d57d6ed"
+  },
+  "video:celebrate": {
+    "inputs": "8aa0c38348ada233713a8768d4c424d4ce088084b22e1a09280ff36865f6ebab",
+    "outputs": "d79b16a09b7491e6aa6a6688830104928a131c7860e8f964d5780b8ac022af9e"
+  },
+  "lottie:think": {
+    "inputs": "d5b8f4d07af60ac39c67ad159e9fe48c8836817e70021caed4c7e229cf1faed1",
+    "outputs": "ab40ce6b145a7a3abb9ca9be61fc3d2d566ca1daa24c86917570bb21b0abd635"
+  },
+  "video:think": {
+    "inputs": "f1e340797b2686a1c0e98a9b04150e4c1a8c46c15ca3418a61762c6c630c56d8",
+    "outputs": "a38b9af64aa37ed891f51dc72b6981fc2603a566f05428b252feca1c88b8b370"
+  },
+  "lottie:step": {
+    "inputs": "3d98109cc483cd7aeee5208613cb6b6f53bbe8ad4584c4fb5e53d8d729f16259",
+    "outputs": "3f03bd8a9bf1f20d0164c339a4afa2323a8641ff393e07110e6f9b5b34a0dde2"
+  },
+  "video:step": {
+    "inputs": "a620d9be1bfc9d8c1049362eb3088cb9c80619eaa4cfd6b91c3abebc5899dd81",
+    "outputs": "e0d588d47562d417c119b9920f198bd6435db234fb1e3085eeeb9e5859ddf20d"
+  }
+}

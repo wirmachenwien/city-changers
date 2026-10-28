@@ -2,10 +2,14 @@
 
 from pathlib import Path
 import struct
+import tempfile
 import unittest
+import sys
+from unittest.mock import patch
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "design/scripts"))
 ASSETS = ROOT / "src/assets/site"
 PUBLIC = ROOT / "public"
 SVG = "{http://www.w3.org/2000/svg}"
@@ -21,23 +25,35 @@ class BrandAssetsTest(unittest.TestCase):
                 for tag in ["text", "image", "filter"]:
                     self.assertFalse(list(root.iter(f"{SVG}{tag}")))
 
-    def test_imported_geometry_and_inheritance_are_preserved(self):
+    def test_generator_preserves_the_master_and_matches_existing_outputs(self):
         import importlib.util
         spec = importlib.util.spec_from_file_location("exporter", ROOT / "design/scripts/build-brand-assets.py")
         exporter = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(exporter)
-        source = exporter.normalize(ET.parse(ASSETS / "logo-lockup-new.svg").getroot())
-        active = ET.parse(ASSETS / "logo-lockup.svg").getroot()
-        def tree(element):
-            return (element.tag, {k: v for k, v in element.attrib.items() if k != "id"},
-                    [tree(child) for child in element])
-        self.assertEqual([tree(e) for e in source], [tree(e) for e in active.findall(f"{SVG}g")])
-        for key in ["fill-rule", "clip-rule", "stroke-linecap"]:
-            self.assertEqual(source.get(key), active.get(key))
-        import hashlib
-        digest = hashlib.sha256((ASSETS / "logo-lockup-new.svg").read_bytes()).hexdigest()
-        self.assertEqual((ROOT / "design/logo/imports" / digest[:12] / "source.svg").read_bytes(),
-                         (ASSETS / "logo-lockup-new.svg").read_bytes())
+        from asset_library import logo_source
+        original = logo_source().read_bytes()
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "site"
+            output.mkdir()
+            master = Path(temporary) / "master.svg"
+            master.write_bytes(original)
+            icons = output / "icons"
+            icons.mkdir()
+            with patch.object(exporter, "ASSETS", output), patch.object(exporter, "PUBLIC", icons), \
+                 patch.object(exporter, "logo_source", return_value=master):
+                exporter.export()
+            self.assertEqual(master.read_bytes(), original)
+            for path in output.iterdir():
+                if path.is_file():
+                    with self.subTest(file=path.name):
+                        self.assertEqual(path.read_bytes(), (ASSETS / path.name).read_bytes())
+
+    def test_master_is_an_input_not_a_generated_output(self):
+        from asset_library import logo_source
+        master = logo_source()
+        self.assertEqual(master, ROOT / "design/assets/logo/logo-lockup.svg")
+        self.assertEqual(master.read_bytes(), (ASSETS / "logo-lockup.svg").read_bytes())
+        self.assertEqual({p.name for p in master.parent.iterdir()}, {"logo-lockup.svg"})
 
     def test_green_fix_is_the_selected_mascot(self):
         active = ET.parse(ASSETS / "logo.svg").getroot()

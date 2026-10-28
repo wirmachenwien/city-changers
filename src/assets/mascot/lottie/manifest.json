@@ -1,0 +1,92 @@
+{
+  "width": 1080,
+  "height": 1080,
+  "fps": 30,
+  "frames": 30,
+  "transparent": true,
+  "vectorOnly": true,
+  "treatments": {
+    "ink": {
+      "outline": "#20221c",
+      "recommendedBackground": "light"
+    },
+    "linen": {
+      "outline": "#cbbf9f",
+      "recommendedBackground": "dark"
+    }
+  },
+  "files": [
+    {
+      "file": "green-fix-idle-ink.json",
+      "mascot": "idle",
+      "treatment": "ink",
+      "bytes": 23916
+    },
+    {
+      "file": "green-fix-idle-linen.json",
+      "mascot": "idle",
+      "treatment": "linen",
+      "bytes": 23902
+    },
+    {
+      "file": "green-fix-wave-ink.json",
+      "mascot": "wave",
+      "treatment": "ink",
+      "bytes": 26270
+    },
+    {
+      "file": "green-fix-wave-linen.json",
+      "mascot": "wave",
+      "treatment": "linen",
+      "bytes": 26256
+    },
+    {
+      "file": "green-fix-point-ink.json",
+      "mascot": "point",
+      "treatment": "ink",
+      "bytes": 31756
+    },
+    {
+      "file": "green-fix-point-linen.json",
+      "mascot": "point",
+      "treatment": "linen",
+      "bytes": 31742
+    },
+    {
+      "file": "green-fix-celebrate-ink.json",
+      "mascot": "celebrate",
+      "treatment": "ink",
+      "bytes": 24801
+    },
+    {
+      "file": "green-fix-celebrate-linen.json",
+      "mascot": "celebrate",
+      "treatment": "linen",
+      "bytes": 24787
+    },
+    {
+      "file": "green-fix-think-ink.json",
+      "mascot": "think",
+      "treatment": "ink",
+      "bytes": 46701
+    },
+    {
+      "file": "green-fix-think-linen.json",
+      "mascot": "think",
+      "treatment": "linen",
+      "bytes": 46687
+    },
+    {
+      "file": "green-fix-step-ink.json",
+      "mascot": "step",
+      "treatment": "ink",
+      "bytes": 33055
+    },
+    {
+      "file": "green-fix-step-linen.json",
+      "mascot": "step",
+      "treatment": "linen",
+      "bytes": 33041
+    }
+  ]
+}

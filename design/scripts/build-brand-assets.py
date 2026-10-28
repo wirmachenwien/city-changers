@@ -1,29 +1,24 @@
 #!/usr/bin/env python3
-"""Local design tool: export the active identity (CairoSVG + Pillow).
+"""Derive logo variants and icons from logo-lockup.svg (CairoSVG + Pillow).
 
 Run from the repo root: python3 design/scripts/build-brand-assets.py
 
-Normal runs use only the active production masters.
-Generated exports are committed, so normal site builds need no image toolchain.
+The editable full-logo master is read-only to this generator.
 """
 
 from __future__ import annotations
 
-import argparse
-import hashlib
-import json
 import re
 from copy import deepcopy
 from io import BytesIO
 from pathlib import Path
-import shutil
 import xml.etree.ElementTree as ET
+from asset_library import logo_source, copy_changed
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "src/assets/site"
 # Browser/app chrome that needs stable, unhashed URLs stays in public/:
 # favicon.*, apple-touch-icon.png, icon-192/512.png and site.webmanifest.
-# Every other identity export lives in src/assets/site and is bundled.
 PUBLIC = ROOT / "public"
 NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", NS)
@@ -53,43 +48,21 @@ def normalize(root: ET.Element) -> ET.Element:
     return root
 
 
-def import_lockup(source: Path) -> None:
-    raw = source.read_bytes()
-    root = normalize(ET.fromstring(raw))
-    assert root.get("viewBox") == "0 0 960 256"
-    assert [e.tag for e in root] == [f"{{{NS}}}g"] * 2
-    assert len(root[0]) == 9, "Review changed mascot structure before importing"
-    assert all(e.tag in {f"{{{NS}}}{tag}" for tag in ["svg", "g", "path", "ellipse"]}
-               for e in root.iter()), "Unexpected SVG content"
-    digest = hashlib.sha256(raw).hexdigest()
-    archive = ROOT / "design/logo/imports" / digest[:12]
-    archive.mkdir(parents=True, exist_ok=True)
-    original = archive / "source.svg"
-    if not original.exists():
-        original.write_bytes(raw)
-        for folder in [ASSETS, PUBLIC]:
-            for path in folder.iterdir():
-                if path.is_file() and (path.name.startswith(("logo", "favicon", "icon-", "apple-touch", "og-image"))) and path != source:
-                    backup = archive / "before" / path.relative_to(ROOT)
-                    backup.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copyfile(path, backup)
-    # Stable semantic hooks replace fragile matching of quadratic path strings.
-    for index, name in [(0, "boots"), (1, "arms"), (6, "mouth")]:
-        root[0][index].set("id", name)
-    symbol = deepcopy(root)
+def artwork():
+    """Read the sole master; derive the standalone symbol without editing it."""
+    lockup = normalize(ET.parse(logo_source()).getroot())
+    groups = lockup.findall(f"{{{NS}}}g")
+    if lockup.get("viewBox") != "0 0 960 256" or len(groups) != 2 or len(groups[0]) != 9:
+        raise ValueError("Review changed logo structure before generating variants")
+    if any(e.tag not in {f"{{{NS}}}{tag}" for tag in ("svg", "g", "path", "ellipse", "title")}
+           for e in lockup.iter()):
+        raise ValueError("Unexpected SVG content in the logo master")
+    symbol = deepcopy(lockup)
     symbol.set("viewBox", "0 0 256 256")
-    symbol.remove(symbol[1])
-    group = symbol[0]
-    symbol.remove(group)
-    symbol.extend(list(group))
-    (ASSETS / "logo.svg").write_bytes(svg_bytes(symbol))
-    (ASSETS / "logo-lockup.svg").write_bytes(svg_bytes(root))
-    (archive / "import.json").write_text(json.dumps({
-        "source": str(source.relative_to(ROOT)), "sha256": digest,
-        "steps": ["Archive exact source and previous assets", "Expand inline presentation styles and RGB colours",
-                  "Preserve root inheritance, every path and transform", "Label boots/arms/mouth for derivation",
-                  "Extract standalone mascot; export all variants"],
-    }, indent=2) + "\n")
+    for group in symbol.findall(f"{{{NS}}}g"):
+        symbol.remove(group)
+    symbol.extend(deepcopy(list(groups[0])))
+    return symbol, lockup
 
 
 def dark_symbol(root: ET.Element) -> ET.Element:
@@ -116,16 +89,8 @@ def export() -> None:
     import cairosvg
     from PIL import Image
 
-    symbol = ET.parse(ASSETS / "logo.svg").getroot()
-    lockup = ET.parse(ASSETS / "logo-lockup.svg").getroot()
-    # One mascot master drives both standalone and wordmark treatments.
-    # Preserve the edited wordmark group and every one of its transforms.
-    mascot_group = lockup.find(f"{{{NS}}}g")
-    for child in list(mascot_group):
-        mascot_group.remove(child)
-    for child in symbol:
-        if child.tag != f"{{{NS}}}title":
-            mascot_group.append(deepcopy(child))
+    symbol, lockup = artwork()
+    copy_changed(logo_source(), ASSETS / "logo-lockup.svg")
     # Remove dead editor namespaces and keep a fixed, accessible title.
     for root, title in [(symbol, "Toolbox for City Changers — The Green Fix"),
                         (lockup, "Toolbox for City Changers")]:
@@ -164,7 +129,7 @@ def export() -> None:
             element.set("stroke-width", "8")
 
     exports = {"logo.svg": symbol, "logo-dark.svg": symbol_dark,
-               "logo-lockup.svg": lockup, "logo-lockup-dark.svg": lockup_dark,
+               "logo-lockup-dark.svg": lockup_dark,
                "logo-small.svg": small}
     for name, root in exports.items():
         (ASSETS / name).write_bytes(svg_bytes(root))
@@ -227,9 +192,6 @@ def export() -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--import-lockup", type=Path)
-    args = parser.parse_args()
-    if args.import_lockup:
-        import_lockup(args.import_lockup.resolve())
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    PUBLIC.mkdir(parents=True, exist_ok=True)
     export()
