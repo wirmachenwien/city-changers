@@ -248,6 +248,10 @@ downgrade to silence it: type checking and representative frame renders have
 been verified with the patched version. Recheck the override when upgrading
 Remotion.
 
+TypeScript stays on **6.0.3**, the newest release supported by the current Astro
+checker and TypeScript ESLint peer ranges; TypeScript 7 is not yet compatible.
+Node, React and web ambient types are explicitly declared for TypeScript 6.
+
 The source code follows the repository's AGPL-3.0 license. Remotion's own
 [commercial licensing terms](https://www.remotion.dev/license) are separate;
 check those before company/production use.

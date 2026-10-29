@@ -5,7 +5,7 @@ for City Changers project. Static Astro site, hosted on GitHub Pages.
 
 ## Quickstart
 
-Requires Node ≥ 22.12 (plus Python ≥ 3.12 with `pip install -r requirements.txt` to build PDFs).
+Requires Node ≥ 22.23.4 (plus Python ≥ 3.12 with `pip install -r requirements.txt` to build PDFs).
 
 ```sh
 npm ci

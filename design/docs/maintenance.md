@@ -43,7 +43,7 @@ python3 -m unittest discover -s design/tests -v
 
 Node is needed only when an animation product must be rebuilt. The pipeline
 installs the motion project's locked dependencies with `npm ci` on demand.
-Use the root Node engine requirement (22.12 or newer, subject to motion's engine
+Use the root Node engine requirement (22.23.4 or newer, subject to motion's engine
 constraint). Image tools are pinned in `design/requirements.txt`; packaging and
 delivery copying use Python's standard library. The contact sheet uses our bundled font
 rather than an operating-system font.

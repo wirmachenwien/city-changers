@@ -5,7 +5,7 @@
   "description": "Toolbox for City Changers handbook site (Astro, static)",
   "license": "AGPL-3.0-only",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.23.4"
   },
   "scripts": {
     "dev": "npm run design:prepare && astro dev",
@@ -26,26 +26,29 @@
     "check:glossary": "node scripts/bin/check-glossary.mjs"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.2",
-    "@astrojs/markdown-satteri": "^0.4.3",
-    "astro": "^7.3.8",
+    "@astrojs/markdown-remark": "^7.3.5",
+    "@astrojs/markdown-satteri": "^0.4.6",
+    "astro": "^7.4.4",
     "github-slugger": "^2.0.0",
-    "katex": "^0.19.0",
+    "katex": "^0.19.1",
     "qrcode": "^1.5.4",
     "rehype-katex": "^7.0.1",
     "rehype-parse": "^9.0.1",
     "rehype-stringify": "^10.0.1",
     "remark-math": "^6.0.0",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.1.0",
-    "zod": "^4.6.5"
+    "unist-util-visit": "^5.2.0",
+    "zod": "^4.6.7"
   },
   "allowScripts": {
     "esbuild": true
   },
+  "overrides": {
+    "katex": "$katex"
+  },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/mdx": "^8.1.2",
     "@types/qrcode": "^1.5.6",
     "pagefind": "^1.5.2",
     "typescript": "^6.0.3",
