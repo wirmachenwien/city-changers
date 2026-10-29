@@ -550,15 +550,14 @@ table {
 table th,
 table td {
   border: 0;
-  border-right: 0.5pt solid var(--line);
   border-bottom: 0.5pt solid var(--line);
   padding: 4pt 6pt;
   text-align: left;
 }
 
-/* Avoid double borders on the right edge */
-table tr > :last-child {
-  border-right: 0;
+/* Match the web table's shaded header and horizontal-only dividers. */
+table thead th {
+  background: var(--panel);
 }
 
 /* Remove bottom borders only from the final body row */
@@ -566,9 +565,14 @@ table tbody tr:last-child > * {
   border-bottom: 0;
 }
 
-/* Preserve the separator between header and body */
+/* Paint the header separator on the square body cells: WeasyPrint can
+   thicken bottom borders on header cells with rounded top corners. */
 table thead tr:last-child > * {
-  border-bottom: 0.5pt solid var(--line);
+  border-bottom: 0;
+}
+
+table thead + tbody tr:first-child > * {
+  border-top: 0.5pt solid var(--line);
 }
 
 /* Round the header corners */

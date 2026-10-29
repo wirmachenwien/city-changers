@@ -1,5 +1,6 @@
 """PDF/EPUB materialize the same registry without custom-property support."""
 import json
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -12,6 +13,25 @@ from color_registry import load_colors
 
 
 class ColorExportTest(unittest.TestCase):
+    def test_print_tables_match_web_header_and_divider_colors(self):
+        web = (ROOT / "src/styles/global.css").read_text()
+        print_css = (ROOT / "src/styles/print.css").read_text()
+        web_header = re.search(r"\.table-scroll thead th\s*\{([^}]+)\}", web).group(1)
+        print_header = re.search(r"table thead th\s*\{([^}]+)\}", print_css).group(1)
+        for header in (web_header, print_header):
+            self.assertIn("background: var(--panel)", header)
+        cells = re.search(r"table th,\s*table td\s*\{([^}]+)\}", print_css).group(1)
+        self.assertIn("border: 0;", cells)
+        self.assertIn("border-bottom: 0.5pt solid var(--line);", cells)
+        self.assertNotIn("border-right:", cells)
+        self.assertNotIn("border-left:", cells)
+        header_edge = re.search(r"table thead tr:last-child > \*\s*\{([^}]+)\}", print_css).group(1)
+        body_edge = re.search(r"table thead \+ tbody tr:first-child > \*\s*\{([^}]+)\}", print_css).group(1)
+        self.assertIn("border-bottom: 0;", header_edge)
+        self.assertIn("border-top: 0.5pt solid var(--line);", body_edge)
+        palette = load_colors()["themes"]["print"]
+        self.assertIn(f'background: {palette["panel"]}', resolve_color_tokens(print_header))
+
     def test_exports_resolve_all_color_variables_to_registered_values(self):
         palette = json.loads((ROOT / "src/data/colors.generated.json").read_text())
         for filename in ("print.css", "epub.css"):
