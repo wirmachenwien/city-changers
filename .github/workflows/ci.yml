@@ -23,6 +23,9 @@ jobs:
       - name: Set up toolchain
         uses: ./.github/actions/setup
 
+      - name: Validate and package committed design assets
+        uses: ./.github/actions/design
+
       - name: Check derived config files are in sync
         run: npm run check:config
 

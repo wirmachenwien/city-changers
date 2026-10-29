@@ -203,6 +203,52 @@ Use <code>frame="white"</code> for logos or brand lockups that must stay on a wh
   <Math source="a^2 + b^2 = c^2" display />
 </div>
 
+<h2 class="showcase-label">MascotBox</h2>
+
+A friendly Green Fix guide beside a speech bubble. Use it for a short explanation
+or a practical nudge, not as a replacement for the chapter text. Animated mascots
+play once whenever they enter or re-enter view, then hold the final frame. Hover or click the
+mascot to replay once. Think stops at its raised-hand, yellow-rays idea pose rather
+than returning to the questioning expression. Keyboard users can focus the
+mascot and press Enter or Space.
+Without JavaScript, with reduced motion,
+and in browser print, PDF and EPUB, the matching still and all text remain visible.
+
+```mdx
+<MascotBox title="Try this first" pose="think" animated lang="en">
+  Choose one street and ask your neighbours what they would change.
+</MascotBox>
+```
+
+Choose `neutral` (or `idle`), `wave`, `point`, `celebrate`, `think`, `step`, or
+`skeptical`. Omit `animated` for a still; all poses except `skeptical` have an
+animated version. `treatment="linen"` selects the light-outline artwork on a dark
+plate; the default is `ink`. Printed books always use Ink artwork for legibility.
+Set `lang` to `en`, `de` or `sl` for the accessible replay label and title typography.
+
+<div class="showcase-demo">
+  <MascotBox title="I have an idea!" pose="think" animated lang="en">
+    <p>Start with one small, visible improvement. What could you test on your street this month?</p>
+  </MascotBox>
+  <MascotBox title="Question the assumption" pose="skeptical">
+    <p>Does everyone need to drive through this street, or just be able to reach it?</p>
+  </MascotBox>
+</div>
+
+### All static poses
+
+{['neutral', 'wave', 'point', 'celebrate', 'think', 'step', 'skeptical'].map((pose) => (
+  <MascotBox pose={pose} title={pose}><p>A static helper for a short explanation.</p></MascotBox>
+))}
+
+### All animated poses
+
+{['idle', 'wave', 'point', 'celebrate', 'think', 'step'].map((pose) => (
+  <MascotBox pose={pose} animated treatment="linen" title={pose} lang="en">
+    <p>One animation each time it enters view. Hover or click the mascot to see it again.</p>
+  </MascotBox>
+))}
+
 {/* MetadataTable — book metadata table (title, creator, publisher, rights, ...). */}
 <h2 class="showcase-label">MetadataTable</h2>
 <div class="showcase-demo"><MetadataTable lang="en" /></div>

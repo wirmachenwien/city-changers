@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "logoSource": "design/assets/logo/logo-lockup.svg",
+  "groups": [
+    {"title": "Previews", "source": "src/assets/mascot", "include": ["overview.png"], "destination": "00-previews", "rename": {"overview.png": "mascot-poses.png"}},
+    {"title": "Logos", "source": "src/assets/site", "include": ["logo.svg", "logo-dark.svg", "logo-lockup.svg", "logo-lockup-dark.svg", "logo-small.svg", "logo.png", "logo-lockup.png"], "destination": "01-logos"},
+    {"title": "Mascot stills", "source": "src/assets/mascot/static", "include": ["ink/*.svg", "ink/*.png", "linen/*.svg", "linen/*.png"], "destination": "02-mascot-stills"},
+    {"title": "Transparent video overlays", "source": "src/assets/mascot/video", "include": ["*.mov"], "destination": "03-animation/video"},
+    {"title": "Lottie animations", "source": "src/assets/mascot/lottie", "include": ["green-fix-*.json"], "destination": "03-animation/lottie"},
+    {"title": "Fonts and licences", "source": "src/assets/fonts", "include": ["*.ttf", "*.woff2", "OFL-*.txt"], "destination": "04-fonts"},
+    {"title": "Handbook reference images", "source": "src/assets/book", "include": ["*.png", "*.jpg", "*.svg"], "destination": "05-supporting-images/handbook"},
+    {"title": "Partner and credit marks", "source": "src/assets/site", "include": ["changing-cities.svg", "prostoroz.png", "wirmachen-wien.svg", "cc-by.svg", "cc-by-88x31.png"], "destination": "05-supporting-images/partner-and-credit-marks"},
+    {"title": "Link preview", "source": "src/assets/site", "include": ["og-image.png"], "destination": "05-supporting-images", "rename": {"og-image.png": "link-preview.png"}},
+    {"title": "Website icons", "source": "public", "include": ["favicon.svg", "favicon.png", "favicon.ico", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "site.webmanifest"], "destination": "06-web-icons"},
+    {"title": "Rights", "source": ".", "include": ["LICENSE"], "destination": "07-rights", "rename": {"LICENSE": "repository-license.txt"}},
+    {"title": "Instructions", "source": "design/docs/handoff", "include": ["START-HERE.txt"], "destination": ""},
+    {"title": "Brand guide", "source": "design", "include": ["brand-guide.md"], "destination": "", "rename": {"brand-guide.md": "BRAND-GUIDE.md"}}
+  ]
+}

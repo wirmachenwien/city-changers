@@ -31,10 +31,17 @@ while (modules.length) {
 }
 console.log(`UI: ${visited.size} client modules/dependencies return 200 (no stale optimizer URLs).`);
 
-for (const name of ['logo-lockup.svg', 'logo-lockup-dark.svg']) {
-  const response = await fetch(new URL(`${prefix}/${name}`, origin));
-  assert.equal(response.status, 200, name);
-  assert.match(await response.text(), /<svg\b/, name);
+// Brand marks live in src/assets/site now, so the bundler owns their URLs:
+// a /src/ path in dev, a hashed /_astro/ path after a build. Take both from
+// the served masthead instead of guessing a public/ filename.
+const brandArt = [...html.matchAll(/<img[^>]*brand-art__(?:light|dark)[^>]*>/g)]
+  .map((tag) => tag[0].match(/src="([^"]+)"/)?.[1])
+  .filter(Boolean);
+assert.equal(new Set(brandArt).size, 2, 'Expected the masthead to reference both brand variants');
+for (const path of new Set(brandArt)) {
+  const response = await fetch(new URL(path, origin));
+  assert.equal(response.status, 200, path);
+  assert.match(await response.text(), /<svg\b/, path);
 }
 
 let checked = 0;

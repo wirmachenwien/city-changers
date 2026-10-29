@@ -1,0 +1,10 @@
+{
+  "neutral": { "still": "neutral", "animation": "idle" },
+  "idle": { "still": "neutral", "animation": "idle" },
+  "wave": { "still": "wave", "animation": "wave" },
+  "point": { "still": "point", "animation": "point" },
+  "celebrate": { "still": "celebrate", "animation": "celebrate" },
+  "think": { "still": "think", "animation": "think", "holdFrame": 18 },
+  "step": { "still": "step", "animation": "step" },
+  "skeptical": { "still": "skeptical", "animation": null }
+}

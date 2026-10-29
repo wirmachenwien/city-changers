@@ -1,0 +1,73 @@
+---
+import mascots from '../data/mascots.json';
+import type { Language } from '../data/locales';
+import { smartQuotes } from '../lib/smart-quotes';
+import MascotPreview from './MascotPreview.astro';
+
+interface Props {
+  title?: string;
+  pose?: keyof typeof mascots;
+  animated?: boolean;
+  treatment?: 'ink' | 'linen';
+  lang?: Language;
+}
+
+const { title, pose = 'think', animated = false, treatment = 'ink', lang = 'en' } = Astro.props;
+---
+<aside class="mascot-box" data-pose={pose}>
+  <div class="mascot-box__visual">
+    <MascotPreview {pose} {animated} {treatment} {lang} />
+  </div>
+  <div class="mascot-box__bubble">
+    {title && <p class="mascot-box__title"><strong>{smartQuotes(title, lang)}</strong></p>}
+    <div class="mascot-box__body"><slot /></div>
+  </div>
+</aside>
+
+<style>
+  .mascot-box {
+    display: grid;
+    grid-template-columns: minmax(6rem, 8rem) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+    margin-block: 1.75rem;
+    break-inside: avoid;
+  }
+  .mascot-box__visual { min-width: 0; }
+  .mascot-box__bubble {
+    position: relative;
+    min-width: 0;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .mascot-box__bubble::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: -.45rem;
+    top: 2rem;
+    width: .8rem;
+    height: .8rem;
+    border-inline-start: 1px solid var(--accent);
+    border-block-end: 1px solid var(--accent);
+    background: var(--accent-soft);
+    transform: rotate(45deg);
+  }
+  .mascot-box__title { margin: 0 0 .5rem; font-family: var(--font-ui); }
+  .mascot-box__body :global(> :first-child) { margin-block-start: 0; }
+  .mascot-box__body :global(> :last-child) { margin-block-end: 0; }
+  @media (max-width: 30rem) {
+    .mascot-box { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+    .mascot-box__visual { width: 7rem; }
+    .mascot-box__bubble::before { top: -.45rem; inset-inline-start: 2rem; transform: rotate(135deg); }
+  }
+  @media print {
+    .mascot-box { grid-template-columns: 22mm minmax(0, 1fr); gap: 4mm; }
+    .mascot-box__visual { width: auto; }
+    .mascot-box__bubble { background: transparent; color: #000; border-color: #777; }
+    .mascot-box__bubble::before { display: none; }
+  }
+</style>

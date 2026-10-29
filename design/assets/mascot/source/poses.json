@@ -1,0 +1,56 @@
+{
+  "neutral": {
+    "label": "Ready to help",
+    "use": "General overlays, introductions and quiet holds.",
+    "leftArm": "M104,160C82.667,164 72,157.667 72,141",
+    "rightArm": "M152,160C173.333,164 184,157.667 184,141",
+    "tilt": 0, "lift": 0, "leftBoot": 0, "rightBoot": 0,
+    "eyes": "normal", "frontArm": false,
+    "mouth": "M116,181C124,187.667 132,187 140,179"
+  },
+  "wave": {
+    "label": "Hello, neighbour",
+    "use": "Greetings, sign-offs and welcoming a new topic.",
+    "leftArm": "M104,160C82.667,164 72,157.667 72,141",
+    "rightArm": "M152,160C184,171 218,155 218,116",
+    "tilt": -3, "lift": 0, "leftBoot": 0, "rightBoot": 0,
+    "eyes": "normal", "frontArm": false,
+    "mouth": "M116,179C124,190 134,190 142,177"
+  },
+  "point": {
+    "label": "Look over here",
+    "use": "Point towards a caption, link, diagram or call to action on the right.",
+    "leftArm": "M104,160C82.667,164 72,157.667 72,141",
+    "rightArm": "M152,160C177,166 199,150 226,150",
+    "tilt": 2, "lift": 0, "leftBoot": 0, "rightBoot": 0,
+    "eyes": "normal", "frontArm": false,
+    "mouth": "M116,181C124,187.667 132,187 140,179"
+  },
+  "celebrate": {
+    "label": "We did it!",
+    "use": "Progress, milestones, good news and community wins.",
+    "leftArm": "M104,160C78,170 58,142 52,116",
+    "rightArm": "M152,160C178,170 198,142 204,116",
+    "tilt": -4, "lift": -5, "leftBoot": -8, "rightBoot": 8,
+    "eyes": "happy", "frontArm": false,
+    "mouth": "M115,178C124,191 134,191 143,176"
+  },
+  "think": {
+    "label": "What if…?",
+    "use": "Questions, reflection, planning and pauses in an explainer.",
+    "leftArm": "M104,160C82,162 76,176 82,183",
+    "rightArm": "M152,163C178,167 174,193 143,184",
+    "tilt": -7, "lift": 0, "leftBoot": 0, "rightBoot": 0,
+    "eyes": "thoughtful", "frontArm": true,
+    "mouth": "M118,183Q126,179 133,181"
+  },
+  "step": {
+    "label": "Let’s get moving",
+    "use": "Taking action, next steps and chapter transitions.",
+    "leftArm": "M104,160C85,160 75,173 76,184",
+    "rightArm": "M152,160C175,163 184,146 180,131",
+    "tilt": 4, "lift": -3, "leftBoot": -14, "rightBoot": 14,
+    "eyes": "normal", "frontArm": false,
+    "mouth": "M116,181C124,187.667 132,187 140,179"
+  }
+}

@@ -1,8 +1,6 @@
 # build output
 dist/
 dist-pdf/
-# local design explorations, source artwork, export tooling and previews
-/design/
 # generated types
 .astro/
 
@@ -30,3 +28,10 @@ __pycache__/
 .idea/
 
 .vscode/
+
+# Generated design deliveries (rebuild with design/scripts/package-brand-kit.py)
+design/handoff/
+
+# Generated website handoff and disposable design build state.
+public/brand-assets/
+design/.cache/

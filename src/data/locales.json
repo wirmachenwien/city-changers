@@ -87,6 +87,9 @@
     "expandable-box": {
       "read-more": "Aufklappen"
     },
+    "mascot-box": {
+      "replay": "Maskottchen-Animation erneut abspielen"
+    },
     "spoiler": {
       "show": "Verborgenen Inhalt anzeigen",
       "hide": "Inhalt wieder verbergen"
@@ -195,6 +198,9 @@
     "expandable-box": {
       "read-more": "Expand"
     },
+    "mascot-box": {
+      "replay": "Replay mascot animation"
+    },
     "spoiler": {
       "show": "Show hidden content",
       "hide": "Hide content again"
@@ -302,6 +308,9 @@
     },
     "expandable-box": {
       "read-more": "Razpri"
+    },
+    "mascot-box": {
+      "replay": "Znova predvajaj animacijo maskote"
     },
     "spoiler": {
       "show": "Prikaži skrito vsebino",

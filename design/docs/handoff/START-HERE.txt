@@ -1,0 +1,119 @@
+TOOLBOX FOR CITY CHANGERS — START HERE
+
+This is your ready-to-use design kit. No coding or software installation is
+needed to use the pictures. Extract the ZIP before opening or importing files.
+Keep this folder as your original copy; save your finished posts elsewhere.
+
+YOUR FIRST POST
+
+1. Open 00-previews/mascot-poses.png to choose a pose.
+2. In your design app, create your post and add your photo or background.
+3. Drag a PNG from 02-mascot-stills/ink onto a light background.
+   For a dark background, choose the same pose from linen instead.
+4. Add a short headline and the full logo from 01-logos if needed.
+5. Check the post on a phone, then export from your design app as usual.
+
+WHICH FOLDER DO I NEED?
+
+00-previews          Contact sheets to help you choose. Not finished posts.
+01-logos             Official logo, with and without the full name.
+02-mascot-stills     Six poses as transparent PNG and scalable SVG pictures.
+03-animation        Moving mascots: video for editors, Lottie for compatible apps.
+04-fonts            Brand fonts and their licence notices.
+05-supporting-images Handbook photos, diagrams, partner and credit marks.
+06-web-icons        Small website/app icons. Usually not needed for social posts.
+07-rights           Repository licence. See the rights notes below too.
+BRAND-GUIDE.md       Colours, fonts and basic layout rules (open in any text editor).
+inventory.json      File list for the person preparing the kit; you can ignore it.
+
+CHOOSING A LOGO
+
+logo-lockup.svg       Full name and mascot, for light backgrounds.
+logo-lockup-dark.svg  Full name and mascot, for dark backgrounds.
+logo.svg             Mascot symbol, for light backgrounds.
+logo-dark.svg        Mascot symbol, for dark backgrounds.
+logo-lockup.png      Large transparent full logo, for light backgrounds.
+logo.png             512px symbol on a pale square, NOT transparent.
+logo-small.svg       Simplified symbol for tiny sizes, not the usual social logo.
+
+Start with the full logo when introducing the project. SVG stays sharp at any
+size; use PNG if your app does not accept SVG. For a transparent symbol PNG,
+use 02-mascot-stills/ink/neutral.png. For a dark-background full logo, use its
+SVG; there is no matching full-logo dark PNG in this kit.
+
+CHOOSING A POSE
+
+neutral / idle  General introductions; idle is the animated version.
+wave            Welcome, hello or goodbye.
+point           Draw attention to a caption on the mascot's right.
+celebrate       Community wins and milestones.
+think           Questions, ideas and planning.
+step            Next steps and action; animated walking stays in place.
+
+Ink means dark outlines, suited to light backgrounds. Linen means pale warm
+outlines, suited to dark backgrounds. Both versions have transparent backgrounds:
+they sit on top of your design without a square behind them. The coloured
+backgrounds in the preview sheets are only for comparison.
+
+MAKING A VIDEO
+
+The MOV files in 03-animation/video are transparent video overlays, not finished
+Reels or Stories. Each is 1080 x 1080, one second long, at 30 frames per second.
+They use ProRes 4444, a video format that preserves the transparent background.
+
+1. Import a MOV into a video editor that supports ProRes transparency.
+2. Put it on a layer ABOVE your footage or coloured background.
+3. Repeat the clip to keep the mascot moving for longer; these files have no sound.
+4. Add your text and sound, then export the finished video as MP4 for posting.
+
+Do not upload the overlay directly to Instagram expecting transparency to survive.
+If your app rejects it or shows a black square, try a compatible editor, or use
+a still PNG instead. MP4 cannot keep the overlay's transparent background.
+
+CANVA AND LOTTIE
+
+The JSON files in 03-animation/lottie contain vector animations, not pictures.
+Use a Lottie-compatible app or Canva's LottieFiles integration, if available for
+your account. Connect your workspace/import the JSON through that integration,
+add it to your design, and preview the finished export. Availability and upload
+options depend on the service and account; ordinary image upload may not work.
+Your app controls repetition. Each file contains a one-second animation cycle.
+If this is not supported, use a still PNG or the MOV workflow above.
+
+FONTS
+
+Use Fraunces for headlines and Clarity City for short captions. Newsreader is
+included for longer handbook-style text. You do not need to install a font to
+use the logos: their lettering is already drawn into the artwork.
+
+To install fonts on a computer, open the TTF files and choose Install. Start with
+FrauncesDisplay-Bold.ttf, ClarityCity-Regular.ttf and ClarityCity-Bold.ttf.
+WOFF2 files are for websites; ignore them for everyday design work. Uploading
+custom fonts to an online design app may require a paid plan or admin access.
+Keep the OFL licence files if you pass the fonts to someone else.
+
+BEFORE YOU POST
+
+- Keep the mascot and logo in their original proportions and colours.
+- Leave space around the leaf, boots and lettering. Do not place text over faces.
+- Keep important text away from the edges and platform buttons; preview in-app.
+- Use readable text, captions for speech, and useful alt text for still posts.
+- Check spelling, links, photo permissions and required credits.
+- The kit contains assets, not approved campaign copy or finished social templates.
+
+RIGHTS AND PERMISSIONS
+
+The inclusion of an image does not establish permission for every new use.
+The supporting images are reference material from the handbook. Before publishing
+them, confirm the photographer/creator credit, permission and any required
+licence wording with the project team. Partner and Erasmus+ marks may have
+separate usage rules; do not imply endorsement. A CC BY badge alone does not
+tell you which files it applies to. Font permissions are in the included OFL
+notices. The repository licence is included for reference, not as proof that
+every photo or third-party mark is cleared. Trademark clearance is not included.
+
+NEED SOMETHING CHANGED?
+
+Ask the person who sent this kit for new exports, missing credits or a custom
+animation. Editable animation source is deliberately not in this everyday kit.
+Tell them the filename, background colour and intended platform to save time.

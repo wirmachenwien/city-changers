@@ -58,6 +58,8 @@ from handbook.mdx import (
     FOOTNOTE_RE,
     FRONTMATTER_RE,
     GLOSSARY_RE,
+    MASCOT_OPEN_RE,
+    MASCOT_CLOSE_RE,
     PULLQUOTE_RE,
     QUESTION_RE,
     QUIZ_RE,
@@ -69,6 +71,7 @@ from handbook.mdx import (
     glossary_html,
     glossary_lang_html,
     licence_html,
+    mascot_open_html,
     pullquote_html,
     question_html,
     quiz_html,
@@ -116,7 +119,13 @@ def media_type(path: Path) -> str:
 def as_xhtml(body: str) -> str:
     # Python-Markdown emits HTML. Normalize the void elements used in this book
     # so common EPUB validators and readers accept them as XHTML.
-    body = re.sub(r'<img\b([^>/]*?)>', r'<img\1 />', body)
+    # Slashes inside image URLs are not tag delimiters. Match quoted attributes
+    # intact, then normalize both HTML <img> and existing XHTML <img /> tags.
+    body = re.sub(
+        r'''<img\b((?:"[^"]*"|'[^']*'|[^'">])*)>''',
+        lambda m: '<img' + m.group(1).rstrip().removesuffix('/').rstrip() + ' />',
+        body,
+    )
     body = re.sub(r'<br>', '<br />', body)
     body = re.sub(r'<hr>', '<hr />', body)
     return body
@@ -144,7 +153,8 @@ class EpubBook:
             return filename
         key = source.resolve().as_posix()
         if key not in self.images:
-            self.images[key] = f"images/{source.name}"
+            name = f"mascot-{source.name}" if source.parent == ASSETS / "mascot/static/ink" else source.name
+            self.images[key] = f"images/{name}"
         return self.images[key]
 
     def add_font(self, filename: str) -> str:
@@ -165,6 +175,8 @@ class EpubBook:
 
     def convert_mdx(self, text: str) -> str:
         text = FRONTMATTER_RE.sub("", text, count=1)
+        text = MASCOT_OPEN_RE.sub(lambda m: mascot_open_html(m.group(1), self.add_image), text)
+        text = MASCOT_CLOSE_RE.sub('\n\n</div>\n</div>\n\n', text)
         answers_label = locale_text(self.lang, "questions.correct-answers", "Correct answers")
 
         def figure(match: re.Match[str]) -> str:
