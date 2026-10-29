@@ -1645,8 +1645,8 @@ html:not(.js-fold) .accordion-content {
   margin-inline-start: 0.3rem;
   padding: 0 0.3rem;
   border-radius: 0.35rem;
-  font-size: 0.75rem;
-  /* At 0.75rem, raise by 1/6 of the anchor's cap height to center its
+  font-size: 1rem;
+  /* Raise by 1/6 of the anchor's cap height to center its
      lettering against the heading's capitals, rather than its x-height. */
   vertical-align: calc(1cap / 6);
   opacity: 1;
