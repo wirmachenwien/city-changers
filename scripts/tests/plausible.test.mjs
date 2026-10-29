@@ -13,7 +13,12 @@ test('bootstrap is inline and gated with the tracker', () => {
   assert.match(component, /import\.meta\.env\.PROD && !noindex/);
 });
 
-test('deferred tracker receives initialization options, not a custom init event', () => {
+test('tracker uses the official async site-specific script without legacy attributes', () => {
+  assert.match(component, /<script async src=\{plausible\.scriptSrc\}><\/script>/);
+  assert.doesNotMatch(component, /<script[^>]*(?:data-domain|defer)/);
+});
+
+test('tracker loading after bootstrap receives options, not a custom init event', () => {
   const window = {};
   runInNewContext(bootstrap, { window });
   assert.equal(typeof window.plausible, 'function');
