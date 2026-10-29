@@ -810,6 +810,17 @@ a[data-external-link]:has(img) > .external-link-icon {
   }
 }
 
+/* Prefer word boundaries and language-aware hyphenation; only split an
+   unbreakable word when it would otherwise overflow a narrow viewport. */
+:where(h1, h2, h3, h4, h5, h6),
+.pagination a {
+  word-break: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  text-wrap: balance;
+}
+
 .prose h1,
 .prose h2,
 .prose h3,
@@ -1845,6 +1856,7 @@ html:not(.js-fold) .accordion-content {
   text-decoration: none;
   color: var(--ink);
   max-inline-size: 45%;
+  min-inline-size: 0;
 }
 
 .pagination a:hover {

@@ -23,7 +23,8 @@ function label(entry: NeighbourEntry, direction: 'prev' | 'next'): string {
   if (type === 'arrows') return arrow;
   if (type === 'previous-next') return fallback;
   if (type === 'titles') return entry.label;
-  return direction === 'prev' ? `${arrow} ${entry.label}` : `${entry.label} ${arrow}`;
+  // Keep each arrow with its neighbouring word instead of orphaning it.
+  return direction === 'prev' ? `${arrow}\u00a0${entry.label}` : `${entry.label}\u00a0${arrow}`;
 }
 ---
 {(prev || next) && (
