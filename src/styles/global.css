@@ -2,6 +2,7 @@
    Modern CSS, logical properties throughout so RTL locales mirror for free. */
 
 @import "katex/dist/katex.css";
+@import "./colors.generated.css";
 
 /* Self-hosted Newsreader Text (OFL, see OFL-Newsreader.txt). Static instances
    at the text optical size (opsz 16). It is the print body face: the
@@ -82,21 +83,6 @@
 }
 
 :root {
-  color-scheme: light dark;
-  /* Keep in sync with themeColorLight in handbook.config.ts (theme-color meta + webmanifest). */
-  --paper: #fdfcf9;
-  --ink: #1d1a16;
-  --ink-soft: #4a443c;
-  --accent: #0c6b3c;
-  --accent-ink: #ffffff;
-  --accent-soft: #e3f0e6;
-  --line: #ddd5c7;
-  --panel: #f4efe4;
-  --warn: #8a4b00;
-  --warn-soft: #fbf0dc;
-  --error: #a31f1f;
-  --mark: #ffe08a;
-  --mark-ink: #1d1a16;
   --radius: 0.6rem;
   --measure: 44rem;
   /* Fraunces variable-axis presets, applied with font-variation-settings on
@@ -114,62 +100,6 @@
   --font-text: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-title: "Fraunces", Georgia, "Times New Roman", serif;
   --font-ui: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-
-/* Explicit light choice: pin native widgets to light. */
-:root[data-theme="light"] {
-  color-scheme: light;
-  --paper: #fdfcf9;
-  --ink: #1d1a16;
-  --ink-soft: #4a443c;
-  --accent: #0c6b3c;
-  --accent-ink: #ffffff;
-  --accent-soft: #e3f0e6;
-  --line: #ddd5c7;
-  --panel: #f4efe4;
-  --warn: #8a4b00;
-  --warn-soft: #fbf0dc;
-  --error: #a31f1f;
-  --mark: #ffe08a;
-  --mark-ink: #1d1a16;
-}
-
-/* Explicit dark choice. All dark values meet WCAG AA (≥4.5:1) against --paper. */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #161511;
-  --ink: #f2ede3;
-  --ink-soft: #c2bbae;
-  --accent: #4cc38a;
-  --accent-ink: #062915;
-  --accent-soft: #1d3527;
-  --line: #3a362f;
-  --panel: #23211c;
-  --warn: #e8a33d;
-  --warn-soft: #33260f;
-  --error: #ff8a7a;
-  --mark: #5c4d0f;
-  --mark-ink: #f6f1e5;
-}
-
-/* System choice (no data-theme): follow the OS. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    color-scheme: dark;
-    --paper: #161511;
-    --ink: #f2ede3;
-    --ink-soft: #c2bbae;
-    --accent: #4cc38a;
-    --accent-ink: #062915;
-    --accent-soft: #1d3527;
-    --line: #3a362f;
-    --panel: #23211c;
-    --warn: #e8a33d;
-    --warn-soft: #33260f;
-    --error: #ff8a7a;
-    --mark: #5c4d0f;
-    --mark-ink: #f6f1e5;
-  }
 }
 
 /* Theme switch cross-fade: swapping data-theme re-resolves every var() at
@@ -244,7 +174,7 @@ a[x-apple-data-detectors] {
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -502,7 +432,7 @@ a[x-apple-data-detectors] {
   font: inherit;
   color: var(--ink);
   background: transparent;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-border);
   border-radius: var(--radius);
   padding: 0.3rem 0.4rem;
   max-inline-size: 8.5rem;
@@ -644,7 +574,7 @@ body.drawer-open .site-head {
   position: fixed;
   inset: 0;
   z-index: 20;
-  background: rgb(0 0 0 / 0.45);
+  background: var(--scrim);
 }
 
 .drawer-backdrop[hidden] {
@@ -1012,7 +942,7 @@ a[data-external-link]:has(img) > .external-link-icon {
    and dark mode. Never dimmed or filtered. */
 .figure--framed > img,
 .figure--framed > picture > img {
-  background: #fff;
+  background: var(--white);
   padding: 1rem;
   border-radius: var(--radius);
 }
@@ -1147,7 +1077,7 @@ a[data-external-link]:has(img) > .external-link-icon {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
-  background: #000;
+  background: var(--black);
 }
 
 .video-facade button {
@@ -1157,8 +1087,8 @@ a[data-external-link]:has(img) > .external-link-icon {
   border: 0;
   padding: 0;
   cursor: pointer;
-  background: #111 center / cover no-repeat;
-  color: #fff;
+  background: var(--black) center / cover no-repeat;
+  color: var(--white);
   font-family: var(--font-ui);
   font-size: 1.07rem;
 }
@@ -1167,7 +1097,7 @@ a[data-external-link]:has(img) > .external-link-icon {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgb(0 0 0 / 0.65);
+  background: var(--video-scrim);
   padding: 0.6rem 1.2rem;
   border-radius: 999px;
 }
@@ -1406,7 +1336,7 @@ html:not(.js-fold) .accordion-content {
   font: inherit;
   color: var(--ink);
   background: transparent;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-border);
   border-radius: var(--radius);
   padding: 0.3rem 0.4rem;
   max-inline-size: 8.5rem;
@@ -1465,6 +1395,7 @@ html:not(.js-fold) .accordion-content {
 }
 
 .content-popup {
+  --focus: var(--popup-link);
   position: fixed;
   display: grid;
   grid-template-rows: minmax(0, 1fr);
@@ -1494,7 +1425,7 @@ html:not(.js-fold) .accordion-content {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: color-mix(in srgb, var(--accent) 60%, var(--paper));
+  color: var(--popup-link);
   text-decoration: none;
   vertical-align: -0.15em;
 }
@@ -1529,7 +1460,7 @@ html:not(.js-fold) .accordion-content {
   border-radius: 50%;
   background: var(--paper);
   color: var(--ink);
-  box-shadow: 0 1px 6px rgb(0 0 0 / 0.16);
+  box-shadow: 0 1px 6px var(--shadow-soft);
 }
 
 .content-popup-close .icon {
@@ -1823,7 +1754,7 @@ html:not(.js-fold) .accordion-content {
 /* QR codes need a white quiet zone to stay scannable on dark paper. */
 .qr [role="img"] {
   display: inline-block;
-  background: #fff;
+  background: var(--white);
   padding: 0.5rem;
   border-radius: var(--radius);
 }
@@ -1906,7 +1837,7 @@ html:not(.js-fold) .accordion-content {
   color: var(--ink);
   border: 1px solid var(--ink);
   border-radius: 50%;
-  box-shadow: 0 0.15rem 0.5rem rgb(0 0 0 / 0.2);
+  box-shadow: 0 0.15rem 0.5rem var(--shadow);
   cursor: pointer;
   pointer-events: auto;
   /* No top/left transition: pins must sit fixed in their gutter column
@@ -2066,7 +1997,7 @@ html:not(.js-fold) .accordion-content {
   font-family: var(--font-ui);
   font-size: 0.96rem;
   line-height: 1.4;
-  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.3);
+  box-shadow: 0 0.5rem 1.5rem var(--shadow-strong);
 }
 
 .last-visit-toast[hidden] {
@@ -2387,7 +2318,7 @@ html:not(.js-fold) .accordion-content {
 
 .language-switcher a {
   display: inline-block;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-border);
   border-radius: var(--radius);
   padding: 0.15rem 0.55rem;
   text-decoration: none;
@@ -2693,19 +2624,6 @@ input[type="search"]::placeholder {
        PDF, src/styles/print.css) but now shares the web's Fraunces
        headlines — same --fraunces-vars presets as on screen. */
     --font-text: "Newsreader", Georgia, "Times New Roman", serif;
-    --paper: #ffffff;
-    --ink: #111111;
-    --ink-soft: #444444;
-    --accent: #0c6b3c;
-    --accent-ink: #ffffff;
-    --accent-soft: #eef5ef;
-    --line: #999999;
-    --panel: #ffffff;
-    --warn: #8a4b00;
-    --warn-soft: #ffffff;
-    --error: #a31f1f;
-    --mark: #ffffff;
-    --mark-ink: #111111;
   }
 
   .site-head,

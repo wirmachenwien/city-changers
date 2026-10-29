@@ -2,7 +2,7 @@
    Screen styles live in global.css; this file only ships to print.
    The font url() paths below are logical: build-pdf.py rewrites them to
    file:// URIs of the self-hosted fonts so the PDF embeds them. */
-.mascot-box { margin: 5mm 0; padding: 4mm; border: .5pt solid #777; border-radius: 2mm; break-inside: avoid; }
+.mascot-box { margin: 5mm 0; padding: 4mm; border: .5pt solid var(--line); border-radius: 2mm; break-inside: avoid; }
 .mascot-box__mascot { float: left; width: 24mm; height: 24mm; margin: 0 4mm 2mm 0; }
 .mascot-box__bubble { min-height: 24mm; }
 .mascot-box__bubble > :first-child { margin-top: 0; }
@@ -81,14 +81,14 @@
        on the page where the chapter heading sets the string. */
     content: string(chapter, first-except);
     font: 8pt "Clarity City", system-ui, sans-serif;
-    color: #555;
+    color: var(--ink-soft);
   }
   @bottom-center {
     content: counter(page);
     font: 8pt "Clarity City", system-ui, sans-serif;
   }
   @footnote {
-    border-top: 0.5pt solid #999;
+    border-top: 0.5pt solid var(--line);
     padding-top: 4pt;
   }
 }
@@ -105,7 +105,12 @@
 
 html {
   font: 11.5pt/1.5 "Newsreader", Georgia, "Times New Roman", serif;
-  color: #111;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+a {
+  color: var(--accent);
 }
 
 body {
@@ -197,7 +202,7 @@ dl.glossary dt {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: #fff;
+  color: var(--white);
 }
 
 .cover-sheet .cover-scrim {
@@ -208,10 +213,10 @@ dl.glossary dt {
   bottom: 0;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.82) 0%,
-    rgba(0, 0, 0, 0.45) 40%,
-    rgba(0, 0, 0, 0.05) 70%,
-    rgba(0, 0, 0, 0.25) 100%
+    var(--cover-shadow-deep) 0%,
+    var(--cover-shadow-mid) 40%,
+    var(--cover-shadow-faint) 70%,
+    var(--cover-shadow-edge) 100%
   );
 }
 
@@ -228,7 +233,7 @@ dl.glossary dt {
 .cover-sheet h1 {
   font-size: 34pt;
   line-height: 1.1;
-  color: #fff;
+  color: var(--white);
   margin: 0 0 8pt;
   font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 45;
 }
@@ -287,18 +292,18 @@ dl.glossary dt {
 .title-page-contributors { margin: 0; }
 .title-page-label {
   font-size: 7.5pt;
-  color: #555;
+  color: var(--ink-soft);
 }
 .title-page-licence {
   display: flex;
   align-items: flex-start;
   gap: 4mm;
-  border-top: 0.5pt solid #999;
+  border-top: 0.5pt solid var(--line);
   padding-top: 5mm;
   margin-top: 8mm;
   font-size: 8pt;
   line-height: 1.5;
-  color: #555;
+  color: var(--ink-soft);
 }
 .title-page-licence p { margin: 0; }
 .title-page-licence .title-page-cc {
@@ -359,7 +364,7 @@ figure img {
 
 figcaption {
   font: 9pt "Clarity City", system-ui, sans-serif;
-  color: #444;
+  color: var(--ink-soft);
   margin-top: 4pt;
 }
 
@@ -382,8 +387,8 @@ ul.toc a::after {
 blockquote {
   margin-inline-start: 0;
   padding-inline-start: 10pt;
-  border-inline-start: 3pt solid #0c6b3c;
-  color: #333;
+  border-inline-start: 3pt solid var(--accent);
+  color: var(--ink-soft);
 }
 
 /* Pull quotes read as voices, not asides: larger italic type with a
@@ -392,7 +397,7 @@ blockquote.pullquote {
   font-size: 14pt;
   line-height: 1.45;
   font-style: italic;
-  color: #111;
+  color: var(--ink);
   border-inline-start-width: 4.5pt;
   margin: 14pt 0;
 }
@@ -400,23 +405,23 @@ blockquote.pullquote {
 blockquote.pullquote footer {
   font: 9.5pt "Clarity City", system-ui, sans-serif;
   font-style: normal;
-  color: #444;
+  color: var(--ink-soft);
   margin-top: 4pt;
 }
 
-/* Tip boxes mirror the web panel: light green fill with a solid accent
+/* Tip boxes mirror the web panel: neutral fill with a solid accent
    bar, so they stand apart from the running text. */
 .feature-box {
-  background: #eef5ef;
-  border: 0.5pt solid #0c6b3c;
+  background: var(--panel);
+  border: 0.5pt solid var(--accent);
   border-inline-start-width: 4.5pt;
   padding: 8pt 10pt;
   margin: 12pt 0;
 }
 
 .feature-box[data-tone="warm"] {
-  background: #faf3e8;
-  border-color: #8a5a00;
+  background: var(--warn-soft);
+  border-color: var(--warn);
 }
 
 /* Glossary: term in the UI face, definition flush below it (web parity). */
@@ -438,7 +443,7 @@ dl.glossary dd {
 /* Self-check quizzes print as boxed tasks; the answer key stays
    upside-down (turn-the-page convention), the box keeps it tidy. */
 .quiz {
-  border: 0.5pt solid #111;
+  border: 0.5pt solid var(--ink);
   padding: 8pt 10pt;
   margin: 12pt 0;
 }
@@ -455,7 +460,7 @@ table {
 }
 
 th, td {
-  border: 0.5pt solid #999;
+  border: 0.5pt solid var(--line);
   padding: 4pt 6pt;
   text-align: left;
 }

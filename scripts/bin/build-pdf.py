@@ -44,6 +44,7 @@ from handbook.book import (
     read_chapter_mdx,
     render_math_html,
     resolve_jobs,
+    resolve_color_tokens,
     title_page_details_html,
 )
 from handbook.mdx import (
@@ -175,7 +176,7 @@ def font_uri(filename: str) -> str:
 
 def print_css() -> str:
     """Print stylesheet with logical font paths rewritten to file URIs."""
-    css = PRINT_CSS.read_text(encoding="utf-8")
+    css = resolve_color_tokens(PRINT_CSS.read_text(encoding="utf-8"))
     size, margin = pdf_page_settings()
     css = re.sub(
         r"(@page\s*\{\s*)size:\s*[^;]+;\s*margin:\s*[^;]+;",

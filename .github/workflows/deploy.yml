@@ -36,6 +36,9 @@ jobs:
       - name: Check derived config files are in sync
         run: npm run check:config
 
+      - name: Check color registry, generated outputs and contrast
+        run: npm run colors:check && node --test scripts/tests/colors.test.mjs
+
       - name: Build static site, PDFs, EPUBs and search index
         run: npm run build
         env:

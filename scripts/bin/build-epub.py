@@ -48,6 +48,7 @@ from handbook.book import (
     read_chapter_mdx,
     render_math_html,
     resolve_jobs,
+    resolve_color_tokens,
     title_page_details_html,
 )
 from handbook.mdx import (
@@ -445,7 +446,7 @@ class EpubBook:
                 '</rootfiles></container>\n',
                 encoding="utf-8",
             )
-            css = EPUB_CSS_PATH.read_text(encoding="utf-8") + "\n" + katex_css("../fonts/")
+            css = resolve_color_tokens(EPUB_CSS_PATH.read_text(encoding="utf-8")) + "\n" + katex_css("../fonts/")
             (oebps / "styles" / "epub.css").write_text(css, encoding="utf-8")
             (oebps / "nav.xhtml").write_text(self.nav_document(), encoding="utf-8")
             (oebps / "content.opf").write_text(self.opf_document(), encoding="utf-8")

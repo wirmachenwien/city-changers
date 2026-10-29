@@ -1,0 +1,117 @@
+/* Generated from design/colors.json. Run npm run colors:generate; do not edit. */
+:root {
+  color-scheme: light dark;
+  --white: #ffffff;
+  --black: #000000;
+  --art-paper: #fdfcf9;
+  --art-dark: #161511;
+  --scrim: rgba(0, 0, 0, 0.45);
+  --video-scrim: rgba(0, 0, 0, 0.65);
+  --shadow-soft: rgba(0, 0, 0, 0.16);
+  --shadow: rgba(0, 0, 0, 0.2);
+  --shadow-strong: rgba(0, 0, 0, 0.3);
+  --cover-shadow-deep: rgba(0, 0, 0, 0.82);
+  --cover-shadow-mid: rgba(0, 0, 0, 0.45);
+  --cover-shadow-faint: rgba(0, 0, 0, 0.05);
+  --cover-shadow-edge: rgba(0, 0, 0, 0.25);
+  --paper: #fdfcf9;
+  --ink: #1d1a16;
+  --ink-soft: #4a4743;
+  --accent: #0c6b3c;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5eee6;
+  --line: #d9d8d5;
+  --control-border: #82807c;
+  --panel: #f6f1ea;
+  --warn: #8a4b00;
+  --warn-soft: #fdf6e1;
+  --error: #a31f1f;
+  --mark: #ffe08a;
+  --mark-ink: #1d1a16;
+  --focus: #0c6b3c;
+  --popup-link: #6ca588;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --paper: #fdfcf9;
+  --ink: #1d1a16;
+  --ink-soft: #4a4743;
+  --accent: #0c6b3c;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5eee6;
+  --line: #d9d8d5;
+  --control-border: #82807c;
+  --panel: #f6f1ea;
+  --warn: #8a4b00;
+  --warn-soft: #fdf6e1;
+  --error: #a31f1f;
+  --mark: #ffe08a;
+  --mark-ink: #1d1a16;
+  --focus: #0c6b3c;
+  --popup-link: #6ca588;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #161511;
+  --ink: #f2ede3;
+  --ink-soft: #c2bdb5;
+  --accent: #4cc38a;
+  --accent-ink: #161511;
+  --accent-soft: #1e2d22;
+  --line: #3e3c37;
+  --control-border: #797670;
+  --panel: #23221e;
+  --warn: #e8a33d;
+  --warn-soft: #332917;
+  --error: #ff8a7a;
+  --mark: #55401e;
+  --mark-ink: #f2ede3;
+  --focus: #4cc38a;
+  --popup-link: #367d5a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --paper: #161511;
+    --ink: #f2ede3;
+    --ink-soft: #c2bdb5;
+    --accent: #4cc38a;
+    --accent-ink: #161511;
+    --accent-soft: #1e2d22;
+    --line: #3e3c37;
+    --control-border: #797670;
+    --panel: #23221e;
+    --warn: #e8a33d;
+    --warn-soft: #332917;
+    --error: #ff8a7a;
+    --mark: #55401e;
+    --mark-ink: #f2ede3;
+    --focus: #4cc38a;
+    --popup-link: #367d5a;
+  }
+}
+
+@media print {
+  :root, :root[data-theme], :root:not([data-theme]) {
+    color-scheme: light;
+    --paper: #ffffff;
+    --ink: #1d1a16;
+    --ink-soft: #4a4845;
+    --accent: #0c6b3c;
+    --accent-ink: #ffffff;
+    --accent-soft: #e5eee6;
+    --line: #999896;
+    --control-border: #82807c;
+    --panel: #f6f1ea;
+    --warn: #8a4b00;
+    --warn-soft: #fdf6e1;
+    --error: #a31f1f;
+    --mark: #ffe08a;
+    --mark-ink: #1d1a16;
+    --focus: #0c6b3c;
+    --popup-link: #6ca588;
+  }
+}

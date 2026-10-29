@@ -34,6 +34,7 @@ import re
 import subprocess
 from pathlib import Path
 from typing import Callable
+from color_registry import load_colors
 
 from handbook.config import load_config
 from handbook.mdx import find_asset_by_basename, front_opener_for_pages, make_glossary_lang_re, licence_html
@@ -157,6 +158,20 @@ def read_chapter_mdx(lang: str, slug: str) -> str | None:
     if not path.exists():
         return None
     return path.read_text(encoding="utf-8")
+
+
+def resolve_color_tokens(css: str) -> str:
+    """Materialize registry colors for PDF and legacy EPUB CSS engines."""
+    palette = load_colors()
+    colors = palette["utilities"] | palette["themes"]["print"]
+
+    def replace(match: re.Match[str]) -> str:
+        token = match.group(1)
+        if token not in colors:
+            raise ValueError(f"Unregistered export color token: --{token}")
+        return colors[token]
+
+    return re.sub(r"var\(--([a-z][a-z0-9-]*)\)", replace, css)
 
 
 def markdown_to_html(converted_md: str, lang: str) -> str:

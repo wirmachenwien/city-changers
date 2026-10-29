@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import guideSource from '../../../design/brand-guide.md?raw';
+import colorReference from '../../../design/colors-reference.md?raw';
 import PreviewLayout from '../../layouts/PreviewLayout.astro';
 import { withBase } from '../../lib/site';
 import MascotPreview from '../../components/MascotPreview.astro';
@@ -15,6 +16,9 @@ const identitySource = guideSource.split(/^## Identity\s*$/m)[1]?.split(/^## /m)
 if (!identitySource) throw new Error('Brand guide is missing its Identity section');
 const markdown = await createMarkdownProcessor();
 const { code: identityHtml } = await markdown.render(identitySource);
+const { code: colorReferenceHtml } = await markdown.render(colorReference.replace(/^(#{1,2}) /gm, '###$1 '));
+const artworkSource = guideSource.split(/^### Protected artwork colors\s*$/m)[1]?.split(/^## Type\s*$/m)[0]?.trim() ?? '';
+const { code: artworkHtml } = await markdown.render(artworkSource);
 const colours = [...guideSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
 function lottiePreview(file: string) {
   const match = file.match(/\/green-fix-([a-z]+)-(ink|linen)\.json$/);
@@ -28,6 +32,7 @@ function lottiePreview(file: string) {
   <div set:html={identityHtml} />
   <h2>Brand examples</h2>
   <h3>Colour reference</h3>
+  <p>Three UI color families—green, amber and red—plus neutrals. Supporting shades are derived from this compact palette; artwork colors stay protected.</p>
   <ul class="asset-grid">
     {colours.map(([, name, hex, description]) => (
       <li>
@@ -37,6 +42,14 @@ function lottiePreview(file: string) {
       </li>
     ))}
   </ul>
+  <h4>Protected artwork colors</h4>
+  <div set:html={artworkHtml} />
+  <details class="color-reference">
+    <summary>Technical color reference — themes, recipes and accessibility</summary>
+    <div set:html={colorReferenceHtml} />
+    <p><a href={assetUrl('COLOR-REFERENCE.md')} download>Download the technical color reference</a></p>
+    <p><a href={assetUrl('COLORS.json')} download>Download the color registry (JSON)</a></p>
+  </details>
   <h3>Typography</h3>
   <p class="type-headline">Fraunces — Small steps. Better streets.</p>
   <p class="type-caption">Clarity City — Practical tools for community action.</p>
@@ -81,8 +94,8 @@ function lottiePreview(file: string) {
   .asset-grid li { border: 1px solid currentColor; border-radius: .5rem; padding: .75rem; min-width: 0; }
   .asset-grid a { display: flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
   .asset-grid small { display: block; }
-  .asset-preview { background: #fdfcf9; border-radius: .25rem; padding: .75rem; }
-  .asset-preview-dark { background: #161511; }
+  .asset-preview { background: var(--art-paper); border-radius: .25rem; padding: .75rem; }
+  .asset-preview-dark { background: var(--art-dark); }
   .asset-preview img { width: 100%; height: 180px; object-fit: contain; }
   .lottie-preview { display: grid; place-items: center; }
   .lottie-preview__artwork { width: min(100%, 180px); }
@@ -90,4 +103,7 @@ function lottiePreview(file: string) {
   .type-headline { font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; }
   .type-caption { font-family: 'Clarity City', sans-serif; }
   .type-editorial { font-family: 'Newsreader', Georgia, serif; font-size: 1.25rem; }
+  .color-reference { margin-block: 1.5rem; }
+  .color-reference summary { cursor: pointer; font-weight: 700; }
+  .color-reference > div { overflow-x: auto; }
 </style>

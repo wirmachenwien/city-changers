@@ -26,6 +26,9 @@ jobs:
       - name: Validate and package committed design assets
         uses: ./.github/actions/design
 
+      - name: Check color registry, generated outputs and contrast
+        run: npm run colors:check && node --test scripts/tests/colors.test.mjs
+
       - name: Check derived config files are in sync
         run: npm run check:config
 

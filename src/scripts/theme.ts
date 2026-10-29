@@ -16,9 +16,11 @@
 // - The masthead button shows the action target (moon while light, sun
 //   while dark); its accessible name names the target mode.
 
+import colors from '../data/colors.generated.json' with { type: 'json' };
+
 const STORAGE_KEY = 'wmw-theme';
-const LIGHT_PAPER = '#fdfcf9';
-const DARK_PAPER = '#161511';
+const LIGHT_PAPER = colors.themes.light.paper;
+const DARK_PAPER = colors.themes.dark.paper;
 
 type ThemeMode = 'light' | 'dark' | 'system';
 

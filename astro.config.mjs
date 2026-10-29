@@ -1,5 +1,6 @@
 // @ts-check
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
@@ -16,6 +17,12 @@ import { site, base, defaultLang, languages } from './handbook.config.ts';
 /** @typedef {{ chapters?: Chapter[] }} Work */
 
 const root = dirname(fileURLToPath(import.meta.url));
+// Direct Astro invocations must not silently use an outdated palette either.
+const colorSource = readFileSync(join(root, 'design/colors.json'));
+const colorOutput = JSON.parse(readFileSync(join(root, 'src/data/colors.generated.json'), 'utf8'));
+if (colorOutput.registrySha256 !== createHash('sha256').update(colorSource).digest('hex')) {
+  throw new Error('Generated colors are outdated; run npm run colors:generate');
+}
 const readJson = (/** @type {string} */ path) =>
   JSON.parse(readFileSync(join(root, path), 'utf8'));
 

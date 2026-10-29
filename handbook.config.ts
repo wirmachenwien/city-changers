@@ -13,6 +13,8 @@
 // To ship a two-language handbook, shrink `languages` (keeping defaultLang
 // inside it) and run `npm run sync:config`, then rebuild.
 
+import colors from './src/data/colors.generated.json' with { type: 'json' };
+
 /** Canonical origin the site is published at. */
 export const site = 'https://toolbox.wirmachen.wien';
 
@@ -37,15 +39,15 @@ export const defaultLang: Language = 'en';
 
 /** Chrome / safe-area background: paper tone. Single source for the
  *  theme-color metas (BaseLayout), site.webmanifest (via sync-config.mjs),
- *  and --paper in src/styles/global.css (kept in sync by hand).
+ *  and the generated CSS tokens, all sourced from design/colors.json.
  *  themeColor stays as the light default for backwards compatibility. */
-export const themeColor = '#fdfcf9';
+export const themeColor = colors.themes.light.paper;
 
 /** Light chrome background (default paper). */
 export const themeColorLight = themeColor;
 
 /** Dark chrome background (dark --paper). */
-export const themeColorDark = '#161511';
+export const themeColorDark = colors.themes.dark.paper;
 
 /** Plausible analytics (self-hosted instance, privacy-friendly, cookieless).
  *  Configured at build time via environment so no tracker URL is hardcoded:

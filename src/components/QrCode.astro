@@ -5,6 +5,7 @@ import QRCode from 'qrcode';
 import { canonical } from '../lib/site';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import colors from '../data/colors.generated.json';
 
 interface Props {
   url: string;
@@ -18,7 +19,10 @@ const { url, label, size = 160, lang } = Astro.props;
 // localised here to match the hast-transformed prose (only when lang is
 // known). The URL itself is never rewritten.
 const displayLabel = label && lang ? smartQuotes(label, lang) : label;
-const svg = await QRCode.toString(canonical(url), { type: 'svg', width: size, margin: 1 });
+const svg = await QRCode.toString(canonical(url), {
+  type: 'svg', width: size, margin: 1,
+  color: { dark: colors.utilities.black, light: colors.utilities.white },
+});
 ---
 <figure class="qr">
   <div set:html={svg} role="img" aria-label={displayLabel ?? url} />

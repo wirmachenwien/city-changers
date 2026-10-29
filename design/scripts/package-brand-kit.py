@@ -8,12 +8,15 @@ import html
 import json
 from pathlib import Path
 import shutil
+import sys
 import tempfile
 import zipfile
 from asset_library import asset_records
 
 ROOT = Path(__file__).resolve().parents[2]
 DESIGN = ROOT / "design"
+sys.path.insert(0, str(ROOT / "scripts"))
+from color_registry import load_colors
 
 
 def asset_map():
@@ -22,6 +25,7 @@ def asset_map():
 
 
 def build(output):
+    colors = load_colors()["themes"]["light"]
     files = asset_map()
     missing = [str(path.relative_to(ROOT)) for path in files.values() if not path.is_file()]
     if missing:
@@ -49,7 +53,7 @@ def build(output):
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>City Changers — Start here</title>'
             '<style>body{max-width:72ch;margin:3rem auto;padding:0 1rem;'
-            'font:18px/1.6 system-ui;color:#20221c;background:#fdfcf9}'
+            f'font:18px/1.6 system-ui;color:{colors["ink"]};background:{colors["paper"]}}}'
             'pre{white-space:pre-wrap;font:inherit}</style><main><h1>City Changers brand kit</h1><pre>'
             + html.escape(text) + '</pre></main></html>')
         (kit / "inventory.json").write_text(json.dumps({"assets": inventory}, indent=2) + "\n")

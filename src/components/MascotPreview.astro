@@ -42,8 +42,8 @@ const replayLabel = `${t(lang, 'mascot-box.replay', 'Replay mascot animation')} 
 </script>
 
 <style>
-  .mascot-box__player { --mascot-art-paper: #fdfcf9; display: block; min-width: 0; }
-  .mascot-box__player--linen { --mascot-art-paper: #161511; }
+  .mascot-box__player { --mascot-art-paper: var(--art-paper); display: block; min-width: 0; }
+  .mascot-box__player--linen { --mascot-art-paper: var(--art-dark); }
   .mascot-box__artwork { position: relative; aspect-ratio: 1; border-radius: var(--radius); background: var(--mascot-art-paper); }
   .mascot-box__artwork img { display: block; width: 100%; height: auto; margin: 0; }
   .mascot-box__animation { position: absolute; inset: 0; display: none; }
