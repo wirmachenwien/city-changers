@@ -46,6 +46,11 @@ language URLs (`/en/…`) redirect to the canonical root locations.
 Cookieless [Plausible](https://plausible.io) tracking (production builds only,
 via `PLAUSIBLE_DOMAIN` and `PLAUSIBLE_SCRIPT_SRC` build env vars, wired to
 repository Variables in `deploy.yml`). Unset = tracking disabled.
+Use the site-specific `pa-….js` script URL from Plausible's installation
+snippet; the component includes the required `plausible.init()` bootstrap.
+Configure download and outbound-link measurements in Plausible's tracking
+settings. After deploying, verify a real visit in Plausible (with blockers
+disabled); loading the script alone does not confirm event collection.
 
 ## Project layout
 

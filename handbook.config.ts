@@ -51,7 +51,8 @@ export const themeColorDark = '#161511';
  *  Configured at build time via environment so no tracker URL is hardcoded:
  *  - PLAUSIBLE_DOMAIN: site identifier registered in Plausible (data-domain).
  *  - PLAUSIBLE_SCRIPT_SRC: full script URL on the self-hosted instance, e.g.
- *    the `script.file-downloads.outbound-links.js` variant.
+ *    the site-specific `pa-….js` URL from the installation snippet.
+ *    Configure downloads/outbound links in Plausible's tracking settings.
  *  Empty values disable tracking (dev default, and safe until configured).
  *  This module is also bundled for the browser (via src/lib/site.ts), where
  *  `process` does not exist — hence the guarded access. */
