@@ -89,7 +89,24 @@ class MascotKitTest(unittest.TestCase):
             for relative in expected:
                 self.assertEqual((kit / "static" / relative).read_bytes(),
                                  (KIT / "static" / relative).read_bytes())
-            self.assertEqual((kit / "overview.png").read_bytes(), (KIT / "overview.png").read_bytes())
+            # FreeType's text rasterization varies between macOS and Linux even
+            # with the same Pillow/font files. Keep exact cross-platform checks
+            # for the artwork, not the contact sheet's rendered text or PNG bytes.
+            with Image.open(kit / "overview.png") as actual_board, Image.open(KIT / "overview.png") as expected_board:
+                self.assertEqual(actual_board.size, expected_board.size)
+                self.assertEqual(actual_board.mode, expected_board.mode)
+                for index, name in enumerate(BUILDER.load_poses()):
+                    x, y = 60 + (index % 3) * 570, 255 + (index // 3) * 540
+                    artwork = (x, y, x + 550, y + 400)
+                    with self.subTest(pose=name):
+                        self.assertEqual(actual_board.crop(artwork).tobytes(),
+                                         expected_board.crop(artwork).tobytes())
+            # The complete sheet, including text, must still be deterministic
+            # when generated twice using the same host toolchain.
+            first_board = (kit / "overview.png").read_bytes()
+            with patch.object(BUILDER, "KIT", kit), patch.object(BUILDER, "POSES", poses):
+                BUILDER.build()
+            self.assertEqual((kit / "overview.png").read_bytes(), first_board)
 
 
 if __name__ == "__main__":
