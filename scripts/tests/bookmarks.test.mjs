@@ -99,26 +99,33 @@ test('opening and navigating to a bookmark scrolls without highlighting it', () 
 
 test('saving keeps the pin, but mouse focus does not latch the highlight', () => {
   const env = environment();
+  assert.equal(env.pending.classList.contains('is-active'), false);
   env.move(720, 210);
+  assert.equal(env.pending.classList.contains('is-active'), true);
   env.focus();
   env.event(env.pending, 'click');
   assert.equal(env.pins(), 2);
   assert.equal(env.highlighted(), 1);
   env.move(300, 210);
+  assert.equal(env.pending.classList.contains('is-active'), false);
   assert.equal(env.highlighted(), 0);
   assert.equal(env.pins(), 2);
   env.move(720, 210);
+  assert.equal(env.pending.classList.contains('is-active'), true);
   assert.equal(env.highlighted(), 1);
   env.event(env.document.querySelector('main'), 'mouseleave');
+  assert.equal(env.pending.classList.contains('is-active'), false);
   assert.equal(env.highlighted(), 0);
 });
 
 test('touch save clears selection feedback without removing the saved pin', () => {
   const env = environment({ touch: true });
   env.event(env.document.getElementById('second'), 'click');
+  assert.equal(env.pending.classList.contains('is-active'), true);
   assert.equal(env.highlighted(), 1);
   env.focus();
   env.event(env.pending, 'click');
+  assert.equal(env.pending.classList.contains('is-active'), false);
   assert.equal(env.highlighted(), 0);
   assert.equal(env.pins(), 2);
 });
@@ -126,9 +133,11 @@ test('touch save clears selection feedback without removing the saved pin', () =
 test('keyboard aiming still highlights the focused line and clears on blur', () => {
   const env = environment();
   env.focus(true);
+  assert.equal(env.pending.classList.contains('is-active'), true);
   assert.equal(env.highlighted(), 1);
   env.event(env.pending, 'keydown', { key: 'ArrowDown' });
   assert.equal(env.highlighted(), 1);
   env.event(env.pending, 'blur');
+  assert.equal(env.pending.classList.contains('is-active'), false);
   assert.equal(env.highlighted(), 0);
 });

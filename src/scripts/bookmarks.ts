@@ -304,6 +304,7 @@ function initBookmarkGutter(): void {
   function showPending(index: number): void {
     if (!targets[index]) return;
     parkPin(index);
+    pendingBtn.classList.add('is-active');
     setHighlight(index);
   }
 
@@ -426,8 +427,8 @@ function initBookmarkGutter(): void {
   }
 
   function setAiming(on: boolean): void {
-    if (aiming === on) return;
     aiming = on;
+    pendingBtn.classList.toggle('is-active', on || pendingBtn.matches(':focus-visible'));
     if (!on && !pendingBtn.matches(':focus-visible')) setHighlight(null);
   }
 
@@ -454,7 +455,10 @@ function initBookmarkGutter(): void {
   pendingBtn.addEventListener('focus', () => {
     showPending(pendingIndex ?? 0);
   });
-  pendingBtn.addEventListener('blur', () => setHighlight(null));
+  pendingBtn.addEventListener('blur', () => {
+    if (!aiming) pendingBtn.classList.remove('is-active');
+    setHighlight(null);
+  });
   pendingBtn.addEventListener('keydown', (event) => {
     if (pendingIndex === null) return;
     let next: number | null = null;
@@ -498,7 +502,10 @@ function initBookmarkGutter(): void {
     }
     renderBookmarkLists();
     renderSaved();
-    if (!aiming) setHighlight(null);
+    if (!aiming) {
+      pendingBtn.classList.remove('is-active');
+      setHighlight(null);
+    }
   });
 
   // Touch devices have no hover: tapping a line parks the pending pin
@@ -537,8 +544,8 @@ function initBookmarkGutter(): void {
     });
   }
   renderSaved();
-  // The add button is permanently visible: park it on the first line that
-  // has no saved pin yet (or hide it behind the pin if every line is taken).
+  // Prepare the hidden add button for hover or keyboard focus on the first
+  // unsaved line (or behind a saved pin if every line is taken).
   if (targets.length === 0) {
     pendingBtn.classList.add('is-behind');
   } else {

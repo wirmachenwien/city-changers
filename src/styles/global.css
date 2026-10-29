@@ -1904,8 +1904,19 @@ html:not(.js-fold) .accordion-content {
   block-size: 1rem;
 }
 
-/* Pending pin is always visible next to the text; it hides only where it
-   would cover a saved pin on the same line. */
+/* Reveal the pending pin only while aiming, keyboard focusing or tapping
+   a line on touch devices. Saved pins remain visible independently. */
+.bookmark-pin.is-pending {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bookmark-pin.is-pending.is-active,
+.bookmark-pin.is-pending:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .bookmark-pin.is-pending.is-behind {
   opacity: 0;
   pointer-events: none;
