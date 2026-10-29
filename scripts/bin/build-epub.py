@@ -207,7 +207,8 @@ class EpubBook:
             '<p><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> Wir machen Wien, Changing Cities &amp; Prostorož</p>',
             text,
         )
-        text = FEATURE_OPEN_RE.sub(lambda m: feature_open_html(attrs(m.group(1)).get("title"), html.escape), text)
+        text = FEATURE_OPEN_RE.sub(lambda m: feature_open_html(
+            attrs(m.group(1)).get("title"), html.escape, tone=attrs(m.group(1)).get("tone", "default")), text)
         text = FEATURE_CLOSE_RE.sub('\n</div>\n', text)
         text = PULLQUOTE_RE.sub(epub_pullquote_html, text)
         # Footnotes: linked markers plus a chapter footnotes section.

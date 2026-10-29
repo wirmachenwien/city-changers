@@ -227,7 +227,8 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
     text = VIDEO_RE.sub(video, text)
     text = strip_static_handlers(text)
     text = CCBADGE_RE.sub(cc_badge_html(), text)
-    text = FEATURE_OPEN_RE.sub(lambda m: feature_open_html(attrs(m.group(1)).get("title")), text)
+    text = FEATURE_OPEN_RE.sub(lambda m: feature_open_html(
+        attrs(m.group(1)).get("title"), tone=attrs(m.group(1)).get("tone", "default")), text)
     text = FEATURE_CLOSE_RE.sub('\n</div>\n', text)
     text = PULLQUOTE_RE.sub(pullquote_html, text)
     # External links: keep the link text (plus its clickable anchor) and

@@ -1189,8 +1189,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 
 /* ---------- Boxes & quotes ---------- */
 
-.feature-box,
-.color-panel {
+.feature-box {
   position: relative;
   border: 1px solid var(--line);
   background: var(--panel);
@@ -1204,8 +1203,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 /* Straight accent bar overlaying the inline-start border: a thick border
    would meet the 1px top/bottom borders with a diagonal miter joint, so
    the stripe is a separate square-ended bar instead. */
-.feature-box::before,
-.color-panel::before {
+.feature-box::before {
   content: "";
   position: absolute;
   inset-block: 0;
@@ -1214,11 +1212,11 @@ a[data-external-link]:has(img) > .external-link-icon {
   background: var(--accent);
 }
 
-.color-panel[data-tone="warm"]::before {
+.feature-box[data-tone="warm"]::before {
   background: var(--warn);
 }
 
-.color-panel[data-tone="warm"] {
+.feature-box[data-tone="warm"] {
   background: var(--warn-soft);
 }
 

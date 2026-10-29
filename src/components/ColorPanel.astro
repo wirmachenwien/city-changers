@@ -1,9 +1,0 @@
----
-interface Props {
-  tone?: 'default' | 'warm';
-}
-const { tone = 'default' } = Astro.props;
----
-<div class="color-panel" data-tone={tone}>
-  <slot />
-</div>

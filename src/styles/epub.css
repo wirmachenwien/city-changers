@@ -271,12 +271,9 @@ blockquote.pullquote footer {
   padding: 0.7em 0.9em;
   margin: 1em 0;
 }
-.color-panel {
+.feature-box[data-tone="warm"] {
   background: #faf3e8;
-  border: 0.5pt solid #8a5a00;
-  border-left-width: 4.5pt;
-  padding: 0.7em 0.9em;
-  margin: 1em 0;
+  border-color: #8a5a00;
 }
 dl.glossary {
   margin: 1em 0;

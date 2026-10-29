@@ -6,14 +6,15 @@ interface Props {
   title?: string;
   body?: string;
   lang?: Language;
+  tone?: 'default' | 'warm';
 }
-const { title, body, lang } = Astro.props;
+const { title, body, lang, tone = 'default' } = Astro.props;
 // Prop-supplied text bypasses the markdown pipeline, so quotes are localised here
 // to match the hast-transformed prose (only when lang is known).
 const displayTitle = title && lang ? smartQuotes(title, lang) : title;
 const displayBody = body && lang ? smartQuotes(body, lang) : body;
 ---
-<aside class="feature-box">
+<aside class="feature-box" data-tone={tone}>
   {displayTitle && <p><strong>{displayTitle}</strong></p>}
   {displayBody ? <p>{displayBody}</p> : <slot />}
 </aside>

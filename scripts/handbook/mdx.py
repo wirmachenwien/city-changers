@@ -7,7 +7,7 @@ scripts/bin/build-pdf.py and scripts/bin/build-epub.py. Import from here instead
 of redefining: common regexes, entry parsers, glossary/quiz/question/
 pullquote converters, and the strip-style handlers (CopyText, Toc,
 Spoiler, ButtonLink, DownloadLink, TableWrap, SideBySideButtons,
-Accordion, ExpandableBox, Slideshow, Bibliography, ColorPanel,
+Accordion, ExpandableBox, Slideshow, Bibliography,
 DefinitionTerm, PageRef, SelectList, Math).
 
 Deliberately NOT shared (kept in each builder):
@@ -82,8 +82,6 @@ EXPANDABLE_CLOSE_RE = re.compile(r'</ExpandableBox>')
 SLIDESHOW_OPEN_RE = re.compile(r'<Slideshow\b[^>]*>')
 SLIDESHOW_CLOSE_RE = re.compile(r'</Slideshow>')
 BIBLIOGRAPHY_RE = re.compile(r'<Bibliography\b[^>]*sources=\{\[(.*?)\]\}[^>]*\s*/>', re.DOTALL)
-COLOR_OPEN_RE = re.compile(r'<ColorPanel\b[^>]*>')
-COLOR_CLOSE_RE = re.compile(r'</ColorPanel>')
 DEFINITION_RE = re.compile(r'<DefinitionTerm\b([^>]*)\s*/>')
 PAGEREF_RE = re.compile(r'<PageRef\b([^>]*)\s*/>')
 SELECT_RE = re.compile(r'<SelectList\b[^>]*options=\{\[(.*?)\]\}[^>]*\s*/>', re.DOTALL)
@@ -335,11 +333,12 @@ def pullquote_html(match: re.Match[str], escape_fn: EscapeFn = _identity) -> str
     return f"\n\n<blockquote class=\"pullquote\">\n{body}{footer}\n</blockquote>\n"
 
 
-def feature_open_html(title: str | None, escape_fn: EscapeFn = _identity) -> str:
-    """Opening <div> for <FeatureBox>, with optional bold title."""
+def feature_open_html(title: str | None, escape_fn: EscapeFn = _identity, *, tone: str = "default") -> str:
+    """Opening <div> for <FeatureBox>, with optional bold title and warm tone."""
+    tone_attr = ' data-tone="warm"' if tone == "warm" else ''
     if title:
-        return f'\n\n<div class="feature-box"><p><strong>{escape_fn(title)}</strong></p>\n'
-    return '\n\n<div class="feature-box">\n'
+        return f'\n\n<div class="feature-box"{tone_attr}><p><strong>{escape_fn(title)}</strong></p>\n'
+    return f'\n\n<div class="feature-box"{tone_attr}>\n'
 
 
 @lru_cache(maxsize=1)
@@ -392,7 +391,7 @@ def question_html(question: str, source: str, answer: str, answers_label: str) -
 
 def strip_static_handlers(text: str) -> str:
     """Handlers identical in PDF and EPUB: Button/Download links, CopyText, Toc, Spoiler, TableWrap,
-    plus the collapsible/grouping wrappers (Accordion, ExpandableBox, Slideshow, ColorPanel),
+    plus the collapsible/grouping wrappers (Accordion, ExpandableBox, Slideshow),
     link-list components (SideBySideButtons, Bibliography, SelectList), inline
     aids (DefinitionTerm, PageRef) and TeX formulas (Math).
 
@@ -420,8 +419,6 @@ def strip_static_handlers(text: str) -> str:
     text = SLIDESHOW_CLOSE_RE.sub('\n', text)
     text = BIBLIOGRAPHY_RE.sub(lambda m: links_list_md(m.group(1)), text)
     text = SELECT_RE.sub(lambda m: links_list_md(m.group(1)), text)
-    text = COLOR_OPEN_RE.sub('\n\n<div class="color-panel">\n', text)
-    text = COLOR_CLOSE_RE.sub('\n</div>\n', text)
     # Inline definition popups have no hover target on paper: keep term + definition.
     text = DEFINITION_RE.sub(
         lambda m: (

@@ -157,7 +157,7 @@ p, li, dd, blockquote, figcaption {
   widows: 3;
 }
 
-figure, table, blockquote, .feature-box, .color-panel, .quiz {
+figure, table, blockquote, .feature-box, .quiz {
   break-inside: avoid;
 }
 
@@ -414,13 +414,9 @@ blockquote.pullquote footer {
   margin: 12pt 0;
 }
 
-/* Tinted panels mirror the web panel: warm fill with a solid accent bar. */
-.color-panel {
+.feature-box[data-tone="warm"] {
   background: #faf3e8;
-  border: 0.5pt solid #8a5a00;
-  border-inline-start-width: 4.5pt;
-  padding: 8pt 10pt;
-  margin: 12pt 0;
+  border-color: #8a5a00;
 }
 
 /* Glossary: term in the UI face, definition flush below it (web parity). */
