@@ -10,6 +10,14 @@ from handbook.mdx import quiz_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_sidebar_bookmarks_stick_below_the_header_and_fit_the_viewport(self):
+        css = (ROOT / "src/styles/global.css").read_text()
+        bookmarks = re.search(r"\.side-nav \[data-bookmark-nav\]\s*\{([^}]+)\}", css).group(1)
+        self.assertIn("position: sticky;", bookmarks)
+        self.assertIn("inset-block-start: var(--scroll-offset, 5rem);", bookmarks)
+        self.assertIn("max-block-size: calc(100dvb - var(--scroll-offset, 5rem) - 1rem);", bookmarks)
+        self.assertIn("overflow-y: auto;", bookmarks)
+
     def test_styles_use_root_relative_instead_of_element_relative_units(self):
         for path in (ROOT / "src/styles").glob("*.css"):
             with self.subTest(stylesheet=path.name):

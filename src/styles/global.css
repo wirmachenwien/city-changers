@@ -657,6 +657,18 @@ body.drawer-open {
   font-size: 0.98rem;
 }
 
+@media (min-width: 60rem) {
+  /* The sidebar stretches with the article, letting only the bookmarks
+     remain in view after the chapter navigation has scrolled away. */
+  .side-nav [data-bookmark-nav] {
+    position: sticky;
+    inset-block-start: var(--scroll-offset, 5rem);
+    max-block-size: calc(100dvb - var(--scroll-offset, 5rem) - 1rem);
+    overflow-y: auto;
+    background: var(--paper);
+  }
+}
+
 @media (max-width: 59.99rem) {
   .side-nav {
     display: none;
