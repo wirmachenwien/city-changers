@@ -805,7 +805,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 }
 
 .prose li + li {
-  margin-block-start: 1.5em;
+  margin-block-start: 0.75em;
 }
 
 .prose blockquote {
