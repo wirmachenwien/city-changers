@@ -101,6 +101,7 @@
     "footnotes": {
       "notes": "Anmerkungen",
       "back-to-text": "Zurück zum Text",
+      "jump-to-note": "Zur Fußnote springen",
       "open": "Fußnote öffnen",
       "close": "Fußnote schließen"
     },
@@ -213,6 +214,7 @@
     "footnotes": {
       "notes": "Notes",
       "back-to-text": "Back to text",
+      "jump-to-note": "Jump to footnote",
       "open": "Open footnote",
       "close": "Close footnote"
     },
@@ -325,6 +327,7 @@
     "footnotes": {
       "notes": "Opombe",
       "back-to-text": "Nazaj na besedilo",
+      "jump-to-note": "Skoči na opombo",
       "open": "Odpri opombo",
       "close": "Zapri opombo"
     },

@@ -1,17 +1,18 @@
-// Definition popups for <dfn data-definition>.
+// Shared definition popups for native buttons inside <dfn> elements.
+import { bindContentPopup } from './content-popup';
+import { t } from '../lib/i18n';
+import { languages, type Language } from '../data/locales';
+
 export function initDefinitions(): void {
+  const pageLang = document.documentElement.lang as Language;
+  const lang = languages.includes(pageLang) ? pageLang : 'en';
   for (const term of document.querySelectorAll<HTMLElement>('[data-definition]')) {
     if (term.dataset.wired) continue;
     term.dataset.wired = 'true';
-    term.addEventListener('click', () => {
-      const open = term.parentElement?.querySelector('.footnote-popup[data-for-definition]');
-      open?.remove();
-      if (open) return;
-      const popup = document.createElement('div');
-      popup.className = 'footnote-popup';
-      popup.setAttribute('data-for-definition', '');
-      popup.textContent = term.dataset.definition ?? '';
-      term.after(popup);
+    bindContentPopup(term, {
+      content: () => term.dataset.definition ?? '',
+      label: term.textContent?.trim() ?? '',
+      closeLabel: t(lang, 'input.close', 'Close'),
     });
   }
 }

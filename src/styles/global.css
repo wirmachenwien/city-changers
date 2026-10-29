@@ -1455,36 +1455,156 @@ html:not(.js-fold) .accordion-content {
   content: counter(footnote);
 }
 
-.footnote-popup {
+.content-popup {
   position: fixed;
-  z-index: 50;
-  max-inline-size: 20rem;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  z-index: 35;
+  inline-size: max-content;
+  max-inline-size: min(20rem, calc(100vw - 3.75rem));
+  overflow: visible;
+  overflow-wrap: anywhere;
   background: var(--ink);
   color: var(--paper);
   font-family: var(--font-ui);
   font-size: 0.91rem;
-  padding: 0.6rem 0.8rem;
+  line-height: 1.5;
+  font-style: normal;
+  padding: 0.6rem 1.5rem 0.6rem 0.8rem;
   border-radius: var(--radius);
   border: 1px solid var(--line);
 }
 
-.footnote-popup button {
-  float: inline-end;
+.content-popup-body {
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: auto;
+}
+
+.content-popup-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: color-mix(in srgb, var(--accent) 60%, var(--paper));
+  text-decoration: none;
+  vertical-align: -0.15em;
+}
+
+.content-popup-action .icon {
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+.content-popup-close {
+  position: absolute;
+  inset-block-start: -1.375rem;
+  inset-inline-end: -1.375rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   color: inherit;
-  border: 1px solid currentColor;
-  border-radius: 0.3rem;
+  border: 0;
   cursor: pointer;
-  margin-inline-start: 0.5rem;
-  padding: 0.2rem;
+  margin: 0;
+  padding: 0;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
 }
 
-.footnote-popup-close .icon {
+.content-popup-close-face {
+  display: grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.16);
+}
+
+.content-popup-close .icon {
   inline-size: 1rem;
   block-size: 1rem;
+}
+
+.content-popup-close[hidden] {
+  display: none;
+}
+
+.content-popup-close:focus-visible .content-popup-close-face {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+@media (hover: hover) {
+  .content-popup-close:hover .content-popup-close-face {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+}
+
+.content-popup-close:active:hover .content-popup-close-face,
+.content-popup-close:active:focus-visible .content-popup-close-face {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .content-popup-action .icon {
+    transition: transform 180ms ease-out;
+  }
+
+  .content-popup-action:focus-visible .icon {
+    transform: translateY(0.15em);
+  }
+
+  @media (hover: hover) {
+    .content-popup-action:hover .icon {
+      transform: translateY(0.15em);
+    }
+  }
+
+  .content-popup-close-face {
+    transition: transform 180ms ease-out, background-color 180ms ease-out, color 180ms ease-out;
+  }
+
+  .content-popup:not(.content-popup--preview) .content-popup-close-face {
+    animation: popup-close-in 180ms ease-out;
+  }
+
+  @keyframes popup-close-in {
+    from {
+      opacity: 0;
+      scale: 0.55;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  .content-popup-close:focus-visible .content-popup-close-face {
+    transform: scale(0.9);
+  }
+
+  @media (hover: hover) {
+    .content-popup-close:hover .content-popup-close-face {
+      transform: scale(0.9);
+    }
+  }
+
+  .content-popup-close:active:hover .content-popup-close-face,
+  .content-popup-close:active:focus-visible .content-popup-close-face {
+    transform: scale(0.75);
+    transition-duration: 80ms;
+  }
+}
+
+@media print {
+  .content-popup {
+    display: none;
+  }
 }
 
 .footnotes {
@@ -1499,6 +1619,22 @@ html:not(.js-fold) .accordion-content {
   align-items: center;
   padding: 0.25rem;
   margin: -0.25rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .footnote-back .icon {
+    transition: transform 180ms ease-out;
+  }
+
+  .footnote-back:focus-visible .icon {
+    transform: translateY(-0.15em);
+  }
+
+  @media (hover: hover) {
+    .footnote-back:hover .icon {
+      transform: translateY(-0.15em);
+    }
+  }
 }
 
 /* ---------- Definitions / glossary ---------- */
@@ -1518,6 +1654,13 @@ html:not(.js-fold) .accordion-content {
 }
 
 .definition-term {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
   text-decoration: underline dotted;
   cursor: help;
 }

@@ -16,6 +16,6 @@ const { term, definition, lang } = Astro.props;
 const displayTerm = lang ? smartQuotes(term, lang) : term;
 const displayDefinition = lang ? smartQuotes(definition, lang) : definition;
 ---
-<dfn class="definition-term" data-definition={displayDefinition} tabindex="0" title={displayDefinition}>
-  {displayTerm}
+<dfn>
+  <button type="button" class="definition-term" data-definition={displayDefinition} title={displayDefinition}>{displayTerm}</button>
 </dfn>

@@ -1,6 +1,6 @@
 // Glossary term highlighter: wraps every occurrence of a glossary term in
-// chapter prose with the same <dfn class="definition-term"> markup the
-// DefinitionTerm component renders (dotted underline + definition popup
+// chapter prose with the same <dfn><button class="definition-term"> markup
+// the DefinitionTerm component renders (dotted underline + definition popup
 // wired by initDefinitions). Runs on containers explicitly opted in with
 // [data-glossary-terms] (book chapters via BookLayout), matching the page
 // language against src/data/glossary.ts surface forms.
@@ -39,11 +39,13 @@ export function initGlossaryTerms(): void {
         fragment.append(document.createTextNode(text.slice(lastIndex, match.index)));
       }
       const dfn = document.createElement('dfn');
-      dfn.className = 'definition-term';
-      dfn.dataset.definition = entry.definition;
-      dfn.title = entry.definition;
-      dfn.tabIndex = 0;
-      dfn.textContent = match[0];
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'definition-term';
+      button.dataset.definition = entry.definition;
+      button.title = entry.definition;
+      button.textContent = match[0];
+      dfn.append(button);
       fragment.append(dfn);
       lastIndex = match.index + match[0].length;
     }
