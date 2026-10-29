@@ -243,13 +243,15 @@ class EpubBook:
             text += f'\n\n<section class="footnotes"><ol>{items}</ol></section>\n'
         text = GLOSSARY_RE.sub(lambda m: glossary_html(m.group(1), html.escape), text)
         text = GLOSSARY_LANG_RE.sub(lambda m: glossary_lang_html(m.group(1), glossary_data(), html.escape), text)
-        text = QUIZ_RE.sub(lambda m: quiz_html(attrs(m.group(1)).get("question", ""), m.group(2), answers_label), text)
+        text = QUIZ_RE.sub(lambda m: quiz_html(attrs(m.group(1)).get("question", ""), m.group(2), answers_label,
+                                             attrs(m.group(1)).get("id", "")), text)
         text = QUESTION_RE.sub(
             lambda m: question_html(
                 attrs(m.group(1)).get("question", ""),
                 m.group(2),
                 attrs(m.group(1) + m.group(3)).get("answer", "0"),
                 answers_label,
+                attrs(m.group(1) + m.group(3)).get("id", ""),
             ), text
         )
         return text.strip() + "\n"

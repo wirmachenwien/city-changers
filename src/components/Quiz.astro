@@ -5,6 +5,7 @@
 // templates as per-option marks.
 import { t } from '../lib/i18n';
 import { smartQuotes } from '../lib/smart-quotes';
+import { questionLabel } from '../lib/question-label';
 import Icon from './Icon.astro';
 import type { Language } from '../data/locales';
 
@@ -26,7 +27,7 @@ interface Props {
 const { id, question, options, lang = 'en', feedbackCorrect, feedbackIncorrect, feedbackUnfinished } = Astro.props;
 // Author-supplied display strings bypass the markdown pipeline, so quotes
 // are localised here to match the hast-transformed prose.
-const displayQuestion = smartQuotes(question, lang);
+const displayQuestion = smartQuotes(questionLabel(id, question), lang);
 const displayOptions = options.map((option) => ({ ...option, label: smartQuotes(option.label, lang) }));
 ---
 <form

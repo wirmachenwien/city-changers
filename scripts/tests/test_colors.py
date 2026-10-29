@@ -13,6 +13,13 @@ from color_registry import load_colors
 
 
 class ColorExportTest(unittest.TestCase):
+    def test_web_and_print_quizzes_use_panel_background(self):
+        for filename in ("global.css", "print.css"):
+            with self.subTest(filename=filename):
+                css = (ROOT / "src/styles" / filename).read_text()
+                quiz = re.search(r"^\.quiz\s*\{([^}]+)\}", css, re.MULTILINE).group(1)
+                self.assertIn("background: var(--panel);", quiz)
+
     def test_print_tables_match_web_header_and_divider_colors(self):
         web = (ROOT / "src/styles/global.css").read_text()
         print_css = (ROOT / "src/styles/print.css").read_text()

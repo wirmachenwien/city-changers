@@ -1,5 +1,6 @@
 """Export component titles carry the classes used to keep them with content."""
 import sys
+import re
 import unittest
 from pathlib import Path
 
@@ -9,6 +10,17 @@ from handbook.mdx import quiz_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_web_quiz_only_adds_feedback_space_when_populated(self):
+        css = (ROOT / "src/styles/global.css").read_text()
+        quiz = re.search(r"^\.quiz\s*\{([^}]+)\}", css, re.MULTILINE).group(1)
+        self.assertIn("padding: 1.75rem 1.25rem;", quiz)
+        feedback = re.search(r"\.quiz \.quiz-feedback\s*\{([^}]+)\}", css).group(1)
+        self.assertNotIn("min-block-size", feedback)
+        self.assertIn("margin: 0 0 0.75rem;", feedback)
+        empty = re.search(r"\.quiz \.quiz-feedback:empty\s*\{([^}]+)\}", css).group(1)
+        self.assertIn("margin: 0;", empty)
+        self.assertNotIn("display: none", empty)
+
     def test_accordion_title_is_a_marked_paragraph(self):
         converted = strip_static_handlers(
             '<Accordion title="1. Introduction">Body copy</Accordion>'
@@ -31,7 +43,7 @@ class ComponentBreakTest(unittest.TestCase):
             "Answers",
         )
         self.assertIn(
-            '<p class="quiz-title"><strong>Quiz: Ready?</strong></p>',
+            '<p class="quiz-title"><strong>Question: Ready?</strong></p>',
             converted,
         )
 
