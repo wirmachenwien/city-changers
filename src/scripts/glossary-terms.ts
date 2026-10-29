@@ -23,6 +23,9 @@ export function initGlossaryTerms(): void {
   const nodes: Text[] = [];
   let node: Text | null;
   while ((node = walker.nextNode() as Text | null)) {
+    // Page titles neither receive automatic glossary links nor consume
+    // the first occurrence in the content below them.
+    if (node.parentElement?.closest('h1')) continue;
     // Include explicit DefinitionTerm buttons in document order so they
     // count toward the same first-occurrence rule as automatic matches.
     if (node.parentElement?.closest('[data-definition]')) {
