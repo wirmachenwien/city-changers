@@ -61,6 +61,15 @@ export function initFootnotePopups(closeLabel = 'Close'): void {
     back.title = backLabel;
     back.setAttribute('aria-label', backLabel);
     back.innerHTML = BACK_ICON_SVG;
+    back.addEventListener('click', (event) => {
+      event.preventDefault();
+      history.pushState(null, '', back.getAttribute('href'));
+      // Finish the jump before opening: a popup positioned during smooth
+      // scrolling would initially be anchored to an off-screen reference.
+      ref.scrollIntoView({ behavior: 'instant', block: 'start' });
+      ref.focus({ preventScroll: true });
+      ref.click();
+    });
     item.append(' ', back);
     list.append(item);
   }

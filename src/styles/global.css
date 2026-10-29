@@ -1487,8 +1487,8 @@ html:not(.js-fold) .accordion-content {
 .content-popup-close-face {
   display: grid;
   place-items: center;
-  inline-size: 2rem;
-  block-size: 2rem;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
   border-radius: 50%;
   background: var(--paper);
   color: var(--ink);
@@ -1496,8 +1496,8 @@ html:not(.js-fold) .accordion-content {
 }
 
 .content-popup-close .icon {
-  inline-size: 1rem;
-  block-size: 1rem;
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
 }
 
 .content-popup-close[hidden] {
@@ -1553,16 +1553,6 @@ html:not(.js-fold) .accordion-content {
     to {
       opacity: 1;
       scale: 1;
-    }
-  }
-
-  .content-popup-close:focus-visible .content-popup-close-face {
-    transform: scale(0.9);
-  }
-
-  @media (hover: hover) {
-    .content-popup-close:hover .content-popup-close-face {
-      transform: scale(0.9);
     }
   }
 

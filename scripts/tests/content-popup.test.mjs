@@ -38,8 +38,10 @@ function environment() {
     }
     contains(node) { return node === this || this.children.some(child => child instanceof Element && child.contains(node)); }
     focus() { document.activeElement = this; }
+    closest() { return this.column ?? null; }
     getBoundingClientRect() {
-      return this.className?.split(' ').includes('content-popup') ? { width: 320, height: 120 } : this.rect;
+      const limit = Number(this.style.maxInlineSize?.match(/, ([\d.]+)px/)?.[1] ?? 320);
+      return this.className?.split(' ').includes('content-popup') ? { width: Math.min(320, limit), height: 120 } : this.rect;
     }
   }
   const document = Object.assign(new Events(), {
@@ -255,5 +257,43 @@ test('popup flips above and clamps to viewport edges without covering the navbar
     env.popup().children[0].emit('click');
     assert.equal(env.popup(), undefined);
     assert.equal(env.document.activeElement, trigger);
+  } finally { env.cleanup(); }
+});
+
+test('popup boxes align with the reading column edges without extra inset', () => {
+  const env = environment();
+  try {
+    for (const left of [170, 580]) {
+      const trigger = env.trigger();
+      trigger.column = { getBoundingClientRect: () => ({ left: 160, right: 620 }) };
+      trigger.rect = { top: 250, bottom: 278, left, right: left + 20, width: 20, height: 28 };
+      trigger.emit('pointerenter', { pointerType: 'mouse' });
+      const popup = env.popup();
+      const x = parseFloat(popup.style.left);
+      assert.ok(x >= 160);
+      assert.ok(x + popup.getBoundingClientRect().width <= 620);
+      assert.equal(x, left === 170 ? 170 : 300);
+      const preview = { ...popup.style };
+      trigger.emit('click');
+      assert.deepEqual(popup.style, preview);
+      popup.children[0].emit('click');
+    }
+  } finally { env.cleanup(); }
+});
+
+test('narrow columns shrink the popup, including after a pinned layout change', () => {
+  const env = environment();
+  try {
+    const trigger = env.trigger();
+    let right = 620;
+    trigger.column = { getBoundingClientRect: () => ({ left: 160, right }) };
+    trigger.emit('click');
+    right = 400;
+    env.window.emit('resize');
+    env.flush();
+    const popup = env.popup();
+    assert.equal(popup.style.maxInlineSize, 'min(20rem, 240px)');
+    assert.equal(popup.style.left, '160px');
+    assert.equal(popup.getBoundingClientRect().width, 240);
   } finally { env.cleanup(); }
 });

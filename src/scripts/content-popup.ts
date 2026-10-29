@@ -75,6 +75,12 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
       jump.className = 'content-popup-action';
       jump.href = options.action.href;
       jump.setAttribute('aria-label', options.action.label);
+      jump.addEventListener('click', (event) => {
+        event.preventDefault();
+        const href = jump.href;
+        close();
+        window.location.assign(href);
+      });
       // Downward counterpart of the footnote's corner-up-left backlink.
       jump.innerHTML = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 15 15 20 20 15" /><path d="M4 4h7a4 4 0 0 1 4 4v12" /></svg>';
       body.append(' ', jump);
@@ -150,6 +156,11 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
       // Reserve the close control's space even while hidden in a hover
       // preview, so revealing it never shifts or resizes the popup.
       const corner = parseFloat(getComputedStyle(closer).inlineSize) / 2;
+      const column = trigger.closest('[data-prose], .prose') ?? trigger.closest('main');
+      const bounds = column?.getBoundingClientRect();
+      const minLeft = Math.max(gap + corner, bounds?.left ?? gap + corner);
+      const maxRight = Math.min(viewport.clientWidth - gap - corner, bounds?.right ?? viewport.clientWidth - gap - corner);
+      popup.style.maxInlineSize = `min(20rem, ${Math.max(0, maxRight - minLeft)}px)`;
       const minTop = navbarBottom + gap + corner;
       const maxBottom = viewport.clientHeight - gap;
       popup.style.maxBlockSize = `${Math.max(0, maxBottom - minTop)}px`;
@@ -158,7 +169,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
       const below = rect.bottom + anchorGap;
       const above = rect.top - anchorGap - size.height;
       const preferred = below + size.height <= maxBottom ? below : above;
-      let left = Math.max(gap + corner, Math.min(rect.left, viewport.clientWidth - size.width - gap - corner));
+      let left = Math.max(minLeft, Math.min(rect.left, maxRight - size.width));
       let top = Math.max(minTop, Math.min(preferred, maxBottom - size.height));
       if (pinned) {
         // Fit once, then travel with the term, even beyond the viewport. Do
@@ -169,6 +180,9 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
         top = rect.top + anchorOffset.top;
         left = rect.left + anchorOffset.left;
       }
+      // Pinned cards still follow their reference vertically, but may never
+      // drift into the sidebar or bookmark gutter as the layout changes.
+      left = Math.max(minLeft, Math.min(left, maxRight - size.width));
       placementDirty = false;
       popup.style.left = `${left}px`;
       popup.style.top = `${top}px`;
@@ -213,6 +227,8 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
       observer = new ResizeObserver(layoutChanged);
       observer.observe(trigger);
       observer.observe(popup);
+      const column = trigger.closest('[data-prose], .prose') ?? trigger.closest('main');
+      if (column) observer.observe(column);
       const header = document.querySelector('.site-head');
       if (header) observer.observe(header);
     }
