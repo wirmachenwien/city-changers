@@ -9,7 +9,7 @@ from unittest.mock import patch
 import xml.etree.ElementTree as ET
 
 import cairosvg
-from PIL import Image
+from PIL import Image, ImageChops, ImageStat
 
 ROOT = Path(__file__).resolve().parents[2]
 KIT = ROOT / "src/assets/mascot"
@@ -22,6 +22,29 @@ SPEC.loader.exec_module(BUILDER)
 
 
 class MascotKitTest(unittest.TestCase):
+    def assert_preview_artwork_equal(self, actual, expected):
+        self.assertEqual(actual.size, expected.size)
+        self.assertEqual(actual.mode, expected.mode)
+        difference = ImageChops.difference(actual, expected)
+        # Measured macOS/Linux differences: peak 7/255, mean < 0.008/255
+        # per channel. Bound both local outliers and widespread color changes.
+        self.assertLessEqual(max(high for low, high in difference.getextrema()), 8,
+                             "Preview artwork has a large pixel difference")
+        self.assertLessEqual(max(ImageStat.Stat(difference).mean), 0.02,
+                             "Preview artwork has widespread pixel differences")
+
+    def test_preview_tolerance_only_accepts_minor_rasterization_differences(self):
+        expected = Image.new("RGB", (100, 100), (100, 100, 100))
+        minor = expected.copy()
+        minor.putpixel((50, 50), (107, 100, 100))
+        self.assert_preview_artwork_equal(minor, expected)
+        self.assert_preview_artwork_equal(expected, expected)
+        outlier = expected.copy()
+        outlier.putpixel((50, 50), (109, 100, 100))
+        for changed in (outlier, Image.new("RGB", expected.size, (101, 100, 100))):
+            with self.assertRaises(AssertionError):
+                self.assert_preview_artwork_equal(changed, expected)
+
     def test_pose_source_stays_in_design_not_in_outputs(self):
         self.assertTrue(POSES.is_file())
         self.assertFalse((KIT / "source").exists())
@@ -89,9 +112,10 @@ class MascotKitTest(unittest.TestCase):
             for relative in expected:
                 self.assertEqual((kit / "static" / relative).read_bytes(),
                                  (KIT / "static" / relative).read_bytes())
-            # FreeType's text rasterization varies between macOS and Linux even
-            # with the same Pillow/font files. Keep exact cross-platform checks
-            # for the artwork, not the contact sheet's rendered text or PNG bytes.
+            # Text rasterization varies between macOS and Linux, and resized
+            # artwork has small pixel differences too. Exclude text and allow
+            # only measured rounding noise here; standalone exports above and
+            # same-host repeatability below remain exact.
             with Image.open(kit / "overview.png") as actual_board, Image.open(KIT / "overview.png") as expected_board:
                 self.assertEqual(actual_board.size, expected_board.size)
                 self.assertEqual(actual_board.mode, expected_board.mode)
@@ -99,8 +123,8 @@ class MascotKitTest(unittest.TestCase):
                     x, y = 60 + (index % 3) * 570, 255 + (index // 3) * 540
                     artwork = (x, y, x + 550, y + 400)
                     with self.subTest(pose=name):
-                        self.assertEqual(actual_board.crop(artwork).tobytes(),
-                                         expected_board.crop(artwork).tobytes())
+                        self.assert_preview_artwork_equal(actual_board.crop(artwork),
+                                                          expected_board.crop(artwork))
             # The complete sheet, including text, must still be deterministic
             # when generated twice using the same host toolchain.
             first_board = (kit / "overview.png").read_bytes()
