@@ -20,9 +20,14 @@ class DesignPipelineTest(unittest.TestCase):
     def test_one_manifest_for_delivery_and_site(self):
         records = asset_records()
         self.assertEqual(len({r["file"] for r in records}), len(records))
-        documents = {"LICENSE", "design/brand-guide.md", "design/docs/handoff/START-HERE.txt"}
-        self.assertTrue(all(r["source"].startswith(("src/assets/", "public/")) or r["source"] in documents for r in records))
+        documents = {"LICENSE", "design/brand-guide.md", "design/docs/handoff/START-HERE.txt",
+                     "design/colors-reference.md", "design/colors.json"}
+        for record in records:
+            self.assertTrue(record["source"].startswith(("src/assets/", "public/"))
+                            or record["source"] in documents, record["source"])
         self.assertIn("BRAND-GUIDE.md", {r["file"] for r in records})
+        self.assertIn("COLOR-REFERENCE.md", {r["file"] for r in records})
+        self.assertIn("COLORS.json", {r["file"] for r in records})
         self.assertNotIn("BRAND-GUIDE.txt", {r["file"] for r in records})
 
     def test_website_lockup_matches_design_master(self):
@@ -160,7 +165,12 @@ class DesignPipelineTest(unittest.TestCase):
     def test_normal_website_commands_only_prepare_committed_assets(self):
         scripts = json.loads((ROOT / "package.json").read_text())["scripts"]
         for command in ("dev", "build"):
-            self.assertTrue(scripts[command].startswith("npm run design:prepare &&"), command)
+            steps = [step.strip() for step in scripts[command].split("&&")]
+            self.assertIn("npm run colors:check", steps, command)
+            self.assertIn("npm run design:prepare", steps, command)
+            self.assertLess(steps.index("npm run colors:check"), steps.index(f"astro {command}"), command)
+            self.assertLess(steps.index("npm run design:prepare"), steps.index(f"astro {command}"), command)
+            self.assertNotIn("design:build", scripts[command], command)
         self.assertEqual(scripts["design:prepare"], "python3 design/scripts/build-design.py --prepare")
         self.assertEqual(scripts["design:build"], "python3 design/scripts/build-design.py")
 
