@@ -29,7 +29,7 @@ const { compact = false } = Astro.props;
 <ul class:list={['partner-logos', { 'partner-logos--compact': compact }]}>
   {partners.map((partner) => (
     <li class="partner-logos__item">
-      <a class="partner-logos__link" href={partner.href}>
+      <a class:list={['partner-logos__link', partner.mod && `partner-logos__link--${partner.mod}`]} href={partner.href}>
         <img
           class:list={['partner-logos__logo', partner.mod && `partner-logos__logo--${partner.mod}`]}
           src={urlFor(partner.src)}

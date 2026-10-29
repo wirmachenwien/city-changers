@@ -10,6 +10,9 @@ import { paginationNeighbours } from '../data/book-toc';
 import { pageCrumbs } from '../lib/nav';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import { externalLinks } from '../lib/external-links.mjs';
+import { site } from '../../handbook.config';
+import { t } from '../lib/i18n';
 
 interface Props {
   lang: Language;
@@ -29,6 +32,7 @@ const displayTitle = smartQuotes(title, lang);
 const crumbs = pageCrumbs(lang, displayTitle);
 const isHome = layout === 'home';
 const neighbours = await paginationNeighbours(lang, 'page', file);
+const content = externalLinks(await Astro.slots.render('default'), site, t(lang, 'external-link-notice'));
 ---
 <BaseLayout
   lang={lang}
@@ -39,9 +43,7 @@ const neighbours = await paginationNeighbours(lang, 'page', file);
 >
   {!isHome && <Breadcrumbs items={crumbs} lang={lang} />}
   {isHome && openerImage && <OpenerImage file={openerImage} alt={openerImageAlt ?? ''} caption={openerImageCaption} lang={lang} />}
-  <div class="prose" data-prose>
-    <slot />
-  </div>
+  <div class="prose" data-prose set:html={content} />
   {isHome && <LastVisit lang={lang} />}
   {neighbours && settings.web.pagination && <Pagination lang={lang} prev={neighbours.prev} next={neighbours.next} />}
 </BaseLayout>

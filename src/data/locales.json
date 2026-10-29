@@ -2,6 +2,7 @@
   "de": {
     "direction": "ltr",
     "local-name": "Deutsch",
+    "external-link-notice": "Externer Link, öffnet in einem neuen Tab",
     "nav": {
       "breadcrumb": "Breadcrumb",
       "menu": "Menü",
@@ -113,6 +114,7 @@
   "en": {
     "direction": "ltr",
     "local-name": "English",
+    "external-link-notice": "External link, opens in a new tab",
     "nav": {
       "breadcrumb": "Breadcrumb",
       "menu": "Menu",
@@ -224,6 +226,7 @@
   "sl": {
     "direction": "ltr",
     "local-name": "Slovenščina",
+    "external-link-notice": "Zunanja povezava, odpre se v novem zavihku",
     "nav": {
       "breadcrumb": "Drobtinice",
       "menu": "Meni",

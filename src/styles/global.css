@@ -102,11 +102,11 @@
   /* Fraunces variable-axis presets, applied with font-variation-settings on
      every element that sets in Fraunces (--font-title). Softness 75 and the
      wonky alternates everywhere; the -display preset additionally pins the
-     optical size to the 80pt display cut (which also disables automatic
+     optical size to the 65pt display cut (which also disables automatic
      optical sizing for that element). Inert on Clarity City, which is not a
      variable font. */
   --fraunces-vars: "SOFT" 75, "WONK" 1;
-  --fraunces-vars-display: "SOFT" 75, "WONK" 1, "opsz" 80;
+  --fraunces-vars-display: "SOFT" 75, "WONK" 1, "opsz" 65;
   /* Web screens: headlines set in Fraunces (variable serif display face),
      running text and UI in Clarity City (sans). The WeasyPrint PDF and
      browser printouts keep the serif Newsreader body face but share the
@@ -746,6 +746,70 @@ body.drawer-open {
   margin-block-start: 0;
 }
 
+.external-link-icon {
+  display: inline-block;
+  margin-inline-start: 0.15em;
+  font-family: var(--font-ui);
+  font-size: 0.75em;
+  line-height: 1;
+  vertical-align: super;
+  text-decoration: none;
+}
+
+/* Image links keep their indicator at the corner, outside the image flow. */
+a[data-external-link]:has(img) {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+a[data-external-link]:has(img) > .external-link-icon {
+  position: absolute;
+  top: -0.4em;
+  right: -0.6em;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .external-link-icon {
+    transition: transform 180ms ease-out;
+  }
+
+  a[data-external-link]:focus-visible > .external-link-icon {
+    transform: translate(0.12em, -0.12em);
+  }
+
+  @media (hover: hover) {
+    a[data-external-link]:hover > .external-link-icon {
+      transform: translate(0.12em, -0.12em);
+    }
+  }
+
+  a[data-external-link]:active:hover > .external-link-icon,
+  a[data-external-link]:active:focus-visible > .external-link-icon {
+    transform: translate(-0.04em, 0.04em) scale(0.88);
+    transition-duration: 80ms;
+  }
+}
+
+.external-link-notice {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media print {
+  .external-link-icon,
+  .external-link-notice {
+    display: none;
+  }
+}
+
 .prose h1,
 .prose h2,
 .prose h3,
@@ -757,7 +821,7 @@ body.drawer-open {
   font-variation-settings: var(--fraunces-vars);
 }
 
-/* Everything below the h1 pins Fraunces to the 80pt display cut, so the
+/* Everything below the h1 pins Fraunces to the 65pt display cut, so the
    small subheads get the same high-contrast, delicate-serif drawing as the
    big ones instead of the sturdier text cut that automatic optical sizing
    would pick for their rendered size. h1 keeps automatic optical sizing. */
@@ -975,6 +1039,11 @@ body.drawer-open {
 
 .partner-logos__link:hover {
   transform: scale(1.06);
+}
+
+.partner-logos__link--changing-cities,
+.partner-logos__link--prostoroz {
+  padding: 0.4rem 0.5rem;
 }
 
 .partner-logos__link:active {
@@ -2403,6 +2472,19 @@ input[type="search"]::placeholder {
   :root:not([data-theme]) .figure--framed img,
   :root:not([data-theme]) .figure--framed picture > img {
     filter: none;
+  }
+}
+
+/* Invert only the monochrome partner marks; keep Wir machen Wien in colour. */
+:root[data-theme="dark"] .partner-logos .partner-logos__logo--changing-cities,
+:root[data-theme="dark"] .partner-logos .partner-logos__logo--prostoroz {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .partner-logos .partner-logos__logo--changing-cities,
+  :root:not([data-theme]) .partner-logos .partner-logos__logo--prostoroz {
+    filter: invert(1);
   }
 }
 

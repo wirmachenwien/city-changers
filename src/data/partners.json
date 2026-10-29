@@ -2,7 +2,7 @@
   {
     "name": "Wir machen Wien",
     "href": "https://wirmachen.wien",
-    "src": "src/assets/site/wirmachen-wien.svg",
+    "src": "src/assets/site/wirmachenwien.png",
     "width": 1000,
     "height": 750,
     "mod": "wirmachen-wien"
@@ -12,13 +12,15 @@
     "href": "https://changing-cities.org",
     "src": "src/assets/site/changing-cities.svg",
     "width": 801,
-    "height": 367
+    "height": 367,
+    "mod": "changing-cities"
   },
   {
     "name": "Prostorož",
     "href": "https://www.prostoroz.org",
     "src": "src/assets/site/prostoroz.png",
     "width": 1000,
-    "height": 263
+    "height": 263,
+    "mod": "prostoroz"
   }
 ]
