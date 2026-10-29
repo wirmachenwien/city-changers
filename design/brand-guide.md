@@ -2,29 +2,22 @@
 
 ## Identity
 
-The project name is Toolbox for City Changers. The mascot is The Green Fix.
-Use the supplied logo instead of retyping or rebuilding its lettering.
-The seven expressive static mascot poses are illustrations, not new official logos.
-**Skeptical** preserves the original questioning, hand-at-chin pose. **Think** is
-the smiling, raised-hand idea moment with yellow rays from the Think animation.
+The project name is Toolbox for City Changers. The mascot is called Green Fix.
+It has seven expressive poses with static and animated assets available below.
 
 ## Colours
 
 Enter these HEX codes in your design app's colour picker.
 
-<div class="brand-palette table-scroll" role="region" aria-label="Brand colours" tabindex="0">
-
-| Colour | HEX | Use |
-| --- | --- | --- |
-| Paper | `#FDFCF9` | Pale background. |
-| Dark background | `#161511` | Background for the Linen treatment. |
-| Website green | `#0C6B3C` | Headings, accents and calls to action on light designs. |
-| Mascot green | `#176B43` | Existing artwork colour; do not recolour the mascot. |
-| Mascot ink | `#20221C` | Dark outlines and boots in the Ink treatment. |
-| Linen | `#CBBF9F` | Pale outlines and boots in the Linen treatment. |
-| Cream lettering | `#F2EDE3` | Full-logo lettering on dark backgrounds. |
-
-</div>
+```text
+Paper             #FDFCF9   Pale background.
+Dark background   #161511   Background for the Linen treatment.
+Website green     #0C6B3C   Headings, accents and calls to action on light designs.
+Mascot green      #176B43   Existing artwork colour; do not recolour the mascot.
+Mascot ink        #20221C   Dark outlines and boots in the Ink treatment.
+Linen             #CBBF9F   Pale outlines and boots in the Linen treatment.
+Cream lettering   #F2EDE3   Full-logo lettering on dark backgrounds.
+```
 
 These are existing production colours, not a new palette. Keep the supplied
 yellow and other mascot details unchanged. Website text uses #1D1A16; the mascot

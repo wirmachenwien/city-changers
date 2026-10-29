@@ -2,7 +2,7 @@
 import mascots from '../data/mascots.json';
 import type { Language } from '../data/locales';
 import { smartQuotes } from '../lib/smart-quotes';
-import { t } from '../lib/i18n';
+import MascotPreview from './MascotPreview.astro';
 
 interface Props {
   title?: string;
@@ -13,41 +13,16 @@ interface Props {
 }
 
 const { title, pose = 'think', animated = false, treatment = 'ink', lang = 'en' } = Astro.props;
-if (!Object.hasOwn(mascots, pose)) throw new Error(`Unknown mascot pose: ${pose}`);
-if (!['ink', 'linen'].includes(treatment)) throw new Error(`Unknown mascot treatment: ${treatment}`);
-const mascot = mascots[pose];
-if (animated && !mascot.animation) throw new Error(`The ${pose} mascot is static-only.`);
-const stills = import.meta.glob<string>('../assets/mascot/static/*/*.svg', { eager: true, query: '?url', import: 'default' });
-const animations = import.meta.glob<string>('../assets/mascot/lottie/green-fix-*.json', { eager: true, query: '?url', import: 'default' });
-const still = stills[`../assets/mascot/static/${treatment}/${mascot.still}.svg`];
-const printStill = stills[`../assets/mascot/static/ink/${mascot.still}.svg`];
-const animation = animated ? animations[`../assets/mascot/lottie/green-fix-${mascot.animation}-${treatment}.json`] : undefined;
-const replayLabel = t(lang, 'mascot-box.replay', 'Replay mascot animation');
 ---
 <aside class="mascot-box" data-pose={pose}>
-  <mascot-player
-    class:list={['mascot-box__player', `mascot-box__player--${treatment}`]}
-    data-animation={animation}
-    data-hold-frame={'holdFrame' in mascot ? mascot.holdFrame : undefined}
-  >
-    <div class="mascot-box__artwork">
-      <picture>
-        <source media="print" srcset={printStill} />
-        <img src={still} alt="" width="288" height="288" loading="lazy" decoding="async" />
-      </picture>
-      {animated && <span class="mascot-box__animation" aria-hidden="true"></span>}
-      {animated && <button class="mascot-box__replay" type="button" aria-label={replayLabel} data-pagefind-ignore hidden></button>}
-    </div>
-  </mascot-player>
+  <div class="mascot-box__visual">
+    <MascotPreview {pose} {animated} {treatment} {lang} />
+  </div>
   <div class="mascot-box__bubble">
     {title && <p class="mascot-box__title"><strong>{smartQuotes(title, lang)}</strong></p>}
     <div class="mascot-box__body"><slot /></div>
   </div>
 </aside>
-
-<script>
-  import '../scripts/mascot-player';
-</script>
 
 <style>
   .mascot-box {
@@ -58,39 +33,7 @@ const replayLabel = t(lang, 'mascot-box.replay', 'Replay mascot animation');
     margin-block: 1.75rem;
     break-inside: avoid;
   }
-  .mascot-box__player {
-    --mascot-art-paper: #fdfcf9;
-    display: block;
-    min-width: 0;
-  }
-  .mascot-box__player--linen { --mascot-art-paper: #161511; }
-  .mascot-box__artwork {
-    position: relative;
-    aspect-ratio: 1;
-    border-radius: var(--radius);
-    background: var(--mascot-art-paper);
-  }
-  .mascot-box__artwork img { display: block; width: 100%; height: auto; margin: 0; }
-  .mascot-box__animation { position: absolute; inset: 0; display: none; }
-  [data-rendered] .mascot-box__animation { display: block; }
-  [data-rendered] picture { visibility: hidden; }
-  .mascot-box__replay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    min-width: 44px;
-    min-height: 44px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: var(--radius);
-    background: transparent;
-    cursor: pointer;
-  }
-  button[hidden] { display: none; }
-  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .mascot-box__visual { min-width: 0; }
   .mascot-box__bubble {
     position: relative;
     min-width: 0;
@@ -118,18 +61,12 @@ const replayLabel = t(lang, 'mascot-box.replay', 'Replay mascot animation');
   .mascot-box__body :global(> :last-child) { margin-block-end: 0; }
   @media (max-width: 30rem) {
     .mascot-box { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
-    .mascot-box__player { width: 7rem; }
+    .mascot-box__visual { width: 7rem; }
     .mascot-box__bubble::before { top: -.45rem; inset-inline-start: 2rem; transform: rotate(135deg); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .mascot-box .mascot-box__animation, button { display: none; }
-    .mascot-box picture { visibility: visible; }
   }
   @media print {
     .mascot-box { grid-template-columns: 22mm minmax(0, 1fr); gap: 4mm; }
-    .mascot-box__player { width: auto; --mascot-art-paper: transparent; }
-    .mascot-box .mascot-box__animation, button { display: none; }
-    .mascot-box picture { visibility: visible; }
+    .mascot-box__visual { width: auto; }
     .mascot-box__bubble { background: transparent; color: #000; border-color: #777; }
     .mascot-box__bubble::before { display: none; }
   }
