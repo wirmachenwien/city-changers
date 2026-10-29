@@ -919,6 +919,7 @@ a[data-external-link]:has(img) > .external-link-icon {
   block-size: 0.8rem;
   margin-inline-end: 0.4rem;
   color: var(--ink-soft);
+  vertical-align: -0.1rem;
 }
 
 .crumbs [aria-current="page"] {
@@ -1771,7 +1772,7 @@ html:not(.js-fold) .accordion-content {
 [data-heading-anchor] {
   text-decoration: none;
   margin-inline-start: 0.3rem;
-  padding: 0 0.3rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 0.35rem;
   font-size: 1rem;
   /* Raise by 1/6 of the anchor's cap height to center its
@@ -1970,6 +1971,13 @@ html:not(.js-fold) .accordion-content {
   text-align: end;
   margin-inline-start: auto;
 }
+
+.pagination .next .icon,
+.pagination .prev .icon {
+  transform: translateY(0.15rem);
+}
+
+
 
 /* ---------- Bookmarks / reading progress ---------- */
 
