@@ -3,17 +3,13 @@ description: Check committed artwork freshness and package the brand kit without
 runs:
   using: composite
   steps:
-    - name: Check committed asset freshness
+    - name: Check freshness and package committed assets for website downloads
       shell: bash
-      run: npm run design:check
+      run: npm run design:prepare
 
     - name: Install pinned design image tools
       shell: bash
       run: pip install -r design/requirements.txt
-
-    - name: Package committed assets for website downloads
-      shell: bash
-      run: npm run design:prepare
 
     - name: Check editable motion sources
       shell: bash
