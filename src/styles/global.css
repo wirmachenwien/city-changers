@@ -787,6 +787,16 @@ a[data-external-link]:has(img) > .external-link-icon {
   margin-block: 1.5rem 0.5rem;
 }
 
+/* Give new sections breathing room after content, without adding space
+   at the start of a container or between consecutive headings. */
+:is(.prose, .sheet) :not(:is(h1, h2, h3, h4, h5, h6)) + :is(h1, h2, h3, h4, h5, h6) {
+  margin-block-start: 2rem;
+}
+
+:is(.prose, .sheet) :not(:is(h1, h2, h3, h4, h5, h6)) + :is(h1, h2) {
+  margin-block-start: 2.5rem;
+}
+
 .prose p,
 .prose ul,
 .prose ol {
