@@ -207,7 +207,7 @@ Use <code>frame="white"</code> for logos or brand lockups that must stay on a wh
 
 A friendly Green Fix guide beside a speech bubble. Use it for a short explanation
 or a practical nudge, not as a replacement for the chapter text. Animated mascots
-play once when they first enter view, then hold the final frame. Hover or click the
+play once whenever they enter or re-enter view, then hold the final frame. Hover or click the
 mascot to replay once. Think stops at its raised-hand, yellow-rays idea pose rather
 than returning to the questioning expression. Keyboard users can focus the
 mascot and press Enter or Space.
@@ -245,7 +245,7 @@ Set `lang` to `en`, `de` or `sl` for the accessible replay label and title typog
 
 {['idle', 'wave', 'point', 'celebrate', 'think', 'step'].map((pose) => (
   <MascotBox pose={pose} animated treatment="linen" title={pose} lang="en">
-    <p>One animation on first view. Hover or click the mascot to see it again.</p>
+    <p>One animation each time it enters view. Hover or click the mascot to see it again.</p>
   </MascotBox>
 ))}
 

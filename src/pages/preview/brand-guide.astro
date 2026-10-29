@@ -48,7 +48,7 @@ function lottiePreview(file: string) {
   {groups.map((title) => (
     <section aria-label={title}>
       <h3>{title}</h3>
-      {title === 'Lottie animations' && <p>Each preview plays once when it comes into view. Hover, click or use Enter or Space to replay. Think holds its raised-hand idea pose. Reduced-motion and print views show stills.</p>}
+      {title === 'Lottie animations' && <p>Each preview plays once whenever it enters or re-enters the viewport. Hover, click or use Enter or Space to replay. Think holds its raised-hand idea pose. Reduced-motion and print views show stills.</p>}
       <ul class="asset-grid">
         {assets.filter((asset) => asset.title === title).map((asset) => {
           const preview = lottiePreview(asset.file);

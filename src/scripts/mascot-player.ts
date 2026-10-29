@@ -1,6 +1,6 @@
 import type { AnimationItem } from 'lottie-web';
 
-/** One pass on first view, then replay on hover or native button activation. */
+/** One pass per viewport visit, plus replay on hover or native button activation. */
 class MascotPlayer extends HTMLElement {
   private animation?: AnimationItem;
   private reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -23,6 +23,7 @@ class MascotPlayer extends HTMLElement {
     this.generation++;
     this.observer?.disconnect();
     this.observer = undefined;
+    this.entered = false;
     this.button?.removeEventListener('click', this.replay);
     this.button?.removeEventListener('pointerenter', this.hover);
     this.reduced.removeEventListener('change', this.motionPreference);
@@ -54,14 +55,18 @@ class MascotPlayer extends HTMLElement {
       this.stop();
       this.observer?.disconnect();
       this.observer = undefined;
-    } else if (!this.entered && !this.observer) {
+      this.entered = false;
+    } else if (!this.observer) {
       this.observer = new IntersectionObserver((entries) => {
-        if (!entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= .25)) return;
-        this.entered = true;
-        this.observer?.disconnect();
-        this.observer = undefined;
-        void this.replay();
-      }, { threshold: .25 });
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            this.entered = false;
+          } else if (entry.intersectionRatio >= .25 && !this.entered) {
+            this.entered = true;
+            void this.replay();
+          }
+        }
+      }, { threshold: [0, .25] });
       this.observer.observe(this);
     }
   };
