@@ -4,6 +4,7 @@
 import { smartQuotes } from '../lib/smart-quotes';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
+import Icon from './Icon.astro';
 
 interface Props {
   label?: string;
@@ -20,8 +21,8 @@ const displayLabel = lang ? smartQuotes(label ?? t(lang, 'slideshow.slides', 'Sl
     <slot />
   </div>
   <div class="slide-nav">
-    <button type="button" data-slide-prev>←</button>
+    <button type="button" data-slide-prev aria-label={lang ? t(lang, 'nav.previous', 'Previous') : 'Previous'}><Icon name="arrow-left" /></button>
     <span data-slide-count aria-live="polite" />
-    <button type="button" data-slide-next>→</button>
+    <button type="button" data-slide-next aria-label={lang ? t(lang, 'nav.next', 'Next') : 'Next'}><Icon name="arrow-right" /></button>
   </div>
 </div>

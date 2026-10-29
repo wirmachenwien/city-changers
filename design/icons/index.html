@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Icon library — City Changers</title>
+  <link rel="stylesheet" href="../../src/styles/colors.generated.css">
+  <style>
+    @font-face { font-family: Clarity; src: url('../../src/assets/fonts/ClarityCity-Regular.woff2') format('woff2'); font-display: swap; }
+    @font-face { font-family: Fraunces; src: url('../../src/assets/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 Clarity, sans-serif; }
+    main { max-width: 85rem; margin: auto; padding: 3rem clamp(1rem, 4vw, 4rem); }
+    h1, h2 { font-family: Fraunces, Georgia, serif; line-height: 1.1; font-variation-settings: 'SOFT' 75, 'WONK' 1, 'opsz' 80; }
+    h1 { font-size: clamp(3rem, 6vw, 5rem); margin: .5rem 0 1.25rem; font-weight: 650; }
+    h2 { font-size: 1.75rem; margin: 0 0 .75rem; }
+    a { color: var(--accent); text-underline-offset: .2rem; }
+    .eyebrow { font-size: .72rem; letter-spacing: .06rem; text-transform: uppercase; color: var(--accent); }
+    .intro { max-width: 48rem; color: var(--ink-soft); }
+    .active { display: flex; gap: 1rem; align-items: center; padding: 1rem 1.25rem; margin-block: 1.5rem; background: var(--accent-soft); border-radius: .75rem; }
+    .active p { margin: 0; font-size: .9rem; }
+    .spark { flex: none; width: 1.1rem; height: 1.1rem; background: var(--accent); mask: url('../../src/assets/icons/spark.svg') center / contain no-repeat; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; margin: 2rem 0 1rem; }
+    label { display: grid; gap: .35rem; font-size: .8rem; color: var(--ink-soft); }
+    .search { flex: 1; min-width: 14rem; }
+    input, select { font: inherit; min-height: 2.75rem; border: 1px solid var(--control-border); border-radius: .5rem; padding: .65rem .75rem; background: var(--paper); color: var(--ink); }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    #count { font-size: .8rem; color: var(--ink-soft); margin: 0 0 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+    .icon-card { min-width: 0; padding: 1.25rem; border: 1px solid var(--line); border-radius: .75rem; }
+    .icon-card h2 { font: 600 .95rem Clarity, sans-serif; line-height: 1.4; margin: 0; }
+    .icon-card code { font-size: .7rem; overflow-wrap: anywhere; color: var(--ink-soft); }
+    .sizes { display: flex; gap: 1.5rem; align-items: center; justify-content: center; min-height: 6rem; color: var(--accent); }
+    .sizes span { display: flex; align-items: center; }
+    .sizes span:nth-child(1) svg { width: 1rem; height: 1rem; }
+    .sizes span:nth-child(2) svg { width: 1.5rem; height: 1.5rem; }
+    .sizes span:nth-child(3) svg { width: 2.5rem; height: 2.5rem; }
+    .note { min-height: 3.5rem; font-size: .75rem; line-height: 1.5; color: var(--ink-soft); margin: .75rem 0; }
+    .downloads { display: flex; flex-wrap: wrap; gap: .25rem .75rem; font-size: .75rem; padding-block: .5rem; border-block: 1px solid var(--line); }
+    .downloads a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+    details { font-size: .7rem; color: var(--ink-soft); margin-top: .75rem; }
+    summary { cursor: pointer; padding-block: .5rem; }
+    details ul { padding-inline-start: 1rem; margin-block: .4rem; }
+    .notes { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .notes p, .notes li { font-size: .85rem; color: var(--ink-soft); }
+    .artwork { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .artwork a { display: grid; justify-items: center; gap: .5rem; width: 6rem; font-size: .7rem; }
+    .artwork img { width: 3rem; height: 3rem; object-fit: contain; }
+    footer { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 2rem; font-size: .75rem; color: var(--ink-soft); }
+    @media (max-width: 40rem) { .notes { grid-template-columns: 1fr; } }
+    @media print { .toolbar, .downloads { display: none; } main { padding: 0; } .icon-card { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">City Changers / design system</p>
+    <h1>Icon library.</h1>
+    <p class="intro">Hand-drawn controls, social marks and decorative list markers. Every icon has a 24×24 SVG source and transparent light/dark PNG exports. Previews show 16, 24 and 40 pixel sizes.</p>
+    <div class="toolbar">
+      <label class="search">Find an icon or source<input id="search" type="search" placeholder="Try bookmark, sprout, crosswalk…"></label>
+      <label>Group<select id="group"><option value="all">All icons</option><option value="ui">Interface</option><option value="illustration">Illustrations</option><option value="brand">Social marks</option></select></label>
+      <label>Appearance<select id="theme"><option value="light">Light / paper</option><option value="dark">Dark / ink</option></select></label>
+    </div>
+    <p id="count" aria-live="polite"></p>
+    <div id="icons" class="grid"></div>
+    <noscript><p>Browse SVG sources in <a href="drawn/">drawn/</a> and generated <a href="../../src/assets/icons/">SVG/PNG assets</a>.</p></noscript>
+    <div class="notes">
+      <section><h2>Using the icons.</h2><ul><li>SVGs inherit <code>currentColor</code>; semantic palette tokens handle light and dark themes.</li><li>96×96 PNGs use transparent backgrounds and registered ink colors. Marker PNGs use the accent token.</li><li>Keep icon SVGs decorative. Put accessible labels on the surrounding button or link.</li><li>Social silhouettes, favicons, brand logos and QR matrices keep their established geometry.</li><li>Edit SVG sources in <code>drawn/</code> and run <code>npm run icons:build</code>. Do not edit generated files in <code>src/</code>.</li></ul><p>The <a href="old/">old icon archive</a> is retained separately for reference.</p></section>
+      <section><h2>Brand and licensing artwork.</h2><p>These files are collected unchanged, not redrawn as interface glyphs.</p><div class="artwork">
+        <a href="artwork/favicon.svg"><img src="artwork/favicon.svg" alt="">Favicon</a>
+        <a href="artwork/logo-small.svg"><img src="artwork/logo-small.svg" alt="">Small logo</a>
+        <a href="artwork/icon-192.png"><img src="artwork/icon-192.png" alt="">App icon</a>
+        <a href="artwork/cc-by.svg"><img src="artwork/cc-by.svg" alt="">CC BY</a>
+      </div></section>
+    </div>
+    <footer><a href="README.md">Source and export documentation</a> · Source: design/icons/drawn · Output: src/assets/icons</footer>
+  </main>
+  <script src="catalog.js"></script>
+  <script>
+    const escape = value => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    function render() {
+      const query = document.querySelector('#search').value.toLowerCase().trim();
+      const group = document.querySelector('#group').value;
+      const visible = window.iconCatalog.filter(icon => {
+        const category = icon.accent ? 'illustration' : icon.brand ? 'brand' : 'ui';
+        return (group === 'all' || group === category) && `${icon.id} ${icon.label} ${icon.sources.join(' ')}`.toLowerCase().includes(query);
+      });
+      document.querySelector('#count').textContent = `${visible.length} of ${window.iconCatalog.length} icons`;
+      document.querySelector('#icons').innerHTML = visible.map(icon => `<article class="icon-card" aria-label="${escape(icon.label)}">
+        <h2>${escape(icon.label)}</h2><code>${escape(icon.id)}</code>
+        <div class="sizes" aria-hidden="true"><span>${icon.svg}</span><span>${icon.svg}</span><span>${icon.svg}</span></div>
+        <p class="note">${escape(icon.note)}</p>
+        <div class="downloads"><a href="../../src/assets/icons/${icon.id}.svg">SVG</a><a href="../../src/assets/icons/png/light/${icon.id}.png">PNG · light</a><a href="../../src/assets/icons/png/dark/${icon.id}.png">PNG · dark</a></div>
+        <details><summary>Source locations</summary><ul><li><a href="drawn/${icon.id}.svg">Editable SVG</a></li>${icon.sources.map(path => `<li><a href="../../${escape(path)}">${escape(path)}</a></li>`).join('')}</ul></details>
+      </article>`).join('');
+    }
+    document.querySelector('#search').addEventListener('input', render);
+    document.querySelector('#group').addEventListener('change', render);
+    document.querySelector('#theme').addEventListener('change', event => { document.documentElement.dataset.theme = event.target.value; });
+    render();
+  </script>
+</body>
+</html>

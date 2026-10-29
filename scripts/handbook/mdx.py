@@ -197,6 +197,9 @@ def find_asset_by_basename(filename: str, assets_dir: Path) -> Path | None:
     if re.fullmatch(r"mascot/static/ink/[a-z]+\.png", filename):
         candidate = assets_dir / filename
         return candidate if candidate.is_file() else None
+    if re.fullmatch(r"icons/png/(?:light|dark)/[a-z0-9-]+\.png", filename):
+        candidate = assets_dir / filename
+        return candidate if candidate.is_file() else None
     name = filename.rsplit("/", 1)[-1]
     for folder in ("book", "site"):
         candidate = assets_dir / folder / name
@@ -371,27 +374,56 @@ def component_link(attrs_source: str, label: str) -> str:
     return f"[{label}]({href})" if href else label
 
 
-def _quiz_wrap(question: str, items: str, answer_line: str) -> str:
+@lru_cache(maxsize=1)
+def question_numbers() -> dict[str, int]:
+    """Mirror question-numbering.mjs: both types share each edition's sequence."""
+    works = json.loads((ROOT / "src/data/works.json").read_text())
+    numbers = {}
+    for lang, work in works.items():
+        number = 0
+        for chapter in work["chapters"]:
+            path = BOOK_CONTENT / lang / f'{chapter["file"]}.mdx'
+            source = path.read_text() if path.is_file() else ""
+            for match in re.finditer(r'''<(?:Quiz|Question)\b[\s\S]*?\bid\s*=\s*(?:\{\s*)?["']([^"']+)["']''', source):
+                identifier = match.group(1)
+                if identifier in numbers:
+                    raise ValueError(f"Duplicate question id: {identifier}")
+                number += 1
+                numbers[identifier] = number
+    return numbers
+
+
+def _quiz_wrap(question: str, items: str, answer_line: str, identifier: str = "") -> str:
     """Print wrapper shared by Quiz (flagged options) and Question (answer index)."""
+    number = question_numbers().get(identifier)
+    title = f'Question{f" {number}" if number is not None else ""}: {question}'
     return (
-        f'\n\n<div class="quiz"><p class="quiz-title"><strong>Quiz: {question}</strong></p>'
+        f'\n\n<div class="quiz"><p class="quiz-title"><strong>{title}</strong></p>'
         f'<ol>{items}</ol>'
         f'<p style="transform: rotate(180deg);">{answer_line}</p></div>\n'
     )
 
 
-def quiz_html(question: str, source: str, answers_label: str) -> str:
+def quiz_html(question: str, source: str, answers_label: str, identifier: str = "") -> str:
     entries = option_entries(source)
     options = ''.join(f'<li>{label}</li>' for label, _ in entries)
     correct = ', '.join(str(i + 1) for i, (_, is_correct) in enumerate(entries) if is_correct)
-    return _quiz_wrap(question, options, f"{answers_label}: {correct}")
+    return _quiz_wrap(question, options, f"{answers_label}: {correct}", identifier)
 
 
-def question_html(question: str, source: str, answer: str, answers_label: str) -> str:
-    """Single-choice Question: plain string options plus a 0-based answer index."""
+def question_html(question: str, source: str, answer: str, answers_label: str, identifier: str = "") -> str:
+    """Self-grading Question: supports object options with correct flags or plain strings with answer index."""
+    entries = option_entries(source)
+    if entries:
+        options = ''.join(f'<li>{label}</li>' for label, _ in entries)
+        correct_indices = [str(i + 1) for i, (_, is_correct) in enumerate(entries) if is_correct]
+        if not correct_indices and answer:
+            correct_indices = [str(int(answer) + 1)]
+        correct = ', '.join(correct_indices)
+        return _quiz_wrap(question, options, f"{answers_label}: {correct}", identifier)
     options = re.findall(r'"([^"]+)"', source)
     items = ''.join(f'<li>{label}</li>' for label in options)
-    return _quiz_wrap(question, items, f"{answers_label}: {int(answer) + 1}")
+    return _quiz_wrap(question, items, f"{answers_label}: {int(answer) + 1}", identifier)
 
 
 def strip_static_handlers(text: str) -> str:

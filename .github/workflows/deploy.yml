@@ -36,6 +36,12 @@ jobs:
       - name: Check derived config files are in sync
         run: npm run check:config
 
+      - name: Check bookmark behavior and titles
+        run: node --test scripts/tests/bookmark*.test.mjs
+
+      - name: Check popup positioning and footnote navigation
+        run: node --test scripts/tests/content-popup.test.mjs scripts/tests/footnote-popups.test.mjs
+
       - name: Check color registry, generated outputs and contrast
         run: npm run colors:check && node --test scripts/tests/colors.test.mjs
 

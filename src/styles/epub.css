@@ -6,11 +6,11 @@
    tappable) and page footnotes (linked endnotes suit reflowable text).
    The font url() paths below are relative to OEBPS/styles/epub.css, i.e.
    OEBPS/fonts/*.ttf embedded in every book. */
-.mascot-box { margin: 1.5em 0; padding: 1em; border: 1px solid currentColor; border-radius: .4em; page-break-inside: avoid; }
+.mascot-box { margin: 1.5rem 0; padding: 1rem; border: 1px solid currentColor; border-radius: .4rem; page-break-inside: avoid; }
 /* Python-Markdown wraps the floated image in a paragraph; remove its
    default margins so the box padding is even on all sides. */
 .mascot-box > p { margin: 0; }
-.mascot-box__mascot { float: left; width: 5em; height: 5em; max-width: 30%; margin: 0 1em .5em 0; }
+.mascot-box__mascot { float: left; width: 5rem; height: 5rem; max-width: 30%; margin: 0 1rem .5rem 0; }
 .mascot-box__bubble > :first-child { margin-top: 0; }
 .mascot-box__bubble > :last-child { margin-bottom: 0; }
 .mascot-box::after { content: ''; display: block; clear: both; }
@@ -113,30 +113,57 @@ h2, h3 {
 }
 
 /* Consistent space below headlines regardless of what follows. */
-h2 { margin-block-end: 0.5em; }
-h3 { margin-block-end: 0.35em; }
+h2 { margin-block-end: 0.5rem; }
+h3 { margin-block-end: 0.35rem; }
 
 p, ul, ol {
-  margin-block: 1em;
+  margin-block: 1rem;
   line-height: 1.45;
 }
 
 li + li {
-  margin-block-start: 0.5em;
+  margin-block-start: 0.5rem;
 }
+
+/* Generous idea sparks; PNGs are packaged locally in each EPUB. */
+ul:not([class]) > li {
+  position: relative;
+  list-style-type: disc;
+}
+
+ul:not([class]) > li::marker {
+  font-size: 0;
+}
+
+ul:not([class]) > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1.5rem;
+  inset-block-start: 0.2rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  background-image: url("icons/spark.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+ul:not([class]) ul:not([class]) > li::before {
+  background-image: url("icons/spark-outline.png");
+}
+
 img {
   display: block;
   height: auto;
   max-width: 100%;
 }
 figure {
-  margin: 1.5em 0;
+  margin: 1.5rem 0;
 }
 figure.figure--small {
-  max-width: 18em;
+  max-width: 18rem;
 }
 figure.figure--medium {
-  max-width: 28em;
+  max-width: 28rem;
 }
 figure.figure--float-center {
   margin-left: auto;
@@ -145,30 +172,30 @@ figure.figure--float-center {
 figure.figure--float-left,
 figure.figure--float-right {
   width: 45%;
-  max-width: 22em;
-  margin-top: 0.3em;
+  max-width: 22rem;
+  margin-top: 0.3rem;
 }
 figure.figure--float-left {
   float: left;
-  margin-right: 1em;
+  margin-right: 1rem;
 }
 figure.figure--float-right {
   float: right;
-  margin-left: 1em;
+  margin-left: 1rem;
 }
 figure.figure--float-left.figure--small,
 figure.figure--float-right.figure--small {
-  max-width: 18em;
+  max-width: 18rem;
 }
 figure.figure--float-left.figure--medium,
 figure.figure--float-right.figure--medium {
   width: 50%;
-  max-width: 28em;
+  max-width: 28rem;
 }
 figcaption {
-  font-size: 0.9em;
+  font-size: 0.9rem;
   line-height: 1.45;
-  margin-top: 0.5em;
+  margin-top: 0.5rem;
 }
 /* Full-bleed cover: the hero photo fills the whole page with no margins or
    frames; the metadata sits on top in a bottom-anchored scrim. */
@@ -203,12 +230,12 @@ figcaption {
   padding: 8% 6%;
 }
 .cover-full h1 {
-  font-size: 2em;
+  font-size: 2rem;
   color: var(--white);
-  margin: 0 0 0.3em;
+  margin: 0 0 0.3rem;
 }
 .cover-full .cover-sub {
-  font-size: 1.1em;
+  font-size: 1.1rem;
   margin: 0;
 }
 .title-page-sheet {
@@ -218,7 +245,7 @@ figcaption {
   justify-content: space-between;
 }
 .title-page-heading {
-  margin: 0 0 1em;
+  margin: 0 0 1rem;
   line-height: 1;
 }
 .handbook-lockup {
@@ -228,40 +255,40 @@ figcaption {
   height: auto;
 }
 .title-page-details {
-  margin-top: 4em;
+  margin-top: 4rem;
   font-family: "Clarity City", sans-serif;
-  font-size: 0.85em;
+  font-size: 0.85rem;
   line-height: 1.5;
 }
 .title-page-partners {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.5em;
+  gap: 1.5rem;
   list-style: none;
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
   padding: 0;
 }
 .title-page-partner img {
-  height: 2.5em;
+  height: 2.5rem;
   width: auto;
-  max-width: 10em;
+  max-width: 10rem;
   object-fit: contain;
 }
-.title-page-partner--wirmachen-wien img { height: 3.75em; }
+.title-page-partner--wirmachen-wien img { height: 3.75rem; }
 .title-page-contributors { margin: 0; }
-.title-page-label { font-size: 0.85em; }
+.title-page-label { font-size: 0.85rem; }
 .title-page-licence {
   border-top: 1px solid var(--line);
-  padding-top: 1em;
-  margin-top: 2em;
-  font-size: 0.85em;
+  padding-top: 1rem;
+  margin-top: 2rem;
+  font-size: 0.85rem;
 }
 .title-page-licence p { margin: 0; }
 .title-page-licence .title-page-cc {
-  width: 5em;
+  width: 5rem;
   height: auto;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.75rem;
 }
 /* Component styles mirror the print stylesheet (src/styles/print.css):
    tip boxes, pull quotes, glossary lists, quiz boxes and tables.
@@ -269,31 +296,31 @@ figcaption {
    and page footnotes (linked endnotes suit reflowable text). */
 blockquote {
   margin-left: 0;
-  padding-left: 0.8em;
+  padding-left: 0.8rem;
   border-left: 3pt solid var(--accent);
   color: var(--ink-soft);
 }
 blockquote.pullquote {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   line-height: 1.45;
   font-style: italic;
   color: var(--ink);
   border-left-width: 4.5pt;
-  margin: 1em 0;
+  margin: 1rem 0;
 }
 blockquote.pullquote footer {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   font-style: normal;
   color: var(--ink-soft);
-  margin-top: 0.4em;
+  margin-top: 0.4rem;
 }
 .feature-box {
   background: var(--panel);
   border: 0.5pt solid var(--accent);
   border-left-width: 4.5pt;
-  border-radius: .4em;
-  padding: 1em 0.9em;
-  margin: 1em 0;
+  border-radius: .4rem;
+  padding: 1rem 0.9rem;
+  margin: 1rem 0;
   page-break-inside: avoid;
   break-inside: avoid;
 }
@@ -311,7 +338,7 @@ dl.glossary dt {
   break-after: avoid;
 }
 .accordion-title {
-  margin: 0 0 0.2em;
+  margin: 0 0 0.2rem;
 }
 .accordion-title + * {
   margin-top: 0;
@@ -321,7 +348,7 @@ dl.glossary dt {
   border-color: var(--warn);
 }
 .feature-box > .feature-box__title {
-  margin: 0 0 0.35em;
+  margin: 0 0 0.35rem;
 }
 .feature-box__title + * {
   margin-top: 0;
@@ -333,19 +360,19 @@ dl.glossary dt {
   margin-bottom: 0;
 }
 dl.glossary {
-  margin: 1em 0;
+  margin: 1rem 0;
 }
 dl.glossary dt {
   font-weight: 700;
-  margin-top: 0.7em;
+  margin-top: 0.7rem;
 }
 dl.glossary dd {
   margin-left: 0;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.4rem;
 }
 .quiz {
   border: 1px solid var(--line);
-  border-radius: .4em;
+  border-radius: .4rem;
   padding: 1rem 1.25rem;
   margin-block: 1.5rem;
   font-family: "Clarity City", system-ui, sans-serif;
@@ -377,32 +404,32 @@ dl.glossary dd {
   margin-bottom: 0;
 }
 .icon {
-  height: 1.1em;
-  width: 1.1em;
-  vertical-align: -0.2em;
+  height: 1.1rem;
+  width: 1.1rem;
+  vertical-align: -0.2rem;
 }
 .footnote-back {
   text-decoration: none;
 }
 .table-scroll {
   overflow-x: auto;
-  margin-block: 1.5em;
+  margin-block: 1.5rem;
   border: 1px solid var(--line);
-  border-radius: .4em;
+  border-radius: .4rem;
 }
 
 .table-scroll table {
   border-collapse: collapse;
   inline-size: 100%;
   font-family: "Clarity City", system-ui, sans-serif;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   line-height: 1.45;
 }
 
 .table-scroll th,
 .table-scroll td {
   text-align: start;
-  padding: 0.4em 0.5em;
+  padding: 0.4rem 0.5rem;
   border-block-end: 1px solid var(--line);
   border-inline-end: none;
   border-inline-start: none;
@@ -417,13 +444,13 @@ dl.glossary dd {
 table:not(.table-scroll table) {
   border-collapse: collapse;
   width: 100%;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   line-height: 1.45;
 }
 
 table:not(.table-scroll table) th,
 table:not(.table-scroll table) td {
   border: 0.5pt solid var(--line);
-  padding: 0.4em 0.5em;
+  padding: 0.4rem 0.5rem;
   text-align: left;
 }

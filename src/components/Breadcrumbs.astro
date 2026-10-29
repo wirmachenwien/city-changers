@@ -4,6 +4,7 @@
 import { smartQuotes } from '../lib/smart-quotes';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
+import Icon from './Icon.astro';
 
 export interface Crumb {
   label: string;
@@ -27,8 +28,9 @@ const displayItems = lang
 ---
 <nav class="crumbs" aria-label={lang ? t(lang, 'nav.breadcrumb', 'Breadcrumb') : 'Breadcrumb'} data-compact={compact ? 'true' : undefined}>
   <ol>
-    {displayItems.map((item) => (
+    {displayItems.map((item, index) => (
       <li>
+        {index > 0 && <Icon name="chevron-right" />}
         {item.current || !item.url ? (
           <span aria-current="page">{item.label}</span>
         ) : (

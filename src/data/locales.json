@@ -31,7 +31,8 @@
       "correct-answers": "Richtige Antworten",
       "feedback-correct": "Richtig!",
       "feedback-incorrect": "Falsch",
-      "feedback-unfinished": "Fast – du hast noch nicht alle richtigen Antworten ausgewählt."
+      "feedback-unfinished": "Fast – du hast noch nicht alle richtigen Antworten ausgewählt.",
+      "feedback-empty": "Bitte wähle mindestens eine Antwort aus."
     },
     "cross-references": {
       "pre-page-number": "(Seite ",
@@ -43,7 +44,11 @@
       "remove-bookmark": "Lesezeichen entfernen",
       "bookmarks": "Lesezeichen",
       "last-location-prompt": "Weiterlesen?",
-      "delete-bookmark": "Löschen"
+      "delete-bookmark": "Löschen",
+      "component-labels": {
+        "video": "Video", "image": "Bild", "slideshow": "Bildergalerie", "table": "Tabelle",
+        "quote": "Zitat", "tip": "Tipp", "accordion": "Details", "copy": "Text zum Kopieren", "qr": "QR-Code"
+      }
     },
     "controls": {
       "language-select": "Sprache auswählen",
@@ -144,7 +149,8 @@
       "correct-answers": "Correct answers",
       "feedback-correct": "Correct!",
       "feedback-incorrect": "Incorrect",
-      "feedback-unfinished": "Almost – you haven't selected all the correct answers yet."
+      "feedback-unfinished": "Almost – you haven't selected all the correct answers yet.",
+      "feedback-empty": "Please select at least one answer."
     },
     "cross-references": {
       "pre-page-number": "(page ",
@@ -156,7 +162,11 @@
       "remove-bookmark": "Remove bookmark",
       "bookmarks": "Bookmarks",
       "last-location-prompt": "Continue from your last visit?",
-      "delete-bookmark": "Delete"
+      "delete-bookmark": "Delete",
+      "component-labels": {
+        "video": "Video", "image": "Image", "slideshow": "Slideshow", "table": "Table",
+        "quote": "Quote", "tip": "Tip", "accordion": "Details", "copy": "Text to copy", "qr": "QR code"
+      }
     },
     "controls": {
       "language-select": "Select language",
@@ -257,7 +267,8 @@
       "correct-answers": "Pravilni odgovori",
       "feedback-correct": "Pravilno!",
       "feedback-incorrect": "Napačno",
-      "feedback-unfinished": "Skoraj – še nisi izbral vseh pravilnih odgovorov."
+      "feedback-unfinished": "Skoraj – še nisi izbral vseh pravilnih odgovorov.",
+      "feedback-empty": "Izberi vsaj en odgovor."
     },
     "cross-references": {
       "pre-page-number": "(stran ",
@@ -269,7 +280,11 @@
       "remove-bookmark": "Odstrani zaznamek",
       "bookmarks": "Zaznamki",
       "last-location-prompt": "Želiš nadaljevati branje od zadnjega obiska?",
-      "delete-bookmark": "Izbriši"
+      "delete-bookmark": "Izbriši",
+      "component-labels": {
+        "video": "Video", "image": "Slika", "slideshow": "Galerija", "table": "Tabela",
+        "quote": "Citat", "tip": "Nasvet", "accordion": "Podrobnosti", "copy": "Besedilo za kopiranje", "qr": "Koda QR"
+      }
     },
     "controls": {
       "language-select": "Izberi jezik",

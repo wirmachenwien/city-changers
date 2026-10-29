@@ -185,6 +185,7 @@ def print_css() -> str:
         count=1,
     )
     css = FONT_RE.sub(lambda m: f'url("{font_uri(m.group(1))}")', css)
+    css = css.replace('url("icons/', f'url("{(ASSETS / "icons/png/light").as_uri()}/')
     katex_fonts = (ROOT / "node_modules" / "katex" / "dist" / "fonts").as_uri() + "/"
     return css + "\n" + katex_css(katex_fonts)
 
@@ -291,13 +292,15 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
         text += f'\n\n<section class="footnotes"><h2>{footnotes_title}</h2><ol>{items}</ol></section>\n'
     text = GLOSSARY_RE.sub(lambda m: glossary_html(m.group(1)), text)
     text = GLOSSARY_LANG_RE.sub(lambda m: glossary_lang_html(m.group(1), glossary_data()), text)
-    text = QUIZ_RE.sub(lambda m: quiz_html(attrs(m.group(1)).get("question", ""), m.group(2), answers_label), text)
+    text = QUIZ_RE.sub(lambda m: quiz_html(attrs(m.group(1)).get("question", ""), m.group(2), answers_label,
+                                         attrs(m.group(1)).get("id", "")), text)
     text = QUESTION_RE.sub(
         lambda m: question_html(
             attrs(m.group(1)).get("question", ""),
             m.group(2),
             attrs(m.group(1) + m.group(3)).get("answer", "0"),
             answers_label,
+            attrs(m.group(1) + m.group(3)).get("id", ""),
         ), text
     )
     return text.strip() + "\n"

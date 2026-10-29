@@ -4,6 +4,7 @@
 import { t } from '../lib/i18n';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import Icon from './Icon.astro';
 
 interface Props {
   id: string;
@@ -33,7 +34,7 @@ const poster =
     style={poster ? `background-image: url(${poster})` : undefined}
     aria-label={`${t(lang, 'video.play-video', 'Play video')}${displayCaption ? `: ${displayCaption}` : ''}`}
   >
-    <span class="play">▶ {t(lang, 'video.play-video', 'Play video')}</span>
+    <span class="play"><Icon name="play" /> {t(lang, 'video.play-video', 'Play video')}</span>
   </button>
   <noscript>
     <a href={watchUrl}>{t(lang, 'video.play-video', 'Play video')}</a>

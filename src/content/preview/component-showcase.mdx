@@ -272,7 +272,7 @@ Set `lang` to `en`, `de` or `sl` for the accessible replay label and title typog
 <h2 class="showcase-label">QrCode</h2>
 <div class="showcase-demo"><QrCode url="/book/01-why-this-toolbox.html" label="Chapter 1." /></div>
 
-{/* Question — single-question radio check with client-side marking. */}
+{/* Question — single- or multiple-choice question with pebble-outline checkboxes. */}
 <h2 class="showcase-label">Question</h2>
 <div class="showcase-demo">
   <Question
@@ -283,11 +283,8 @@ Set `lang` to `en`, `de` or `sl` for the accessible replay label and title typog
     answer={1}
   />
 </div>
-
-{/* Quiz — self-grading multiple-choice quiz. */}
-<h2 class="showcase-label">Quiz</h2>
 <div class="showcase-demo">
-  <Quiz
+  <Question
     id="showcase-quiz"
     lang="en"
     question="Which measures change through traffic?"

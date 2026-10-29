@@ -1,5 +1,6 @@
 """Export component titles carry the classes used to keep them with content."""
 import sys
+import re
 import unittest
 from pathlib import Path
 
@@ -9,6 +10,43 @@ from handbook.mdx import quiz_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_editorial_bullets_use_generous_sparks_without_replacing_list_semantics(self):
+        for name in ("global.css", "print.css", "epub.css"):
+            with self.subTest(stylesheet=name):
+                css = (ROOT / "src/styles" / name).read_text()
+                self.assertIn("ul:not([class]) > li::marker", css)
+                self.assertIn("list-style-type: disc;", css)
+                self.assertIn("1.1rem", css)
+                self.assertIn("icons/spark", css)
+                self.assertIn("icons/spark-outline", css)
+                self.assertNotIn("pebble", css)
+                marker = re.search(r"ul:not\(\[class\]\) > li::before\s*\{([^}]+)\}", css).group(1)
+                self.assertIn("1.1rem", marker)
+
+    def test_sidebar_bookmarks_stick_below_the_header_and_fit_the_viewport(self):
+        css = (ROOT / "src/styles/global.css").read_text()
+        bookmarks = re.search(r"\.side-nav \[data-bookmark-nav\]\s*\{([^}]+)\}", css).group(1)
+        self.assertIn("position: sticky;", bookmarks)
+        self.assertIn("inset-block-start: var(--scroll-offset, 5rem);", bookmarks)
+        self.assertIn("max-block-size: calc(100dvb - var(--scroll-offset, 5rem) - 1rem);", bookmarks)
+        self.assertIn("overflow-y: auto;", bookmarks)
+
+    def test_styles_use_root_relative_instead_of_element_relative_units(self):
+        for path in (ROOT / "src/styles").glob("*.css"):
+            with self.subTest(stylesheet=path.name):
+                self.assertNotRegex(path.read_text(), r"\d(?:\.\d+)?em\b")
+
+    def test_web_quiz_only_adds_feedback_space_when_populated(self):
+        css = (ROOT / "src/styles/global.css").read_text()
+        quiz = re.search(r"^\.quiz\s*\{([^}]+)\}", css, re.MULTILINE).group(1)
+        self.assertIn("padding: 1.75rem 1.25rem;", quiz)
+        feedback = re.search(r"\.quiz \.quiz-feedback\s*\{([^}]+)\}", css).group(1)
+        self.assertNotIn("min-block-size", feedback)
+        self.assertIn("margin: 0 0 0.75rem;", feedback)
+        empty = re.search(r"\.quiz \.quiz-feedback:empty\s*\{([^}]+)\}", css).group(1)
+        self.assertIn("margin: 0;", empty)
+        self.assertNotIn("display: none", empty)
+
     def test_accordion_title_is_a_marked_paragraph(self):
         converted = strip_static_handlers(
             '<Accordion title="1. Introduction">Body copy</Accordion>'
@@ -31,7 +69,7 @@ class ComponentBreakTest(unittest.TestCase):
             "Answers",
         )
         self.assertIn(
-            '<p class="quiz-title"><strong>Quiz: Ready?</strong></p>',
+            '<p class="quiz-title"><strong>Question: Ready?</strong></p>',
             converted,
         )
 
@@ -44,7 +82,7 @@ class ComponentBreakTest(unittest.TestCase):
                 self.assertRegex(css, r"break-after:\s*avoid")
 
     def test_accordion_title_gap_is_tightened(self):
-        expected_gap = {"print.css": "margin: 0 0 3pt;", "epub.css": "margin: 0 0 0.2em;"}
+        expected_gap = {"print.css": "margin: 0 0 3pt;", "epub.css": "margin: 0 0 0.2rem;"}
         for name, gap in expected_gap.items():
             with self.subTest(stylesheet=name):
                 css = (ROOT / "src" / "styles" / name).read_text(encoding="utf-8")

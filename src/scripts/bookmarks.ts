@@ -8,13 +8,13 @@
 import { DEFAULT_LANG } from '../lib/site';
 import { languages, type Language } from '../data/locales';
 import { t } from '../lib/i18n';
+import { bookmarkExcerpt, plainBookmarkText } from '../lib/bookmark-title';
+import { iconSvg } from '../lib/icons.ts';
 const VISITS_KEY = 'toolbox.last-visit';
 const DISMISSED_KEY = 'toolbox.last-visit-dismissed';
 const MARKS_KEY = 'toolbox.bookmarks';
 const TARGET_HIGHLIGHT = 'is-bookmark-target';
-/** Same stroke-X icon as Icon name="x" (used for every close affordance). */
-const X_ICON_SVG =
-  '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l16 16" /><path d="M20 4L4 20" /></svg>';
+const X_ICON_SVG = iconSvg('x');
 
 interface StoredMark {
   page: string;
@@ -40,8 +40,8 @@ function readMarks(): StoredMark[] {
     return {
       page,
       url,
-      title: typeof mark.title === 'string' ? mark.title : '',
-      excerpt: typeof mark.excerpt === 'string' ? mark.excerpt : '',
+      title: typeof mark.title === 'string' ? plainBookmarkText(mark.title) : '',
+      excerpt: typeof mark.excerpt === 'string' ? plainBookmarkText(mark.excerpt) : '',
       note: typeof mark.note === 'string' ? mark.note : '',
       at: typeof mark.at === 'string' ? mark.at : '',
       anchor,
@@ -106,11 +106,18 @@ function anchorFromUrl(url: string): string {
 
 /** Leading-words excerpt identifying a target block. */
 function excerptFor(element: HTMLElement, maxWords = 25): string {
-  return collapseText(element.textContent ?? '')
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, maxWords)
-    .join(' ');
+  const lang = currentLanguage();
+  return bookmarkExcerpt(element, {
+    video: t(lang, 'bookmarks.component-labels.video', 'Video'),
+    image: t(lang, 'bookmarks.component-labels.image', 'Image'),
+    slideshow: t(lang, 'bookmarks.component-labels.slideshow', 'Slideshow'),
+    table: t(lang, 'bookmarks.component-labels.table', 'Table'),
+    quote: t(lang, 'bookmarks.component-labels.quote', 'Quote'),
+    tip: t(lang, 'bookmarks.component-labels.tip', 'Tip'),
+    accordion: t(lang, 'bookmarks.component-labels.accordion', 'Details'),
+    copy: t(lang, 'bookmarks.component-labels.copy', 'Text to copy'),
+    qr: t(lang, 'bookmarks.component-labels.qr', 'QR code'),
+  }, maxWords);
 }
 
 /** Render every sidebar bookmark list for the active language. */
@@ -236,10 +243,6 @@ function initBookmarkGutter(): void {
   let targets = collectTargets(proseEl);
   let pendingIndex: number | null = null;
   let anchorCounter = 0;
-  /** Element highlighted by bookmark navigation (until navigating away). */
-  let flashed: HTMLElement | null = null;
-  /** Line currently highlighted by gutter hover/focus (preserved on flash). */
-  let hoverIndex: number | null = null;
   /** Gutter strip the pointer must be in for aim mode (px, article-relative). */
   let pinLeft = 0;
   let aiming = false;
@@ -249,26 +252,9 @@ function initBookmarkGutter(): void {
     readMarks().filter((mark) => (mark.page || '') === location.pathname);
 
   function setHighlight(index: number | null): void {
-    hoverIndex = index;
     targets.forEach((target, i) =>
-      target.classList.toggle(TARGET_HIGHLIGHT, i === index || target === flashed),
+      target.classList.toggle(TARGET_HIGHLIGHT, i === index),
     );
-  }
-
-  /** Temporarily highlight a navigated-to bookmark target. The highlight
-   *  stays until the user navigates away (another anchor or history step). */
-  function clearFlash(): void {
-    const element = flashed;
-    flashed = null;
-    if (element && element !== targets[hoverIndex ?? -1]) {
-      element.classList.remove(TARGET_HIGHLIGHT);
-    }
-  }
-
-  function flashTarget(element: HTMLElement): void {
-    clearFlash();
-    flashed = element;
-    element.classList.add(TARGET_HIGHLIGHT);
   }
 
   function placePin(pin: HTMLElement, target: HTMLElement): void {
@@ -317,6 +303,7 @@ function initBookmarkGutter(): void {
   function showPending(index: number): void {
     if (!targets[index]) return;
     parkPin(index);
+    pendingBtn.classList.add('is-active');
     setHighlight(index);
   }
 
@@ -410,11 +397,11 @@ function initBookmarkGutter(): void {
     if (pendingIndex !== null && targets[pendingIndex]) parkPin(pendingIndex);
   }
 
-  function scrollToAnchor(anchor: string, flash = false): void {
+  function scrollToAnchor(anchor: string): void {
     if (!anchor) return;
     const target = document.getElementById(anchor);
     if (!(target instanceof HTMLElement)) return;
-    if (flash) flashTarget(target);
+    setHighlight(null);
     requestAnimationFrame(() => {
       const header = document.querySelector<HTMLElement>('.site-head');
       const headerHeight = header?.getBoundingClientRect().height ?? 0;
@@ -423,14 +410,9 @@ function initBookmarkGutter(): void {
     });
   }
 
-  /** Whether an anchor belongs to a bookmark on this page. */
-  function isBookmarkAnchor(anchor: string): boolean {
-    return !!anchor && pageMarks().some((mark) => mark.anchor === anchor);
-  }
-
   function scrollToCurrentHash(): void {
     const anchor = anchorFromUrl(location.hash);
-    scrollToAnchor(anchor, isBookmarkAnchor(anchor));
+    scrollToAnchor(anchor);
   }
 
   // Aim mode lives only in the gutter strip: hovering the pin — or the
@@ -444,9 +426,9 @@ function initBookmarkGutter(): void {
   }
 
   function setAiming(on: boolean): void {
-    if (aiming === on) return;
     aiming = on;
-    if (!on && document.activeElement !== pendingBtn) setHighlight(null);
+    pendingBtn.classList.toggle('is-active', on || pendingBtn.matches(':focus-visible'));
+    if (!on && !pendingBtn.matches(':focus-visible')) setHighlight(null);
   }
 
   let scheduled = false;
@@ -472,7 +454,10 @@ function initBookmarkGutter(): void {
   pendingBtn.addEventListener('focus', () => {
     showPending(pendingIndex ?? 0);
   });
-  pendingBtn.addEventListener('blur', () => setHighlight(null));
+  pendingBtn.addEventListener('blur', () => {
+    if (!aiming) pendingBtn.classList.remove('is-active');
+    setHighlight(null);
+  });
   pendingBtn.addEventListener('keydown', (event) => {
     if (pendingIndex === null) return;
     let next: number | null = null;
@@ -491,7 +476,8 @@ function initBookmarkGutter(): void {
     const target = targets[pendingIndex];
     if (!target) return;
     const page = location.pathname;
-    const title = formatChapterTitle(document.querySelector('main h1')?.textContent?.trim() || document.title);
+    const heading = document.querySelector<HTMLElement>('main h1');
+    const title = formatChapterTitle(heading ? excerptFor(heading, Number.MAX_SAFE_INTEGER) : plainBookmarkText(document.title));
     const excerpt = excerptFor(target);
     let anchor = target.id;
     if (!anchor) {
@@ -515,6 +501,10 @@ function initBookmarkGutter(): void {
     }
     renderBookmarkLists();
     renderSaved();
+    if (!aiming) {
+      pendingBtn.classList.remove('is-active');
+      setHighlight(null);
+    }
   });
 
   // Touch devices have no hover: tapping a line parks the pending pin
@@ -553,8 +543,8 @@ function initBookmarkGutter(): void {
     });
   }
   renderSaved();
-  // The add button is permanently visible: park it on the first line that
-  // has no saved pin yet (or hide it behind the pin if every line is taken).
+  // Prepare the hidden add button for hover or keyboard focus on the first
+  // unsaved line (or behind a saved pin if every line is taken).
   if (targets.length === 0) {
     pendingBtn.classList.add('is-behind');
   } else {
@@ -570,24 +560,12 @@ function initBookmarkGutter(): void {
     if (url.pathname !== location.pathname || !url.hash) return;
     event.preventDefault();
     history.pushState(null, '', `${url.pathname}${url.hash}`);
-    scrollToAnchor(anchorFromUrl(url.hash), true);
+    scrollToAnchor(anchorFromUrl(url.hash));
   });
 
-  // The bookmark highlight is temporary: navigating to another in-page
-  // anchor or history entry clears it (or moves it to the new bookmark).
-  // pushState-based bookmark navigation above replaces the flash explicitly
-  // instead, since pushState fires neither event.
-  function refreshFlashFromHash(): void {
-    const anchor = anchorFromUrl(location.hash);
-    const target = anchor ? document.getElementById(anchor) : null;
-    if (target instanceof HTMLElement && isBookmarkAnchor(anchor)) {
-      flashTarget(target);
-    } else {
-      clearFlash();
-    }
-  }
-  window.addEventListener('hashchange', refreshFlashFromHash);
-  window.addEventListener('popstate', refreshFlashFromHash);
+  // Navigation never latches a highlight; only gutter hover/focus owns it.
+  window.addEventListener('hashchange', () => setHighlight(null));
+  window.addEventListener('popstate', () => setHighlight(null));
 }
 
 export function initBookmarks(): void {

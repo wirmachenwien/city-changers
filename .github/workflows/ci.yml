@@ -35,6 +35,12 @@ jobs:
       - name: Check theme behavior without a browser
         run: node --test scripts/tests/theme.test.mjs
 
+      - name: Check bookmark behavior and titles
+        run: node --test scripts/tests/bookmark*.test.mjs
+
+      - name: Check popup positioning and footnote navigation
+        run: node --test scripts/tests/content-popup.test.mjs scripts/tests/footnote-popups.test.mjs
+
       - name: Build static site, PDFs, EPUBs and search index
         run: npm run build
 
