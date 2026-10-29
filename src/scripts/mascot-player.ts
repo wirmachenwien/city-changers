@@ -7,7 +7,9 @@ class MascotPlayer extends HTMLElement {
   private button: HTMLButtonElement | null = null;
   private loading = false;
   private entered = false;
-  private observer?: IntersectionObserver;
+  private layoutObserver?: ResizeObserver;
+  private observing = false;
+  private viewportFrame?: number;
   private generation = 0;
 
   connectedCallback() {
@@ -21,8 +23,7 @@ class MascotPlayer extends HTMLElement {
 
   disconnectedCallback() {
     this.generation++;
-    this.observer?.disconnect();
-    this.observer = undefined;
+    this.stopObserving();
     this.entered = false;
     this.button?.removeEventListener('click', this.replay);
     this.button?.removeEventListener('pointerenter', this.hover);
@@ -53,21 +54,60 @@ class MascotPlayer extends HTMLElement {
     this.button.hidden = this.reduced.matches;
     if (this.reduced.matches) {
       this.stop();
-      this.observer?.disconnect();
-      this.observer = undefined;
+      this.stopObserving();
       this.entered = false;
-    } else if (!this.observer) {
-      this.observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) {
-            this.entered = false;
-          } else if (entry.intersectionRatio >= .25 && !this.entered) {
-            this.entered = true;
-            void this.replay();
-          }
-        }
-      }, { threshold: [0, .25] });
-      this.observer.observe(this);
+    } else if (!this.observing) {
+      this.observing = true;
+      const header = document.querySelector('.site-head');
+      if (typeof ResizeObserver !== 'undefined') {
+        this.layoutObserver = new ResizeObserver(this.scheduleViewport);
+        if (header) this.layoutObserver.observe(header);
+        const artwork = this.querySelector('.mascot-box__artwork');
+        if (artwork) this.layoutObserver.observe(artwork);
+      }
+      window.addEventListener('scroll', this.scheduleViewport, { passive: true });
+      window.addEventListener('resize', this.scheduleViewport);
+      window.addEventListener('load', this.scheduleViewport, true);
+      this.scheduleViewport();
+    }
+  };
+
+  private stopObserving = () => {
+    this.observing = false;
+    this.layoutObserver?.disconnect();
+    this.layoutObserver = undefined;
+    window.removeEventListener('scroll', this.scheduleViewport);
+    window.removeEventListener('resize', this.scheduleViewport);
+    window.removeEventListener('load', this.scheduleViewport, true);
+    if (this.viewportFrame !== undefined) cancelAnimationFrame(this.viewportFrame);
+    this.viewportFrame = undefined;
+  };
+
+  private scheduleViewport = () => {
+    if (!this.observing || this.viewportFrame !== undefined) return;
+    this.viewportFrame = requestAnimationFrame(() => {
+      this.viewportFrame = undefined;
+      this.checkViewport();
+    });
+  };
+
+  private checkViewport = () => {
+    if (!this.isConnected || this.reduced.matches) return;
+    const artwork = this.querySelector('.mascot-box__artwork');
+    if (!artwork) return;
+    const rect = artwork.getBoundingClientRect();
+    const navbarBottom = Math.max(0, document.querySelector('.site-head')?.getBoundingClientRect().bottom ?? 0);
+    const viewport = document.documentElement;
+    // IntersectionObserver rounds rootMargin to whole pixels. Keep fractional
+    // CSS pixels here, and measure the artwork rather than its outer wrapper.
+    const width = Math.max(0, Math.min(rect.right, viewport.clientWidth) - Math.max(rect.left, 0));
+    const height = Math.max(0, Math.min(rect.bottom, viewport.clientHeight) - Math.max(rect.top, navbarBottom));
+    const visibleArea = width * height;
+    if (visibleArea === 0) {
+      this.entered = false;
+    } else if (visibleArea >= rect.width * rect.height * .25 && !this.entered) {
+      this.entered = true;
+      void this.replay();
     }
   };
 
