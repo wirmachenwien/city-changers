@@ -2,6 +2,12 @@
    Screen styles live in global.css; this file only ships to print.
    The font url() paths below are logical: build-pdf.py rewrites them to
    file:// URIs of the self-hosted fonts so the PDF embeds them. */
+.mascot-box { margin: 5mm 0; padding: 4mm; border: .5pt solid #777; border-radius: 2mm; break-inside: avoid; }
+.mascot-box__mascot { float: left; width: 24mm; height: 24mm; margin: 0 4mm 2mm 0; }
+.mascot-box__bubble { min-height: 24mm; }
+.mascot-box__bubble > :first-child { margin-top: 0; }
+.mascot-box__bubble > :last-child { margin-bottom: 0; }
+.mascot-box::after { content: ''; display: block; clear: both; }
 @font-face {
   font-family: "Newsreader";
   font-style: normal;

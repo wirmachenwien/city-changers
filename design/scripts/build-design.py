@@ -34,6 +34,9 @@ def files(pattern):
 
 def groups():
     """Conservative shared dependencies; action-local edits rebuild only that action."""
+    static_source = DESIGN / "assets/mascot/source/static-poses.json"
+    static_poses = (json.loads((DESIGN / "assets/mascot/source/poses.json").read_text())
+                    | json.loads(static_source.read_text()))
     action_files = {DESIGN / f"motion/src/mascots/{action.title()}{suffix}.tsx"
                     for action in ACTIONS for suffix in ("", "Rig")}
     # Unknown/new helpers are conservatively shared. This also catches new nested
@@ -56,11 +59,12 @@ def groups():
         },
         "stills": {
             "inputs": [ROOT / "src/assets/site/logo.svg", DESIGN / "assets/mascot/source/poses.json",
+                        static_source,
                        DESIGN / "scripts/build-mascot-kit.py", DESIGN / "requirements.txt",
                        ROOT / "src/assets/fonts/ClarityCity-Regular.ttf"],
             "outputs": [ROOT / "src/assets/mascot/overview.png"]
                        + [ROOT / f"src/assets/mascot/static/{treatment}/{pose}.{extension}"
-                          for treatment in ("ink", "linen") for pose in ("neutral", *ACTIONS[1:])
+                           for treatment in ("ink", "linen") for pose in static_poses
                           for extension in ("svg", "png")],
         },
     }
@@ -136,7 +140,7 @@ def publish():
         stamp.write_text(release_key)
 
 
-def build(plan_only=False, check=False, prepare=False):
+def build(plan_only=False, check=False, prepare=False, stills_only=False):
     if not (plan_only or check or prepare) and os.environ.get("CI", "").lower() in {"true", "1"}:
         raise SystemExit("CI must not generate artwork. Run npm run design:build locally and commit the results.")
     state = read_state()
@@ -145,6 +149,10 @@ def build(plan_only=False, check=False, prepare=False):
     # A changed logo feeds stills; list this dependency even before its new output exists.
     if "logo" in changed and "stills" not in changed:
         changed.append("stills")
+    if stills_only:
+        if "logo" in changed:
+            raise SystemExit("Logo outputs are stale; rebuild the logo before generating stills.")
+        changed = [name for name in changed if name == "stills"]
     if plan_only:
         print(json.dumps(changed))
         return
@@ -186,7 +194,8 @@ def build(plan_only=False, check=False, prepare=False):
                 finally:
                     temporary.unlink(missing_ok=True)
     # Save state only after every dependent build succeeded.
-    state = {name: snapshot(group) for name, group in groups().items()}
+    state.update({name: snapshot(group) for name, group in groups().items()
+                  if not stills_only or name == "stills"})
     missing = [str(path.relative_to(ROOT)) for group in groups().values()
                for path in group["outputs"] if not path.is_file()]
     if missing:
@@ -201,5 +210,6 @@ if __name__ == "__main__":
     mode.add_argument("--plan", action="store_true", help="Print stale product groups without changing files")
     mode.add_argument("--check", action="store_true", help="Validate assets against the committed freshness record")
     mode.add_argument("--prepare", action="store_true", help="Validate and package committed assets; never regenerate artwork")
+    mode.add_argument("--stills", action="store_true", help="Generate static poses only; never install motion dependencies or render animations")
     args = parser.parse_args()
-    build(args.plan, args.check, args.prepare)
+    build(args.plan, args.check, args.prepare, args.stills)

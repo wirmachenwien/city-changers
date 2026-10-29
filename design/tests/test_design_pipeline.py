@@ -47,6 +47,14 @@ class DesignPipelineTest(unittest.TestCase):
         self.assertIn(logo_source(), group["inputs"])
         self.assertNotIn(logo_source(), group["outputs"])
 
+    def test_static_pose_edits_do_not_invalidate_animations(self):
+        source = DESIGN / "assets/mascot/source/static-poses.json"
+        dependent = {name for name, group in BUILD.groups().items() if source in group["inputs"]}
+        self.assertEqual(dependent, {"stills"})
+        for treatment in ("ink", "linen"):
+            self.assertIn(ROOT / f"src/assets/mascot/static/{treatment}/skeptical.svg",
+                          BUILD.groups()["stills"]["outputs"])
+
     def test_hashes_detect_source_output_and_missing_file_changes(self):
         with tempfile.TemporaryDirectory(dir=DESIGN) as temporary:
             source = Path(temporary) / "source"
@@ -155,6 +163,27 @@ class DesignPipelineTest(unittest.TestCase):
             self.assertTrue(scripts[command].startswith("npm run design:prepare &&"), command)
         self.assertEqual(scripts["design:prepare"], "python3 design/scripts/build-design.py --prepare")
         self.assertEqual(scripts["design:build"], "python3 design/scripts/build-design.py")
+
+    def test_stills_only_never_runs_motion_or_marks_videos_fresh(self):
+        with tempfile.TemporaryDirectory(dir=DESIGN) as temporary:
+            root = Path(temporary)
+            source, still, video, state = (root / name for name in ("source", "still", "video", "state.json"))
+            source.write_text("changed")
+            still.write_text("old still")
+            video.write_text("approved video")
+            previous = {"video:think": {"inputs": "old inputs", "outputs": "old outputs"}}
+            state.write_text(json.dumps(previous))
+            groups = {"stills": {"inputs": [source], "outputs": [still]},
+                      "video:think": {"inputs": [source], "outputs": [video]}}
+            with patch.object(BUILD, "STATE", state), patch.object(BUILD, "groups", return_value=groups), \
+                 patch.object(BUILD, "run", side_effect=lambda args: still.write_text("new still")) as run, \
+                 patch.object(BUILD, "publish"), patch.dict("os.environ", {"CI": ""}):
+                BUILD.build(stills_only=True)
+                run.assert_called_once_with([sys.executable, "design/scripts/build-mascot-kit.py"])
+                saved = json.loads(state.read_text())
+                self.assertEqual(saved["video:think"], previous["video:think"])
+                self.assertEqual(saved["stills"], BUILD.snapshot(groups["stills"]))
+                self.assertEqual(video.read_text(), "approved video")
 
 
 if __name__ == "__main__":

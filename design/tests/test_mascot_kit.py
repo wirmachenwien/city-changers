@@ -27,8 +27,8 @@ class MascotKitTest(unittest.TestCase):
         self.assertFalse((KIT / "source").exists())
 
     def test_all_poses_have_transparent_exports_in_both_treatments(self):
-        poses = json.loads(POSES.read_text())
-        self.assertEqual(set(poses), {"neutral", "wave", "point", "celebrate", "think", "step"})
+        poses = BUILDER.load_poses()
+        self.assertEqual(set(poses), {"neutral", "wave", "point", "celebrate", "think", "skeptical", "step"})
         for treatment in ["ink", "linen"]:
             for name in poses:
                 with self.subTest(treatment=treatment, pose=name):
@@ -51,6 +51,23 @@ class MascotKitTest(unittest.TestCase):
         expected = cairosvg.svg2png(bytestring=ET.tostring(original), output_width=1080, output_height=1080)
         with Image.open(BytesIO(expected)) as image, Image.open(KIT / "static/ink/neutral.png") as actual:
             self.assertEqual(image.convert("RGBA").tobytes(), actual.tobytes())
+
+    def test_skeptical_preserves_the_previous_think_geometry(self):
+        old = json.loads(POSES.read_text())["think"]
+        skeptical = BUILDER.load_poses()["skeptical"]
+        for key in old.keys() - {"label", "use"}:
+            self.assertEqual(skeptical[key], old[key], key)
+
+    def test_think_has_the_animated_idea_hand_smile_and_yellow_rays(self):
+        for treatment in ("ink", "linen"):
+            root = ET.parse(KIT / "static" / treatment / "think.svg").getroot()
+            arm = root.find(".//*[@id='right-arm']")
+            self.assertEqual(arm.get("d"), "M152,163C188,178 226,150 224,112")
+            self.assertEqual(arm.get("transform"), "translate(3.2 0)")
+            rays = root.find(".//*[@id='idea-rays']")
+            self.assertEqual(rays.get("stroke"), "#ffd84f")
+            self.assertEqual(rays.get("d"), "M237,112L246,108M238,124L250,124M234,136L244,142")
+            self.assertEqual(root.find(".//*[@id='mouth']").get("d"), "M115,178C124,191 134,191 143,176")
 
     def test_shared_rig_matches_source_geometry(self):
         source = ET.parse(LOGO).getroot()

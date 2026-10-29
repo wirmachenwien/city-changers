@@ -4,7 +4,9 @@
 
 The project name is Toolbox for City Changers. The mascot is The Green Fix.
 Use the supplied logo instead of retyping or rebuilding its lettering.
-The six expressive mascot poses are illustrations, not new official logos.
+The seven expressive static mascot poses are illustrations, not new official logos.
+**Skeptical** preserves the original questioning, hand-at-chin pose. **Think** is
+the smiling, raised-hand idea moment with yellow rays from the Think animation.
 
 ## Colours
 

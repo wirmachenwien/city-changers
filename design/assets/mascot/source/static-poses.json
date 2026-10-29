@@ -1,0 +1,23 @@
+{
+  "think": {
+    "label": "I have an idea!",
+    "use": "Ideas, discoveries and solutions — the raised-hand moment from the Think animation.",
+    "leftArm": "M104,160C82,162 76,176 82,183",
+    "rightArm": "M152,163C188,178 226,150 224,112",
+    "rightArmX": 3.2,
+    "tilt": 2, "lift": 0, "leftBoot": 0, "rightBoot": 0,
+    "eyes": "normal", "frontArm": true,
+    "mouth": "M115,178C124,191 134,191 143,176",
+    "faceColor": "#fff0a8",
+    "ideaRays": "M237,112L246,108M238,124L250,124M234,136L244,142"
+  },
+  "skeptical": {
+    "label": "Not so sure…",
+    "use": "Doubts, questioning assumptions and considering another perspective.",
+    "leftArm": "M104,160C82,162 76,176 82,183",
+    "rightArm": "M152,163C178,167 174,193 143,184",
+    "tilt": -7, "lift": 0, "leftBoot": 0, "rightBoot": 0,
+    "eyes": "thoughtful", "frontArm": true,
+    "mouth": "M118,183Q126,179 133,181"
+  }
+}

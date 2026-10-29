@@ -6,6 +6,11 @@
    tappable) and page footnotes (linked endnotes suit reflowable text).
    The font url() paths below are relative to OEBPS/styles/epub.css, i.e.
    OEBPS/fonts/*.ttf embedded in every book. */
+.mascot-box { margin: 1.5em 0; padding: 1em; border: 1px solid currentColor; border-radius: .4em; page-break-inside: avoid; }
+.mascot-box__mascot { float: left; width: 5em; height: 5em; max-width: 30%; margin: 0 1em .5em 0; }
+.mascot-box__bubble > :first-child { margin-top: 0; }
+.mascot-box__bubble > :last-child { margin-bottom: 0; }
+.mascot-box::after { content: ''; display: block; clear: both; }
 @font-face {
   font-family: "Newsreader";
   font-style: normal;

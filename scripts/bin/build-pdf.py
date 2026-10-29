@@ -55,6 +55,8 @@ from handbook.mdx import (
     FRONTMATTER_RE,
     GLOSSARY_RE,
     LINK_RE,
+    MASCOT_OPEN_RE,
+    MASCOT_CLOSE_RE,
     PULLQUOTE_RE,
     QUESTION_RE,
     QUIZ_RE,
@@ -66,6 +68,7 @@ from handbook.mdx import (
     glossary_html,
     glossary_lang_html,
     licence_html,
+    mascot_open_html,
     pullquote_html,
     question_html,
     quiz_html,
@@ -193,6 +196,8 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
     footnote_count = 0
     link_count = 0
     text = FRONTMATTER_RE.sub("", text, count=1)
+    text = MASCOT_OPEN_RE.sub(lambda m: mascot_open_html(m.group(1), image_uri), text)
+    text = MASCOT_CLOSE_RE.sub('\n\n</div>\n</div>\n\n', text)
 
     def figure(match: re.Match[str]) -> str:
         values = attrs(match.group(1) or match.group(2))

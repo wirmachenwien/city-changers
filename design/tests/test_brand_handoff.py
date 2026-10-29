@@ -20,7 +20,7 @@ class BrandHandoffTest(unittest.TestCase):
         files = PACKAGE.asset_map()
         self.assertEqual(len([p for p in files if p.endswith(".mov")]), 12)
         self.assertEqual(len([p for p in files if p.startswith("03-animation/lottie/")]), 12)
-        self.assertEqual(len([p for p in files if p.startswith("02-mascot-stills/")]), 24)
+        self.assertEqual(len([p for p in files if p.startswith("02-mascot-stills/")]), 28)
         for destination, source in files.items():
             with self.subTest(file=destination):
                 self.assertTrue(source.is_file(), source)

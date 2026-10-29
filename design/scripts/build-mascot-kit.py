@@ -13,11 +13,17 @@ from PIL import Image, ImageDraw, ImageFont
 DESIGN = Path(__file__).resolve().parents[1]
 KIT = DESIGN.parent / "src/assets/mascot"
 POSES = DESIGN / "assets/mascot/source/poses.json"
+STATIC_POSES = DESIGN / "assets/mascot/source/static-poses.json"
 SVG = "http://www.w3.org/2000/svg"
 NS = "{" + SVG + "}"
 ET.register_namespace("", SVG)
 INK = "#20221c"
 WARM = "#cbbf9f"
+
+
+def load_poses():
+    # Static overrides never change the base poses consumed by the animations.
+    return json.loads(POSES.read_text()) | json.loads(STATIC_POSES.read_text())
 
 
 def node(element):
@@ -63,16 +69,20 @@ def make_svg(rig, pose, name, dark=False):
         boot.append(element(rig["boots"][index], dark))
 
     def arm(side):
-        return ET.Element(NS + "path", {
+        attrs = {
             "id": side + "-arm", "d": pose[side + "Arm"],
             "fill": "none", "stroke": edge, "stroke-width": "9",
-        })
+        }
+        if side + "ArmX" in pose:
+            attrs["transform"] = f"translate({pose[side + 'ArmX']} 0)"
+        return ET.Element(NS + "path", attrs)
 
     group.append(arm("left"))
     if not pose["frontArm"]:
         group.append(arm("right"))
-    for item in rig["body"]:
-        group.append(element(item, dark))
+    for index, item in enumerate(rig["body"]):
+        values = {"fill": pose["faceColor"]} if index == 0 and "faceColor" in pose else {}
+        group.append(element(item, dark, **values))
     if pose["eyes"] == "happy":
         for d in ("M110,163Q115,153 120,163", "M136,161Q141,151 146,161"):
             ET.SubElement(group, NS + "path", {"d": d, "fill": "none", "stroke": INK, "stroke-width": "5"})
@@ -87,6 +97,11 @@ def make_svg(rig, pose, name, dark=False):
         group.append(element(item, dark))
     if pose["frontArm"]:
         group.append(arm("right"))
+    if pose.get("ideaRays"):
+        ET.SubElement(group, NS + "path", {
+            "id": "idea-rays", "d": pose["ideaRays"], "fill": "none",
+            "stroke": "#ffd84f", "stroke-width": "4",
+        })
     return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
 
 
@@ -96,12 +111,13 @@ def font(size):
 
 def build():
     rig = build_rig()
-    poses = json.loads(POSES.read_text())
+    poses = load_poses()
     output = KIT / "static"
-    board = Image.new("RGB", (1800, 1490), "#fdfcf9")
+    height = 410 + ((len(poses) + 2) // 3) * 540
+    board = Image.new("RGB", (1800, height), "#fdfcf9")
     draw = ImageDraw.Draw(board)
     draw.text((76, 54), "THE GREEN FIX / MASCOT KIT", font=font(24), fill="#176b43")
-    draw.text((72, 100), "One neighbour. Six ways to help.", font=font(56), fill=INK)
+    draw.text((72, 100), "One neighbour. Many ways to help.", font=font(56), fill=INK)
     draw.text((76, 180), "Transparent SVG + 1080 px PNG  ·  Ink and Linen outlines  ·  Same approved mascot", font=font(24), fill=INK)
     for index, (name, pose) in enumerate(poses.items()):
         x, y = 60 + (index % 3) * 570, 255 + (index // 3) * 540
@@ -124,7 +140,7 @@ def build():
                 board.paste(art, (x + 417, y + 329), art)
         draw.text((x + 28, y + 407), f"0{index + 1} / {name.upper()}", font=font(20), fill="#176b43")
         draw.text((x + 28, y + 446), pose["label"], font=font(31), fill=INK)
-    draw.text((76, 1415), "Production logo unchanged. Poses are illustration assets for video and social media.", font=font(24), fill=INK)
+    draw.text((76, height - 75), "Production logo unchanged. Poses are illustration assets for video and social media.", font=font(24), fill=INK)
     board.save(KIT / "overview.png")
     print(f"Built {len(poses)} poses × 2 treatments (SVG + PNG) and overview in {KIT}")
 

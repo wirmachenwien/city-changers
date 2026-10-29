@@ -8,7 +8,8 @@
 | `design/manifest.json` | Shared inventory of application assets for website downloads and the handoff |
 | `design/assets/logo/logo-lockup.svg` | Sole editable full-logo master; never overwritten by generation |
 | `src/assets/site/` | Derived logos, application lockup copy, PNGs, link preview and supporting marks |
-| `design/assets/mascot/source/poses.json` | Static pose definitions, also consumed by motion |
+| `design/assets/mascot/source/poses.json` | Base pose definitions consumed by motion and stills |
+| `design/assets/mascot/source/static-poses.json` | Static-only overrides and additional poses; never consumed by motion |
 | `src/assets/mascot/` | Stills, preview sheet, Lottie and transparent MOV exports |
 | `src/assets/fonts/` | Fonts with their OFL notices |
 | `src/assets/book/` | Handbook reference images |
@@ -41,6 +42,11 @@ npm run design:check
 python3 -m unittest discover -s design/tests -v
 ```
 
+Do not re-render videos unless the user explicitly requests it. Inspect the plan
+first; for static-only changes run `python3 design/scripts/build-design.py --stills`
+rather than a broad build that includes video groups. Static-only pose overrides
+do not invalidate animations. Existing video exports must remain unchanged.
+
 Node is needed only when an animation product must be rebuilt. The pipeline
 installs the motion project's locked dependencies with `npm ci` on demand.
 Use the root Node engine requirement (22.23.4 or newer, subject to motion's engine
@@ -56,7 +62,8 @@ Missing, changed or corrupt outputs are rebuilt locally even if sources did not
 change. Old ignored build-state caches are never used for freshness checks.
 
 - Logo-source changes rebuild identity exports, icons and stills.
-- Pose changes rebuild stills and all affected animation products.
+- Base pose changes rebuild stills and all affected animation products; static-only
+  overrides rebuild just stills.
 - An action's component/rig changes rebuild that action's two Lotties and two MOVs.
 - Shared motion/defaults/toolchain changes conservatively rebuild all animations.
 - Lottie-exporter changes rebuild Lottie, not MOV.
@@ -105,7 +112,7 @@ scratch renders or old ZIPs are included. Existing releases are not overwritten.
 
 Before publication:
 
-- Preview logos, all six still poses, and twelve animations in each format.
+- Preview logos, all seven still poses, and twelve animations in each format.
 - Check MOV alpha in a compatible editor and Lottie playback in the target app.
 - Review font notices and individual photo/partner-mark permissions and credits.
 - Open the ZIP independently and check its start page and guide.

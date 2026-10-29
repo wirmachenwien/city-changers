@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import json
 import re
+from html import escape
 from functools import lru_cache
 from pathlib import Path
 from typing import Callable
@@ -68,6 +69,8 @@ CCBADGE_RE = re.compile(r'<CcBadge\s*/>')
 OPENER_RE = re.compile(r"""^openerImage:\s*(?:"([^"]+)"|'([^']+)'|([^\s#]+))""", re.MULTILINE)
 FEATURE_OPEN_RE = re.compile(r'<FeatureBox\b([^>]*)>')
 FEATURE_CLOSE_RE = re.compile(r'</FeatureBox>')
+MASCOT_OPEN_RE = re.compile(r'<MascotBox\b([^>]*)>')
+MASCOT_CLOSE_RE = re.compile(r'</MascotBox>')
 PULLQUOTE_RE = re.compile(r'<PullQuote\b([^>]*)>(.*?)</PullQuote>', re.DOTALL)
 TABLE_OPEN_RE = re.compile(r'<TableWrap\s*>')
 TABLE_CLOSE_RE = re.compile(r'</TableWrap>')
@@ -192,6 +195,10 @@ def find_asset_by_basename(filename: str, assets_dir: Path) -> Path | None:
     the book images. The CMS image picker may store a repo-relative path;
     match by basename.
     """
+    # Mascot fallbacks use an explicit, bounded path (not an ambiguous basename).
+    if re.fullmatch(r"mascot/static/ink/[a-z]+\.png", filename):
+        candidate = assets_dir / filename
+        return candidate if candidate.is_file() else None
     name = filename.rsplit("/", 1)[-1]
     for folder in ("book", "site"):
         candidate = assets_dir / folder / name
@@ -333,6 +340,26 @@ def feature_open_html(title: str | None, escape_fn: EscapeFn = _identity) -> str
     if title:
         return f'\n\n<div class="feature-box"><p><strong>{escape_fn(title)}</strong></p>\n'
     return '\n\n<div class="feature-box">\n'
+
+
+@lru_cache(maxsize=1)
+def mascot_poses() -> dict:
+    return json.loads((ROOT / "src/data/mascots.json").read_text(encoding="utf-8"))
+
+
+def mascot_open_html(attr_source: str, image_src: Callable[[str], str]) -> str:
+    """PDF/EPUB always embed the Ink PNG, never an animation or playback control."""
+    values = attrs(attr_source)
+    pose = values.get("pose", "think")
+    if pose not in mascot_poses():
+        raise ValueError(f"Unknown mascot pose: {pose}")
+    still = mascot_poses()[pose]["still"]
+    src = escape(image_src(f"mascot/static/ink/{still}.png"), quote=True)
+    title = values.get("title")
+    heading = f'<p><strong>{escape(title)}</strong></p>\n' if title else ''
+    return (f'\n\n<div class="mascot-box" markdown="1">\n'
+            f'<img class="mascot-box__mascot" src="{src}" alt="" width="1080" height="1080" />\n\n'
+            f'<div class="mascot-box__bubble" markdown="1">\n{heading}\n')
 
 
 def component_link(attrs_source: str, label: str) -> str:
