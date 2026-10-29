@@ -9,11 +9,12 @@ type Asset = { file: string; title: string; bytes: number };
 const assets: Asset[] = JSON.parse(readFileSync(new URL('../../../public/brand-assets/catalog.json', import.meta.url), 'utf8'));
 const groups = [...new Set(assets.map((asset) => asset.title))];
 const assetUrl = (file: string) => withBase(`/brand-assets/files/${file.split('/').map(encodeURIComponent).join('/')}`);
-const colours = [...guideSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
+const colours = [...guideSource.matchAll(/^\|\s*([^|]+?)\s*\|\s*`(#[0-9A-F]{6})`\s*\|\s*([^|]+?)\s*\|$/gm)];
 ---
 <PreviewLayout lang="en" title="Brand guide" path="/preview/brand-guide.html">
-  <p class="team-note">Team reference · unlisted, not private. Check permissions before reusing supporting images.</p>
-  <Guide />
+  <div class="brand-guide-content">
+    <Guide />
+  </div>
   <h2>Brand examples</h2>
   <h3>Colour reference</h3>
   <ul class="asset-grid">
@@ -54,7 +55,14 @@ const colours = [...guideSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
 </PreviewLayout>
 
 <style>
-  .team-note { border-inline-start: 3px solid currentColor; padding-inline-start: 1rem; }
+  .brand-guide-content :global(.brand-palette) { overflow-x: auto; margin-block: 1.5rem; }
+  .brand-guide-content :global(.brand-palette:focus-visible) { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .brand-guide-content :global(table) { width: 100%; min-width: 36rem; border-collapse: collapse; table-layout: fixed; font-size: .9rem; }
+  .brand-guide-content :global(th), .brand-guide-content :global(td) { padding: .75rem .5rem; border-block-end: 1px solid var(--line); text-align: start; vertical-align: top; }
+  .brand-guide-content :global(th) { background: var(--panel); font-family: var(--font-ui); }
+  .brand-guide-content :global(th:first-child) { width: 27%; }
+  .brand-guide-content :global(th:nth-child(2)) { width: 6.5rem; }
+  .brand-guide-content :global(td code) { white-space: nowrap; }
   .asset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; list-style: none; padding: 0; }
   .asset-grid li { border: 1px solid currentColor; border-radius: .5rem; padding: .75rem; min-width: 0; }
   .asset-grid a { display: flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }

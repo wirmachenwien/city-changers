@@ -61,5 +61,5 @@ repository Variables in `deploy.yml`). Unset = tracking disabled.
 ## License
 
 Code: [AGPL-3.0](LICENSE) Bernhard Hayden. Handbook contents: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-(Wir machen Wien, Changing Cities & Prostorož), unless stated otherwise.
+Wir machen Wien, Changing Cities & Prostorož, unless stated otherwise.
 Site code inspired by [Electric Book Works](https://electricbookworks.com).

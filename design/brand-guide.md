@@ -12,16 +12,19 @@ the smiling, raised-hand idea moment with yellow rays from the Think animation.
 
 Enter these HEX codes in your design app's colour picker.
 
-```text
+<div class="brand-palette table-scroll" role="region" aria-label="Brand colours" tabindex="0">
 
-Paper             #FDFCF9   Pale background.
-Dark background   #161511   Background for the Linen treatment.
-Website green     #0C6B3C   Headings, accents and calls to action on light designs.
-Mascot green      #176B43   Existing artwork colour; do not recolour the mascot.
-Mascot ink        #20221C   Dark outlines and boots in the Ink treatment.
-Linen             #CBBF9F   Pale outlines and boots in the Linen treatment.
-Cream lettering   #F2EDE3   Full-logo lettering on dark backgrounds.
-```
+| Colour | HEX | Use |
+| --- | --- | --- |
+| Paper | `#FDFCF9` | Pale background. |
+| Dark background | `#161511` | Background for the Linen treatment. |
+| Website green | `#0C6B3C` | Headings, accents and calls to action on light designs. |
+| Mascot green | `#176B43` | Existing artwork colour; do not recolour the mascot. |
+| Mascot ink | `#20221C` | Dark outlines and boots in the Ink treatment. |
+| Linen | `#CBBF9F` | Pale outlines and boots in the Linen treatment. |
+| Cream lettering | `#F2EDE3` | Full-logo lettering on dark backgrounds. |
+
+</div>
 
 These are existing production colours, not a new palette. Keep the supplied
 yellow and other mascot details unchanged. Website text uses #1D1A16; the mascot
