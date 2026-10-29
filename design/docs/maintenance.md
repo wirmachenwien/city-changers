@@ -82,7 +82,7 @@ artwork generator. Stale assets fail with instructions to regenerate locally and
 commit the updated sources, assets and record together. CI explicitly refuses
 artwork generation, restores no artwork cache and does not update the record.
 
-Pull-request checks, deployment and the targeted branch design workflow validate
+Pull-request checks and deployment validate
 the committed artwork and package the kit for review/download. Regression tests
 may render disposable fixtures, but never regenerate committed assets. CI checks
 that tracked design/application assets remain unchanged. The deployed website
