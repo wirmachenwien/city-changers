@@ -281,6 +281,12 @@ blockquote.pullquote footer {
   background: var(--warn-soft);
   border-color: var(--warn);
 }
+.feature-box > .feature-box__title {
+  margin: 0 0 0.35em;
+}
+.feature-box__title + * {
+  margin-top: 0;
+}
 dl.glossary {
   margin: 1em 0;
 }

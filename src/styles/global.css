@@ -1158,6 +1158,14 @@ a[data-external-link]:has(img) > .external-link-icon {
   margin-block-start: 0;
 }
 
+.feature-box > .feature-box__title {
+  margin-block-end: 0.35rem;
+}
+
+.feature-box__title + * {
+  margin-block-start: 0;
+}
+
 .feature-box > :last-child {
   margin-block-end: 0;
 }

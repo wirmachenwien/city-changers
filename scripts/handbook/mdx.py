@@ -337,7 +337,7 @@ def feature_open_html(title: str | None, escape_fn: EscapeFn = _identity, *, ton
     """Opening <div> for <FeatureBox>, with optional bold title and warm tone."""
     tone_attr = ' data-tone="warm"' if tone == "warm" else ''
     if title:
-        return f'\n\n<div class="feature-box"{tone_attr}><p><strong>{escape_fn(title)}</strong></p>\n'
+        return f'\n\n<div class="feature-box"{tone_attr}><p class="feature-box__title"><strong>{escape_fn(title)}</strong></p>\n'
     return f'\n\n<div class="feature-box"{tone_attr}>\n'
 
 

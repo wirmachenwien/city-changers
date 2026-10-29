@@ -15,6 +15,6 @@ const displayTitle = title && lang ? smartQuotes(title, lang) : title;
 const displayBody = body && lang ? smartQuotes(body, lang) : body;
 ---
 <aside class="feature-box" data-tone={tone}>
-  {displayTitle && <p><strong>{displayTitle}</strong></p>}
+  {displayTitle && <p class="feature-box__title"><strong>{displayTitle}</strong></p>}
   {displayBody ? <p>{displayBody}</p> : <slot />}
 </aside>

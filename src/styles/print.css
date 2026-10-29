@@ -424,6 +424,14 @@ blockquote.pullquote footer {
   border-color: var(--warn);
 }
 
+.feature-box > .feature-box__title {
+  margin: 0 0 3pt;
+}
+
+.feature-box__title + * {
+  margin-top: 0;
+}
+
 /* Glossary: term in the UI face, definition flush below it (web parity). */
 dl.glossary {
   margin: 12pt 0;
