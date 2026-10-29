@@ -7,6 +7,9 @@
    The font url() paths below are relative to OEBPS/styles/epub.css, i.e.
    OEBPS/fonts/*.ttf embedded in every book. */
 .mascot-box { margin: 1.5em 0; padding: 1em; border: 1px solid currentColor; border-radius: .4em; page-break-inside: avoid; }
+/* Python-Markdown wraps the floated image in a paragraph; remove its
+   default margins so the box padding is even on all sides. */
+.mascot-box > p { margin: 0; }
 .mascot-box__mascot { float: left; width: 5em; height: 5em; max-width: 30%; margin: 0 1em .5em 0; }
 .mascot-box__bubble > :first-child { margin-top: 0; }
 .mascot-box__bubble > :last-child { margin-bottom: 0; }
@@ -108,6 +111,19 @@ h1, h2, h3 {
 h2, h3 {
   font-family: "Fraunces Display", Georgia, serif;
 }
+
+/* Consistent space below headlines regardless of what follows. */
+h2 { margin-block-end: 0.5em; }
+h3 { margin-block-end: 0.35em; }
+
+p, ul, ol {
+  margin-block: 1em;
+  line-height: 1.45;
+}
+
+li + li {
+  margin-block-start: 0.5em;
+}
 img {
   display: block;
   height: auto;
@@ -151,6 +167,7 @@ figure.figure--float-right.figure--medium {
 }
 figcaption {
   font-size: 0.9em;
+  line-height: 1.45;
   margin-top: 0.5em;
 }
 /* Full-bleed cover: the hero photo fills the whole page with no margins or
@@ -274,8 +291,30 @@ blockquote.pullquote footer {
   background: var(--panel);
   border: 0.5pt solid var(--accent);
   border-left-width: 4.5pt;
-  padding: 0.7em 0.9em;
+  border-radius: .4em;
+  padding: 1em 0.9em;
   margin: 1em 0;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Keep component titles with the content they introduce, including when a
+   reader paginates reflowable text. */
+.feature-box__title,
+.mascot-box__title,
+.accordion > summary,
+.accordion-title,
+.quiz-title,
+.quiz legend,
+dl.glossary dt {
+  page-break-after: avoid;
+  break-after: avoid;
+}
+.accordion-title {
+  margin: 0 0 0.2em;
+}
+.accordion-title + * {
+  margin-top: 0;
 }
 .feature-box[data-tone="warm"] {
   background: var(--warn-soft);
@@ -286,6 +325,12 @@ blockquote.pullquote footer {
 }
 .feature-box__title + * {
   margin-top: 0;
+}
+.feature-box > :first-child {
+  margin-top: 0;
+}
+.feature-box > :last-child {
+  margin-bottom: 0;
 }
 dl.glossary {
   margin: 1em 0;
@@ -299,10 +344,35 @@ dl.glossary dd {
   margin-bottom: 0.4em;
 }
 .quiz {
-  border: 0.5pt solid var(--ink);
-  padding: 0.7em 0.9em;
-  margin: 1em 0;
+  border: 1px solid var(--line);
+  border-radius: .4em;
+  padding: 1rem 1.25rem;
+  margin-block: 1.5rem;
+  font-family: "Clarity City", system-ui, sans-serif;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
+
+.quiz fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.quiz legend {
+  font-weight: 700;
+  line-height: 1.35;
+  padding: 0;
+  margin-block-end: 0.5rem;
+}
+
+.quiz label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding-block: 0.25rem;
+}
+
 .quiz ol {
   margin-bottom: 0;
 }
@@ -314,12 +384,45 @@ dl.glossary dd {
 .footnote-back {
   text-decoration: none;
 }
-table {
+.table-scroll {
+  overflow-x: auto;
+  margin-block: 1.5em;
+  border: 1px solid var(--line);
+  border-radius: .4em;
+}
+
+.table-scroll table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  font-family: "Clarity City", system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.45;
+}
+
+.table-scroll th,
+.table-scroll td {
+  text-align: start;
+  padding: 0.4em 0.5em;
+  border-block-end: 1px solid var(--line);
+  border-inline-end: none;
+  border-inline-start: none;
+  border-block-start: none;
+}
+
+.table-scroll thead th {
+  background: var(--panel);
+}
+
+/* Legacy fallback: plain tables without .table-scroll wrapper. */
+table:not(.table-scroll table) {
   border-collapse: collapse;
   width: 100%;
   font-size: 0.9em;
+  line-height: 1.45;
 }
-th, td {
+
+table:not(.table-scroll table) th,
+table:not(.table-scroll table) td {
   border: 0.5pt solid var(--line);
   padding: 0.4em 0.5em;
   text-align: left;

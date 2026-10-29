@@ -259,9 +259,12 @@ def links_list_md(source: str) -> str:
 
 def details_open_md(attr_source: str | None) -> str:
     """Print opening for Accordion/ExpandableBox: title as bold text, then
-    the always-expanded body (paper has no collapse interaction)."""
+    the always-expanded body (paper has no collapse interaction). The class
+    lets the export styles keep the title with the first block of content."""
     title = attrs(attr_source).get("title")
-    return f"\n\n**{title}**\n\n" if title else "\n\n"
+    if not title:
+        return "\n\n"
+    return f'\n\n<p class="accordion-title"><strong>{escape(title)}</strong></p>\n\n'
 
 
 def math_md(attr_source: str | None) -> str:
@@ -336,9 +339,11 @@ def pullquote_html(match: re.Match[str], escape_fn: EscapeFn = _identity) -> str
 def feature_open_html(title: str | None, escape_fn: EscapeFn = _identity, *, tone: str = "default") -> str:
     """Opening <div> for <FeatureBox>, with optional bold title and warm tone."""
     tone_attr = ' data-tone="warm"' if tone == "warm" else ''
+    # markdown="1" lets Python-Markdown process the body (bold, links, lists)
+    # instead of printing literal ** markers in the PDF and EPUB.
     if title:
-        return f'\n\n<div class="feature-box"{tone_attr}><p class="feature-box__title"><strong>{escape_fn(title)}</strong></p>\n'
-    return f'\n\n<div class="feature-box"{tone_attr}>\n'
+        return f'\n\n<div class="feature-box"{tone_attr} markdown="1"><p class="feature-box__title"><strong>{escape_fn(title)}</strong></p>\n'
+    return f'\n\n<div class="feature-box"{tone_attr} markdown="1">\n'
 
 
 @lru_cache(maxsize=1)
@@ -369,7 +374,7 @@ def component_link(attrs_source: str, label: str) -> str:
 def _quiz_wrap(question: str, items: str, answer_line: str) -> str:
     """Print wrapper shared by Quiz (flagged options) and Question (answer index)."""
     return (
-        f'\n\n<div class="quiz"><p><strong>Quiz: {question}</strong></p>'
+        f'\n\n<div class="quiz"><p class="quiz-title"><strong>Quiz: {question}</strong></p>'
         f'<ol>{items}</ol>'
         f'<p style="transform: rotate(180deg);">{answer_line}</p></div>\n'
     )
@@ -395,8 +400,8 @@ def strip_static_handlers(text: str) -> str:
     link-list components (SideBySideButtons, Bibliography, SelectList), inline
     aids (DefinitionTerm, PageRef) and TeX formulas (Math).
 
-    Everything emitted here is plain Markdown (bold titles, bullet lists,
-    unwrapped bodies), so downstream link-footnoting (PDF) and rendering
+    Everything emitted here is Markdown or a small HTML wrapper (the accordion
+    title paragraph), so downstream link-footnoting (PDF) and rendering
     (EPUB) treat it like author prose. Ordered before Figure/Video handling
     is irrelevant (disjoint tags), but must run before the PDF LINK_RE pass
     so emitted `[label](url)` links become lettered URL notes.

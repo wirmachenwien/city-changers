@@ -6,6 +6,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
+from handbook.book import markdown_to_html
 from handbook.mdx import feature_open_html
 
 
@@ -39,6 +40,18 @@ class FeatureBoxTest(unittest.TestCase):
                     self.assertIn("A **helpful** note.", converted)
                     self.assertIn("1. Listen\n2. Act", converted)
                     self.assertNotIn("FeatureBox", converted)
+
+    def test_book_exports_render_feature_box_markdown_instead_of_literal_markers(self):
+        source = '<FeatureBox tone="warm">\n\nA **helpful** note.\n\n- Listen\n- Act\n\n</FeatureBox>'
+        book = EPUB.EpubBook("en", {"title": "Test"}, Path("unused.epub"))
+        for name, converted in (("pdf", PDF.convert_mdx(source, "en")),
+                                ("epub", book.convert_mdx(source))):
+            with self.subTest(format=name):
+                body = markdown_to_html(converted, "en")
+                self.assertIn('<div class="feature-box" data-tone="warm">', body)
+                self.assertIn("<strong>helpful</strong>", body)
+                self.assertIn("<li>Listen</li>", body)
+                self.assertNotIn("**", body)
 
 
 if __name__ == "__main__":

@@ -801,10 +801,11 @@ a[data-external-link]:has(img) > .external-link-icon {
 .prose ul,
 .prose ol {
   margin-block: 0 1rem;
+  line-height: 1.5;
 }
 
 .prose li + li {
-  margin-block-start: 0.3rem;
+  margin-block-start: 1.5em;
 }
 
 .prose blockquote {
@@ -827,6 +828,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 .crumbs {
   font-family: var(--font-ui);
   font-size: 0.91rem;
+  line-height: 1.5;
   margin-block-end: 1rem;
 }
 
@@ -943,6 +945,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 .opener figcaption {
   font-family: var(--font-ui);
   font-size: 0.91rem;
+  line-height: 1.5;
   color: var(--ink-soft);
   margin-block-start: 0.4rem;
 }
@@ -1122,6 +1125,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 .video-caption {
   font-family: var(--font-ui);
   font-size: 0.91rem;
+  line-height: 1.5;
   color: var(--ink-soft);
   padding: 0.5rem 0.75rem;
   background: var(--paper);
@@ -1170,6 +1174,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 
 .feature-box > .feature-box__title {
   margin-block-end: 0.35rem;
+  line-height: 1.35;
 }
 
 .feature-box__title + * {
@@ -1202,6 +1207,7 @@ a[data-external-link]:has(img) > .external-link-icon {
   cursor: pointer;
   font-family: var(--font-ui);
   font-weight: 600;
+  line-height: 1.35;
   padding: 0.7rem 1rem;
   list-style: none;
 }
@@ -1286,6 +1292,7 @@ html:not(.js-fold) .accordion-content {
 
 .quiz legend {
   font-weight: 700;
+  line-height: 1.35;
   padding: 0;
   margin-block-end: 0.5rem;
 }
@@ -1375,6 +1382,7 @@ html:not(.js-fold) .accordion-content {
   inline-size: 100%;
   font-family: var(--font-ui);
   font-size: 0.96rem;
+  line-height: 1.5;
 }
 
 .table-scroll th,
@@ -1567,6 +1575,7 @@ html:not(.js-fold) .accordion-content {
 
 .footnotes {
   font-size: 0.96rem;
+  line-height: 1.5;
   border-block-start: 1px solid var(--line);
   margin-block-start: 2rem;
   padding-block-start: 1rem;
@@ -1781,6 +1790,7 @@ html:not(.js-fold) .accordion-content {
 
 .bibliography {
   font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 .bibliography li {
@@ -1967,6 +1977,7 @@ html:not(.js-fold) .accordion-content {
 .bookmark-list .bookmark-page {
   display: block;
   font-size: 0.8rem;
+  line-height: 1.5;
   color: var(--ink-soft);
 }
 
@@ -2181,6 +2192,7 @@ html:not(.js-fold) .accordion-content {
   grid-template-columns: auto 1fr;
   gap: 0.3rem 1rem;
   font-size: 0.96rem;
+  line-height: 1.5;
   margin-block: 1.5rem;
 }
 
@@ -2372,6 +2384,7 @@ html:not(.js-fold) .accordion-content {
 .showcase-label {
   font-family: var(--font-ui);
   font-size: 0.8rem;
+  line-height: 1.5;
   color: var(--ink-soft);
   margin-block: 2rem 0.25rem;
 }
@@ -2409,6 +2422,7 @@ html:not(.js-fold) .accordion-content {
 .showcase-icon-name {
   font-family: var(--font-ui);
   font-size: 0.75rem;
+  line-height: 1.5;
   color: var(--ink-soft);
   overflow-wrap: anywhere;
 }

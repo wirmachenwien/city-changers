@@ -2,12 +2,6 @@
    Screen styles live in global.css; this file only ships to print.
    The font url() paths below are logical: build-pdf.py rewrites them to
    file:// URIs of the self-hosted fonts so the PDF embeds them. */
-.mascot-box { margin: 5mm 0; padding: 4mm; border: .5pt solid var(--line); border-radius: 2mm; break-inside: avoid; }
-.mascot-box__mascot { float: left; width: 24mm; height: 24mm; margin: 0 4mm 2mm 0; }
-.mascot-box__bubble { min-height: 24mm; }
-.mascot-box__bubble > :first-child { margin-top: 0; }
-.mascot-box__bubble > :last-child { margin-bottom: 0; }
-.mascot-box::after { content: ''; display: block; clear: both; }
 @font-face {
   font-family: "Newsreader";
   font-style: normal;
@@ -150,6 +144,21 @@ h3 {
   font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 80;
 }
 
+/* Consistent space below headlines regardless of what follows (paragraph,
+   list, table, box). Following elements have zero top margin, so the gap
+   is just the heading's bottom margin. */
+h2 { margin-bottom: 6pt; }
+h3 { margin-bottom: 4pt; }
+
+p, ul, ol {
+  margin-block: 8pt;
+  line-height: 1.5;
+}
+
+li + li {
+  margin-block-start: 4pt;
+}
+
 section.chapter {
   page-break-before: always;
 }
@@ -164,6 +173,18 @@ p, li, dd, blockquote, figcaption {
 
 figure, table, blockquote, .feature-box, .quiz {
   break-inside: avoid;
+}
+
+/* Component titles stay with their content: a page break may happen inside
+   long accordion content, but never between the summary/title and the first
+   block that belongs to it. */
+.feature-box__title,
+.mascot-box__title,
+.accordion > summary,
+.accordion-title,
+.quiz-title,
+.quiz legend {
+  break-after: avoid;
 }
 
 /* The A–Z glossary is long by design: it may flow across pages, but a term
@@ -188,6 +209,16 @@ dl.glossary dt {
 
 .accordion {
   break-inside: auto;
+}
+
+/* Flattened accordion titles are paragraphs; drop the default paragraph
+   gap so the title sits directly above its content. */
+.accordion-title {
+  margin: 0 0 3pt;
+}
+
+.accordion-title + * {
+  margin-top: 0;
 }
 
 /* Full-bleed cover: the hero photo fills the entire first page with no
@@ -364,6 +395,7 @@ figure img {
 
 figcaption {
   font: 9pt "Clarity City", system-ui, sans-serif;
+  line-height: 1.45;
   color: var(--ink-soft);
   margin-top: 4pt;
 }
@@ -404,10 +436,22 @@ blockquote.pullquote {
 
 blockquote.pullquote footer {
   font: 9.5pt "Clarity City", system-ui, sans-serif;
+  line-height: 1.4;
   font-style: normal;
   color: var(--ink-soft);
   margin-top: 4pt;
 }
+
+.mascot-box { margin: 5mm 0; padding: 4mm; border: .5pt solid var(--line); border-radius: 2mm; break-inside: avoid; }
+/* Python-Markdown wraps the floated image in a paragraph. Its default
+   margins would add space above the bubble only, making the box look
+   top-heavy; the box padding should be the inset on every side. */
+.mascot-box > p { margin: 0; }
+.mascot-box__mascot { float: left; width: 24mm; height: 24mm; margin: 0 4mm 2mm 0; }
+.mascot-box__bubble { min-height: 24mm; }
+.mascot-box__bubble > :first-child { margin-top: 0; }
+.mascot-box__bubble > :last-child { margin-bottom: 0; }
+.mascot-box::after { content: ''; display: block; clear: both; }
 
 /* Tip boxes mirror the web panel: neutral fill with a solid accent
    bar, so they stand apart from the running text. */
@@ -415,7 +459,8 @@ blockquote.pullquote footer {
   background: var(--panel);
   border: 0.5pt solid var(--accent);
   border-inline-start-width: 4.5pt;
-  padding: 8pt 10pt;
+  border-radius: 2mm;
+  padding: 4mm 10pt;
   margin: 12pt 0;
 }
 
@@ -430,6 +475,15 @@ blockquote.pullquote footer {
 
 .feature-box__title + * {
   margin-top: 0;
+}
+
+/* Match the web panel: inner copy margins must not add to the box padding. */
+.feature-box > :first-child {
+  margin-top: 0;
+}
+
+.feature-box > :last-child {
+  margin-bottom: 0;
 }
 
 /* Glossary: term in the UI face, definition flush below it (web parity). */
@@ -451,9 +505,31 @@ dl.glossary dd {
 /* Self-check quizzes print as boxed tasks; the answer key stays
    upside-down (turn-the-page convention), the box keeps it tidy. */
 .quiz {
-  border: 0.5pt solid var(--ink);
-  padding: 8pt 10pt;
-  margin: 12pt 0;
+  border: 0.5pt solid var(--line);
+  border-radius: 2mm;
+  padding: 10pt 12pt;
+  margin-block: 14pt 0;
+  font-family: "Clarity City", system-ui, sans-serif;
+}
+
+.quiz fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 10pt;
+}
+
+.quiz legend {
+  font-weight: 700;
+  line-height: 1.35;
+  padding: 0;
+  margin-bottom: 4pt;
+}
+
+.quiz label {
+  display: flex;
+  gap: 8pt;
+  align-items: baseline;
+  padding-block: 4pt;
 }
 
 .quiz ol {
@@ -461,16 +537,56 @@ dl.glossary dd {
 }
 
 table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
   font-family: "Clarity City", system-ui, sans-serif;
   font-size: 10pt;
+  line-height: 1.5;
+  border: 0.5pt solid var(--line);
+  border-radius: 2mm;
 }
 
-th, td {
-  border: 0.5pt solid var(--line);
+table th,
+table td {
+  border: 0;
+  border-right: 0.5pt solid var(--line);
+  border-bottom: 0.5pt solid var(--line);
   padding: 4pt 6pt;
   text-align: left;
+}
+
+/* Avoid double borders on the right edge */
+table tr > :last-child {
+  border-right: 0;
+}
+
+/* Remove bottom borders only from the final body row */
+table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* Preserve the separator between header and body */
+table thead tr:last-child > * {
+  border-bottom: 0.5pt solid var(--line);
+}
+
+/* Round the header corners */
+table thead tr:first-child > :first-child {
+  border-top-left-radius: 2mm;
+}
+
+table thead tr:first-child > :last-child {
+  border-top-right-radius: 2mm;
+}
+
+/* Round the bottom corners */
+table tbody tr:last-child > :first-child {
+  border-bottom-left-radius: 2mm;
+}
+
+table tbody tr:last-child > :last-child {
+  border-bottom-right-radius: 2mm;
 }
 
 /* Page footnotes: each note floats to the bottom of the page carrying its
@@ -524,6 +640,7 @@ th, td {
 .cc-badge {
   display: block;
   font: 9.5pt "Clarity City", system-ui, sans-serif;
+  line-height: 1.4;
   margin: 8pt 0;
 }
 
