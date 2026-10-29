@@ -25,11 +25,17 @@ It is not authenticated: anyone with its URL can access it.
 npm run design:plan   # list stale asset groups without changing files
 npm run design:build  # rebuild only stale groups and refresh the website ZIP
 npm run design:check  # fail if any generated artwork is stale
+npm run design:prepare # validate committed artwork and refresh the website ZIP only
 ```
 
-Normal `npm run build` and `npm run dev` prepare the library automatically.
-CI and deployment also rebuild changed sources automatically and cache the
-outputs. No bot commits or manual render step are required.
+After editing design sources, run `npm run design:build` locally, review the
+results, and commit the sources, generated assets and `design/build-state.json`
+together. That tracked record fingerprints both inputs and outputs.
+
+Normal `npm run build`, `npm run dev`, CI and deployment validate that record and
+package the committed assets. They never regenerate artwork or silently repair
+stale outputs. CI restores no artwork cache and makes no bot commits. The ZIP
+and website delivery copies are still prepared automatically.
 
 Download the current kit from the team page, or send
 `public/brand-assets/city-changers-brand-kit.zip`. For an immutable local handoff:

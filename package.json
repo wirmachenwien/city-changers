@@ -8,11 +8,12 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "python3 design/scripts/build-design.py && astro dev",
-    "build": "python3 design/scripts/build-design.py && astro build && npm run build:downloads && node scripts/bin/fix-dist.mjs && npm run build:search",
+    "dev": "npm run design:prepare && astro dev",
+    "build": "npm run design:prepare && astro build && npm run build:downloads && node scripts/bin/fix-dist.mjs && npm run build:search",
     "design:build": "python3 design/scripts/build-design.py",
     "design:plan": "python3 design/scripts/build-design.py --plan",
     "design:check": "python3 design/scripts/build-design.py --check",
+    "design:prepare": "python3 design/scripts/build-design.py --prepare",
     "build:downloads": "node scripts/bin/build-downloads.mjs",
     "build:pdf": "python3 scripts/bin/build-pdf.py --all",
     "build:epub": "python3 scripts/bin/build-epub.py --all",

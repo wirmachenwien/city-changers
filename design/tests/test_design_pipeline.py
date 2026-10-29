@@ -90,6 +90,72 @@ class DesignPipelineTest(unittest.TestCase):
             BUILD.build(plan_only=True)
         self.assertEqual(json.loads(stream.getvalue()), ["logo", "stills"])
 
+    def test_freshness_reads_the_tracked_record_not_an_ignored_cache(self):
+        with tempfile.TemporaryDirectory(dir=DESIGN) as temporary:
+            root = Path(temporary)
+            tracked = root / "build-state.json"
+            cached = root / ".cache/build-state.json"
+            cached.parent.mkdir()
+            cached.write_text(json.dumps({"cached": "must not be trusted"}))
+            with patch.object(BUILD, "STATE", tracked), patch.object(BUILD, "CACHE", cached.parent):
+                self.assertEqual(BUILD.read_state(), {})
+                tracked.write_text(json.dumps({"tracked": "authoritative"}))
+                self.assertEqual(BUILD.read_state(), {"tracked": "authoritative"})
+
+    def test_ci_prepare_never_generates_or_updates_the_freshness_record(self):
+        with tempfile.TemporaryDirectory(dir=DESIGN) as temporary:
+            root = Path(temporary)
+            source, output, state = (root / name for name in ("source", "output", "build-state.json"))
+            source.write_text("source")
+            output.write_text("committed output")
+            group = {"inputs": [source], "outputs": [output]}
+            state.write_text(json.dumps({"stills": BUILD.snapshot(group)}))
+            original = state.read_bytes()
+            with patch.object(BUILD, "STATE", state), patch.object(BUILD, "groups", return_value={"stills": group}), \
+                 patch.object(BUILD, "run") as run, patch.object(BUILD, "publish") as publish, \
+                 patch.dict("os.environ", {"CI": "true"}):
+                BUILD.build(prepare=True)
+                publish.assert_called_once_with()
+                run.assert_not_called()
+                self.assertEqual(state.read_bytes(), original)
+                source.write_text("changed source without regenerated output")
+                publish.reset_mock()
+                with self.assertRaisesRegex(SystemExit, "npm run design:build locally"):
+                    BUILD.build(prepare=True)
+                publish.assert_not_called()
+                run.assert_not_called()
+                self.assertEqual(state.read_bytes(), original)
+                self.assertEqual(output.read_text(), "committed output")
+
+    def test_generation_is_explicitly_rejected_in_ci(self):
+        with patch.dict("os.environ", {"CI": "true"}), patch.object(BUILD, "run") as run:
+            with self.assertRaisesRegex(SystemExit, "CI must not generate artwork"):
+                BUILD.build()
+            run.assert_not_called()
+
+    def test_local_generation_updates_the_tracked_freshness_record(self):
+        with tempfile.TemporaryDirectory(dir=DESIGN) as temporary:
+            root = Path(temporary)
+            source, output, state = (root / name for name in ("source", "output", "build-state.json"))
+            source.write_text("changed source")
+            output.write_text("old output")
+            state.write_text("{}")
+            group = {"inputs": [source], "outputs": [output]}
+            with patch.object(BUILD, "STATE", state), patch.object(BUILD, "groups", return_value={"stills": group}), \
+                 patch.object(BUILD, "run", side_effect=lambda args: output.write_text("regenerated output")) as run, \
+                 patch.object(BUILD, "publish"), patch.dict("os.environ", {"CI": ""}):
+                BUILD.build()
+                run.assert_called_once()
+                self.assertEqual(json.loads(state.read_text()), {"stills": BUILD.snapshot(group)})
+                BUILD.build(check=True)
+
+    def test_normal_website_commands_only_prepare_committed_assets(self):
+        scripts = json.loads((ROOT / "package.json").read_text())["scripts"]
+        for command in ("dev", "build"):
+            self.assertTrue(scripts[command].startswith("npm run design:prepare &&"), command)
+        self.assertEqual(scripts["design:prepare"], "python3 design/scripts/build-design.py --prepare")
+        self.assertEqual(scripts["design:build"], "python3 design/scripts/build-design.py")
+
 
 if __name__ == "__main__":
     unittest.main()

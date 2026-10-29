@@ -228,9 +228,10 @@ check all six actions. Preserve the `design/assets/` and `design/motion/` layout
 
 From the repository root, `npm run design:build` automatically rebuilds stale
 stills and animations. An action-local edit rebuilds its two Lotties and two
-MOVs; shared motion/default changes rebuild all affected actions. CI and deploy
-run the same incremental pipeline automatically. Outputs go directly to
-`src/assets/mascot/`, not scratch `out/`. Review generated motion before use.
+MOVs; shared motion/default changes rebuild all affected actions. Run this command
+locally, review the outputs in `src/assets/mascot/`, and commit them alongside
+the sources and updated `design/build-state.json`. CI and deployment only validate
+those committed files and package the ZIP; they never regenerate artwork.
 See [maintenance](../docs/maintenance.md).
 
 ```sh

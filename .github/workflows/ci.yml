@@ -23,7 +23,7 @@ jobs:
       - name: Set up toolchain
         uses: ./.github/actions/setup
 
-      - name: Rebuild changed design assets
+      - name: Validate and package committed design assets
         uses: ./.github/actions/design
 
       - name: Check derived config files are in sync

@@ -1,37 +1,19 @@
-name: Incremental design assets
-description: Restore generated products, rebuild changed source dependencies, and validate
+name: Validate committed design assets
+description: Check committed artwork freshness and package the brand kit without regenerating assets
 runs:
   using: composite
   steps:
+    - name: Check committed asset freshness
+      shell: bash
+      run: npm run design:check
+
     - name: Install pinned design image tools
       shell: bash
       run: pip install -r design/requirements.txt
 
-    - name: Restore generated design products
-      uses: actions/cache@v4
-      with:
-        # Cache only outputs, never editable sources or installed dependencies.
-        path: |
-          design/.cache/build-state.json
-          src/assets/site/logo.svg
-          src/assets/site/logo-dark.svg
-          src/assets/site/logo-lockup.svg
-          src/assets/site/logo-lockup-dark.svg
-          src/assets/site/logo-small.svg
-          src/assets/site/logo.png
-          src/assets/site/logo-lockup.png
-          src/assets/site/og-image.png
-          public/favicon.*
-          public/apple-touch-icon.png
-          public/icon-*.png
-          src/assets/mascot
-        key: design-v4-${{ runner.os }}-${{ hashFiles('design/scripts/**', 'design/manifest.json', 'design/requirements.txt', 'design/assets/logo/logo-lockup.svg', 'design/assets/mascot/source/**', 'src/assets/fonts/**', 'design/motion/src/**', 'design/motion/scripts/**', 'design/motion/package*.json', 'design/motion/*config*') }}
-        restore-keys: |
-          design-v4-${{ runner.os }}-
-
-    - name: Rebuild only stale design products and prepare website downloads
+    - name: Package committed assets for website downloads
       shell: bash
-      run: python3 design/scripts/build-design.py
+      run: npm run design:prepare
 
     - name: Check editable motion sources
       shell: bash
@@ -45,9 +27,12 @@ runs:
     - name: Validate design assets and release inventory
       shell: bash
       run: |
-        python3 design/scripts/build-design.py --check
         python3 -m unittest discover -s design/tests -v
         python3 -m unittest discover -s scripts/tests -p 'test_frontmatter.py' -v
+
+    - name: Ensure validation and packaging did not change tracked assets
+      shell: bash
+      run: git diff --exit-code -- design src/assets public
 
     - name: Upload generated brand kit for review
       uses: actions/upload-artifact@v4

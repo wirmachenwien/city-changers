@@ -31,12 +31,13 @@ The six animated rigs intentionally retain independent part instances so Studio
 can save edits to one animation without changing the other five. Static pose
 rebuilds do not rewrite separately authored animation paths.
 
-## Automatic, incremental builds
+## Local generation and committed outputs
 
 ```sh
 pip install -r design/requirements.txt
 npm run design:plan
 npm run design:build
+npm run design:check
 python3 -m unittest discover -s design/tests -v
 ```
 
@@ -47,10 +48,12 @@ constraint). Image tools are pinned in `design/requirements.txt`; packaging and
 delivery copying use Python's standard library. The contact sheet uses our bundled font
 rather than an operating-system font.
 
-The pipeline fingerprints both inputs and outputs, rather than modification
-times. `design/build-state.json` records the migration baseline of the existing
-approved exports; subsequent build state is disposable in `design/.cache/`.
-Missing, changed or corrupt outputs are rebuilt even if sources did not change.
+The local generator fingerprints both inputs and outputs, rather than modification
+times. `npm run design:build` rebuilds stale products and updates the tracked
+`design/build-state.json` record after successful generation. Commit that record
+with the changed sources and generated files, after reviewing the artwork.
+Missing, changed or corrupt outputs are rebuilt locally even if sources did not
+change. Old ignored build-state caches are never used for freshness checks.
 
 - Logo-source changes rebuild identity exports, icons and stills.
 - Pose changes rebuild stills and all affected animation products.
@@ -60,13 +63,25 @@ Missing, changed or corrupt outputs are rebuilt even if sources did not change.
 - Guide, photo, font or inventory changes refresh only dependent products and
   delivery copies. The still contact sheet depends on Clarity City Regular.
 
-CI and deployment run the same pipeline on pull requests and pushes to main.
-A targeted design workflow also handles source edits pushed to other branches,
-including branches without an open pull request, and supports manual dispatch.
-GitHub Actions caches generated products, not editable sources. Source hashes
-validate restored products before reuse. The updated kit is uploaded as a review
-artifact and included in the website deployment; Actions never commits to Git.
-An automatically rebuilt export is **not** a new artistic or rights approval.
+## CI validation and automatic packaging
+
+`npm run design:check` checks the committed record without changing any files.
+`npm run design:prepare` performs the same check, then refreshes only the ZIP,
+download copies and catalogue in `public/brand-assets/`. Packaging uses Python's
+standard library, not the artwork renderer.
+
+Normal website builds and development startup call `design:prepare`, never the
+artwork generator. Stale assets fail with instructions to regenerate locally and
+commit the updated sources, assets and record together. CI explicitly refuses
+artwork generation, restores no artwork cache and does not update the record.
+
+Pull-request checks, deployment and the targeted branch design workflow validate
+the committed artwork and package the kit for review/download. Regression tests
+may render disposable fixtures, but never regenerate committed assets. CI checks
+that tracked design/application assets remain unchanged. The deployed website
+and ZIP therefore use the same asset versions as Git, with no bot commits.
+
+Generated artwork still requires artistic review and rights approval before use.
 
 ## Preview and release
 

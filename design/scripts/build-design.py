@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Incremental design build. Fingerprint sources AND outputs; never trust mtimes."""
+"""Generate artwork locally; validate and package committed assets for the site."""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -13,8 +14,8 @@ import tempfile
 
 from asset_library import ROOT, DESIGN, asset_records, copy_changed, logo_source
 
-STATE = DESIGN / ".cache/build-state.json"
-BASELINE = DESIGN / "build-state.json"
+STATE = DESIGN / "build-state.json"
+CACHE = DESIGN / ".cache"
 ACTIONS = ("idle", "wave", "point", "celebrate", "think", "step")
 
 
@@ -85,8 +86,8 @@ def snapshot(group):
 
 
 def read_state():
-    path = STATE if STATE.exists() else BASELINE
-    return json.loads(path.read_text()) if path.exists() else {}
+    # Freshness must describe what is committed, never an ignored local/CI cache.
+    return json.loads(STATE.read_text()) if STATE.exists() else {}
 
 
 def dirty(name, group, state):
@@ -100,6 +101,7 @@ def run(args, cwd=ROOT):
 
 def publish():
     """Refresh disposable public outputs without touching an existing handoff release."""
+    CACHE.mkdir(parents=True, exist_ok=True)
     records = asset_records()
     spec = importlib.util.spec_from_file_location("package_brand_kit", DESIGN / "scripts/package-brand-kit.py")
     package = importlib.util.module_from_spec(spec)
@@ -121,20 +123,22 @@ def publish():
         copy_changed(ROOT / record["source"], target / "files" / record["file"])
     text = json.dumps(records, indent=2) + "\n"
     release_key = hashlib.sha256((text + (DESIGN / "scripts/package-brand-kit.py").read_text()).encode()).hexdigest()
-    stamp = DESIGN / ".cache/release-key"
+    stamp = CACHE / "release-key"
     # The catalogue also fingerprints packaging inputs, so guide/font/photo edits
     # refresh the ZIP without re-rendering artwork.
     if (not catalogue.exists() or catalogue.read_text() != text
             or not stamp.exists() or stamp.read_text() != release_key
             or not (target / "city-changers-brand-kit.zip").exists()):
-        with tempfile.TemporaryDirectory(prefix="brand-release-", dir=DESIGN / ".cache") as temporary:
+        with tempfile.TemporaryDirectory(prefix="brand-release-", dir=CACHE) as temporary:
             package.build(Path(temporary))
             copy_changed(Path(temporary) / "city-changers-brand-kit.zip", target / "city-changers-brand-kit.zip")
         catalogue.write_text(text)
         stamp.write_text(release_key)
 
 
-def build(plan_only=False, check=False):
+def build(plan_only=False, check=False, prepare=False):
+    if not (plan_only or check or prepare) and os.environ.get("CI", "").lower() in {"true", "1"}:
+        raise SystemExit("CI must not generate artwork. Run npm run design:build locally and commit the results.")
     state = read_state()
     current = groups()
     changed = [name for name, group in current.items() if dirty(name, group, state)]
@@ -144,9 +148,13 @@ def build(plan_only=False, check=False):
     if plan_only:
         print(json.dumps(changed))
         return
-    if check:
+    if check or prepare:
         if changed:
-            raise SystemExit("Stale design outputs: " + ", ".join(changed))
+            raise SystemExit("Stale design outputs: " + ", ".join(changed)
+                             + ". Run npm run design:build locally, review the artwork, and commit"
+                               " the sources, generated assets and design/build-state.json together.")
+        if prepare:
+            publish()
         return
     print("Design rebuild: " + (", ".join(changed) or "none; sources and outputs match"), flush=True)
     if "logo" in changed:
@@ -179,14 +187,19 @@ def build(plan_only=False, check=False):
                     temporary.unlink(missing_ok=True)
     # Save state only after every dependent build succeeded.
     state = {name: snapshot(group) for name, group in groups().items()}
-    STATE.parent.mkdir(parents=True, exist_ok=True)
-    publish()
+    missing = [str(path.relative_to(ROOT)) for group in groups().values()
+               for path in group["outputs"] if not path.is_file()]
+    if missing:
+        raise FileNotFoundError("Generation did not produce required assets: " + ", ".join(missing))
     STATE.write_text(json.dumps(state, indent=2) + "\n")
+    publish()
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--plan", action="store_true", help="Print stale product groups without changing files")
-    parser.add_argument("--check", action="store_true", help="Fail if generated assets are stale")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--plan", action="store_true", help="Print stale product groups without changing files")
+    mode.add_argument("--check", action="store_true", help="Validate assets against the committed freshness record")
+    mode.add_argument("--prepare", action="store_true", help="Validate and package committed assets; never regenerate artwork")
     args = parser.parse_args()
-    build(args.plan, args.check)
+    build(args.plan, args.check, args.prepare)

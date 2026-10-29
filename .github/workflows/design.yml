@@ -1,7 +1,7 @@
-name: Design assets
+name: Design validation
 
 # Main pushes and pull requests are also covered by deploy.yml and ci.yml.
-# This additionally builds design edits pushed to branches without an open PR.
+# This additionally validates design edits on branches without an open PR.
 on:
   push:
     branches-ignore: [main]
@@ -14,6 +14,7 @@ on:
       - 'public/site.webmanifest'
       - '.github/actions/design/**'
       - '.github/workflows/design.yml'
+      - 'package.json'
   workflow_dispatch:
 
 permissions:
