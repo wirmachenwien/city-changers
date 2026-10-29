@@ -11,10 +11,12 @@ afterEach(() => {
 function environment(single = false) {
   const attributes = new Map();
   const feedback = { textContent: '', setAttribute: (key, value) => attributes.set(key, value) };
-  const inputs = [true, !single, false].map(correct => ({
+  const labels = [true, !single, false].map(() => ({ dataset: {} }));
+  const inputs = [true, !single, false].map((correct, i) => ({
+    type: 'checkbox',
     checked: false,
     hasAttribute: () => correct,
-    closest: () => null,
+    closest: (selector) => selector === 'label' ? labels[i] : null,
   }));
   const events = new Map();
   const form = {
@@ -28,7 +30,14 @@ function environment(single = false) {
     value: { querySelectorAll: () => [form] }, configurable: true,
   });
   initQuiz();
-  return { inputs, feedback, attributes, submit: () => events.get('submit')({ preventDefault() {} }) };
+  return {
+    inputs,
+    labels,
+    feedback,
+    attributes,
+    submit: () => events.get('submit')({ preventDefault() {} }),
+    change: target => events.get('change')?.({ target }),
+  };
 }
 
 for (const single of [false, true]) {
@@ -47,6 +56,7 @@ for (const single of [false, true]) {
     assert.equal(env.attributes.get('aria-live'), 'polite');
     for (const input of env.inputs) input.checked = false;
     env.submit();
+    assert.equal(env.feedback.textContent, 'Please select at least one answer.');
     assert.equal(env.attributes.get('data-state'), 'empty');
   });
 }
@@ -59,4 +69,30 @@ test('partially correct and incorrect selections retain their existing feedback'
   env.inputs[2].checked = true;
   env.submit();
   assert.equal(env.attributes.get('data-state'), 'incorrect');
+});
+
+test('single-choice with checkboxes unchecks previously selected option on change', () => {
+  const env = environment(true);
+  env.inputs[0].checked = true;
+  env.change(env.inputs[0]);
+  assert.equal(env.inputs[0].checked, true);
+  assert.equal(env.inputs[1].checked, false);
+
+  env.inputs[1].checked = true;
+  env.change(env.inputs[1]);
+  assert.equal(env.inputs[0].checked, false);
+  assert.equal(env.inputs[1].checked, true);
+});
+
+test('checking replaces selection marks with correct/incorrect on selected options and clears on change', () => {
+  const env = environment(false);
+  env.inputs[0].checked = true; // correct
+  env.inputs[2].checked = true; // incorrect
+  env.submit();
+  assert.equal(env.labels[0].dataset.mark, 'correct');
+  assert.equal(env.labels[1].dataset.mark, undefined); // unselected stays unmarked
+  assert.equal(env.labels[2].dataset.mark, 'incorrect');
+
+  env.change(env.inputs[0]);
+  assert.equal(env.labels[0].dataset.mark, undefined);
 });

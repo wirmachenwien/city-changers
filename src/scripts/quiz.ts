@@ -4,6 +4,23 @@ export function initQuiz(): void {
     const feedback = form.querySelector('[data-feedback]');
     if (!feedback || form.dataset.wired) continue;
     form.dataset.wired = 'true';
+
+    form.addEventListener('change', (event) => {
+      const target = event.target as HTMLInputElement | null;
+      if (!target || target.type !== 'checkbox') return;
+      if (form.dataset.single === 'true' && target.checked) {
+        for (const input of form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')) {
+          if (input !== target) {
+            input.checked = false;
+            const otherLabel = input.closest('label');
+            if (otherLabel) delete otherLabel.dataset.mark;
+          }
+        }
+      }
+      const label = target.closest('label');
+      if (label) delete label.dataset.mark;
+    });
+
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const inputs = [...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"], input[type="radio"]')];
@@ -13,7 +30,7 @@ export function initQuiz(): void {
       if (checked.length === 0) {
         state = 'empty';
       } else if (single) {
-        state = checked[0]?.hasAttribute('data-correct') ? 'correct' : 'incorrect';
+        state = checked.length === 1 && checked[0]?.hasAttribute('data-correct') ? 'correct' : 'incorrect';
       } else {
         const wanted = inputs.filter((input) => input.hasAttribute('data-correct'));
         state =
@@ -35,26 +52,19 @@ export function initQuiz(): void {
   }
 }
 
-/** Stamp check/cross icons onto selected options only: correctly selected
- *  options get a check, wrongly selected ones get a cross. Unselected
- *  options stay unmarked, so an unselected correct answer is never spoiled.
- *  Icons are cloned from the templates rendered with the form, so the SVG
- *  markup stays in Icon.astro (decorative only; the result is announced
- *  via the live feedback line). */
+/** Mark selected options inside their pebble checkbox: correctly selected
+ *  options replace the selection x with a green checkmark, wrongly selected
+ *  ones with a red x. Unselected options stay unmarked, so an unselected
+ *  correct answer is never spoiled. */
 function markOptions(form: HTMLFormElement, inputs: HTMLInputElement[]): void {
-  const correctTemplate = form.querySelector<HTMLTemplateElement>('[data-icon-correct]');
-  const incorrectTemplate = form.querySelector<HTMLTemplateElement>('[data-icon-incorrect]');
   for (const input of inputs) {
     const label = input.closest('label');
-    label?.querySelector('[data-mark]')?.remove();
-    if (!input.checked) continue;
+    if (!label) continue;
+    if (!input.checked) {
+      delete label.dataset.mark;
+      continue;
+    }
     const isCorrect = input.hasAttribute('data-correct');
-    const icon = (isCorrect ? correctTemplate : incorrectTemplate)?.content.firstElementChild?.cloneNode(true);
-    if (!label || !icon) continue;
-    const mark = document.createElement('span');
-    mark.setAttribute('data-mark', isCorrect ? 'correct' : 'incorrect');
-    mark.className = `quiz-mark is-${isCorrect ? 'correct' : 'incorrect'}`;
-    mark.appendChild(icon);
-    label.appendChild(mark);
+    label.dataset.mark = isCorrect ? 'correct' : 'incorrect';
   }
 }

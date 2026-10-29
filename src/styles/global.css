@@ -1349,9 +1349,110 @@ html:not(.js-fold) .accordion-content {
 
 .quiz label {
   display: flex;
-  gap: 0.5rem;
-  align-items: baseline;
-  padding-block: 0.25rem;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding-block: 0.35rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.quiz .quiz-checkbox-input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.quiz .quiz-box {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  flex: none;
+  margin-block-start: 0.15rem;
+  color: var(--ink);
+}
+
+.quiz .quiz-box__outline,
+.quiz .quiz-box__check,
+.quiz .quiz-box__correct,
+.quiz .quiz-box__incorrect {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.quiz .quiz-box .icon {
+  inline-size: 100%;
+  block-size: 100%;
+  vertical-align: 0;
+  display: block;
+}
+
+.quiz .quiz-box__check,
+.quiz .quiz-box__incorrect {
+  opacity: 0;
+  transform: translate(0.02rem, 0.025rem) scale(1.3);
+  transform-origin: center;
+}
+
+.quiz .quiz-box__incorrect {
+  color: var(--error);
+}
+
+.quiz .quiz-box__correct {
+  opacity: 0;
+  transform: translate(0.15rem, -0.15rem) scale(1.5);
+  transform-origin: center;
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .quiz .quiz-box__check,
+  .quiz .quiz-box__correct,
+  .quiz .quiz-box__incorrect {
+    transition: opacity 0.12s ease-in-out;
+  }
+}
+
+.quiz .quiz-checkbox-input:checked + .quiz-box .quiz-box__check {
+  opacity: 1;
+}
+
+.quiz label[data-mark="correct"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__check {
+  opacity: 0;
+}
+
+.quiz label[data-mark="correct"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__correct {
+  opacity: 1;
+}
+
+.quiz label[data-mark="incorrect"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__check {
+  opacity: 0;
+}
+
+.quiz label[data-mark="incorrect"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__incorrect {
+  opacity: 1;
+}
+
+.quiz .quiz-checkbox-input:focus-visible + .quiz-box {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+.quiz .quiz-option__label {
+  flex: 1;
+  line-height: 1.4;
 }
 
 .quiz .quiz-feedback {
@@ -1366,19 +1467,6 @@ html:not(.js-fold) .accordion-content {
 
 .quiz .quiz-feedback[data-state="correct"] {
   color: var(--accent);
-}
-
-.quiz .quiz-mark {
-  display: inline-flex;
-  align-self: center;
-}
-
-.quiz .quiz-mark.is-correct {
-  color: var(--accent);
-}
-
-.quiz .quiz-mark.is-incorrect {
-  color: var(--error);
 }
 
 .quiz .quiz-feedback[data-state="incorrect"],

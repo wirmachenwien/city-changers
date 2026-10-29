@@ -1,47 +1,120 @@
 ---
-// Single-question check (radio group): one correct answer. Marks come from
-// the embedded icon templates, cloned by the client quiz script.
+// Question check: supports single or multiple choice answers. Always uses
+// checkboxes visually replaced by the pebble-outline icon with an x icon
+// for selection. Marks come from the embedded icon templates, cloned by
+// the client quiz script.
 import { t } from '../lib/i18n';
 import { smartQuotes } from '../lib/smart-quotes';
 import { questionLabel } from '../lib/question-label';
 import Icon from './Icon.astro';
 import type { Language } from '../data/locales';
 
+export interface QuestionOption {
+  label: string;
+  correct?: boolean;
+}
+
+export type QuizOption = QuestionOption;
+
 interface Props {
   id: string;
   question: string;
-  options: string[];
-  answer: number;
+  options: Array<string | QuestionOption>;
+  answer?: number | number[];
+  answers?: number[];
+  single?: boolean;
+  multiple?: boolean;
   lang?: Language;
   feedbackCorrect?: string;
   feedbackIncorrect?: string;
+  feedbackUnfinished?: string;
+  feedbackEmpty?: string;
 }
 
-const { id, question, options, answer, lang = 'en', feedbackCorrect, feedbackIncorrect } = Astro.props;
+const {
+  id,
+  question,
+  options,
+  answer,
+  answers,
+  single,
+  multiple,
+  lang = 'en',
+  feedbackCorrect,
+  feedbackIncorrect,
+  feedbackUnfinished,
+  feedbackEmpty,
+} = Astro.props;
+
+// Determine correct answer indices from answer or answers props
+const correctIndices = new Set<number>();
+if (typeof answer === 'number') {
+  correctIndices.add(answer);
+} else if (Array.isArray(answer)) {
+  for (const idx of answer) correctIndices.add(idx);
+}
+if (Array.isArray(answers)) {
+  for (const idx of answers) correctIndices.add(idx);
+}
+
+// Normalize options to { label: string, correct: boolean }
+const normalizedOptions = options.map((opt, index) => {
+  if (typeof opt === 'string') {
+    return {
+      label: smartQuotes(opt, lang),
+      correct: correctIndices.has(index),
+    };
+  }
+  const isCorrect = Boolean(opt.correct || correctIndices.has(index));
+  return {
+    label: smartQuotes(opt.label, lang),
+    correct: isCorrect,
+  };
+});
+
+// Determine single vs multiple choice:
+// 1. Explicit `single` or `multiple` prop takes precedence
+// 2. If `answer` is a number, default to single
+// 3. Otherwise, check number of correct options and presence of feedbackUnfinished
+const correctCount = normalizedOptions.filter((o) => o.correct).length;
+const isSingle =
+  single !== undefined
+    ? single
+    : multiple !== undefined
+      ? !multiple
+      : (typeof answer === 'number' || (correctCount <= 1 && !feedbackUnfinished && !Array.isArray(answers) && !Array.isArray(answer)));
+
 // Author-supplied display strings bypass the markdown pipeline, so quotes
 // are localised here to match the hast-transformed prose.
 const displayQuestion = smartQuotes(questionLabel(id, question), lang);
-const displayOptions = options.map((option) => smartQuotes(option, lang));
 ---
 <form
   class="quiz"
   data-quiz={id}
-  data-feedback-empty={smartQuotes(t(lang, 'questions.feedback-empty', 'Please select at least one answer.'), lang)}
-  data-single="true"
+  data-feedback-empty={smartQuotes(feedbackEmpty ?? t(lang, 'questions.feedback-empty', 'Please select at least one answer.'), lang)}
+  data-single={isSingle ? 'true' : undefined}
   data-feedback-correct={smartQuotes(feedbackCorrect ?? t(lang, 'questions.feedback-correct', 'Correct!'), lang)}
   data-feedback-incorrect={smartQuotes(feedbackIncorrect ?? t(lang, 'questions.feedback-incorrect', 'Incorrect'), lang)}
+  data-feedback-unfinished={!isSingle ? smartQuotes(feedbackUnfinished ?? t(lang, 'questions.feedback-unfinished', "You haven't selected all the correct answers."), lang) : undefined}
 >
   <fieldset aria-describedby={`${id}-feedback`}>
     <legend>{displayQuestion}</legend>
-    {displayOptions.map((option, index) => (
-      <label>
+    {normalizedOptions.map((option, index) => (
+      <label class="quiz-option">
         <input
-          type="radio"
-          name={id}
+          type="checkbox"
+          name={isSingle ? id : `${id}-${index}`}
           value={String(index)}
-          data-correct={index === answer ? 'true' : undefined}
+          data-correct={option.correct ? 'true' : undefined}
+          class="quiz-checkbox-input"
         />
-        <span>{option}</span>
+        <span class="quiz-box" aria-hidden="true">
+          <span class="quiz-box__outline"><Icon name="pebble-outline" /></span>
+          <span class="quiz-box__check"><Icon name="x" /></span>
+          <span class="quiz-box__correct"><Icon name="check" /></span>
+          <span class="quiz-box__incorrect"><Icon name="x" /></span>
+        </span>
+        <span class="quiz-option__label">{option.label}</span>
       </label>
     ))}
   </fieldset>

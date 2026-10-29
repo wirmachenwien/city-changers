@@ -412,7 +412,15 @@ def quiz_html(question: str, source: str, answers_label: str, identifier: str = 
 
 
 def question_html(question: str, source: str, answer: str, answers_label: str, identifier: str = "") -> str:
-    """Single-choice Question: plain string options plus a 0-based answer index."""
+    """Self-grading Question: supports object options with correct flags or plain strings with answer index."""
+    entries = option_entries(source)
+    if entries:
+        options = ''.join(f'<li>{label}</li>' for label, _ in entries)
+        correct_indices = [str(i + 1) for i, (_, is_correct) in enumerate(entries) if is_correct]
+        if not correct_indices and answer:
+            correct_indices = [str(int(answer) + 1)]
+        correct = ', '.join(correct_indices)
+        return _quiz_wrap(question, options, f"{answers_label}: {correct}", identifier)
     options = re.findall(r'"([^"]+)"', source)
     items = ''.join(f'<li>{label}</li>' for label in options)
     return _quiz_wrap(question, items, f"{answers_label}: {int(answer) + 1}", identifier)
