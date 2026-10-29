@@ -698,6 +698,11 @@ body.drawer-open {
   text-decoration: none;
 }
 
+.external-link-icon .icon {
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
+}
+
 /* Image links keep their indicator at the corner, outside the image flow. */
 a[data-external-link]:has(img) {
   position: relative;
@@ -819,6 +824,34 @@ a[data-external-link]:has(img) > .external-link-icon {
   margin-block-start: 0.5rem;
 }
 
+/* Generous idea sparks; keep native list semantics and hanging indents.
+   Utility lists and numbered lists retain their own markers. */
+@supports (mask-image: none) {
+  .prose ul:not([class]) > li {
+    position: relative;
+    list-style-type: disc;
+  }
+
+  .prose ul:not([class]) > li::marker {
+    font-size: 0;
+  }
+
+  .prose ul:not([class]) > li::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: -1.5rem;
+    inset-block-start: 0.4rem;
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
+    background: var(--accent);
+    mask: url('../assets/icons/spark.svg') center / contain no-repeat;
+  }
+
+  .prose ul:not([class]) ul:not([class]) > li::before {
+    mask-image: url('../assets/icons/spark-outline.svg');
+  }
+}
+
 .prose blockquote {
   margin-inline: 0;
   padding-inline-start: 1rem;
@@ -881,8 +914,9 @@ a[data-external-link]:has(img) > .external-link-icon {
   margin-block-start: 0;
 }
 
-.crumbs li + li::before {
-  content: "›";
+.crumbs li > .icon {
+  inline-size: 0.8rem;
+  block-size: 0.8rem;
   margin-inline-end: 0.4rem;
   color: var(--ink-soft);
 }
@@ -1228,9 +1262,13 @@ a[data-external-link]:has(img) > .external-link-icon {
 }
 
 .accordion summary::before {
-  content: '▸';
+  content: '';
   display: inline-block;
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
   margin-inline-end: 0.4rem;
+  background: currentColor;
+  mask: url('../assets/icons/disclosure.svg') center / contain no-repeat;
   transition: transform 0.28s ease-out;
 }
 
@@ -1661,6 +1699,11 @@ html:not(.js-fold) .accordion-content {
   color: var(--accent);
 }
 
+[data-heading-anchor] .icon {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
 /* ---------- Copy / share ---------- */
 
 .copy-btn,
@@ -1818,6 +1861,9 @@ html:not(.js-fold) .accordion-content {
 }
 
 .pagination a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
   text-decoration: none;
   color: var(--ink);
   max-inline-size: 45%;

@@ -79,6 +79,9 @@
     "scan": ["."],
     "exceptions": [
       { "path": "src/assets", "reason": "Supplied and generated artwork, photos, partner marks and fonts are not UI palette choices." },
+      { "path": "design/icons/artwork/favicon.svg", "reason": "Byte-identical inventory copy of public/favicon.svg; icons:check verifies preservation, never recolors artwork." },
+      { "path": "design/icons/artwork/logo-small.svg", "reason": "Byte-identical inventory copy of src/assets/site/logo-small.svg; icons:check verifies preservation, never recolors artwork." },
+      { "path": "design/icons/artwork/cc-by.svg", "reason": "Byte-identical inventory copy of the supplied Creative Commons badge; its external artwork colors are not UI tokens." },
       { "path": "design/colors.json", "reason": "Editable source of truth; base colors and recipes are validated before generation." },
       { "path": "src/data/colors.generated.json", "reason": "Generated registry output; exact freshness is checked." },
       { "path": "src/styles/colors.generated.css", "reason": "Generated registry output; exact freshness is checked." },

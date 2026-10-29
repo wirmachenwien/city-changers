@@ -1,7 +1,9 @@
 // Search-term highlighting on pages opened from search results:
 // wraps ?query= matches in <mark> and inserts a "jump to first result" box
 // before the main heading.
-export function initSearchHighlight(jumpLabel = 'Jump to first result ↓'): void {
+import { iconSvg } from '../lib/icons.ts';
+
+export function initSearchHighlight(jumpLabel = 'Jump to first result'): void {
   const param = document.body.dataset.searchParam ?? 'query';
   const query = new URLSearchParams(location.search).get(param)?.trim();
   if (!query) return;
@@ -41,6 +43,9 @@ export function initSearchHighlight(jumpLabel = 'Jump to first result ↓'): voi
   const link = document.createElement('a');
   link.href = '#first-search-result';
   link.textContent = jumpLabel;
+  const arrow = document.createElement('span');
+  arrow.innerHTML = iconSvg('arrow-down');
+  link.append(' ', arrow);
   box.append(link);
   const heading = prose.querySelector('h1');
   (heading ?? prose).before(box);

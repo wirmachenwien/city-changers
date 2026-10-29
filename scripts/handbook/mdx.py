@@ -197,6 +197,9 @@ def find_asset_by_basename(filename: str, assets_dir: Path) -> Path | None:
     if re.fullmatch(r"mascot/static/ink/[a-z]+\.png", filename):
         candidate = assets_dir / filename
         return candidate if candidate.is_file() else None
+    if re.fullmatch(r"icons/png/(?:light|dark)/[a-z0-9-]+\.png", filename):
+        candidate = assets_dir / filename
+        return candidate if candidate.is_file() else None
     name = filename.rsplit("/", 1)[-1]
     for folder in ("book", "site"):
         candidate = assets_dir / folder / name

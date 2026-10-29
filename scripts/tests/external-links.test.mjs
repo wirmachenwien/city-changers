@@ -11,7 +11,8 @@ test('external content links receive an arrow, safe new-tab attributes and a not
     const html = enhance(`<p><a href="${href}"><em>Resource</em></a></p>`);
     assert.match(html, /target="_blank"/);
     assert.match(html, /rel="noopener noreferrer"/);
-    assert.match(html, /aria-hidden="true">↗/);
+    assert.match(html, /class="external-link-icon" aria-hidden="true"><svg/);
+    assert.match(html, /stroke-width="1.9"/);
     assert.match(html, /External link, opens in a new tab/);
     assert.match(html, /<em>Resource<\/em>/);
   }

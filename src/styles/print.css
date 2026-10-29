@@ -159,6 +159,32 @@ li + li {
   margin-block-start: 4pt;
 }
 
+/* Generous idea sparks, rasterized from the approved SVGs for PDF engines. */
+ul:not([class]) > li {
+  position: relative;
+  list-style-type: disc;
+}
+
+ul:not([class]) > li::marker {
+  font-size: 0;
+}
+
+ul:not([class]) > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1.5rem;
+  inset-block-start: 0.2rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  background-image: url("icons/spark.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+ul:not([class]) ul:not([class]) > li::before {
+  background-image: url("icons/spark-outline.png");
+}
+
 section.chapter {
   page-break-before: always;
 }

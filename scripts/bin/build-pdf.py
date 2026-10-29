@@ -185,6 +185,7 @@ def print_css() -> str:
         count=1,
     )
     css = FONT_RE.sub(lambda m: f'url("{font_uri(m.group(1))}")', css)
+    css = css.replace('url("icons/', f'url("{(ASSETS / "icons/png/light").as_uri()}/')
     katex_fonts = (ROOT / "node_modules" / "katex" / "dist" / "fonts").as_uri() + "/"
     return css + "\n" + katex_css(katex_fonts)
 

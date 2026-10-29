@@ -3,6 +3,7 @@
 // anchor); styling is handled in CSS via [data-heading-anchor].
 import { languages, type Language } from '../data/locales';
 import { t } from '../lib/i18n';
+import { iconSvg } from '../lib/icons.ts';
 
 function currentLanguage(): Language {
   const lang = document.documentElement.lang as Language;
@@ -19,7 +20,7 @@ export function initHeadings(): void {
     anchor.href = `#${heading.id}`;
     anchor.setAttribute('data-heading-anchor', '');
     anchor.setAttribute('aria-label', t(lang, 'headings.link-to-section', 'Link to this section'));
-    anchor.textContent = '#';
+    anchor.innerHTML = iconSvg('heading-anchor');
     heading.append(anchor);
   }
 }

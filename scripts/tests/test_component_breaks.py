@@ -10,6 +10,19 @@ from handbook.mdx import quiz_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_editorial_bullets_use_generous_sparks_without_replacing_list_semantics(self):
+        for name in ("global.css", "print.css", "epub.css"):
+            with self.subTest(stylesheet=name):
+                css = (ROOT / "src/styles" / name).read_text()
+                self.assertIn("ul:not([class]) > li::marker", css)
+                self.assertIn("list-style-type: disc;", css)
+                self.assertIn("1.1rem", css)
+                self.assertIn("icons/spark", css)
+                self.assertIn("icons/spark-outline", css)
+                self.assertNotIn("pebble", css)
+                marker = re.search(r"ul:not\(\[class\]\) > li::before\s*\{([^}]+)\}", css).group(1)
+                self.assertIn("1.1rem", marker)
+
     def test_sidebar_bookmarks_stick_below_the_header_and_fit_the_viewport(self):
         css = (ROOT / "src/styles/global.css").read_text()
         bookmarks = re.search(r"\.side-nav \[data-bookmark-nav\]\s*\{([^}]+)\}", css).group(1)

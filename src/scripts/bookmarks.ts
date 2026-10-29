@@ -9,13 +9,12 @@ import { DEFAULT_LANG } from '../lib/site';
 import { languages, type Language } from '../data/locales';
 import { t } from '../lib/i18n';
 import { bookmarkExcerpt, plainBookmarkText } from '../lib/bookmark-title';
+import { iconSvg } from '../lib/icons.ts';
 const VISITS_KEY = 'toolbox.last-visit';
 const DISMISSED_KEY = 'toolbox.last-visit-dismissed';
 const MARKS_KEY = 'toolbox.bookmarks';
 const TARGET_HIGHLIGHT = 'is-bookmark-target';
-/** Same stroke-X icon as Icon name="x" (used for every close affordance). */
-const X_ICON_SVG =
-  '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l16 16" /><path d="M20 4L4 20" /></svg>';
+const X_ICON_SVG = iconSvg('x');
 
 interface StoredMark {
   page: string;

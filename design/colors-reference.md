@@ -109,6 +109,9 @@ Literal-color exceptions are limited to generated outputs, tests and protected
 artwork/tooling. Each exception is listed with its reason in the registry.
 
 - `src/assets`: Supplied and generated artwork, photos, partner marks and fonts are not UI palette choices.
+- `design/icons/artwork/favicon.svg`: Byte-identical inventory copy of public/favicon.svg; icons:check verifies preservation, never recolors artwork.
+- `design/icons/artwork/logo-small.svg`: Byte-identical inventory copy of src/assets/site/logo-small.svg; icons:check verifies preservation, never recolors artwork.
+- `design/icons/artwork/cc-by.svg`: Byte-identical inventory copy of the supplied Creative Commons badge; its external artwork colors are not UI tokens.
 - `design/colors.json`: Editable source of truth; base colors and recipes are validated before generation.
 - `src/data/colors.generated.json`: Generated registry output; exact freshness is checked.
 - `src/styles/colors.generated.css`: Generated registry output; exact freshness is checked.

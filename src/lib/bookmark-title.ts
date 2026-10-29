@@ -30,28 +30,31 @@ type Labels = Record<'video' | 'image' | 'slideshow' | 'table' | 'quote' | 'tip'
 /** Component-specific bookmark titles; ordinary prose keeps a short excerpt. */
 export function bookmarkExcerpt(element: HTMLElement, labels: Labels, maxWords = 25): string {
   const caption = () => text(element.querySelector('figcaption'));
+  // Classification does not narrow the element's DOM type: several HTML
+  // element interfaces are structurally identical in TypeScript's DOM libs.
+  const matches = (selector: string): boolean => element.matches(selector);
   const labelled = (kind: keyof Labels, value: string) => value ? `${labels[kind]}: ${value}` : labels[kind];
   let title: string;
-  if (element.matches('[data-video]')) {
+  if (matches('[data-video]')) {
     title = labelled('video', caption());
-  } else if (element.matches('[data-slides]')) {
+  } else if (matches('[data-slides]')) {
     title = labelled('slideshow', plainBookmarkText(element.getAttribute('aria-label') ?? '') || caption());
-  } else if (element.matches('.qr')) {
+  } else if (matches('.qr')) {
     title = labelled('qr', caption() || plainBookmarkText(element.querySelector('[role="img"]')?.getAttribute('aria-label') ?? ''));
-  } else if (element.matches('figure') || (element.querySelector('img') && !text(element))) {
+  } else if (matches('figure') || (element.querySelector('img') && !text(element))) {
     title = labelled('image', caption() || plainBookmarkText(element.querySelector('img')?.getAttribute('alt') ?? ''));
-  } else if (element.matches('[data-quiz]')) {
+  } else if (matches('[data-quiz]')) {
     title = text(element.querySelector('legend'));
-  } else if (element.matches('.table-scroll, table')) {
+  } else if (matches('.table-scroll, table')) {
     const headers = [...element.querySelectorAll('thead th')].map(cell => text(cell)).filter(Boolean).join(' / ');
     title = labelled('table', text(element.querySelector('caption')) || headers);
-  } else if (element.matches('.feature-box, .mascot-box')) {
+  } else if (matches('.feature-box, .mascot-box')) {
     title = labelled('tip', text(element.querySelector('.feature-box__title, .mascot-box__title')) || text(element));
-  } else if (element.matches('details')) {
+  } else if (matches('details')) {
     title = labelled('accordion', text(element.querySelector('summary')));
-  } else if (element.matches('blockquote')) {
+  } else if (matches('blockquote')) {
     title = labelled('quote', text(element.querySelector('p')) || text(element));
-  } else if (element.matches('[data-copy]')) {
+  } else if (matches('[data-copy]')) {
     title = labelled('copy', plainBookmarkText(element.getAttribute('data-copy') ?? ''));
   } else {
     title = text(element);

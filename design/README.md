@@ -15,6 +15,9 @@ It is not authenticated: anyone with its URL can access it.
   Edit the design logo master, not its generated application copy.
 - **`manifest.json`** — one inventory for website downloads and recipient kits.
 - **`motion/`** — the editable animation project, with independent Studio rigs.
+- **`icons/`** — [hand-drawn icon library and old archive](icons/index.html).
+  Generous idea sparks are selected for lists. `npm run icons:build` exports the
+  approved SVG/PNG assets into `src/assets/icons/`; it never renders mascot videos.
 - **`docs/`** — [maintenance](docs/maintenance.md) and recipient instructions.
 - **`scripts/`, `tests/`** — production tools and checks.
 - **`handoff/`** — generated deliveries; ignored.

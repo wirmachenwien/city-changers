@@ -1,5 +1,6 @@
 // Shared, non-modal explanatory popups for definitions and footnotes.
 // Fixed positioning is recalculated from the trigger on every scroll frame.
+import { iconSvg } from '../lib/icons.ts';
 interface PopupOptions {
   content: () => string | Node;
   label: string;
@@ -66,7 +67,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
     closer.className = 'content-popup-close';
     closer.hidden = !pinned;
     closer.setAttribute('aria-label', options.closeLabel);
-    closer.innerHTML = '<span class="content-popup-close-face"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 4l16 16M20 4L4 20" /></svg></span>';
+    closer.innerHTML = `<span class="content-popup-close-face">${iconSvg('x')}</span>`;
     const body = document.createElement('div');
     body.className = 'content-popup-body';
     body.append(options.content());
@@ -82,7 +83,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
         window.location.assign(href);
       });
       // Downward counterpart of the footnote's corner-up-left backlink.
-      jump.innerHTML = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 15 15 20 20 15" /><path d="M4 4h7a4 4 0 0 1 4 4v12" /></svg>';
+      jump.innerHTML = iconSvg('footnote-down');
       body.append(' ', jump);
     }
     popup.append(closer, body);

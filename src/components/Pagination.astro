@@ -7,6 +7,7 @@ import { settings } from '../data/settings';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
 import type { NeighbourEntry } from '../data/book-toc';
+import Icon from './Icon.astro';
 
 interface Props {
   lang: Language;
@@ -16,27 +17,28 @@ interface Props {
 
 const { lang, prev, next } = Astro.props;
 const type = settings.web.paginationType;
+const arrows = type === 'arrows' || type === 'title-arrows';
 
 function label(entry: NeighbourEntry, direction: 'prev' | 'next'): string {
-  const arrow = direction === 'prev' ? '←' : '→';
   const fallback = direction === 'prev' ? t(lang, 'nav.previous', 'Previous') : t(lang, 'nav.next', 'Next');
-  if (type === 'arrows') return arrow;
   if (type === 'previous-next') return fallback;
-  if (type === 'titles') return entry.label;
-  // Keep each arrow with its neighbouring word instead of orphaning it.
-  return direction === 'prev' ? `${arrow}\u00a0${entry.label}` : `${entry.label}\u00a0${arrow}`;
+  return entry.label;
 }
 ---
 {(prev || next) && (
   <div class="pagination">
     <nav aria-label={t(lang, 'nav.toc', 'Contents')}>
       {prev ? (
-        <a class="prev" rel="prev" href={prev.url}>{label(prev, 'prev')}</a>
+        <a class="prev" rel="prev" href={prev.url} aria-label={type === 'arrows' ? label(prev, 'prev') : undefined}>
+          {arrows && <Icon name="arrow-left" />}{type !== 'arrows' && <span>{label(prev, 'prev')}</span>}
+        </a>
       ) : (
         <span />
       )}
       {next && (
-        <a class="next" rel="next" href={next.url}>{label(next, 'next')}</a>
+        <a class="next" rel="next" href={next.url} aria-label={type === 'arrows' ? label(next, 'next') : undefined}>
+          {type !== 'arrows' && <span>{label(next, 'next')}</span>}{arrows && <Icon name="arrow-right" />}
+        </a>
       )}
     </nav>
   </div>

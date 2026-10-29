@@ -2,6 +2,7 @@ import { unified } from 'unified';
 import rehypeParse from 'rehype-parse';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
+import { iconSvg } from './icons.ts';
 
 /** Enhance rendered content, including links inside embedded Astro components. */
 export function externalLinks(html, site, notice) {
@@ -29,7 +30,7 @@ export function externalLinks(html, site, notice) {
     node.children.push({
       type: 'element', tagName: 'span',
       properties: { className: ['external-link-icon'], ariaHidden: 'true' },
-      children: [{ type: 'text', value: '↗' }],
+      children: processor.parse(iconSvg('external-link')).children,
     });
     // An existing aria-label overrides child text, so extend it directly.
     if (node.properties.ariaLabel) {

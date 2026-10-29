@@ -46,6 +46,7 @@ function environment({ hash = '', touch = false } = {}) {
     '../lib/site': { DEFAULT_LANG: 'en' },
     '../data/locales': { languages: ['en', 'de', 'sl'] },
     '../lib/i18n': { t: (_lang, _key, fallback) => fallback },
+    '../lib/icons.ts': { iconSvg: () => '<svg class="icon"></svg>' },
     '../lib/bookmark-title': {
       bookmarkExcerpt: element => element.textContent.trim(), plainBookmarkText: value => value,
     },

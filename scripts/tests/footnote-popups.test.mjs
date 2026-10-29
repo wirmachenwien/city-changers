@@ -37,6 +37,7 @@ function environment() {
   const imports = {
     '../data/locales': { languages: ['en', 'de', 'sl'] },
     '../lib/i18n': { t: (_lang, _key, fallback) => fallback },
+    '../lib/icons.ts': { iconSvg: name => `<svg class="icon" data-icon="${name}"></svg>` },
   };
   function load(name) {
     const exports = {};

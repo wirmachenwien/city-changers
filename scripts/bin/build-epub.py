@@ -449,6 +449,9 @@ class EpubBook:
                 encoding="utf-8",
             )
             css = resolve_color_tokens(EPUB_CSS_PATH.read_text(encoding="utf-8")) + "\n" + katex_css("../fonts/")
+            for name in ("spark", "spark-outline"):
+                image = self.add_image(f"icons/png/light/{name}.png")
+                css = css.replace(f'url("icons/{name}.png")', f'url("../{image}")')
             (oebps / "styles" / "epub.css").write_text(css, encoding="utf-8")
             (oebps / "nav.xhtml").write_text(self.nav_document(), encoding="utf-8")
             (oebps / "content.opf").write_text(self.opf_document(), encoding="utf-8")
