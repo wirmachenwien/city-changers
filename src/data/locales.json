@@ -31,7 +31,8 @@
       "correct-answers": "Richtige Antworten",
       "feedback-correct": "Richtig!",
       "feedback-incorrect": "Falsch",
-      "feedback-unfinished": "Fast – du hast noch nicht alle richtigen Antworten ausgewählt."
+      "feedback-unfinished": "Fast – du hast noch nicht alle richtigen Antworten ausgewählt.",
+      "feedback-empty": "Bitte wähle mindestens eine Antwort aus."
     },
     "cross-references": {
       "pre-page-number": "(Seite ",
@@ -144,7 +145,8 @@
       "correct-answers": "Correct answers",
       "feedback-correct": "Correct!",
       "feedback-incorrect": "Incorrect",
-      "feedback-unfinished": "Almost – you haven't selected all the correct answers yet."
+      "feedback-unfinished": "Almost – you haven't selected all the correct answers yet.",
+      "feedback-empty": "Please select at least one answer."
     },
     "cross-references": {
       "pre-page-number": "(page ",
@@ -257,7 +259,8 @@
       "correct-answers": "Pravilni odgovori",
       "feedback-correct": "Pravilno!",
       "feedback-incorrect": "Napačno",
-      "feedback-unfinished": "Skoraj – še nisi izbral vseh pravilnih odgovorov."
+      "feedback-unfinished": "Skoraj – še nisi izbral vseh pravilnih odgovorov.",
+      "feedback-empty": "Izberi vsaj en odgovor."
     },
     "cross-references": {
       "pre-page-number": "(stran ",

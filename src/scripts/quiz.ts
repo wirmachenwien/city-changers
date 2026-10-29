@@ -9,12 +9,9 @@ export function initQuiz(): void {
       const inputs = [...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"], input[type="radio"]')];
       const checked = inputs.filter((input) => input.checked);
       const single = form.dataset.single === 'true';
-      // Single choice needs no unfinished state: with nothing selected there
-      // is nothing to grade, so leave feedback untouched.
-      if (single && checked.length === 0) return;
-      let state: 'correct' | 'incorrect' | 'unfinished';
+      let state: 'correct' | 'incorrect' | 'unfinished' | 'empty';
       if (checked.length === 0) {
-        state = 'unfinished';
+        state = 'empty';
       } else if (single) {
         state = checked[0]?.hasAttribute('data-correct') ? 'correct' : 'incorrect';
       } else {
@@ -27,7 +24,10 @@ export function initQuiz(): void {
               : 'unfinished';
       }
       const key =
+        state === 'empty' ? 'feedbackEmpty' :
         state === 'correct' ? 'feedbackCorrect' : state === 'incorrect' ? 'feedbackIncorrect' : 'feedbackUnfinished';
+      feedback.setAttribute('role', state === 'empty' ? 'alert' : 'status');
+      feedback.setAttribute('aria-live', state === 'empty' ? 'assertive' : 'polite');
       feedback.textContent = form.dataset[key] ?? '';
       feedback.setAttribute('data-state', state);
       markOptions(form, inputs);

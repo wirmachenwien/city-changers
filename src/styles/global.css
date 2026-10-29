@@ -1332,6 +1332,7 @@ html:not(.js-fold) .accordion-content {
 }
 
 .quiz .quiz-feedback[data-state="incorrect"],
+.quiz .quiz-feedback[data-state="empty"],
 .quiz .quiz-feedback[data-state="unfinished"] {
   color: var(--error);
 }

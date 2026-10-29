@@ -26,11 +26,12 @@ const displayOptions = options.map((option) => smartQuotes(option, lang));
 <form
   class="quiz"
   data-quiz={id}
+  data-feedback-empty={smartQuotes(t(lang, 'questions.feedback-empty', 'Please select at least one answer.'), lang)}
   data-single="true"
   data-feedback-correct={smartQuotes(feedbackCorrect ?? t(lang, 'questions.feedback-correct', 'Correct!'), lang)}
   data-feedback-incorrect={smartQuotes(feedbackIncorrect ?? t(lang, 'questions.feedback-incorrect', 'Incorrect'), lang)}
 >
-  <fieldset>
+  <fieldset aria-describedby={`${id}-feedback`}>
     <legend>{displayQuestion}</legend>
     {displayOptions.map((option, index) => (
       <label>
@@ -46,6 +47,6 @@ const displayOptions = options.map((option) => smartQuotes(option, lang));
   </fieldset>
   <template data-icon-correct><Icon name="check" /></template>
   <template data-icon-incorrect><Icon name="x" /></template>
-  <p class="quiz-feedback" data-feedback aria-live="polite" />
+  <p id={`${id}-feedback`} class="quiz-feedback" data-feedback aria-live="polite" />
   <button type="submit">{t(lang, 'questions.check-answers-button', 'Check my answers')}</button>
 </form>
