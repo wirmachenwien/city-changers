@@ -672,7 +672,7 @@ body.drawer-open {
   max-inline-size: var(--measure);
 }
 
-.prose > :first-child {
+.prose > :first-child:not(h1) {
   margin-block-start: 0;
 }
 
@@ -774,7 +774,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 
 .prose h1 {
   font-size: 2rem;
-  margin-block: 0 1rem;
+  margin-block: 2.75rem 1rem;
 }
 
 .prose h2 {
@@ -790,22 +790,21 @@ a[data-external-link]:has(img) > .external-link-icon {
 /* Give new sections breathing room after content, without adding space
    at the start of a container or between consecutive headings. */
 :is(.prose, .sheet) :not(:is(h1, h2, h3, h4, h5, h6)) + :is(h1, h2, h3, h4, h5, h6) {
-  margin-block-start: 2rem;
+  margin-block-start: 2.25rem;
 }
 
 :is(.prose, .sheet) :not(:is(h1, h2, h3, h4, h5, h6)) + :is(h1, h2) {
-  margin-block-start: 2.5rem;
+  margin-block-start: 2.75rem;
 }
 
 .prose p,
 .prose ul,
 .prose ol {
   margin-block: 0 1rem;
-  line-height: 1.5;
 }
 
 .prose li + li {
-  margin-block-start: 0.75em;
+  margin-block-start: 0.5em;
 }
 
 .prose blockquote {
@@ -2170,7 +2169,7 @@ html:not(.js-fold) .accordion-content {
    margins as .prose h1 above). */
 .sheet h1 {
   font-size: 2rem;
-  margin-block: 0 1rem;
+  margin-block: 2.75rem 1rem;
 }
 
 /* On the contents page the sheet opens the article (after the crumbs
