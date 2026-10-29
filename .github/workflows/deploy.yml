@@ -43,7 +43,7 @@ jobs:
           # (Settings → Secrets and variables → Actions → Variables).
           # PLAUSIBLE_DOMAIN is the site identifier registered in Plausible
           # (data-domain); PLAUSIBLE_SCRIPT_SRC is the full script URL on the
-          # self-hosted instance (file-downloads + outbound-links variant).
+          # self-hosted instance (site-specific pa-….js installation URL).
           # Unset values leave tracking disabled without failing the build.
           PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
           PLAUSIBLE_SCRIPT_SRC: ${{ vars.PLAUSIBLE_SCRIPT_SRC }}

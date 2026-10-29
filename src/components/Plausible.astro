@@ -26,6 +26,17 @@ const enabled =
 {enabled && (
   <>
     <link rel="preconnect" href={scriptOrigin} crossorigin />
-    <script defer data-domain={plausible.domain} src={plausible.scriptSrc}></script>
+    <script async src={plausible.scriptSrc}></script>
+    {/* Keep this inline and inside the enabled guard. The site-specific
+        tracker needs init(), unlike the legacy data-domain tracker. */}
+    <script is:inline>
+      window.plausible = window.plausible || function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+      window.plausible.init = window.plausible.init || function (options) {
+        window.plausible.o = options || {};
+      };
+      window.plausible.init();
+    </script>
   </>
 )}
