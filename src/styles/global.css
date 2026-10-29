@@ -748,7 +748,7 @@ body.drawer-open {
 
 .external-link-icon {
   display: inline-block;
-  margin-inline-start: 0.15em;
+  margin-inline-start: 0.08em;
   font-family: var(--font-ui);
   font-size: 0.75em;
   line-height: 1;
