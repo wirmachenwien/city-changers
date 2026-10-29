@@ -8,6 +8,7 @@
 import { DEFAULT_LANG } from '../lib/site';
 import { languages, type Language } from '../data/locales';
 import { t } from '../lib/i18n';
+import { bookmarkExcerpt, plainBookmarkText } from '../lib/bookmark-title';
 const VISITS_KEY = 'toolbox.last-visit';
 const DISMISSED_KEY = 'toolbox.last-visit-dismissed';
 const MARKS_KEY = 'toolbox.bookmarks';
@@ -40,8 +41,8 @@ function readMarks(): StoredMark[] {
     return {
       page,
       url,
-      title: typeof mark.title === 'string' ? mark.title : '',
-      excerpt: typeof mark.excerpt === 'string' ? mark.excerpt : '',
+      title: typeof mark.title === 'string' ? plainBookmarkText(mark.title) : '',
+      excerpt: typeof mark.excerpt === 'string' ? plainBookmarkText(mark.excerpt) : '',
       note: typeof mark.note === 'string' ? mark.note : '',
       at: typeof mark.at === 'string' ? mark.at : '',
       anchor,
@@ -106,11 +107,18 @@ function anchorFromUrl(url: string): string {
 
 /** Leading-words excerpt identifying a target block. */
 function excerptFor(element: HTMLElement, maxWords = 25): string {
-  return collapseText(element.textContent ?? '')
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, maxWords)
-    .join(' ');
+  const lang = currentLanguage();
+  return bookmarkExcerpt(element, {
+    video: t(lang, 'bookmarks.component-labels.video', 'Video'),
+    image: t(lang, 'bookmarks.component-labels.image', 'Image'),
+    slideshow: t(lang, 'bookmarks.component-labels.slideshow', 'Slideshow'),
+    table: t(lang, 'bookmarks.component-labels.table', 'Table'),
+    quote: t(lang, 'bookmarks.component-labels.quote', 'Quote'),
+    tip: t(lang, 'bookmarks.component-labels.tip', 'Tip'),
+    accordion: t(lang, 'bookmarks.component-labels.accordion', 'Details'),
+    copy: t(lang, 'bookmarks.component-labels.copy', 'Text to copy'),
+    qr: t(lang, 'bookmarks.component-labels.qr', 'QR code'),
+  }, maxWords);
 }
 
 /** Render every sidebar bookmark list for the active language. */
@@ -491,7 +499,8 @@ function initBookmarkGutter(): void {
     const target = targets[pendingIndex];
     if (!target) return;
     const page = location.pathname;
-    const title = formatChapterTitle(document.querySelector('main h1')?.textContent?.trim() || document.title);
+    const heading = document.querySelector<HTMLElement>('main h1');
+    const title = formatChapterTitle(heading ? excerptFor(heading, Number.MAX_SAFE_INTEGER) : plainBookmarkText(document.title));
     const excerpt = excerptFor(target);
     let anchor = target.id;
     if (!anchor) {

@@ -44,7 +44,11 @@
       "remove-bookmark": "Lesezeichen entfernen",
       "bookmarks": "Lesezeichen",
       "last-location-prompt": "Weiterlesen?",
-      "delete-bookmark": "Löschen"
+      "delete-bookmark": "Löschen",
+      "component-labels": {
+        "video": "Video", "image": "Bild", "slideshow": "Bildergalerie", "table": "Tabelle",
+        "quote": "Zitat", "tip": "Tipp", "accordion": "Details", "copy": "Text zum Kopieren", "qr": "QR-Code"
+      }
     },
     "controls": {
       "language-select": "Sprache auswählen",
@@ -158,7 +162,11 @@
       "remove-bookmark": "Remove bookmark",
       "bookmarks": "Bookmarks",
       "last-location-prompt": "Continue from your last visit?",
-      "delete-bookmark": "Delete"
+      "delete-bookmark": "Delete",
+      "component-labels": {
+        "video": "Video", "image": "Image", "slideshow": "Slideshow", "table": "Table",
+        "quote": "Quote", "tip": "Tip", "accordion": "Details", "copy": "Text to copy", "qr": "QR code"
+      }
     },
     "controls": {
       "language-select": "Select language",
@@ -272,7 +280,11 @@
       "remove-bookmark": "Odstrani zaznamek",
       "bookmarks": "Zaznamki",
       "last-location-prompt": "Želiš nadaljevati branje od zadnjega obiska?",
-      "delete-bookmark": "Izbriši"
+      "delete-bookmark": "Izbriši",
+      "component-labels": {
+        "video": "Video", "image": "Slika", "slideshow": "Galerija", "table": "Tabela",
+        "quote": "Citat", "tip": "Nasvet", "accordion": "Podrobnosti", "copy": "Besedilo za kopiranje", "qr": "Koda QR"
+      }
     },
     "controls": {
       "language-select": "Izberi jezik",
