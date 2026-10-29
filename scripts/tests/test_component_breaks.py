@@ -10,6 +10,11 @@ from handbook.mdx import quiz_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_styles_use_root_relative_instead_of_element_relative_units(self):
+        for path in (ROOT / "src/styles").glob("*.css"):
+            with self.subTest(stylesheet=path.name):
+                self.assertNotRegex(path.read_text(), r"\d(?:\.\d+)?em\b")
+
     def test_web_quiz_only_adds_feedback_space_when_populated(self):
         css = (ROOT / "src/styles/global.css").read_text()
         quiz = re.search(r"^\.quiz\s*\{([^}]+)\}", css, re.MULTILINE).group(1)
@@ -56,7 +61,7 @@ class ComponentBreakTest(unittest.TestCase):
                 self.assertRegex(css, r"break-after:\s*avoid")
 
     def test_accordion_title_gap_is_tightened(self):
-        expected_gap = {"print.css": "margin: 0 0 3pt;", "epub.css": "margin: 0 0 0.2em;"}
+        expected_gap = {"print.css": "margin: 0 0 3pt;", "epub.css": "margin: 0 0 0.2rem;"}
         for name, gap in expected_gap.items():
             with self.subTest(stylesheet=name):
                 css = (ROOT / "src" / "styles" / name).read_text(encoding="utf-8")
