@@ -880,11 +880,53 @@ a[data-external-link]:has(img) > .external-link-icon {
 }
 
 .prose code {
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+}
+
+.prose :not(pre) > code {
   background: var(--panel);
+  color: var(--ink);
   padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;
+  overflow-wrap: anywhere;
+}
+
+.prose pre {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  margin-block: 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  text-align: start;
+  white-space: pre;
+  tab-size: 2;
+  /* Override Shiki's fixed inline theme with our accessible light/dark pair. */
+  background: var(--panel) !important;
+  color: var(--ink) !important;
+}
+
+.prose pre code {
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  white-space: inherit;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.prose pre span {
+  /* Syntax colors must not introduce unregistered, dark-only text colors. */
+  color: inherit !important;
 }
 
 /* ---------- Breadcrumbs ---------- */

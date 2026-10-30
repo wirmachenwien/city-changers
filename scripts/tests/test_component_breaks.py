@@ -10,6 +10,22 @@ from handbook.mdx import question_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_code_blocks_do_not_inherit_inline_code_chips_or_fixed_shiki_colors(self):
+        css = (ROOT / "src/styles/global.css").read_text()
+        inline = re.search(r"\.prose :not\(pre\) > code\s*\{([^}]+)\}", css).group(1)
+        block = re.search(r"\.prose pre\s*\{([^}]+)\}", css).group(1)
+        code = re.search(r"\.prose pre code\s*\{([^}]+)\}", css).group(1)
+        spans = re.search(r"\.prose pre span\s*\{([^}]+)\}", css).group(1)
+        self.assertIn("background: var(--panel);", inline)
+        self.assertIn("overflow-x: auto;", block)
+        self.assertIn("ui-monospace", block)
+        self.assertIn("background: var(--panel) !important;", block)
+        self.assertIn("color: var(--ink) !important;", block)
+        self.assertIn("padding: 0;", code)
+        self.assertIn("background: none;", code)
+        self.assertIn("font: inherit;", code)
+        self.assertIn("color: inherit !important;", spans)
+
     def test_editorial_bullets_use_generous_sparks_without_replacing_list_semantics(self):
         for name in ("global.css", "print.css", "epub.css"):
             with self.subTest(stylesheet=name):
