@@ -1,5 +1,23 @@
 ---
 import MascotPreview from './MascotPreview.astro';
+import catalogSource from '../../public/brand-assets/catalog.json?raw';
+import { withBase } from '../lib/site';
+
+const assetFiles = new Set((JSON.parse(catalogSource) as { file: string }[]).map(({ file }) => file));
+const treatments = ['ink', 'linen'] as const;
+function downloads(pose: string, treatment: string, animated = false) {
+  const files = animated ? [
+    { file: `03-animation/lottie/green-fix-${pose}-${treatment}.json`, label: 'Lottie' },
+    { file: `03-animation/video/green-fix-${pose}-${treatment}.mov`, label: 'MOV' },
+  ] : [
+    { file: `02-mascot-stills/${treatment}/${pose}.svg`, label: 'SVG' },
+    { file: `02-mascot-stills/${treatment}/${pose}.png`, label: 'PNG' },
+  ];
+  return files.map(({ file, label }) => {
+    if (!assetFiles.has(file)) throw new Error(`Missing mascot download in asset catalog: ${file}`);
+    return { href: withBase(`/brand-assets/files/${file}`), label };
+  });
+}
 
 const states = [
   { pose: 'neutral', animation: 'idle', use: 'A calm companion to an explanation.' },
@@ -20,11 +38,35 @@ const states = [
         <figure>
           <MascotPreview pose={pose} animated={false} />
           <figcaption>Static: <code>{pose}</code></figcaption>
+          <div class="mascot-state__downloads">
+            {treatments.map((treatment) => (
+              <div>
+                <strong>{treatment === 'ink' ? 'Ink' : 'Linen'}</strong>
+                <div class="mascot-state__formats">
+                  {downloads(pose, treatment).map(({ href, label }) => (
+                    <a {href} download aria-label={`Download ${pose} ${treatment} still (${label})`}>{label}</a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </figure>
         {animation ? (
           <figure>
             <MascotPreview pose={animation} animated lang="en" />
             <figcaption>Animated: <code>{animation}</code></figcaption>
+            <div class="mascot-state__downloads">
+              {treatments.map((treatment) => (
+                <div>
+                  <strong>{treatment === 'ink' ? 'Ink' : 'Linen'}</strong>
+                  <div class="mascot-state__formats">
+                    {downloads(animation, treatment, true).map(({ href, label }) => (
+                      <a {href} download aria-label={`Download ${animation} ${treatment} animation (${label})`}>{label}</a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </figure>
         ) : <p class="mascot-state__unavailable">Still only — no animation.</p>}
       </div>
@@ -38,5 +80,8 @@ const states = [
   .mascot-state__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   figure { margin: 0; min-inline-size: 0; }
   figcaption { margin-block-start: .5rem; font-family: var(--font-ui); font-size: .875rem; }
+  .mascot-state__downloads { display: grid; gap: .5rem; margin-block-start: .75rem; font-family: var(--font-ui); font-size: .875rem; }
+  .mascot-state__formats { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .mascot-state__formats a { display: inline-flex; align-items: center; min-block-size: 44px; }
   .mascot-state__unavailable { align-self: center; margin: 0; color: var(--ink-soft); font-family: var(--font-ui); }
 </style>
