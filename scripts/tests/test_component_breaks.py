@@ -40,8 +40,8 @@ class ComponentBreakTest(unittest.TestCase):
                 self.assertIn("1.1rem", css)
                 self.assertIn("icons/spark", css)
                 self.assertIn("icons/spark-outline", css)
-                self.assertNotIn("pebble", css)
                 marker = re.search(r"ul:not\(\[class\]\) > li::before\s*\{([^}]+)\}", css).group(1)
+                self.assertNotIn("pebble", marker)
                 self.assertIn("1.1rem", marker)
 
     def test_sidebar_bookmarks_stick_below_the_header_and_fit_the_viewport(self):

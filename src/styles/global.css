@@ -887,10 +887,10 @@ a[data-external-link]:has(img) > .external-link-icon {
 
 .color-pebble {
   display: inline-block;
-  inline-size: 1em;
-  block-size: 0.75em;
-  margin-inline-end: 0.35em;
-  vertical-align: -0.05em;
+  inline-size: 0.875rem;
+  block-size: 0.65625rem;
+  margin-inline-end: 0.30625rem;
+  vertical-align: -0.04375rem;
   border: 1px solid var(--control-border);
   border-radius: 45% 55% 48% 42%;
   background-color: var(--pebble-color);
