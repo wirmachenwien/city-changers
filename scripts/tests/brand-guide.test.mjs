@@ -60,3 +60,10 @@ test('logo and mascot share a section with linked still and animated previews', 
   assert.ok(!guide.includes('Explore all static poses'));
   assert.ok(!guide.includes('Explore all animated poses'));
 });
+
+test('brand guide documents bookmarking without rendering an active control', () => {
+  const guide = read(guidePath);
+  const withoutExamples = guide.replace(/```[\s\S]*?```/g, '');
+  assert.ok(!withoutExamples.includes('<BookmarkAdd'));
+  assert.ok(guide.includes('<BookmarkAdd lang="en" />'));
+});
