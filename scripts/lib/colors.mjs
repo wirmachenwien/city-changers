@@ -107,7 +107,6 @@ export function generateOutputs(registry, resolved, guide, registrySource = JSON
     `:root[data-theme="dark"] {\n  color-scheme: dark;\n${declarations(themes.dark)}\n}\n\n` +
     `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {\n    color-scheme: dark;\n${declarations(themes.dark).replace(/^/gm, '  ')}\n  }\n}\n\n` +
     `@media print {\n  :root, :root[data-theme], :root:not([data-theme]) {\n    color-scheme: light;\n${declarations(themes.print).replace(/^/gm, '  ')}\n  }\n}\n`;
-  const rows = registry.palette.map(color => `${color.name.padEnd(18)}${serializeColor(resolved.resolve(color.ref)).toUpperCase()}   ${color.use}`).join('\n');
   const artRows = Object.entries(artwork).map(([name, value]) => `| ${title(name)} | \`${value.toUpperCase()}\` | ${registry.artwork[name].use} |`).join('\n');
   const functionalRows = registry.functionalColors.map(({ name, token }) => {
     if (!registry.tokens[token]) throw new Error(`Unknown functional color token: ${token}`);
@@ -126,15 +125,6 @@ additional brand colors to choose independently.
 Enter these HEX codes in your design app's color picker:
 
 <BrandPalette />
-
-<details>
-<summary>Copyable color values</summary>
-
-\`\`\`text
-${rows}
-\`\`\`
-
-</details>
 
 Use the semantic light/dark tokens for interfaces, rather than applying these
 base colors to every background. Warm FeatureBoxes use the amber accent with

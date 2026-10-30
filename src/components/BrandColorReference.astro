@@ -1,7 +1,8 @@
 ---
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import source from '../../design/colors-reference.md?raw';
-const markdown = await createMarkdownProcessor();
+import rehypeColorPebbles from '../lib/rehype-color-pebbles.mjs';
+const markdown = await createMarkdownProcessor({ rehypePlugins: [rehypeColorPebbles] });
 const { code } = await markdown.render(source.replace(/^(#{1,2}) /gm, '###$1 '));
 ---
 <details class="color-reference"><summary>Technical color reference: themes, recipes and accessibility</summary><div set:html={code} /></details>

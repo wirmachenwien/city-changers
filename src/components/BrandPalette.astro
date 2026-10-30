@@ -10,7 +10,7 @@ const colors = registry.palette.map((color) => {
 ---
 <ul class="color-grid">
   {colors.map(({ name, hex, use }) => (
-    <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name}</strong> <code>{hex}</code><small>{use}</small></li>
+    <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name}</strong> <code><span class="color-value"><span class="color-pebble" style={{ '--pebble-color': hex }} aria-hidden="true"></span>{hex}</span></code><small>{use}</small></li>
   ))}
 </ul>
 <style>

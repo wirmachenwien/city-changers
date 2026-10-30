@@ -878,6 +878,25 @@ a[data-external-link]:has(img) > .external-link-icon {
   color: var(--ink-soft);
 }
 
+.color-value {
+  display: inline-block;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.color-pebble {
+  display: inline-block;
+  inline-size: 1em;
+  block-size: 0.75em;
+  margin-inline-end: 0.35em;
+  vertical-align: -0.05em;
+  border: 1px solid var(--control-border);
+  border-radius: 45% 55% 48% 42%;
+  background-color: var(--pebble-color);
+  print-color-adjust: exact;
+}
+
 .prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.875rem;
@@ -889,6 +908,15 @@ a[data-external-link]:has(img) > .external-link-icon {
   padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;
   overflow-wrap: anywhere;
+}
+
+/* Table tokens and color values are atomic; wide tables scroll instead. */
+.brand-guide table :not(pre) > code,
+.brand-guide table .color-value {
+  display: inline-block;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .prose pre {
