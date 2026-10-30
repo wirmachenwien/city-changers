@@ -1,13 +1,14 @@
 # City Changers brand library
 
-**Start here:** the team reference is published at `/preview/brand-guide.html`.
+**Start here:** the brand guide is published at `/brand`.
 It is unlisted, excluded from search and the sitemap, and marked `noindex`.
 It is not authenticated: anyone with its URL can access it.
 
 ## Single sources of truth
 
-- **`brand-guide.md`** — the only authored brand guide, rendered on the website
-  and included unchanged as `BRAND-GUIDE.md` in the downloadable kit.
+- **`brand-guide.mdx`** — the only authored brand guide, including all live
+  component examples. It is edited as one document in Pages CMS, rendered on
+  the website and included unchanged as `BRAND-GUIDE.md` in the downloadable kit.
 - **`assets/`** — the sole logo master (`logo/logo-lockup.svg`) and mascot pose
   definitions. Derived logos live in `src/assets/site/`, mascot media in
   `src/assets/mascot/`, fonts in `src/assets/fonts/`, supporting images in

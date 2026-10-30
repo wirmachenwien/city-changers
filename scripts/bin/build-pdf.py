@@ -60,7 +60,7 @@ from handbook.mdx import (
     MASCOT_CLOSE_RE,
     PULLQUOTE_RE,
     QUESTION_RE,
-    QUIZ_RE,
+    QUESTION_RE,
     VIDEO_RE,
     attrs,
     chapter_lists,
@@ -72,7 +72,7 @@ from handbook.mdx import (
     mascot_open_html,
     pullquote_html,
     question_html,
-    quiz_html,
+    question_html,
     strip_static_handlers,
 )
 
@@ -292,8 +292,6 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
         text += f'\n\n<section class="footnotes"><h2>{footnotes_title}</h2><ol>{items}</ol></section>\n'
     text = GLOSSARY_RE.sub(lambda m: glossary_html(m.group(1)), text)
     text = GLOSSARY_LANG_RE.sub(lambda m: glossary_lang_html(m.group(1), glossary_data()), text)
-    text = QUIZ_RE.sub(lambda m: quiz_html(attrs(m.group(1)).get("question", ""), m.group(2), answers_label,
-                                         attrs(m.group(1)).get("id", "")), text)
     text = QUESTION_RE.sub(
         lambda m: question_html(
             attrs(m.group(1)).get("question", ""),

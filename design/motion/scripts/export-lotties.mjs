@@ -381,7 +381,7 @@ async function exportMascot(character, treatment) {
     }
     return clean({ v, i, o, c: closed });
   }
-  const colour = (hex) => {
+  const color = (hex) => {
     const rgb = hex.match(/^rgba?\(([^)]+)\)$/);
     if (rgb) {
       const n = rgb[1].split(/[,\s]+/).map(Number);
@@ -390,7 +390,7 @@ async function exportMascot(character, treatment) {
       );
     }
     if (!/^#[0-9a-f]{6}$/i.test(hex))
-      throw new Error(`Unsupported colour ${hex}`);
+      throw new Error(`Unsupported color ${hex}`);
     return [1, 3, 5]
       .map((n) => parseInt(hex.slice(n, n + 2), 16) / 255)
       .concat(1)
@@ -476,7 +476,7 @@ async function exportMascot(character, treatment) {
         nm: "Outline",
         c: property(
           frames.map((f) =>
-            colour(palette(f.stroke ?? "#20221c", f.faceDetail)),
+            color(palette(f.stroke ?? "#20221c", f.faceDetail)),
           ),
         ),
         o: constant(100),
@@ -503,7 +503,7 @@ async function exportMascot(character, treatment) {
                   : (f.progress ?? 0),
               ),
             );
-            return colour(
+            return color(
               end
                 ? interpolateColors(amount, [0, 1], [base, palette(end)])
                 : base,

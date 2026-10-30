@@ -1,0 +1,17 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MdxContent from '../../components/MdxContent.astro';
+
+const guide = await getEntry('brand', 'brand-guide');
+if (!guide) throw new Error('Missing brand guide');
+---
+<BaseLayout lang={guide.data.lang} title={guide.data.title} kind="page" file="index" currentUrl="/brand" noindex hreflang={false} sidebarToc>
+  <div class="prose brand-guide" data-prose>
+    <MdxContent entry={guide} />
+  </div>
+</BaseLayout>
+<script>
+  import { initBrandToc } from '../../scripts/brand-toc';
+  initBrandToc();
+</script>

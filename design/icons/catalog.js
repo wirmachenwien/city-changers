@@ -78,7 +78,6 @@ window.iconCatalog = [
     "id": "check",
     "label": "Correct / copied",
     "sources": [
-      "src/components/Quiz.astro",
       "src/components/Question.astro",
       "src/components/CopyText.astro"
     ],
@@ -111,7 +110,7 @@ window.iconCatalog = [
     "label": "Close / incorrect",
     "sources": [
       "src/components/NavDrawer.astro",
-      "src/components/Quiz.astro",
+      "src/components/Question.astro",
       "src/scripts/content-popup.ts",
       "src/scripts/bookmarks.ts"
     ],
@@ -413,7 +412,7 @@ window.iconCatalog = [
       "design/icons/drawn/crosswalk-outline.svg"
     ],
     "brand": false,
-    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><g transform=\"rotate(-12 12 12)\"><rect x=\"6\" y=\"5\" width=\"4\" height=\"15\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"4\" height=\"17\" rx=\"1\"/></g></svg>",
+    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linejoin=\"round\"><g transform=\"rotate(-12 12 12)\"><rect x=\"3\" y=\"5\" width=\"4\" height=\"15\" rx=\"1\"/><rect x=\"10\" y=\"3\" width=\"4\" height=\"17\" rx=\"1\"/><rect x=\"17\" y=\"4\" width=\"4\" height=\"15\" rx=\"1\"/></g></svg>",
     "note": "Decorative icon with a matching solid or outline variant."
   },
   {

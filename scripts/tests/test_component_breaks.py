@@ -6,10 +6,31 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
-from handbook.mdx import quiz_html, strip_static_handlers
+from handbook.mdx import question_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_share_links_are_a_utility_list_not_an_editorial_bullet_list(self):
+        source = (ROOT / "src/components/Share.astro").read_text()
+        self.assertIn('<ul class="share-links">', source)
+        self.assertNotIn('<ul>', source)
+
+    def test_code_blocks_do_not_inherit_inline_code_chips_or_fixed_shiki_colors(self):
+        css = (ROOT / "src/styles/global.css").read_text()
+        inline = re.search(r"\.prose :not\(pre\) > code\s*\{([^}]+)\}", css).group(1)
+        block = re.search(r"\.prose pre\s*\{([^}]+)\}", css).group(1)
+        code = re.search(r"\.prose pre code\s*\{([^}]+)\}", css).group(1)
+        spans = re.search(r"\.prose pre span\s*\{([^}]+)\}", css).group(1)
+        self.assertIn("background: var(--panel);", inline)
+        self.assertIn("overflow-x: auto;", block)
+        self.assertIn("ui-monospace", block)
+        self.assertIn("background: var(--panel) !important;", block)
+        self.assertIn("color: var(--ink) !important;", block)
+        self.assertIn("padding: 0;", code)
+        self.assertIn("background: none;", code)
+        self.assertIn("font: inherit;", code)
+        self.assertIn("color: inherit !important;", spans)
+
     def test_editorial_bullets_use_generous_sparks_without_replacing_list_semantics(self):
         for name in ("global.css", "print.css", "epub.css"):
             with self.subTest(stylesheet=name):
@@ -36,14 +57,14 @@ class ComponentBreakTest(unittest.TestCase):
             with self.subTest(stylesheet=path.name):
                 self.assertNotRegex(path.read_text(), r"\d(?:\.\d+)?em\b")
 
-    def test_web_quiz_only_adds_feedback_space_when_populated(self):
+    def test_web_question_only_adds_feedback_space_when_populated(self):
         css = (ROOT / "src/styles/global.css").read_text()
-        quiz = re.search(r"^\.quiz\s*\{([^}]+)\}", css, re.MULTILINE).group(1)
-        self.assertIn("padding: 1.75rem 1.25rem;", quiz)
-        feedback = re.search(r"\.quiz \.quiz-feedback\s*\{([^}]+)\}", css).group(1)
+        question = re.search(r"^\.question\s*\{([^}]+)\}", css, re.MULTILINE).group(1)
+        self.assertIn("padding: 1.75rem 1.25rem;", question)
+        feedback = re.search(r"\.question \.question-feedback\s*\{([^}]+)\}", css).group(1)
         self.assertNotIn("min-block-size", feedback)
         self.assertIn("margin: 0 0 0.75rem;", feedback)
-        empty = re.search(r"\.quiz \.quiz-feedback:empty\s*\{([^}]+)\}", css).group(1)
+        empty = re.search(r"\.question \.question-feedback:empty\s*\{([^}]+)\}", css).group(1)
         self.assertIn("margin: 0;", empty)
         self.assertNotIn("display: none", empty)
 
@@ -62,14 +83,15 @@ class ComponentBreakTest(unittest.TestCase):
         )
         self.assertIn("People &amp; places", converted)
 
-    def test_quiz_title_is_a_marked_paragraph(self):
-        converted = quiz_html(
+    def test_question_title_is_a_marked_paragraph(self):
+        converted = question_html(
             "Ready?",
             '{ label: "Yes", correct: true }, { label: "No" }',
+            "",
             "Answers",
         )
         self.assertIn(
-            '<p class="quiz-title"><strong>Question: Ready?</strong></p>',
+            '<p class="question-title"><strong>Question: Ready?</strong></p>',
             converted,
         )
 
@@ -77,7 +99,7 @@ class ComponentBreakTest(unittest.TestCase):
         for name in ("print.css", "epub.css"):
             with self.subTest(stylesheet=name):
                 css = (ROOT / "src" / "styles" / name).read_text(encoding="utf-8")
-                for selector in ("accordion-title", "quiz-title", "feature-box__title", "mascot-box__title"):
+                for selector in ("accordion-title", "question-title", "feature-box__title", "mascot-box__title"):
                     self.assertIn(f".{selector}", css)
                 self.assertRegex(css, r"break-after:\s*avoid")
 

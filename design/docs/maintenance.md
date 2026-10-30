@@ -4,7 +4,7 @@
 
 | Location | Responsibility |
 | --- | --- |
-| `design/brand-guide.md` | Sole brand-guide source for the website and handoff |
+| `design/brand-guide.mdx` | Sole brand-guide source, including component examples, for the website, Pages CMS and handoff |
 | `design/manifest.json` | Shared inventory of application assets for website downloads and the handoff |
 | `design/assets/logo/logo-lockup.svg` | Sole editable full-logo master; never overwritten by generation |
 | `src/assets/site/` | Derived logos, application lockup copy, PNGs, link preview and supporting marks |

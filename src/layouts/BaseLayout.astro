@@ -24,9 +24,10 @@ interface Props {
   currentUrl: string;
   noindex?: boolean;
   hreflang?: boolean;
+  sidebarToc?: boolean;
 }
 
-const { lang, title, kind, file, currentUrl, noindex = false, hreflang = true } = Astro.props;
+const { lang, title, kind, file, currentUrl, noindex = false, hreflang = true, sidebarToc } = Astro.props;
 // Frontmatter strings bypass the markdown pipeline, so quotes are
 // localised here to match the rehype-transformed prose.
 const displayTitle = smartQuotes(title, lang);
@@ -80,7 +81,9 @@ const hideFromIndex = noindex || !settings.web.indexing;
     <NavDrawer lang={lang} currentUrl={currentUrl} />
     <div class="shell">
       <div class="main-grid">
-        <SideNav lang={lang} currentUrl={currentUrl} />
+        {sidebarToc ? (
+          <nav class="side-nav" aria-label="Brand guide contents" data-scroll-toc><section class="nav-section"><ul class="nav-list" /></section></nav>
+        ) : <SideNav lang={lang} currentUrl={currentUrl} />}
         <main id="main" class="article" data-pagefind-body>
           <slot />
         </main>

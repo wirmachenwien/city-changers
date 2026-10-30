@@ -9,7 +9,7 @@ const presetField = {
   description: "Use preset motion (off = your keyframes only)",
   keyframable: false,
 } as const;
-const colour = (defaultValue: string | undefined, description: string) =>
+const color = (defaultValue: string | undefined, description: string) =>
   ({ type: "color", default: defaultValue, description }) as const;
 const path = (description: string) =>
   ({ type: "svg-path", default: undefined, description }) as const;
@@ -156,9 +156,9 @@ export const PathPart = Interactive.create({
       min: 0,
       max: 1,
     },
-    fill: colour("none", "Fill"),
-    targetFill: colour(undefined, "Target fill (optional)"),
-    stroke: colour("none", "Outline"),
+    fill: color("none", "Fill"),
+    targetFill: color(undefined, "Target fill (optional)"),
+    stroke: color("none", "Outline"),
     strokeWidth: { ...number(0, "Outline width"), min: 0, max: 30 },
   },
 });
@@ -212,6 +212,6 @@ export const EyePart = Interactive.create({
     rx: { ...number(4, "Eye width / radius"), min: 0.1, max: 20 },
     ry: { ...number(7, "Eye height / radius"), min: 0.1, max: 20 },
     openness: { ...number(1, "Eye opening / blink"), min: 0, max: 2 },
-    fill: colour("#20221c", "Eye colour"),
+    fill: color("#20221c", "Eye color"),
   },
 });

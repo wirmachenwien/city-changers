@@ -23,7 +23,7 @@ WHICH FOLDER DO I NEED?
 05-supporting-images Handbook photos, diagrams, partner and credit marks.
 06-web-icons        Small website/app icons. Usually not needed for social posts.
 07-rights           Repository licence. See the rights notes below too.
-BRAND-GUIDE.md       Colours, fonts and basic layout rules (open in any text editor).
+BRAND-GUIDE.md       Colors, fonts and basic layout rules (open in any text editor).
 inventory.json      File list for the person preparing the kit; you can ignore it.
 
 CHOOSING A LOGO
@@ -52,7 +52,7 @@ step            Next steps and action; animated walking stays in place.
 
 Ink means dark outlines, suited to light backgrounds. Linen means pale warm
 outlines, suited to dark backgrounds. Both versions have transparent backgrounds:
-they sit on top of your design without a square behind them. The coloured
+they sit on top of your design without a square behind them. The colored
 backgrounds in the preview sheets are only for comparison.
 
 MAKING A VIDEO
@@ -62,7 +62,7 @@ Reels or Stories. Each is 1080 x 1080, one second long, at 30 frames per second.
 They use ProRes 4444, a video format that preserves the transparent background.
 
 1. Import a MOV into a video editor that supports ProRes transparency.
-2. Put it on a layer ABOVE your footage or coloured background.
+2. Put it on a layer ABOVE your footage or colored background.
 3. Repeat the clip to keep the mascot moving for longer; these files have no sound.
 4. Add your text and sound, then export the finished video as MP4 for posting.
 
@@ -94,7 +94,7 @@ Keep the OFL licence files if you pass the fonts to someone else.
 
 BEFORE YOU POST
 
-- Keep the mascot and logo in their original proportions and colours.
+- Keep the mascot and logo in their original proportions and colors.
 - Leave space around the leaf, boots and lettering. Do not place text over faces.
 - Keep important text away from the edges and platform buttons; preview in-app.
 - Use readable text, captions for speech, and useful alt text for still posts.
@@ -116,4 +116,4 @@ NEED SOMETHING CHANGED?
 
 Ask the person who sent this kit for new exports, missing credits or a custom
 animation. Editable animation source is deliberately not in this everyday kit.
-Tell them the filename, background colour and intended platform to save time.
+Tell them the filename, background color and intended platform to save time.

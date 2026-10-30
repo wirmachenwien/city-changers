@@ -1,7 +1,7 @@
 ---
 // Shared MDX renderer: renders a content-collection entry with the project
 // component scope. The scope covers every showcase component (content aids
-// plus the chrome sheets/demos the component showcase exercises), so MDX sources
+// plus the publication sheets/demos the brand guide exercises), so MDX sources
 // never import components themselves. Page chrome (Masthead, SideNav,
 // Footer) stays in the layouts.
 import { render, type CollectionEntry } from 'astro:content';
@@ -18,7 +18,6 @@ import MascotBox from './MascotBox.astro';
 import PullQuote from './PullQuote.astro';
 import TableWrap from './TableWrap.astro';
 import Glossary from './Glossary.astro';
-import Quiz from './Quiz.astro';
 import Question from './Question.astro';
 import Footnote from './Footnote.astro';
 import Spoiler from './Spoiler.astro';
@@ -47,8 +46,20 @@ import SearchForm from './SearchForm.astro';
 import Share from './Share.astro';
 import TitlePage from './TitlePage.astro';
 import VisualToc from './VisualToc.astro';
+import BrandLogoExamples from './BrandLogoExamples.astro';
+import BrandPalette from './BrandPalette.astro';
+import BrandTypeSpecimen from './BrandTypeSpecimen.astro';
+import BrandIcons from './BrandIcons.astro';
+import BrandAssetLibrary from './BrandAssetLibrary.astro';
+import BrandColorReference from './BrandColorReference.astro';
 
 export const mdxComponents = {
+  BrandLogoExamples,
+  BrandPalette,
+  BrandTypeSpecimen,
+  BrandIcons,
+  BrandAssetLibrary,
+  BrandColorReference,
   Figure,
   Video,
   ButtonLink,
@@ -62,7 +73,6 @@ export const mdxComponents = {
   PullQuote,
   TableWrap,
   Glossary,
-  Quiz,
   Question,
   Footnote,
   Spoiler,
@@ -94,7 +104,7 @@ export const mdxComponents = {
 };
 
 interface Props {
-  entry: CollectionEntry<'book'> | CollectionEntry<'pages'> | CollectionEntry<'preview'>;
+  entry: CollectionEntry<'book'> | CollectionEntry<'pages'> | CollectionEntry<'brand'>;
 }
 
 const { entry } = Astro.props;

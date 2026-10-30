@@ -43,7 +43,7 @@ Each mascot has its own component in `src/mascots/` and its own schema:
 | `Mascot-Wave`      | Whole-arm Rotation keyframes in the part inspector; no hand animation  |
 | `Mascot-Point`     | When extension starts, reaches full length, starts returning, finishes |
 | `Mascot-Celebrate` | Jump height, jumps per loop, arm swing                                 |
-| `Mascot-Think`     | Idea timing, hand X/Y, head tilt, smile, eyes, face colour, rays       |
+| `Mascot-Think`     | Idea timing, hand X/Y, head tilt, smile, eyes, face color, rays       |
 | `Mascot-Step`      | Steps per loop, boot swing, arm swing, step bounce                     |
 
 For **2 / Wave**, select **Right arm — continuous wave** and edit **Rotation**
@@ -102,7 +102,7 @@ Think has separate
   with Studio's SVG path controls. For your own shape animation, disable the
   preset and keyframe **Custom morph** from `0` (start) to `1` (target).
   Eyes have their own **Eye opening / blink** control: `0` closes an eye.
-  The illuminated face also supports a target fill colour. For the idea rays,
+  The illuminated face also supports a target fill color. For the idea rays,
   disable their preset and keyframe opacity to choose when they appear.
 
 Custom keyframes follow the full composition timeline, not the one-second
@@ -133,7 +133,7 @@ for translated text. Place platform UI/captions in the reserved outer margins.
 `npm run export:lottie` generates all 12 animations in
 `../../src/assets/mascot/lottie/`. Files follow
 `green-fix-{action}-{ink|linen}.json`: all six actions, in Ink and Linen.
-The exporter reads current JSX, path morphs, colours and authored keyframes without
+The exporter reads current JSX, path morphs, colors and authored keyframes without
 changing the source. It supports this mascot rig, not arbitrary Remotion videos.
 Unsupported source expressions fail explicitly rather than being ignored.
 

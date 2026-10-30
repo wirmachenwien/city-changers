@@ -1,0 +1,478 @@
+---
+title: Brand Guide
+lang: en
+---
+
+# City Changers — Brand Guide
+
+One reference for our identity, visual language and handbook components. Start
+with the foundations, choose components for your content, then download the
+supplied assets at the end of this guide.
+
+## Identity
+
+The project name is Toolbox for City Changers. The mascot is called Green Fix.
+It has seven expressive poses, with static and animated assets available below.
+
+### Logos and BrandLogo
+
+The active identity pairs the Green Fix symbol with the outlined City Changers
+wordmark. Use the full lockup when the project name needs to be read; use the
+symbol where the name is already present. The wordmark is supplied artwork,
+not editable text or a Fraunces typesetting recipe.
+
+Use `logo-lockup.svg` and `logo.svg` on light backgrounds, and their `-dark`
+variants on dark backgrounds. The website's BrandLogo component selects the
+matching treatment automatically. Use `logo-small.svg` for compact applications
+and the supplied website icons for favicons and app icons. PNG exports are
+available for tools that cannot import SVG.
+
+Keep the supplied proportions and colors. Do not stretch, rotate, add effects,
+crop the artwork, or rebuild the lettering. Review legibility at the actual
+display size; no new minimum-size or measured clear-space standard is implied.
+
+<BrandLogoExamples />
+
+## Colors
+
+{/* Generated from design/colors.json by npm run colors:generate. */}
+### Brand palette
+
+Our brand palette uses **green** as its primary accent and **warm amber/brown**
+for supporting emphasis, with paper and ink neutrals. Red is a functional UI
+color, not a brand accent. Supporting shades are derived recipes, not
+additional brand colors to choose independently.
+
+Enter these HEX codes in your design app's color picker:
+
+<BrandPalette />
+
+<details>
+<summary>Copyable color values</summary>
+
+```text
+Paper             #FDFCF9   Primary light background.
+Ink               #1D1A16   Primary light-theme text; distinct from mascot ink.
+Website green     #0C6B3C   Primary accent, links and actions.
+Warm brown        #8A4B00   Supporting accent for warm FeatureBox highlights.
+```
+
+</details>
+
+Use the semantic light/dark tokens for interfaces, rather than applying these
+base colors to every background. Warm FeatureBoxes use the amber accent with
+its generated tint. The detailed light/dark/export values, utilities and recipes
+are in **COLOR-REFERENCE.md**, also available in the brand kit.
+
+### Functional UI colors
+
+These colors communicate an interface role, not a brand mood. Green and amber
+reuse the brand families; red is reserved for errors and incorrect-answer
+feedback. Always accompany status colors with text or another non-color cue.
+Warm callouts are emphasis, not automatically warnings.
+
+The light and dark values below come from the semantic tokens. Use the tokens
+in interfaces, not fixed HEX values. Borders, muted text and focus indicators
+are UI utilities, not additional brand accents.
+
+<TableWrap>
+
+| Role | Token | Light | Dark | Use |
+|---|---|---|---|---|
+| Error and incorrect answers | `--error` | `#A31F1F` | `#FF8A7A` | Incorrect-answer marks and incorrect, empty or incomplete-answer feedback; always paired with a written message. |
+| Correct answers and actions | `--accent` | `#0C6B3C` | `#4CC38A` | Links, actions and positive emphasis. |
+| Search highlight background | `--mark` | `#FFE08A` | `#55401E` | Search-result highlighting. |
+| Search highlight text | `--mark-ink` | `#1D1A16` | `#F2EDE3` | Text on search highlighting. |
+| Keyboard focus | `--focus` | `#0C6B3C` | `#4CC38A` | Focus rings on ordinary UI surfaces. |
+| Inverse-surface focus and icons | `--popup-link` | `#6CA588` | `#367D5A` | Icons and focus rings on inverse popup surfaces. |
+| Control boundaries | `--control-border` | `#82807C` | `#797670` | Visible boundaries for selects and other outlined controls. |
+| Decorative separators | `--line` | `#D9D8D5` | `#3E3C37` | Decorative separators, not sole control boundaries. |
+| Secondary text | `--ink-soft` | `#4A4743` | `#C2BDB5` | Secondary text and captions. |
+
+</TableWrap>
+
+### Protected artwork colors
+
+<TableWrap>
+
+| Name | HEX | Use |
+|---|---|---|
+| Mascot Green | `#176B43` | Fixed mascot body color; do not recolor. |
+| Mascot Ink | `#20221C` | Fixed outlines and boots in the Ink treatment. |
+| Mascot Yellow | `#FFD84F` | Fixed mascot detail and idea-ray color. |
+| Idea Highlight | `#FFF0A8` | Fixed pale highlight in the Think pose. |
+| Linen | `#CBBF9F` | Fixed pale outlines and boots in the Linen treatment. |
+| Cream Lettering | `#F2EDE3` | Logo lettering on dark backgrounds. |
+| Presentation Neutral | `#EFEEE5` | Frozen presentation-board background in existing artwork; not a UI color choice. |
+
+</TableWrap>
+
+Keep supplied artwork unchanged. Website ink and mascot ink are intentionally
+different. These colors are not permission to recolor a mascot or partner logo.
+Pale artwork outlines are not intended as small text colors.
+
+Use CSS tokens for UI text/background pairs; automated checks cover registered
+text and icon combinations, not arbitrary text over photos. Review image
+contrast separately. Print uses white paper and documented neutral overrides;
+it does not invent another green or amber palette. Screen colors are not a
+print/CMYK specification: ask a printer for proofs.
+
+<BrandColorReference />
+
+## Type
+
+Fraunces: main headlines. Clarity City: supporting text, labels and short captions.
+Newsreader: optional longer editorial passages, matching the handbook.
+For an ordinary social post, stick to Fraunces and Clarity City. Use fewer words
+and larger type rather than squeezing a paragraph into a small graphic.
+The logo is supplied artwork: installing Fraunces does not recreate the wordmark.
+
+<BrandTypeSpecimen />
+
+## Layout
+
+Keep the original proportions: resize from a corner with proportions locked.
+Leave visible breathing room on every side. As a practical starting point, allow
+at least one boot's height between the artwork and nearby text or the edge.
+This is a working recommendation, not a newly approved measured logo standard.
+Do not crop the leaf or boots, rotate the full logo, add effects, or recolor it.
+Use the light/dark variant that stays clear against the whole background.
+Place pointing captions to the right. Keep captions away from the mascot's face.
+There is no fixed minimum social-logo size: check legibility at actual phone size.
+
+### Icon
+
+Use the shared hand-drawn icon family. Icons are decorative and hidden from
+assistive technology, so pair them with visible text or an accessible control
+label. Use `<Icon name="search" />` in components.
+
+<BrandIcons />
+
+## Writing and images
+
+Write clear, welcoming, practical copy. Describe a specific community action and
+give one next step. Verify claims and results before publishing. Do not invent
+quotes, endorsements or campaign outcomes. Use real project photography only
+after checking permission and credits; supporting images are not a stock library.
+
+## Writing and formatting
+
+Handbook chapters use Markdown for text and MDX components for richer content. The examples below use the same components as the published handbook, including their keyboard, theme and print behaviour.
+
+### Markdown basics
+
+Use one `#` page title, `##` for sections and `###` for subsections. Keep headings descriptive and in order; do not choose a heading level just for its visual size.
+
+```md
+# Page title
+## Section heading
+### Subsection heading
+
+Use **bold** for emphasis, *italics* sparingly, and [descriptive links](https://example.com).
+
+- An unordered list item
+- Another item
+
+1. First step
+2. Second step
+```
+
+For a full introduction, see the [Markdown Guide](https://www.markdownguide.org/basic-syntax/). MDX components are available without imports in chapter files. Copy examples from this guide's source and replace the text, identifiers and assets with your own.
+
+### PullQuote
+
+Draw attention to a short quotation. Include a real attribution; never invent an endorsement.
+
+<div class="showcase-demo"><PullQuote cite="Toolbox">How can we make our city more liveable?</PullQuote></div>
+
+### DefinitionTerm
+
+Explain an unfamiliar term without interrupting the reading flow.
+
+<div class="showcase-demo"><p>A <DefinitionTerm term="Modal filter" definition="Structural measure that prevents through traffic." /> diverts traffic.</p></div>
+
+### Footnote
+
+Attach a source or aside to a specific statement. Screen views offer a popup; exports keep the note readable.
+
+<div class="showcase-demo"><p>A statement with an inline footnote<Footnote text="Source citation right here." />.</p></div>
+
+### Bibliography
+
+Collect sources with descriptive labels and direct links.
+
+<div class="showcase-demo"><Bibliography sources={[{ label: 'Tactical Urbanism Guide', href: 'https://tacticalurbanismguide.com/' }, { label: 'Changing Cities', href: 'https://changing-cities.org/' }]} /></div>
+
+### Glossary
+
+Use a definition list for related terms that readers may need to revisit.
+
+<div class="showcase-demo"><Glossary entries={[{ term: 'Superblock', definition: 'Traffic-calmed neighbourhood.' }, { term: 'Kiezblock', definition: 'Berlin variant of the superblock.' }]} /></div>
+
+### Math
+
+Write inline or display formulas with the Math component; TeX is rendered at build time.
+
+<div class="showcase-demo"><p><code>{'\\(E = mc^2\\)'}</code> renders inline: <Math source="E = mc^2" /></p><Math source="a^2 + b^2 = c^2" display /></div>
+
+### TableWrap
+
+Wrap wide tables so they can scroll on small screens. Use proper column headings.
+
+<div class="showcase-demo"><TableWrap><table><thead><tr><th>Indicator</th><th>Method</th></tr></thead><tbody><tr><td>Traffic volumes</td><td>Counting</td></tr><tr><td>Staying</td><td>Observation</td></tr></tbody></table></TableWrap></div>
+
+## Images, motion and illustration
+
+Choose imagery that supports the message. Keep captions, credits and alternatives alongside the media; motion must not be required to understand the content.
+
+### Figure
+
+Use Figure for responsive images with meaningful alt text and a caption. Book image filenames resolve from the shared image library.
+
+```mdx
+<Figure src="berlin-kiezblock-bellermann.jpg" alt="Temporary barrier and sitting area in the Bellermann neighbourhood block.">
+  Bellermann neighbourhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.
+</Figure>
+```
+
+<div class="showcase-demo"><Figure src="berlin-kiezblock-bellermann.jpg" alt="Temporary barrier and sitting area in the Bellermann neighbourhood block.">Bellermann neighbourhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.</Figure></div>
+
+Use `size="small"` or `size="medium"` for a narrower figure. Add `float="left"` or `float="right"` sparingly for text wrapping on wide screens; `float="center"` centres a narrower image. Floats return to normal flow on small screens. Use `frame="white"` for marks that must stay on a white background in either theme.
+
+<div class="showcase-demo"><Figure src="erasmus-plus_en.png" alt="Co-funded by the European Union: Erasmus+" frame="white" size="small" /></div>
+<div class="showcase-demo"><Figure src="supergraetzel-favoriten-poller.jpg" alt="Bollards and planter rings in Supergrätzl Favoriten." size="small" float="right">A small floating figure.</Figure><p>Keep surrounding text short enough to remain readable beside the image. Use full-width figures for important visual evidence.</p></div>
+
+### Slideshow
+
+Group related figures with previous and next controls. Every slide still needs its own alt text and caption.
+
+```mdx
+<Slideshow label="Sample images">
+  <Figure src="lendplatz-graz-tactical-urbanism.jpg" alt="Lendplatz in Graz">Lendplatz in Graz.</Figure>
+  <Figure src="galileigasse-tactical-urbanism.jpg" alt="Galileigasse in Vienna">Galileigasse in Vienna.</Figure>
+</Slideshow>
+```
+
+<div class="showcase-demo"><Slideshow label="Sample images"><Figure src="lendplatz-graz-tactical-urbanism.jpg" alt="Lendplatz in Graz">Lendplatz in Graz.</Figure><Figure src="galileigasse-tactical-urbanism.jpg" alt="Galileigasse in Vienna">Galileigasse in Vienna.</Figure></Slideshow></div>
+
+### OpenerImage
+
+Use a large opening image to establish the setting of a home page.
+
+<div class="showcase-demo"><OpenerImage file="supergraetzel-favoriten-poller.jpg" alt="Bollards and young trees in Supergrätzl Favoriten" /></div>
+
+### Video
+
+Video embeds load their provider only after the reader chooses to play them. Include a descriptive caption.
+
+<div class="showcase-demo"><Video id="87JUbbq48r8" caption="Prostorož Ljubljana: Public space is shared space." lang="en" /></div>
+
+### MascotBox
+
+Green Fix is a friendly guide for a short explanation or practical nudge, not a replacement for chapter text. Keep the supplied artwork unchanged.
+
+```mdx
+<MascotBox title="Try this first" pose="think" animated lang="en">
+  Choose one street and ask your neighbours what they would change.
+</MascotBox>
+```
+
+Choose `neutral` (or `idle`), `wave`, `point`, `celebrate`, `think`, `step`, or `skeptical`. Omit `animated` for a still; all poses except `skeptical` have an animation. `treatment="linen"` selects light-outline artwork on a dark plate; the default is `ink`. Printed books always use Ink artwork.
+
+Animations play once each time they enter view and then hold their final frame. Hover or click to replay; keyboard users can focus the mascot and press Enter or Space. Think holds its raised-hand idea pose. Reduced-motion, no-JavaScript and export views retain the matching still and all text. Set `lang` to `en`, `de` or `sl` for replay labels and title typography.
+
+<div class="showcase-demo"><MascotBox title="I have an idea!" pose="think" animated lang="en"><p>Start with one small, visible improvement. What could you test on your street this month?</p></MascotBox><MascotBox title="Question the assumption" pose="skeptical"><p>Does everyone need to drive through this street, or just be able to reach it?</p></MascotBox></div>
+
+<details><summary>Explore all static poses</summary><div class="showcase-demo">{['neutral', 'wave', 'point', 'celebrate', 'think', 'step', 'skeptical'].map((pose) => <MascotBox pose={pose} title={pose}><p>A static helper for a short explanation.</p></MascotBox>)}</div></details>
+<details><summary>Explore all animated poses</summary><div class="showcase-demo">{['idle', 'wave', 'point', 'celebrate', 'think', 'step'].map((pose) => <MascotBox pose={pose} animated treatment="linen" title={pose} lang="en"><p>Hover, click or use the keyboard to replay.</p></MascotBox>)}</div></details>
+
+## Callouts and interaction
+
+Use callouts selectively to keep the main reading flow clear. Interactive content must remain understandable in print and without motion.
+
+### FeatureBox
+
+Highlight a practical note with an optional title. The warm tone provides emphasis, not an error state.
+
+<div class="showcase-demo"><FeatureBox title="Note">A highlighted note for readers.</FeatureBox><FeatureBox tone="warm">A warm highlight for important content.</FeatureBox></div>
+
+### Accordion
+
+Group related optional details. Opening one section closes its siblings.
+
+<div class="showcase-demo"><Accordion title="First section">Contents of the first section.</Accordion><Accordion title="Second section">Contents of the second section.</Accordion></div>
+
+### ExpandableBox
+
+Use a single read-more box for optional background rather than hiding essential instructions.
+
+<div class="showcase-demo"><ExpandableBox lang="en">Extended background information to expand.</ExpandableBox></div>
+
+### Question
+
+Use a self-check question to reinforce understanding. Give each question a unique `id`. A numeric `answer` selects a single correct option; object options with `correct` flags support multiple answers.
+
+```mdx
+<Question id="example-question" lang="en" question="What is a superblock?"
+  options={['Street furniture', 'A traffic-calmed neighbourhood', 'A parking garage']}
+  answer={1} />
+```
+
+<div class="showcase-demo"><Question id="showcase-question" lang="en" question="What is a superblock?" options={['Street furniture', 'A traffic-calmed neighbourhood', 'A parking garage']} answer={1} /></div>
+<div class="showcase-demo"><Question id="showcase-question-multiple" lang="en" question="Which measures change through traffic?" options={[{ label: 'Modal filter', correct: true }, { label: 'More parking spaces' }, { label: 'Bollards', correct: true }]} /></div>
+
+### Spoiler
+
+Let readers reveal a short answer after considering the question themselves.
+
+<div class="showcase-demo"><p>The treasure is buried <Spoiler lang="en">under the old oak tree</Spoiler>.</p></div>
+
+### SelectList
+
+Offer a compact list of destinations. Use descriptive labels so readers know where each option leads.
+
+<div class="showcase-demo"><SelectList id="showcase-select" lang="en" options={[{ label: 'Chapter 1.', href: '/book/01-why-this-toolbox.html' }, { label: 'Chapter 2.', href: '/book/02-the-power-of-superblocks.html' }]} /></div>
+
+## Navigation and actions
+
+Keep destinations and actions clearly labelled. These examples use the same shared controls as the handbook.
+
+### ButtonLink
+
+Emphasise a primary destination; use a normal text link for secondary references.
+
+<div class="showcase-demo"><ButtonLink href="/book/contents.html">Open the handbook</ButtonLink></div>
+
+### DownloadLink
+
+Label the file type and purpose of a download.
+
+<div class="showcase-demo"><DownloadLink href="/downloads/toolbox-city-changer-en.pdf">View PDF</DownloadLink><DownloadLink href="/downloads/toolbox-city-changer-en.epub">Download EPUB</DownloadLink></div>
+
+### SideBySideButtons
+
+Group related download formats without introducing competing primary actions.
+
+<div class="showcase-demo"><SideBySideButtons links={[{ href: '/downloads/toolbox-city-changer-en.pdf', label: 'PDF handbook' }, { href: '/downloads/toolbox-city-changer-en.epub', label: 'EPUB handbook' }]} /></div>
+
+### Breadcrumbs
+
+Show the page's place in the site. The current page is text, not another destination.
+
+<div class="showcase-demo"><Breadcrumbs items={[{ label: 'Home', url: '/en/', current: false }, { label: 'Brand guide', url: '', current: true }]} /></div>
+
+### PageRef
+
+Reference a handbook chapter by its source file instead of manually maintaining its URL.
+
+<div class="showcase-demo"><PageRef lang="en" file="02" label="Continue to chapter 2." /></div>
+
+### Pagination
+
+Provide previous and next destinations at the end of a chapter.
+
+<div class="showcase-demo"><Pagination lang="en" prev={{ label: '1. Why this toolbox?', file: '01', kind: 'book' }} next={{ label: '3. Tactical urbanism and street design', file: '03', kind: 'book' }} /></div>
+
+### SearchForm
+
+Search the handbook in the selected language.
+
+<div class="showcase-demo"><SearchForm lang="en" /></div>
+
+### BookmarkAdd
+
+Save a reading position locally in the browser.
+
+<div class="showcase-demo"><BookmarkAdd lang="en" /></div>
+
+### CopyText
+
+Copy a short value with confirmation; keep the value visible alongside the button.
+
+<div class="showcase-demo">info@wirmachen.wien <CopyText value="info@wirmachen.wien" lang="en" /></div>
+
+### Share
+
+Offer labelled sharing destinations for the current page.
+
+<div class="showcase-demo"><Share lang="en" url="/brand" title="City Changers — Brand Guide" /></div>
+
+### QrCode
+
+Connect printed material to an online destination with a descriptive label.
+
+<div class="showcase-demo"><QrCode url="/book/01-why-this-toolbox.html" label="Chapter 1." /></div>
+
+### LanguageMenu
+
+Use the compact dropdown in a masthead or other space-constrained area.
+
+<div class="showcase-demo"><LanguageMenu lang="en" kind="page" file="index" /></div>
+
+### LanguageSwitcher
+
+Offer visible links to the same handbook page in other languages. These demos point to the translated home pages; the brand guide itself is English-only.
+
+<div class="showcase-demo"><LanguageSwitcher lang="en" kind="page" file="index" /></div>
+
+## Publication and credits
+
+The same identity carries through the website, book front matter and exported handbook. Keep metadata and partner marks consistent with the project records.
+
+### Cover
+
+The book cover combines the shared hero image with publication metadata.
+
+<div class="showcase-demo"><Cover lang="en" /></div>
+
+### TitlePage
+
+Use the title sheet for publication front matter.
+
+<div class="showcase-demo"><TitlePage lang="en" /></div>
+
+### ContentsPage
+
+The complete contents sheet includes the handbook's book structure.
+
+<div class="showcase-demo"><ContentsPage lang="en" title="Contents" /></div>
+
+### Toc
+
+Use the standard text table of contents for chapter navigation.
+
+<div class="showcase-demo"><Toc lang="en" /></div>
+
+### VisualToc
+
+Use the card-based contents for a more visual chapter overview.
+
+<div class="showcase-demo"><VisualToc lang="en" /></div>
+
+### MetadataTable
+
+Display the publication's title, creators, publisher and rights from shared metadata.
+
+<div class="showcase-demo"><MetadataTable lang="en" /></div>
+
+### PartnerLogos
+
+Use the supplied partner marks without recoloring or distortion. Keep required credits and links intact.
+
+<div class="showcase-demo"><PartnerLogos /></div>
+
+### CcBadge
+
+Link the licence badge to its deed and state the licence in text.
+
+<div class="showcase-demo"><p class="cc-line"><CcBadge /> This handbook is published under the CC BY 4.0 license.</p></div>
+
+### Rotate
+
+Rotate a short supporting label only when the publication layout calls for it. Keep essential reading text upright.
+
+<div class="showcase-demo"><Rotate angle={90}>Side note</Rotate></div>
+
+<BrandAssetLibrary />
+
+[Back to top](#main)

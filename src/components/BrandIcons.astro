@@ -1,0 +1,7 @@
+---
+import Icon from './Icon.astro';
+import icons from '../data/icons.generated.json';
+import type { IconName } from '../lib/icons';
+const names = Object.keys(icons) as IconName[];
+---
+<div class="showcase-demo"><ul class="showcase-icons">{names.map((name) => <li><Icon name={name} /><span class="showcase-icon-name">{name}</span></li>)}</ul></div>

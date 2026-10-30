@@ -109,30 +109,66 @@ export function generateOutputs(registry, resolved, guide, registrySource = JSON
     `@media print {\n  :root, :root[data-theme], :root:not([data-theme]) {\n    color-scheme: light;\n${declarations(themes.print).replace(/^/gm, '  ')}\n  }\n}\n`;
   const rows = registry.palette.map(color => `${color.name.padEnd(18)}${serializeColor(resolved.resolve(color.ref)).toUpperCase()}   ${color.use}`).join('\n');
   const artRows = Object.entries(artwork).map(([name, value]) => `| ${title(name)} | \`${value.toUpperCase()}\` | ${registry.artwork[name].use} |`).join('\n');
-  const colorsSection = `## Colours
+  const functionalRows = registry.functionalColors.map(({ name, token }) => {
+    if (!registry.tokens[token]) throw new Error(`Unknown functional color token: ${token}`);
+    return `| ${name} | \`--${token}\` | \`${themes.light[token].toUpperCase()}\` | \`${themes.dark[token].toUpperCase()}\` | ${registry.tokens[token].use} |`;
+  }).join('\n');
+  const colorsSection = `## Colors
 
-<!-- Generated from design/colors.json by npm run colors:generate. -->
-Our palette uses **green**, **amber** and **red**, supported by neutrals. Green
-is primary; amber provides warm emphasis and search highlights; red is reserved
-for errors, always accompanied by a written message. Supporting shades are
-derived recipes, not additional brand colors to choose independently.
+{/* Generated from design/colors.json by npm run colors:generate. */}
+### Brand palette
 
-Enter these HEX codes in your design app's colour picker:
+Our brand palette uses **green** as its primary accent and **warm amber/brown**
+for supporting emphasis, with paper and ink neutrals. Red is a functional UI
+color, not a brand accent. Supporting shades are derived recipes, not
+additional brand colors to choose independently.
+
+Enter these HEX codes in your design app's color picker:
+
+<BrandPalette />
+
+<details>
+<summary>Copyable color values</summary>
 
 \`\`\`text
 ${rows}
 \`\`\`
+
+</details>
 
 Use the semantic light/dark tokens for interfaces, rather than applying these
 base colors to every background. Warm FeatureBoxes use the amber accent with
 its generated tint. The detailed light/dark/export values, utilities and recipes
 are in **COLOR-REFERENCE.md**, also available in the brand kit.
 
+### Functional UI colors
+
+These colors communicate an interface role, not a brand mood. Green and amber
+reuse the brand families; red is reserved for errors and incorrect-answer
+feedback. Always accompany status colors with text or another non-color cue.
+Warm callouts are emphasis, not automatically warnings.
+
+The light and dark values below come from the semantic tokens. Use the tokens
+in interfaces, not fixed HEX values. Borders, muted text and focus indicators
+are UI utilities, not additional brand accents.
+
+<TableWrap>
+
+| Role | Token | Light | Dark | Use |
+|---|---|---|---|---|
+${functionalRows}
+
+</TableWrap>
+
 ### Protected artwork colors
+
+<TableWrap>
 
 | Name | HEX | Use |
 |---|---|---|
 ${artRows}
+
+</TableWrap>
 
 Keep supplied artwork unchanged. Website ink and mascot ink are intentionally
 different. These colors are not permission to recolor a mascot or partner logo.
@@ -144,16 +180,19 @@ contrast separately. Print uses white paper and documented neutral overrides;
 it does not invent another green or amber palette. Screen colors are not a
 print/CMYK specification: ask a printer for proofs.
 
+<BrandColorReference />
+
 `;
-  if (!/^## Colours\s*$/m.test(guide) || !/^## Type\s*$/m.test(guide)) throw new Error('Brand guide must contain Colours and Type sections');
-  const nextGuide = guide.replace(/^## Colours\s*$[\s\S]*?(?=^## Type\s*$)/m, colorsSection);
+  if (!/^## Colors\s*$/m.test(guide) || !/^## Type\s*$/m.test(guide)) throw new Error('Brand guide must contain Colors and Type sections');
+  const nextGuide = guide.replace(/^## Colors\s*$[\s\S]*?(?=^## Type\s*$)/m, colorsSection);
   const recipes = expression => typeof expression === 'string' ? expression : expression.mix
     ? `${expression.mix[0]} ${expression.weight * 100}% + ${expression.mix[1]} ${Math.round((1 - expression.weight) * 100)}% (sRGB)`
     : expression.alpha ? `${expression.alpha} at ${expression.opacity * 100}% opacity` : expression.ref ?? expression.value;
   const reference = `# City Changers — technical color reference
 
 <!-- Generated from design/colors.json. Do not edit; run npm run colors:generate. -->
-The brand guide shows the compact palette. This table is an implementation
+The brand guide separates the brand palette, functional UI colors and protected
+artwork colors. This table is an implementation
 reference, not a menu of interchangeable accents. Edit \`design/colors.json\`,
 run \`npm run colors:generate\`, then \`npm run colors:check\`.
 ## Theme tokens
@@ -223,7 +262,7 @@ ${[...registry.audit.exceptions, ...registry.audit.protected].map(item => `- \`$
   return new Map([
     ['src/styles/colors.generated.css', css],
     ['src/data/colors.generated.json', JSON.stringify({ registrySha256: createHash('sha256').update(registrySource).digest('hex'), themes, utilities, artwork }, null, 2) + '\n'],
-    ['design/brand-guide.md', nextGuide],
+    ['design/brand-guide.mdx', nextGuide],
     ['design/colors-reference.md', reference],
   ]);
 }

@@ -1,6 +1,6 @@
 {
   "logo": {
-    "inputs": "4d22485d9a942130181dda399b51bf126d66ef1f427e67a1970beb4e9c3617c6",
+    "inputs": "95de76a411bbcdf7663bd62c4c29463505d2a1ce297035ba64122992443ececb",
     "outputs": "5a755a27f900eb8414bc6bfc83c9df4ade51a89265dda2f1d13832dfeef880e9"
   },
   "stills": {
@@ -8,51 +8,51 @@
     "outputs": "1b3e09eedcac35aa6cf66a9eafe1dd472a197af000f062bc43f9d9fec456669c"
   },
   "lottie:idle": {
-    "inputs": "af91d25cd0100f771ce80c87ea65ac6b919534a3c6a5355db4cca78aaeb76491",
+    "inputs": "2438ad029628a7cf398b2edfa936c6f78145a9fa6c3d326f1c4e4720d9caeca7",
     "outputs": "c43f8ca37eea98236890b823c03774015f2829359084cc7dfa14791fd68df70a"
   },
   "video:idle": {
-    "inputs": "7e139e813e5ca3844fd68f4b3e0ada726dc6a0317c45710f6dcf7e9c16bc3961",
+    "inputs": "af1f0bcbaab6f396b7b6c5f1bad991dec0c3a8f5f4a9c21f4ae78ab8398c066f",
     "outputs": "6ee73630aa4c5d4c2e5441ba775f9e5282c5679de9a01cc5d3108bcea1b9ef85"
   },
   "lottie:wave": {
-    "inputs": "4a95b2ff47231900ac926183b792f7abb6c6a654bde0c6ade3281ec12d58ee99",
+    "inputs": "3cac4ecfac79b850bf5e2e5b46a1319b9cdcc4d06b2e44819e5f7c8b07c90998",
     "outputs": "4f7e2c3e95f0c76006f3ea72075df193b72b5ca2f6af48e5247b3bfc23e9b88b"
   },
   "video:wave": {
-    "inputs": "7b2812c43928ce9eff88ea1d465be783f4b59e9055d489175b60396706c1499b",
+    "inputs": "001334350d05149d2eef6da82debce835a43f8dba61c2837e0e0d74c4188971a",
     "outputs": "0d6997b81709b8b0f137a5deb72faa6dcc400323fe34daa44a9dbd4856d2536d"
   },
   "lottie:point": {
-    "inputs": "a7730f875460d4188e759fd2f12214f41a67d8800afbf7d670b97c976829c938",
+    "inputs": "7fdd7e4090998bb40b395e96dd542ebcc387fb68dcf2b5f7102a47a6325418c7",
     "outputs": "62b0dee5ded46f0ab5fa9e0cd754bca635cc5695771a6ac660793882173a96d3"
   },
   "video:point": {
-    "inputs": "5cd5a0c68bc83c723f5628cf27dcfd353a11f65fe438469014da983d0791abc2",
+    "inputs": "efa29703859fd18ab29896aaf62d0c865ef2df273483260ea87ed3ddf907d5cf",
     "outputs": "b3f15fd80b366b3b1911e96dba06c90a19513de574dc722747ab1fc1e6956920"
   },
   "lottie:celebrate": {
-    "inputs": "5e22e4698cc30e889a3694d09bee3d63298d79a420fc8c5882e1b2bf0c9b73f9",
+    "inputs": "461e07d888df6cd446646b58acaa63aeb2218b406856652772046616ab8a0a21",
     "outputs": "301fad83e6b26b976ab57d6eddd598c5924ad0bbc554a6cc888fefe69d57d6ed"
   },
   "video:celebrate": {
-    "inputs": "a02a83f41135adb558e187f82c440939239b64f9d383d8fa4d141150e96d72ec",
+    "inputs": "0f1524598aee5dedde858d71b468fa9167270896ca0c4134e3e3d6b5957dcbd1",
     "outputs": "f419d31ac296d938a06dc26933e09309cd7a999eb3ad88a88f0a632fde2ba57a"
   },
   "lottie:think": {
-    "inputs": "b4b2c6998a0cf4a3568e9580f7e1fba54e46423bacdeaa68c12dfbce51686cf7",
+    "inputs": "ad37ff039103ab422d0fd50821569c815f0b0c1255a6aef4caa6028b6bf8a914",
     "outputs": "ab40ce6b145a7a3abb9ca9be61fc3d2d566ca1daa24c86917570bb21b0abd635"
   },
   "video:think": {
-    "inputs": "8bd843b669ae2af1d8ecca8125e06984c91e99cf36eda368cdd098230153fcef",
+    "inputs": "6edd2dbb06aa11626d4de6324507cd5b048707a68c892b21a92dbdfdddc0c546",
     "outputs": "d2b90272ef4e1e3ed227124cd99b4e4699bf74ca61dbe2b1b2316506b3c0d5e9"
   },
   "lottie:step": {
-    "inputs": "b981639d40e4d6ed6b43e8bce9698569fee6fac2c54a4ba48a123ab213666003",
+    "inputs": "9598bcfebf3f5d9af48f788577ed5334ade6170b6d7bfc432d64a4f487ff212b",
     "outputs": "3f03bd8a9bf1f20d0164c339a4afa2323a8641ff393e07110e6f9b5b34a0dde2"
   },
   "video:step": {
-    "inputs": "72fcd95c68cf34e791a79745feb4332509fb3127dc57d6a14f3da8ca2bef5a3a",
+    "inputs": "2edc7b7e1355ef5cbb88872a67071dd35e8118b55d98e84dcceb4af31e6e3030",
     "outputs": "a48f6ea1e465fe87bd737098dd6a3e92b99c7acc6de79f078771e73cc98831a2"
   }
 }

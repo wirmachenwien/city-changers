@@ -14,6 +14,19 @@ ASSETS = ROOT / "src/assets/icons"
 
 
 class IconTest(unittest.TestCase):
+    def test_crosswalk_outline_matches_the_filled_three_stripe_geometry(self):
+        ns = {"svg": "http://www.w3.org/2000/svg"}
+        filled = ET.parse(ICONS / "drawn/crosswalk.svg").getroot()
+        outline = ET.parse(ICONS / "drawn/crosswalk-outline.svg").getroot()
+        self.assertEqual(outline.get("fill"), "none")
+        self.assertEqual(outline.get("stroke"), "currentColor")
+        self.assertGreater(float(outline.get("stroke-width")), 0)
+        self.assertEqual(filled.find("svg:g", ns).attrib, outline.find("svg:g", ns).attrib)
+        stripes = filled.findall(".//svg:rect", ns)
+        self.assertEqual(len(stripes), 3)
+        self.assertEqual([rect.attrib for rect in stripes],
+                         [rect.attrib for rect in outline.findall(".//svg:rect", ns)])
+
     def test_generated_svg_png_and_runtime_outputs_are_fresh(self):
         result = subprocess.run(["node", "design/icons/build-icons.mjs", "--check"],
                                 cwd=ROOT, capture_output=True, text=True)

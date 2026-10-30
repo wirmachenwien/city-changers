@@ -59,7 +59,7 @@ export const thinkSchema = commonSchema.extend({
     .string()
     .regex(/^#[0-9a-f]{6}$/i)
     .default("#fff0a8")
-    .describe("Illuminated face colour")
+    .describe("Illuminated face color")
     .meta({ studioType: "color" }),
   showIdeaRays: z.boolean().default(true).describe("Show yellow idea rays"),
 });

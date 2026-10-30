@@ -1,7 +1,8 @@
 # City Changers — technical color reference
 
 <!-- Generated from design/colors.json. Do not edit; run npm run colors:generate. -->
-The brand guide shows the compact palette. This table is an implementation
+The brand guide separates the brand palette, functional UI colors and protected
+artwork colors. This table is an implementation
 reference, not a menu of interchangeable accents. Edit `design/colors.json`,
 run `npm run colors:generate`, then `npm run colors:check`.
 ## Theme tokens
@@ -23,7 +24,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--panel` | `#F6F1EA` | `#23221E` | `#F6F1EA` | Neutral cards and FeatureBoxes. |
 | `--warn` | `#8A4B00` | `#E8A33D` | `#8A4B00` | Warm supporting emphasis; not automatically a warning. |
 | `--warn-soft` | `#FDF6E1` | `#332917` | `#FDF6E1` | Background of warm FeatureBoxes. |
-| `--error` | `#A31F1F` | `#FF8A7A` | `#A31F1F` | Error text, paired with a written message. |
+| `--error` | `#A31F1F` | `#FF8A7A` | `#A31F1F` | Incorrect-answer marks and incorrect, empty or incomplete-answer feedback; always paired with a written message. |
 | `--mark` | `#FFE08A` | `#55401E` | `#FFE08A` | Search-result highlighting. |
 | `--mark-ink` | `#1D1A16` | `#F2EDE3` | `#1D1A16` | Text on search highlighting. |
 | `--focus` | `#0C6B3C` | `#4CC38A` | `#0C6B3C` | Focus rings on ordinary UI surfaces. |
@@ -113,6 +114,7 @@ artwork/tooling. Each exception is listed with its reason in the registry.
 - `design/icons/artwork/logo-small.svg`: Byte-identical inventory copy of src/assets/site/logo-small.svg; icons:check verifies preservation, never recolors artwork.
 - `design/icons/artwork/cc-by.svg`: Byte-identical inventory copy of the supplied Creative Commons badge; its external artwork colors are not UI tokens.
 - `design/colors.json`: Editable source of truth; base colors and recipes are validated before generation.
+- `design/brand-guide.mdx`: The generated Colors section documents registry HEX values as reference text; colors:check verifies that section exactly. Live examples use shared components and semantic styles.
 - `src/data/colors.generated.json`: Generated registry output; exact freshness is checked.
 - `src/styles/colors.generated.css`: Generated registry output; exact freshness is checked.
 - `scripts/lib/colors.mjs`: Color serialization and audit implementation, tested independently.

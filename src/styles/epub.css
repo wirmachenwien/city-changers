@@ -291,7 +291,7 @@ figcaption {
   margin-bottom: 0.75rem;
 }
 /* Component styles mirror the print stylesheet (src/styles/print.css):
-   tip boxes, pull quotes, glossary lists, quiz boxes and tables.
+   tip boxes, pull quotes, glossary lists, question boxes and tables.
    Deliberately absent here: printed link URLs (reader links are tappable)
    and page footnotes (linked endnotes suit reflowable text). */
 blockquote {
@@ -331,8 +331,8 @@ blockquote.pullquote footer {
 .mascot-box__title,
 .accordion > summary,
 .accordion-title,
-.quiz-title,
-.quiz legend,
+.question-title,
+.question legend,
 dl.glossary dt {
   page-break-after: avoid;
   break-after: avoid;
@@ -370,7 +370,7 @@ dl.glossary dd {
   margin-left: 0;
   margin-bottom: 0.4rem;
 }
-.quiz {
+.question {
   border: 1px solid var(--line);
   border-radius: .4rem;
   padding: 1rem 1.25rem;
@@ -380,27 +380,27 @@ dl.glossary dd {
   break-inside: avoid;
 }
 
-.quiz fieldset {
+.question fieldset {
   border: 0;
   padding: 0;
   margin: 0 0 1rem;
 }
 
-.quiz legend {
+.question legend {
   font-weight: 700;
   line-height: 1.35;
   padding: 0;
   margin-block-end: 0.5rem;
 }
 
-.quiz label {
+.question label {
   display: flex;
   gap: 0.5rem;
   align-items: baseline;
   padding-block: 0.25rem;
 }
 
-.quiz ol {
+.question ol {
   margin-bottom: 0;
 }
 .icon {

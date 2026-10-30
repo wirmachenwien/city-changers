@@ -5,7 +5,7 @@ export function questionNumbers(works, readChapter) {
     let number = 0;
     for (const chapter of work.chapters) {
       const source = readChapter(lang, chapter.file);
-      const questions = source.matchAll(/<(?:Quiz|Question)\b[\s\S]*?\bid\s*=\s*(?:\{\s*)?["']([^"']+)["']/g);
+      const questions = source.matchAll(/<Question\b[\s\S]*?\bid\s*=\s*(?:\{\s*)?["']([^"']+)["']/g);
       for (const [, id] of questions) {
         if (numbers.has(id)) throw new Error(`Duplicate question id: ${id}`);
         numbers.set(id, ++number);

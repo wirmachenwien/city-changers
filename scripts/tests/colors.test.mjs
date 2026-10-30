@@ -60,10 +60,22 @@ test('print shares the UI palette except for explicitly documented overrides', (
   assert.equal(resolved.themes.print.warn, '#8a4b00');
 });
 
+test('brand palette excludes error red while functional documentation retains its token', () => {
+  assert.ok(!registry.palette.some(color => color.ref.startsWith('red.')));
+  assert.ok(registry.functionalColors.some(color => color.token === 'error'));
+  const guide = readFileSync(join(root, 'design/brand-guide.mdx'), 'utf8');
+  const palette = guide.split('### Brand palette')[1].split('### Functional UI colors')[0];
+  const functional = guide.split('### Functional UI colors')[1].split('### Protected artwork colors')[0];
+  assert.ok(!palette.includes('#A31F1F'));
+  assert.ok(functional.includes('`--error` | `#A31F1F` | `#FF8A7A`'));
+  assert.equal(resolved.themes.light.error, '#a31f1f');
+  assert.equal(resolved.themes.dark.error, '#ff8a7a');
+});
+
 test('generation is idempotent and stale outputs are detected', () => {
-  const guide = readFileSync(join(root, 'design/brand-guide.md'), 'utf8');
+  const guide = readFileSync(join(root, 'design/brand-guide.mdx'), 'utf8');
   const outputs = generateOutputs(registry, resolved, guide, registrySource);
-  assert.deepEqual(generateOutputs(registry, resolved, outputs.get('design/brand-guide.md'), registrySource), outputs);
+  assert.deepEqual(generateOutputs(registry, resolved, outputs.get('design/brand-guide.mdx'), registrySource), outputs);
   assert.deepEqual(generatedDifferences(root, outputs), []);
   assert.ok(![...outputs.keys()].some(path => path.startsWith('src/assets/')));
   fixture(directory => {

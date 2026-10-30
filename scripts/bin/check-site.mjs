@@ -264,13 +264,12 @@ if (!existsSync(sitemapFile)) {
 
 // Team references must remain reachable by URL, but never discoverable from
 // public navigation, the sitemap, or search content. Also verify their downloads.
-for (const preview of ['component-showcase', 'brand-guide']) {
-  const rel = `preview/${preview}.html`;
+for (const rel of ['brand.html']) {
   const html = readPage(rel);
   if (!html) continue;
   if (!/<meta[^>]*name="robots"[^>]*content="noindex"/.test(html)) fail(`${rel}: missing noindex`);
   if (!/<body[^>]*data-pagefind-ignore/.test(html)) fail(`${rel}: missing Pagefind exclusion`);
-  const expectedCanonical = `${site}${BASE}/${rel}`;
+  const expectedCanonical = `${site}${BASE}/brand`;
   if (!html.includes(`rel="canonical" href="${expectedCanonical}"`)) fail(`${rel}: incorrect canonical URL`);
   for (const href of links(html)) {
     const resolved = resolveUrl(rel, href);
@@ -281,7 +280,7 @@ for (const preview of ['component-showcase', 'brand-guide']) {
   for (const lang of LANGS) {
     for (const file of PAGE_FILES) {
       const page = readPage(pagePath(lang, 'page', file));
-      if (page && links(page).some((href) => href.includes(`/preview/${preview}.html`))) {
+      if (page && links(page).some((href) => /\/brand(?:\.html|\/)?(?:[?#]|$)/.test(href))) {
         fail(`${rel}: linked from public navigation`);
       }
     }

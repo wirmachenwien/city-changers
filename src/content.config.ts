@@ -34,16 +34,13 @@ const pages = defineCollection({
   }),
 });
 
-// Preview pages (component showcase): MDX source rendered through the shared
-// MdxContent scope, so demos use exactly the author-facing component set.
-// The showcase is English-only by design (no language switcher in the CMS),
-// so `lang` falls back to the default language.
-const preview = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: './src/content/preview' }),
+// One authored brand guide, including live component examples and guidelines.
+const brand = defineCollection({
+  loader: glob({ pattern: 'brand-guide.mdx', base: './design' }),
   schema: z.object({
     title: z.string(),
     lang: lang.default('en'),
   }),
 });
 
-export const collections = { book, pages, preview };
+export const collections = { book, pages, brand };

@@ -20,7 +20,7 @@ class DesignPipelineTest(unittest.TestCase):
     def test_one_manifest_for_delivery_and_site(self):
         records = asset_records()
         self.assertEqual(len({r["file"] for r in records}), len(records))
-        documents = {"LICENSE", "design/brand-guide.md", "design/docs/handoff/START-HERE.txt",
+        documents = {"LICENSE", "design/brand-guide.mdx", "design/docs/handoff/START-HERE.txt",
                      "design/colors-reference.md", "design/colors.json"}
         for record in records:
             self.assertTrue(record["source"].startswith(("src/assets/", "public/"))
@@ -79,7 +79,7 @@ class DesignPipelineTest(unittest.TestCase):
 
     def test_guide_and_photo_edits_do_not_trigger_animation_renders(self):
         for group in BUILD.groups().values():
-            self.assertNotIn(DESIGN / "brand-guide.md", group["inputs"])
+            self.assertNotIn(DESIGN / "brand-guide.mdx", group["inputs"])
             self.assertFalse(any("supporting" in path.parts for path in group["inputs"]))
 
     def test_new_nested_motion_helpers_are_not_missed(self):

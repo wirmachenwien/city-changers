@@ -4,7 +4,7 @@
 Single source of truth for the MDX subset authors may use in
 src/content/book/<lang>/*.mdx, previously duplicated between
 scripts/bin/build-pdf.py and scripts/bin/build-epub.py. Import from here instead
-of redefining: common regexes, entry parsers, glossary/quiz/question/
+of redefining: common regexes, entry parsers, glossary/question/
 pullquote converters, and the strip-style handlers (CopyText, Toc,
 Spoiler, ButtonLink, DownloadLink, TableWrap, SideBySideButtons,
 Accordion, ExpandableBox, Slideshow, Bibliography,
@@ -92,7 +92,7 @@ FOOTNOTE_RE = re.compile(r'<Footnote\b([^>]*)\s*/>', re.DOTALL)
 # else (relative links, anchors) stays untouched.
 LINK_RE = re.compile(r'(?<!!)\[([^\]\n]+)\]\((https?://[^)\s]+)(?:\s+"[^"]*")?\)')
 GLOSSARY_RE = re.compile(r'<Glossary\s+entries=\{\[(.*?)\]\}\s*/>', re.DOTALL)
-QUIZ_RE = re.compile(r'<Quiz\b(.*?)options=\{\[(.*?)\]\}\s*/>', re.DOTALL)
+QUESTION_RE = re.compile(r'<Question\b(.*?)options=\{\[(.*?)\]\}\s*/>', re.DOTALL)
 QUESTION_RE = re.compile(r'<Question\b(.*?)options=\{\[(.*?)\]\}(.*?)\s*/?>', re.DOTALL)
 
 ATTR_RE = re.compile(r'([A-Za-z][\w-]*)=(?:"([^"]*)"|\{\s*"([^"]*)"\s*\}|\{\s*(\d+)\s*\})')
@@ -236,7 +236,7 @@ def option_entries(source: str) -> list[tuple[str, bool]]:
 
 # `{ label: "...", href: "..." }` entries (SideBySideButtons links,
 # Bibliography sources, SelectList options). Both quote styles are accepted:
-# the component showcase uses single quotes, chapter MDX double quotes.
+# the brand guide uses single quotes, chapter MDX double quotes.
 LINK_ENTRY_RE = re.compile(
     r"""\{\s*label:\s*(?:"([^"]+)"|'([^']+)')\s*"""
     r"""(?:,\s*href:\s*(?:"([^"]+)"|'([^']+)'))?[^}]*\}"""
@@ -384,7 +384,7 @@ def question_numbers() -> dict[str, int]:
         for chapter in work["chapters"]:
             path = BOOK_CONTENT / lang / f'{chapter["file"]}.mdx'
             source = path.read_text() if path.is_file() else ""
-            for match in re.finditer(r'''<(?:Quiz|Question)\b[\s\S]*?\bid\s*=\s*(?:\{\s*)?["']([^"']+)["']''', source):
+            for match in re.finditer(r'''<Question\b[\s\S]*?\bid\s*=\s*(?:\{\s*)?["']([^"']+)["']''', source):
                 identifier = match.group(1)
                 if identifier in numbers:
                     raise ValueError(f"Duplicate question id: {identifier}")
@@ -393,22 +393,15 @@ def question_numbers() -> dict[str, int]:
     return numbers
 
 
-def _quiz_wrap(question: str, items: str, answer_line: str, identifier: str = "") -> str:
-    """Print wrapper shared by Quiz (flagged options) and Question (answer index)."""
+def _question_wrap(question: str, items: str, answer_line: str, identifier: str = "") -> str:
+    """Build the print wrapper for a self-check Question component."""
     number = question_numbers().get(identifier)
     title = f'Question{f" {number}" if number is not None else ""}: {question}'
     return (
-        f'\n\n<div class="quiz"><p class="quiz-title"><strong>{title}</strong></p>'
+        f'\n\n<div class="question"><p class="question-title"><strong>{title}</strong></p>'
         f'<ol>{items}</ol>'
         f'<p style="transform: rotate(180deg);">{answer_line}</p></div>\n'
     )
-
-
-def quiz_html(question: str, source: str, answers_label: str, identifier: str = "") -> str:
-    entries = option_entries(source)
-    options = ''.join(f'<li>{label}</li>' for label, _ in entries)
-    correct = ', '.join(str(i + 1) for i, (_, is_correct) in enumerate(entries) if is_correct)
-    return _quiz_wrap(question, options, f"{answers_label}: {correct}", identifier)
 
 
 def question_html(question: str, source: str, answer: str, answers_label: str, identifier: str = "") -> str:
@@ -420,10 +413,10 @@ def question_html(question: str, source: str, answer: str, answers_label: str, i
         if not correct_indices and answer:
             correct_indices = [str(int(answer) + 1)]
         correct = ', '.join(correct_indices)
-        return _quiz_wrap(question, options, f"{answers_label}: {correct}", identifier)
+        return _question_wrap(question, options, f"{answers_label}: {correct}", identifier)
     options = re.findall(r'"([^"]+)"', source)
     items = ''.join(f'<li>{label}</li>' for label in options)
-    return _quiz_wrap(question, items, f"{answers_label}: {int(answer) + 1}", identifier)
+    return _question_wrap(question, items, f"{answers_label}: {int(answer) + 1}", identifier)
 
 
 def strip_static_handlers(text: str) -> str:

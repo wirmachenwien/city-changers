@@ -1,5 +1,5 @@
 {
-  "inputs": "503b10c62636a046c25f45c32bbf321238555edaa7097037f333b9433fdc1478",
+  "inputs": "dbcc444a2df3dd937a2066b01f147a6818170768b7c7cbca0e886bf3a70079fe",
   "pngs": {
     "src/assets/icons/png/light/search.png": "27d84e3c6215e65d5124e89d0d0964801d90b22b6d0af9f38c04222f2b013590",
     "src/assets/icons/png/dark/search.png": "8b2095200a2398b2c42c687fc5528922390b9d68d93612f2eb5f73bcbf7f9dd0",
@@ -77,8 +77,8 @@
     "src/assets/icons/png/dark/flag-outline.png": "ab5103e53f3f84eee7ccdd55319ee74dc91aa1d4c33e154c8e416105c5cddb8a",
     "src/assets/icons/png/light/crosswalk.png": "18089e57c9cfa44e9cd1ca7ca0849a98ff2097f2f82b7b7079b564bd35238fc5",
     "src/assets/icons/png/dark/crosswalk.png": "b64a9e2ad9fad29dd067fb497522dc95cd91dbd769d0706092d1acd3ab75d015",
-    "src/assets/icons/png/light/crosswalk-outline.png": "d14ff9245b9ac9b79aab22a7511e8a0a03d677fd946d693b00207c5db17bdb73",
-    "src/assets/icons/png/dark/crosswalk-outline.png": "c3d75755d21232a6598387f5b8cc5b5f6471c581dbbd67509ccd51236d01bc30",
+    "src/assets/icons/png/light/crosswalk-outline.png": "8f5db9f6ce1fd9bed09780f19e11a91558c0f3bfca48b9627d05760b4f4b9b0a",
+    "src/assets/icons/png/dark/crosswalk-outline.png": "c33bb2da5d3fbc833934c60383f959fe93d2b2b75e1a8ea93a89917024c456d9",
     "src/assets/icons/png/light/pebble.png": "a9e9d98e87b4416bf6d0621ed39cc8971850975264e5c6f290e1c6ba55f0ad4e",
     "src/assets/icons/png/dark/pebble.png": "f40e912ea03a9fd65f7f62b8ccc3918c4fe90987e64bc4a1aac2f91fdfca1b90",
     "src/assets/icons/png/light/pebble-outline.png": "fbc5bf5119ee765688b35901912c1cd3b95362f3f7e53d5038f8751f1b621a69",

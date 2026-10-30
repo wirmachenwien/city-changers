@@ -627,9 +627,19 @@ body.drawer-open {
   text-decoration: underline;
 }
 
-.nav-list a[aria-current="page"] {
+.nav-list a[aria-current="page"],
+.nav-list a[aria-current="location"] {
   border-inline-start-color: var(--accent);
   font-weight: 700;
+}
+
+.nav-list a.is-active-parent {
+  font-weight: 700;
+}
+
+.nav-list--nested {
+  padding-inline-start: 0.8rem;
+  margin-inline-start: 0.6rem;
 }
 
 /* ---------- Layout shells ---------- */
@@ -658,6 +668,15 @@ body.drawer-open {
 }
 
 @media (min-width: 60rem) {
+  .side-nav[data-scroll-toc] {
+    position: sticky;
+    align-self: start;
+    inset-block-start: var(--scroll-offset, 5rem);
+    max-block-size: calc(100dvb - var(--scroll-offset, 5rem) - 1rem);
+    overflow-y: auto;
+    background: var(--paper);
+  }
+
   /* The sidebar stretches with the article, letting only the bookmarks
      remain in view after the chapter navigation has scrolled away. */
   .side-nav [data-bookmark-nav] {
@@ -860,11 +879,53 @@ a[data-external-link]:has(img) > .external-link-icon {
 }
 
 .prose code {
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+}
+
+.prose :not(pre) > code {
   background: var(--panel);
+  color: var(--ink);
   padding: 0.1rem 0.3rem;
   border-radius: 0.25rem;
+  overflow-wrap: anywhere;
+}
+
+.prose pre {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  margin-block: 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  text-align: start;
+  white-space: pre;
+  tab-size: 2;
+  /* Override Shiki's fixed inline theme with our accessible light/dark pair. */
+  background: var(--panel) !important;
+  color: var(--ink) !important;
+}
+
+.prose pre code {
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  white-space: inherit;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.prose pre span {
+  /* Syntax colors must not introduce unregistered, dark-only text colors. */
+  color: inherit !important;
 }
 
 /* ---------- Breadcrumbs ---------- */
@@ -1324,9 +1385,9 @@ html:not(.js-fold) .accordion-content {
   cursor: pointer;
 }
 
-/* ---------- Quiz ---------- */
+/* ---------- Question ---------- */
 
-.quiz {
+.question {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1335,20 +1396,20 @@ html:not(.js-fold) .accordion-content {
   font-family: var(--font-ui);
 }
 
-.quiz fieldset {
+.question fieldset {
   border: 0;
   padding: 0;
   margin: 0 0 0.75rem;
 }
 
-.quiz legend {
+.question legend {
   font-weight: 700;
   line-height: 1.35;
   padding: 0;
   margin-block-end: 0.5rem;
 }
 
-.quiz label {
+.question label {
   display: flex;
   gap: 0.65rem;
   align-items: flex-start;
@@ -1357,7 +1418,7 @@ html:not(.js-fold) .accordion-content {
   position: relative;
 }
 
-.quiz .quiz-checkbox-input {
+.question .question-checkbox-input {
   position: absolute;
   inline-size: 1px;
   block-size: 1px;
@@ -1369,7 +1430,7 @@ html:not(.js-fold) .accordion-content {
   border: 0;
 }
 
-.quiz .quiz-box {
+.question .question-box {
   position: relative;
   display: inline-grid;
   place-items: center;
@@ -1380,10 +1441,10 @@ html:not(.js-fold) .accordion-content {
   color: var(--ink);
 }
 
-.quiz .quiz-box__outline,
-.quiz .quiz-box__check,
-.quiz .quiz-box__correct,
-.quiz .quiz-box__incorrect {
+.question .question-box__outline,
+.question .question-box__check,
+.question .question-box__correct,
+.question .question-box__incorrect {
   grid-area: 1 / 1;
   display: flex;
   align-items: center;
@@ -1392,25 +1453,25 @@ html:not(.js-fold) .accordion-content {
   block-size: 100%;
 }
 
-.quiz .quiz-box .icon {
+.question .question-box .icon {
   inline-size: 100%;
   block-size: 100%;
   vertical-align: 0;
   display: block;
 }
 
-.quiz .quiz-box__check,
-.quiz .quiz-box__incorrect {
+.question .question-box__check,
+.question .question-box__incorrect {
   opacity: 0;
   transform: translate(0.02rem, 0.025rem) scale(1.3);
   transform-origin: center;
 }
 
-.quiz .quiz-box__incorrect {
+.question .question-box__incorrect {
   color: var(--error);
 }
 
-.quiz .quiz-box__correct {
+.question .question-box__correct {
   opacity: 0;
   transform: translate(0.15rem, -0.15rem) scale(1.5);
   transform-origin: center;
@@ -1418,65 +1479,65 @@ html:not(.js-fold) .accordion-content {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .quiz .quiz-box__check,
-  .quiz .quiz-box__correct,
-  .quiz .quiz-box__incorrect {
+  .question .question-box__check,
+  .question .question-box__correct,
+  .question .question-box__incorrect {
     transition: opacity 0.12s ease-in-out;
   }
 }
 
-.quiz .quiz-checkbox-input:checked + .quiz-box .quiz-box__check {
+.question .question-checkbox-input:checked + .question-box .question-box__check {
   opacity: 1;
 }
 
-.quiz label[data-mark="correct"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__check {
+.question label[data-mark="correct"] .question-checkbox-input:checked + .question-box .question-box__check {
   opacity: 0;
 }
 
-.quiz label[data-mark="correct"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__correct {
+.question label[data-mark="correct"] .question-checkbox-input:checked + .question-box .question-box__correct {
   opacity: 1;
 }
 
-.quiz label[data-mark="incorrect"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__check {
+.question label[data-mark="incorrect"] .question-checkbox-input:checked + .question-box .question-box__check {
   opacity: 0;
 }
 
-.quiz label[data-mark="incorrect"] .quiz-checkbox-input:checked + .quiz-box .quiz-box__incorrect {
+.question label[data-mark="incorrect"] .question-checkbox-input:checked + .question-box .question-box__incorrect {
   opacity: 1;
 }
 
-.quiz .quiz-checkbox-input:focus-visible + .quiz-box {
+.question .question-checkbox-input:focus-visible + .question-box {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: var(--radius);
 }
 
-.quiz .quiz-option__label {
+.question .question-option__label {
   flex: 1;
   line-height: 1.4;
 }
 
-.quiz .quiz-feedback {
+.question .question-feedback {
   font-weight: 700;
   margin: 0 0 0.75rem;
 }
 
 /* Keep the live region mounted, but reserve no space until it has text. */
-.quiz .quiz-feedback:empty {
+.question .question-feedback:empty {
   margin: 0;
 }
 
-.quiz .quiz-feedback[data-state="correct"] {
+.question .question-feedback[data-state="correct"] {
   color: var(--accent);
 }
 
-.quiz .quiz-feedback[data-state="incorrect"],
-.quiz .quiz-feedback[data-state="empty"],
-.quiz .quiz-feedback[data-state="unfinished"] {
+.question .question-feedback[data-state="incorrect"],
+.question .question-feedback[data-state="empty"],
+.question .question-feedback[data-state="unfinished"] {
   color: var(--error);
 }
 
-.quiz button[type="submit"] {
+.question button[type="submit"] {
   background: var(--accent);
   color: var(--accent-ink);
   border: 0;
@@ -2754,7 +2815,7 @@ input[type="search"]::placeholder {
   }
 }
 
-/* Invert only the monochrome partner marks; keep Wir machen Wien in colour. */
+/* Invert only the monochrome partner marks; keep Wir machen Wien in color. */
 :root[data-theme="dark"] .partner-logos .partner-logos__logo--changing-cities,
 :root[data-theme="dark"] .partner-logos .partner-logos__logo--prostoroz {
   filter: invert(1);

@@ -7,7 +7,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
-from handbook.mdx import question_numbers, question_html, quiz_html
+from handbook.mdx import question_numbers, question_html, question_html
 
 
 class QuestionNumberingTest(unittest.TestCase):
@@ -39,7 +39,7 @@ console.log(JSON.stringify(Object.fromEntries(numbers)));
         for identifier, number in question_numbers().items():
             with self.subTest(identifier=identifier):
                 expected = f'<strong>Question {number}: Ready?</strong>'
-                self.assertIn(expected, quiz_html("Ready?", '{ label: "Yes", correct: true }',
+                self.assertIn(expected, question_html("Ready?", '{ label: "Yes", correct: true }', "",
                                                  "Answers", identifier))
                 self.assertIn(expected, question_html("Ready?", '"Yes", "No"', "0",
                                                      "Answers", identifier))
