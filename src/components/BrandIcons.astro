@@ -3,5 +3,37 @@ import Icon from './Icon.astro';
 import icons from '../data/icons.generated.json';
 import type { IconName } from '../lib/icons';
 const names = Object.keys(icons) as IconName[];
+const files = import.meta.glob<string>('../assets/icons/**/*.{svg,png}', {
+  eager: true, query: '?url&no-inline', import: 'default',
+});
+function downloads(name: IconName) {
+  return [
+    { path: `${name}.svg`, label: 'SVG', filename: `${name}.svg` },
+    { path: `png/light/${name}.png`, label: 'PNG · light', filename: `${name}-light.png` },
+    { path: `png/dark/${name}.png`, label: 'PNG · dark', filename: `${name}-dark.png` },
+  ].map(({ path, ...download }) => {
+    const href = files[`../assets/icons/${path}`];
+    if (!href) throw new Error(`Missing icon download: ${path}`);
+    return { ...download, href };
+  });
+}
 ---
-<div class="showcase-demo"><ul class="showcase-icons">{names.map((name) => <li><Icon name={name} /><span class="showcase-icon-name">{name}</span></li>)}</ul></div>
+<div class="showcase-demo">
+  <ul class="showcase-icons">
+    {names.map((name) => (
+      <li>
+        <Icon name={name} />
+        <span class="showcase-icon-name">{name}</span>
+        <div class="icon-downloads">
+          {downloads(name).map(({ href, filename, label }) => (
+            <a {href} download={filename} aria-label={`Download ${name} icon (${label})`}>{label}</a>
+          ))}
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+<style>
+  .icon-downloads { display: flex; flex-direction: column; align-items: center; font-family: var(--font-ui); font-size: .75rem; }
+  .icon-downloads a { display: inline-flex; align-items: center; min-block-size: 24px; line-height: 1.5; }
+</style>
