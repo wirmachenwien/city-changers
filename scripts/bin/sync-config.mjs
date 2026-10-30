@@ -668,22 +668,22 @@ function languageOptions() {
 `).join('');
 }
 
-function componentShowcase() {
-  return `  - name: component_showcase
-    label: Brand Guide Components
+function brandGuide() {
+  return `  - name: brand_guide
+    label: Brand Guide
     type: file
-    path: src/content/preview/component-showcase.mdx
+    path: design/brand-guide.mdx
     format: yaml-frontmatter
     fields:
       - name: title
         type: string
         readonly: true
-        description: "Brand Guide: ${site}${BASE_PATH}/brand"
       - name: lang
         component: language
         readonly: true
       - name: body
         component: markdown_body
+        description: "Published at ${site}${BASE_PATH}/brand. The complete guide, including all live component examples. The Colors section is generated; update design/colors.json and run npm run colors:generate instead of editing that section here."
     operations:
       create: false
       delete: false
@@ -754,7 +754,7 @@ content:
 ${sharedProjectSettings()}
 ${partnersFile()}
 ${LANGS.map((lang) => languageSection(lang)).join('\n')}
-${componentShowcase()}`;
+${brandGuide()}`;
 }
 
 function robotsTxt() {

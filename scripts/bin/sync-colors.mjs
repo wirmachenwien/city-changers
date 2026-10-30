@@ -14,7 +14,7 @@ if (invalid.length) {
   console.error(invalid.join('\n'));
   process.exit(1);
 }
-const outputs = generateOutputs(registry, resolved, readFileSync(join(root, 'design/brand-guide.md'), 'utf8'), readFileSync(join(root, 'design/colors.json'), 'utf8'));
+const outputs = generateOutputs(registry, resolved, readFileSync(join(root, 'design/brand-guide.mdx'), 'utf8'), readFileSync(join(root, 'design/colors.json'), 'utf8'));
 const failures = [...contrast.failures];
 for (const path of generatedDifferences(root, outputs)) {
   const fullPath = join(root, path);

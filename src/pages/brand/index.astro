@@ -1,117 +1,17 @@
 ---
-import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { getEntry } from 'astro:content';
-import guideSource from '../../../design/brand-guide.md?raw';
-import colorReference from '../../../design/colors-reference.md?raw';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MdxContent from '../../components/MdxContent.astro';
-import BrandAssetLibrary from '../../components/BrandAssetLibrary.astro';
-import BrandLogo from '../../components/BrandLogo.astro';
-import Icon from '../../components/Icon.astro';
-import icons from '../../data/icons.generated.json';
-import type { IconName } from '../../lib/icons';
-import { withBase } from '../../lib/site';
 
-const markdown = await createMarkdownProcessor();
-async function guideSection(title: string) {
-  const source = guideSource.split(`## ${title}\n`)[1]?.split(/^## /m)[0]?.trim();
-  if (!source) throw new Error(`Brand guide is missing its ${title} section`);
-  return (await markdown.render(source)).code;
-}
-const [identityHtml, logosHtml, typeHtml, layoutHtml, writingHtml] = await Promise.all(
-  ['Identity', 'Logos', 'Type', 'Layout', 'Writing and images'].map(guideSection),
-);
-const colorsSource = guideSource.split('## Colors\n')[1]?.split(/^## Type/m)[0] ?? '';
-const paletteSource = colorsSource.split('### Brand palette\n')[1]?.split(/^### /m)[0] ?? '';
-const functionalSource = colorsSource.split('### Functional UI colors\n')[1]?.split(/^### /m)[0] ?? '';
-const { code: functionalHtml } = await markdown.render(functionalSource);
-const artworkSource = colorsSource.split('### Protected artwork colors\n')[1] ?? '';
-const { code: artworkHtml } = await markdown.render(artworkSource);
-const { code: colorIntroHtml } = await markdown.render(paletteSource.split('Enter these HEX codes')[0]);
-const { code: colorReferenceHtml } = await markdown.render(colorReference.replace(/^(#{1,2}) /gm, '###$1 '));
-const colors = [...paletteSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
-const componentGuide = await getEntry('preview', 'component-showcase');
-if (!componentGuide) throw new Error('Missing brand guide components');
-const iconNames = Object.keys(icons) as IconName[];
-const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}`);
+const guide = await getEntry('brand', 'brand-guide');
+if (!guide) throw new Error('Missing brand guide');
 ---
-<BaseLayout lang="en" title="Brand Guide" kind="page" file="index" currentUrl="/brand" noindex hreflang={false} sidebarToc>
+<BaseLayout lang={guide.data.lang} title={guide.data.title} kind="page" file="index" currentUrl="/brand" noindex hreflang={false} sidebarToc>
   <div class="prose brand-guide" data-prose>
-    <h1>City Changers — Brand Guide</h1>
-    <p>One reference for our identity, visual language and handbook components. Start with the foundations, choose components for the content you are creating, then download the supplied assets.</p>
-    <p><a href="#identity">Identity</a> · <a href="#visual-foundations">Visual foundations</a> · <a href="#writing-and-formatting">Components</a> · <a href="#downloads">Downloads</a></p>
-
-    <h2 id="identity">Identity</h2>
-    <div set:html={identityHtml} />
-    <h3 id="logos">Logos and BrandLogo</h3>
-    <div class="showcase-demo"><BrandLogo label="City Changers logo lockup" /> <BrandLogo variant="symbol" label="Green Fix symbol" /></div>
-    <div set:html={logosHtml} />
-    <div class="logo-grid">
-      {[
-        { file: 'logo-lockup.svg', label: 'Lockup on light backgrounds', dark: false },
-        { file: 'logo-lockup-dark.svg', label: 'Lockup on dark backgrounds', dark: true },
-        { file: 'logo.svg', label: 'Symbol on light backgrounds', dark: false },
-        { file: 'logo-dark.svg', label: 'Symbol on dark backgrounds', dark: true },
-      ].map(({ file, label, dark }) => (
-        <figure><div class:list={['logo-preview', { 'logo-preview--dark': dark }]}><img src={logoUrl(file)} alt={label} width="320" height="120" /></div><figcaption><a href={logoUrl(file)} download>{label} (SVG)</a></figcaption></figure>
-      ))}
-    </div>
-    <h3 id="voice">Voice and photography</h3>
-    <div set:html={writingHtml} />
-
-    <h2 id="visual-foundations">Visual foundations</h2>
-    <h3 id="colors">Brand palette</h3>
-    <div set:html={colorIntroHtml} />
-    <ul class="color-grid">
-      {colors.map(([, name, hex, description]) => (
-        <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name.trim()}</strong> <code>{hex}</code><small>{description}</small></li>
-      ))}
-    </ul>
-    <p>Use semantic light/dark CSS tokens for interface text and backgrounds, rather than applying these base values everywhere. Artwork colors are protected references, not extra UI colors.</p>
-    <h3 id="functional-colors">Functional UI colors</h3>
-    <div class="color-table" set:html={functionalHtml} />
-    <h3 id="artwork-colors">Protected artwork colors</h3>
-    <div set:html={artworkHtml} />
-    <details class="color-reference"><summary>Technical color reference: themes, recipes and accessibility</summary><div set:html={colorReferenceHtml} /></details>
-
-    <h3 id="type">Typography</h3>
-    <div set:html={typeHtml} />
-    <div class="type-specimen">
-      <p class="type-headline">Fraunces — Small steps. Better streets.</p>
-      <p class="type-caption">Clarity City — Practical tools for community action.</p>
-      <p class="type-editorial">Newsreader — Longer stories from the neighbourhood.</p>
-    </div>
-    <h3 id="layout">Layout and artwork placement</h3>
-    <div set:html={layoutHtml} />
-    <h3 id="icon">Icon</h3>
-    <p>Use the shared hand-drawn icon family. Icons are decorative and hidden from assistive technology, so pair them with visible text or an accessible control label. Use <code>&lt;Icon name="search" /&gt;</code> in components.</p>
-    <div class="showcase-demo"><ul class="showcase-icons">{iconNames.map((name) => <li><Icon name={name} /><span class="showcase-icon-name">{name}</span></li>)}</ul></div>
-
-    <div data-brand-components><MdxContent entry={componentGuide} /></div>
-    <BrandAssetLibrary />
-    <p><a href="#main">Back to top</a></p>
+    <MdxContent entry={guide} />
   </div>
 </BaseLayout>
 <script>
   import { initBrandToc } from '../../scripts/brand-toc';
   initBrandToc();
 </script>
-<style>
-  .logo-grid, .color-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
-  .logo-grid figure { margin: 0; min-width: 0; }
-  .logo-preview { background: var(--art-paper); border-radius: .5rem; padding: 1rem; }
-  .logo-preview--dark { background: var(--art-dark); }
-  .logo-preview img { width: 100%; height: 120px; object-fit: contain; }
-  .color-grid { padding: 0; list-style: none; }
-  .color-grid li { border: 1px solid var(--line); border-radius: .5rem; padding: .75rem; }
-  .color-grid small { display: block; }
-  .swatch { display: block; height: 3rem; border: 1px solid var(--line); margin-block-end: .75rem; }
-  .type-specimen { border-block: 1px solid var(--line); padding-block: .5rem; }
-  .type-headline { font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; }
-  .type-caption { font-family: 'Clarity City', sans-serif; }
-  .type-editorial { font-family: 'Newsreader', Georgia, serif; font-size: 1.25rem; }
-  .color-reference { margin-block: 1.5rem; }
-  .color-reference summary { cursor: pointer; font-weight: 700; }
-  .color-reference > div { overflow-x: auto; }
-  .color-table { overflow-x: auto; }
-</style>

@@ -115,7 +115,7 @@ export function generateOutputs(registry, resolved, guide, registrySource = JSON
   }).join('\n');
   const colorsSection = `## Colors
 
-<!-- Generated from design/colors.json by npm run colors:generate. -->
+{/* Generated from design/colors.json by npm run colors:generate. */}
 ### Brand palette
 
 Our brand palette uses **green** as its primary accent and **warm amber/brown**
@@ -125,9 +125,16 @@ additional brand colors to choose independently.
 
 Enter these HEX codes in your design app's color picker:
 
+<BrandPalette />
+
+<details>
+<summary>Copyable color values</summary>
+
 \`\`\`text
 ${rows}
 \`\`\`
+
+</details>
 
 Use the semantic light/dark tokens for interfaces, rather than applying these
 base colors to every background. Warm FeatureBoxes use the amber accent with
@@ -145,15 +152,23 @@ The light and dark values below come from the semantic tokens. Use the tokens
 in interfaces, not fixed HEX values. Borders, muted text and focus indicators
 are UI utilities, not additional brand accents.
 
+<TableWrap>
+
 | Role | Token | Light | Dark | Use |
 |---|---|---|---|---|
 ${functionalRows}
 
+</TableWrap>
+
 ### Protected artwork colors
+
+<TableWrap>
 
 | Name | HEX | Use |
 |---|---|---|
 ${artRows}
+
+</TableWrap>
 
 Keep supplied artwork unchanged. Website ink and mascot ink are intentionally
 different. These colors are not permission to recolor a mascot or partner logo.
@@ -164,6 +179,8 @@ text and icon combinations, not arbitrary text over photos. Review image
 contrast separately. Print uses white paper and documented neutral overrides;
 it does not invent another green or amber palette. Screen colors are not a
 print/CMYK specification: ask a printer for proofs.
+
+<BrandColorReference />
 
 `;
   if (!/^## Colors\s*$/m.test(guide) || !/^## Type\s*$/m.test(guide)) throw new Error('Brand guide must contain Colors and Type sections');
@@ -245,7 +262,7 @@ ${[...registry.audit.exceptions, ...registry.audit.protected].map(item => `- \`$
   return new Map([
     ['src/styles/colors.generated.css', css],
     ['src/data/colors.generated.json', JSON.stringify({ registrySha256: createHash('sha256').update(registrySource).digest('hex'), themes, utilities, artwork }, null, 2) + '\n'],
-    ['design/brand-guide.md', nextGuide],
+    ['design/brand-guide.mdx', nextGuide],
     ['design/colors-reference.md', reference],
   ]);
 }

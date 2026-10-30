@@ -114,6 +114,7 @@ artwork/tooling. Each exception is listed with its reason in the registry.
 - `design/icons/artwork/logo-small.svg`: Byte-identical inventory copy of src/assets/site/logo-small.svg; icons:check verifies preservation, never recolors artwork.
 - `design/icons/artwork/cc-by.svg`: Byte-identical inventory copy of the supplied Creative Commons badge; its external artwork colors are not UI tokens.
 - `design/colors.json`: Editable source of truth; base colors and recipes are validated before generation.
+- `design/brand-guide.mdx`: The generated Colors section documents registry HEX values as reference text; colors:check verifies that section exactly. Live examples use shared components and semantic styles.
 - `src/data/colors.generated.json`: Generated registry output; exact freshness is checked.
 - `src/styles/colors.generated.css`: Generated registry output; exact freshness is checked.
 - `scripts/lib/colors.mjs`: Color serialization and audit implementation, tested independently.

@@ -93,6 +93,7 @@
       { "path": "design/icons/artwork/logo-small.svg", "reason": "Byte-identical inventory copy of src/assets/site/logo-small.svg; icons:check verifies preservation, never recolors artwork." },
       { "path": "design/icons/artwork/cc-by.svg", "reason": "Byte-identical inventory copy of the supplied Creative Commons badge; its external artwork colors are not UI tokens." },
       { "path": "design/colors.json", "reason": "Editable source of truth; base colors and recipes are validated before generation." },
+      { "path": "design/brand-guide.mdx", "reason": "The generated Colors section documents registry HEX values as reference text; colors:check verifies that section exactly. Live examples use shared components and semantic styles." },
       { "path": "src/data/colors.generated.json", "reason": "Generated registry output; exact freshness is checked." },
       { "path": "src/styles/colors.generated.css", "reason": "Generated registry output; exact freshness is checked." },
       { "path": "scripts/lib/colors.mjs", "reason": "Color serialization and audit implementation, tested independently." },
