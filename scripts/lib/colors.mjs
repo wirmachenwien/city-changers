@@ -109,13 +109,19 @@ export function generateOutputs(registry, resolved, guide, registrySource = JSON
     `@media print {\n  :root, :root[data-theme], :root:not([data-theme]) {\n    color-scheme: light;\n${declarations(themes.print).replace(/^/gm, '  ')}\n  }\n}\n`;
   const rows = registry.palette.map(color => `${color.name.padEnd(18)}${serializeColor(resolved.resolve(color.ref)).toUpperCase()}   ${color.use}`).join('\n');
   const artRows = Object.entries(artwork).map(([name, value]) => `| ${title(name)} | \`${value.toUpperCase()}\` | ${registry.artwork[name].use} |`).join('\n');
+  const functionalRows = registry.functionalColors.map(({ name, token }) => {
+    if (!registry.tokens[token]) throw new Error(`Unknown functional color token: ${token}`);
+    return `| ${name} | \`--${token}\` | \`${themes.light[token].toUpperCase()}\` | \`${themes.dark[token].toUpperCase()}\` | ${registry.tokens[token].use} |`;
+  }).join('\n');
   const colorsSection = `## Colours
 
 <!-- Generated from design/colors.json by npm run colors:generate. -->
-Our palette uses **green**, **amber** and **red**, supported by neutrals. Green
-is primary; amber provides warm emphasis and search highlights; red is reserved
-for errors, always accompanied by a written message. Supporting shades are
-derived recipes, not additional brand colors to choose independently.
+### Brand palette
+
+Our brand palette uses **green** as its primary accent and **warm amber/brown**
+for supporting emphasis, with paper and ink neutrals. Red is a functional UI
+colour, not a brand accent. Supporting shades are derived recipes, not
+additional brand colours to choose independently.
 
 Enter these HEX codes in your design app's colour picker:
 
@@ -127,6 +133,21 @@ Use the semantic light/dark tokens for interfaces, rather than applying these
 base colors to every background. Warm FeatureBoxes use the amber accent with
 its generated tint. The detailed light/dark/export values, utilities and recipes
 are in **COLOR-REFERENCE.md**, also available in the brand kit.
+
+### Functional UI colours
+
+These colours communicate an interface role, not a brand mood. Green and amber
+reuse the brand families; red is reserved for errors and incorrect-answer
+feedback. Always accompany status colours with text or another non-colour cue.
+Warm callouts are emphasis, not automatically warnings.
+
+The light and dark values below come from the semantic tokens. Use the tokens
+in interfaces, not fixed HEX values. Borders, muted text and focus indicators
+are UI utilities, not additional brand accents.
+
+| Role | Token | Light | Dark | Use |
+|---|---|---|---|---|
+${functionalRows}
 
 ### Protected artwork colors
 
@@ -153,7 +174,8 @@ print/CMYK specification: ask a printer for proofs.
   const reference = `# City Changers — technical color reference
 
 <!-- Generated from design/colors.json. Do not edit; run npm run colors:generate. -->
-The brand guide shows the compact palette. This table is an implementation
+The brand guide separates the brand palette, functional UI colours and protected
+artwork colours. This table is an implementation
 reference, not a menu of interchangeable accents. Edit \`design/colors.json\`,
 run \`npm run colors:generate\`, then \`npm run colors:check\`.
 ## Theme tokens

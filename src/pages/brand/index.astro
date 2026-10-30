@@ -22,11 +22,14 @@ const [identityHtml, logosHtml, typeHtml, layoutHtml, writingHtml] = await Promi
   ['Identity', 'Logos', 'Type', 'Layout', 'Writing and images'].map(guideSection),
 );
 const coloursSource = guideSource.split('## Colours\n')[1]?.split(/^## Type/m)[0] ?? '';
+const paletteSource = coloursSource.split('### Brand palette\n')[1]?.split(/^### /m)[0] ?? '';
+const functionalSource = coloursSource.split('### Functional UI colours\n')[1]?.split(/^### /m)[0] ?? '';
+const { code: functionalHtml } = await markdown.render(functionalSource);
 const artworkSource = coloursSource.split('### Protected artwork colors\n')[1] ?? '';
 const { code: artworkHtml } = await markdown.render(artworkSource);
-const { code: colourIntroHtml } = await markdown.render(coloursSource.split('Enter these HEX codes')[0]);
+const { code: colourIntroHtml } = await markdown.render(paletteSource.split('Enter these HEX codes')[0]);
 const { code: colorReferenceHtml } = await markdown.render(colorReference.replace(/^(#{1,2}) /gm, '###$1 '));
-const colours = [...coloursSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
+const colours = [...paletteSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
 const componentGuide = await getEntry('preview', 'component-showcase');
 if (!componentGuide) throw new Error('Missing brand guide components');
 const iconNames = Object.keys(icons) as IconName[];
@@ -57,7 +60,7 @@ const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}
     <div set:html={writingHtml} />
 
     <h2 id="visual-foundations">Visual foundations</h2>
-    <h3 id="colours">Colours</h3>
+    <h3 id="colours">Brand palette</h3>
     <div set:html={colourIntroHtml} />
     <ul class="colour-grid">
       {colours.map(([, name, hex, description]) => (
@@ -65,7 +68,9 @@ const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}
       ))}
     </ul>
     <p>Use semantic light/dark CSS tokens for interface text and backgrounds, rather than applying these base values everywhere. Artwork colours are protected references, not extra UI colours.</p>
-    <h4>Protected artwork colours</h4>
+    <h3 id="functional-colours">Functional UI colours</h3>
+    <div class="colour-table" set:html={functionalHtml} />
+    <h3 id="artwork-colours">Protected artwork colours</h3>
     <div set:html={artworkHtml} />
     <details class="color-reference"><summary>Technical colour reference: themes, recipes and accessibility</summary><div set:html={colorReferenceHtml} /></details>
 
@@ -108,4 +113,5 @@ const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}
   .color-reference { margin-block: 1.5rem; }
   .color-reference summary { cursor: pointer; font-weight: 700; }
   .color-reference > div { overflow-x: auto; }
+  .colour-table { overflow-x: auto; }
 </style>

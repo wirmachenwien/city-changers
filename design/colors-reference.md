@@ -1,7 +1,8 @@
 # City Changers — technical color reference
 
 <!-- Generated from design/colors.json. Do not edit; run npm run colors:generate. -->
-The brand guide shows the compact palette. This table is an implementation
+The brand guide separates the brand palette, functional UI colours and protected
+artwork colours. This table is an implementation
 reference, not a menu of interchangeable accents. Edit `design/colors.json`,
 run `npm run colors:generate`, then `npm run colors:check`.
 ## Theme tokens
@@ -23,7 +24,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--panel` | `#F6F1EA` | `#23221E` | `#F6F1EA` | Neutral cards and FeatureBoxes. |
 | `--warn` | `#8A4B00` | `#E8A33D` | `#8A4B00` | Warm supporting emphasis; not automatically a warning. |
 | `--warn-soft` | `#FDF6E1` | `#332917` | `#FDF6E1` | Background of warm FeatureBoxes. |
-| `--error` | `#A31F1F` | `#FF8A7A` | `#A31F1F` | Error text, paired with a written message. |
+| `--error` | `#A31F1F` | `#FF8A7A` | `#A31F1F` | Incorrect-answer marks and incorrect, empty or incomplete-answer feedback; always paired with a written message. |
 | `--mark` | `#FFE08A` | `#55401E` | `#FFE08A` | Search-result highlighting. |
 | `--mark-ink` | `#1D1A16` | `#F2EDE3` | `#1D1A16` | Text on search highlighting. |
 | `--focus` | `#0C6B3C` | `#4CC38A` | `#0C6B3C` | Focus rings on ordinary UI surfaces. |

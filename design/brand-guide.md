@@ -25,10 +25,12 @@ display size; no new minimum-size or measured clear-space standard is implied.
 ## Colours
 
 <!-- Generated from design/colors.json by npm run colors:generate. -->
-Our palette uses **green**, **amber** and **red**, supported by neutrals. Green
-is primary; amber provides warm emphasis and search highlights; red is reserved
-for errors, always accompanied by a written message. Supporting shades are
-derived recipes, not additional brand colors to choose independently.
+### Brand palette
+
+Our brand palette uses **green** as its primary accent and **warm amber/brown**
+for supporting emphasis, with paper and ink neutrals. Red is a functional UI
+colour, not a brand accent. Supporting shades are derived recipes, not
+additional brand colours to choose independently.
 
 Enter these HEX codes in your design app's colour picker:
 
@@ -37,13 +39,35 @@ Paper             #FDFCF9   Primary light background.
 Ink               #1D1A16   Primary light-theme text; distinct from mascot ink.
 Website green     #0C6B3C   Primary accent, links and actions.
 Warm brown        #8A4B00   Supporting accent for warm FeatureBox highlights.
-Error red         #A31F1F   Errors only; always accompanied by text, not color alone.
 ```
 
 Use the semantic light/dark tokens for interfaces, rather than applying these
 base colors to every background. Warm FeatureBoxes use the amber accent with
 its generated tint. The detailed light/dark/export values, utilities and recipes
 are in **COLOR-REFERENCE.md**, also available in the brand kit.
+
+### Functional UI colours
+
+These colours communicate an interface role, not a brand mood. Green and amber
+reuse the brand families; red is reserved for errors and incorrect-answer
+feedback. Always accompany status colours with text or another non-colour cue.
+Warm callouts are emphasis, not automatically warnings.
+
+The light and dark values below come from the semantic tokens. Use the tokens
+in interfaces, not fixed HEX values. Borders, muted text and focus indicators
+are UI utilities, not additional brand accents.
+
+| Role | Token | Light | Dark | Use |
+|---|---|---|---|---|
+| Error and incorrect answers | `--error` | `#A31F1F` | `#FF8A7A` | Incorrect-answer marks and incorrect, empty or incomplete-answer feedback; always paired with a written message. |
+| Correct answers and actions | `--accent` | `#0C6B3C` | `#4CC38A` | Links, actions and positive emphasis. |
+| Search highlight background | `--mark` | `#FFE08A` | `#55401E` | Search-result highlighting. |
+| Search highlight text | `--mark-ink` | `#1D1A16` | `#F2EDE3` | Text on search highlighting. |
+| Keyboard focus | `--focus` | `#0C6B3C` | `#4CC38A` | Focus rings on ordinary UI surfaces. |
+| Inverse-surface focus and icons | `--popup-link` | `#6CA588` | `#367D5A` | Icons and focus rings on inverse popup surfaces. |
+| Control boundaries | `--control-border` | `#82807C` | `#797670` | Visible boundaries for selects and other outlined controls. |
+| Decorative separators | `--line` | `#D9D8D5` | `#3E3C37` | Decorative separators, not sole control boundaries. |
+| Secondary text | `--ink-soft` | `#4A4743` | `#C2BDB5` | Secondary text and captions. |
 
 ### Protected artwork colors
 
