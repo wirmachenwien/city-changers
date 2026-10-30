@@ -34,7 +34,7 @@ const pages = defineCollection({
   }),
 });
 
-// Preview pages (component showcase): MDX source rendered through the shared
+// Brand guide component reference: MDX source rendered through the shared
 // MdxContent scope, so demos use exactly the author-facing component set.
 // The showcase is English-only by design (no language switcher in the CMS),
 // so `lang` falls back to the default language.

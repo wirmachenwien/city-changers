@@ -1421,7 +1421,7 @@ content:
               rename: safe
 
   - name: component_showcase
-    label: Component Showcase
+    label: Brand Guide Components
     type: file
     path: src/content/preview/component-showcase.mdx
     format: yaml-frontmatter
@@ -1429,7 +1429,7 @@ content:
       - name: title
         type: string
         readonly: true
-        description: "Preview: https://toolbox.wirmachen.wien/preview/component-showcase.html"
+        description: "Brand Guide: https://toolbox.wirmachen.wien/brand"
       - name: lang
         component: language
         readonly: true

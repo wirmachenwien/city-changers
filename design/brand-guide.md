@@ -5,6 +5,23 @@
 The project name is Toolbox for City Changers. The mascot is called Green Fix.
 It has seven expressive poses with static and animated assets available below.
 
+## Logos
+
+The active identity pairs the Green Fix symbol with the outlined City Changers
+wordmark. Use the full lockup when the project name needs to be read; use the
+symbol where the name is already present. The wordmark is supplied artwork,
+not editable text or a Fraunces typesetting recipe.
+
+Use `logo-lockup.svg` and `logo.svg` on light backgrounds, and their `-dark`
+variants on dark backgrounds. The website's BrandLogo component selects the
+matching treatment automatically. Use `logo-small.svg` for compact applications
+and the supplied website icons for favicons and app icons. PNG exports are
+available for tools that cannot import SVG.
+
+Keep the supplied proportions and colours. Do not stretch, rotate, add effects,
+crop the artwork, or rebuild the lettering. Review legibility at the actual
+display size; no new minimum-size or measured clear-space standard is implied.
+
 ## Colours
 
 <!-- Generated from design/colors.json by npm run colors:generate. -->

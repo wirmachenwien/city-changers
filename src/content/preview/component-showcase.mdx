@@ -1,215 +1,123 @@
 ---
-title: Component Showcase
+title: Brand guide components
 lang: en
 ---
-# Component Showcase
 
-This page is your Markdown reference. Markdown is the simple formatting language used to write all handbook chapters.
+## Writing and formatting
 
-## Markdown basics
+Handbook chapters use Markdown for text and MDX components for richer content. The examples below use the same components as the published handbook, including their keyboard, theme and print behaviour.
 
-New to Markdown? Start with the [basic syntax overview on Markdown Guide](https://www.markdownguide.org/basic-syntax/) — it covers everything below in a few minutes.
+### Markdown basics
 
-Use `#` for headings. The more `#` characters, the lower the heading level. Use only one top-level heading (`#`) per page — that's the page title.
+Use one `#` page title, `##` for sections and `###` for subsections. Keep headings descriptive and in order; do not choose a heading level just for its visual size.
 
-## Subheading
-### Smaller subheading
+```md
+# Page title
+## Section heading
+### Subsection heading
 
-You can format text with **bold**, *italic*, ~~strikethrough~~, and [links](https://example.com).
+Use **bold** for emphasis, *italics* sparingly, and [descriptive links](https://example.com).
 
-Unordered list:
-
-- Bullet point
-- Another point
-
-Ordered list:
+- An unordered list item
+- Another item
 
 1. First step
 2. Second step
-
-
-## Components
-
-Here are all components specific to this handbook. You can copy and paste them from below and adapt them as needed:
-
-{/* Accordion — collapsible sections on native details; opening one closes its siblings. */}
-<h2 class="showcase-label">Accordion</h2>
-<div class="showcase-demo">
-  <Accordion title="First section">Contents of the first section.</Accordion>
-  <Accordion title="Second section">Contents of the second section.</Accordion>
-</div>
-
-{/* Bibliography — source list with links. */}
-<h2 class="showcase-label">Bibliography</h2>
-<div class="showcase-demo">
-  <Bibliography sources={[{ label: 'Tactical Urbanism Guide', href: 'https://tacticalurbanismguide.com/' }, { label: 'Changing Cities', href: 'https://changing-cities.org/' }]} />
-</div>
-
-{/* BookmarkAdd — bookmark gutter overlay for saving the reading position. */}
-<h2 class="showcase-label">BookmarkAdd</h2>
-<div class="showcase-demo"><BookmarkAdd lang="en" /></div>
-
-{/* Breadcrumbs — trail showing the path to the current page. */}
-<h2 class="showcase-label">Breadcrumbs</h2>
-<div class="showcase-demo">
-  <Breadcrumbs items={[{ label: 'Home', url: '/en/', current: false }, { label: 'Showcase', url: '', current: true }]} />
-</div>
-
-{/* ButtonLink — link styled as a button. */}
-<h2 class="showcase-label">ButtonLink</h2>
-<div class="showcase-demo"><ButtonLink href="/book/contents.html">Open the handbook</ButtonLink></div>
-
-{/* CcBadge — CC BY licence badge linking to the licence deed. */}
-<h2 class="showcase-label">CcBadge</h2>
-<div class="showcase-demo"><p class="cc-line"><CcBadge /> This handbook is published under the CC BY 4.0 license.</p></div>
-
-{/* ContentsPage — contents sheet with the full book table of contents. */}
-<h2 class="showcase-label">ContentsPage</h2>
-<div class="showcase-demo"><ContentsPage lang="en" title="Contents" /></div>
-
-{/* CopyText — copy-to-clipboard button with visual feedback. */}
-<h2 class="showcase-label">CopyText</h2>
-<div class="showcase-demo">info@wirmachen.wien <CopyText value="info@wirmachen.wien" lang="en" /></div>
-
-{/* Cover — book cover sheet generated from the hero image plus metadata. */}
-<h2 class="showcase-label">Cover</h2>
-<div class="showcase-demo"><Cover lang="en" /></div>
-
-{/* DefinitionTerm — term with an inline definition popup. */}
-<h2 class="showcase-label">DefinitionTerm</h2>
-<div class="showcase-demo">
-  <p>A <DefinitionTerm term="Modal filter" definition="Structural measure that prevents through traffic." /> diverts traffic.</p>
-</div>
-
-{/* DownloadLink — download link for the generated PDF/EPUB files. */}
-<h2 class="showcase-label">DownloadLink</h2>
-<div class="showcase-demo">
-  <DownloadLink href="/downloads/toolbox-city-changer-en.pdf">View PDF</DownloadLink>
-  <DownloadLink href="/downloads/toolbox-city-changer-en.epub">Download EPUB</DownloadLink>
-</div>
-
-{/* ExpandableBox — read-more box; Accordion behaviour with a different default label. */}
-<h2 class="showcase-label">ExpandableBox</h2>
-<div class="showcase-demo"><ExpandableBox lang="en">Extended background information to expand.</ExpandableBox></div>
-
-{/* FeatureBox — highlighted tip box with an optional title and warm tone. */}
-<h2 class="showcase-label">FeatureBox</h2>
-<div class="showcase-demo"><FeatureBox title="Note">A highlighted note for readers.</FeatureBox></div>
-<div class="showcase-demo"><FeatureBox tone="warm">A warm highlight for important content.</FeatureBox></div>
-
-{/* Figure — responsive figure with optimised images and a caption. */}
-<h2 class="showcase-label">Figure</h2>
-<div class="showcase-demo">
-  <Figure src="berlin-kiezblock-bellermann.jpg" alt="Temporary barrier and sitting area in the Bellermann neighbourhood block.">
-    Bellermann neighbourhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.
-  </Figure>
-</div>
-
-Here’s a ready-to-paste English version of the instructions from the current page: [[1]](https://app.notion.com/p/Feedback-von-Zala-und-Valentina-einarbeiten-Zala-slowenische-Version-bersetzen-lassen-Manual-ab-3f170b0af75280a68d5dee8ec5459464?pvs=21)
-
-## Adding images
-
-For examples, see the photos in Chapter 2:
-
 ```
-<Figure src={"src/assets/book/berlin-kiezblock-bellermann.jpg"} alt={"Temporary closure and public space in the Bellermann neighborhood block in Berlin-Mitte."}>
-Bellermann neighborhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.
+
+For a full introduction, see the [Markdown Guide](https://www.markdownguide.org/basic-syntax/). MDX components are available without imports in chapter files. Copy examples from this guide's source and replace the text, identifiers and assets with your own.
+
+### PullQuote
+
+Draw attention to a short quotation. Include a real attribution; never invent an endorsement.
+
+<div class="showcase-demo"><PullQuote cite="Toolbox">How can we make our city more liveable?</PullQuote></div>
+
+### DefinitionTerm
+
+Explain an unfamiliar term without interrupting the reading flow.
+
+<div class="showcase-demo"><p>A <DefinitionTerm term="Modal filter" definition="Structural measure that prevents through traffic." /> diverts traffic.</p></div>
+
+### Footnote
+
+Attach a source or aside to a specific statement. Screen views offer a popup; exports keep the note readable.
+
+<div class="showcase-demo"><p>A statement with an inline footnote<Footnote text="Source citation right here." />.</p></div>
+
+### Bibliography
+
+Collect sources with descriptive labels and direct links.
+
+<div class="showcase-demo"><Bibliography sources={[{ label: 'Tactical Urbanism Guide', href: 'https://tacticalurbanismguide.com/' }, { label: 'Changing Cities', href: 'https://changing-cities.org/' }]} /></div>
+
+### Glossary
+
+Use a definition list for related terms that readers may need to revisit.
+
+<div class="showcase-demo"><Glossary entries={[{ term: 'Superblock', definition: 'Traffic-calmed neighbourhood.' }, { term: 'Kiezblock', definition: 'Berlin variant of the superblock.' }]} /></div>
+
+### Math
+
+Write inline or display formulas with the Math component; TeX is rendered at build time.
+
+<div class="showcase-demo"><p><code>{'\\(E = mc^2\\)'}</code> renders inline: <Math source="E = mc^2" /></p><Math source="a^2 + b^2 = c^2" display /></div>
+
+### TableWrap
+
+Wrap wide tables so they can scroll on small screens. Use proper column headings.
+
+<div class="showcase-demo"><TableWrap><table><thead><tr><th>Indicator</th><th>Method</th></tr></thead><tbody><tr><td>Traffic volumes</td><td>Counting</td></tr><tr><td>Staying</td><td>Observation</td></tr></tbody></table></TableWrap></div>
+
+## Images, motion and illustration
+
+Choose imagery that supports the message. Keep captions, credits and alternatives alongside the media; motion must not be required to understand the content.
+
+### Figure
+
+Use Figure for responsive images with meaningful alt text and a caption. Book image filenames resolve from the shared image library.
+
+```mdx
+<Figure src="berlin-kiezblock-bellermann.jpg" alt="Temporary barrier and sitting area in the Bellermann neighbourhood block.">
+  Bellermann neighbourhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.
 </Figure>
 ```
 
-Manually change the filename in `src`—for example, from `src/assets/book/berlin-kiezblock-bellermann.jpg` to `src/assets/book/conversation-tool.png`.
+<div class="showcase-demo"><Figure src="berlin-kiezblock-bellermann.jpg" alt="Temporary barrier and sitting area in the Bellermann neighbourhood block.">Bellermann neighbourhood block in Berlin-Mitte. Photo: BA SGA Mitte, L. Fritsche.</Figure></div>
 
-Be sure to update the alt text too. It’s used by screen readers and displayed if the image doesn’t load. The text inside the `<Figure>` tag becomes the caption underneath the image.
+Use `size="small"` or `size="medium"` for a narrower figure. Add `float="left"` or `float="right"` sparingly for text wrapping on wide screens; `float="center"` centres a narrower image. Floats return to normal flow on small screens. Use `frame="white"` for marks that must stay on a white background in either theme.
 
-You can also put several figures in a slideshow:
+<div class="showcase-demo"><Figure src="erasmus-plus_en.png" alt="Co-funded by the European Union: Erasmus+" frame="white" size="small" /></div>
+<div class="showcase-demo"><Figure src="supergraetzel-favoriten-poller.jpg" alt="Bollards and planter rings in Supergrätzl Favoriten." size="small" float="right">A small floating figure.</Figure><p>Keep surrounding text short enough to remain readable beside the image. Use full-width figures for important visual evidence.</p></div>
 
-```
+### Slideshow
+
+Group related figures with previous and next controls. Every slide still needs its own alt text and caption.
+
+```mdx
 <Slideshow label="Sample images">
   <Figure src="lendplatz-graz-tactical-urbanism.jpg" alt="Lendplatz in Graz">Lendplatz in Graz.</Figure>
   <Figure src="galileigasse-tactical-urbanism.jpg" alt="Galileigasse in Vienna">Galileigasse in Vienna.</Figure>
 </Slideshow>
 ```
 
-Use <code>size="small"</code> or <code>size="medium"</code> to make a figure narrower without floating it. Add <code>float="left"</code> or <code>float="right"</code> when surrounding text should wrap around the image on wider screens; <code>float="center"</code> centers a narrower figure as a block.
+<div class="showcase-demo"><Slideshow label="Sample images"><Figure src="lendplatz-graz-tactical-urbanism.jpg" alt="Lendplatz in Graz">Lendplatz in Graz.</Figure><Figure src="galileigasse-tactical-urbanism.jpg" alt="Galileigasse in Vienna">Galileigasse in Vienna.</Figure></Slideshow></div>
 
-Use <code>frame="white"</code> for logos or brand lockups that must stay on a white background in light and dark mode.
+### OpenerImage
 
-<div class="showcase-demo">
-  <Figure src="erasmus-plus_en.png" alt="Co-funded by the European Union: Erasmus+" frame="white" size="small" />
-</div>
+Use a large opening image to establish the setting of a home page.
 
-<div class="showcase-demo">
-  <Figure src="supergraetzel-favoriten-poller.jpg" alt="Bollards and planter rings in Supergrätzl Favoriten." size="small" float="right">
-    Small floating figures can sit beside short explanatory text on wide screens.
-  </Figure>
-  <p>Use floating figures sparingly for side notes or examples. On narrow screens they return to the normal document flow so the image and text stay readable.</p>
-</div>
+<div class="showcase-demo"><OpenerImage file="supergraetzel-favoriten-poller.jpg" alt="Bollards and young trees in Supergrätzl Favoriten" /></div>
 
-{/* Footnote — inline footnote reference with a popup on screen. */}
-<h2 class="showcase-label">Footnote</h2>
-<div class="showcase-demo">
-  <p>A statement with an inline footnote<Footnote text="Source citation right here." />.</p>
-</div>
+### Video
 
-{/* Glossary — description list of terms plus definitions. */}
-<h2 class="showcase-label">Glossary</h2>
-<div class="showcase-demo">
-  <Glossary entries={[{ term: 'Superblock', definition: 'Traffic-calmed neighbourhood.' }, { term: 'Kiezblock', definition: 'Berlin variant of the superblock.' }]} />
-</div>
+Video embeds load their provider only after the reader chooses to play them. Include a descriptive caption.
 
-{/* Icon — inline SVG icon set (decorative, always aria-hidden). */}
-<h2 class="showcase-label">Icon</h2>
-<div class="showcase-demo">
-  <ul class="showcase-icons">
-    <li><Icon name="search" /><span class="showcase-icon-name">search</span></li>
-    <li><Icon name="globe" /><span class="showcase-icon-name">globe</span></li>
-    <li><Icon name="menu" /><span class="showcase-icon-name">menu</span></li>
-    <li><Icon name="link" /><span class="showcase-icon-name">link</span></li>
-    <li><Icon name="mail" /><span class="showcase-icon-name">mail</span></li>
-    <li><Icon name="bookmark" /><span class="showcase-icon-name">bookmark</span></li>
-    <li><Icon name="download" /><span class="showcase-icon-name">download</span></li>
-    <li><Icon name="check" /><span class="showcase-icon-name">check</span></li>
-    <li><Icon name="copy" /><span class="showcase-icon-name">copy</span></li>
-    <li><Icon name="back" /><span class="showcase-icon-name">back</span></li>
-    <li><Icon name="bluesky" /><span class="showcase-icon-name">bluesky</span></li>
-    <li><Icon name="facebook" /><span class="showcase-icon-name">facebook</span></li>
-    <li><Icon name="linkedin" /><span class="showcase-icon-name">linkedin</span></li>
-    <li><Icon name="reddit" /><span class="showcase-icon-name">reddit</span></li>
-    <li><Icon name="x" /><span class="showcase-icon-name">x</span></li>
-    <li><Icon name="whatsapp" /><span class="showcase-icon-name">whatsapp</span></li>
-    <li><Icon name="sun" /><span class="showcase-icon-name">sun</span></li>
-    <li><Icon name="moon" /><span class="showcase-icon-name">moon</span></li>
-    <li><Icon name="system" /><span class="showcase-icon-name">system</span></li>
-  </ul>
-</div>
+<div class="showcase-demo"><Video id="87JUbbq48r8" caption="Prostorož Ljubljana: Public space is shared space." lang="en" /></div>
 
-{/* LanguageMenu — compact language dropdown for the masthead. */}
-<h2 class="showcase-label">LanguageMenu</h2>
-<div class="showcase-demo"><LanguageMenu lang="en" kind="page" file="index" /></div>
+### MascotBox
 
-{/* LanguageSwitcher — same-page language switcher (DE / EN / SL). */}
-<h2 class="showcase-label">LanguageSwitcher</h2>
-<div class="showcase-demo"><LanguageSwitcher lang="en" kind="page" file="index" /></div>
-
-{/* Math — inline and display formulas rendered at build time with KaTeX. */}
-<h2 class="showcase-label">Math</h2>
-<div class="showcase-demo">
-  <p><code>{'\\(E = mc^2\\)'}</code> renders inline: <Math source="E = mc^2" /></p>
-  <p>Display:</p>
-  <pre><code>{'\\[a^2 + b^2 = c^2\\]'}</code></pre>
-  <Math source="a^2 + b^2 = c^2" display />
-</div>
-
-<h2 class="showcase-label">MascotBox</h2>
-
-A friendly Green Fix guide beside a speech bubble. Use it for a short explanation
-or a practical nudge, not as a replacement for the chapter text. Animated mascots
-play once whenever they enter or re-enter view, then hold the final frame. Hover or click the
-mascot to replay once. Think stops at its raised-hand, yellow-rays idea pose rather
-than returning to the questioning expression. Keyboard users can focus the
-mascot and press Enter or Space.
-Without JavaScript, with reduced motion,
-and in browser print, PDF and EPUB, the matching still and all text remain visible.
+Green Fix is a friendly guide for a short explanation or practical nudge, not a replacement for chapter text. Keep the supplied artwork unchanged.
 
 ```mdx
 <MascotBox title="Try this first" pose="think" animated lang="en">
@@ -217,144 +125,198 @@ and in browser print, PDF and EPUB, the matching still and all text remain visib
 </MascotBox>
 ```
 
-Choose `neutral` (or `idle`), `wave`, `point`, `celebrate`, `think`, `step`, or
-`skeptical`. Omit `animated` for a still; all poses except `skeptical` have an
-animated version. `treatment="linen"` selects the light-outline artwork on a dark
-plate; the default is `ink`. Printed books always use Ink artwork for legibility.
-Set `lang` to `en`, `de` or `sl` for the accessible replay label and title typography.
+Choose `neutral` (or `idle`), `wave`, `point`, `celebrate`, `think`, `step`, or `skeptical`. Omit `animated` for a still; all poses except `skeptical` have an animation. `treatment="linen"` selects light-outline artwork on a dark plate; the default is `ink`. Printed books always use Ink artwork.
 
-<div class="showcase-demo">
-  <MascotBox title="I have an idea!" pose="think" animated lang="en">
-    <p>Start with one small, visible improvement. What could you test on your street this month?</p>
-  </MascotBox>
-  <MascotBox title="Question the assumption" pose="skeptical">
-    <p>Does everyone need to drive through this street, or just be able to reach it?</p>
-  </MascotBox>
-</div>
+Animations play once each time they enter view and then hold their final frame. Hover or click to replay; keyboard users can focus the mascot and press Enter or Space. Think holds its raised-hand idea pose. Reduced-motion, no-JavaScript and export views retain the matching still and all text. Set `lang` to `en`, `de` or `sl` for replay labels and title typography.
 
-### All static poses
+<div class="showcase-demo"><MascotBox title="I have an idea!" pose="think" animated lang="en"><p>Start with one small, visible improvement. What could you test on your street this month?</p></MascotBox><MascotBox title="Question the assumption" pose="skeptical"><p>Does everyone need to drive through this street, or just be able to reach it?</p></MascotBox></div>
 
-{['neutral', 'wave', 'point', 'celebrate', 'think', 'step', 'skeptical'].map((pose) => (
-  <MascotBox pose={pose} title={pose}><p>A static helper for a short explanation.</p></MascotBox>
-))}
+<details><summary>Explore all static poses</summary><div class="showcase-demo">{['neutral', 'wave', 'point', 'celebrate', 'think', 'step', 'skeptical'].map((pose) => <MascotBox pose={pose} title={pose}><p>A static helper for a short explanation.</p></MascotBox>)}</div></details>
+<details><summary>Explore all animated poses</summary><div class="showcase-demo">{['idle', 'wave', 'point', 'celebrate', 'think', 'step'].map((pose) => <MascotBox pose={pose} animated treatment="linen" title={pose} lang="en"><p>Hover, click or use the keyboard to replay.</p></MascotBox>)}</div></details>
 
-### All animated poses
+## Callouts and interaction
 
-{['idle', 'wave', 'point', 'celebrate', 'think', 'step'].map((pose) => (
-  <MascotBox pose={pose} animated treatment="linen" title={pose} lang="en">
-    <p>One animation each time it enters view. Hover or click the mascot to see it again.</p>
-  </MascotBox>
-))}
+Use callouts selectively to keep the main reading flow clear. Interactive content must remain understandable in print and without motion.
 
-{/* MetadataTable — book metadata table (title, creator, publisher, rights, ...). */}
-<h2 class="showcase-label">MetadataTable</h2>
-<div class="showcase-demo"><MetadataTable lang="en" /></div>
+### FeatureBox
 
-{/* OpenerImage — large opening image for home pages. */}
-<h2 class="showcase-label">OpenerImage</h2>
-<div class="showcase-demo">
-  <OpenerImage file="supergraetzel-favoriten-poller.jpg" alt="Bollards and young trees in Supergrätzl Favoriten" />
-</div>
+Highlight a practical note with an optional title. The warm tone provides emphasis, not an error state.
 
-{/* PageRef — cross-reference link to another book page. */}
-<h2 class="showcase-label">PageRef</h2>
-<div class="showcase-demo"><PageRef lang="en" file="02" label="Continue to chapter 2." /></div>
+<div class="showcase-demo"><FeatureBox title="Note">A highlighted note for readers.</FeatureBox><FeatureBox tone="warm">A warm highlight for important content.</FeatureBox></div>
 
-{/* Pagination — previous/next page navigation. */}
-<h2 class="showcase-label">Pagination</h2>
-<div class="showcase-demo"><Pagination lang="en" prev={{ label: '1. Why this toolbox?', file: '01', kind: 'book' }} next={{ label: '3. Tactical urbanism and street design', file: '03', kind: 'book' }} /></div>
+### Accordion
 
-{/* PullQuote — large quote with an optional citation. */}
-<h2 class="showcase-label">PullQuote</h2>
-<div class="showcase-demo"><PullQuote cite="Toolbox">How can we make our city more liveable?</PullQuote></div>
+Group related optional details. Opening one section closes its siblings.
 
-{/* QrCode — QR code of the page URL, rendered server-side as inline SVG. */}
-<h2 class="showcase-label">QrCode</h2>
-<div class="showcase-demo"><QrCode url="/book/01-why-this-toolbox.html" label="Chapter 1." /></div>
+<div class="showcase-demo"><Accordion title="First section">Contents of the first section.</Accordion><Accordion title="Second section">Contents of the second section.</Accordion></div>
 
-{/* Question — single- or multiple-choice question with pebble-outline checkboxes. */}
-<h2 class="showcase-label">Question</h2>
-<div class="showcase-demo">
-  <Question
-    id="showcase-question"
-    lang="en"
-    question="What is a superblock?"
-    options={['Street furniture', 'A traffic-calmed neighbourhood', 'A parking garage']}
-    answer={1}
-  />
-</div>
-<div class="showcase-demo">
-  <Question
-    id="showcase-question-multiple"
-    lang="en"
-    question="Which measures change through traffic?"
-    options={[{ label: 'Modal filter', correct: true }, { label: 'More parking spaces' }, { label: 'Bollards', correct: true }]}
-  />
-</div>
+### ExpandableBox
 
-{/* Rotate — rotated content wrapper for sideways labels. */}
-<h2 class="showcase-label">Rotate</h2>
-<div class="showcase-demo"><Rotate angle={90}>Side note</Rotate></div>
+Use a single read-more box for optional background rather than hiding essential instructions.
 
-{/* SearchForm — search form pointing at the language-local search page. */}
-<h2 class="showcase-label">SearchForm</h2>
-<div class="showcase-demo"><SearchForm lang="en" /></div>
+<div class="showcase-demo"><ExpandableBox lang="en">Extended background information to expand.</ExpandableBox></div>
 
-{/* SelectList — dropdown revealing linked content on change. */}
-<h2 class="showcase-label">SelectList</h2>
-<div class="showcase-demo">
-  <SelectList
-    id="showcase-select"
-    lang="en"
-    options={[{ label: 'Chapter 1.', href: '/book/01-why-this-toolbox.html' }, { label: 'Chapter 2.', href: '/book/02-the-power-of-superblocks.html' }]}
-  />
-</div>
+### Question
 
-{/* Share — share links for social networks and email. */}
-<h2 class="showcase-label">Share</h2>
-<div class="showcase-demo"><Share lang="en" url="/preview/component-showcase.html" title="Component Showcase" /></div>
+Use a self-check question to reinforce understanding. Give each question a unique `id`. A numeric `answer` selects a single correct option; object options with `correct` flags support multiple answers.
 
-{/* Slideshow — figures grouped as slides with prev/next controls. */}
-<h2 class="showcase-label">Slideshow</h2>
-<div class="showcase-demo">
-  <Slideshow label="Sample images">
-    <Figure src="lendplatz-graz-tactical-urbanism.jpg" alt="Lendplatz Graz">Lendplatz in Graz.</Figure>
-    <Figure src="galileigasse-tactical-urbanism.jpg" alt="Galileigasse Vienna">Galileigasse in Vienna.</Figure>
-  </Slideshow>
-</div>
+```mdx
+<Question id="example-question" lang="en" question="What is a superblock?"
+  options={['Street furniture', 'A traffic-calmed neighbourhood', 'A parking garage']}
+  answer={1} />
+```
 
-{/* Spoiler — inline content masked until the reader clicks to reveal it. */}
-<h2 class="showcase-label">Spoiler</h2>
+<div class="showcase-demo"><Question id="showcase-question" lang="en" question="What is a superblock?" options={['Street furniture', 'A traffic-calmed neighbourhood', 'A parking garage']} answer={1} /></div>
+<div class="showcase-demo"><Question id="showcase-question-multiple" lang="en" question="Which measures change through traffic?" options={[{ label: 'Modal filter', correct: true }, { label: 'More parking spaces' }, { label: 'Bollards', correct: true }]} /></div>
+
+### Spoiler
+
+Let readers reveal a short answer after considering the question themselves.
+
 <div class="showcase-demo"><p>The treasure is buried <Spoiler lang="en">under the old oak tree</Spoiler>.</p></div>
 
-{/* TableWrap — scrollable wrapper keeping wide tables readable. */}
-<h2 class="showcase-label">TableWrap</h2>
-<div class="showcase-demo">
-  <TableWrap>
-    <table>
-      <thead><tr><th>Indicator</th><th>Method</th></tr></thead>
-      <tbody>
-        <tr><td>Traffic volumes</td><td>Counting</td></tr>
-        <tr><td>Staying</td><td>Observation</td></tr>
-      </tbody>
-    </table>
-  </TableWrap>
-</div>
+### SelectList
 
-{/* TitlePage — title sheet for front matter. */}
-<h2 class="showcase-label">TitlePage</h2>
+Offer a compact list of destinations. Use descriptive labels so readers know where each option leads.
+
+<div class="showcase-demo"><SelectList id="showcase-select" lang="en" options={[{ label: 'Chapter 1.', href: '/book/01-why-this-toolbox.html' }, { label: 'Chapter 2.', href: '/book/02-the-power-of-superblocks.html' }]} /></div>
+
+## Navigation and actions
+
+Keep destinations and actions clearly labelled. These examples use the same shared controls as the handbook.
+
+### ButtonLink
+
+Emphasise a primary destination; use a normal text link for secondary references.
+
+<div class="showcase-demo"><ButtonLink href="/book/contents.html">Open the handbook</ButtonLink></div>
+
+### DownloadLink
+
+Label the file type and purpose of a download.
+
+<div class="showcase-demo"><DownloadLink href="/downloads/toolbox-city-changer-en.pdf">View PDF</DownloadLink><DownloadLink href="/downloads/toolbox-city-changer-en.epub">Download EPUB</DownloadLink></div>
+
+### SideBySideButtons
+
+Group related download formats without introducing competing primary actions.
+
+<div class="showcase-demo"><SideBySideButtons links={[{ href: '/downloads/toolbox-city-changer-en.pdf', label: 'PDF handbook' }, { href: '/downloads/toolbox-city-changer-en.epub', label: 'EPUB handbook' }]} /></div>
+
+### Breadcrumbs
+
+Show the page's place in the site. The current page is text, not another destination.
+
+<div class="showcase-demo"><Breadcrumbs items={[{ label: 'Home', url: '/en/', current: false }, { label: 'Brand guide', url: '', current: true }]} /></div>
+
+### PageRef
+
+Reference a handbook chapter by its source file instead of manually maintaining its URL.
+
+<div class="showcase-demo"><PageRef lang="en" file="02" label="Continue to chapter 2." /></div>
+
+### Pagination
+
+Provide previous and next destinations at the end of a chapter.
+
+<div class="showcase-demo"><Pagination lang="en" prev={{ label: '1. Why this toolbox?', file: '01', kind: 'book' }} next={{ label: '3. Tactical urbanism and street design', file: '03', kind: 'book' }} /></div>
+
+### SearchForm
+
+Search the handbook in the selected language.
+
+<div class="showcase-demo"><SearchForm lang="en" /></div>
+
+### BookmarkAdd
+
+Save a reading position locally in the browser.
+
+<div class="showcase-demo"><BookmarkAdd lang="en" /></div>
+
+### CopyText
+
+Copy a short value with confirmation; keep the value visible alongside the button.
+
+<div class="showcase-demo">info@wirmachen.wien <CopyText value="info@wirmachen.wien" lang="en" /></div>
+
+### Share
+
+Offer labelled sharing destinations for the current page.
+
+<div class="showcase-demo"><Share lang="en" url="/brand" title="City Changers — Brand Guide" /></div>
+
+### QrCode
+
+Connect printed material to an online destination with a descriptive label.
+
+<div class="showcase-demo"><QrCode url="/book/01-why-this-toolbox.html" label="Chapter 1." /></div>
+
+### LanguageMenu
+
+Use the compact dropdown in a masthead or other space-constrained area.
+
+<div class="showcase-demo"><LanguageMenu lang="en" kind="page" file="index" /></div>
+
+### LanguageSwitcher
+
+Offer visible links to the same handbook page in other languages. These demos point to the translated home pages; the brand guide itself is English-only.
+
+<div class="showcase-demo"><LanguageSwitcher lang="en" kind="page" file="index" /></div>
+
+## Publication and credits
+
+The same identity carries through the website, book front matter and exported handbook. Keep metadata and partner marks consistent with the project records.
+
+### Cover
+
+The book cover combines the shared hero image with publication metadata.
+
+<div class="showcase-demo"><Cover lang="en" /></div>
+
+### TitlePage
+
+Use the title sheet for publication front matter.
+
 <div class="showcase-demo"><TitlePage lang="en" /></div>
 
-{/* Toc — book table of contents in web order. */}
-<h2 class="showcase-label">Toc</h2>
+### ContentsPage
+
+The complete contents sheet includes the handbook's book structure.
+
+<div class="showcase-demo"><ContentsPage lang="en" title="Contents" /></div>
+
+### Toc
+
+Use the standard text table of contents for chapter navigation.
+
 <div class="showcase-demo"><Toc lang="en" /></div>
 
-{/* Video — privacy-friendly click-to-load embed; only touches the provider on play. */}
-<h2 class="showcase-label">Video</h2>
-<div class="showcase-demo">
-  <Video id="87JUbbq48r8" caption="Prostorož Ljubljana: Public space is shared space." lang="en" />
-</div>
+### VisualToc
 
-{/* VisualToc — card-style visual table of contents for chapter overviews. */}
-<h2 class="showcase-label">VisualToc</h2>
+Use the card-based contents for a more visual chapter overview.
+
 <div class="showcase-demo"><VisualToc lang="en" /></div>
+
+### MetadataTable
+
+Display the publication's title, creators, publisher and rights from shared metadata.
+
+<div class="showcase-demo"><MetadataTable lang="en" /></div>
+
+### PartnerLogos
+
+Use the supplied partner marks without recolouring or distortion. Keep required credits and links intact.
+
+<div class="showcase-demo"><PartnerLogos /></div>
+
+### CcBadge
+
+Link the licence badge to its deed and state the licence in text.
+
+<div class="showcase-demo"><p class="cc-line"><CcBadge /> This handbook is published under the CC BY 4.0 license.</p></div>
+
+### Rotate
+
+Rotate a short supporting label only when the publication layout calls for it. Keep essential reading text upright.
+
+<div class="showcase-demo"><Rotate angle={90}>Side note</Rotate></div>

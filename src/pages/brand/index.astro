@@ -1,55 +1,111 @@
 ---
-import { readFileSync } from 'node:fs';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { getEntry } from 'astro:content';
 import guideSource from '../../../design/brand-guide.md?raw';
 import colorReference from '../../../design/colors-reference.md?raw';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MdxContent from '../../components/MdxContent.astro';
-import MascotPreview from '../../components/MascotPreview.astro';
-import mascots from '../../data/mascots.json';
+import BrandAssetLibrary from '../../components/BrandAssetLibrary.astro';
+import BrandLogo from '../../components/BrandLogo.astro';
+import Icon from '../../components/Icon.astro';
+import icons from '../../data/icons.generated.json';
+import type { IconName } from '../../lib/icons';
 import { withBase } from '../../lib/site';
 
-const assets = JSON.parse(readFileSync(new URL('../../../public/brand-assets/catalog.json', import.meta.url), 'utf8')) as { file: string; title: string; bytes: number }[];
-const groups = [...new Set(assets.map((asset) => asset.title))];
-const assetUrl = (file: string) => withBase(`/brand-assets/files/${file.split('/').map(encodeURIComponent).join('/')}`);
 const markdown = await createMarkdownProcessor();
-const identitySource = guideSource.split(/^## Identity\s*$/m)[1]?.split(/^## /m)[0]?.trim();
-const { code: identityHtml } = await markdown.render(identitySource ?? '');
-const { code: colorReferenceHtml } = await markdown.render(colorReference.replace(/^(#{1,2}) /gm, '###$1 '));
-const artworkSource = guideSource.split(/^### Protected artwork colors\s*$/m)[1]?.split(/^## Type\s*$/m)[0]?.trim() ?? '';
-const { code: artworkHtml } = await markdown.render(artworkSource);
-const colours = [...guideSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
-const showcase = await getEntry('preview', 'component-showcase');
-if (!showcase) throw new Error('Missing component showcase content');
-const toc = [
-  ['identity','Identity'], ['logos','Logo system'], ['colours','Colours'], ['type','Typography'], ['assets','Asset library'],
-  ['components','Components'], ...['Markdown basics','Components','Accordion','Bibliography','BookmarkAdd','Breadcrumbs','ButtonLink','CcBadge','ContentsPage','CopyText','Cover','DefinitionTerm','DownloadLink','ExpandableBox','FeatureBox','Figure','Footnote','Glossary','Icon','LanguageMenu','LanguageSwitcher','Math','MascotBox','MetadataTable','OpenerImage','PageRef','Pagination','PullQuote','QrCode','Question','Rotate','SearchForm','SelectList','Share','Slideshow','Spoiler','TableWrap','TitlePage','Toc','Video','VisualToc'].map((label) => [label.toLowerCase().replaceAll(' ','-'), label])
-].map(([id,label]) => ({id,label}));
-function lottiePreview(file: string) {
-  const match = file.match(/\/green-fix-([a-z]+)-(ink|linen)\.json$/);
-  if (!match || !Object.hasOwn(mascots, match[1])) return undefined;
-  return { pose: match[1] as keyof typeof mascots, treatment: match[2] as 'ink' | 'linen' };
+async function guideSection(title: string) {
+  const source = guideSource.split(`## ${title}\n`)[1]?.split(/^## /m)[0]?.trim();
+  if (!source) throw new Error(`Brand guide is missing its ${title} section`);
+  return (await markdown.render(source)).code;
 }
+const [identityHtml, logosHtml, typeHtml, layoutHtml, writingHtml] = await Promise.all(
+  ['Identity', 'Logos', 'Type', 'Layout', 'Writing and images'].map(guideSection),
+);
+const coloursSource = guideSource.split('## Colours\n')[1]?.split(/^## Type/m)[0] ?? '';
+const artworkSource = coloursSource.split('### Protected artwork colors\n')[1] ?? '';
+const { code: artworkHtml } = await markdown.render(artworkSource);
+const { code: colourIntroHtml } = await markdown.render(coloursSource.split('Enter these HEX codes')[0]);
+const { code: colorReferenceHtml } = await markdown.render(colorReference.replace(/^(#{1,2}) /gm, '###$1 '));
+const colours = [...coloursSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
+const componentGuide = await getEntry('preview', 'component-showcase');
+if (!componentGuide) throw new Error('Missing brand guide components');
+const iconNames = Object.keys(icons) as IconName[];
+const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}`);
 ---
-<BaseLayout lang="en" title="Brand guide & component showcase" kind="page" file="index" currentUrl="/brand/" noindex hreflang={false} sidebarToc={toc}>
-  <div class="prose" data-prose>
-    <h1>City Changers — brand guide & component showcase</h1>
-    <h2 id="identity">Identity</h2><div set:html={identityHtml} />
-    <h2 id="logos">Logo system</h2>
-    <p>Use the supplied logo artwork; do not recreate the wordmark with type. Preserve proportions and clear space, and choose the variant with strong contrast against its background.</p>
-    <figure><img src={assetUrl('logo-lockup.svg')} alt="City Changers logo lockup" width="500" /></figure>
-    <h2 id="colours">Colours</h2>
-    <p>Three UI color families—green, amber and red—plus neutrals. Supporting shades are derived from this compact palette; artwork colors stay protected.</p>
-    <ul class="asset-grid">{colours.map(([, name, hex, description]) => <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name.trim()}</strong> <code>{hex}</code><small>{description}</small></li>)}</ul>
-    <h4>Protected artwork colors</h4><div set:html={artworkHtml} />
-    <details class="color-reference"><summary>Technical color reference — themes, recipes and accessibility</summary><div set:html={colorReferenceHtml} /><p><a href={assetUrl('COLOR-REFERENCE.md')} download>Download the technical color reference</a></p><p><a href={assetUrl('COLORS.json')} download>Download the color registry (JSON)</a></p></details>
-    <h2 id="type">Typography</h2><p class="type-headline">Fraunces — Small steps. Better streets.</p><p class="type-caption">Clarity City — Practical tools for community action.</p><p class="type-editorial">Newsreader — Longer stories from the neighbourhood.</p>
-    <h2 id="assets">Asset library</h2><p>Downloads and the handoff kit come from the same asset manifest.</p><p><a href={withBase('/brand-assets/city-changers-brand-kit.zip')} download>Download the complete brand kit (ZIP)</a> · <a href={assetUrl('BRAND-GUIDE.md')} download>Download this guide (Markdown)</a></p>
-    {groups.map((title) => <section aria-label={title}><h3>{title}</h3><ul class="asset-grid">{assets.filter((asset) => asset.title === title).map((asset) => { const preview = lottiePreview(asset.file); return <li>{preview && <div class:list={['asset-preview','lottie-preview',{'asset-preview-dark':preview.treatment==='linen'}]}><div class="lottie-preview__artwork"><MascotPreview pose={preview.pose} treatment={preview.treatment} /></div></div>}{/\.(png|svg|jpg)$/i.test(asset.file) && <div class:list={['asset-preview',{'asset-preview-dark':/linen|dark/.test(asset.file)}]}><img src={assetUrl(asset.file)} alt="" loading="lazy" width="240" height="180" /></div>}<a href={assetUrl(asset.file)} download>{asset.file.split('/').slice(-2).join('/')}</a><small>{asset.bytes < 1048576 ? `${Math.ceil(asset.bytes/1024)} KB` : `${(asset.bytes/1048576).toFixed(1)} MB`}</small></li>; })}</ul></section>)}
-    <h2 id="components">Component showcase</h2><MdxContent entry={showcase} />
+<BaseLayout lang="en" title="Brand Guide" kind="page" file="index" currentUrl="/brand" noindex hreflang={false} sidebarToc>
+  <div class="prose brand-guide" data-prose>
+    <h1>City Changers — Brand Guide</h1>
+    <p>One reference for our identity, visual language and handbook components. Start with the foundations, choose components for the content you are creating, then download the supplied assets.</p>
+    <p><a href="#identity">Identity</a> · <a href="#visual-foundations">Visual foundations</a> · <a href="#writing-and-formatting">Components</a> · <a href="#downloads">Downloads</a></p>
+
+    <h2 id="identity">Identity</h2>
+    <div set:html={identityHtml} />
+    <h3 id="logos">Logos and BrandLogo</h3>
+    <div class="showcase-demo"><BrandLogo label="City Changers logo lockup" /> <BrandLogo variant="symbol" label="Green Fix symbol" /></div>
+    <div set:html={logosHtml} />
+    <div class="logo-grid">
+      {[
+        { file: 'logo-lockup.svg', label: 'Lockup on light backgrounds', dark: false },
+        { file: 'logo-lockup-dark.svg', label: 'Lockup on dark backgrounds', dark: true },
+        { file: 'logo.svg', label: 'Symbol on light backgrounds', dark: false },
+        { file: 'logo-dark.svg', label: 'Symbol on dark backgrounds', dark: true },
+      ].map(({ file, label, dark }) => (
+        <figure><div class:list={['logo-preview', { 'logo-preview--dark': dark }]}><img src={logoUrl(file)} alt={label} width="320" height="120" /></div><figcaption><a href={logoUrl(file)} download>{label} (SVG)</a></figcaption></figure>
+      ))}
+    </div>
+    <h3 id="voice">Voice and photography</h3>
+    <div set:html={writingHtml} />
+
+    <h2 id="visual-foundations">Visual foundations</h2>
+    <h3 id="colours">Colours</h3>
+    <div set:html={colourIntroHtml} />
+    <ul class="colour-grid">
+      {colours.map(([, name, hex, description]) => (
+        <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name.trim()}</strong> <code>{hex}</code><small>{description}</small></li>
+      ))}
+    </ul>
+    <p>Use semantic light/dark CSS tokens for interface text and backgrounds, rather than applying these base values everywhere. Artwork colours are protected references, not extra UI colours.</p>
+    <h4>Protected artwork colours</h4>
+    <div set:html={artworkHtml} />
+    <details class="color-reference"><summary>Technical colour reference: themes, recipes and accessibility</summary><div set:html={colorReferenceHtml} /></details>
+
+    <h3 id="type">Typography</h3>
+    <div set:html={typeHtml} />
+    <div class="type-specimen">
+      <p class="type-headline">Fraunces — Small steps. Better streets.</p>
+      <p class="type-caption">Clarity City — Practical tools for community action.</p>
+      <p class="type-editorial">Newsreader — Longer stories from the neighbourhood.</p>
+    </div>
+    <h3 id="layout">Layout and artwork placement</h3>
+    <div set:html={layoutHtml} />
+    <h3 id="icon">Icon</h3>
+    <p>Use the shared hand-drawn icon family. Icons are decorative and hidden from assistive technology, so pair them with visible text or an accessible control label. Use <code>&lt;Icon name="search" /&gt;</code> in components.</p>
+    <div class="showcase-demo"><ul class="showcase-icons">{iconNames.map((name) => <li><Icon name={name} /><span class="showcase-icon-name">{name}</span></li>)}</ul></div>
+
+    <div data-brand-components><MdxContent entry={componentGuide} /></div>
+    <BrandAssetLibrary />
+    <p><a href="#main">Back to top</a></p>
   </div>
 </BaseLayout>
+<script>
+  import { initBrandToc } from '../../scripts/brand-toc';
+  initBrandToc();
+</script>
 <style>
-  .asset-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1rem;list-style:none;padding:0}.asset-grid li{border:1px solid currentColor;border-radius:.5rem;padding:.75rem;min-width:0}.asset-grid a{display:flex;align-items:center;min-height:44px;overflow-wrap:anywhere}.asset-grid small{display:block}.asset-preview{background:var(--art-paper);border-radius:.25rem;padding:.75rem}.asset-preview-dark{background:var(--art-dark)}.asset-preview img{width:100%;height:180px;object-fit:contain}.lottie-preview{display:grid;place-items:center}.lottie-preview__artwork{width:min(100%,180px)}.swatch{display:block;height:3rem;border:1px solid currentColor;margin-block-end:.75rem}.type-headline{font-family:'Fraunces',Georgia,serif;font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700}.type-caption{font-family:'Clarity City',sans-serif}.type-editorial{font-family:'Newsreader',Georgia,serif;font-size:1.25rem}
+  .logo-grid, .colour-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .logo-grid figure { margin: 0; min-width: 0; }
+  .logo-preview { background: var(--art-paper); border-radius: .5rem; padding: 1rem; }
+  .logo-preview--dark { background: var(--art-dark); }
+  .logo-preview img { width: 100%; height: 120px; object-fit: contain; }
+  .colour-grid { padding: 0; list-style: none; }
+  .colour-grid li { border: 1px solid var(--line); border-radius: .5rem; padding: .75rem; }
+  .colour-grid small { display: block; }
+  .swatch { display: block; height: 3rem; border: 1px solid var(--line); margin-block-end: .75rem; }
+  .type-specimen { border-block: 1px solid var(--line); padding-block: .5rem; }
+  .type-headline { font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; }
+  .type-caption { font-family: 'Clarity City', sans-serif; }
+  .type-editorial { font-family: 'Newsreader', Georgia, serif; font-size: 1.25rem; }
+  .color-reference { margin-block: 1.5rem; }
+  .color-reference summary { cursor: pointer; font-weight: 700; }
+  .color-reference > div { overflow-x: auto; }
 </style>

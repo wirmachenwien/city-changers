@@ -627,9 +627,20 @@ body.drawer-open {
   text-decoration: underline;
 }
 
-.nav-list a[aria-current="page"] {
+.nav-list a[aria-current="page"],
+.nav-list a[aria-current="location"] {
   border-inline-start-color: var(--accent);
   font-weight: 700;
+}
+
+.nav-list a.is-active-parent {
+  font-weight: 700;
+}
+
+.nav-list--nested {
+  padding-inline-start: 0.8rem;
+  border-inline-start: 1px solid var(--line);
+  margin-inline-start: 0.6rem;
 }
 
 /* ---------- Layout shells ---------- */
@@ -658,6 +669,15 @@ body.drawer-open {
 }
 
 @media (min-width: 60rem) {
+  .side-nav[data-scroll-toc] {
+    position: sticky;
+    align-self: start;
+    inset-block-start: var(--scroll-offset, 5rem);
+    max-block-size: calc(100dvb - var(--scroll-offset, 5rem) - 1rem);
+    overflow-y: auto;
+    background: var(--paper);
+  }
+
   /* The sidebar stretches with the article, letting only the bookmarks
      remain in view after the chapter navigation has scrolled away. */
   .side-nav [data-bookmark-nav] {

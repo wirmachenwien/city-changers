@@ -670,7 +670,7 @@ function languageOptions() {
 
 function componentShowcase() {
   return `  - name: component_showcase
-    label: Component Showcase
+    label: Brand Guide Components
     type: file
     path: src/content/preview/component-showcase.mdx
     format: yaml-frontmatter
@@ -678,7 +678,7 @@ function componentShowcase() {
       - name: title
         type: string
         readonly: true
-        description: "Preview: ${site}${BASE_PATH}/preview/component-showcase.html"
+        description: "Brand Guide: ${site}${BASE_PATH}/brand"
       - name: lang
         component: language
         readonly: true

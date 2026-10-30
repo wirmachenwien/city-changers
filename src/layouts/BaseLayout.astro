@@ -24,7 +24,7 @@ interface Props {
   currentUrl: string;
   noindex?: boolean;
   hreflang?: boolean;
-  sidebarToc?: { id: string; label: string }[];
+  sidebarToc?: boolean;
 }
 
 const { lang, title, kind, file, currentUrl, noindex = false, hreflang = true, sidebarToc } = Astro.props;
@@ -82,7 +82,7 @@ const hideFromIndex = noindex || !settings.web.indexing;
     <div class="shell">
       <div class="main-grid">
         {sidebarToc ? (
-          <nav class="side-nav" aria-label="Brand guide contents"><section class="nav-section"><ul class="nav-list">{sidebarToc.map((item) => <li><a href={`#${item.id}`}>{item.label}</a></li>)}</ul></section></nav>
+          <nav class="side-nav" aria-label="Brand guide contents" data-scroll-toc><section class="nav-section"><ul class="nav-list" /></section></nav>
         ) : <SideNav lang={lang} currentUrl={currentUrl} />}
         <main id="main" class="article" data-pagefind-body>
           <slot />
