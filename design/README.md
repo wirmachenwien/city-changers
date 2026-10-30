@@ -1,6 +1,6 @@
 # City Changers brand library
 
-**Start here:** the team reference is published at `/preview/brand-guide.html`.
+**Start here:** the combined brand guide and component showcase is published at `/brand/`.
 It is unlisted, excluded from search and the sitemap, and marked `noindex`.
 It is not authenticated: anyone with its URL can access it.
 

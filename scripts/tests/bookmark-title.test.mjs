@@ -38,7 +38,7 @@ const examples = [
   ['<p><img alt="A quiet street"></p>', 'Image: A quiet street'],
   ['<figure class="qr"><div role="img" aria-label="Campaign website"><svg></svg></div></figure>', 'QR code: Campaign website'],
   ['<div data-slides aria-label="Before and after"><button>Next</button><figcaption>Slide 1</figcaption></div>', 'Slideshow: Before and after'],
-  ['<form data-quiz><legend>Question 2: What works?</legend><label>Option A</label><button>Check answers</button><p data-feedback>Incorrect</p></form>', 'Question 2: What works?'],
+  ['<form data-question><legend>Question 2: What works?</legend><label>Option A</label><button>Check answers</button><p data-feedback>Incorrect</p></form>', 'Question 2: What works?'],
   ['<div class="table-scroll"><table><thead><tr><th>Goal</th><th>Action</th></tr></thead><tbody><tr><td>Noise</td></tr></tbody></table></div>', 'Table: Goal / Action'],
   ['<aside class="feature-box"><p class="feature-box__title">Start small</p><p>Long body</p></aside>', 'Tip: Start small'],
   ['<aside class="mascot-box"><div class="mascot-box__visual">Mascot</div><p class="mascot-box__title">Ask neighbours</p><p>Long body</p></aside>', 'Tip: Ask neighbours'],

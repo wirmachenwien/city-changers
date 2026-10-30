@@ -1,6 +1,6 @@
-// Self-grading quizzes and single questions.
-export function initQuiz(): void {
-  for (const form of document.querySelectorAll<HTMLFormElement>('[data-quiz]')) {
+// Client-side self-check interactions for Question components.
+export function initQuestion(): void {
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-question]')) {
     const feedback = form.querySelector('[data-feedback]');
     if (!feedback || form.dataset.wired) continue;
     form.dataset.wired = 'true';

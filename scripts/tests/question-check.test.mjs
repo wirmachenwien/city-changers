@@ -1,6 +1,6 @@
 import { afterEach, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { initQuiz } from '../../src/scripts/quiz.ts';
+import { initQuestion } from '../../src/scripts/question-check.ts';
 
 const descriptor = Object.getOwnPropertyDescriptor(globalThis, 'document');
 afterEach(() => {
@@ -29,7 +29,7 @@ function environment(single = false) {
   Object.defineProperty(globalThis, 'document', {
     value: { querySelectorAll: () => [form] }, configurable: true,
   });
-  initQuiz();
+  initQuestion();
   return {
     inputs,
     labels,

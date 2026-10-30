@@ -197,7 +197,7 @@ p, li, dd, blockquote, figcaption {
   widows: 3;
 }
 
-figure, table, blockquote, .feature-box, .quiz {
+figure, table, blockquote, .feature-box, .question {
   break-inside: avoid;
 }
 
@@ -208,8 +208,8 @@ figure, table, blockquote, .feature-box, .quiz {
 .mascot-box__title,
 .accordion > summary,
 .accordion-title,
-.quiz-title,
-.quiz legend {
+.question-title,
+.question legend {
   break-after: avoid;
 }
 
@@ -528,9 +528,9 @@ dl.glossary dd {
   margin-bottom: 4pt;
 }
 
-/* Self-check quizzes print as boxed tasks; the answer key stays
+/* Self-check questions print as boxed tasks; the answer key stays
    upside-down (turn-the-page convention), the box keeps it tidy. */
-.quiz {
+.question {
   background: var(--panel);
   border: 0.5pt solid var(--line);
   border-radius: 2mm;
@@ -539,27 +539,27 @@ dl.glossary dd {
   font-family: "Clarity City", system-ui, sans-serif;
 }
 
-.quiz fieldset {
+.question fieldset {
   border: 0;
   padding: 0;
   margin: 0 0 10pt;
 }
 
-.quiz legend {
+.question legend {
   font-weight: 700;
   line-height: 1.35;
   padding: 0;
   margin-bottom: 4pt;
 }
 
-.quiz label {
+.question label {
   display: flex;
   gap: 8pt;
   align-items: baseline;
   padding-block: 4pt;
 }
 
-.quiz ol {
+.question ol {
   margin-bottom: 0;
 }
 

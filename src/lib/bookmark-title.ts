@@ -43,7 +43,7 @@ export function bookmarkExcerpt(element: HTMLElement, labels: Labels, maxWords =
     title = labelled('qr', caption() || plainBookmarkText(element.querySelector('[role="img"]')?.getAttribute('aria-label') ?? ''));
   } else if (matches('figure') || (element.querySelector('img') && !text(element))) {
     title = labelled('image', caption() || plainBookmarkText(element.querySelector('img')?.getAttribute('alt') ?? ''));
-  } else if (matches('[data-quiz]')) {
+  } else if (matches('[data-question]')) {
     title = text(element.querySelector('legend'));
   } else if (matches('.table-scroll, table')) {
     const headers = [...element.querySelectorAll('thead th')].map(cell => text(cell)).filter(Boolean).join(' / ');

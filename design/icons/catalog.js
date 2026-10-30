@@ -78,7 +78,6 @@ window.iconCatalog = [
     "id": "check",
     "label": "Correct / copied",
     "sources": [
-      "src/components/Quiz.astro",
       "src/components/Question.astro",
       "src/components/CopyText.astro"
     ],
@@ -111,7 +110,7 @@ window.iconCatalog = [
     "label": "Close / incorrect",
     "sources": [
       "src/components/NavDrawer.astro",
-      "src/components/Quiz.astro",
+      "src/components/Question.astro",
       "src/scripts/content-popup.ts",
       "src/scripts/bookmarks.ts"
     ],

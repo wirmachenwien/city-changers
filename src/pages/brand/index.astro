@@ -1,0 +1,55 @@
+---
+import { readFileSync } from 'node:fs';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import { getEntry } from 'astro:content';
+import guideSource from '../../../design/brand-guide.md?raw';
+import colorReference from '../../../design/colors-reference.md?raw';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MdxContent from '../../components/MdxContent.astro';
+import MascotPreview from '../../components/MascotPreview.astro';
+import mascots from '../../data/mascots.json';
+import { withBase } from '../../lib/site';
+
+const assets = JSON.parse(readFileSync(new URL('../../../public/brand-assets/catalog.json', import.meta.url), 'utf8')) as { file: string; title: string; bytes: number }[];
+const groups = [...new Set(assets.map((asset) => asset.title))];
+const assetUrl = (file: string) => withBase(`/brand-assets/files/${file.split('/').map(encodeURIComponent).join('/')}`);
+const markdown = await createMarkdownProcessor();
+const identitySource = guideSource.split(/^## Identity\s*$/m)[1]?.split(/^## /m)[0]?.trim();
+const { code: identityHtml } = await markdown.render(identitySource ?? '');
+const { code: colorReferenceHtml } = await markdown.render(colorReference.replace(/^(#{1,2}) /gm, '###$1 '));
+const artworkSource = guideSource.split(/^### Protected artwork colors\s*$/m)[1]?.split(/^## Type\s*$/m)[0]?.trim() ?? '';
+const { code: artworkHtml } = await markdown.render(artworkSource);
+const colours = [...guideSource.matchAll(/^(.+?)\s+(#[0-9A-F]{6})\s+(.+)$/gm)];
+const showcase = await getEntry('preview', 'component-showcase');
+if (!showcase) throw new Error('Missing component showcase content');
+const toc = [
+  ['identity','Identity'], ['logos','Logo system'], ['colours','Colours'], ['type','Typography'], ['assets','Asset library'],
+  ['components','Components'], ...['Markdown basics','Components','Accordion','Bibliography','BookmarkAdd','Breadcrumbs','ButtonLink','CcBadge','ContentsPage','CopyText','Cover','DefinitionTerm','DownloadLink','ExpandableBox','FeatureBox','Figure','Footnote','Glossary','Icon','LanguageMenu','LanguageSwitcher','Math','MascotBox','MetadataTable','OpenerImage','PageRef','Pagination','PullQuote','QrCode','Question','Rotate','SearchForm','SelectList','Share','Slideshow','Spoiler','TableWrap','TitlePage','Toc','Video','VisualToc'].map((label) => [label.toLowerCase().replaceAll(' ','-'), label])
+].map(([id,label]) => ({id,label}));
+function lottiePreview(file: string) {
+  const match = file.match(/\/green-fix-([a-z]+)-(ink|linen)\.json$/);
+  if (!match || !Object.hasOwn(mascots, match[1])) return undefined;
+  return { pose: match[1] as keyof typeof mascots, treatment: match[2] as 'ink' | 'linen' };
+}
+---
+<BaseLayout lang="en" title="Brand guide & component showcase" kind="page" file="index" currentUrl="/brand/" noindex hreflang={false} sidebarToc={toc}>
+  <div class="prose" data-prose>
+    <h1>City Changers — brand guide & component showcase</h1>
+    <h2 id="identity">Identity</h2><div set:html={identityHtml} />
+    <h2 id="logos">Logo system</h2>
+    <p>Use the supplied logo artwork; do not recreate the wordmark with type. Preserve proportions and clear space, and choose the variant with strong contrast against its background.</p>
+    <figure><img src={assetUrl('logo-lockup.svg')} alt="City Changers logo lockup" width="500" /></figure>
+    <h2 id="colours">Colours</h2>
+    <p>Three UI color families—green, amber and red—plus neutrals. Supporting shades are derived from this compact palette; artwork colors stay protected.</p>
+    <ul class="asset-grid">{colours.map(([, name, hex, description]) => <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name.trim()}</strong> <code>{hex}</code><small>{description}</small></li>)}</ul>
+    <h4>Protected artwork colors</h4><div set:html={artworkHtml} />
+    <details class="color-reference"><summary>Technical color reference — themes, recipes and accessibility</summary><div set:html={colorReferenceHtml} /><p><a href={assetUrl('COLOR-REFERENCE.md')} download>Download the technical color reference</a></p><p><a href={assetUrl('COLORS.json')} download>Download the color registry (JSON)</a></p></details>
+    <h2 id="type">Typography</h2><p class="type-headline">Fraunces — Small steps. Better streets.</p><p class="type-caption">Clarity City — Practical tools for community action.</p><p class="type-editorial">Newsreader — Longer stories from the neighbourhood.</p>
+    <h2 id="assets">Asset library</h2><p>Downloads and the handoff kit come from the same asset manifest.</p><p><a href={withBase('/brand-assets/city-changers-brand-kit.zip')} download>Download the complete brand kit (ZIP)</a> · <a href={assetUrl('BRAND-GUIDE.md')} download>Download this guide (Markdown)</a></p>
+    {groups.map((title) => <section aria-label={title}><h3>{title}</h3><ul class="asset-grid">{assets.filter((asset) => asset.title === title).map((asset) => { const preview = lottiePreview(asset.file); return <li>{preview && <div class:list={['asset-preview','lottie-preview',{'asset-preview-dark':preview.treatment==='linen'}]}><div class="lottie-preview__artwork"><MascotPreview pose={preview.pose} treatment={preview.treatment} /></div></div>}{/\.(png|svg|jpg)$/i.test(asset.file) && <div class:list={['asset-preview',{'asset-preview-dark':/linen|dark/.test(asset.file)}]}><img src={assetUrl(asset.file)} alt="" loading="lazy" width="240" height="180" /></div>}<a href={assetUrl(asset.file)} download>{asset.file.split('/').slice(-2).join('/')}</a><small>{asset.bytes < 1048576 ? `${Math.ceil(asset.bytes/1024)} KB` : `${(asset.bytes/1048576).toFixed(1)} MB`}</small></li>; })}</ul></section>)}
+    <h2 id="components">Component showcase</h2><MdxContent entry={showcase} />
+  </div>
+</BaseLayout>
+<style>
+  .asset-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1rem;list-style:none;padding:0}.asset-grid li{border:1px solid currentColor;border-radius:.5rem;padding:.75rem;min-width:0}.asset-grid a{display:flex;align-items:center;min-height:44px;overflow-wrap:anywhere}.asset-grid small{display:block}.asset-preview{background:var(--art-paper);border-radius:.25rem;padding:.75rem}.asset-preview-dark{background:var(--art-dark)}.asset-preview img{width:100%;height:180px;object-fit:contain}.lottie-preview{display:grid;place-items:center}.lottie-preview__artwork{width:min(100%,180px)}.swatch{display:block;height:3rem;border:1px solid currentColor;margin-block-end:.75rem}.type-headline{font-family:'Fraunces',Georgia,serif;font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700}.type-caption{font-family:'Clarity City',sans-serif}.type-editorial{font-family:'Newsreader',Georgia,serif;font-size:1.25rem}
+</style>
