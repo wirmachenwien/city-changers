@@ -1,4 +1,5 @@
 import type { AnimationItem } from 'lottie-web';
+import { mascotViewBox } from '../lib/mascot-viewbox.mjs';
 
 /** One pass per viewport visit, plus replay on hover or native button activation. */
 class MascotPlayer extends HTMLElement {
@@ -127,7 +128,7 @@ class MascotPlayer extends HTMLElement {
         const container = this.querySelector<HTMLElement>('.mascot-box__animation')!;
         this.animation = lottie.default.loadAnimation({
           container, renderer: 'svg', loop: false, autoplay: false, animationData,
-          rendererSettings: { progressiveLoad: false },
+          rendererSettings: { progressiveLoad: false, viewBoxSize: mascotViewBox(animationData) },
         });
         this.animation.addEventListener('complete', this.complete);
         // Only swap out the usable still when the SVG is ready.

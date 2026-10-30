@@ -26,6 +26,44 @@ test('all author-facing components are documented in the same guide as the ident
   const scope = read('src/components/MdxContent.astro').split('export const mdxComponents = {')[1].split('};')[0];
   for (const name of scope.match(/\w+/g).filter((name) => !name.startsWith('Brand'))) {
     assert.ok(guide.includes(`### ${name}\n`), `${name} must have a section in the brand guide`);
+    const section = guide.split(`### ${name}\n`)[1].split(/^#{2,3} /m)[0];
+    const examples = [...section.matchAll(/```mdx\n([\s\S]*?)\n```/g)];
+    assert.ok(
+      examples.some(([, code]) => new RegExp(`<${name}\\b`).test(code)),
+      `${name} must have a copyable MDX usage example in its section`,
+    );
   }
   assert.ok(guide.includes('<BrandAssetLibrary />'));
+});
+
+test('BrandLogo examples show the Astro import and both artwork variants', () => {
+  const guide = read(guidePath);
+  const section = guide.split('### Logos\n')[1].split('### Mascot\n')[0];
+  const example = section.match(/```astro\n([\s\S]*?)\n```/)?.[1];
+  assert.ok(example, 'BrandLogo must have a copyable Astro usage example');
+  assert.ok(example.includes("import BrandLogo from '../components/BrandLogo.astro'"));
+  assert.ok(example.includes('<BrandLogo label="Toolbox for City Changers" />'));
+  assert.ok(example.includes('<BrandLogo variant="symbol" label="Green Fix" />'));
+});
+
+test('logo and mascot share a section with linked still and animated previews', () => {
+  const guide = read(guidePath);
+  const section = guide.split('## Logo and mascot\n')[1].split('## Colors\n')[0];
+  const logo = section.split('### Mascot\n')[0];
+  assert.ok(logo.includes('### Logos\n'));
+  assert.ok(logo.includes('[Green Fix, our mascot](#mascot)'));
+  const mascot = section.split('### Mascot\n')[1];
+  assert.ok(mascot.includes('#### Poses: static and animated'));
+  assert.ok(mascot.includes('<BrandMascotStates />'));
+  assert.ok(mascot.includes('`skeptical` is still-only'));
+  assert.ok(mascot.includes('Reduced-motion, no-JavaScript and export views'));
+  assert.ok(!guide.includes('Explore all static poses'));
+  assert.ok(!guide.includes('Explore all animated poses'));
+});
+
+test('brand guide documents bookmarking without rendering an active control', () => {
+  const guide = read(guidePath);
+  const withoutExamples = guide.replace(/```[\s\S]*?```/g, '');
+  assert.ok(!withoutExamples.includes('<BookmarkAdd'));
+  assert.ok(guide.includes('<BookmarkAdd lang="en" />'));
 });

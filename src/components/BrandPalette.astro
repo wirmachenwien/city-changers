@@ -10,12 +10,14 @@ const colors = registry.palette.map((color) => {
 ---
 <ul class="color-grid">
   {colors.map(({ name, hex, use }) => (
-    <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name}</strong> <code>{hex}</code><small>{use}</small></li>
+    <li><span class="swatch" style={{ backgroundColor: hex }} aria-hidden="true"></span><strong>{name}</strong> <code><span class="color-value"><span class="color-pebble" style={{ '--pebble-color': hex }} aria-hidden="true"></span>{hex}</span></code><small>{use}</small></li>
   ))}
 </ul>
 <style>
   .color-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); padding: 0; list-style: none; }
   .color-grid li { border: 1px solid var(--line); border-radius: .5rem; padding: .75rem; }
+  /* Grid gaps replace prose list spacing so every card fills its row equally. */
+  .color-grid li + li { margin-block-start: 0; }
   .color-grid small { display: block; }
   .swatch { display: block; height: 3rem; border: 1px solid var(--line); margin-block-end: .75rem; }
 </style>

@@ -15,7 +15,7 @@ const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}
   ))}
 </div>
 <style>
-  .logo-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .logo-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); margin-block-end: 2rem; }
   .logo-grid figure { margin: 0; min-width: 0; }
   .logo-preview { background: var(--art-paper); border-radius: .5rem; padding: 1rem; }
   .logo-preview--dark { background: var(--art-dark); }
