@@ -758,7 +758,14 @@ ${brandGuide()}`;
 }
 
 function robotsTxt() {
-  return `Sitemap: ${site}${base}sitemap.xml\n`;
+  return `User-agent: *
+Disallow: ${BASE_PATH}/brand$
+Disallow: ${BASE_PATH}/brand?
+Disallow: ${BASE_PATH}/brand/
+Disallow: ${BASE_PATH}/brand.html
+
+Sitemap: ${site}${base}sitemap.xml
+`;
 }
 
 function webmanifest() {

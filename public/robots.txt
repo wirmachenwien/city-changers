@@ -1,1 +1,7 @@
+User-agent: *
+Disallow: /brand$
+Disallow: /brand?
+Disallow: /brand/
+Disallow: /brand.html
+
 Sitemap: https://toolbox.wirmachen.wien/sitemap.xml
