@@ -10,6 +10,11 @@ from handbook.mdx import question_html, strip_static_handlers
 
 
 class ComponentBreakTest(unittest.TestCase):
+    def test_share_links_are_a_utility_list_not_an_editorial_bullet_list(self):
+        source = (ROOT / "src/components/Share.astro").read_text()
+        self.assertIn('<ul class="share-links">', source)
+        self.assertNotIn('<ul>', source)
+
     def test_code_blocks_do_not_inherit_inline_code_chips_or_fixed_shiki_colors(self):
         css = (ROOT / "src/styles/global.css").read_text()
         inline = re.search(r"\.prose :not\(pre\) > code\s*\{([^}]+)\}", css).group(1)

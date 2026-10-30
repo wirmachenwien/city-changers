@@ -46,6 +46,8 @@ test('TOC derives two levels, creates unique anchors and excludes demo/reference
   assert.deepEqual([...nav.querySelectorAll('a')].map((el) => el.textContent), ['Identity', 'Logo', 'Logo', 'Components', 'Figure', 'Downloads']);
   assert.deepEqual([...nav.querySelectorAll('.nav-list--nested a')].map((el) => el.getAttribute('href')), ['#logo', '#logo-2', '#figure']);
   assert.equal(nav.querySelector('[aria-current="location"]').textContent, 'Identity');
+  assert.equal(nav.querySelectorAll('.nav-list--nested:not([hidden])').length, 1);
+  assert.equal(nav.querySelector('.nav-list--nested:not([hidden])').parentElement.firstElementChild.textContent, 'Identity');
 });
 
 test('scroll tracking handles large jumps, scrolling back, and the document bottom', () => {
@@ -56,11 +58,16 @@ test('scroll tracking handles large jumps, scrolling back, and the document bott
   events.get('scroll')();
   assert.equal(current(), 'Figure');
   assert.equal(nav.querySelector('.is-active-parent').textContent, 'Components');
+  assert.equal(nav.querySelectorAll('.nav-list--nested:not([hidden])').length, 1);
+  assert.equal(nav.querySelector('.nav-list--nested:not([hidden])').parentElement.firstElementChild.textContent, 'Components');
   window.scrollY = 1500;
   events.get('scroll')();
   assert.equal(current(), 'Logo');
+  assert.equal(nav.querySelectorAll('.nav-list--nested:not([hidden])').length, 1);
+  assert.equal(nav.querySelector('.nav-list--nested:not([hidden])').parentElement.firstElementChild.textContent, 'Identity');
   window.scrollY = 6000;
   events.get('scroll')();
   assert.equal(current(), 'Downloads');
+  assert.equal(nav.querySelectorAll('.nav-list--nested:not([hidden])').length, 0);
   assert.equal(nav.querySelectorAll('[aria-current]').length, 1);
 });

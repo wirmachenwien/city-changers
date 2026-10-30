@@ -31,7 +31,7 @@ const available = networks.filter((network) => t(lang, `share.${network.key}`, '
 ---
 <div class="share" data-share>
   <span>{t(lang, 'share.share', 'Share')}:</span>
-  <ul>
+  <ul class="share-links">
     {available.map((network) =>
       network.key === 'link' ? (
         <li>

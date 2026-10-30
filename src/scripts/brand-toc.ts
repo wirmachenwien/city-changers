@@ -27,6 +27,7 @@ export function initBrandToc(): void {
       if (!nested) {
         nested = document.createElement('ul');
         nested.className = 'nav-list nav-list--nested';
+        nested.hidden = true;
         parent.append(nested);
       }
       nested.append(item);
@@ -58,6 +59,10 @@ export function initBrandToc(): void {
     active.setAttribute('aria-current', 'location');
     const parentLink = active.closest('.nav-list--nested')?.parentElement?.querySelector(':scope > a');
     parentLink?.classList.add('is-active-parent');
+    const currentSection = parentLink?.parentElement ?? active.parentElement;
+    for (const nested of nav!.querySelectorAll<HTMLUListElement>('.nav-list--nested')) {
+      nested.hidden = nested.parentElement !== currentSection;
+    }
     // Keep the selected entry visible within the sticky sidebar without
     // moving the page or stealing keyboard focus.
     const rect = active.getBoundingClientRect();
