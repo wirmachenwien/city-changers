@@ -173,8 +173,8 @@ print/CMYK specification: ask a printer for proofs.
 <BrandColorReference />
 
 `;
-  if (!/^## Colors\s*$/m.test(guide) || !/^## Type\s*$/m.test(guide)) throw new Error('Brand guide must contain Colors and Type sections');
-  const nextGuide = guide.replace(/^## Colors\s*$[\s\S]*?(?=^## Type\s*$)/m, colorsSection);
+  if (!/^## Colors\s*$/m.test(guide) || !/^## Typeface\s*$/m.test(guide)) throw new Error('Brand guide must contain Colors and Typeface sections');
+  const nextGuide = guide.replace(/^## Colors\s*$[\s\S]*?(?=^## Typeface\s*$)/m, colorsSection);
   const recipes = expression => typeof expression === 'string' ? expression : expression.mix
     ? `${expression.mix[0]} ${expression.weight * 100}% + ${expression.mix[1]} ${Math.round((1 - expression.weight) * 100)}% (sRGB)`
     : expression.alpha ? `${expression.alpha} at ${expression.opacity * 100}% opacity` : expression.ref ?? expression.value;

@@ -1,11 +1,47 @@
-<div class="type-specimen">
-  <p class="type-headline">Fraunces — Small steps. Better streets.</p>
-  <p class="type-caption">Clarity City — Practical tools for community action.</p>
-  <p class="type-editorial">Newsreader — Longer stories from the neighbourhood.</p>
-</div>
+---
+import catalogSource from '../../public/brand-assets/catalog.json?raw';
+import { withBase } from '../lib/site';
+
+const assets = JSON.parse(catalogSource) as { file: string }[];
+const families = [
+  { name: 'Fraunces', className: 'type-headline', sample: 'Small steps. Better streets.' },
+  { name: 'Clarity City', className: 'type-caption', sample: 'Practical tools for community action.' },
+  { name: 'Newsreader', className: 'type-editorial', sample: 'Longer stories from the neighbourhood.' },
+].map((family) => {
+  const key = family.name.replaceAll(' ', '');
+  const files = assets.filter(({ file }) => file.startsWith(`04-fonts/${key}`));
+  const versions = [...new Set(files.map(({ file }) => file.split('/').pop()!.replace(/\.(ttf|woff2)$/, '')))];
+  const licence = assets.find(({ file }) => file === `04-fonts/OFL-${key}.txt`);
+  return { ...family, files, versions, licence };
+});
+const assetUrl = (file: string) => withBase(`/brand-assets/files/${file.split('/').map(encodeURIComponent).join('/')}`);
+---
+{families.map(({ name, className, sample, files, versions, licence }) => (
+  <section class="type-specimen" aria-label={`${name} specimen and downloads`}>
+    <p class={className}>{name} — {sample}</p>
+    <ul class="type-downloads">
+      {versions.map((version) => (
+        <li>
+          <span>{version}</span>
+          <span class="type-formats">
+            {files.filter(({ file }) => file.split('/').pop()!.replace(/\.(ttf|woff2)$/, '') === version).map(({ file }) => (
+              <a href={assetUrl(file)} download aria-label={`Download ${file.split('/').pop()}`}>{file.split('.').pop()!.toUpperCase()}</a>
+            ))}
+          </span>
+        </li>
+      ))}
+    </ul>
+    {licence && <p><a href={assetUrl(licence.file)} download>Download {name} licence (OFL)</a></p>}
+  </section>
+))}
 <style>
   .type-specimen { border-block: 1px solid var(--line); padding-block: .5rem; }
   .type-headline { font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; }
   .type-caption { font-family: 'Clarity City', sans-serif; }
   .type-editorial { font-family: 'Newsreader', Georgia, serif; font-size: 1.25rem; }
+  .type-downloads { list-style: none; padding: 0; font-family: var(--font-ui); font-size: .875rem; }
+  .type-downloads > li { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin: 0; }
+  .type-downloads > li > span:first-child { overflow-wrap: anywhere; }
+  .type-formats { display: inline-flex; flex-wrap: wrap; gap: 1rem; }
+  .type-formats a { display: inline-flex; align-items: center; min-block-size: 44px; }
 </style>
