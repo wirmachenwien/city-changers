@@ -38,10 +38,25 @@ test('all author-facing components are documented in the same guide as the ident
 
 test('BrandLogo examples show the Astro import and both artwork variants', () => {
   const guide = read(guidePath);
-  const section = guide.split('### Logos and BrandLogo\n')[1].split('## Colors')[0];
+  const section = guide.split('### Logos\n')[1].split('### Mascot\n')[0];
   const example = section.match(/```astro\n([\s\S]*?)\n```/)?.[1];
   assert.ok(example, 'BrandLogo must have a copyable Astro usage example');
   assert.ok(example.includes("import BrandLogo from '../components/BrandLogo.astro'"));
   assert.ok(example.includes('<BrandLogo label="Toolbox for City Changers" />'));
   assert.ok(example.includes('<BrandLogo variant="symbol" label="Green Fix" />'));
+});
+
+test('logo and mascot share a section with linked still and animated previews', () => {
+  const guide = read(guidePath);
+  const section = guide.split('## Logo and mascot\n')[1].split('## Colors\n')[0];
+  const logo = section.split('### Mascot\n')[0];
+  assert.ok(logo.includes('### Logos\n'));
+  assert.ok(logo.includes('[Green Fix, our mascot](#mascot)'));
+  const mascot = section.split('### Mascot\n')[1];
+  assert.ok(mascot.includes('#### Poses: static and animated'));
+  assert.ok(mascot.includes('<BrandMascotStates />'));
+  assert.ok(mascot.includes('`skeptical` is still-only'));
+  assert.ok(mascot.includes('Reduced-motion, no-JavaScript and export views'));
+  assert.ok(!guide.includes('Explore all static poses'));
+  assert.ok(!guide.includes('Explore all animated poses'));
 });

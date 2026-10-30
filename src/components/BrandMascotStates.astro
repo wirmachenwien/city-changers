@@ -1,0 +1,42 @@
+---
+import MascotPreview from './MascotPreview.astro';
+
+const states = [
+  { pose: 'neutral', animation: 'idle', use: 'A calm companion to an explanation.' },
+  { pose: 'wave', animation: 'wave', use: 'Welcome readers or introduce a topic.' },
+  { pose: 'point', animation: 'point', use: 'Direct attention to a nearby caption or next step.' },
+  { pose: 'celebrate', animation: 'celebrate', use: 'Mark progress or a completed action.' },
+  { pose: 'think', animation: 'think', use: 'Introduce an idea or a question.' },
+  { pose: 'step', animation: 'step', use: 'Encourage a first step or forward movement.' },
+  { pose: 'skeptical', animation: null, use: 'Invite readers to question an assumption.' },
+] as const;
+---
+<ul class="mascot-states showcase-demo">
+  {states.map(({ pose, animation, use }) => (
+    <li class="mascot-state" data-mascot-state={pose}>
+      <strong>{pose}</strong>
+      <p>{use}</p>
+      <div class="mascot-state__pair">
+        <figure>
+          <MascotPreview pose={pose} animated={false} />
+          <figcaption>Static: <code>{pose}</code></figcaption>
+        </figure>
+        {animation ? (
+          <figure>
+            <MascotPreview pose={animation} animated lang="en" />
+            <figcaption>Animated: <code>{animation}</code></figcaption>
+          </figure>
+        ) : <p class="mascot-state__unavailable">Still only — no animation.</p>}
+      </div>
+    </li>
+  ))}
+</ul>
+<style>
+  .mascot-states { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; padding: 0; border: 0; list-style: none; }
+  .mascot-states > li { margin: 0; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); min-inline-size: 0; }
+  .mascot-state > p { margin-block: .5rem 1rem; }
+  .mascot-state__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  figure { margin: 0; min-inline-size: 0; }
+  figcaption { margin-block-start: .5rem; font-family: var(--font-ui); font-size: .875rem; }
+  .mascot-state__unavailable { align-self: center; margin: 0; color: var(--ink-soft); font-family: var(--font-ui); }
+</style>

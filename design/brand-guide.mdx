@@ -11,25 +11,27 @@ supplied assets at the end of this guide.
 
 ## Identity
 
-The project name is Toolbox for City Changers. The mascot is called Green Fix.
-It has seven expressive poses, with static and animated assets available below.
+The project name is Toolbox for City Changers.
 
-### Logos and BrandLogo
+Our voice is direct, welcoming and practical: neighbours sharing tools, not
+experts talking down. Address readers as “you”, use “we” for shared goals, and
+explain planning terms in everyday language. Connect the bigger vision of
+safer, greener, more inclusive neighbourhoods to a concrete next step: talk to
+a neighbour, test an idea, count what changes. Be encouraging without promising
+easy wins; ground arguments in real experiences and evidence, and acknowledge
+the time and collective effort that change takes.
 
-The active identity pairs the Green Fix symbol with the outlined City Changers
-wordmark. Use the full lockup when the project name needs to be read; use the
-symbol where the name is already present. The wordmark is supplied artwork,
-not editable text or a Fraunces typesetting recipe.
+## Logo and mascot
 
-Use `logo-lockup.svg` and `logo.svg` on light backgrounds, and their `-dark`
-variants on dark backgrounds. The website's BrandLogo component selects the
-matching treatment automatically. Use `logo-small.svg` for compact applications
-and the supplied website icons for favicons and app icons. PNG exports are
-available for tools that cannot import SVG.
+### Logos
 
-Keep the supplied proportions and colors. Do not stretch, rotate, add effects,
-crop the artwork, or rebuild the lettering. Review legibility at the actual
-display size; no new minimum-size or measured clear-space standard is implied.
+Meet [Green Fix, our mascot](#mascot)! Green Fix appears in our logo and guides
+readers through the handbook.
+
+Use the full City Changers logo when the name needs to be read, or the symbol
+when the name is already present. The `BrandLogo` component automatically selects
+the light- or dark-background artwork. Keep the proportions, colors and outlined
+lettering unchanged.
 
 <BrandLogoExamples />
 
@@ -43,6 +45,41 @@ import BrandLogo from '../components/BrandLogo.astro';
 <BrandLogo label="Toolbox for City Changers" />
 <BrandLogo variant="symbol" label="Green Fix" />
 ```
+
+### Mascot
+
+Green Fix is our friendly guide: a green character with a leaf and boots that
+offers a welcome, an idea or a practical nudge. Use a pose that supports the
+message, rather than replacing essential text with an expression or animation.
+Keep the supplied artwork and colors unchanged.
+
+#### Poses: static and animated
+
+Each pose below pairs its still with the matching animation. All seven poses
+have stills; six also have animations. The neutral pose uses `idle`;
+`skeptical` is still-only. Both previews use the default **Ink** treatment so
+you can compare like for like. **Linen** uses light outlines on a dark plate;
+both treatments support stills and animations. Printed books always use Ink artwork.
+
+<BrandMascotStates />
+
+Animations play
+once on entering view, then hold their final frame. Think holds its raised-hand
+idea pose. Hover or click to replay, or focus the mascot and press Enter or Space.
+Reduced-motion, no-JavaScript and export views retain the matching still and all text.
+
+```mdx
+<MascotBox pose="wave" title="Welcome">
+  A static helper for a short explanation.
+</MascotBox>
+
+<MascotBox pose="wave" animated title="Welcome" lang="en">
+  Hover, click or use the keyboard to replay.
+</MascotBox>
+```
+
+See [MascotBox](#mascotbox) for content examples, and the asset downloads at the
+end of this guide for the supplied static and animated files.
 
 ## Colors
 
@@ -150,13 +187,6 @@ label. Use `<Icon name="search" />` in components.
 ```mdx
 <Icon name="search" /> Search the handbook
 ```
-
-## Writing and images
-
-Write clear, welcoming, practical copy. Describe a specific community action and
-give one next step. Verify claims and results before publishing. Do not invent
-quotes, endorsements or campaign outcomes. Use real project photography only
-after checking permission and credits; supporting images are not a stock library.
 
 ## Writing and formatting
 
@@ -338,7 +368,7 @@ Video embeds load their provider only after the reader chooses to play them. Inc
 
 ### MascotBox
 
-Green Fix is a friendly guide for a short explanation or practical nudge, not a replacement for chapter text. Keep the supplied artwork unchanged.
+Pair a short explanation or practical nudge with [Green Fix](#mascot). The mascot section above introduces all static and animated states.
 
 ```mdx
 <MascotBox title="Try this first" pose="think" animated lang="en">
@@ -348,7 +378,7 @@ Green Fix is a friendly guide for a short explanation or practical nudge, not a 
 
 Choose `neutral` (or `idle`), `wave`, `point`, `celebrate`, `think`, `step`, or `skeptical`. Omit `animated` for a still; all poses except `skeptical` have an animation. `treatment="linen"` selects light-outline artwork on a dark plate; the default is `ink`. Printed books always use Ink artwork.
 
-Animations play once each time they enter view and then hold their final frame. Hover or click to replay; keyboard users can focus the mascot and press Enter or Space. Think holds its raised-hand idea pose. Reduced-motion, no-JavaScript and export views retain the matching still and all text. Set `lang` to `en`, `de` or `sl` for replay labels and title typography.
+Set `lang` to `en`, `de` or `sl` for replay labels and title typography.
 
 <div class="showcase-demo"><MascotBox title="I have an idea!" pose="think" animated lang="en"><p>Start with one small, visible improvement. What could you test on your street this month?</p></MascotBox><MascotBox title="Question the assumption" pose="skeptical"><p>Does everyone need to drive through this street, or just be able to reach it?</p></MascotBox></div>
 
@@ -359,19 +389,6 @@ Animations play once each time they enter view and then hold their final frame. 
 
 <MascotBox title="Question the assumption" pose="skeptical">
   Does everyone need to drive through this street, or just be able to reach it?
-</MascotBox>
-```
-
-<details><summary>Explore all static poses</summary><div class="showcase-demo">{['neutral', 'wave', 'point', 'celebrate', 'think', 'step', 'skeptical'].map((pose) => <MascotBox pose={pose} title={pose}><p>A static helper for a short explanation.</p></MascotBox>)}</div></details>
-<details><summary>Explore all animated poses</summary><div class="showcase-demo">{['idle', 'wave', 'point', 'celebrate', 'think', 'step'].map((pose) => <MascotBox pose={pose} animated treatment="linen" title={pose} lang="en"><p>Hover, click or use the keyboard to replay.</p></MascotBox>)}</div></details>
-
-```mdx
-<MascotBox pose="wave" title="Welcome">
-  A static helper for a short explanation.
-</MascotBox>
-
-<MascotBox pose="wave" animated treatment="linen" title="Welcome" lang="en">
-  Hover, click or use the keyboard to replay.
 </MascotBox>
 ```
 
