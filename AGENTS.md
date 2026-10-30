@@ -22,7 +22,7 @@ For static-only edits, use `python3 design/scripts/build-design.py --stills`.
 `design/colors.json` is the color source of truth. Use semantic CSS variables
 in interface and export styles, not hardcoded colors or ad-hoc mixes. Update
 the registry and run `npm run colors:generate`, then `npm run colors:check`.
-Do not edit generated color CSS/JSON, the generated Colours section of the
+Do not edit generated color CSS/JSON, the generated Colors section of the
 brand guide, or `design/colors-reference.md` by hand. Artwork colors are
 protected references; changing the registry is not permission to recolor or
 regenerate mascots. Exceptions need an explicit reason in the registry.

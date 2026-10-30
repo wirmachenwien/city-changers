@@ -18,21 +18,21 @@ matching treatment automatically. Use `logo-small.svg` for compact applications
 and the supplied website icons for favicons and app icons. PNG exports are
 available for tools that cannot import SVG.
 
-Keep the supplied proportions and colours. Do not stretch, rotate, add effects,
+Keep the supplied proportions and colors. Do not stretch, rotate, add effects,
 crop the artwork, or rebuild the lettering. Review legibility at the actual
 display size; no new minimum-size or measured clear-space standard is implied.
 
-## Colours
+## Colors
 
 <!-- Generated from design/colors.json by npm run colors:generate. -->
 ### Brand palette
 
 Our brand palette uses **green** as its primary accent and **warm amber/brown**
 for supporting emphasis, with paper and ink neutrals. Red is a functional UI
-colour, not a brand accent. Supporting shades are derived recipes, not
-additional brand colours to choose independently.
+color, not a brand accent. Supporting shades are derived recipes, not
+additional brand colors to choose independently.
 
-Enter these HEX codes in your design app's colour picker:
+Enter these HEX codes in your design app's color picker:
 
 ```text
 Paper             #FDFCF9   Primary light background.
@@ -46,11 +46,11 @@ base colors to every background. Warm FeatureBoxes use the amber accent with
 its generated tint. The detailed light/dark/export values, utilities and recipes
 are in **COLOR-REFERENCE.md**, also available in the brand kit.
 
-### Functional UI colours
+### Functional UI colors
 
-These colours communicate an interface role, not a brand mood. Green and amber
+These colors communicate an interface role, not a brand mood. Green and amber
 reuse the brand families; red is reserved for errors and incorrect-answer
-feedback. Always accompany status colours with text or another non-colour cue.
+feedback. Always accompany status colors with text or another non-color cue.
 Warm callouts are emphasis, not automatically warnings.
 
 The light and dark values below come from the semantic tokens. Use the tokens
@@ -105,7 +105,7 @@ Keep the original proportions: resize from a corner with proportions locked.
 Leave visible breathing room on every side. As a practical starting point, allow
 at least one boot's height between the artwork and nearby text or the edge.
 This is a working recommendation, not a newly approved measured logo standard.
-Do not crop the leaf or boots, rotate the full logo, add effects, or recolour it.
+Do not crop the leaf or boots, rotate the full logo, add effects, or recolor it.
 Use the light/dark variant that stays clear against the whole background.
 Place pointing captions to the right. Keep captions away from the mascot's face.
 There is no fixed minimum social-logo size: check legibility at actual phone size.

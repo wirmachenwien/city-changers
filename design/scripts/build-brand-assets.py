@@ -25,7 +25,7 @@ ET.register_namespace("", NS)
 PAPER = "#fdfcf9"
 INK = "#20221c"
 LIGHT_INK = "#f2ede3"
-DARK_OUTLINE = "#cbbf9f"  # Approved palette A: original colours, softer edges.
+DARK_OUTLINE = "#cbbf9f"  # Approved palette A: original colors, softer edges.
 
 
 def svg_bytes(root: ET.Element) -> bytes:

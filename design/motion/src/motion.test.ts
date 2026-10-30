@@ -129,12 +129,12 @@ test("Studio inspector and composition Props share the same defaults and limits"
   }
   const custom = studioSchema(
     z.object({
-      colour: z.string().default("#fff0a8").meta({ studioType: "color" }),
+      color: z.string().default("#fff0a8").meta({ studioType: "color" }),
       path: z.string().default("M0,0L1,1").meta({ studioType: "svg-path" }),
       cycles: z.number().int().min(1).max(6).default(3),
     }),
   );
-  assert.equal(custom.colour.type, "color");
+  assert.equal(custom.color.type, "color");
   assert.equal(custom.path.type, "svg-path");
   assert.equal(custom.cycles.type === "number" && custom.cycles.integer, true);
 });

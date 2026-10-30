@@ -64,8 +64,8 @@ test('brand palette excludes error red while functional documentation retains it
   assert.ok(!registry.palette.some(color => color.ref.startsWith('red.')));
   assert.ok(registry.functionalColors.some(color => color.token === 'error'));
   const guide = readFileSync(join(root, 'design/brand-guide.md'), 'utf8');
-  const palette = guide.split('### Brand palette')[1].split('### Functional UI colours')[0];
-  const functional = guide.split('### Functional UI colours')[1].split('### Protected artwork colors')[0];
+  const palette = guide.split('### Brand palette')[1].split('### Functional UI colors')[0];
+  const functional = guide.split('### Functional UI colors')[1].split('### Protected artwork colors')[0];
   assert.ok(!palette.includes('#A31F1F'));
   assert.ok(functional.includes('`--error` | `#A31F1F` | `#FF8A7A`'));
   assert.equal(resolved.themes.light.error, '#a31f1f');

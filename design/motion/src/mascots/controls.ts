@@ -6,7 +6,7 @@ export const commonSchema = z.object({
   treatment: z
     .enum(["ink", "linen"])
     .default("ink")
-    .describe("Outline colour: Ink or Linen"),
+    .describe("Outline color: Ink or Linen"),
   background: z
     .enum(["transparent", "paper", "ink"])
     .default("transparent")

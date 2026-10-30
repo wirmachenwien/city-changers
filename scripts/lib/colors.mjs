@@ -113,17 +113,17 @@ export function generateOutputs(registry, resolved, guide, registrySource = JSON
     if (!registry.tokens[token]) throw new Error(`Unknown functional color token: ${token}`);
     return `| ${name} | \`--${token}\` | \`${themes.light[token].toUpperCase()}\` | \`${themes.dark[token].toUpperCase()}\` | ${registry.tokens[token].use} |`;
   }).join('\n');
-  const colorsSection = `## Colours
+  const colorsSection = `## Colors
 
 <!-- Generated from design/colors.json by npm run colors:generate. -->
 ### Brand palette
 
 Our brand palette uses **green** as its primary accent and **warm amber/brown**
 for supporting emphasis, with paper and ink neutrals. Red is a functional UI
-colour, not a brand accent. Supporting shades are derived recipes, not
-additional brand colours to choose independently.
+color, not a brand accent. Supporting shades are derived recipes, not
+additional brand colors to choose independently.
 
-Enter these HEX codes in your design app's colour picker:
+Enter these HEX codes in your design app's color picker:
 
 \`\`\`text
 ${rows}
@@ -134,11 +134,11 @@ base colors to every background. Warm FeatureBoxes use the amber accent with
 its generated tint. The detailed light/dark/export values, utilities and recipes
 are in **COLOR-REFERENCE.md**, also available in the brand kit.
 
-### Functional UI colours
+### Functional UI colors
 
-These colours communicate an interface role, not a brand mood. Green and amber
+These colors communicate an interface role, not a brand mood. Green and amber
 reuse the brand families; red is reserved for errors and incorrect-answer
-feedback. Always accompany status colours with text or another non-colour cue.
+feedback. Always accompany status colors with text or another non-color cue.
 Warm callouts are emphasis, not automatically warnings.
 
 The light and dark values below come from the semantic tokens. Use the tokens
@@ -166,16 +166,16 @@ it does not invent another green or amber palette. Screen colors are not a
 print/CMYK specification: ask a printer for proofs.
 
 `;
-  if (!/^## Colours\s*$/m.test(guide) || !/^## Type\s*$/m.test(guide)) throw new Error('Brand guide must contain Colours and Type sections');
-  const nextGuide = guide.replace(/^## Colours\s*$[\s\S]*?(?=^## Type\s*$)/m, colorsSection);
+  if (!/^## Colors\s*$/m.test(guide) || !/^## Type\s*$/m.test(guide)) throw new Error('Brand guide must contain Colors and Type sections');
+  const nextGuide = guide.replace(/^## Colors\s*$[\s\S]*?(?=^## Type\s*$)/m, colorsSection);
   const recipes = expression => typeof expression === 'string' ? expression : expression.mix
     ? `${expression.mix[0]} ${expression.weight * 100}% + ${expression.mix[1]} ${Math.round((1 - expression.weight) * 100)}% (sRGB)`
     : expression.alpha ? `${expression.alpha} at ${expression.opacity * 100}% opacity` : expression.ref ?? expression.value;
   const reference = `# City Changers — technical color reference
 
 <!-- Generated from design/colors.json. Do not edit; run npm run colors:generate. -->
-The brand guide separates the brand palette, functional UI colours and protected
-artwork colours. This table is an implementation
+The brand guide separates the brand palette, functional UI colors and protected
+artwork colors. This table is an implementation
 reference, not a menu of interchangeable accents. Edit \`design/colors.json\`,
 run \`npm run colors:generate\`, then \`npm run colors:check\`.
 ## Theme tokens

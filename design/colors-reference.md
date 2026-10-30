@@ -1,8 +1,8 @@
 # City Changers — technical color reference
 
 <!-- Generated from design/colors.json. Do not edit; run npm run colors:generate. -->
-The brand guide separates the brand palette, functional UI colours and protected
-artwork colours. This table is an implementation
+The brand guide separates the brand palette, functional UI colors and protected
+artwork colors. This table is an implementation
 reference, not a menu of interchangeable accents. Edit `design/colors.json`,
 run `npm run colors:generate`, then `npm run colors:check`.
 ## Theme tokens

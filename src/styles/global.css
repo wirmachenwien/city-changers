@@ -2774,7 +2774,7 @@ input[type="search"]::placeholder {
   }
 }
 
-/* Invert only the monochrome partner marks; keep Wir machen Wien in colour. */
+/* Invert only the monochrome partner marks; keep Wir machen Wien in color. */
 :root[data-theme="dark"] .partner-logos .partner-logos__logo--changing-cities,
 :root[data-theme="dark"] .partner-logos .partner-logos__logo--prostoroz {
   filter: invert(1);
