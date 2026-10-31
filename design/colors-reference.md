@@ -17,8 +17,13 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--ink` | `#1D1A16` | `#F2EDE3` | `#1D1A16` | Primary text. |
 | `--ink-soft` | `#4A4743` | `#C2BDB5` | `#4A4845` | Secondary text and captions. |
 | `--accent` | `#0C6B3C` | `#4CC38A` | `#0C6B3C` | Links, actions and positive emphasis. |
+| `--link-hover` | `#0D7642` | `#54D798` | `#0D7642` | Text-link hover: the accent channels brightened by 10%, matching the solid ButtonLink/DownloadLink background's brightness(1.1), not a white tint. |
 | `--accent-ink` | `#FFFFFF` | `#161511` | `#FFFFFF` | Text on the green accent. |
 | `--accent-soft` | `#E5EEE6` | `#1E2D22` | `#E5EEE6` | Subtle green emphasis. |
+| `--pebble-hover` | `#D2E2D7` | `#223B2C` | `#D2E2D7` | Slightly richer green fill for hovered pebble buttons and dropdowns. |
+| `--pebble-hover-ink` | `#0F5F36` | `#5DC793` | `#0F5F36` | Green text, icons and underlines on hovered pale pebbles. |
+| `--pebble-selected-hover` | `#0E6338` | `#59C691` | `#0E6338` | Subtle filled-green hover for the selected language pebble. |
+| `--pebble-selected-hover-ink` | `#F5F9F7` | `#191F18` | `#F5F9F7` | Light/dark inverse text on the selected language pebble's hover fill. |
 | `--line` | `#D9D8D5` | `#3E3C37` | `#999896` | Decorative separators, not sole control boundaries. |
 | `--control-border` | `#82807C` | `#797670` | `#82807C` | Visible boundaries for selects and other outlined controls. |
 | `--panel` | `#F6F1EA` | `#23221E` | `#F6F1EA` | Neutral cards and FeatureBoxes. |
@@ -35,7 +40,12 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | Token | Light recipe | Dark recipe |
 |---|---|---|
 | ink-soft | neutral.ink 80% + neutral.paper 20% (sRGB) | neutral.cream 78% + neutral.dark 22% (sRGB) |
+| link-hover | #0D7642 | #54D798 |
 | accent-soft | green.light 10% + neutral.paper 90% (sRGB) | green.dark 14.000000000000002% + neutral.dark 86% (sRGB) |
+| pebble-hover | green.light 18% + neutral.paper 82% (sRGB) | green.dark 22% + neutral.dark 78% (sRGB) |
+| pebble-hover-ink | green.light 85% + neutral.ink 15% (sRGB) | green.dark 90% + neutral.cream 10% (sRGB) |
+| pebble-selected-hover | green.light 90% + neutral.ink 10% (sRGB) | green.dark 92% + neutral.cream 8% (sRGB) |
+| pebble-selected-hover-ink | neutral.white 96% + green.light 4% (sRGB) | neutral.dark 94% + green.dark 6% (sRGB) |
 | line | neutral.ink 16% + neutral.paper 84% (sRGB) | neutral.cream 18% + neutral.dark 82% (sRGB) |
 | control-border | neutral.ink 55.00000000000001% + neutral.paper 45% (sRGB) | neutral.cream 45% + neutral.dark 55% (sRGB) |
 | panel | amber.light 6% + neutral.paper 94% (sRGB) | neutral.cream 6% + neutral.dark 94% (sRGB) |

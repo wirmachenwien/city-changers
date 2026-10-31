@@ -30,8 +30,8 @@ const hideLabel = t(lang, 'spoiler.hide', 'Hide content again');
   <span class="visually-hidden" data-spoiler-hint>{showLabel}</span>
 </button>
 <noscript>
-  <style>
+  <style is:inline>
     .spoiler { cursor: text; }
-    .spoiler .spoiler-text { background: transparent; color: inherit; user-select: auto; }
+    .spoiler[data-spoiler] .spoiler-text { background: transparent; color: inherit; user-select: auto; mask: none; }
   </style>
 </noscript>

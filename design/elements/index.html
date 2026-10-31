@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Selected elements — City Changers</title>
+  <link rel="stylesheet" href="../../src/styles/colors.generated.css">
+  <style>
+    @font-face { font-family: Clarity; src: url('../../src/assets/fonts/ClarityCity-Regular.woff2') format('woff2'); font-display: swap; }
+    @font-face { font-family: Fraunces; src: url('../../src/assets/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 Clarity, sans-serif; }
+    main { max-width: 76rem; margin: auto; padding: 3rem clamp(1rem, 4vw, 4rem); }
+    h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-variation-settings: 'SOFT' 75, 'WONK' 1; line-height: 1.2; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin: .75rem 0 1rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.35rem; margin-top: 0; }
+    .eyebrow { color: var(--accent); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; }
+    .intro { max-width: 48rem; color: var(--ink-soft); }
+    a { color: var(--accent); text-underline-offset: .2em; overflow-wrap: anywhere; }
+    button { padding: .7rem 1rem; min-height: 2.75rem; font: inherit; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: .4rem; cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    section { margin-block: 4rem; }
+    .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+    article { min-width: 0; padding: 1.5rem; border: 1px solid var(--line); }
+    article > p { color: var(--ink-soft); }
+    .rule { display: block; width: 100%; height: 24px; margin-block: 2rem; filter: url('#tint-accent'); }
+    .rail-sizes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+    .rail-sizes article { padding: 1rem; }
+    .rail { display: flex; gap: .5rem; align-items: start; margin-block: 1.5rem; }
+    .rail img { flex: none; width: 24px; filter: url('#tint-accent'); }
+    .rail img[src="lines/bracket.svg"] { width: 32px; }
+    .rail p { margin: 0; }
+    .filename, .note { font-size: .85rem; color: var(--ink-soft); }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-block: 1.5rem; }
+    .controls input { min-height: 2.75rem; max-width: 100%; accent-color: var(--accent); }
+    .shape { position: relative; isolation: isolate; width: var(--preview-width, 100%); min-width: min(100%, 14rem); padding: 1.5rem; margin: 1rem auto; border: 1px solid var(--control-border); overflow-wrap: anywhere; }
+    .shape--filled { color: var(--accent-ink); background: var(--accent); }
+    .shape[data-shape="compact"] { max-width: 14rem; min-height: 2.75rem; padding: .75rem 1.25rem; text-align: center; }
+    .shape[data-shape="bubble"] { min-height: 7rem; width: calc(var(--preview-width, 100%) - 3rem); min-width: min(calc(100% - 3rem), 14rem); margin-block: 1.5rem; }
+    .shape p { margin: .75rem 0 0; }
+    .extra[hidden] { display: none; }
+    .filters { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .speech-card { grid-column: 1 / -1; }
+    footer { padding-block: 1.5rem; border-top: 1px solid var(--line); color: var(--ink-soft); }
+    @media (max-width: 50rem) { .cards, .rail-sizes { grid-template-columns: 1fr; } }
+    @media print, (forced-colors: active) {
+      .shape { border-color: currentColor; }
+      .shape--filled { color: var(--ink); background: var(--paper); }
+    }
+    @media print { .controls, #theme { display: none; } article { break-inside: avoid; } main { padding: 0; } }
+  </style>
+  <link rel="stylesheet" href="../../src/styles/drawn-elements.css">
+</head>
+<body>
+  <svg class="filters" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs><filter id="tint-accent" color-interpolation-filters="sRGB"><feFlood style="flood-color: var(--accent)"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
+  <main>
+    <p class="eyebrow">City Changers / selected elements / in production</p>
+    <h1>Natural, by design.</h1>
+    <p class="intro">The selected handbook set: Natural throughout, with Gentle for medium vertical strokes, plus an open-bracket trial for FeatureBox. The <a href="archive/index.html">discarded studies are restored in the archive</a>, separate from the active set.</p>
+    <nav aria-label="Element library"><a href="#rules">Rules</a> · <a href="#rails">Vertical strokes</a> · <a href="#feature-bracket">FeatureBox bracket</a> · <a href="#shapes">Variable shapes</a> · <a href="archive/index.html">Restored studies</a> · <a href="README.md">Usage notes</a></nav>
+    <p><button id="theme" type="button" aria-pressed="false">Dark preview</button></p>
+
+    <section aria-labelledby="rules">
+      <h2 id="rules">Horizontal rules / Natural</h2>
+      <div class="cards">
+        <article><h3>Page boundary</h3><img class="rule" src="lines/divider-strong.svg" alt="" width="960" height="24"><p>Masthead and footer boundaries.</p><a href="lines/divider-strong.svg" download>divider-strong.svg</a></article>
+        <article><h3>Quiet rule</h3><img class="rule" src="lines/divider.svg" alt="" width="480" height="24"><p>Editorial breaks, pagination, footnotes, table and contents/search rows.</p><a href="lines/divider.svg" download>divider.svg</a></article>
+      </div>
+    </section>
+
+    <section aria-labelledby="rails">
+      <h2 id="rails">Vertical strokes / selected lengths</h2>
+      <p class="intro">Short strokes are real crops, not compressed waves. The quote rail and filled accent bar share the same length selection. The website chooses the appropriate length as content grows.</p>
+      <div class="rail-sizes">
+        <article><h3>Short / Natural</h3><p class="note">32px crop · sidebar items and one-line notes</p>
+          <div class="rail"><img src="lines/vertical-rule-short.svg" alt="" width="24" height="32"><p>Start here.</p></div><a class="filename" href="lines/vertical-rule-short.svg" download>vertical-rule-short.svg</a>
+          <div class="rail"><img src="lines/accent-bar-short.svg" alt="" width="24" height="32"><p>Current chapter</p></div><a class="filename" href="lines/accent-bar-short.svg" download>accent-bar-short.svg</a>
+        </article>
+        <article><h3>Medium / Gentle</h3><p class="note">80px crop · the selected calmer exception</p>
+          <div class="rail"><img src="lines/vertical-rule-medium.svg" alt="" width="24" height="80"><p>One idea.<br>Room for a little more thought.</p></div><a class="filename" href="lines/vertical-rule-medium.svg" download>vertical-rule-medium.svg</a>
+          <div class="rail"><img src="lines/accent-bar-medium.svg" alt="" width="24" height="80"><p>A brief callout with a quiet margin accent.</p></div><a class="filename" href="lines/accent-bar-medium.svg" download>accent-bar-medium.svg</a>
+        </article>
+        <article><h3>Tall / Natural</h3><p class="note">240px stroke · longer quotes and callouts</p>
+          <div class="rail"><img src="lines/vertical-rule.svg" alt="" width="24" height="240"><p>A longer note leaves room for several observations, questions and conversations.</p></div><a class="filename" href="lines/vertical-rule.svg" download>vertical-rule.svg</a>
+          <div class="rail"><img src="lines/accent-bar.svg" alt="" width="24" height="240"><p>A stronger accent for a feature or licence panel.</p></div><a class="filename" href="lines/accent-bar.svg" download>accent-bar.svg</a>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="feature-bracket">
+      <h2 id="feature-bracket">FeatureBox / open-bracket trial</h2>
+      <article><h3>Short bracket</h3><div class="rail"><img src="lines/bracket-short.svg" alt="" width="32" height="56"><p>A single-line nudge.</p></div><a href="lines/bracket-short.svg" download>bracket-short.svg</a></article>
+      <article><h3>Medium bracket</h3><div class="rail"><img src="lines/bracket-medium.svg" alt="" width="32" height="104"><p>A little more room for a few lines of explanation.</p></div><a href="lines/bracket-medium.svg" download>bracket-medium.svg</a></article>
+      <article><h3>The original tall margin bracket</h3><div class="rail"><img src="lines/bracket.svg" alt="" width="32" height="160"><div><strong>One idea, with room to breathe.</strong><p>The website selects short, medium or tall artwork from the box height, keeping cap turns and stroke thickness fixed. Default green and warm amber tones are preserved.</p></div></div><a href="lines/bracket.svg" download>bracket.svg</a></article>
+    </section>
+    <section aria-labelledby="shapes">
+      <h2 id="shapes">Variable shapes / Natural</h2>
+      <p class="intro">The page and website share CSS nine-slice masks exported from <a href="geometry.js">geometry.js</a>. Corners, stroke thickness and continuous speech tails stay fixed; edge waves stretch with content. Decoration works without JavaScript.</p>
+      <div class="controls">
+        <label for="shape-width">Shape width</label><input id="shape-width" type="range" min="70" max="100" value="100" step="5" aria-controls="shape-previews"><output id="shape-width-value" for="shape-width">100%</output>
+        <button id="shape-text" type="button" aria-expanded="false" aria-controls="shape-previews">Add longer text</button>
+      </div>
+      <div class="cards" id="shape-previews">
+        <article><h3>Panel / outlined and filled</h3>
+          <div class="shape" data-shape="panel"><strong>One shared silhouette.</strong><p>Let the content set the size.</p><p class="extra" hidden>Invite your neighbours to share observations and choose one small experiment together. Longer text grows the shape without stretching its corners.</p></div>
+          <div class="shape shape--filled" data-shape="panel"><strong>One shared silhouette.</strong><p>Let the content set the size.</p><p class="extra" hidden>Invite your neighbours to share observations and choose one small experiment together. Longer text grows the shape without stretching its corners.</p></div>
+          <p class="filename">framePath(width, height)</p>
+        </article>
+        <article><h3>Compact / small controls</h3>
+          <div class="shape" data-shape="compact"><strong>Make a start</strong><span class="extra" hidden> in your neighbourhood</span></div>
+          <div class="shape shape--filled" data-shape="compact"><strong>Make a start</strong><span class="extra" hidden> in your neighbourhood</span></div>
+          <p class="filename">compactPath(width, height)</p>
+        </article>
+        <article class="speech-card"><h3>Speech / continuous side and top tails</h3>
+          <div class="shape" data-shape="bubble" data-tail="left"><strong>Start a conversation.</strong><p>A side tail for neighbouring artwork.</p><p class="extra" hidden>The body grows around real HTML, while its tail and stroke keep their size. No overlaid arrow or background patch is needed.</p></div>
+          <div class="shape" data-shape="bubble" data-tail="top"><strong>Start a conversation.</strong><p>A top tail for stacked artwork.</p><p class="extra" hidden>The body grows around real HTML, while its tail and stroke keep their size. No overlaid arrow or background patch is needed.</p></div>
+          <p class="filename">bubblePath(width, height, top)</p>
+        </article>
+      </div>
+    </section>
+    <footer><p>Nine active SVG sources and three variable shapes, with 41 restored studies in the archive. Semantic colors, real HTML text, native focus rings and plain print/forced-color fallbacks. Mascot artwork and media are unchanged.</p><a href="README.md">Integration and maintenance</a> · <a href="archive/index.html">Restored studies</a> · <a href="../icons/index.html">Icon library</a></footer>
+  </main>
+  <script src="preview.js"></script>
+</body>
+</html>

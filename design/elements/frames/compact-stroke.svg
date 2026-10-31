@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 44" preserveAspectRatio="none">
+  <view id="nw" viewBox="0 0 10 10" preserveAspectRatio="none"/>
+  <view id="n" viewBox="10 0 124 10" preserveAspectRatio="none"/>
+  <view id="ne" viewBox="134 0 10 10" preserveAspectRatio="none"/>
+  <view id="w" viewBox="0 10 10 24" preserveAspectRatio="none"/>
+  <view id="c" viewBox="10 10 124 24" preserveAspectRatio="none"/>
+  <view id="e" viewBox="134 10 10 24" preserveAspectRatio="none"/>
+  <view id="sw" viewBox="0 34 10 10" preserveAspectRatio="none"/>
+  <view id="s" viewBox="10 34 124 10" preserveAspectRatio="none"/>
+  <view id="se" viewBox="134 34 10 10" preserveAspectRatio="none"/>
+  <path d="M7.9 2.9C29.266666666666666 4.1 50.633333333333326 4.1 72 2.9C93.36666666666666 1.7 114.73333333333332 1.7 136.1 2.9Q141.1 2.9 141.1 7.9C142.29999999999998 12.600000000000001 142.29999999999998 17.3 141.1 22C139.9 26.7 139.9 31.4 141.1 36.1Q141.1 41.1 136.1 41.1C114.73333333333333 42.300000000000004 93.36666666666667 42.300000000000004 72 41.1C50.63333333333334 39.9 29.266666666666673 39.9 7.9 41.1Q2.9 41.1 2.9 36.1C4.1 31.400000000000002 4.1 26.700000000000003 2.9 22C1.7 17.3 1.7 12.6 2.9 7.9Q2.9 2.9 7.9 2.9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

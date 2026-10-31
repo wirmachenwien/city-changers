@@ -58,8 +58,7 @@ def glossary_slug(term: str, seen: dict[str, int] | None = None) -> str:
 
 
 FRONTMATTER_RE = re.compile(r"^---\n.*?\n---\n", re.DOTALL)
-FIGURE_RE = re.compile(r'<Figure\b([^>]*)\s*/>|<Figure\b([^>]*)>(.*?)</Figure>', re.DOTALL)
-VIDEO_RE = re.compile(r'<Video\b([^>]*)\s*/>|<Video\b([^>]*)>')
+FIGURE_RE = re.compile(r'<(?:Figure|FigureBox)\b([^>]*)\s*/>|<(?:Figure|FigureBox)\b([^>]*)>(.*?)</(?:Figure|FigureBox)>', re.DOTALL)
 BUTTON_RE = re.compile(r'<ButtonLink\b([^>]*)>([^<]+)</ButtonLink>')
 DOWNLOAD_RE = re.compile(r'<DownloadLink\b([^>]*)>(.*?)</DownloadLink>', re.DOTALL)
 COPY_RE = re.compile(r'<CopyText\s+[^>]*/>')

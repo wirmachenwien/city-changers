@@ -23,6 +23,9 @@ function environment() {
     isConnected = false;
     rect = { top: 250.25, bottom: 278.25, left: 100, right: 200, width: 100, height: 28 };
     constructor(tagName = 'div') { super(); this.tagName = tagName; }
+    get classList() {
+      return { remove: name => { this.className = this.className.split(/\s+/).filter(value => value !== name).join(' '); } };
+    }
     setAttribute(name, value) { this.attributes.set(name, value); }
     getAttribute(name) { return this.attributes.get(name) ?? null; }
     removeAttribute(name) { this.attributes.delete(name); }
@@ -159,8 +162,11 @@ test('click pins an existing preview and adds its close button without replacing
     const trigger = env.trigger();
     trigger.emit('pointerenter', { pointerType: 'mouse' });
     const popup = env.popup();
+    popup.className += ' drawn-host drawn-ready';
     trigger.emit('click');
     assert.equal(env.popup(), popup);
+    assert.ok(popup.className.includes('drawn-ready'), 'pinning preserves decoration classes');
+    assert.ok(!popup.className.includes('content-popup--preview'));
     assert.equal(popup.getAttribute('role'), 'dialog');
     assert.equal(popup.children[0].hidden, false);
     assert.equal(trigger.getAttribute('aria-describedby'), null);

@@ -12,14 +12,25 @@ export function initVideos(): void {
   for (const figure of document.querySelectorAll<HTMLElement>('[data-video]')) {
     const button = figure.querySelector('[data-play]');
     const embed = figure.getAttribute('data-embed');
-    if (!button || !embed || figure.dataset.loaded) continue;
+    const file = figure.getAttribute('data-video-file');
+    if (!button || (!embed && !file) || figure.dataset.loaded || figure.dataset.videoWired) continue;
+    figure.dataset.videoWired = 'true';
     button.addEventListener('click', () => {
-      const frame = document.createElement('iframe');
-      frame.src = embed;
-      frame.title = button.getAttribute('aria-label') ?? t(lang, 'video.video-title', 'Video');
-      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      frame.allowFullscreen = true;
-      button.replaceWith(frame);
+      if (embed) {
+        const frame = document.createElement('iframe');
+        frame.src = embed;
+        frame.title = button.getAttribute('aria-label') ?? t(lang, 'video.video-title', 'Video');
+        frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        frame.allowFullscreen = true;
+        button.replaceWith(frame);
+      } else if (file) {
+        const video = document.createElement('video');
+        video.src = file;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        button.replaceWith(video);
+      }
       figure.dataset.loaded = 'true';
     }, { once: true });
   }

@@ -19,6 +19,15 @@ It is not authenticated: anyone with its URL can access it.
 - **`icons/`** — [hand-drawn icon library and old archive](icons/index.html).
   Generous idea sparks are selected for lists. `npm run icons:build` exports the
   approved SVG/PNG assets into `src/assets/icons/`; it never renders mascot videos.
+- **`elements/`** — [reusable lines and shapes](elements/index.html).
+  Approved drawn rules, rails, variable frames, labels and speech outlines power
+  the handbook UI. Only the selected Natural set (Gentle for medium verticals)
+  remains active, plus a restored open-bracket trial for FeatureBox. Discarded
+  studies are preserved separately in `elements/archive/`. See
+  `elements/README.md`; these sources are not recipient kit assets.
+  Box/control decoration is CSS-only; `npm run elements:build` exports its
+  nine-slice masks without touching mascot media. Media clipping, table-header
+  backgrounds, bracket selection and text underlines use measured JS enhancements.
 - **`docs/`** — [maintenance](docs/maintenance.md) and recipient instructions.
 - **`scripts/`, `tests/`** — production tools and checks.
 - **`handoff/`** — generated deliveries; ignored.

@@ -47,6 +47,7 @@ from handbook.book import (
     resolve_color_tokens,
     title_page_details_html,
 )
+from handbook.media import figure_video_export_url
 from handbook.mdx import (
     CCBADGE_RE,
     FEATURE_CLOSE_RE,
@@ -61,7 +62,6 @@ from handbook.mdx import (
     PULLQUOTE_RE,
     QUESTION_RE,
     QUESTION_RE,
-    VIDEO_RE,
     attrs,
     chapter_lists,
     feature_open_html,
@@ -203,8 +203,13 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
 
     def figure(match: re.Match[str]) -> str:
         values = attrs(match.group(1) or match.group(2))
-        src, alt = values.get("src", ""), values.get("alt", "")
+        src = values.get("src", "")
         caption = (values.get("caption") or match.group(3) or "").strip()
+        url = figure_video_export_url(src)
+        if url:
+            return f"\n\n[*Video: {caption}*]({url})\n"
+
+        alt = values.get("alt", "")
         caption_html = f"<figcaption>{caption}</figcaption>" if caption else ""
         classes = ["figure"]
         if values.get("size") in {"small", "medium"}:
@@ -217,16 +222,6 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
         )
 
     text = FIGURE_RE.sub(figure, text)
-    def video(match: re.Match[str]) -> str:
-        values = attrs(match.group(1) or match.group(2))
-        url = f"https://www.youtube.com/watch?v={values.get('id', '')}"
-        # Emit a regular Markdown link so LINK_RE below moves the URL into
-        # a lettered link note like every other external link. The emphasis
-        # stays inside the link text so the call and note markup appended
-        # by LINK_RE end up outside <em> and print upright, not italic.
-        return f"\n\n[*Video: {values.get('caption', '')}*]({url})\n"
-
-    text = VIDEO_RE.sub(video, text)
     text = strip_static_handlers(text)
     text = CCBADGE_RE.sub(cc_badge_html(), text)
     text = FEATURE_OPEN_RE.sub(lambda m: feature_open_html(

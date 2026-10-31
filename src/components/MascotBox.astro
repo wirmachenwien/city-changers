@@ -28,7 +28,7 @@ const { title, pose = 'think', animated = false, treatment = 'ink', lang = 'en' 
   .mascot-box {
     display: grid;
     grid-template-columns: minmax(6rem, 8rem) minmax(0, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
     align-items: start;
     margin-block: 1.75rem;
     break-inside: avoid;
@@ -37,37 +37,21 @@ const { title, pose = 'think', animated = false, treatment = 'ink', lang = 'en' 
   .mascot-box__bubble {
     position: relative;
     min-width: 0;
-    padding: 1.1rem 1.25rem;
-    border: 1px solid var(--accent);
-    border-radius: var(--radius);
-    background: var(--accent-soft);
+    padding: 1.5rem;
+    min-height: 7rem;
     color: var(--ink);
     overflow-wrap: anywhere;
-  }
-  .mascot-box__bubble::before {
-    content: '';
-    position: absolute;
-    inset-inline-start: -.45rem;
-    top: 2rem;
-    width: .8rem;
-    height: .8rem;
-    border-inline-start: 1px solid var(--accent);
-    border-block-end: 1px solid var(--accent);
-    background: var(--accent-soft);
-    transform: rotate(45deg);
   }
   .mascot-box__title { margin: 0 0 .5rem; font-family: var(--font-ui); line-height: 1.35; }
   .mascot-box__body :global(> :first-child) { margin-block-start: 0; }
   .mascot-box__body :global(> :last-child) { margin-block-end: 0; }
   @media (max-width: 30rem) {
-    .mascot-box { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+    .mascot-box { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
     .mascot-box__visual { width: 7rem; }
-    .mascot-box__bubble::before { top: -.45rem; inset-inline-start: 2rem; transform: rotate(135deg); }
   }
   @media print {
     .mascot-box { grid-template-columns: 22mm minmax(0, 1fr); gap: 4mm; }
     .mascot-box__visual { width: auto; }
     .mascot-box__bubble { background: transparent; color: var(--ink); border-color: var(--line); }
-    .mascot-box__bubble::before { display: none; }
   }
 </style>

@@ -27,7 +27,7 @@
     { "id": "arrow-left", "label": "Previous / slide back", "sources": ["src/components/Pagination.astro", "src/components/Slideshow.astro"] },
     { "id": "arrow-right", "label": "Next / slide forward", "sources": ["src/components/Pagination.astro", "src/components/Slideshow.astro"] },
     { "id": "arrow-down", "label": "Jump to search result", "sources": ["src/scripts/search-highlight.ts"] },
-    { "id": "play", "label": "Play video", "sources": ["src/components/Video.astro"] },
+    { "id": "play", "label": "Play video", "sources": ["src/components/Figure.astro"] },
     { "id": "chevron-right", "label": "Breadcrumb separator", "sources": ["src/components/Breadcrumbs.astro"] },
     { "id": "disclosure", "label": "Expand / collapse", "sources": ["src/components/Accordion.astro", "src/components/ExpandableBox.astro"] },
     { "id": "heading-anchor", "label": "Heading permalink", "sources": ["src/scripts/headings.ts"] },

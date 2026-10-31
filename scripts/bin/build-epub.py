@@ -51,6 +51,7 @@ from handbook.book import (
     resolve_color_tokens,
     title_page_details_html,
 )
+from handbook.media import figure_video_export_url
 from handbook.mdx import (
     CCBADGE_RE,
     FEATURE_CLOSE_RE,
@@ -64,7 +65,6 @@ from handbook.mdx import (
     PULLQUOTE_RE,
     QUESTION_RE,
     QUESTION_RE,
-    VIDEO_RE,
     attrs,
     chapter_lists,
     feature_open_html,
@@ -182,8 +182,13 @@ class EpubBook:
 
         def figure(match: re.Match[str]) -> str:
             values = attrs(match.group(1) or match.group(2))
-            src, alt = values.get("src", ""), values.get("alt", "")
+            src = values.get("src", "")
             caption = (values.get("caption") or match.group(3) or "").strip()
+            url = figure_video_export_url(src)
+            if url:
+                return f'\n\n*Video: [{caption}]({url})*\n'
+
+            alt = values.get("alt", "")
             href = html.escape(self.add_image(src), quote=True)
             alt_text = html.escape(alt, quote=True)
             caption_html = f"<figcaption>{html.escape(caption)}</figcaption>" if caption else ""
@@ -196,13 +201,6 @@ class EpubBook:
             return f'<figure class="{class_attr}"><img src="{href}" alt="{alt_text}" />{caption_html}</figure>'
 
         text = FIGURE_RE.sub(figure, text)
-        def video(match: re.Match[str]) -> str:
-            values = attrs(match.group(1) or match.group(2))
-            caption = values.get("caption", "")
-            video_id = values.get("id", "")
-            return f'\n\n*Video: [{caption}](https://www.youtube.com/watch?v={video_id})*\n'
-
-        text = VIDEO_RE.sub(video, text)
         text = strip_static_handlers(text)
         text = CCBADGE_RE.sub(
             '<p><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> Wir machen Wien, Changing Cities &amp; Prostorož</p>',

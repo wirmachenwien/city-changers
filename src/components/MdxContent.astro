@@ -6,7 +6,6 @@
 // Footer) stays in the layouts.
 import { render, type CollectionEntry } from 'astro:content';
 import Figure from './Figure.astro';
-import Video from './Video.astro';
 import ButtonLink from './ButtonLink.astro';
 import DownloadLink from './DownloadLink.astro';
 import SideBySideButtons from './SideBySideButtons.astro';
@@ -37,7 +36,6 @@ import Icon from './Icon.astro';
 import LanguageMenu from './LanguageMenu.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import MetadataTable from './MetadataTable.astro';
-import OpenerImage from './OpenerImage.astro';
 import Pagination from './Pagination.astro';
 import PartnerLogos from './PartnerLogos.astro';
 import QrCode from './QrCode.astro';
@@ -49,7 +47,6 @@ import VisualToc from './VisualToc.astro';
 import BrandLogoExamples from './BrandLogoExamples.astro';
 import BrandMascotStates from './BrandMascotStates.astro';
 import BrandPalette from './BrandPalette.astro';
-import BrandTypeSpecimen from './BrandTypeSpecimen.astro';
 import BrandIcons from './BrandIcons.astro';
 import BrandAssetLibrary from './BrandAssetLibrary.astro';
 import BrandColorReference from './BrandColorReference.astro';
@@ -58,12 +55,12 @@ export const mdxComponents = {
   BrandLogoExamples,
   BrandMascotStates,
   BrandPalette,
-  BrandTypeSpecimen,
   BrandIcons,
   BrandAssetLibrary,
   BrandColorReference,
   Figure,
-  Video,
+  // Compatibility name for existing MDX; Figure is the canonical component.
+  FigureBox: Figure,
   ButtonLink,
   DownloadLink,
   SideBySideButtons,
@@ -94,7 +91,6 @@ export const mdxComponents = {
   LanguageMenu,
   LanguageSwitcher,
   MetadataTable,
-  OpenerImage,
   Pagination,
   PartnerLogos,
   QrCode,

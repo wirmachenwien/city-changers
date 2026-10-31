@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 0 344 180" preserveAspectRatio="none">
+  <view id="nw" viewBox="-24 0 104 88" preserveAspectRatio="none"/>
+  <view id="n" viewBox="80 0 216 88" preserveAspectRatio="none"/>
+  <view id="ne" viewBox="296 0 24 88" preserveAspectRatio="none"/>
+  <view id="w" viewBox="-24 88 104 68" preserveAspectRatio="none"/>
+  <view id="c" viewBox="80 88 216 68" preserveAspectRatio="none"/>
+  <view id="e" viewBox="296 88 24 68" preserveAspectRatio="none"/>
+  <view id="sw" viewBox="-24 156 104 24" preserveAspectRatio="none"/>
+  <view id="s" viewBox="80 156 216 24" preserveAspectRatio="none"/>
+  <view id="se" viewBox="296 156 24 24" preserveAspectRatio="none"/>
+  <path d="M24 9C69.33333333333334 11.333333333333334 114.66666666666667 11.333333333333334 160 9C205.33333333333334 6.666666666666666 250.66666666666669 6.666666666666666 296 9Q311 8 311 24C313.3333333333333 46 313.3333333333333 68 311 90C308.6666666666667 112 308.6666666666667 134 311 156Q312 172 296 171C250.66666666666666 173.33333333333334 205.33333333333331 173.33333333333334 160 171C114.66666666666666 168.66666666666666 69.33333333333333 168.66666666666666 24 171Q8 172 9 156C11.333333333333334 130.66666666666666 11.333333333333334 105.33333333333334 9 80L-15 56L9 48C9 38 8 30 9 24Q8 8 24 9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -163,7 +163,38 @@ For an ordinary social post, stick to Fraunces and Clarity City. Use fewer words
 and larger type rather than squeezing a paragraph into a small graphic.
 The logo is supplied artwork: installing Fraunces does not recreate the wordmark.
 
-<BrandTypeSpecimen />
+### Fraunces
+
+Small steps. Better streets.
+
+- Fraunces-Italic[SOFT,WONK,opsz,wght]: [TTF](./brand-assets/files/04-fonts/Fraunces-Italic%5BSOFT%2CWONK%2Copsz%2Cwght%5D.ttf) · [WOFF2](./brand-assets/files/04-fonts/Fraunces-Italic%5BSOFT%2CWONK%2Copsz%2Cwght%5D.woff2)
+- FrauncesDisplay-Bold: [TTF](./brand-assets/files/04-fonts/FrauncesDisplay-Bold.ttf)
+- FrauncesDisplay-BoldItalic: [TTF](./brand-assets/files/04-fonts/FrauncesDisplay-BoldItalic.ttf)
+- FrauncesText-Bold: [TTF](./brand-assets/files/04-fonts/FrauncesText-Bold.ttf)
+- FrauncesText-BoldItalic: [TTF](./brand-assets/files/04-fonts/FrauncesText-BoldItalic.ttf)
+- Fraunces[SOFT,WONK,opsz,wght]: [TTF](./brand-assets/files/04-fonts/Fraunces%5BSOFT%2CWONK%2Copsz%2Cwght%5D.ttf) · [WOFF2](./brand-assets/files/04-fonts/Fraunces%5BSOFT%2CWONK%2Copsz%2Cwght%5D.woff2)
+
+[Download Fraunces licence (OFL)](./brand-assets/files/04-fonts/OFL-Fraunces.txt)
+
+### Clarity City
+
+Practical tools for community action.
+
+- ClarityCity-Bold: [TTF](./brand-assets/files/04-fonts/ClarityCity-Bold.ttf) · [WOFF2](./brand-assets/files/04-fonts/ClarityCity-Bold.woff2)
+- ClarityCity-Regular: [TTF](./brand-assets/files/04-fonts/ClarityCity-Regular.ttf) · [WOFF2](./brand-assets/files/04-fonts/ClarityCity-Regular.woff2)
+
+[Download Clarity City licence (OFL)](./brand-assets/files/04-fonts/OFL-ClarityCity.txt)
+
+### Newsreader
+
+Longer stories from the neighbourhood.
+
+- NewsreaderText-Bold: [TTF](./brand-assets/files/04-fonts/NewsreaderText-Bold.ttf) · [WOFF2](./brand-assets/files/04-fonts/NewsreaderText-Bold.woff2)
+- NewsreaderText-BoldItalic: [TTF](./brand-assets/files/04-fonts/NewsreaderText-BoldItalic.ttf) · [WOFF2](./brand-assets/files/04-fonts/NewsreaderText-BoldItalic.woff2)
+- NewsreaderText-Italic: [TTF](./brand-assets/files/04-fonts/NewsreaderText-Italic.ttf) · [WOFF2](./brand-assets/files/04-fonts/NewsreaderText-Italic.woff2)
+- NewsreaderText-Regular: [TTF](./brand-assets/files/04-fonts/NewsreaderText-Regular.ttf) · [WOFF2](./brand-assets/files/04-fonts/NewsreaderText-Regular.woff2)
+
+[Download Newsreader licence (OFL)](./brand-assets/files/04-fonts/OFL-Newsreader.txt)
 
 ## Layout
 
@@ -213,6 +244,8 @@ Use **bold** for emphasis, *italics* sparingly, and [descriptive links](https://
 ```
 
 For a full introduction, see the [Markdown Guide](https://www.markdownguide.org/basic-syntax/). MDX components are available without imports in chapter files. Copy the code blocks below and replace the text, identifiers and assets with your own. The demo wrappers are only for this guide and are not needed in your content.
+
+Use `class="text-link--small"` for compact file-format links such as SVG, PNG, TTF and WOFF2. This changes only the text size; link colors, hand-drawn underlines, hover and focus behavior stay the same as prose links. Keep descriptive downloads and licence links at the normal text size.
 
 ### PullQuote
 
@@ -335,6 +368,24 @@ Use `size="small"` or `size="medium"` for a narrower figure. Add `float="left"` 
 Keep surrounding text short enough to remain readable beside the image. Use full-width figures for important visual evidence.
 ```
 
+Figure uses `src` for both images and videos. Supply a full YouTube or Vimeo URL, or a local video URL (`.mp4`, `.webm`, `.mov`, `.ogg`). Image figures require `alt`; use `alt=""` only for decorative images. Video figures support an optional `poster` URL and preserve the hand-drawn border and sizing options. Embedded players load only after the reader chooses to play; the default YouTube thumbnail is fetched before playback. Bare IDs and separate `video`/`provider` props are not supported.
+
+`FigureBox` remains an MDX compatibility alias for `Figure`; new content should use `Figure`.
+
+PDF and EPUB exports link to hosted videos rather than packaging them. Relative video filenames resolve against the configured public site base; `/videos/talk.mp4` resolves from the public origin root. Use full URLs when linking to media hosted elsewhere.
+
+```mdx
+<Figure src="https://www.youtube.com/watch?v=87JUbbq48r8" caption="Prostorož Ljubljana: Public space is shared space." lang="en" />
+```
+
+<div class="showcase-demo"><Figure src="https://www.youtube.com/watch?v=87JUbbq48r8" caption="Prostorož Ljubljana: Public space is shared space." lang="en" /></div>
+
+For a prominent opening image, use Figure with `eager` so it loads immediately rather than waiting until it approaches the viewport. Home-page opening images use this automatically.
+
+```mdx
+<Figure src="supergraetzel-favoriten-poller.jpg" alt="Bollards and young trees in Supergrätzl Favoriten" eager />
+```
+
 ### Slideshow
 
 Group related figures with previous and next controls. Every slide still needs its own alt text and caption.
@@ -347,26 +398,6 @@ Group related figures with previous and next controls. Every slide still needs i
 ```
 
 <div class="showcase-demo"><Slideshow label="Sample images"><Figure src="lendplatz-graz-tactical-urbanism.jpg" alt="Lendplatz in Graz">Lendplatz in Graz.</Figure><Figure src="galileigasse-tactical-urbanism.jpg" alt="Galileigasse in Vienna">Galileigasse in Vienna.</Figure></Slideshow></div>
-
-### OpenerImage
-
-Use a large opening image to establish the setting of a home page.
-
-<div class="showcase-demo"><OpenerImage file="supergraetzel-favoriten-poller.jpg" alt="Bollards and young trees in Supergrätzl Favoriten" /></div>
-
-```mdx
-<OpenerImage file="supergraetzel-favoriten-poller.jpg" alt="Bollards and young trees in Supergrätzl Favoriten" />
-```
-
-### Video
-
-Video embeds load their provider only after the reader chooses to play them. Include a descriptive caption.
-
-<div class="showcase-demo"><Video id="87JUbbq48r8" caption="Prostorož Ljubljana: Public space is shared space." lang="en" /></div>
-
-```mdx
-<Video id="87JUbbq48r8" caption="Prostorož Ljubljana: Public space is shared space." lang="en" />
-```
 
 ### MascotBox
 

@@ -7,6 +7,7 @@ import { locales } from '../data/locales';
 import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
+import DrawnSelect from './DrawnSelect.astro';
 
 interface Props {
   lang: Language;
@@ -17,19 +18,18 @@ interface Props {
 
 const { lang, kind, file, id = 'head-language' } = Astro.props;
 const targets = await alternates(kind, file);
+const options = targets.map(target => ({
+  href: target.url,
+  label: (locales[target.lang] as { 'local-name'?: string })['local-name'] ?? target.lang,
+  selected: target.lang === lang,
+}));
 ---
 <span class="lang-menu" data-select-list>
   <label class="visually-hidden" for={id}>
     {t(lang, 'controls.language-select', 'Select language')}
   </label>
   <Icon name="globe" />
-  <select id={id} data-select>
-    {targets.map((target) => (
-      <option value={target.url} selected={target.lang === lang || undefined}>
-        {(locales[target.lang] as { 'local-name'?: string })['local-name'] ?? target.lang}
-      </option>
-    ))}
-  </select>
+  <DrawnSelect {id} {options} />
   <noscript>
     <a href={targets.find((target) => target.lang !== lang)?.url}>
       {t(lang, 'controls.language-select', 'Select language')}

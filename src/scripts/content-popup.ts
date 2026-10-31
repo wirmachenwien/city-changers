@@ -113,7 +113,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
       pinned = true;
       state.pinned = true;
       if (preview === state) preview = undefined;
-      popup.className = 'content-popup';
+      popup.classList.remove('content-popup--preview');
       popup.setAttribute('role', 'dialog');
       popup.setAttribute('aria-label', options.label);
       closer.hidden = false;

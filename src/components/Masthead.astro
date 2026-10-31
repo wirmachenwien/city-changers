@@ -10,6 +10,7 @@ import Icon from './Icon.astro';
 import LanguageMenu from './LanguageMenu.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import BrandLogo from './BrandLogo.astro';
+import boundary from '../../design/elements/lines/divider-strong.svg?raw';
 
 interface Props {
   lang: Language;
@@ -20,8 +21,17 @@ interface Props {
 const { lang, kind, file } = Astro.props;
 const text = projectText(lang);
 const searchParam = settings.web.search.param;
+// One master for both the ink stroke and its paper silhouette. Only the
+// decorative paint is shaped; header content and focus rings are not clipped.
+const boundaryPath = boundary.match(/<path d="([^"]+)"/)?.[1];
+if (!boundaryPath) throw new Error('Missing masthead boundary path');
+const paperPath = `M0 0V12${boundaryPath.replace(/^M/, 'L')}H960V0Z`;
 ---
 <header class="site-head">
+  <svg class="site-head__edge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d={paperPath} fill="var(--paper)" />
+    <path d={boundaryPath} fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
+  </svg>
   <div class="site-head-inner">
     <div class="site-head-main">
       <a class="brand" href={withBase(lang === DEFAULT_LANG ? '/' : `/${lang}/`)}>

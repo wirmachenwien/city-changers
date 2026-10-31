@@ -26,7 +26,7 @@ function downloads(name: IconName) {
         <span class="showcase-icon-name">{name}</span>
         <div class="icon-downloads">
           {downloads(name).map(({ href, filename, label }) => (
-            <a {href} download={filename} aria-label={`Download ${name} icon (${label})`}>{label}</a>
+            <a class="text-link--small" {href} download={filename} aria-label={`Download ${name} icon (${label})`}>{label}</a>
           ))}
         </div>
       </li>
@@ -34,6 +34,5 @@ function downloads(name: IconName) {
   </ul>
 </div>
 <style>
-  .icon-downloads { display: flex; flex-direction: column; align-items: center; font-family: var(--font-ui); font-size: .75rem; }
-  .icon-downloads a { display: inline-flex; align-items: center; min-block-size: 24px; line-height: 1.5; }
+  .icon-downloads { --text-link-small-size: .75rem; display: grid; justify-items: center; gap: .35rem; }
 </style>

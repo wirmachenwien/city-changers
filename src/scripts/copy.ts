@@ -12,6 +12,16 @@ export function initCopy(): void {
   for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
     if (button.dataset.wired) continue;
     button.dataset.wired = 'true';
+    if (!button.querySelector('[data-copy-text]')) {
+      const label = document.createElement('span');
+      label.dataset.copyText = '';
+      // Own only the text label, never sibling icons or drawn decoration.
+      for (const node of [...button.childNodes]) {
+        if (node.nodeType === Node.TEXT_NODE) label.append(node);
+      }
+      button.append(label);
+    }
+    button.dataset.copyLabel ??= button.querySelector('[data-copy-text]')?.textContent ?? '';
     button.addEventListener('click', async () => {
       const value = button.dataset.copy ?? '';
       try {
@@ -27,11 +37,9 @@ export function initCopy(): void {
 const timers = new Map<HTMLButtonElement, number>();
 
 function flash(button: HTMLButtonElement, message: string, done: boolean): void {
-  // Swap the label span when present so leading icons survive the flash;
-  // buttons without one (plain text) swap their whole content as before.
-  const label = button.querySelector('[data-copy-text]');
-  if (label) label.textContent = message;
-  else button.textContent = message;
+  // initCopy gives every button a dedicated label; siblings stay untouched.
+  const label = button.querySelector('[data-copy-text]')!;
+  label.textContent = message;
   const copyIcon = button.querySelector('[data-copy-icon]');
   const doneIcon = button.querySelector('[data-copied-icon]');
   if (copyIcon && doneIcon) {
@@ -44,8 +52,7 @@ function flash(button: HTMLButtonElement, message: string, done: boolean): void 
     window.setTimeout(() => {
       timers.delete(button);
       const original = button.dataset.copyLabel ?? '';
-      if (label) label.textContent = original;
-      else button.textContent = original;
+      label.textContent = original;
       if (copyIcon && doneIcon) {
         copyIcon.removeAttribute('hidden');
         doneIcon.setAttribute('hidden', '');

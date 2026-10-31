@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" preserveAspectRatio="none">
+  <view id="nw" viewBox="0 0 16 16" preserveAspectRatio="none"/>
+  <view id="n" viewBox="16 0 288 16" preserveAspectRatio="none"/>
+  <view id="ne" viewBox="304 0 16 16" preserveAspectRatio="none"/>
+  <view id="w" viewBox="0 16 16 148" preserveAspectRatio="none"/>
+  <view id="c" viewBox="16 16 288 148" preserveAspectRatio="none"/>
+  <view id="e" viewBox="304 16 16 148" preserveAspectRatio="none"/>
+  <view id="sw" viewBox="0 164 16 16" preserveAspectRatio="none"/>
+  <view id="s" viewBox="16 164 288 16" preserveAspectRatio="none"/>
+  <view id="se" viewBox="304 164 16 16" preserveAspectRatio="none"/>
+  <path d="M15.75 3.75C63.833333333333336 6.083333333333334 111.91666666666667 6.083333333333334 160 3.75C208.08333333333334 1.4166666666666665 256.1666666666667 1.4166666666666665 304.25 3.75Q316.25 3.75 316.25 15.75C318.5833333333333 40.5 318.5833333333333 65.25 316.25 90C313.9166666666667 114.75 313.9166666666667 139.5 316.25 164.25Q316.25 176.25 304.25 176.25C256.1666666666667 178.58333333333334 208.08333333333331 178.58333333333334 160 176.25C111.91666666666666 173.91666666666666 63.83333333333333 173.91666666666666 15.75 176.25Q3.75 176.25 3.75 164.25C6.083333333333334 139.5 6.083333333333334 114.75 3.75 90C1.4166666666666665 65.25 1.4166666666666665 40.5 3.75 15.75Q3.75 3.75 15.75 3.75Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

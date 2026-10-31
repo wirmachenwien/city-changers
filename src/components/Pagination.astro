@@ -29,17 +29,21 @@ function label(entry: NeighbourEntry, direction: 'prev' | 'next'): string {
   <div class="pagination">
     <nav aria-label={t(lang, 'nav.toc', 'Contents')}>
       {prev ? (
-        <a class="prev" rel="prev" href={prev.url} aria-label={type === 'arrows' ? label(prev, 'prev') : undefined}>
-          {arrows && <Icon name="arrow-left" />}{type !== 'arrows' && <span>{label(prev, 'prev')}</span>}
+        <a class="prev" rel="prev" href={prev.url} aria-label={type === 'arrows' ? label(prev, 'prev') : undefined} data-link-underline={type === 'arrows' ? undefined : 'pagination'}>
+          {arrows && <Icon name="arrow-left" />}{type !== 'arrows' && <span data-pagination-label><span data-pagination-text>{label(prev, 'prev')}</span></span>}
         </a>
       ) : (
         <span />
       )}
       {next && (
-        <a class="next" rel="next" href={next.url} aria-label={type === 'arrows' ? label(next, 'next') : undefined}>
-          {type !== 'arrows' && <span>{label(next, 'next')}</span>}{arrows && <Icon name="arrow-right" />}
+        <a class="next" rel="next" href={next.url} aria-label={type === 'arrows' ? label(next, 'next') : undefined} data-link-underline={type === 'arrows' ? undefined : 'pagination'}>
+          {type !== 'arrows' && <span data-pagination-label><span data-pagination-text>{label(next, 'next')}</span></span>}{arrows && <Icon name="arrow-right" />}
         </a>
       )}
     </nav>
   </div>
 )}
+<script>
+  import { initPaginationUnderlines } from '../scripts/pagination-underlines';
+  initPaginationUnderlines();
+</script>

@@ -1,0 +1,420 @@
+@import '../../design/elements/frames/frames.css';
+
+/* CSS nine-slice masks paint decoration only. Native borders remain the
+   print/forced-colors/unsupported-browser fallback. Media clipping, table-header
+   paint, bracket selection and text underlines use measurement; panel outlines
+   never await readiness. */
+.site-head__edge, .feature-box__bracket { display: none; }
+.drawn-link-rule { display: none; }
+.drawn-select__chevron { display: none; }
+.drawn-select__value { display: none; }
+.pagination__rules { display: none; }
+.reading-progress__line { display: none; }
+
+@media screen and (forced-colors: none) {
+  @supports (mask-image: url('')) {
+    /* Keep native ordered-list numbering (including start/value/reversed),
+       with an aligned hanging column for decorative pebble markers. These em
+       dimensions intentionally follow list text rather than root layout units. */
+    .prose ol:not([class]):not(.footnotes ol) { padding-inline-start: 2.85em; }
+    .prose ol:not([class]):not(.footnotes ol) > li { position: relative; isolation: isolate; }
+    .prose ol:not([class]):not(.footnotes ol) > li::marker { font-size: 0; }
+    .prose ol:not([class]):not(.footnotes ol) > li::before,
+    .prose ol:not([class]):not(.footnotes ol) > li::after {
+      position: absolute;
+      inset-inline-start: -2.85em;
+      inset-block-start: 0;
+      inline-size: 2.25em;
+      block-size: 1.65em;
+      pointer-events: none;
+    }
+    .prose ol:not([class]):not(.footnotes ol) > li::before {
+      content: counter(list-item) / '';
+      display: grid;
+      place-items: center;
+      z-index: 1;
+      color: var(--accent);
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-optical-sizing: auto;
+      font-variation-settings: var(--fraunces-vars);
+      line-height: 1;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .prose ol:not([class]):not(.footnotes ol) > li::after {
+      content: '';
+      z-index: 0;
+      background: var(--accent-soft);
+      mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat;
+    }
+    .prose .feature-box[data-tone="warm"] ol:not([class]) > li::before { color: var(--warn); }
+    .prose .feature-box[data-tone="warm"] ol:not([class]) > li::after { background: var(--warn-soft); }
+    .prose ol:not([class]):not(.footnotes ol) > li[data-marker-single]::before,
+    .prose ol:not([class]):not(.footnotes ol) > li[data-marker-single]::after,
+    .prose ol:not([class]):not(.footnotes ol):not([start]):not([reversed]):not(:has(> li[value])) > li:nth-child(-n+9)::before,
+    .prose ol:not([class]):not(.footnotes ol):not([start]):not([reversed]):not(:has(> li[value])) > li:nth-child(-n+9)::after {
+      inline-size: 1.5em;
+      inset-inline-start: -2.475em;
+    }
+    /* Each measured text line gets the existing Quiet rule, not a wave.
+       Only paint is masked; links, text and focus remain fully native. */
+    [data-link-rule-position] { position: relative; }
+    /* Measure the text only, then paint each wrapped line relative to this
+       stable label box. Never measure the hidden decorative layer itself. */
+    .pagination [data-pagination-label] { position: relative; }
+    .pagination a[data-pagination-ready]:is(:hover, :focus-visible) { text-decoration-line: none; }
+    .pagination__rules {
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .pagination a:not(:hover):not(:focus-visible) .pagination__rules { visibility: hidden; }
+    .pagination__rules > span {
+      position: absolute;
+      block-size: 12px;
+      background: currentColor;
+      mask: url('../../design/elements/lines/divider.svg') center / max(100%, 480px) 100% no-repeat;
+      transform: translateY(calc(.1em - 6px));
+    }
+    [data-link-rule] { text-decoration-color: transparent; }
+    /* Flex links paint text in child/anonymous boxes. Explicit labels inherit
+       transparent native decoration too, leaving only the measured Quiet rule. */
+    [data-link-rule] > :not(.drawn-link-rule) { text-decoration-color: transparent; }
+    .drawn-link-rule { display: block; position: absolute; pointer-events: none; overflow: visible; }
+    [data-link-rule]:is([data-link-underline="hover"], [data-link-underline="button"]):not(:hover):not(:focus-visible) .drawn-link-rule { display: none; }
+    .drawn-link-rule > span {
+      position: absolute;
+      block-size: 12px;
+    }
+    .drawn-link-rule > span::before,
+    .drawn-link-rule > span::after {
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      /* Crop short links from the natural-width rule, never compress its bends. */
+      mask: url('../../design/elements/lines/divider.svg') center / max(100%, 480px) 100% no-repeat;
+    }
+    .drawn-link-rule > span::before { content: ''; }
+    .prose [data-link-rule]:not([data-link-underline], nav a, .nav-list a, .contents-list a, .visual-toc a, .search-results a):is(:hover, :focus-visible) .drawn-link-rule > span::after {
+      content: '';
+      transform: translateY(3px);
+    }
+    :where(.accordion, .question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .shape) {
+      position: relative;
+    }
+    :where(.accordion, .question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .shape) {
+      --drawn-fill: transparent;
+      --drawn-stroke: var(--line);
+      --drawn-fill-mask: var(--frame-fill-mask);
+      --drawn-stroke-mask: var(--frame-stroke-mask);
+      --drawn-top: 16px;
+      --drawn-right: 16px;
+      --drawn-bottom: 16px;
+      --drawn-left: 16px;
+      --drawn-inset: 0;
+      isolation: isolate;
+    }
+    :is(.accordion, .question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .shape) {
+      border-color: transparent;
+      border-radius: 0;
+      background-color: transparent;
+    }
+    /* Both paint layers use the same silhouette. Unequal bubble slices keep
+       the complete tail in a fixed-size corner; only straight runs stretch. */
+    :where(.question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .drawn-frame, .shape)::before,
+    :where(.question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .drawn-frame, .shape)::after,
+    .drawn-table-surface {
+      content: '';
+      position: absolute;
+      inset: var(--drawn-inset);
+      pointer-events: none;
+      z-index: -1;
+      background: var(--drawn-fill);
+    }
+    :where(.question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .drawn-frame, .shape)::before,
+    :where(.question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .drawn-frame, .shape)::after,
+    .drawn-table-surface,
+    .spoiler[aria-expanded="false"] .spoiler-text,
+    .spoiler[aria-expanded="true"] .spoiler-text::before {
+      mask-image: var(--drawn-fill-mask);
+      mask-repeat: no-repeat;
+      mask-position: left 0 top 0, left var(--drawn-left) top 0, right 0 top 0,
+        left 0 top var(--drawn-top), left var(--drawn-left) top var(--drawn-top), right 0 top var(--drawn-top),
+        left 0 bottom 0, left var(--drawn-left) bottom 0, right 0 bottom 0;
+      mask-size: var(--drawn-left) var(--drawn-top), calc(100% - var(--drawn-left) - var(--drawn-right)) var(--drawn-top), var(--drawn-right) var(--drawn-top),
+        var(--drawn-left) calc(100% - var(--drawn-top) - var(--drawn-bottom)), calc(100% - var(--drawn-left) - var(--drawn-right)) calc(100% - var(--drawn-top) - var(--drawn-bottom)), var(--drawn-right) calc(100% - var(--drawn-top) - var(--drawn-bottom)),
+        var(--drawn-left) var(--drawn-bottom), calc(100% - var(--drawn-left) - var(--drawn-right)) var(--drawn-bottom), var(--drawn-right) var(--drawn-bottom);
+    }
+    :where(.question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .language-switcher a, .question button[type="submit"], .search-form button, .drawn-select, .search-box, .drawn-frame, .shape)::after {
+      mask-image: var(--drawn-stroke-mask);
+      background: var(--drawn-stroke);
+    }
+    .accordion { --drawn-fill: var(--paper); }
+    /* A closed details element only paints its summary. This SSR decoration
+       sits there but is positioned against the full details box when opened. */
+    .accordion > summary > .drawn-frame { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+    .question, .license-box { --drawn-fill: var(--panel); }
+    .showcase-demo { --drawn-stroke: var(--ink-soft); }
+    .content-popup, .last-visit-toast { --drawn-fill: var(--ink); --drawn-stroke: var(--ink); }
+
+    :is(.button-link, .accordion-controls button, .question button[type="submit"], .search-form button, .search-box, .shape[data-shape="compact"]) {
+      --drawn-fill-mask: var(--compact-fill-mask);
+      --drawn-stroke-mask: var(--compact-stroke-mask);
+      --drawn-top: 10px;
+      --drawn-right: 10px;
+      --drawn-bottom: 10px;
+      --drawn-left: 10px;
+      min-block-size: 2.75rem;
+    }
+    :is(.button-link, .question button[type="submit"], .search-form button) { --drawn-fill: var(--accent); --drawn-stroke: var(--accent); }
+    .accordion-controls button {
+      --drawn-stroke: var(--ink);
+      min-inline-size: 2.75rem;
+      align-content: center;
+    }
+    .accordion-controls button:hover { --drawn-fill: var(--ink); --drawn-stroke: var(--ink); color: var(--paper); background: transparent; }
+    /* Stretch a single organic oval, rather than preserving rectangular
+       corners. Mask decoration only; hit areas and focus stay rectangular. */
+    :is(.share-btn, .share .share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button, .visual-toc > a) {
+      --drawn-fill: var(--accent-soft);
+      background: transparent;
+    }
+    :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button) { min-inline-size: 2.75rem; align-content: center; }
+    :is(.share-btn, .share .share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button, .visual-toc > a):hover {
+      --drawn-fill: var(--pebble-hover);
+      color: var(--pebble-hover-ink);
+      background: transparent;
+    }
+    :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button)::before {
+      mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat;
+    }
+    /* VisualToc keeps the default panel mask, not the pebble silhouette. */
+    :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button, .visual-toc > a)::after { display: none; }
+    .language-switcher a[aria-current="true"] {
+      --drawn-fill: var(--accent);
+      color: var(--accent-ink);
+      background: transparent;
+    }
+    .language-switcher a[aria-current="true"]:hover {
+      --drawn-fill: var(--pebble-selected-hover);
+      color: var(--pebble-selected-hover-ink);
+      background: transparent;
+    }
+    .search-box { --drawn-stroke: var(--control-border); --drawn-fill: var(--paper); }
+    .search-box:focus-within { --drawn-stroke: var(--accent); }
+    .search-box > input[type="search"]:focus { border-color: transparent; }
+    .drawn-select {
+      display: inline-flex;
+      min-inline-size: 0;
+      max-inline-size: 100%;
+      --drawn-fill: var(--accent-soft);
+    }
+    .drawn-select::before { mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat; }
+    .drawn-select:hover { --drawn-fill: var(--pebble-hover); }
+    .drawn-select:hover > select { background: transparent; color: var(--pebble-hover-ink); }
+    .drawn-select:hover > .drawn-select__chevron { color: var(--pebble-hover-ink); }
+    .drawn-select::after { display: none; }
+    .drawn-select__chevron {
+      display: block;
+      position: absolute;
+      inset-inline-end: 1rem;
+      inset-block-start: 50%;
+      inline-size: 1rem;
+      block-size: 1rem;
+      z-index: 0;
+      color: var(--accent);
+      pointer-events: none;
+      transform: translateY(-50%) rotate(90deg);
+    }
+    .drawn-select__chevron > svg { display: block; inline-size: 100%; block-size: 100%; }
+    /* An aria-hidden text mirror sizes the rule to the selected label without
+       replacing native select text, interaction or its accessible name. */
+    .drawn-select__value {
+      display: block;
+      position: absolute;
+      inset-inline-start: 1.1rem;
+      inset-block-start: 50%;
+      inline-size: max-content;
+      max-inline-size: calc(100% - 3.35rem);
+      transform: translateY(-50%);
+      color: transparent;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-optical-sizing: auto;
+      font-variation-settings: var(--fraunces-vars);
+      line-height: 1.5;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .drawn-select:hover > .drawn-select__value::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: -.3em;
+      block-size: 12px;
+      background: var(--pebble-hover-ink);
+      mask: url('../../design/elements/lines/divider.svg') center / max(100%, 480px) 100% no-repeat;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      :is(.button-link, .question button[type="submit"], .search-form button)::before,
+      :is(.button-link, .question button[type="submit"], .search-form button)::after { transition: transform 160ms ease-out; }
+      :is(.button-link, .question button[type="submit"], .search-form button):hover::before,
+      :is(.button-link, .question button[type="submit"], .search-form button):hover::after { transform: scale(1.025, 1.04); }
+      .drawn-select::before,
+      :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button, .visual-toc > a)::before { transition: transform 160ms ease-out, background-color 160ms ease-out; }
+      .drawn-select__chevron { transition: transform 160ms ease-out, color 160ms ease-out; }
+      :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button, .visual-toc > a),
+      .drawn-select > select { transition: color 160ms ease-out; }
+      .drawn-select:hover::before,
+      :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button):hover::before { transform: rotate(1deg) scale(1.025, 1.04); }
+      .visual-toc > a:hover::before { transform: scale(1.025, 1.04); }
+      .drawn-select:hover > .drawn-select__chevron { transform: translateY(calc(-50% + 2px)) rotate(90deg); }
+    }
+    .drawn-select > select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-inline-end: 2.25rem;
+    }
+    .search-box > input[type="search"], .drawn-select > select { border-color: transparent; background: transparent; border-radius: 0; min-block-size: 2.75rem; }
+
+    /* Keep the compact silhouette on reveal, but mask only the highlight
+       paint so readable text and the native button's focus stay unclipped. */
+    .spoiler .spoiler-text {
+      display: inline-block;
+      position: relative;
+      isolation: isolate;
+      max-inline-size: 100%;
+      border-radius: 0;
+      --drawn-fill-mask: var(--compact-fill-mask);
+      --drawn-top: 10px;
+      --drawn-right: 10px;
+      --drawn-bottom: 10px;
+      --drawn-left: 10px;
+    }
+    .spoiler[aria-expanded="true"] .spoiler-text { background: transparent; }
+    .spoiler[aria-expanded="true"] .spoiler-text::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* Allow for the silhouette's inset edges without eating text padding. */
+      inset-inline: -0.3rem;
+      inset-block: -0.15rem;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--accent-soft);
+    }
+
+    .mascot-box__bubble, .shape[data-shape="bubble"] {
+      --drawn-fill: var(--accent-soft);
+      --drawn-stroke: var(--accent);
+      --drawn-fill-mask: var(--bubble-side-fill-mask);
+      --drawn-stroke-mask: var(--bubble-side-stroke-mask);
+      --drawn-top: 88px;
+      --drawn-right: 24px;
+      --drawn-bottom: 24px;
+      --drawn-left: 104px;
+      --drawn-inset: 0 0 0 -24px;
+      min-block-size: 7rem;
+    }
+    [dir="rtl"] .mascot-box__bubble::before, [dir="rtl"] .mascot-box__bubble::after { transform: scaleX(-1); inset: 0 -24px 0 0; }
+    .shape[data-tail="top"] {
+      --drawn-fill-mask: var(--bubble-top-fill-mask); --drawn-stroke-mask: var(--bubble-top-stroke-mask);
+      --drawn-top: 112px; --drawn-left: 88px; --drawn-inset: -24px 0 0;
+    }
+    @media (max-width: 30rem) {
+      .mascot-box__bubble {
+        --drawn-fill-mask: var(--bubble-top-fill-mask); --drawn-stroke-mask: var(--bubble-top-stroke-mask);
+        --drawn-top: 112px; --drawn-left: 88px; --drawn-inset: -24px 0 0;
+      }
+      [dir="rtl"] .mascot-box__bubble::before, [dir="rtl"] .mascot-box__bubble::after { inset: -24px 0 0; }
+    }
+
+    .feature-box[data-tone] { border: 0; border-radius: 0; background: transparent; overflow: visible; min-block-size: 3rem; padding: 1rem 1.25rem; padding-inline-start: 2.5rem; }
+    .feature-box::before { inline-size: 3px; }
+    .feature-box[data-bracket-size]::before { display: none; }
+    .feature-box__bracket { position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: 32px; color: var(--accent); pointer-events: none; }
+    .feature-box[data-bracket-size] > .feature-box__bracket { display: block; }
+    .feature-box__bracket-variant { display: none; block-size: 100%; grid-template-rows: 24px minmax(0, 1fr) 24px; }
+    .feature-box[data-bracket-size="short"] [data-bracket-variant="short"],
+    .feature-box[data-bracket-size="medium"] [data-bracket-variant="medium"],
+    .feature-box[data-bracket-size="tall"] [data-bracket-variant="tall"] { display: grid; }
+    .feature-box[data-tone="warm"] .feature-box__bracket { color: var(--warn); }
+    .feature-box__bracket-variant > svg { inline-size: 100%; block-size: 100%; min-block-size: 0; overflow: hidden; }
+    .feature-box__bracket + * { margin-block-start: 0; }
+    [dir="rtl"] .feature-box__bracket { transform: scaleX(-1); }
+
+    .drawn-scroll-shell { margin-block: 1.5rem; min-inline-size: 0; }
+    .drawn-scroll-shell > :is(.table-scroll, pre) { margin-block: 0; border-color: transparent; border-radius: 0; }
+    .drawn-scroll-shell:has(> pre) { --drawn-fill: var(--panel); }
+    .drawn-scroll-shell > pre { background: transparent !important; }
+    .drawn-scroll-shell:has(> .table-scroll)::after { z-index: 1; }
+    /* Keep header paint absent until measured, rather than flashing a leaking
+       rectangle. Only this decorative layer is masked; text/focus never is. */
+    .table-scroll thead :is(th, td) { background: transparent; }
+    .drawn-table-surface {
+      display: none;
+      background: linear-gradient(to bottom, var(--panel) 0 var(--drawn-header-end, 0px), transparent var(--drawn-header-end, 0px));
+    }
+    .drawn-table-ready > .drawn-table-surface { display: block; }
+    .table-scroll table > :is(thead, tbody, tfoot):last-child > tr:last-child > :is(th, td) { border-block-end: 0; }
+    .table-scroll table > :is(thead, tbody, tfoot):last-child > tr:last-child > :is(th, td)::after { display: none; }
+
+    /* Until clipping is ready, use a normal border in the same color. A CSS
+       drawn outline would otherwise overlap the still-rectangular media. */
+    /* Let the irregular image edge bleed out, rather than indenting captions
+       away from the surrounding text column. Logical margins also cover RTL. */
+    .figure__media { overflow: visible; margin-inline: -.375rem; }
+    .figure .figure__media:not(.drawn-ready) { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
+    .figure__media::before, .figure__media::after { display: none; }
+    .figure__media.drawn-ready > .figure__stage { overflow: hidden; }
+    .figure__media.drawn-ready img { border-radius: 0; }
+    .figure__media:has(:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .drawn-outline { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; max-inline-size: none; overflow: visible; z-index: 1; pointer-events: none; fill: none; stroke: var(--line); stroke-width: 1.5px; stroke-linecap: round; stroke-linejoin: round; }
+
+    .site-head, .site-footer { border-block-color: transparent; }
+    .site-head { background: linear-gradient(var(--paper), var(--paper)) top / 100% calc(100% - .375rem) no-repeat; background-origin: padding-box; background-clip: padding-box; }
+    .site-head__edge { display: block; position: absolute; inset-inline: 0; inset-block-end: -.375rem; inline-size: 100%; block-size: .75rem; pointer-events: none; }
+    .site-footer { position: relative; }
+    .site-footer::before { content: ''; position: absolute; inset-inline: 0; inset-block-start: -.375rem; block-size: .75rem; background: var(--ink); mask: url('../../design/elements/lines/divider-strong.svg') center / 100% 100% no-repeat; pointer-events: none; }
+    /* The shared boundary has a filled top silhouette, so there are no gaps
+       between the viewport edge and the stroke. Reveal it without scaling. */
+    .reading-progress { block-size: 6px; background: transparent; color: var(--accent); }
+    .reading-progress__line {
+      display: block;
+      position: absolute;
+      inset-inline: 0;
+      inset-block-start: -2px;
+      inline-size: 100%;
+      max-inline-size: none;
+      block-size: 12px;
+    }
+    .pagination nav, .footnotes, .contents-list li, .search-results li, .table-scroll :is(th, td), .prose hr { position: relative; border-block-color: transparent; }
+    .pagination nav::before, .footnotes::before, .contents-list li:not(:last-child)::after, .search-results li::after, .table-scroll :is(th, td)::after, .prose hr::before {
+      content: ''; position: absolute; inset-inline: 0; block-size: .5rem; background: var(--line); mask: url('../../design/elements/lines/divider.svg') center / 100% 100% no-repeat; pointer-events: none;
+    }
+    .pagination nav::before, .footnotes::before, .prose hr::before { inset-block-start: -.25rem; }
+    .contents-list li::after, .search-results li::after, .table-scroll :is(th, td)::after { inset-block-end: -.25rem; }
+    .prose hr { border: 0; block-size: .5rem; margin-block: 2rem; }
+    .prose hr::before { background: var(--ink-soft); }
+
+    /* Context chooses the rail crop; there is no height-measuring observer. */
+    .nav-list a { --rail-source: url('../../design/elements/lines/accent-bar-short.svg'); --rail-native-height: 32px; }
+    .license-box { border-inline-start-color: var(--ink); }
+    .prose blockquote { --rail-source: url('../../design/elements/lines/vertical-rule.svg'); --rail-native-height: 240px; position: relative; padding-inline-start: 1.5rem; border-inline-start-color: transparent; }
+    .prose blockquote[data-rail-size="short"] { --rail-source: url('../../design/elements/lines/vertical-rule-short.svg'); --rail-native-height: 32px; }
+    .prose blockquote[data-rail-size="medium"] { --rail-source: url('../../design/elements/lines/vertical-rule-medium.svg'); --rail-native-height: 80px; }
+    .nav-list a[data-rail-size="medium"] { --rail-source: url('../../design/elements/lines/accent-bar-medium.svg'); --rail-native-height: 80px; }
+    .nav-list a[data-rail-size="tall"] { --rail-source: url('../../design/elements/lines/accent-bar.svg'); --rail-native-height: 240px; }
+    .prose blockquote::before { content: ''; position: absolute; inset-inline-start: -.2rem; inset-block: 0; inline-size: 1.5rem; background: var(--accent); mask: var(--rail-source) center / 100% max(var(--rail-native-height), 100%) no-repeat; pointer-events: none; }
+    .nav-list a[aria-current="page"], .nav-list a[aria-current="location"] { position: relative; border-inline-start-color: transparent; }
+    .nav-list a[aria-current]::before { content: ''; position: absolute; inset-inline-start: -.5rem; inset-block: .3rem; inline-size: 1rem; background: var(--accent); mask: var(--rail-source) center / 100% max(var(--rail-native-height), 100%) no-repeat; pointer-events: none; }
+    .shape { --drawn-stroke: var(--accent); }
+    .shape--filled { --drawn-fill: var(--accent); }
+  }
+}
+
+@media print, (forced-colors: active) {
+  .drawn-outline, .drawn-frame, .drawn-table-surface, .site-head__edge { display: none; }
+  :is(.video-stage, .figure__stage) { clip-path: none !important; border-radius: var(--radius); }
+}
