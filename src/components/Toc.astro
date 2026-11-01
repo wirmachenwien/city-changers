@@ -6,9 +6,10 @@ import type { Language } from '../data/locales';
 
 interface Props {
   lang: Language;
+  excludeFile?: string;
 }
-const { lang } = Astro.props;
-const entries = await bookToc(lang);
+const { lang, excludeFile } = Astro.props;
+const entries = (await bookToc(lang)).filter(entry => entry.file !== excludeFile);
 ---
 <ol class="contents-list">
   {entries.map((entry) => (

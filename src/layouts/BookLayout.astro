@@ -30,6 +30,7 @@ const { lang, file, title, layout, currentUrl } = Astro.props;
 const displayTitle = smartQuotes(title, lang);
 const crumbs = await bookCrumbs(lang, file, displayTitle);
 const isChapter = layout === 'chapter';
+const isContents = file === 'contents';
 const neighbours = await paginationNeighbours(lang, 'book', file);
 const content = externalLinks(await Astro.slots.render('default'), site, t(lang, 'external-link-notice'));
 ---
@@ -40,7 +41,7 @@ const content = externalLinks(await Astro.slots.render('default'), site, t(lang,
   file={file}
   currentUrl={currentUrl}
 >
-  <ReadingProgress />
+  {!isContents && <ReadingProgress />}
   {isChapter ? (
     <Breadcrumbs items={crumbs} lang={lang} />
   ) : (
@@ -51,7 +52,7 @@ const content = externalLinks(await Astro.slots.render('default'), site, t(lang,
       <Breadcrumbs items={crumbs} lang={lang} />
     </div>
   )}
-  {file === 'contents' && <ContentsPage lang={lang} title={displayTitle} />}
+  {isContents && <ContentsPage lang={lang} title={displayTitle} />}
   {isChapter && <BookmarkAdd lang={lang} />}
   <div class="prose" data-prose data-glossary-terms set:html={content} />
   {isChapter && <Share lang={lang} url={currentUrl} title={displayTitle} />}
