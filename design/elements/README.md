@@ -35,6 +35,14 @@ sources are not recipient-kit assets.
 
 ## Integration
 
+- Ordinary prose/footer links use server-rendered text-only labels and
+  `src/styles/text-link-underlines.css`. `box-decoration-break: clone` repeats
+  the Quiet rule on wrapped lines; hover/focus adds the second stroke. Theme
+  backgrounds are generated from `design/colors.json` by `colors:generate`.
+  Pebble labels and native-select text mirrors use CSS-only hover/focus masks
+  in their inherited/semantic text color. Icons and accessible notices are not
+  underlined. `link-underlines.ts` skips these links entirely and retains its
+  measured implementation for other controls, navigation and dynamic links.
 - `src/styles/drawn-elements.css` imports the eight rule/rail masters directly.
   `FeatureBox.astro` imports short, medium and original tall brackets, split into
   fixed 24px caps and a variable middle with non-scaling strokes.
@@ -58,7 +66,10 @@ sources are not recipient-kit assets.
    `drawn-ready` and without JS; the measured SVG replaces these atomically.
    Both use the same geometry and semantic colors. The generated CSS inlines
    mask crops, so first paint needs no additional image requests. Corners keep
-   their CSS-pixel sizes; only middle slices stretch. Native boundaries remain
+   their CSS-pixel sizes; only middle slices stretch. Every mask tile has an
+   explicit clip path and intrinsic dimensions: a viewBox alone does not
+   contain overflow. Generated positions use actual cut offsets, not centering,
+   so asymmetric speech-tail slices join correctly. Native boundaries remain
    in print, forced colors and browsers without mask support. Single-piece
    pebbles and rule masks remain CSS-only.
   The masthead background overlaps the fully filled SVG top by 1 CSS pixel;
@@ -74,7 +85,11 @@ sources are not recipient-kit assets.
   scrollable table/code content at build time. The shared surface renderer measures
   header height and uses a hard-stop SVG gradient on the outer frame path.
   Table text, scrolling and focus indicators remain unclipped. Before measurement
-   or without JS, a uniform hand-drawn panel keeps table content readable.
+   or without JS, a masked decorative layer on the actual `thead` paints only
+   the header (including wrapped/multi-row headers), leaving body cells clear.
+   CSS hover/focus transforms affect decoration in both baseline and measured
+   controls, without moving their text, hit areas or native focus indicators.
+   Exact-size paths, header gradients and media clips remain JS refinements.
   Print and forced colors retain native cell backgrounds and borders.
 - Theme toggles and mobile menu/close toggles use the shared pebble silhouette.
   Their idle fill matches the current surface (`accent-soft` in the masthead,

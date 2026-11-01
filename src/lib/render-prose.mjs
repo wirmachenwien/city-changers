@@ -7,6 +7,7 @@ import { visit } from 'unist-util-visit';
 import { buildGlossaryMatcher } from '../data/glossary.ts';
 import { iconSvg } from './icons.ts';
 import { enhanceExternalLinks } from './external-links.mjs';
+import { enhanceTextLinks } from './text-link-underlines.mjs';
 
 const SKIP_TAGS = new Set(['a', 'button', 'code', 'pre', 'dfn', 'dt', 'dd', 'script', 'style']);
 const textContent = node => node.type === 'text' ? node.value
@@ -92,5 +93,6 @@ export function renderProse(html, { lang, glossary = false, anchorLabel = 'Link 
     });
   });
   if (external) enhanceExternalLinks(tree, processor, external.site, external.notice);
+  enhanceTextLinks(tree);
   return processor.stringify(tree);
 }

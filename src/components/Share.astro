@@ -38,20 +38,21 @@ const available = networks.filter((network) => t(lang, `share.${network.key}`, '
           <button
             type="button"
             class="share-btn"
+            data-css-underline="pebble"
             data-copy={absolute}
             data-copy-label={t(lang, 'share.link', 'Link')}
             data-copied-label={t(lang, 'copy.copied', 'Copied')}
             data-failed-label={t(lang, 'copy.copy-failed', 'Sorry, try again')}
           >
             <Icon name={network.icon} />
-            <span data-copy-text>{t(lang, 'share.link', 'Link')}</span>
+            <span data-copy-text data-pebble-label>{t(lang, 'share.link', 'Link')}</span>
           </button>
         </li>
       ) : (
         <li>
-          <a href={network.href} target="_blank" rel="noopener noreferrer">
+          <a href={network.href} target="_blank" rel="noopener noreferrer" data-css-underline="pebble">
             <Icon name={network.icon} />
-            {t(lang, `share.${network.key}`, network.key)}
+            <span data-pebble-label>{t(lang, `share.${network.key}`, network.key)}</span>
           </a>
         </li>
       ),

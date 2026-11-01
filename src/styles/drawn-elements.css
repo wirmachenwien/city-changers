@@ -227,9 +227,9 @@
       --drawn-fill: var(--accent-soft);
     }
     .drawn-select::before { mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat; }
-    .drawn-select:hover { --drawn-fill: var(--pebble-hover); }
-    .drawn-select:hover > select { background: transparent; color: var(--pebble-hover-ink); }
-    .drawn-select:hover > .drawn-select__chevron { color: var(--pebble-hover-ink); }
+    .drawn-select:is(:hover, :focus-within) { --drawn-fill: var(--pebble-hover); }
+    .drawn-select:is(:hover, :focus-within) > select { background: transparent; color: var(--pebble-hover-ink); }
+    .drawn-select:is(:hover, :focus-within) > .drawn-select__chevron { color: var(--pebble-hover-ink); }
     .drawn-select::after { display: none; }
     .drawn-select__chevron {
       display: block;
@@ -263,7 +263,7 @@
       white-space: nowrap;
       pointer-events: none;
     }
-    .drawn-select:hover > .drawn-select__value::after {
+    .drawn-select:is(:hover, :focus-within) > .drawn-select__value::after {
       content: '';
       position: absolute;
       inset-inline: 0;
@@ -274,7 +274,7 @@
     }
     @media (prefers-reduced-motion: no-preference) {
       :is(.button-link, .question button[type="submit"], .search-form button, .visual-toc > a) > .drawn-surface > path { transform-box: view-box; transform-origin: center; transition: transform 160ms ease-out; }
-      :is(.button-link, .question button[type="submit"], .search-form button, .visual-toc > a):hover > .drawn-surface > path { transform: scale(1.025, 1.04); }
+      :is(.button-link, .question button[type="submit"], .search-form button, .visual-toc > a):is(:hover, :focus-visible) > .drawn-surface > path { transform: scale(1.025, 1.04); }
       .drawn-select::before,
       :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button, .visual-toc > a)::before { transition: transform 160ms ease-out, background-color 160ms ease-out; }
       .drawn-select__chevron { transition: transform 160ms ease-out, color 160ms ease-out; }

@@ -16,6 +16,7 @@ const { value, lang } = Astro.props;
 <button
   type="button"
   class="copy-btn"
+  data-css-underline="pebble"
   data-copy={value}
   data-copy-label={t(lang, 'copy.copy', 'Copy')}
   data-copied-label={t(lang, 'copy.copied', 'Copied')}
@@ -23,5 +24,5 @@ const { value, lang } = Astro.props;
 >
   <span data-copy-icon><Icon name="copy" /></span>
   <span data-copied-icon hidden><Icon name="check" /></span>
-  <span data-copy-text>{t(lang, 'copy.copy', 'Copy')}</span>
+  <span data-copy-text data-pebble-label>{t(lang, 'copy.copy', 'Copy')}</span>
 </button>

@@ -1,10 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { parseHTML } from 'linkedom';
 import { initDrawnSurfaces, surfaceSelector } from '../../src/lib/drawn-surfaces.mjs';
 import { framePath, compactPath, bubblePath } from '../../design/elements/geometry.js';
 import { cssFrameFiles } from '../../design/elements/build-css-frames.mjs';
+
+// Use Astro's existing optional SVG rasterizer, not a browser or a new test
+// dependency. Structural crop assertions still run if it is unavailable.
+let sharp;
+try { sharp = createRequire(import.meta.resolve('astro/package.json'))('sharp'); } catch {}
 
 function environment() {
   const { document } = parseHTML(`<html><body>
@@ -172,11 +178,18 @@ test('first-paint masks inline all nine crops per profile using the shared geome
       for (const [, encoded] of crops) {
         const { document } = parseHTML(decodeURIComponent(encoded));
         const svg = document.querySelector('svg');
-        boxes.add(svg.getAttribute('viewBox'));
+        boxes.add(`${svg.getAttribute('viewBox')}/${svg.querySelector('path').getAttribute('transform')}`);
         assert.equal(svg.querySelector('path').getAttribute('d'), path);
         assert.equal(svg.querySelector('path').getAttribute(paint), 'white');
         const [, , width, height] = svg.getAttribute('viewBox').split(' ').map(Number);
         assert.ok(width > 0 && height > 0);
+        assert.equal(svg.getAttribute('viewBox'), `0 0 ${width} ${height}`);
+        assert.equal(svg.getAttribute('width'), String(width));
+        assert.equal(svg.getAttribute('height'), String(height));
+        assert.equal(svg.getAttribute('overflow'), 'hidden');
+        assert.equal(svg.querySelector('g').getAttribute('clip-path'), 'url(#crop)');
+        assert.equal(svg.querySelector('#crop rect').getAttribute('width'), String(width));
+        assert.equal(svg.querySelector('#crop rect').getAttribute('height'), String(height));
       }
       assert.equal(boxes.size, 9, 'each crop has its own viewport');
     }
@@ -198,4 +211,118 @@ test('every measured surface has a CSS baseline, with details and media handled 
   assert.doesNotMatch(css, /visibility:\s*hidden|opacity:\s*0|outline:\s*none/);
   const layout = readFileSync(new URL('../../src/layouts/BaseLayout.astro', import.meta.url), 'utf8');
   assert.ok(layout.indexOf("import '../styles/drawn-baseline.css'") > layout.indexOf("import '../styles/drawn-elements.css'"));
+});
+
+test('nine-slice masks tile without gaps or overlaps, including asymmetric speech tails', () => {
+  const css = cssFrameFiles().get('frames.css');
+  for (const profile of ['frame', 'compact', 'bubble-side', 'bubble-top']) {
+    const property = name => css.match(new RegExp(`--${profile}-${name}: ([^;]+);`))[1];
+    const sizes = property('mask-size').split(', ').map(size => size.match(/calc\([^)]*\)|\d+px/g));
+    const positions = property('mask-position').split(', ').map(position => position.split(' '));
+    assert.equal(positions.length, 9);
+    const pixels = (value, length) => value.startsWith('calc(')
+      ? length - Number(value.match(/- (\d+)px/)[1]) : Number.parseFloat(value);
+    const offset = (value, length, size) => value.endsWith('%')
+      ? (length - size) * Number.parseFloat(value) / 100 : Number.parseFloat(value);
+    for (const [width, height] of [[144, 140], [320, 180], [721.5, 433.25]]) {
+      const tiles = positions.map(([x, y], i) => {
+        const w = pixels(sizes[i][0], width), h = pixels(sizes[i][1], height);
+        return { x: offset(x, width, w), y: offset(y, height, h), w, h };
+      });
+      for (let row = 0; row < 3; row++) {
+        const [left, middle, right] = tiles.slice(row * 3, row * 3 + 3);
+        assert.equal(left.x, 0);
+        assert.equal(left.x + left.w, middle.x, `${profile}: left/middle join`);
+        assert.equal(middle.x + middle.w, right.x, `${profile}: middle/right join`);
+        assert.equal(right.x + right.w, width);
+      }
+      for (let col = 0; col < 3; col++) {
+        const [top, middle, bottom] = [tiles[col], tiles[col + 3], tiles[col + 6]];
+        assert.equal(top.y, 0);
+        assert.equal(top.y + top.h, middle.y, `${profile}: top/middle join`);
+        assert.equal(middle.y + middle.h, bottom.y, `${profile}: middle/bottom join`);
+        assert.equal(bottom.y + bottom.h, height);
+      }
+    }
+  }
+  const baseline = readFileSync(new URL('../../src/styles/drawn-baseline.css', import.meta.url), 'utf8');
+  for (const profile of ['frame', 'compact', 'bubble-side', 'bubble-top']) {
+    assert.ok(baseline.includes(`--baseline-mask-position: var(--${profile}-mask-position)`));
+  }
+  assert.equal([...baseline.matchAll(/mask-position: var\(--baseline-mask-position\)/g)].length, 2, 'decoration and media clipping both use profile positions');
+});
+
+test('CSS-only table fill uses the actual header with a straight lower edge, not the whole table', () => {
+  const css = cssFrameFiles().get('frames.css');
+  const property = name => css.match(new RegExp(`--${name}: ([^;]+);`))[1];
+  const headerMasks = [...property('frame-header-fill-mask').matchAll(/url\("data:image\/svg\+xml,([^"]+)"\)/g)].map(match => match[1]);
+  const frameMasks = [...property('frame-fill-mask').matchAll(/url\("data:image\/svg\+xml,([^"]+)"\)/g)].map(match => match[1]);
+  assert.deepEqual(headerMasks, frameMasks.slice(0, 6), 'reuse clipped top and middle tiles; omit rounded bottom tiles');
+  const sizes = property('frame-header-mask-size').split(', ').map(size => size.match(/calc\([^)]*\)|\d+px/g));
+  const positions = property('frame-header-mask-position').split(', ').map(position => position.split(' '));
+  for (const [width, height] of [[240, 40], [721.5, 88.25], [320, 132]]) {
+    const pixels = (value, length) => value.startsWith('calc(')
+      ? length - Number(value.match(/- (\d+)px/)[1]) : Number.parseFloat(value);
+    const tiles = sizes.map(([w, h], index) => {
+      const tileWidth = pixels(w, width), tileHeight = pixels(h, height);
+      const [x, y] = positions[index];
+      return { x: x === '100%' ? width - tileWidth : Number.parseFloat(x), y: Number.parseFloat(y), w: tileWidth, h: tileHeight };
+    });
+    for (let col = 0; col < 3; col++) {
+      assert.equal(tiles[col].y, 0);
+      assert.equal(tiles[col].y + tiles[col].h, tiles[col + 3].y);
+      assert.equal(tiles[col + 3].y + tiles[col + 3].h, height, 'fill ends at actual header height');
+    }
+    for (const row of [tiles.slice(0, 3), tiles.slice(3)]) {
+      assert.equal(row[0].x, 0);
+      assert.equal(row[0].x + row[0].w, row[1].x);
+      assert.equal(row[1].x + row[1].w, row[2].x);
+      assert.equal(row[2].x + row[2].w, width);
+    }
+  }
+  const baseline = readFileSync(new URL('../../src/styles/drawn-baseline.css', import.meta.url), 'utf8');
+  assert.match(baseline, /\.drawn-scroll-shell:not\(\.drawn-ready\) \.table-scroll thead::before \{[^}]*pointer-events: none;[^}]*mask-image: var\(--frame-header-fill-mask\)/);
+  assert.doesNotMatch(baseline, /\.drawn-scroll-shell:has\(> \.table-scroll\):not\(\.drawn-ready\) \{ --drawn-fill: var\(--panel\)/);
+});
+
+test('CSS baseline and measured controls share paint-only hover and keyboard-focus feedback', () => {
+  const baseline = readFileSync(new URL('../../src/styles/drawn-baseline.css', import.meta.url), 'utf8');
+  const measured = readFileSync(new URL('../../src/styles/drawn-elements.css', import.meta.url), 'utf8');
+  assert.match(baseline, /@media \(prefers-reduced-motion: no-preference\) \{\s*:is\([^}]+\):not\(\.drawn-ready\)/);
+  assert.match(baseline, /&:is\(:hover, :focus-visible\)::before,\s*&:is\(:hover, :focus-visible\)::after \{ transform: scale\(1\.025, 1\.04\); \}/);
+  assert.match(measured, /:is\(:hover, :focus-visible\) > \.drawn-surface > path \{ transform: scale\(1\.025, 1\.04\); \}/);
+  assert.match(measured, /transform-box: view-box; transform-origin: center/);
+  assert.doesNotMatch(baseline, /outline:\s*none|clip-path:\s*(?:path|polygon)/);
+});
+
+test('SVG mask crops contain their paint even when viewport overflow is exposed', { skip: !sharp && 'Astro optional sharp rasterizer unavailable' }, async () => {
+  const css = cssFrameFiles().get('frames.css');
+  let controlsWithLeaks = 0;
+  for (const profile of ['frame', 'compact', 'bubble-side', 'bubble-top']) {
+    for (const paint of ['fill', 'stroke']) {
+      const value = css.match(new RegExp(`--${profile}-${paint}-mask: ([^;]+);`))[1];
+      for (const [, encoded] of value.matchAll(/url\("data:image\/svg\+xml,([^"]+)"\)/g)) {
+        let svg = decodeURIComponent(encoded);
+        const [, ws, hs] = svg.match(/width="(\d+)" height="(\d+)"/);
+        const width = Number(ws), height = Number(hs), margin = 32;
+        // Do not round-trip SVG through an HTML DOM: that can lowercase
+        // clipPath and accidentally disable the very crop being tested.
+        svg = svg.replace('<svg ', `<svg x="${margin}" y="${margin}" `)
+          .replace('overflow="hidden"', 'overflow="visible"');
+        async function leakedPixels(inner) {
+          const source = `<svg xmlns="http://www.w3.org/2000/svg" width="${width + margin * 2}" height="${height + margin * 2}">${inner}</svg>`;
+          const { data, info } = await sharp(Buffer.from(source)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+          let count = 0;
+          for (let y = 0; y < info.height; y++) for (let x = 0; x < info.width; x++) {
+            const outside = x < margin || x >= margin + width || y < margin || y >= margin + height;
+            if (outside && data[(y * info.width + x) * info.channels + 3] > 1) count++;
+          }
+          return count;
+        }
+        assert.equal(await leakedPixels(svg), 0, `${profile}/${paint}: artwork leaked outside its tile`);
+        if (await leakedPixels(svg.replace(' clip-path="url(#crop)"', '')) > 0) controlsWithLeaks++;
+      }
+    }
+  }
+  assert.equal(controlsWithLeaks, 72, 'unclipped controls reproduce the repeated/spilling artwork');
 });

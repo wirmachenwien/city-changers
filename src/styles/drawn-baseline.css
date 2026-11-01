@@ -9,6 +9,7 @@
       --baseline-fill-mask: var(--frame-fill-mask);
       --baseline-stroke-mask: var(--frame-stroke-mask);
       --baseline-mask-size: var(--frame-mask-size);
+      --baseline-mask-position: var(--frame-mask-position);
       --baseline-inset: 0;
       --baseline-transform: none;
     }
@@ -22,6 +23,7 @@
       --baseline-fill-mask: var(--compact-fill-mask);
       --baseline-stroke-mask: var(--compact-stroke-mask);
       --baseline-mask-size: var(--compact-mask-size);
+      --baseline-mask-position: var(--compact-mask-position);
     }
 
     /* Details hides decorations outside its summary when closed. Its existing
@@ -37,7 +39,7 @@
         pointer-events: none;
         transform: var(--baseline-transform);
         mask-size: var(--baseline-mask-size);
-        mask-position: left top, center top, right top, left center, center, right center, left bottom, center bottom, right bottom;
+        mask-position: var(--baseline-mask-position);
         mask-repeat: no-repeat;
       }
       &::before {
@@ -47,6 +49,16 @@
       &::after {
         background: var(--drawn-stroke);
         mask-image: var(--baseline-stroke-mask);
+      }
+    }
+
+    /* Match measured-path hover/focus feedback without moving the host, text,
+       hit area or focus outline. Geometry refinement itself stays in JS. */
+    @media (prefers-reduced-motion: no-preference) {
+      :is(.button-link, .question button[type="submit"], .search-form button:not(.search-submit), .visual-toc > a):not(.drawn-ready) {
+        &::before, &::after { transition: transform 160ms ease-out; }
+        &:is(:hover, :focus-visible)::before,
+        &:is(:hover, :focus-visible)::after { transform: scale(1.025, 1.04); }
       }
     }
 
@@ -70,6 +82,7 @@
       --baseline-fill-mask: var(--bubble-side-fill-mask);
       --baseline-stroke-mask: var(--bubble-side-stroke-mask);
       --baseline-mask-size: var(--bubble-side-mask-size);
+      --baseline-mask-position: var(--bubble-side-mask-position);
       --baseline-inset: 0 0 0 -24px;
     }
     [dir="rtl"] :is(.mascot-box__bubble, .shape[data-shape="bubble"]) {
@@ -80,6 +93,7 @@
       --baseline-fill-mask: var(--bubble-top-fill-mask);
       --baseline-stroke-mask: var(--bubble-top-stroke-mask);
       --baseline-mask-size: var(--bubble-top-mask-size);
+      --baseline-mask-position: var(--bubble-top-mask-position);
       --baseline-inset: -24px 0 0;
       --baseline-transform: none;
     }
@@ -88,6 +102,7 @@
         --baseline-fill-mask: var(--bubble-top-fill-mask);
         --baseline-stroke-mask: var(--bubble-top-stroke-mask);
         --baseline-mask-size: var(--bubble-top-mask-size);
+        --baseline-mask-position: var(--bubble-top-mask-position);
         --baseline-inset: -24px 0 0;
         --baseline-transform: none;
       }
@@ -102,9 +117,25 @@
       border-radius: 0;
     }
     .drawn-scroll-shell > pre { background: transparent !important; }
-    /* A uniform panel is the readable no-JS table fallback. JS refines this
-       to a header-only fill once it knows the actual header height. */
-    .drawn-scroll-shell:has(> .table-scroll):not(.drawn-ready) { --drawn-fill: var(--panel); }
+    /* Paint only the actual header, including wrapped and multi-row headers.
+       Mask its decorative layer, never table text, scrolling or focus rings.
+       JS retains the exact perimeter/gradient and takes over on readiness. */
+    .drawn-scroll-shell:not(.drawn-ready) .table-scroll thead {
+      position: relative;
+      isolation: isolate;
+    }
+    .drawn-scroll-shell:not(.drawn-ready) .table-scroll thead::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--panel);
+      mask-image: var(--frame-header-fill-mask);
+      mask-size: var(--frame-header-mask-size);
+      mask-position: var(--frame-header-mask-position);
+      mask-repeat: no-repeat;
+    }
     .drawn-scroll-shell .table-scroll thead :is(th, td) { background: transparent; }
 
     /* Clip media paint, not the figure host, caption, controls or focus ring.
@@ -117,7 +148,7 @@
     .figure__media:not(.drawn-ready) > .figure__stage {
       mask-image: var(--baseline-fill-mask);
       mask-size: var(--baseline-mask-size);
-      mask-position: left top, center top, right top, left center, center, right center, left bottom, center bottom, right bottom;
+      mask-position: var(--baseline-mask-position);
       mask-repeat: no-repeat;
     }
     .figure__media:not(.drawn-ready) img { border-radius: 0; }

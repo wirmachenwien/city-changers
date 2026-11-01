@@ -28,14 +28,31 @@ export function cssFrameFiles() {
       // Inline each crop so first-paint decoration does not wait for an SVG
       // request or rely on SVG fragment-view support in CSS masks.
       const masks = rows.flatMap(([vy, h]) => columns.map(([vx, w]) => {
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vx} ${vy} ${w} ${h}" preserveAspectRatio="none"><path d="${path}" fill="${paint === 'fill' ? 'white' : 'none'}" stroke="${paint === 'stroke' ? 'white' : 'none'}" stroke-width="${weight}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        // A viewBox changes coordinates; it is not an explicit crop. Mask
+        // images may paint outside their tile unless the artwork is clipped.
+        // Give each tile a local viewport and intrinsic dimensions, and clip
+        // before translating the shared master into that viewport.
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" overflow="hidden"><defs><clipPath id="crop"><rect width="${w}" height="${h}"/></clipPath></defs><g clip-path="url(#crop)"><path transform="translate(${-vx} ${-vy})" d="${path}" fill="${paint === 'fill' ? 'white' : 'none'}" stroke="${paint === 'stroke' ? 'white' : 'none'}" stroke-width="${weight}" stroke-linecap="round" stroke-linejoin="round"/></g></svg>`;
         return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
       }));
       css += `  --${name}-${paint}-mask: ${masks.join(', ')};\n`;
+      if (name === 'frame' && paint === 'fill') {
+        // Header decoration uses the top and middle rows only. Its lower edge
+        // is straight and follows the table's actual header height in CSS.
+        css += `  --frame-header-fill-mask: ${masks.slice(0, 6).join(', ')};\n`;
+      }
     }
     const middleWidth = `calc(100% - ${left + right}px)`;
     const middleHeight = `calc(100% - ${top + bottom}px)`;
     css += `  --${name}-mask-size: ${left}px ${top}px, ${middleWidth} ${top}px, ${right}px ${top}px, ${left}px ${middleHeight}, ${middleWidth} ${middleHeight}, ${right}px ${middleHeight}, ${left}px ${bottom}px, ${middleWidth} ${bottom}px, ${right}px ${bottom}px;\n`;
+    // Centering only tiles correctly when opposing cuts are equal. Speech
+    // tails need asymmetric cuts, so middle slices start at the actual cuts.
+    css += `  --${name}-mask-position: 0 0, ${left}px 0, 100% 0, 0 ${top}px, ${left}px ${top}px, 100% ${top}px, 0 100%, ${left}px 100%, 100% 100%;\n`;
+    if (name === 'frame') {
+      const headerMiddle = `calc(100% - ${top}px)`;
+      css += `  --frame-header-mask-size: ${left}px ${top}px, ${middleWidth} ${top}px, ${right}px ${top}px, ${left}px ${headerMiddle}, ${middleWidth} ${headerMiddle}, ${right}px ${headerMiddle};\n`;
+      css += `  --frame-header-mask-position: 0 0, ${left}px 0, 100% 0, 0 ${top}px, ${left}px ${top}px, 100% ${top}px;\n`;
+    }
   }
   files.set('frames.css', css + '}\n');
   return files;

@@ -101,12 +101,22 @@ const namedColors = 'aliceblue antiquewhite aqua aquamarine azure beige bisque b
 export function generateOutputs(registry, resolved, guide, registrySource = JSON.stringify(registry)) {
   const { themes, utilities, artwork } = resolved;
   const generated = '/* Generated from design/colors.json. Run npm run colors:generate; do not edit. */\n';
+  const rule = readFileSync(new URL('../../design/elements/lines/divider.svg', import.meta.url), 'utf8')
+    .replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').trim();
+  const themeDeclarations = mode => declarations({
+    ...themes[mode],
+    ...Object.fromEntries((registry.linkUnderlines?.tokens ?? []).map(token => {
+      if (!themes[mode][token]) throw new Error(`Unknown link underline token: ${token}`);
+      const svg = rule.replaceAll('currentColor', themes[mode][token]);
+      return [`link-rule-${token}`, `url("data:image/svg+xml,${encodeURIComponent(svg)}")`];
+    })),
+  });
   const css = generated +
-    `:root {\n  color-scheme: light dark;\n${declarations({ ...utilities, ...themes.light })}\n}\n\n` +
-    `:root[data-theme="light"] {\n  color-scheme: light;\n${declarations(themes.light)}\n}\n\n` +
-    `:root[data-theme="dark"] {\n  color-scheme: dark;\n${declarations(themes.dark)}\n}\n\n` +
-    `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {\n    color-scheme: dark;\n${declarations(themes.dark).replace(/^/gm, '  ')}\n  }\n}\n\n` +
-    `@media print {\n  :root, :root[data-theme], :root:not([data-theme]) {\n    color-scheme: light;\n${declarations(themes.print).replace(/^/gm, '  ')}\n  }\n}\n`;
+    `:root {\n  color-scheme: light dark;\n${declarations(utilities)}\n${themeDeclarations('light')}\n}\n\n` +
+    `:root[data-theme="light"] {\n  color-scheme: light;\n${themeDeclarations('light')}\n}\n\n` +
+    `:root[data-theme="dark"] {\n  color-scheme: dark;\n${themeDeclarations('dark')}\n}\n\n` +
+    `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {\n    color-scheme: dark;\n${themeDeclarations('dark').replace(/^/gm, '  ')}\n  }\n}\n\n` +
+    `@media print {\n  :root, :root[data-theme], :root:not([data-theme]) {\n    color-scheme: light;\n${themeDeclarations('print').replace(/^/gm, '  ')}\n  }\n}\n`;
   const artRows = Object.entries(artwork).map(([name, value]) => `| ${title(name)} | \`${value.toUpperCase()}\` | ${registry.artwork[name].use} |`).join('\n');
   const functionalRows = registry.functionalColors.map(({ name, token }) => {
     if (!registry.tokens[token]) throw new Error(`Unknown functional color token: ${token}`);
@@ -279,6 +289,7 @@ export function auditArtwork(root, registry, resolved) {
 export function auditColors(root, registry) {
   const failures = [];
   const definitions = new Set([...Object.keys(registry.tokens ?? {}), ...Object.keys(registry.utilities ?? {})].map(name => `--${name}`));
+  for (const token of registry.linkUnderlines?.tokens ?? []) definitions.add(`--link-rule-${token}`);
   const references = [];
   const ignored = [...registry.audit.exceptions, ...registry.audit.protected].map(item => {
     if (!item.reason?.trim()) throw new Error(`Color audit exception needs a reason: ${item.path}`);

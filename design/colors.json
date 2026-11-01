@@ -58,6 +58,10 @@
     "focus": { "light": "green.light", "dark": "green.dark", "use": "Focus rings on ordinary UI surfaces." },
     "popup-link": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.6 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.6 }, "use": "Icons and focus rings on inverse popup surfaces." }
   },
+  "linkUnderlines": {
+    "description": "CSS inline-fragment backgrounds use the Quiet rule with registry-resolved text colors; no mascot artwork is changed.",
+    "tokens": ["accent", "link-hover", "ink-soft", "footer-link-hover"]
+  },
   "utilities": {
     "white": "neutral.white",
     "black": "neutral.black",

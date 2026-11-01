@@ -1,5 +1,6 @@
-// Reuse the Quiet rule per text line. Local absolute paint follows scrolling
-// and sticky positioning; Range measurements preserve normal inline wrapping.
+// Measured fallback for controls, pagination-independent navigation and dynamic
+// links. Server-labelled prose/pebble links paint in CSS and are never measured.
+// Local absolute paint follows scrolling and sticky positioning.
 const initialized = new WeakSet<Document>();
 const buttonSelector = '.button-link, .copy-btn, .share-btn, .share a, .accordion-controls button, .slides .slide-nav button, .question button[type="submit"], .search-form button, .video-facade button, .last-visit-toast button, .language-switcher a, .visual-toc > a';
 const selector = `a[href]:not([data-link-underline="pagination"]), ${buttonSelector}`;
@@ -93,6 +94,7 @@ export function initLinkUnderlines(): void {
   }
   function schedule(links: Iterable<HTMLElement> = active): void {
     for (const link of links) if (active.has(link)) dirty.add(link);
+    if (!dirty.size) return;
     if (queued) return;
     queued = true;
     requestAnimationFrame(() => {
@@ -118,7 +120,7 @@ export function initLinkUnderlines(): void {
   function candidates(root: ParentNode): HTMLElement[] {
     const links = [...root.querySelectorAll<HTMLElement>(selector)];
     if (root instanceof HTMLElement && root.matches(selector)) links.unshift(root);
-    return links;
+    return links.filter(link => !link.hasAttribute('data-css-underline'));
   }
   function scan(root: ParentNode): void {
     const links = candidates(root);
@@ -155,6 +157,7 @@ export function initLinkUnderlines(): void {
   for (const event of ['pointerover', 'pointerout', 'focusin', 'focusout']) {
     document.addEventListener(event, event => {
       const link = event.target instanceof Element ? event.target.closest<HTMLElement>(selector) : null;
+      if (link?.hasAttribute('data-css-underline')) return;
       // Declared ancillary links are prepared ahead of hover. CSS switches
       // their paint immediately, without even a one-frame native-line flash.
       if (link && !link.dataset.linkUnderline) schedule([link]);

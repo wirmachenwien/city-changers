@@ -21,10 +21,11 @@ const targets = await alternates(kind, file);
       <li>
         <a
           href={target.url}
+          data-css-underline="pebble"
           hreflang={target.lang}
           aria-current={target.lang === lang ? 'true' : undefined}
         >
-          {(locales[target.lang] as { 'local-name'?: string })['local-name'] ?? target.lang}
+          <span data-pebble-label>{(locales[target.lang] as { 'local-name'?: string })['local-name'] ?? target.lang}</span>
         </a>
       </li>
     ))}
