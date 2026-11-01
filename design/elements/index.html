@@ -96,7 +96,7 @@
     </section>
     <section aria-labelledby="shapes">
       <h2 id="shapes">Variable shapes / Natural</h2>
-      <p class="intro">The page and website share CSS nine-slice masks exported from <a href="geometry.js">geometry.js</a>. Corners, stroke thickness and continuous speech tails stay fixed; edge waves stretch with content. Decoration works without JavaScript.</p>
+      <p class="intro">The page and website share a continuous SVG renderer using <a href="geometry.js">geometry.js</a>. Corners, stroke thickness and speech tails stay fixed as surfaces follow their content. Without JavaScript, native boundaries remain. Serve this preview over HTTP to load its modules.</p>
       <div class="controls">
         <label for="shape-width">Shape width</label><input id="shape-width" type="range" min="70" max="100" value="100" step="5" aria-controls="shape-previews"><output id="shape-width-value" for="shape-width">100%</output>
         <button id="shape-text" type="button" aria-expanded="false" aria-controls="shape-previews">Add longer text</button>
@@ -121,6 +121,6 @@
     </section>
     <footer><p>Nine active SVG sources and three variable shapes, with 41 restored studies in the archive. Semantic colors, real HTML text, native focus rings and plain print/forced-color fallbacks. Mascot artwork and media are unchanged.</p><a href="README.md">Integration and maintenance</a> · <a href="archive/index.html">Restored studies</a> · <a href="../icons/index.html">Icon library</a></footer>
   </main>
-  <script src="preview.js"></script>
+  <script type="module" src="preview.js"></script>
 </body>
 </html>

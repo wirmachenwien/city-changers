@@ -50,6 +50,8 @@ const inspect = selector => evaluate(`(() => {
   const style = getComputedStyle(node);
   const before = getComputedStyle(node, '::before');
   const after = getComputedStyle(node, '::after');
+  const path = node.querySelector(':scope > .drawn-surface > path');
+  const paint = path ? getComputedStyle(path) : null;
   const token = name => {
     const probe = document.createElement('span');
     probe.style.color = 'var(--' + name + ')';
@@ -58,12 +60,12 @@ const inspect = selector => evaluate(`(() => {
     probe.remove();
     return color;
   };
-  return { fill: before.backgroundColor, mask: before.maskImage, after: after.display,
+  return { fill: paint ? paint.fill : before.backgroundColor, mask: paint ? 'continuous-svg' : before.maskImage, after: after.display,
     background: style.backgroundColor, border: style.borderTopColor,
     color: style.color, font: style.fontFamily, height: parseFloat(style.minBlockSize),
     align: style.alignItems, justify: style.justifyContent, padding: parseFloat(style.paddingBlockStart),
-    transform: style.transform, paintTransform: before.transform, strokeTransform: after.transform,
-    duration: before.transitionDuration, appearance: style.appearance,
+    transform: style.transform, paintTransform: paint ? paint.transform : before.transform, strokeTransform: paint ? paint.transform : after.transform,
+    duration: paint ? paint.transitionDuration : before.transitionDuration, appearance: style.appearance,
     pointer: style.pointerEvents, decoration: style.textDecorationLine, outline: style.outlineStyle,
     tokens: Object.fromEntries(['paper', 'accent-soft', 'accent', 'accent-ink', 'pebble-hover', 'pebble-hover-ink', 'pebble-selected-hover', 'pebble-selected-hover-ink', 'warm', 'warm-soft'].map(name => [name, token(name)])) };
 })()`);
@@ -86,17 +88,15 @@ try {
       const accordion = document.querySelector('.accordion');
       const paint = node => ({ border: getComputedStyle(node).borderTopColor, stroke: getComputedStyle(node, '::after').maskImage, fill: getComputedStyle(node, '::before').backgroundColor, position: getComputedStyle(node, '::after').maskPosition });
       return { question: paint(question), bubble: paint(bubble), button: paint(button), accordion: paint(accordion.querySelector('.drawn-frame')), mediaReady: document.querySelectorAll('.figure__media.drawn-ready').length,
-        mediaFallback: [...document.querySelectorAll('.figure__media')].every(node => getComputedStyle(node,'::before').display==='none' && getComputedStyle(node,'::after').display==='none' && getComputedStyle(node).borderTopStyle==='solid' && getComputedStyle(node).borderTopColor===getComputedStyle(question,'::after').backgroundColor),
+         mediaFallback: [...document.querySelectorAll('.figure__media')].every(node => getComputedStyle(node).borderTopStyle==='solid' && getComputedStyle(node).borderTopColor!=='rgba(0, 0, 0, 0)'),
         selects: [...document.querySelectorAll('.lang-menu select, .select-list select')].every(node => node.parentElement.matches('.drawn-select')),
         tables: [...document.querySelectorAll('.prose table')].every(node => node.closest('.drawn-scroll-shell')) };
     })()`);
-    assert.equal(state.question.border, transparent);
-    assert.match(state.question.stroke, /frame-stroke.*#nw/);
-    assert.match(state.button.stroke, /compact-stroke.*#nw/);
-    assert.notEqual(state.button.fill, transparent);
-    assert.match(state.bubble.stroke, width <= 480 ? /bubble-top-stroke/ : /bubble-side-stroke/);
-    assert.match(state.accordion.stroke, /frame-stroke/);
-    assert.notEqual(state.question.position, Array(9).fill('0% 0%').join(', '), 'all nine slices have distinct positions');
+    assert.notEqual(state.question.border, transparent);
+    assert.equal(state.question.stroke, 'none');
+    assert.equal(state.button.stroke, 'none');
+    assert.equal(state.bubble.stroke, 'none');
+    assert.equal(state.accordion.stroke, 'none');
     assert.equal(state.mediaReady, 0, 'page JavaScript is disabled');
     assert.ok(state.mediaFallback, 'media has a normal same-color border until measured clipping is ready');
     assert.ok(state.selects && state.tables);
@@ -110,14 +110,12 @@ try {
       return empty && typed && getComputedStyle(submit).display === 'none' && submit.type === 'submit' && Boolean(submit.getAttribute('aria-label'));
     })()`), 'search submit appears only with text, even without page JavaScript');
     assert.ok(await evaluate(`(() => { const node=document.querySelector('.spoiler-text'); return node && getComputedStyle(node).maskImage==='none' && getComputedStyle(node).color!=='rgba(0, 0, 0, 0)'; })()`), 'spoilers remain readable with no JS');
-    console.log(`CSS-only boxes, controls, speech and wrappers passed at ${width}px`);
+    console.log(`No-JS native surface fallbacks passed at ${width}px`);
   }
-  assert.ok(await evaluate(`(() => { const node=document.querySelector('.mascot-box__bubble'); document.documentElement.dir='rtl'; const mirrored=getComputedStyle(node,'::after').transform.startsWith('matrix(-1'); document.documentElement.dir='ltr'; return mirrored && getComputedStyle(node).transform==='none'; })()`));
   // Check resolved tokens, not an intermediate frame of the theme-color transition.
   assert.ok(await evaluate(`(() => { const node=document.querySelector('.question'); document.documentElement.dataset.theme='light'; const light=getComputedStyle(node).getPropertyValue('--drawn-fill'); document.documentElement.dataset.theme='dark'; const dark=getComputedStyle(node).getPropertyValue('--drawn-fill'); delete document.documentElement.dataset.theme; return light!==dark; })()`));
   console.log('RTL decoration and semantic dark-theme fills passed');
-  // Native details toggling changes the full frame height without redrawing.
-  assert.ok(await evaluate(`(() => { const node=document.querySelector('.accordion'); const before=node.offsetHeight; node.open=true; return node.offsetHeight>before && getComputedStyle(node.querySelector('.drawn-frame'),'::after').maskImage!=='none'; })()`));
+  assert.ok(await evaluate(`(() => { const node=document.querySelector('.accordion'); const before=node.offsetHeight; node.open=true; return node.offsetHeight>before && getComputedStyle(node).borderTopStyle==='solid'; })()`));
   // Check final footer colors, not an intermediate theme/media transition.
   await evaluate(`document.querySelector('.site-footer').style.transition = 'none'`);
   for (const mode of ['print', 'forced-colors']) {
@@ -186,7 +184,7 @@ try {
       const button = form.querySelector('.search-submit');
       input.value = 'bike lanes';
       input.blur();
-      const populatedFill = getComputedStyle(input.parentElement, '::before').backgroundColor;
+       const populatedFill = getComputedStyle(input.parentElement.querySelector('.drawn-surface > path')).fill;
       const field = input.getBoundingClientRect();
       const box = button.getBoundingClientRect();
       let result;
@@ -225,7 +223,7 @@ try {
       await hover(selector, []);
       const idle = await inspect(selector);
       assert.equal(idle.fill, idle.tokens['accent-soft'], `${theme}: ${selector} idle fill`);
-      if (selector === '.visual-toc > a') assert.match(idle.mask, /frame-fill/);
+      if (selector === '.visual-toc > a') assert.equal(idle.mask, 'continuous-svg');
       else assert.ok(decodeURIComponent(idle.mask).includes(pebblePath), `${selector}: shared pebble artwork`);
       assert.equal(idle.after, 'none', `${selector} has no drawn outline`);
       assert.equal(idle.transform, 'none', `${selector} content stays untransformed`);
@@ -342,18 +340,17 @@ try {
   assert.ok(await evaluate(`(() => {
     const button=document.querySelector('[data-spoiler]');
     const text=button.querySelector('.spoiler-text');
-    const hidden=getComputedStyle(text).maskImage.includes('compact-fill') && getComputedStyle(text).color==='rgba(0, 0, 0, 0)';
+     const hidden=Boolean(text.querySelector('.drawn-surface > path')) && getComputedStyle(text).color==='rgba(0, 0, 0, 0)';
     button.click();
     text.style.transition='none';
-    const highlight=getComputedStyle(text,'::before');
+     const highlight=getComputedStyle(text.querySelector('.drawn-surface > path'));
     const probe=document.createElement('span');
     probe.style.background='var(--accent-soft)';
     text.append(probe);
     const revealed=button.getAttribute('aria-expanded')==='true'
       && getComputedStyle(text).maskImage==='none'
       && getComputedStyle(text).color!=='rgba(0, 0, 0, 0)'
-      && highlight.maskImage.includes('compact-fill')
-      && highlight.backgroundColor===getComputedStyle(probe).backgroundColor;
+       && highlight.fill===getComputedStyle(probe).backgroundColor;
     probe.remove();
     button.click();
     return hidden && revealed && button.getAttribute('aria-expanded')==='false' && getComputedStyle(button).maskImage==='none';
@@ -361,29 +358,30 @@ try {
   console.log('Hand-drawn spoiler masking and soft-green reveal highlight passed');
   assert.ok(await evaluate(`document.querySelectorAll('.figure__media.drawn-ready').length>0 && document.querySelectorAll('.question .drawn-outline, .accordion .drawn-outline, .mascot-box__bubble .drawn-outline').length===0`));
   assert.ok(await evaluate(`(() => {
-    const shells=[...document.querySelectorAll('.drawn-table-ready')].filter(node=>node.getBoundingClientRect().width>0);
+     const shells=[...document.querySelectorAll('.drawn-scroll-shell.drawn-ready:has(thead)')].filter(node=>node.getBoundingClientRect().width>0);
     return shells.length>0 && shells.every(shell=>{
-      const surface=shell.querySelector(':scope > .drawn-table-surface');
+       const surface=shell.querySelector(':scope > .drawn-surface');
       const header=shell.querySelector('thead');
-      const end=parseFloat(surface.style.getPropertyValue('--drawn-header-end'));
-      return getComputedStyle(surface).maskImage===getComputedStyle(shell,'::before').maskImage
-        && Math.abs(end-(header.getBoundingClientRect().bottom-shell.getBoundingClientRect().top))<1
+       const end=Number(surface.querySelector('stop').getAttribute('offset'))*surface.getBoundingClientRect().height;
+       return surface.querySelectorAll('path').length===1
+         && Math.abs(end-(header.getBoundingClientRect().bottom-surface.getBoundingClientRect().top))<1
         && getComputedStyle(header.querySelector('th')).backgroundColor==='rgba(0, 0, 0, 0)'
         && getComputedStyle(shell.querySelector('table')).clipPath==='none'
         && getComputedStyle(shell.querySelector('.table-scroll')).clipPath==='none';
     });
   })()`));
-  console.log('Measured header backgrounds share the CSS frame mask; content remains unclipped');
+   console.log('Measured header fill and outline share one continuous path; content remains unclipped');
   await call('Emulation.setDeviceMetricsOverride', { width: 390, height: 900, deviceScaleFactor: 1, mobile: false });
   await settle();
   assert.ok(await evaluate(`(() => {
-    const shell=[...document.querySelectorAll('.drawn-table-ready')].find(node=>node.getBoundingClientRect().width>0);
-    const end=parseFloat(shell.querySelector('.drawn-table-surface').style.getPropertyValue('--drawn-header-end'));
-    return Math.abs(end-(shell.querySelector('thead').getBoundingClientRect().bottom-shell.getBoundingClientRect().top))<1;
+     const shell=[...document.querySelectorAll('.drawn-scroll-shell.drawn-ready:has(thead)')].find(node=>node.getBoundingClientRect().width>0);
+     const surface=shell.querySelector('.drawn-surface');
+     const end=Number(surface.querySelector('stop').getAttribute('offset'))*surface.getBoundingClientRect().height;
+     return Math.abs(end-(shell.querySelector('thead').getBoundingClientRect().bottom-surface.getBoundingClientRect().top))<1;
   })()`));
   for (const mode of ['print', 'forced-colors']) {
     await call('Emulation.setEmulatedMedia', mode === 'print' ? { media: 'print' } : { media: 'screen', features: [{ name: 'forced-colors', value: 'active' }] });
-    assert.ok(await evaluate(`[...document.querySelectorAll('.drawn-table-surface')].every(node=>getComputedStyle(node).display==='none')`));
+     assert.ok(await evaluate(`[...document.querySelectorAll('.drawn-surface')].every(node=>getComputedStyle(node).display==='none')`));
   }
   console.log('Header resize and native print/forced-colors fallbacks passed');
   await call('Emulation.setEmulatedMedia', { media: 'screen', features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
@@ -446,6 +444,32 @@ try {
   await evaluate(`document.documentElement.dir = 'ltr'`);
   await evaluate(`document.querySelector('.drawer-toggle-float').click()`);
   console.log('Desktop/sidebar and mobile/drawer language placement passed');
+  await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
+  await call('Emulation.setEmulatedMedia', { media: 'screen', features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] });
+  const chapterLoaded = new Promise(resolve => events.set('Page.loadEventFired', resolve));
+  await call('Page.navigate', { url: `${site}/book/02-the-power-of-superblocks.html` });
+  await chapterLoaded;
+  await evaluate('document.fonts.ready');
+  for (const direction of ['prev', 'next']) {
+    const selector = `.pagination .${direction}`;
+    for (const pseudo of ['hover', 'focus-visible']) {
+      await hover(selector, []);
+      await evaluate(`Promise.all(document.querySelector('${selector} > .icon').getAnimations().map(animation => animation.finished))`);
+      const before = await evaluate(`(() => { const link=document.querySelector('${selector}'); const anchor=link.getBoundingClientRect(); const box=link.querySelector('[data-pagination-label]').getBoundingClientRect(); return {x:box.x-anchor.x,y:box.y-anchor.y,height:box.height}; })()`);
+      await hover(selector, [pseudo]);
+      await evaluate(`Promise.all(document.querySelector('${selector} > .icon').getAnimations().map(animation => animation.finished))`);
+      const after = await evaluate(`(() => { const link=document.querySelector('${selector}'); const anchor=link.getBoundingClientRect(); const box=link.querySelector('[data-pagination-label]').getBoundingClientRect(); return {x:box.x-anchor.x,y:box.y-anchor.y,height:box.height,transform:getComputedStyle(link.querySelector('.icon')).transform}; })()`);
+      assert.deepEqual({ x:after.x, y:after.y, height:after.height }, before, 'pagination labels never shift');
+      const matrix = after.transform.match(/matrix\(([^)]+)\)/)[1].split(',').map(Number);
+      assert.equal(matrix[4], direction === 'prev' ? -4 : 4, `${direction}: arrow moves in its pointing direction`);
+    }
+    await hover(selector, []);
+  }
+  await call('Emulation.setEmulatedMedia', { media:'screen', features:[{ name:'prefers-reduced-motion', value:'reduce' }] });
+  await hover('.pagination .next');
+  const reducedArrow = await evaluate(`getComputedStyle(document.querySelector('.pagination .next > .icon')).transform`);
+  assert.equal(Number(reducedArrow.match(/matrix\(([^)]+)\)/)[1].split(',')[4]), 0, 'reduced motion keeps the arrow stationary');
+  console.log('Pagination arrow hover/focus motion, stationary labels and reduced motion passed');
 } finally {
   await call('Page.close');
   socket.close();

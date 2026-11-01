@@ -32,7 +32,7 @@ const surfacePath = `M0 0V12${boundaryPath.replace(/^M/, 'L')}H960V0Z`;
   <div class="site-head-inner">
     <div class="site-head-main">
       <a class="brand" href={withBase(lang === DEFAULT_LANG ? '/' : `/${lang}/`)}>
-        <BrandLogo label={smartQuotes(text.name, lang)} />
+        <BrandLogo label={smartQuotes(text.name, lang)} animated />
       </a>
       <button type="button" class="menu-toggle" data-drawer-toggle aria-expanded="false" aria-label={t(lang, 'nav.menu', 'Menu')}>
         <span class="menu-icon"><Icon name="menu" /></span>

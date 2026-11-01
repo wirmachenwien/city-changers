@@ -47,7 +47,7 @@ test('focus border uses brand green, with pointer-only ring suppression excluded
   assert.match(css, /@media screen and \(forced-colors: none\) \{\s*\.search-box > input\[type="search"\]\[data-search-pointer-focus\]:focus \{\s*outline: none;/);
   assert.match(css, /:focus-visible \{\s*outline: 3px solid var\(--focus\);/);
   assert.ok(drawn.includes('.search-box:focus-within { --drawn-stroke: var(--accent); }'));
-  assert.ok(drawn.includes('.search-box > input[type="search"]:focus { border-color: transparent; }'));
+  assert.ok(drawn.includes('.search-box.drawn-ready > input[type="search"]:focus { border-color: transparent; }'));
 });
 
 test('search border turns green only on focus, while the magnifier also turns green on hover', () => {

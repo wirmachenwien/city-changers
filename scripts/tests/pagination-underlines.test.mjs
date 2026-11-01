@@ -1,7 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parseHTML } from 'linkedom';
+import { readFileSync } from 'node:fs';
 import { initPaginationUnderlines } from '../../src/scripts/pagination-underlines.ts';
+
+test('pagination arrows nudge in their pointing direction on hover and keyboard focus without moving labels', () => {
+  const css = readFileSync(new URL('../../src/styles/global.css', import.meta.url), 'utf8');
+  assert.match(css, /@media screen and \(prefers-reduced-motion: no-preference\) \{\s*\.pagination a > \.icon \{\s*transition: transform 180ms ease-out;/);
+  assert.match(css, /\.pagination \.prev:is\(:hover, :focus-visible\) > \.icon \{\s*transform: translate\(-0\.25rem, 0\.15rem\);/);
+  assert.match(css, /\.pagination \.next:is\(:hover, :focus-visible\) > \.icon \{\s*transform: translate\(0\.25rem, 0\.15rem\);/);
+  assert.doesNotMatch(css, /\.pagination (?:a|\[data-pagination-label\]):is\(:hover, :focus-visible\)\s*\{[^}]*transform:/);
+});
 
 function environment({ supported = true } = {}) {
   const { document } = parseHTML('<html><body><nav class="pagination"><a href="/next" data-link-underline="pagination"><span data-pagination-label><span data-pagination-text>03 Tactical urbanism and street design</span></span></a></nav></body></html>');

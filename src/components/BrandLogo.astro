@@ -5,22 +5,36 @@ import lockup from '../assets/site/logo-lockup.svg?url';
 import lockupDark from '../assets/site/logo-lockup-dark.svg?url';
 import symbol from '../assets/site/logo.svg?url';
 import symbolDark from '../assets/site/logo-dark.svg?url';
+import idle from '../assets/mascot/lottie/green-fix-idle-ink.json?url';
+import idleDark from '../assets/mascot/lottie/green-fix-idle-linen.json?url';
 
 interface Props {
   variant?: 'lockup' | 'symbol';
   label?: string;
+  animated?: boolean;
 }
 
-const { variant = 'lockup', label = '' } = Astro.props;
+const { variant = 'lockup', label = '', animated = false } = Astro.props;
 const width = variant === 'lockup' ? 960 : 256;
 ---
-<span class:list={['brand-art', `brand-art--${variant}`]} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'}>
+<span class:list={['brand-art', `brand-art--${variant}`]} data-brand-animation={animated || undefined} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'}>
   <img class="brand-art__light" src={variant === 'lockup' ? lockup : symbol} alt="" width={width} height="256" loading="eager" decoding="async" />
   <img class="brand-art__dark" src={variant === 'lockup' ? lockupDark : symbolDark} alt="" width={width} height="256" loading="eager" decoding="async" />
+  {animated && <span class="brand-art__mascot" aria-hidden="true">
+    <span class="brand-art__animation brand-art__light" data-brand-animation-src={idle} />
+    <span class="brand-art__animation brand-art__dark" data-brand-animation-src={idleDark} />
+  </span>}
 </span>
+
+<script>
+  import { initBrandMascot } from '../scripts/brand-mascot';
+  initBrandMascot();
+</script>
 
 <style>
   .brand-art {
+    --brand-mascot-width: 26.6666666667%;
+    position: relative;
     display: inline-block;
     /* A percentage inside min() has no intrinsic contribution in the
        desktop auto-sized flex item. Use a definite preferred width instead. */
@@ -31,16 +45,27 @@ const width = variant === 'lockup' ? 960 : 256;
     vertical-align: middle;
     line-height: 0;
   }
-  .brand-art--symbol { inline-size: 5rem; }
+  .brand-art--symbol { --brand-mascot-width: 100%; inline-size: 5rem; }
   .brand-art img { display: block; inline-size: 100%; block-size: auto; }
   .brand-art .brand-art__dark { display: none; }
+  /* Artwork coordinates stay left-to-right even inside an RTL page. */
+  .brand-art__mascot { display: none; position: absolute; inset-block: .375rem; left: 0; inline-size: var(--brand-mascot-width); pointer-events: none; }
+  .brand-art__animation { position: absolute; inset: 0; display: block; }
+  .brand-art[data-brand-ready] > img { clip-path: inset(0 0 0 var(--brand-mascot-width)); }
+  .brand-art[data-brand-ready] .brand-art__mascot { display: block; }
   :global(:root[data-theme="dark"]) .brand-art__light { display: none; }
   :global(:root[data-theme="dark"]) .brand-art__dark { display: block; }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme])) .brand-art__light { display: none; }
     :global(:root:not([data-theme])) .brand-art__dark { display: block; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .brand-art[data-brand-ready] > img { clip-path: none; }
+    .brand-art[data-brand-ready] .brand-art__mascot { display: none; }
+  }
   @media print {
+    .brand-art[data-brand-ready] > img { clip-path: none; }
+    .brand-art[data-brand-ready] .brand-art__mascot { display: none; }
     .brand-art .brand-art__light { display: block !important; }
     .brand-art .brand-art__dark { display: none !important; }
   }
