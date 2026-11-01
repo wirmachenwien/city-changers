@@ -30,7 +30,7 @@
     { "id": "play", "label": "Play video", "sources": ["src/components/Figure.astro"] },
     { "id": "chevron-right", "label": "Breadcrumb separator", "sources": ["src/components/Breadcrumbs.astro"] },
     { "id": "disclosure", "label": "Expand / collapse", "sources": ["src/components/Accordion.astro", "src/components/ExpandableBox.astro"] },
-    { "id": "heading-anchor", "label": "Heading permalink", "sources": ["src/scripts/headings.ts"] },
+    { "id": "heading-anchor", "label": "Heading permalink", "sources": ["src/lib/render-prose.mjs"] },
     { "id": "spark", "label": "Spark", "accent": true, "sources": ["src/styles/global.css", "src/styles/print.css", "src/styles/epub.css"] },
     { "id": "spark-outline", "label": "Spark outline", "accent": true, "sources": ["src/styles/global.css", "src/styles/print.css", "src/styles/epub.css"] },
     { "id": "sprout", "label": "Sprout", "accent": true, "sources": ["design/icons/drawn/sprout.svg"] },

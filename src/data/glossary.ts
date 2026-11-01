@@ -1,7 +1,7 @@
 // Glossary terms: single source of truth in glossary.json (editable via
 // PagesCMS, like works.json and nav.json). This module validates it and
-// exposes typed access plus the term matcher for the client-side
-// highlighter (src/scripts/glossary-terms.ts). `forms` lists inflected
+// exposes typed access plus the term matcher for the build-time
+// highlighter (src/lib/render-prose.mjs). `forms` lists inflected
 // surface forms found in chapter texts; when empty it defaults to [term],
 // so newly added terms match in their base form right away.
 import { z } from 'zod';
@@ -40,7 +40,7 @@ export const glossaryTerms: Record<Language, GlossaryTerm[]> = Object.fromEntrie
   languages.map((lang) => [lang, parsed[lang].map(withDefaultForms)]),
 ) as Record<Language, GlossaryTerm[]>;
 
-// --- Matcher (pure logic shared by the browser highlighter and tests) ---
+// --- Matcher (pure logic shared by the prose renderer and checks) ---
 
 export interface GlossaryMatcher {
   pattern: RegExp;

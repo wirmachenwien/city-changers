@@ -123,8 +123,8 @@
 
 html {
   scroll-behavior: smooth;
-  /* Opaque page base so the status-bar / overscroll zone around the notch /
-     Dynamic Island is always paper, never white or transparent. */
+  /* Native fallback; screen overscroll paint is separated from page content
+     below so Safari cannot substitute the content's paper background. */
   background: var(--paper);
   /* Runtime-measured sticky-header height (+ margin); falls back to a
      desktop-sized header when JS is unavailable. */
@@ -138,6 +138,46 @@ body {
   font-family: var(--font-text);
   font-size: 1.15rem;
   line-height: 1.65;
+}
+
+@media screen and (forced-colors: none) {
+  html {
+    --overscroll-surface: var(--accent-soft);
+    --overscroll-direction: to right;
+    background-color: var(--overscroll-surface);
+    /* Safari otherwise sometimes substitutes meta theme-color for the page
+       canvas. A repeating transparent image keeps the page background active. */
+    background-image: linear-gradient(transparent, transparent);
+    background-repeat: repeat;
+  }
+  html[dir="rtl"] { --overscroll-direction: to left; }
+  html[data-scroll-edge="footer"] { --overscroll-surface: var(--warm-soft); }
+  body { background: transparent; }
+  .page-canvas {
+    min-block-size: 100vh;
+    min-block-size: 100dvh;
+    background: var(--paper);
+  }
+  /* A fixed layer remains behind the document as native rubber-banding moves
+     content. Its top continues the progress bar's filled upper edge, using
+     the very same percentage (not a second calculation or stretched stroke).
+     Without JS or on a non-scrolling page, keep both edge colors available. */
+  html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--overscroll-direction), var(--accent) 0%, var(--accent) var(--reading-progress, 0%), var(--accent-soft) var(--reading-progress, 0%), var(--accent-soft) 100%),
+      linear-gradient(var(--warm-soft), var(--warm-soft));
+    background-position: top, bottom;
+    background-size: 100% 50%, 100% 50%;
+    background-repeat: no-repeat;
+  }
+  /* Expand the active edge to the full viewport for deep elastic pulls. */
+  html[data-scrollable="true"][data-scroll-edge="header"]::before { background-size: 100% 100%, 100% 0%; }
+  html[data-scrollable="true"][data-scroll-edge="footer"]::before { background-size: 100% 0%, 100% 100%; }
 }
 
 img,
@@ -1777,9 +1817,10 @@ html:not(.js-fold) .accordion-content {
 }
 
 .content-popup-close {
+  --popup-close-inset: -1.125rem;
   position: absolute;
-  inset-block-start: -1.375rem;
-  inset-inline-end: -1.375rem;
+  inset-block-start: var(--popup-close-inset);
+  inset-inline-end: var(--popup-close-inset);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2129,6 +2170,8 @@ html:not(.js-fold) .accordion-content {
 /* ---------- Bookmarks / reading progress ---------- */
 
 .reading-progress {
+  /* Keep the progress fill and overscroll continuation in exact theme sync. */
+  transition: none;
   position: fixed;
   inset-block-start: env(safe-area-inset-top, 0px);
   inset-inline-start: 0;

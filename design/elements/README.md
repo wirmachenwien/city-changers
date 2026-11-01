@@ -35,14 +35,22 @@ sources are not recipient-kit assets.
 
 ## Integration
 
+- Ordinary prose/footer links use server-rendered text-only labels and
+  `src/styles/text-link-underlines.css`. `box-decoration-break: clone` repeats
+  the Quiet rule on wrapped lines; hover/focus adds the second stroke. Theme
+  backgrounds are generated from `design/colors.json` by `colors:generate`.
+  Pebble labels and native-select text mirrors use CSS-only hover/focus masks
+  in their inherited/semantic text color. Icons and accessible notices are not
+  underlined. `link-underlines.ts` skips these links entirely and retains its
+  measured implementation for other controls, navigation and dynamic links.
 - `src/styles/drawn-elements.css` imports the eight rule/rail masters directly.
   `FeatureBox.astro` imports short, medium and original tall brackets, split into
   fixed 24px caps and a variable middle with non-scaling strokes.
   `src/scripts/feature-brackets.ts` observes the full box height and selects short
   below 80px, medium below 136px, and tall otherwise. It follows wrapping, font
   loading and content changes, and releases detached boxes. Only decoration
-  changes; content spacing and focus rings remain untouched. Before measurement
-  or without ResizeObserver/JS, a simple accent line replaces the bracket.
+   changes; content spacing and focus rings remain untouched. Before measurement
+   or without ResizeObserver/JS, the server-rendered short bracket remains visible.
   Default green and warm amber are preserved, and RTL mirrors the bracket.
   Colors
   use the semantic tokens from `design/colors.json`, never baked-in palette copies.
@@ -54,10 +62,24 @@ sources are not recipient-kit assets.
   detached surfaces and headers are unobserved, and reinsertion reuses the SVG.
   Page height and scrolling are not observed. Corners, stroke weights and tails
   stay in CSS pixels. Hover transforms only paint, never measured SVG bounds.
-  Native boundaries remain until `drawn-ready`, without JS and in print/forced
-  colors. Single-piece pebbles and rule masks remain CSS-only.
-  The masthead background overlaps the fully filled SVG top by 1 CSS pixel;
-  the visible wave does not move.
+   `src/styles/drawn-baseline.css` paints nine-slice fill/stroke masks before
+   `drawn-ready` and without JS; the measured SVG replaces these atomically.
+   Both use the same geometry and semantic colors. The generated CSS inlines
+   mask crops, so first paint needs no additional image requests. Corners keep
+   their CSS-pixel sizes; only middle slices stretch. Every mask tile has an
+   explicit clip path and intrinsic dimensions: a viewBox alone does not
+   contain overflow. Generated positions use actual cut offsets, not centering,
+   so asymmetric speech-tail slices join correctly. Native boundaries remain
+   in print, forced colors and browsers without mask support. Single-piece
+   pebbles and rule masks remain CSS-only.
+   The masthead background overlaps the fully filled SVG top by 1 CSS pixel;
+   the visible wave does not move.
+   The reading stroke and top rubber-band background inherit one root
+   `--reading-progress` value, including RTL direction. An opaque `.page-canvas`
+   separates content from the fixed overscroll paint behind it; the lower edge
+   uses the footer's warm-soft surface, without a second progress indicator.
+   Edge selection reuses the existing progress scheduler, even on pages without
+   a reading bar. Native scrolling and print/forced-color fallbacks are retained.
 - Run `npm run elements:build` after changing `geometry.js`. This exports only
   eight palette-free SVG masks and `frames/frames.css`; it never touches mascot
   media. `npm run elements:check` verifies freshness of the retained static
@@ -69,23 +91,32 @@ sources are not recipient-kit assets.
   scrollable table/code content at build time. The shared surface renderer measures
   header height and uses a hard-stop SVG gradient on the outer frame path.
   Table text, scrolling and focus indicators remain unclipped. Before measurement
-  or without JS, native table backgrounds and boundaries remain.
+   or without JS, a masked decorative layer on the actual `thead` paints only
+   the header (including wrapped/multi-row headers), leaving body cells clear.
+   CSS hover/focus transforms affect decoration in both baseline and measured
+   controls, without moving their text, hit areas or native focus indicators.
+   Exact-size paths, header gradients and media clips remain JS refinements.
   Print and forced colors retain native cell backgrounds and borders.
 - Theme toggles and mobile menu/close toggles use the shared pebble silhouette.
   Their idle fill matches the current surface (`accent-soft` in the masthead,
   `paper` in the drawer); hover and keyboard focus reveal a stronger soft-green
   fill. Only background paint is masked, leaving icons and focus rings intact.
+- Popup close faces, continue-reading close buttons and bookmark delete/pin
+  controls use that same CSS-only pebble. Separate edge/fill layers preserve
+  outlined inverse controls without masking their X icons or focus indicators.
+  Existing target sizes, gutter positions and popup press/reveal behavior stay
+  unchanged; circular box shadows are removed with the old circular paint.
 - Rails use context rather than measured height: sidebar links default to short,
   quotes to tall. An explicit `data-rail-size="short|medium|tall"` selects a crop
-  where needed; medium still selects Gentle. Licence panels keep a native accent.
+   where needed; medium still selects Gentle.
 - The short Natural SVG uses the tall Natural path with a y=44 viewport crop;
   medium Gentle uses its original Gentle path with a y=92 crop. Mask lengths
   remain at least 32/80/240px, cropping in shorter space rather than compressing
   a long wave. They extend only when the available space exceeds the source length.
 - The shared renderer measures image/video stages for exact clipping,
-  backed by the original `framePath`. Before enhancement or without JS, media
-  uses a normal border in the same semantic color, not a drawn overlay on the
-  rectangular image. Captions and focus rings stay unclipped.
+   backed by the original `framePath`. Before enhancement or without JS, the
+   baseline masks the media stage to the matching nine-slice silhouette.
+   Captions and host focus rings stay unclipped.
 - Speech tails are part of the perimeter, not an attached overlay. A shared media
   query chooses side/top tails; RTL mirrors only the decorative path. SVG overflow
   preserves negative-coordinate tails without stretching the shape.

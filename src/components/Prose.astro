@@ -1,0 +1,22 @@
+---
+// One renderer for complete prose, including embedded Astro component output.
+import { renderProse } from '../lib/render-prose.mjs';
+import { t } from '../lib/i18n';
+import { site } from '../../handbook.config';
+import type { Language } from '../data/locales';
+
+interface Props {
+  lang: Language;
+  glossary?: boolean;
+  class?: string;
+  externalLinks?: boolean;
+}
+const { lang, glossary = false, class: className, externalLinks = true } = Astro.props;
+const content = renderProse(await Astro.slots.render('default'), {
+  lang,
+  glossary,
+  anchorLabel: t(lang, 'headings.link-to-section', 'Link to this section'),
+  external: externalLinks ? { site, notice: t(lang, 'external-link-notice') } : undefined,
+});
+---
+<div class:list={['prose', className]} data-prose data-glossary-terms={glossary || undefined} set:html={content} />

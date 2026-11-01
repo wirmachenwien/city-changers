@@ -1,5 +1,5 @@
-/* Continuous SVGs paint measured surfaces; native boundaries remain until
-   ready and in print, forced colors, unsupported browsers and without JS. */
+/* Continuous SVGs refine the CSS baseline in drawn-baseline.css. Native
+   boundaries remain in print, forced colors and unsupported browsers. */
 .drawn-surface { display: none; }
 .site-head__edge, .feature-box__bracket { display: none; }
 .drawn-link-rule { display: none; }
@@ -10,6 +10,84 @@
 
 @media screen and (forced-colors: none) {
   @supports (mask-image: url('')) {
+    /* X controls share the same pebble as secondary actions. Only decorative
+       layers are masked: icons, focus rings and existing hit areas stay native.
+       The inset fill leaves a pebble outline where a control needs one. */
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button) {
+      isolation: isolate;
+      border-radius: 0;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      --x-pebble-fill: var(--paper);
+      --x-pebble-edge: var(--x-pebble-fill);
+    }
+    .content-popup-close-face, .bookmark-pin, .bookmark-delete { position: relative; }
+    .last-visit-toast button { position: relative; }
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::before,
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat;
+    }
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::before {
+      inset: 0;
+      z-index: -2;
+      background: var(--x-pebble-edge);
+    }
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::after {
+      inset: 1px;
+      z-index: -1;
+      background: var(--x-pebble-fill);
+    }
+    .content-popup-close:focus-visible .content-popup-close-face {
+      --x-pebble-fill: var(--accent);
+      background: transparent;
+    }
+    @media (hover: hover) {
+      .content-popup-close:hover .content-popup-close-face {
+        --x-pebble-fill: var(--accent);
+        background: transparent;
+      }
+    }
+    .content-popup-close:active:hover .content-popup-close-face,
+    .content-popup-close:active:focus-visible .content-popup-close-face {
+      --x-pebble-fill: var(--ink);
+      background: transparent;
+    }
+    .bookmark-pin { --x-pebble-edge: var(--ink); }
+    .bookmark-pin.is-saved {
+      --x-pebble-fill: var(--accent);
+      border-color: transparent;
+      background: transparent;
+    }
+    .bookmark-pin:is(.is-pending, .is-saved):is(:hover, :focus-visible) {
+      --x-pebble-fill: var(--ink);
+      border-color: transparent;
+      background: transparent;
+    }
+    .bookmark-pin.is-pending:is(:hover, :focus-visible) { color: var(--paper); }
+    .bookmark-pin.is-saved { --x-pebble-edge: var(--accent); }
+    .bookmark-pin.is-saved:is(:hover, :focus-visible) { --x-pebble-edge: var(--ink); }
+    .bookmark-delete { --x-pebble-fill: transparent; --x-pebble-edge: transparent; }
+    .bookmark-delete:is(:hover, :focus-visible) {
+      --x-pebble-fill: var(--ink);
+      --x-pebble-edge: var(--ink);
+      background: transparent;
+    }
+    .last-visit-toast button { --x-pebble-fill: var(--ink); --x-pebble-edge: var(--paper); }
+    .last-visit-toast button:is(:hover, :focus-visible) {
+      --x-pebble-fill: var(--paper);
+      background: transparent;
+      color: var(--ink);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .content-popup-close-face::before, .content-popup-close-face::after {
+        transition: background-color 180ms ease-out;
+      }
+    }
+
     /* Icon toggles use a surface-colored pebble at rest. Only its paint is
        masked; the icon, native focus ring and 44px hit target stay intact. */
     .theme-toggle, .menu-toggle {
@@ -227,9 +305,9 @@
       --drawn-fill: var(--accent-soft);
     }
     .drawn-select::before { mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat; }
-    .drawn-select:hover { --drawn-fill: var(--pebble-hover); }
-    .drawn-select:hover > select { background: transparent; color: var(--pebble-hover-ink); }
-    .drawn-select:hover > .drawn-select__chevron { color: var(--pebble-hover-ink); }
+    .drawn-select:is(:hover, :focus-within) { --drawn-fill: var(--pebble-hover); }
+    .drawn-select:is(:hover, :focus-within) > select { background: transparent; color: var(--pebble-hover-ink); }
+    .drawn-select:is(:hover, :focus-within) > .drawn-select__chevron { color: var(--pebble-hover-ink); }
     .drawn-select::after { display: none; }
     .drawn-select__chevron {
       display: block;
@@ -263,7 +341,7 @@
       white-space: nowrap;
       pointer-events: none;
     }
-    .drawn-select:hover > .drawn-select__value::after {
+    .drawn-select:is(:hover, :focus-within) > .drawn-select__value::after {
       content: '';
       position: absolute;
       inset-inline: 0;
@@ -274,7 +352,7 @@
     }
     @media (prefers-reduced-motion: no-preference) {
       :is(.button-link, .question button[type="submit"], .search-form button, .visual-toc > a) > .drawn-surface > path { transform-box: view-box; transform-origin: center; transition: transform 160ms ease-out; }
-      :is(.button-link, .question button[type="submit"], .search-form button, .visual-toc > a):hover > .drawn-surface > path { transform: scale(1.025, 1.04); }
+      :is(.button-link, .question button[type="submit"], .search-form button, .visual-toc > a):is(:hover, :focus-visible) > .drawn-surface > path { transform: scale(1.025, 1.04); }
       .drawn-select::before,
       :is(.share-btn, .share a, .copy-btn, .language-switcher a, .slides .slide-nav button, .visual-toc > a)::before { transition: transform 160ms ease-out, background-color 160ms ease-out; }
       .drawn-select__chevron { transition: transform 160ms ease-out, color 160ms ease-out; }
@@ -335,12 +413,9 @@
     .table-scroll table > :is(thead, tbody, tfoot):last-child > tr:last-child > :is(th, td) { border-block-end: 0; }
     .table-scroll table > :is(thead, tbody, tfoot):last-child > tr:last-child > :is(th, td)::after { display: none; }
 
-    /* Until clipping is ready, use a normal border in the same color. A CSS
-       drawn outline would otherwise overlap the still-rectangular media. */
     /* Let the irregular image edge bleed out, rather than indenting captions
        away from the surrounding text column. Logical margins also cover RTL. */
     .figure__media { overflow: visible; margin-inline: -.375rem; }
-    .figure .figure__media:not(.drawn-ready) { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
     .figure__media::before, .figure__media::after { display: none; }
     .figure__media.drawn-ready > .figure__stage { overflow: hidden; }
     .figure__media.drawn-ready img { border-radius: 0; }

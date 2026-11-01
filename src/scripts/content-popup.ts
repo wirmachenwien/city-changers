@@ -1,5 +1,6 @@
 // Shared, non-modal explanatory popups for definitions and footnotes.
 // Fixed positioning is recalculated from the trigger on every scroll frame.
+// Hover previews; the first click pins, and a second click closes.
 import { iconSvg } from '../lib/icons.ts';
 interface PopupOptions {
   content: () => string | Node;
@@ -21,7 +22,7 @@ interface PopupState {
 const openPopups = new Map<HTMLElement, PopupState>();
 let preview: PopupState | undefined;
 
-export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): void {
+export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): { open: () => void } {
   const id = `content-popup-${++nextId}`;
   const describedBy = trigger.getAttribute('aria-describedby');
   trigger.removeAttribute('title');
@@ -32,7 +33,8 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
     event.preventDefault();
     const existing = openPopups.get(trigger);
     if (existing) {
-      existing.pin();
+      if (existing.pinned) existing.close();
+      else existing.pin();
       return;
     }
     open(true);
@@ -106,10 +108,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
     }
     function pin(): void {
       cancelDismiss();
-      if (pinned) {
-        closer.focus({ preventScroll: true });
-        return;
-      }
+      if (pinned) return;
       pinned = true;
       state.pinned = true;
       if (preview === state) preview = undefined;
@@ -156,17 +155,22 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
       const gap = 8;
       // Reserve the close control's space even while hidden in a hover
       // preview, so revealing it never shifts or resizes the popup.
-      const corner = parseFloat(getComputedStyle(closer).inlineSize) / 2;
+      const closeStyle = getComputedStyle(closer);
+      const inlineInset = parseFloat(closeStyle.insetInlineEnd);
+      const blockInset = parseFloat(closeStyle.insetBlockStart);
+      const fallbackOutset = parseFloat(closeStyle.inlineSize) / 2;
+      const inlineOutset = Number.isFinite(inlineInset) ? Math.max(0, -inlineInset) : fallbackOutset;
+      const blockOutset = Number.isFinite(blockInset) ? Math.max(0, -blockInset) : fallbackOutset;
       const column = trigger.closest('[data-prose], .prose') ?? trigger.closest('main');
       const bounds = column?.getBoundingClientRect();
-      const minLeft = Math.max(gap + corner, bounds?.left ?? gap + corner);
-      const maxRight = Math.min(viewport.clientWidth - gap - corner, bounds?.right ?? viewport.clientWidth - gap - corner);
+      const minLeft = Math.max(gap + inlineOutset, bounds?.left ?? gap + inlineOutset);
+      const maxRight = Math.min(viewport.clientWidth - gap - inlineOutset, bounds?.right ?? viewport.clientWidth - gap - inlineOutset);
       popup.style.maxInlineSize = `min(20rem, ${Math.max(0, maxRight - minLeft)}px)`;
-      const minTop = navbarBottom + gap + corner;
+      const minTop = navbarBottom + gap + blockOutset;
       const maxBottom = viewport.clientHeight - gap;
       popup.style.maxBlockSize = `${Math.max(0, maxBottom - minTop)}px`;
       const size = popup.getBoundingClientRect();
-      const anchorGap = 3;
+      const anchorGap = 0;
       const below = rect.bottom + anchorGap;
       const above = rect.top - anchorGap - size.height;
       const preferred = below + size.height <= maxBottom ? below : above;
@@ -236,4 +240,14 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
     position();
     if (pinned && popup.isConnected) closer.focus({ preventScroll: true });
   }
+
+  // Navigation actions need an explicit open operation, not a synthetic click
+  // whose meaning is now toggle. Keep an already-pinned popup in place.
+  return {
+    open: () => {
+      const existing = openPopups.get(trigger);
+      if (existing) existing.pin();
+      else open(true);
+    },
+  };
 }

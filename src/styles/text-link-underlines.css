@@ -1,0 +1,45 @@
+/* Inline backgrounds fragment with text, rather than measuring each line in
+   JS. Only the labels receive paint; icons and accessible notices do not. */
+@media screen and (forced-colors: none) {
+  @supports (box-decoration-break: clone) or (-webkit-box-decoration-break: clone) {
+    [data-css-underline="text"] {
+      --text-link-rule: var(--link-rule-accent);
+      text-decoration-line: none;
+    }
+    [data-css-underline="text"]:hover { --text-link-rule: var(--link-rule-link-hover); }
+    .footer-text [data-css-underline="text"] { --text-link-rule: var(--link-rule-ink-soft); }
+    .footer-text [data-css-underline="text"]:hover { --text-link-rule: var(--link-rule-footer-link-hover); }
+    [data-css-underline="text"] [data-text-link-label] {
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      /* Inline vertical padding expands paint, not surrounding line height.
+         Leave room for the second Quiet stroke on hover/keyboard focus. */
+      padding-block-end: 10px;
+      background-image: var(--text-link-rule), var(--text-link-rule);
+      background-position: center calc(100% - 3px), center bottom;
+      background-size: max(100%, 480px) 12px, 0 0;
+      background-repeat: no-repeat;
+    }
+    [data-css-underline="text"]:is(:hover, :focus-visible) [data-text-link-label] {
+      background-size: max(100%, 480px) 12px, max(100%, 480px) 12px;
+    }
+  }
+
+  @supports (mask-image: url('')) {
+    [data-css-underline="pebble"] { text-decoration-line: none; }
+    :is(.copy-btn, .share-btn, .share a, .language-switcher a)[data-css-underline="pebble"]:is(:hover, :focus-visible) {
+      text-decoration-line: none;
+    }
+    [data-pebble-label] { display: inline-block; position: relative; }
+    [data-css-underline="pebble"]:is(:hover, :focus-visible) > [data-pebble-label]::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: -.3em;
+      block-size: 12px;
+      pointer-events: none;
+      background: currentColor;
+      mask: url('../../design/elements/lines/divider.svg') center / max(100%, 480px) 100% no-repeat;
+    }
+  }
+}

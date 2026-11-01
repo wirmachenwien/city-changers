@@ -26,7 +26,8 @@ const brackets = [
   return { size, path, slices: ['0 0 32 24', `0 24 32 ${height - 48}`, `0 ${height - 24} 32 24`] };
 });
 ---
-<aside class="feature-box" data-tone={tone}>
+<!-- Start with real artwork; JS only refines the variant for the measured height. -->
+<aside class="feature-box" data-tone={tone} data-bracket-size="short">
   <span class="feature-box__bracket" aria-hidden="true">
     {brackets.map(({ size, path, slices }) => (
       <span class="feature-box__bracket-variant" data-bracket-variant={size}>

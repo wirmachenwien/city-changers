@@ -295,7 +295,7 @@ window.iconCatalog = [
     "id": "heading-anchor",
     "label": "Heading permalink",
     "sources": [
-      "src/scripts/headings.ts"
+      "src/lib/render-prose.mjs"
     ],
     "brand": false,
     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 3q-3 9-4 18M18 3q-1 10-4 18M4 9q8-1 17 0M3 15q8 1 17 0\"/></svg>",

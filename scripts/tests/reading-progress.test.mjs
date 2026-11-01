@@ -23,24 +23,28 @@ test('progress reveals the line, clamps overscroll and follows changing page hei
     initReadingProgress();
     initReadingProgress();
     assert.equal(bar.hidden, false);
-    assert.equal(bar.style.getPropertyValue('--reading-progress'), '0%');
+    assert.equal(document.documentElement.style.getPropertyValue('--reading-progress'), '0%');
+    assert.equal(document.documentElement.dataset.scrollEdge, 'header');
+    assert.equal(document.documentElement.dataset.scrollable, 'true');
+    assert.equal(bar.style.getPropertyValue('--reading-progress'), '', 'the bar inherits the shared value instead of keeping a separate copy');
     for (const [position, expected] of [[600, '50%'], [1200, '100%'], [1500, '100%'], [-20, '0%']]) {
       globalThis.scrollY = position;
       events.get('scroll')();
       events.get('scroll')();
       assert.equal(frames.length, 1, 'scroll events coalesce into one paint');
       flush();
-      assert.equal(bar.style.getPropertyValue('--reading-progress'), expected);
+      assert.equal(document.documentElement.style.getPropertyValue('--reading-progress'), expected);
+      assert.equal(document.documentElement.dataset.scrollEdge, position >= 1200 ? 'footer' : 'header');
     }
     globalThis.scrollY = 600;
     height = 3200;
     resized();
     flush();
-    assert.equal(bar.style.getPropertyValue('--reading-progress'), '25%');
+    assert.equal(document.documentElement.style.getPropertyValue('--reading-progress'), '25%');
     height = 600;
     events.get('resize')();
     flush();
-    assert.equal(bar.style.getPropertyValue('--reading-progress'), '0%');
+    assert.equal(document.documentElement.style.getPropertyValue('--reading-progress'), '0%');
     assert.ok(!bar.style.transform, 'the shared stroke must never be horizontally squashed');
   } finally {
     for (const [key, descriptor] of previous) {
@@ -66,4 +70,61 @@ test('brand guide mounts the same decorative green progress component used by bo
   const drawn = read('src/styles/drawn-elements.css');
   assert.ok(drawn.includes('.reading-progress { block-size: 6px; background: transparent; color: var(--accent); }'));
   assert.match(drawn, /\.reading-progress__line \{\s*display: block;[^}]*inset-block-start: -2px;[^}]*block-size: 12px;/);
+});
+
+test('overscroll edge colors also update without a progress bar, including non-scrolling pages', () => {
+  const { document } = parseHTML('<html><body><div class="page-canvas">Short page</div></body></html>');
+  const frames = [], events = new Map(), counts = new Map();
+  let height = 2000;
+  Object.defineProperty(document.documentElement, 'scrollHeight', { get: () => height });
+  const globals = {
+    document, window: {}, innerHeight: 800, scrollY: 0,
+    requestAnimationFrame: callback => frames.push(callback),
+    addEventListener: (name, callback) => { events.set(name, callback); counts.set(name, (counts.get(name) ?? 0) + 1); },
+  };
+  const previous = new Map(Object.keys(globals).map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]));
+  for (const [key, value] of Object.entries(globals)) Object.defineProperty(globalThis, key, { value, configurable: true, writable: true });
+  try {
+    initReadingProgress(); initReadingProgress();
+    assert.equal(counts.get('scroll'), 1);
+    assert.equal(counts.get('resize'), 1);
+    assert.equal(document.documentElement.dataset.scrollEdge, 'header');
+    for (const [position, expected] of [[1200, 'footer'], [1500, 'footer'], [-20, 'header']]) {
+      globalThis.scrollY = position;
+      events.get('scroll')();
+      frames.splice(0).forEach(callback => callback());
+      assert.equal(document.documentElement.dataset.scrollEdge, expected);
+    }
+    height = 800;
+    for (const [position, expected] of [[20, 'footer'], [-20, 'header'], [0, 'header']]) {
+      globalThis.scrollY = position;
+      events.get('scroll')();
+      frames.splice(0).forEach(callback => callback());
+      assert.equal(document.documentElement.dataset.scrollEdge, expected);
+      assert.equal(document.documentElement.dataset.scrollable, 'false');
+    }
+    assert.equal(document.documentElement.style.getPropertyValue('--reading-progress'), '', 'no progress fill is invented on pages without a bar');
+  } finally {
+    for (const [key, descriptor] of previous) {
+      if (descriptor) Object.defineProperty(globalThis, key, descriptor);
+      else delete globalThis[key];
+    }
+  }
+});
+
+test('the top overscroll fill shares progress geometry/direction and the bottom stays footer-colored', () => {
+  const read = path => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
+  const css = read('src/styles/global.css');
+  const layout = read('src/layouts/BaseLayout.astro');
+  assert.match(layout, /<div class="page-canvas">[\s\S]*<Masthead[\s\S]*<Footer[\s\S]*<\/div>/);
+  assert.match(css, /body \{ background: transparent; \}/);
+  assert.match(css, /\.page-canvas \{[^}]*background: var\(--paper\);/);
+  assert.match(css, /html::before \{[^}]*position: fixed;[^}]*z-index: -1;[^}]*pointer-events: none;/);
+  assert.match(css, /linear-gradient\(var\(--overscroll-direction\), var\(--accent\) 0%, var\(--accent\) var\(--reading-progress, 0%\), var\(--accent-soft\) var\(--reading-progress, 0%\)/);
+  assert.match(css, /html\[dir="rtl"\] \{ --overscroll-direction: to left; \}/);
+  assert.match(css, /html\[data-scroll-edge="footer"\] \{ --overscroll-surface: var\(--warm-soft\); \}/);
+  assert.match(css, /html\[data-scrollable="true"\]\[data-scroll-edge="footer"\]::before \{ background-size: 100% 0%, 100% 100%; \}/);
+  assert.match(css, /\.reading-progress \{[^}]*transition: none;/);
+  assert.doesNotMatch(css, /overscroll-behavior(?:-y)?:\s*(?:none|contain)/);
+  assert.doesNotMatch(read('src/components/Footer.astro'), /ReadingProgress|data-reading-progress/);
 });

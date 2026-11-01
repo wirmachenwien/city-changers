@@ -16,9 +16,10 @@ test('underline fragments merge on the same line, preserving wrapped and RTL lin
   ]);
 });
 
-function environment({ supported = true, external = false } = {}) {
+function environment({ supported = true, external = false, css = false } = {}) {
   const { document, window } = parseHTML(`<html><body><a href="/test">Wrapped <em>link</em>${external ? '<span class="external-link-icon" aria-hidden="true">↗</span><span class="external-link-notice"> (opens in a new tab)</span>' : ''}</a><a href="/button" class="button-link">Button</a></body></html>`);
   const link = document.querySelector('a');
+  if (css) for (const candidate of document.querySelectorAll('a')) candidate.dataset.cssUnderline = 'text';
   let resized, mutated, selected, measurements = 0, textGrowth = 0;
   const frames = [];
   const observed = new Set();
@@ -73,6 +74,27 @@ function environment({ supported = true, external = false } = {}) {
     },
   };
 }
+
+test('CSS-owned prose and pebble links are neither observed nor measured by the JS renderer', () => {
+  const env = environment({ css: true });
+  try {
+    const button = env.document.querySelector('.button-link');
+    button.dataset.cssUnderline = 'pebble';
+    const original = env.link.innerHTML;
+    initLinkUnderlines();
+    env.flush();
+    assert.equal(env.measurements, 0);
+    assert.equal(env.observed.has(env.link), false);
+    assert.equal(env.observed.has(button), false);
+    assert.equal(env.link.innerHTML, original);
+    env.link.dispatchEvent(new env.Event('pointerover', { bubbles: true }));
+    env.link.dispatchEvent(new env.Event('focusin', { bubbles: true }));
+    env.pageResize(700, 1200);
+    env.flush();
+    assert.equal(env.measurements, 0);
+    assert.equal(env.link.querySelector('.drawn-link-rule'), null);
+  } finally { env.cleanup(); }
+});
 
 test('Quiet rule paint follows wrapped text and button labels without altering content', () => {
   const env = environment();
