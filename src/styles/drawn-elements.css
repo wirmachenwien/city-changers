@@ -1,5 +1,5 @@
-/* Continuous SVGs paint measured surfaces; native boundaries remain until
-   ready and in print, forced colors, unsupported browsers and without JS. */
+/* Continuous SVGs refine the CSS baseline in drawn-baseline.css. Native
+   boundaries remain in print, forced colors and unsupported browsers. */
 .drawn-surface { display: none; }
 .site-head__edge, .feature-box__bracket { display: none; }
 .drawn-link-rule { display: none; }
@@ -335,12 +335,9 @@
     .table-scroll table > :is(thead, tbody, tfoot):last-child > tr:last-child > :is(th, td) { border-block-end: 0; }
     .table-scroll table > :is(thead, tbody, tfoot):last-child > tr:last-child > :is(th, td)::after { display: none; }
 
-    /* Until clipping is ready, use a normal border in the same color. A CSS
-       drawn outline would otherwise overlap the still-rectangular media. */
     /* Let the irregular image edge bleed out, rather than indenting captions
        away from the surrounding text column. Logical margins also cover RTL. */
     .figure__media { overflow: visible; margin-inline: -.375rem; }
-    .figure .figure__media:not(.drawn-ready) { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
     .figure__media::before, .figure__media::after { display: none; }
     .figure__media.drawn-ready > .figure__stage { overflow: hidden; }
     .figure__media.drawn-ready img { border-radius: 0; }

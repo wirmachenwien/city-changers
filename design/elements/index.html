@@ -51,6 +51,7 @@
     @media print { .controls, #theme { display: none; } article { break-inside: avoid; } main { padding: 0; } }
   </style>
   <link rel="stylesheet" href="../../src/styles/drawn-elements.css">
+  <link rel="stylesheet" href="../../src/styles/drawn-baseline.css">
 </head>
 <body>
   <svg class="filters" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs><filter id="tint-accent" color-interpolation-filters="sRGB"><feFlood style="flood-color: var(--accent)"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
@@ -96,7 +97,7 @@
     </section>
     <section aria-labelledby="shapes">
       <h2 id="shapes">Variable shapes / Natural</h2>
-      <p class="intro">The page and website share a continuous SVG renderer using <a href="geometry.js">geometry.js</a>. Corners, stroke thickness and speech tails stay fixed as surfaces follow their content. Without JavaScript, native boundaries remain. Serve this preview over HTTP to load its modules.</p>
+      <p class="intro">The page and website share a continuous SVG renderer using <a href="geometry.js">geometry.js</a>. Corners, stroke thickness and speech tails stay fixed as surfaces follow their content. CSS paints hand-drawn frames before JavaScript loads and without it; JavaScript refines their geometry. Native boundaries remain in print, forced colors and unsupported browsers. Serve this preview over HTTP to load its modules.</p>
       <div class="controls">
         <label for="shape-width">Shape width</label><input id="shape-width" type="range" min="70" max="100" value="100" step="5" aria-controls="shape-previews"><output id="shape-width-value" for="shape-width">100%</output>
         <button id="shape-text" type="button" aria-expanded="false" aria-controls="shape-previews">Add longer text</button>

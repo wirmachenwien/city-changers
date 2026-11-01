@@ -25,8 +25,17 @@ export function cssFrameFiles() {
     for (const paint of ['fill', 'stroke']) {
       const file = `${name}-${paint}.svg`;
       files.set(file, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${box.join(' ')}" preserveAspectRatio="none">\n${views}\n  <path d="${path}" fill="${paint === 'fill' ? 'currentColor' : 'none'}" stroke="${paint === 'stroke' ? 'currentColor' : 'none'}" stroke-width="${weight}" stroke-linecap="round" stroke-linejoin="round"/>\n</svg>\n`);
-      css += `  --${name}-${paint}-mask: ${names.map(id => `url('./${file}?no-inline#${id}')`).join(', ')};\n`;
+      // Inline each crop so first-paint decoration does not wait for an SVG
+      // request or rely on SVG fragment-view support in CSS masks.
+      const masks = rows.flatMap(([vy, h]) => columns.map(([vx, w]) => {
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vx} ${vy} ${w} ${h}" preserveAspectRatio="none"><path d="${path}" fill="${paint === 'fill' ? 'white' : 'none'}" stroke="${paint === 'stroke' ? 'white' : 'none'}" stroke-width="${weight}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+      }));
+      css += `  --${name}-${paint}-mask: ${masks.join(', ')};\n`;
     }
+    const middleWidth = `calc(100% - ${left + right}px)`;
+    const middleHeight = `calc(100% - ${top + bottom}px)`;
+    css += `  --${name}-mask-size: ${left}px ${top}px, ${middleWidth} ${top}px, ${right}px ${top}px, ${left}px ${middleHeight}, ${middleWidth} ${middleHeight}, ${right}px ${middleHeight}, ${left}px ${bottom}px, ${middleWidth} ${bottom}px, ${right}px ${bottom}px;\n`;
   }
   files.set('frames.css', css + '}\n');
   return files;

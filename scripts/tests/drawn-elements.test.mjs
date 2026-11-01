@@ -2,8 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
-import { initDrawnSurfaces } from '../../src/lib/drawn-surfaces.mjs';
+import { initDrawnSurfaces, surfaceSelector } from '../../src/lib/drawn-surfaces.mjs';
 import { framePath, compactPath, bubblePath } from '../../design/elements/geometry.js';
+import { cssFrameFiles } from '../../design/elements/build-css-frames.mjs';
 
 function environment() {
   const { document } = parseHTML(`<html><body>
@@ -143,7 +144,7 @@ test('missing observation or mask support leaves markup untouched', () => {
   }
 });
 
-test('surface CSS has no tile joins; header overlaps and native fallbacks remain', () => {
+test('measured surface CSS has no tile joins; header overlaps and native fallbacks remain', () => {
   const css = readFileSync(new URL('../../src/styles/drawn-elements.css', import.meta.url), 'utf8');
   assert.doesNotMatch(css, /mask-position:|mask-size:|frames\.css|--drawn-fill-mask/);
   assert.match(css, /calc\(100% - \.375rem \+ 1px\)/);
@@ -151,4 +152,50 @@ test('surface CSS has no tile joins; header overlaps and native fallbacks remain
   assert.match(css, /@media screen and \(forced-colors: none\)/);
   assert.match(css, /prefers-reduced-motion: no-preference/);
   assert.match(css, /share-pebble\.svg/);
+});
+
+test('first-paint masks inline all nine crops per profile using the shared geometry', () => {
+  const files = cssFrameFiles();
+  const css = files.get('frames.css');
+  assert.equal(css, readFileSync(new URL('../../design/elements/frames/frames.css', import.meta.url), 'utf8'));
+  assert.doesNotMatch(css, /url\(['"]?\.\//, 'baseline needs no SVG network requests');
+  const profiles = {
+    frame: framePath(320, 180), compact: compactPath(144, 44),
+    'bubble-side': bubblePath(320, 180, false), 'bubble-top': bubblePath(320, 180, true),
+  };
+  for (const [profile, path] of Object.entries(profiles)) {
+    for (const paint of ['fill', 'stroke']) {
+      const value = css.match(new RegExp(`--${profile}-${paint}-mask: ([^;]+);`))[1];
+      const crops = [...value.matchAll(/url\("data:image\/svg\+xml,([^"]+)"\)/g)];
+      assert.equal(crops.length, 9);
+      const boxes = new Set();
+      for (const [, encoded] of crops) {
+        const { document } = parseHTML(decodeURIComponent(encoded));
+        const svg = document.querySelector('svg');
+        boxes.add(svg.getAttribute('viewBox'));
+        assert.equal(svg.querySelector('path').getAttribute('d'), path);
+        assert.equal(svg.querySelector('path').getAttribute(paint), 'white');
+        const [, , width, height] = svg.getAttribute('viewBox').split(' ').map(Number);
+        assert.ok(width > 0 && height > 0);
+      }
+      assert.equal(boxes.size, 9, 'each crop has its own viewport');
+    }
+    assert.match(css, new RegExp(`--${profile}-mask-size:`));
+  }
+});
+
+test('every measured surface has a CSS baseline, with details and media handled separately', () => {
+  const css = readFileSync(new URL('../../src/styles/drawn-baseline.css', import.meta.url), 'utf8');
+  for (const selector of surfaceSelector.split(', ')) {
+    assert.ok(css.includes(selector), `missing baseline: ${selector}`);
+  }
+  assert.match(css, /@media screen and \(forced-colors: none\)/);
+  assert.match(css, /@supports \(mask-image:/);
+  assert.match(css, /\.accordion:not\(\.drawn-ready\) > summary > \.drawn-frame/);
+  assert.match(css, /\.figure__media:not\(\.drawn-ready\) > \.figure__stage/);
+  assert.match(css, /mask-image: var\(--baseline-fill-mask\)/);
+  assert.match(css, /pointer-events: none/);
+  assert.doesNotMatch(css, /visibility:\s*hidden|opacity:\s*0|outline:\s*none/);
+  const layout = readFileSync(new URL('../../src/layouts/BaseLayout.astro', import.meta.url), 'utf8');
+  assert.ok(layout.indexOf("import '../styles/drawn-baseline.css'") > layout.indexOf("import '../styles/drawn-elements.css'"));
 });

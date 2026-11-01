@@ -5,7 +5,7 @@ import { parseHTML } from 'linkedom';
 import { initFeatureBrackets } from '../../src/scripts/feature-brackets.ts';
 
 function environment({ supported = true } = {}) {
-  const { document, window } = parseHTML('<html><body><aside class="feature-box" data-tone="default"><span class="feature-box__bracket"></span><p>One line.</p></aside></body></html>');
+  const { document, window } = parseHTML('<html><body><aside class="feature-box" data-tone="default" data-bracket-size="short"><span class="feature-box__bracket"></span><p>One line.</p></aside></body></html>');
   const box = document.querySelector('.feature-box');
   let height = 56, resized, mutated;
   box.getBoundingClientRect = () => ({ height });
@@ -71,12 +71,12 @@ test('detached brackets release observation and reinsertion resumes it', () => {
   } finally { env.cleanup(); }
 });
 
-test('missing ResizeObserver leaves the CSS accent-line fallback intact', () => {
+test('missing ResizeObserver retains the server-rendered hand-drawn bracket', () => {
   const env = environment({ supported: false });
   try {
     initFeatureBrackets();
     assert.equal(env.observed.size, 0);
-    assert.equal(env.box.dataset.bracketSize, undefined);
+    assert.equal(env.box.dataset.bracketSize, 'short');
   } finally { env.cleanup(); }
 });
 
@@ -86,6 +86,7 @@ test('all variants have fixed caps, decorative semantics and CSS-only tone/RTL b
   const css = read('src/styles/drawn-elements.css');
   assert.match(component, /aria-hidden="true"/);
   assert.match(component, /vector-effect="non-scaling-stroke"/);
+  assert.match(component, /<aside[^>]*data-bracket-size="short"/);
   assert.match(css, /grid-template-rows: 24px minmax\(0, 1fr\) 24px/);
   for (const size of ['short', 'medium', 'tall']) {
     assert.ok(css.includes(`[data-bracket-size="${size}"] [data-bracket-variant="${size}"]`));

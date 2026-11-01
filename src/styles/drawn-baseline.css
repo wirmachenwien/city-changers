@@ -1,0 +1,126 @@
+@import '../../design/elements/frames/frames.css';
+
+/* First paint is already hand-drawn, including when JS is unavailable. The
+   measured SVG replaces only decoration; content and focus are never hidden.
+   Nine slices preserve corner sizes instead of stretching a whole frame. */
+@media screen and (forced-colors: none) {
+  @supports (mask-image: url('')) and selector(&) {
+    :where(.accordion, .question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .accordion-controls button, .question button[type="submit"], .search-form button:not(.search-submit), .search-box, .shape, .spoiler-text) {
+      --baseline-fill-mask: var(--frame-fill-mask);
+      --baseline-stroke-mask: var(--frame-stroke-mask);
+      --baseline-mask-size: var(--frame-mask-size);
+      --baseline-inset: 0;
+      --baseline-transform: none;
+    }
+    :is(.accordion, .question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .accordion-controls button, .question button[type="submit"], .search-form button:not(.search-submit), .search-box, .shape, .spoiler-text) {
+      border-color: transparent;
+      border-radius: 0;
+      background-color: transparent;
+    }
+
+    :where(.button-link, .accordion-controls button, .question button[type="submit"], .search-form button:not(.search-submit), .search-box, .shape[data-shape="compact"], .spoiler-text) {
+      --baseline-fill-mask: var(--compact-fill-mask);
+      --baseline-stroke-mask: var(--compact-stroke-mask);
+      --baseline-mask-size: var(--compact-mask-size);
+    }
+
+    /* Details hides decorations outside its summary when closed. Its existing
+       SSR frame is positioned against the full details box, open or closed. */
+    :where(.question, .visual-toc > a, .license-box, .mascot-box__bubble, .showcase-demo, .showcase-icons > li, .content-popup, .last-visit-toast, .drawn-scroll-shell, .figure__media, .button-link, .accordion-controls button, .question button[type="submit"], .search-form button:not(.search-submit), .search-box, .shape, .spoiler-text):not(.drawn-ready),
+    :where(.accordion:not(.drawn-ready) > summary > .drawn-frame) {
+      &::before, &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        inset: var(--baseline-inset);
+        z-index: -1;
+        pointer-events: none;
+        transform: var(--baseline-transform);
+        mask-size: var(--baseline-mask-size);
+        mask-position: left top, center top, right top, left center, center, right center, left bottom, center bottom, right bottom;
+        mask-repeat: no-repeat;
+      }
+      &::before {
+        background: var(--drawn-fill);
+        mask-image: var(--baseline-fill-mask);
+      }
+      &::after {
+        background: var(--drawn-stroke);
+        mask-image: var(--baseline-stroke-mask);
+      }
+    }
+
+    .search-box > input[type="search"],
+    .search-box > input[type="search"]:focus {
+      border-color: transparent;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .spoiler .spoiler-text {
+      background: transparent;
+      --drawn-fill: var(--ink);
+      --drawn-stroke: transparent;
+      --baseline-inset: -.15rem -.3rem;
+    }
+    .spoiler:hover .spoiler-text { --drawn-fill: var(--ink-soft); }
+    .spoiler[aria-expanded="true"] .spoiler-text { --drawn-fill: var(--accent-soft); }
+
+    .mascot-box__bubble, .shape[data-shape="bubble"] {
+      --baseline-fill-mask: var(--bubble-side-fill-mask);
+      --baseline-stroke-mask: var(--bubble-side-stroke-mask);
+      --baseline-mask-size: var(--bubble-side-mask-size);
+      --baseline-inset: 0 0 0 -24px;
+    }
+    [dir="rtl"] :is(.mascot-box__bubble, .shape[data-shape="bubble"]) {
+      --baseline-inset: 0 -24px 0 0;
+      --baseline-transform: scaleX(-1);
+    }
+    .shape[data-shape="bubble"][data-tail="top"] {
+      --baseline-fill-mask: var(--bubble-top-fill-mask);
+      --baseline-stroke-mask: var(--bubble-top-stroke-mask);
+      --baseline-mask-size: var(--bubble-top-mask-size);
+      --baseline-inset: -24px 0 0;
+      --baseline-transform: none;
+    }
+    @media (max-width: 30rem) {
+      .mascot-box__bubble {
+        --baseline-fill-mask: var(--bubble-top-fill-mask);
+        --baseline-stroke-mask: var(--bubble-top-stroke-mask);
+        --baseline-mask-size: var(--bubble-top-mask-size);
+        --baseline-inset: -24px 0 0;
+        --baseline-transform: none;
+      }
+      [dir="rtl"] .mascot-box__bubble {
+        --baseline-inset: -24px 0 0;
+        --baseline-transform: none;
+      }
+    }
+
+    .drawn-scroll-shell > :is(.table-scroll, pre) {
+      border-color: transparent;
+      border-radius: 0;
+    }
+    .drawn-scroll-shell > pre { background: transparent !important; }
+    /* A uniform panel is the readable no-JS table fallback. JS refines this
+       to a header-only fill once it knows the actual header height. */
+    .drawn-scroll-shell:has(> .table-scroll):not(.drawn-ready) { --drawn-fill: var(--panel); }
+    .drawn-scroll-shell .table-scroll thead :is(th, td) { background: transparent; }
+
+    /* Clip media paint, not the figure host, caption, controls or focus ring.
+       The exact-size clip takes over atomically with .drawn-ready. */
+    .figure .figure__media:not(.drawn-ready) {
+      border-color: transparent;
+      border-radius: 0;
+      overflow: visible;
+    }
+    .figure__media:not(.drawn-ready) > .figure__stage {
+      mask-image: var(--baseline-fill-mask);
+      mask-size: var(--baseline-mask-size);
+      mask-position: left top, center top, right top, left center, center, right center, left bottom, center bottom, right bottom;
+      mask-repeat: no-repeat;
+    }
+    .figure__media:not(.drawn-ready) img { border-radius: 0; }
+    .figure__media:not(.drawn-ready)::after { z-index: 1; }
+  }
+}
