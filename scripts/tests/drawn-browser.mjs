@@ -446,6 +446,32 @@ try {
   await evaluate(`document.documentElement.dir = 'ltr'`);
   await evaluate(`document.querySelector('.drawer-toggle-float').click()`);
   console.log('Desktop/sidebar and mobile/drawer language placement passed');
+  await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
+  await call('Emulation.setEmulatedMedia', { media: 'screen', features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] });
+  const chapterLoaded = new Promise(resolve => events.set('Page.loadEventFired', resolve));
+  await call('Page.navigate', { url: `${site}/book/02-the-power-of-superblocks.html` });
+  await chapterLoaded;
+  await evaluate('document.fonts.ready');
+  for (const direction of ['prev', 'next']) {
+    const selector = `.pagination .${direction}`;
+    for (const pseudo of ['hover', 'focus-visible']) {
+      await hover(selector, []);
+      await evaluate(`Promise.all(document.querySelector('${selector} > .icon').getAnimations().map(animation => animation.finished))`);
+      const before = await evaluate(`(() => { const link=document.querySelector('${selector}'); const anchor=link.getBoundingClientRect(); const box=link.querySelector('[data-pagination-label]').getBoundingClientRect(); return {x:box.x-anchor.x,y:box.y-anchor.y,height:box.height}; })()`);
+      await hover(selector, [pseudo]);
+      await evaluate(`Promise.all(document.querySelector('${selector} > .icon').getAnimations().map(animation => animation.finished))`);
+      const after = await evaluate(`(() => { const link=document.querySelector('${selector}'); const anchor=link.getBoundingClientRect(); const box=link.querySelector('[data-pagination-label]').getBoundingClientRect(); return {x:box.x-anchor.x,y:box.y-anchor.y,height:box.height,transform:getComputedStyle(link.querySelector('.icon')).transform}; })()`);
+      assert.deepEqual({ x:after.x, y:after.y, height:after.height }, before, 'pagination labels never shift');
+      const matrix = after.transform.match(/matrix\(([^)]+)\)/)[1].split(',').map(Number);
+      assert.equal(matrix[4], direction === 'prev' ? -4 : 4, `${direction}: arrow moves in its pointing direction`);
+    }
+    await hover(selector, []);
+  }
+  await call('Emulation.setEmulatedMedia', { media:'screen', features:[{ name:'prefers-reduced-motion', value:'reduce' }] });
+  await hover('.pagination .next');
+  const reducedArrow = await evaluate(`getComputedStyle(document.querySelector('.pagination .next > .icon')).transform`);
+  assert.equal(Number(reducedArrow.match(/matrix\(([^)]+)\)/)[1].split(',')[4]), 0, 'reduced motion keeps the arrow stationary');
+  console.log('Pagination arrow hover/focus motion, stationary labels and reduced motion passed');
 } finally {
   await call('Page.close');
   socket.close();
