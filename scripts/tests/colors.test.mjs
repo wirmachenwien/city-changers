@@ -24,7 +24,7 @@ test('three UI families and neutrals preserve the approved primary/artwork color
   assert.equal(resolved.themes.light.paper, '#fdfcf9');
   assert.equal(resolved.themes.dark.paper, '#161511');
   assert.equal(resolved.themes.light.accent, '#0c6b3c');
-  assert.equal(resolved.themes.light.warn, '#8a4b00');
+  assert.equal(resolved.themes.light.warm, '#8a4b00');
   assert.equal(resolved.artwork['mascot-green'], '#176b43');
   assert.equal(resolved.artwork['mascot-yellow'], '#ffd84f');
   assert.equal(resolved.artwork['mascot-ink'], '#20221c');
@@ -57,7 +57,7 @@ test('print shares the UI palette except for explicitly documented overrides', (
     if (!(name in registry.print.overrides)) assert.equal(resolved.themes.print[name], resolved.themes.light[name]);
   }
   assert.equal(resolved.themes.print.paper, '#ffffff');
-  assert.equal(resolved.themes.print.warn, '#8a4b00');
+  assert.equal(resolved.themes.print.warm, '#8a4b00');
 });
 
 test('brand palette excludes error red while functional documentation retains its token', () => {

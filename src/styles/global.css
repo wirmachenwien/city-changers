@@ -1322,11 +1322,11 @@ a[data-external-link]:has(img) > .external-link-icon {
 }
 
 .feature-box[data-tone="warm"]::before {
-  background: var(--warn);
+  background: var(--warm);
 }
 
 .feature-box[data-tone="warm"] {
-  background: var(--warn-soft);
+  background: var(--warm-soft);
 }
 
 /* Inner copy carries its own block margins (e.g. .prose p); without a
@@ -2537,7 +2537,8 @@ html:not(.js-fold) .accordion-content {
 /* ---------- Footer ---------- */
 
 .site-footer {
-  border-block-start: 2px solid var(--ink);
+  border-block-start: 2px solid var(--warm);
+  background: var(--warm-soft);
   margin-block-start: 2rem;
   padding-block: 1.5rem calc(2.5rem + env(safe-area-inset-bottom, 0px));
   font-family: var(--font-ui);
@@ -2559,6 +2560,10 @@ html:not(.js-fold) .accordion-content {
 
 .site-footer a {
   color: var(--ink-soft);
+}
+
+.site-footer a:hover {
+  color: var(--footer-link-hover);
 }
 
 /* ---------- Licence badge ---------- */

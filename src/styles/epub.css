@@ -344,8 +344,8 @@ dl.glossary dt {
   margin-top: 0;
 }
 .feature-box[data-tone="warm"] {
-  background: var(--warn-soft);
-  border-color: var(--warn);
+  background: var(--warm-soft);
+  border-color: var(--warm);
 }
 .feature-box > .feature-box__title {
   margin: 0 0 0.35rem;

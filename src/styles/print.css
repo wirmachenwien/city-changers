@@ -491,8 +491,8 @@ blockquote.pullquote footer {
 }
 
 .feature-box[data-tone="warm"] {
-  background: var(--warn-soft);
-  border-color: var(--warn);
+  background: var(--warm-soft);
+  border-color: var(--warm);
 }
 
 .feature-box > .feature-box__title {

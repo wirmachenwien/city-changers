@@ -47,8 +47,8 @@
       background: var(--accent-soft);
       mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat;
     }
-    .prose .feature-box[data-tone="warm"] ol:not([class]) > li::before { color: var(--warn); }
-    .prose .feature-box[data-tone="warm"] ol:not([class]) > li::after { background: var(--warn-soft); }
+    .prose .feature-box[data-tone="warm"] ol:not([class]) > li::before { color: var(--warm); }
+    .prose .feature-box[data-tone="warm"] ol:not([class]) > li::after { background: var(--warm-soft); }
     .prose ol:not([class]):not(.footnotes ol) > li[data-marker-single]::before,
     .prose ol:not([class]):not(.footnotes ol) > li[data-marker-single]::after,
     .prose ol:not([class]):not(.footnotes ol):not([start]):not([reversed]):not(:has(> li[value])) > li:nth-child(-n+9)::before,
@@ -96,7 +96,7 @@
       mask: url('../../design/elements/lines/divider.svg') center / max(100%, 480px) 100% no-repeat;
     }
     .drawn-link-rule > span::before { content: ''; }
-    .prose [data-link-rule]:not([data-link-underline], nav a, .nav-list a, .contents-list a, .visual-toc a, .search-results a):is(:hover, :focus-visible) .drawn-link-rule > span::after {
+    :is(.prose, .footer-text) [data-link-rule]:not([data-link-underline], nav a, .nav-list a, .contents-list a, .visual-toc a, .search-results a):is(:hover, :focus-visible) .drawn-link-rule > span::after {
       content: '';
       transform: translateY(3px);
     }
@@ -339,7 +339,7 @@
     .feature-box[data-bracket-size="short"] [data-bracket-variant="short"],
     .feature-box[data-bracket-size="medium"] [data-bracket-variant="medium"],
     .feature-box[data-bracket-size="tall"] [data-bracket-variant="tall"] { display: grid; }
-    .feature-box[data-tone="warm"] .feature-box__bracket { color: var(--warn); }
+    .feature-box[data-tone="warm"] .feature-box__bracket { color: var(--warm); }
     .feature-box__bracket-variant > svg { inline-size: 100%; block-size: 100%; min-block-size: 0; overflow: hidden; }
     .feature-box__bracket + * { margin-block-start: 0; }
     [dir="rtl"] .feature-box__bracket { transform: scaleX(-1); }
@@ -376,7 +376,7 @@
     .site-head { background: linear-gradient(var(--paper), var(--paper)) top / 100% calc(100% - .375rem) no-repeat; background-origin: padding-box; background-clip: padding-box; }
     .site-head__edge { display: block; position: absolute; inset-inline: 0; inset-block-end: -.375rem; inline-size: 100%; block-size: .75rem; pointer-events: none; }
     .site-footer { position: relative; }
-    .site-footer::before { content: ''; position: absolute; inset-inline: 0; inset-block-start: -.375rem; block-size: .75rem; background: var(--ink); mask: url('../../design/elements/lines/divider-strong.svg') center / 100% 100% no-repeat; pointer-events: none; }
+    .site-footer::before { content: ''; position: absolute; inset-inline: 0; inset-block-start: -.375rem; block-size: .75rem; background: var(--warm); mask: url('../../design/elements/lines/divider-strong.svg') center / 100% 100% no-repeat; pointer-events: none; }
     /* The shared boundary has a filled top silhouette, so there are no gaps
        between the viewport edge and the stroke. Reveal it without scaling. */
     .reading-progress { block-size: 6px; background: transparent; color: var(--accent); }

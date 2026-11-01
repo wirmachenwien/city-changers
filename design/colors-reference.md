@@ -18,6 +18,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--ink-soft` | `#4A4743` | `#C2BDB5` | `#4A4845` | Secondary text and captions. |
 | `--accent` | `#0C6B3C` | `#4CC38A` | `#0C6B3C` | Links, actions and positive emphasis. |
 | `--link-hover` | `#0D7642` | `#54D798` | `#0D7642` | Text-link hover: the accent channels brightened by 10%, matching the solid ButtonLink/DownloadLink background's brightness(1.1), not a white tint. |
+| `--footer-link-hover` | `#514E4A` | `#D5D0C7` | `#514E4A` | Footer text-link hover: the ink-soft channels brightened by 10%, matching the accent link hover adjustment without switching to green. |
 | `--accent-ink` | `#FFFFFF` | `#161511` | `#FFFFFF` | Text on the green accent. |
 | `--accent-soft` | `#E5EEE6` | `#1E2D22` | `#E5EEE6` | Subtle green emphasis. |
 | `--pebble-hover` | `#D2E2D7` | `#223B2C` | `#D2E2D7` | Slightly richer green fill for hovered pebble buttons and dropdowns. |
@@ -27,8 +28,8 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--line` | `#D9D8D5` | `#3E3C37` | `#999896` | Decorative separators, not sole control boundaries. |
 | `--control-border` | `#82807C` | `#797670` | `#82807C` | Visible boundaries for selects and other outlined controls. |
 | `--panel` | `#F6F1EA` | `#23221E` | `#F6F1EA` | Neutral cards and FeatureBoxes. |
-| `--warn` | `#8A4B00` | `#E8A33D` | `#8A4B00` | Warm supporting emphasis; not automatically a warning. |
-| `--warn-soft` | `#FDF6E1` | `#332917` | `#FDF6E1` | Background of warm FeatureBoxes. |
+| `--warm` | `#8A4B00` | `#E8A33D` | `#8A4B00` | Warm amber supporting emphasis for callouts, decorative accents and footer boundaries. |
+| `--warm-soft` | `#FDF6E1` | `#332917` | `#FDF6E1` | Soft warm backgrounds for FeatureBoxes and the footer. |
 | `--error` | `#A31F1F` | `#FF8A7A` | `#A31F1F` | Incorrect-answer marks and incorrect, empty or incomplete-answer feedback; always paired with a written message. |
 | `--mark` | `#FFE08A` | `#55401E` | `#FFE08A` | Search-result highlighting. |
 | `--mark-ink` | `#1D1A16` | `#F2EDE3` | `#1D1A16` | Text on search highlighting. |
@@ -41,6 +42,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 |---|---|---|
 | ink-soft | neutral.ink 80% + neutral.paper 20% (sRGB) | neutral.cream 78% + neutral.dark 22% (sRGB) |
 | link-hover | #0D7642 | #54D798 |
+| footer-link-hover | #514E4A | #D5D0C7 |
 | accent-soft | green.light 10% + neutral.paper 90% (sRGB) | green.dark 14.000000000000002% + neutral.dark 86% (sRGB) |
 | pebble-hover | green.light 18% + neutral.paper 82% (sRGB) | green.dark 22% + neutral.dark 78% (sRGB) |
 | pebble-hover-ink | green.light 85% + neutral.ink 15% (sRGB) | green.dark 90% + neutral.cream 10% (sRGB) |
@@ -49,7 +51,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | line | neutral.ink 16% + neutral.paper 84% (sRGB) | neutral.cream 18% + neutral.dark 82% (sRGB) |
 | control-border | neutral.ink 55.00000000000001% + neutral.paper 45% (sRGB) | neutral.cream 45% + neutral.dark 55% (sRGB) |
 | panel | amber.light 6% + neutral.paper 94% (sRGB) | neutral.cream 6% + neutral.dark 94% (sRGB) |
-| warn-soft | amber.highlight 22% + neutral.paper 78% (sRGB) | amber.dark 14.000000000000002% + neutral.dark 86% (sRGB) |
+| warm-soft | amber.highlight 22% + neutral.paper 78% (sRGB) | amber.dark 14.000000000000002% + neutral.dark 86% (sRGB) |
 | mark | amber.highlight | amber.dark 30% + neutral.dark 70% (sRGB) |
 | popup-link | green.light 60% + neutral.paper 40% (sRGB) | green.dark 60% + neutral.dark 40% (sRGB) |
 

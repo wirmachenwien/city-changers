@@ -58,12 +58,13 @@ const inspect = selector => evaluate(`(() => {
     return color;
   };
   return { fill: before.backgroundColor, mask: before.maskImage, after: after.display,
+    background: style.backgroundColor, border: style.borderTopColor,
     color: style.color, font: style.fontFamily, height: parseFloat(style.minBlockSize),
     align: style.alignItems, justify: style.justifyContent, padding: parseFloat(style.paddingBlockStart),
     transform: style.transform, paintTransform: before.transform, strokeTransform: after.transform,
     duration: before.transitionDuration, appearance: style.appearance,
     pointer: style.pointerEvents, decoration: style.textDecorationLine,
-    tokens: Object.fromEntries(['accent-soft', 'accent', 'accent-ink', 'pebble-hover', 'pebble-hover-ink', 'pebble-selected-hover', 'pebble-selected-hover-ink'].map(name => [name, token(name)])) };
+    tokens: Object.fromEntries(['accent-soft', 'accent', 'accent-ink', 'pebble-hover', 'pebble-hover-ink', 'pebble-selected-hover', 'pebble-selected-hover-ink', 'warm', 'warm-soft'].map(name => [name, token(name)])) };
 })()`);
 
 try {
@@ -107,6 +108,8 @@ try {
   console.log('RTL decoration and semantic dark-theme fills passed');
   // Native details toggling changes the full frame height without redrawing.
   assert.ok(await evaluate(`(() => { const node=document.querySelector('.accordion'); const before=node.offsetHeight; node.open=true; return node.offsetHeight>before && getComputedStyle(node.querySelector('.drawn-frame'),'::after').maskImage!=='none'; })()`));
+  // Check final footer colors, not an intermediate theme/media transition.
+  await evaluate(`document.querySelector('.site-footer').style.transition = 'none'`);
   for (const mode of ['print', 'forced-colors']) {
     await call('Emulation.setEmulatedMedia', mode === 'print' ? { media: 'print' } : { media: 'screen', features: [{ name: 'forced-colors', value: 'active' }] });
     assert.ok(await evaluate(`(() => { const node=document.querySelector('.question'); return getComputedStyle(node,'::after').maskImage==='none' && getComputedStyle(node).borderTopStyle==='solid'; })()`));
@@ -116,6 +119,11 @@ try {
       return getComputedStyle(select).appearance !== 'none' && getComputedStyle(arrow).display === 'none';
     })()`), 'selects retain native arrows when drawn decoration is disabled');
     console.log(`${mode} native boundaries passed`);
+    if (mode === 'print') {
+      const footer = await inspect('.site-footer');
+      assert.equal(footer.border, footer.tokens.warm, 'native footer border uses warm');
+      assert.equal(footer.background, footer.tokens['warm-soft'], 'footer background uses warm-soft');
+    }
   }
   await call('Emulation.setEmulatedMedia', { media: 'screen', features: [] });
   await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
@@ -205,7 +213,7 @@ try {
   await call('Emulation.setEmulatedMedia', { media: 'screen', features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   // Underlines are checked as actual pseudo-element paint, including utility
   // exceptions. No test depends on the full selector list or markup formatting.
-  for (const [selector, double] of [['.brand-guide p a[href]', true], ['.icon-downloads a', true], ['.crumbs a', false], ['.side-nav .nav-list a', false], ['.button-link', false]]) {
+  for (const [selector, double] of [['.brand-guide p a[href]', true], ['.icon-downloads a', true], ['.footer-text p a', true], ['.crumbs a', false], ['.side-nav .nav-list a', false], ['.button-link', false]]) {
     await hover(selector);
     await evaluate(`document.querySelector(${JSON.stringify(selector)}).dispatchEvent(new Event('pointerover', { bubbles: true }))`);
     await settle();
@@ -218,6 +226,22 @@ try {
         && (getComputedStyle(stroke, '::after').content !== 'none') === ${double};
     })()`), `${selector}: expected hover strokes`);
     await hover(selector, []);
+  }
+  for (const theme of ['light', 'dark']) {
+    await evaluate(`document.documentElement.dataset.theme = '${theme}'`);
+    const panel = await inspect('.site-footer');
+    assert.equal(panel.background, panel.tokens['warm-soft'], `${theme}: footer background uses warm-soft`);
+    assert.equal(panel.fill, panel.tokens.warm, `${theme}: drawn footer border uses warm`);
+    const idle = await inspect('.footer-text p a');
+    await hover('.footer-text p a');
+    const footer = await inspect('.footer-text p a');
+    await hover('.brand-guide p a[href]');
+    const bodyHover = await inspect('.brand-guide p a[href]');
+    const bright = idle.color.match(/\d+/g).slice(0, 3).map(channel => Math.min(255, Math.round(Number(channel) * 1.1)));
+    assert.equal(footer.color, `rgb(${bright.join(', ')})`, `${theme}: footer hover brightens its own color by 10%`);
+    assert.notEqual(footer.color, bodyHover.color, 'footer hover stays neutral, not green');
+    await hover('.footer-text p a', []);
+    await hover('.brand-guide p a[href]', []);
   }
   const pagination = '.pagination a[data-link-underline="pagination"]';
   await hover(pagination);

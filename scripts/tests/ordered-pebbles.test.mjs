@@ -45,8 +45,8 @@ test('single-character pebbles are narrower but retain the shared marker center'
 });
 
 test('warm FeatureBox markers use the semantic brown palette', () => {
-  assert.ok(css.includes('.prose .feature-box[data-tone="warm"] ol:not([class]) > li::before { color: var(--warn); }'));
-  assert.ok(css.includes('.prose .feature-box[data-tone="warm"] ol:not([class]) > li::after { background: var(--warn-soft); }'));
+  assert.ok(css.includes('.prose .feature-box[data-tone="warm"] ol:not([class]) > li::before { color: var(--warm); }'));
+  assert.ok(css.includes('.prose .feature-box[data-tone="warm"] ol:not([class]) > li::after { background: var(--warm-soft); }'));
 });
 
 test('standard lists get upright markers directly from CSS, without generated attributes', () => {

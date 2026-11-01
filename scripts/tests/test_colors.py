@@ -45,8 +45,8 @@ class ColorExportTest(unittest.TestCase):
             with self.subTest(filename=filename):
                 css = resolve_color_tokens((ROOT / "src/styles" / filename).read_text())
                 self.assertNotIn("var(--", css)
-                self.assertIn(palette["themes"]["print"]["warn"], css)
-                self.assertIn(palette["themes"]["print"]["warn-soft"], css)
+                self.assertIn(palette["themes"]["print"]["warm"], css)
+                self.assertIn(palette["themes"]["print"]["warm-soft"], css)
                 self.assertNotIn("#8a5a00", css)
                 self.assertNotIn("#faf3e8", css)
                 self.assertNotIn("#eef5ef", css)

@@ -39,6 +39,7 @@
     "ink-soft": { "light": { "mix": ["neutral.ink", "neutral.paper"], "weight": 0.8 }, "dark": { "mix": ["neutral.cream", "neutral.dark"], "weight": 0.78 }, "use": "Secondary text and captions." },
     "accent": { "light": "green.light", "dark": "green.dark", "use": "Links, actions and positive emphasis." },
     "link-hover": { "light": { "value": "#0D7642" }, "dark": { "value": "#54D798" }, "use": "Text-link hover: the accent channels brightened by 10%, matching the solid ButtonLink/DownloadLink background's brightness(1.1), not a white tint." },
+    "footer-link-hover": { "light": { "value": "#514E4A" }, "dark": { "value": "#D5D0C7" }, "use": "Footer text-link hover: the ink-soft channels brightened by 10%, matching the accent link hover adjustment without switching to green." },
     "accent-ink": { "light": "neutral.white", "dark": "neutral.dark", "use": "Text on the green accent." },
     "accent-soft": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.1 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.14 }, "use": "Subtle green emphasis." },
     "pebble-hover": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.18 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.22 }, "use": "Slightly richer green fill for hovered pebble buttons and dropdowns." },
@@ -48,8 +49,8 @@
     "line": { "light": { "mix": ["neutral.ink", "neutral.paper"], "weight": 0.16 }, "dark": { "mix": ["neutral.cream", "neutral.dark"], "weight": 0.18 }, "use": "Decorative separators, not sole control boundaries." },
     "control-border": { "light": { "mix": ["neutral.ink", "neutral.paper"], "weight": 0.55 }, "dark": { "mix": ["neutral.cream", "neutral.dark"], "weight": 0.45 }, "use": "Visible boundaries for selects and other outlined controls." },
     "panel": { "light": { "mix": ["amber.light", "neutral.paper"], "weight": 0.06 }, "dark": { "mix": ["neutral.cream", "neutral.dark"], "weight": 0.06 }, "use": "Neutral cards and FeatureBoxes." },
-    "warn": { "light": "amber.light", "dark": "amber.dark", "use": "Warm supporting emphasis; not automatically a warning." },
-    "warn-soft": { "light": { "mix": ["amber.highlight", "neutral.paper"], "weight": 0.22 }, "dark": { "mix": ["amber.dark", "neutral.dark"], "weight": 0.14 }, "use": "Background of warm FeatureBoxes." },
+    "warm": { "light": "amber.light", "dark": "amber.dark", "use": "Warm amber supporting emphasis for callouts, decorative accents and footer boundaries." },
+    "warm-soft": { "light": { "mix": ["amber.highlight", "neutral.paper"], "weight": 0.22 }, "dark": { "mix": ["amber.dark", "neutral.dark"], "weight": 0.14 }, "use": "Soft warm backgrounds for FeatureBoxes and the footer." },
     "error": { "light": "red.light", "dark": "red.dark", "use": "Incorrect-answer marks and incorrect, empty or incomplete-answer feedback; always paired with a written message." },
     "mark": { "light": "amber.highlight", "dark": { "mix": ["amber.dark", "neutral.dark"], "weight": 0.3 }, "use": "Search-result highlighting." },
     "mark-ink": { "light": "neutral.ink", "dark": "neutral.cream", "use": "Text on search highlighting." },
@@ -81,12 +82,13 @@
   },
   "contrast": {
     "text": [
-      ["ink", "paper"], ["ink", "panel"], ["ink", "accent-soft"], ["ink", "warn-soft"],
-      ["ink-soft", "paper"], ["ink-soft", "panel"],
-      ["accent", "paper"], ["accent", "panel"], ["accent", "accent-soft"], ["accent", "warn-soft"],
-      ["link-hover", "paper"], ["link-hover", "panel"], ["link-hover", "accent-soft"], ["link-hover", "warn-soft"],
+      ["ink", "paper"], ["ink", "panel"], ["ink", "accent-soft"], ["ink", "warm-soft"],
+      ["ink-soft", "paper"], ["ink-soft", "panel"], ["ink-soft", "warm-soft"],
+      ["footer-link-hover", "paper"], ["footer-link-hover", "warm-soft"],
+      ["accent", "paper"], ["accent", "panel"], ["accent", "accent-soft"], ["accent", "warm-soft"],
+      ["link-hover", "paper"], ["link-hover", "panel"], ["link-hover", "accent-soft"], ["link-hover", "warm-soft"],
       ["accent-ink", "accent"], ["pebble-hover-ink", "pebble-hover"], ["pebble-selected-hover-ink", "pebble-selected-hover"], ["error", "paper"], ["error", "panel"],
-      ["warn", "warn-soft"], ["mark-ink", "mark"], ["paper", "ink"]
+      ["warm", "warm-soft"], ["mark-ink", "mark"], ["paper", "ink"]
     ],
     "graphics": [["focus", "paper"], ["focus", "panel"], ["popup-link", "ink"], ["control-border", "paper"], ["control-border", "panel"]],
     "qr": [["black", "white"]]
