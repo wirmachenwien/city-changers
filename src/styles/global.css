@@ -208,8 +208,10 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
 /* ---------- Masthead ---------- */
 
 .site-head {
-  border-block-end: 2px solid var(--ink);
-  background: var(--paper);
+  --toggle-surface: var(--accent-soft);
+  --toggle-hover: var(--pebble-hover);
+  border-block-end: 2px solid var(--accent);
+  background: var(--accent-soft);
   position: sticky;
   inset-block-start: 0;
   z-index: 40;
@@ -220,11 +222,11 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
   padding-block-start: env(safe-area-inset-top, 0px);
 }
 
-/* Fixed safe-area cap: a non-scrolling paper strip pinned to the viewport
+/* Fixed safe-area cap: a non-scrolling header-colored strip pinned to the viewport
    top. The sticky header's own padding can composite unreliably on iOS
    Safari during momentum scroll (glyphs peek through the "solid" strip),
    so this never-scrolling layer guarantees the Dynamic Island zone stays
-   solid. Same paper tone, so the seam is invisible; it drops behind the
+   solid. Same soft-accent tone, so the seam is invisible; it drops behind the
    nav sheet while the drawer is open (see body.drawer-open .site-head). */
 .site-head::before {
   content: "";
@@ -234,7 +236,7 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
   right: 0;
   height: constant(safe-area-inset-top, 0px);
   height: env(safe-area-inset-top, 0px);
-  background: var(--paper);
+  background: var(--accent-soft);
 }
 
 .site-head-inner {
@@ -324,7 +326,7 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
 }
 
 /* Narrow screens: two stacked rows. Row one holds logo, title and the
-   borderless hamburger; row two holds the language picker and search. */
+   borderless hamburger; row two holds search. */
 @media (max-width: 59.99rem) {
   .site-head-inner {
     flex-direction: column;
@@ -349,10 +351,12 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
     min-inline-size: 2.75rem;
     min-block-size: 2.75rem;
     justify-content: center;
+    background: var(--toggle-surface, var(--paper));
+    border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
   }
 
-  .menu-toggle:hover {
-    background: transparent;
+  .menu-toggle:is(:hover, :focus-visible) {
+    background: var(--toggle-hover, var(--accent-soft));
     color: var(--ink);
   }
 
@@ -373,18 +377,9 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
     flex-wrap: wrap;
   }
 
-  .site-head-tools .lang-menu {
-    order: -1;
-    flex: none;
-    font-size: 16px;
-  }
-
-  .site-head-tools .lang-menu select {
-    font-size: 16px;
-  }
-
-  .search-form--mini {
-    flex: 0 1 18rem;
+  .site-head-tools .search-form--mini {
+    flex: 1 1 100%;
+    inline-size: 100%;
     min-inline-size: 0;
     max-inline-size: none;
   }
@@ -407,6 +402,15 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
   align-items: center;
   flex: 1;
   min-inline-size: 0;
+}
+
+.site-head .search-box {
+  --search-surface: var(--accent-soft);
+}
+
+.site-head .search-box:is(:hover, :focus-within),
+.site-head .search-box:has(> input:not(:placeholder-shown)) {
+  --search-surface: var(--paper);
 }
 
 .search-box > .icon {
@@ -535,8 +539,8 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
     animation: float-in 0.18s ease-out;
   }
 
-  body.drawer-open .drawer-toggle-float:hover {
-    background: transparent;
+  body.drawer-open .drawer-toggle-float:is(:hover, :focus-visible) {
+    background: var(--toggle-hover, var(--accent-soft));
     color: var(--ink);
   }
 
@@ -556,8 +560,22 @@ a[x-apple-data-detectors]:hover { color: var(--link-hover); }
     animation: float-in 0.18s ease-out;
   }
 
-  body.drawer-open .theme-toggle--float:hover {
-    background: var(--panel);
+  /* Language, theme and close controls share the same top row. Keep the
+     picker inside the dialog, but out of the scrolling TOC's layout. */
+  .drawer .nav-language {
+    position: fixed;
+    z-index: 60;
+    inset-block-start: calc(0.6rem + env(safe-area-inset-top, 0px));
+    inset-inline-start: calc(100dvw - min(22rem, 85dvw) + 1.25rem);
+    inset-inline-end: auto;
+    max-inline-size: calc(min(22rem, 85dvw) - 9.25rem);
+    margin: 0;
+    padding: 0;
+  }
+
+  .drawer .nav-language .lang-menu {
+    display: flex;
+    max-inline-size: 100%;
   }
 
   .site-head .theme-toggle {
@@ -662,6 +680,15 @@ body.drawer-open {
 .nav-list--nested {
   padding-inline-start: 0.8rem;
   margin-inline-start: 0.6rem;
+}
+
+.nav-language {
+  margin-block-end: 1rem;
+  padding-inline-start: 0.6rem;
+}
+
+.nav-language .lang-menu {
+  font-size: 1rem;
 }
 
 /* ---------- Layout shells ---------- */
@@ -2356,7 +2383,7 @@ html:not(.js-fold) .accordion-content {
   -webkit-appearance: none;
   box-shadow: none;
   font: inherit;
-  background: var(--paper);
+  background: var(--search-surface, var(--paper));
   color: var(--ink);
   padding: 0.5rem 0.75rem;
   padding-inline-start: 2.25rem;
@@ -2388,6 +2415,47 @@ html:not(.js-fold) .accordion-content {
   padding: 0.3rem 0.6rem;
   padding-inline-start: 2rem;
   font-size: 0.91rem;
+  min-block-size: 2.75rem;
+}
+
+/* Native submission, revealed by the input value without JavaScript. Reserve
+   space even while empty so typing never moves the text or the clear control. */
+.site-head .search-box > input[type="search"] {
+  padding-inline-end: 3rem;
+}
+
+.search-box > .search-submit {
+  display: none;
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block: 0;
+  inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.search-box > input:not(:placeholder-shown) ~ .search-submit {
+  display: inline-flex;
+}
+
+.search-box > .search-submit:is(:hover, :focus-visible) {
+  background: var(--pebble-hover);
+  color: var(--pebble-hover-ink);
+}
+
+[dir="rtl"] .search-submit > .icon {
+  transform: scaleX(-1);
+}
+
+@media (forced-colors: active) {
+  .search-box > .search-submit { border: 1px solid ButtonText; }
 }
 
 /* iOS zooms (and pans the page) when focusing inputs below 16px; keep the
@@ -2852,16 +2920,16 @@ html:not(.js-fold) .accordion-content {
   min-inline-size: 2.75rem;
   min-block-size: 2.75rem;
   padding: 0.45rem;
-  background: transparent;
+  background: var(--toggle-surface, var(--paper));
   border: 0;
-  border-radius: var(--radius);
+  border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
   color: var(--ink);
   cursor: pointer;
   transition: transform 0.15s ease;
 }
 
-.theme-toggle:hover {
-  background: var(--panel);
+.theme-toggle:is(:hover, :focus-visible) {
+  background: var(--toggle-hover, var(--accent-soft));
 }
 
 .theme-toggle:active {

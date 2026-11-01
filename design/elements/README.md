@@ -65,6 +65,10 @@ sources are not recipient-kit assets.
   table text, scrolling and focus indicators remain unclipped. No header fill is
   shown before measurement or without JS, avoiding a leaking rectangular flash.
   Print and forced colors retain native cell backgrounds and borders.
+- Theme toggles and mobile menu/close toggles use the shared pebble silhouette.
+  Their idle fill matches the current surface (`accent-soft` in the masthead,
+  `paper` in the drawer); hover and keyboard focus reveal a stronger soft-green
+  fill. Only background paint is masked, leaving icons and focus rings intact.
 - Rails use context rather than measured height: sidebar links default to short,
   quotes to tall. An explicit `data-rail-size="short|medium|tall"` selects a crop
   where needed; medium still selects Gentle. Licence panels keep a native accent.

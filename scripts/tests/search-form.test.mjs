@@ -17,8 +17,24 @@ test('search input disables native inset chrome but retains explicit colors, bor
   const input = css.split('.search-form input[type="search"] {')[1].split('}')[0];
   assert.match(input, /appearance: none;/);
   assert.match(input, /box-shadow: none;/);
-  assert.match(input, /background: var\(--paper\);/);
+  assert.match(input, /background: var\(--search-surface, var\(--paper\)\);/);
   assert.match(input, /color: var\(--ink\);/);
   assert.match(input, /border: 1px solid var\(--ink\);/);
   assert.doesNotMatch(input, /outline:\s*(?:none|0)/);
+});
+
+test('navigation search includes a native, labelled chevron submit pebble revealed by its input value', () => {
+  const head = read('src/components/Masthead.astro');
+  assert.match(head, /<button class="search-submit" type="submit" aria-label=\{t\(lang, 'search.search-title', 'Search'\)\}>\s*<Icon name="chevron-right" \/>/);
+  const css = read('src/styles/global.css');
+  assert.match(css, /\.search-box > \.search-submit \{\s*display: none;/);
+  assert.match(css, /\.search-box > input:not\(:placeholder-shown\) ~ \.search-submit \{\s*display: inline-flex;/);
+  assert.match(css, /\.site-head \.search-box > input\[type="search"\] \{\s*padding-inline-end: 3rem;/);
+  const button = css.match(/\.search-box > \.search-submit \{([^}]+)\}/)[1];
+  assert.match(button, /inline-size: 2\.75rem;/);
+  assert.match(button, /min-block-size: 2\.75rem;/);
+  const drawn = read('src/styles/drawn-elements.css');
+  assert.match(drawn, /\.search-box > \.search-submit::before \{[^}]+share-pebble\.svg/);
+  assert.match(drawn, /\.search-box > \.search-submit::before \{[^}]+inset: \.4rem;/);
+  assert.match(drawn, /\.search-box > \.search-submit::after \{ display: none; \}/);
 });

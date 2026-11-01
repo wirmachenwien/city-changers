@@ -1,5 +1,5 @@
 ---
- // Compact language dropdown for the masthead: globe icon plus a native
+ // Compact language dropdown for navigation and footer: globe icon plus a native
  // select that navigates on change (wired by the shared select enhancer).
  // The full link list in the footer stays the no-JS fallback.
 import { alternates } from '../lib/alternates';
@@ -16,7 +16,7 @@ interface Props {
   id?: string;
 }
 
-const { lang, kind, file, id = 'head-language' } = Astro.props;
+const { lang, kind, file, id = 'language-select' } = Astro.props;
 const targets = await alternates(kind, file);
 const options = targets.map(target => ({
   href: target.url,

@@ -13,6 +13,34 @@
 
 @media screen and (forced-colors: none) {
   @supports (mask-image: url('')) {
+    /* Icon toggles use a surface-colored pebble at rest. Only its paint is
+       masked; the icon, native focus ring and 44px hit target stay intact. */
+    .theme-toggle, .menu-toggle {
+      position: relative;
+      isolation: isolate;
+      border-radius: 0;
+      background: transparent;
+    }
+    .theme-toggle::before, .menu-toggle::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--toggle-surface, var(--paper));
+      mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat;
+    }
+    .theme-toggle:is(:hover, :focus-visible), .menu-toggle:is(:hover, :focus-visible),
+    body.drawer-open .drawer-toggle-float:is(:hover, :focus-visible) {
+      background: transparent;
+    }
+    .theme-toggle:is(:hover, :focus-visible)::before, .menu-toggle:is(:hover, :focus-visible)::before {
+      background: var(--toggle-hover, var(--accent-soft));
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .theme-toggle::before, .menu-toggle::before { transition: background-color 160ms ease-out; }
+    }
+
     /* Keep native ordered-list numbering (including start/value/reversed),
        with an aligned hanging column for decorative pebble markers. These em
        dimensions intentionally follow list text rather than root layout units. */
@@ -201,9 +229,26 @@
       color: var(--pebble-selected-hover-ink);
       background: transparent;
     }
-    .search-box { --drawn-stroke: var(--control-border); --drawn-fill: var(--paper); }
+    .search-box { --drawn-stroke: var(--control-border); --drawn-fill: var(--search-surface, var(--paper)); }
     .search-box:focus-within { --drawn-stroke: var(--accent); }
     .search-box > input[type="search"]:focus { border-color: transparent; }
+    .search-box > .search-submit {
+      isolation: isolate;
+      border-radius: 0;
+      background: transparent;
+    }
+    .search-box > .search-submit::before {
+      content: '';
+      position: absolute;
+      inset: .4rem;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--accent-soft);
+      mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat;
+    }
+    .search-box > .search-submit::after { display: none; }
+    .search-box > .search-submit:is(:hover, :focus-visible) { background: transparent; }
+    .search-box > .search-submit:is(:hover, :focus-visible)::before { background: var(--pebble-hover); }
     .drawn-select {
       display: inline-flex;
       min-inline-size: 0;
@@ -373,7 +418,7 @@
     .drawn-outline { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; max-inline-size: none; overflow: visible; z-index: 1; pointer-events: none; fill: none; stroke: var(--line); stroke-width: 1.5px; stroke-linecap: round; stroke-linejoin: round; }
 
     .site-head, .site-footer { border-block-color: transparent; }
-    .site-head { background: linear-gradient(var(--paper), var(--paper)) top / 100% calc(100% - .375rem) no-repeat; background-origin: padding-box; background-clip: padding-box; }
+    .site-head { background: linear-gradient(var(--accent-soft), var(--accent-soft)) top / 100% calc(100% - .375rem) no-repeat; background-origin: padding-box; background-clip: padding-box; }
     .site-head__edge { display: block; position: absolute; inset-inline: 0; inset-block-end: -.375rem; inline-size: 100%; block-size: .75rem; pointer-events: none; }
     .site-footer { position: relative; }
     .site-footer::before { content: ''; position: absolute; inset-inline: 0; inset-block-start: -.375rem; block-size: .75rem; background: var(--warm); mask: url('../../design/elements/lines/divider-strong.svg') center / 100% 100% no-repeat; pointer-events: none; }

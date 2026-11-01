@@ -65,3 +65,15 @@ test('search icon grows subtly on hover or focus without shifting its centered p
   assert.ok(css.includes('.search-box::after { transition: background-color 160ms ease-out; }'));
   assert.match(css, /\.search-box:hover > \.icon,\s*\.search-box:focus-within > \.icon \{ transform: translateY\(-50%\) scale\(1\.1\); \}/);
 });
+
+test('navigation search keeps its active fill while hovered, focused or populated and fills its mobile row', () => {
+  const read = path => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
+  const css = read('src/styles/global.css');
+  assert.match(css, /\.site-head \.search-box \{\s*--search-surface: var\(--accent-soft\);/);
+  assert.match(css, /\.site-head \.search-box:is\(:hover, :focus-within\),\s*\.site-head \.search-box:has\(> input:not\(:placeholder-shown\)\) \{\s*--search-surface: var\(--paper\);/);
+  const mobile = css.match(/\.site-head-tools \.search-form--mini \{([^}]+)\}/)[1];
+  assert.match(mobile, /flex: 1 1 100%;/);
+  assert.match(mobile, /inline-size: 100%;/);
+  assert.match(mobile, /max-inline-size: none;/);
+  assert.match(read('src/styles/drawn-elements.css'), /--drawn-fill: var\(--search-surface, var\(--paper\)\)/);
+});
