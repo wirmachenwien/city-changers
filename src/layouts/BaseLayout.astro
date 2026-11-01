@@ -80,25 +80,27 @@ const hideFromIndex = noindex || !settings.web.indexing;
     data-collapsible-sections={settings.web.collapsibleSections}
     data-search-param={settings.web.search.param}
   >
-    <a class="skip-link" href="#main">{t(lang, 'nav.toc', 'Contents')}</a>
-    <Masthead lang={lang} />
-    <NavDrawer lang={lang} kind={kind} file={file} currentUrl={currentUrl} />
-    <div class="shell">
-      <div class="main-grid">
-        {sidebarToc ? (
-          <nav class="side-nav" aria-label="Brand guide contents" data-scroll-toc>
-            <section class="nav-section">
-              <div class="nav-language"><LanguageMenu {lang} {kind} {file} id="side-language" /></div>
-              <ul class="nav-list" />
-            </section>
-          </nav>
-        ) : <SideNav lang={lang} kind={kind} file={file} currentUrl={currentUrl} />}
-        <main id="main" class="article" data-pagefind-body>
-          <slot />
-        </main>
+    <div class="page-canvas">
+      <a class="skip-link" href="#main">{t(lang, 'nav.toc', 'Contents')}</a>
+      <Masthead lang={lang} />
+      <NavDrawer lang={lang} kind={kind} file={file} currentUrl={currentUrl} />
+      <div class="shell">
+        <div class="main-grid">
+          {sidebarToc ? (
+            <nav class="side-nav" aria-label="Brand guide contents" data-scroll-toc>
+              <section class="nav-section">
+                <div class="nav-language"><LanguageMenu {lang} {kind} {file} id="side-language" /></div>
+                <ul class="nav-list" />
+              </section>
+            </nav>
+          ) : <SideNav lang={lang} kind={kind} file={file} currentUrl={currentUrl} />}
+          <main id="main" class="article" data-pagefind-body>
+            <slot />
+          </main>
+        </div>
       </div>
+      <Footer lang={lang} kind={kind} file={file} />
     </div>
-    <Footer lang={lang} kind={kind} file={file} />
     <script>
       import '../scripts/app';
     </script>

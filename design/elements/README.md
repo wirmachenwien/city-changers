@@ -72,8 +72,14 @@ sources are not recipient-kit assets.
    so asymmetric speech-tail slices join correctly. Native boundaries remain
    in print, forced colors and browsers without mask support. Single-piece
    pebbles and rule masks remain CSS-only.
-  The masthead background overlaps the fully filled SVG top by 1 CSS pixel;
-  the visible wave does not move.
+   The masthead background overlaps the fully filled SVG top by 1 CSS pixel;
+   the visible wave does not move.
+   The reading stroke and top rubber-band background inherit one root
+   `--reading-progress` value, including RTL direction. An opaque `.page-canvas`
+   separates content from the fixed overscroll paint behind it; the lower edge
+   uses the footer's warm-soft surface, without a second progress indicator.
+   Edge selection reuses the existing progress scheduler, even on pages without
+   a reading bar. Native scrolling and print/forced-color fallbacks are retained.
 - Run `npm run elements:build` after changing `geometry.js`. This exports only
   eight palette-free SVG masks and `frames/frames.css`; it never touches mascot
   media. `npm run elements:check` verifies freshness of the retained static
