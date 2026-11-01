@@ -64,7 +64,17 @@ class ComponentBreakTest(unittest.TestCase):
                     "padding-left", "left", "top", "width", "height", "line-height"
                 })
                 or (selector.strip() == ".pagination__rules > span" and prop == "transform")
-                or (selector.strip() == ".drawn-select:hover > .drawn-select__value::after" and prop == "inset-block-end")
+                or (
+                    selector.strip() in {
+                        ".drawn-select:hover > .drawn-select__value::after",
+                        ".drawn-select:is(:hover, :focus-within) > .drawn-select__value::after",
+                    }
+                    and prop == "inset-block-end"
+                )
+                or (
+                    selector.strip() == '[data-css-underline="pebble"]:is(:hover, :focus-visible) > [data-pebble-label]::after'
+                    and prop == "inset-block-end"
+                )
                 or (".visual-toc > a:hover" in selector and prop == "text-underline-offset")
             )
 
