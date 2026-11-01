@@ -1777,9 +1777,10 @@ html:not(.js-fold) .accordion-content {
 }
 
 .content-popup-close {
+  --popup-close-inset: -1.125rem;
   position: absolute;
-  inset-block-start: -1.375rem;
-  inset-inline-end: -1.375rem;
+  inset-block-start: var(--popup-close-inset);
+  inset-inline-end: var(--popup-close-inset);
   display: inline-flex;
   align-items: center;
   justify-content: center;

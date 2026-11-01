@@ -58,7 +58,7 @@ function environment() {
   let nextFrame = 0;
   const globals = {
     window, document, Node: Element,
-    getComputedStyle: () => ({ inlineSize: '44px' }),
+    getComputedStyle: () => ({ inlineSize: '44px', insetInlineEnd: '-18px', insetBlockStart: '-18px' }),
     ResizeObserver: class { observe() {} disconnect() {} },
     requestAnimationFrame: callback => { frames.set(++nextFrame, callback); return nextFrame; },
     cancelAnimationFrame: id => frames.delete(id),
@@ -99,14 +99,14 @@ test('pinned popup follows the trigger precisely and remains open offscreen with
     assert.equal(trigger.getAttribute('title'), null);
     assert.equal(trigger.getAttribute('aria-expanded'), 'true');
     assert.equal(env.popup().getAttribute('role'), 'dialog');
-    assert.equal(env.popup().style.top, '281.25px');
+    assert.equal(env.popup().style.top, '278.25px');
     trigger.rect.top -= 20.5;
     trigger.rect.bottom -= 20.5;
     env.window.emit('scroll');
     env.window.emit('scroll');
     assert.equal(env.frames.size, 1);
     env.flush();
-    assert.equal(env.popup().style.top, '260.75px');
+    assert.equal(env.popup().style.top, '257.75px');
     trigger.rect.top = 73.25;
     trigger.rect.bottom = 101.25;
     env.window.emit('scroll');
@@ -117,19 +117,19 @@ test('pinned popup follows the trigger precisely and remains open offscreen with
     env.window.emit('scroll');
     env.flush();
     assert.ok(env.popup(), 'pinned popup stays open behind the navbar');
-    assert.equal(env.popup().style.top, '103.25px', 'popup follows the trigger instead of clamping to the navbar');
+    assert.equal(env.popup().style.top, '100.25px', 'popup follows the trigger instead of clamping to the navbar');
     assert.equal(trigger.getAttribute('aria-expanded'), 'true');
     trigger.rect.top = -250;
     trigger.rect.bottom = -222;
     env.window.emit('scroll');
     env.flush();
     assert.ok(env.popup(), 'pinned popup survives scrolling fully offscreen');
-    assert.equal(env.popup().style.top, '-219px');
+    assert.equal(env.popup().style.top, '-222px');
     trigger.rect.top = 250.25;
     trigger.rect.bottom = 278.25;
     env.window.emit('scroll');
     env.flush();
-    assert.equal(env.popup().style.top, '281.25px', 'scrolling back restores the original position');
+    assert.equal(env.popup().style.top, '278.25px', 'scrolling back restores the original position');
   } finally { env.cleanup(); }
 });
 
@@ -193,7 +193,7 @@ test('hover previews reserve corner space on both sides so pinning never moves t
       trigger.rect = { top: 550, bottom: 578, left, right: left + 40, width: 40, height: 28 };
       trigger.emit('pointerenter', { pointerType: 'mouse' });
       const preview = { ...env.popup().style };
-      assert.equal(preview.left, left === 0 ? '30px' : '450px');
+      assert.equal(preview.left, left === 0 ? '26px' : '454px');
       trigger.emit('click');
       assert.deepEqual(env.popup().style, preview, 'revealing the close pebble preserves preview geometry');
       env.popup().children[0].emit('click');
@@ -257,9 +257,9 @@ test('popup flips above and clamps to viewport edges without covering the navbar
     const trigger = env.trigger();
     trigger.rect = { top: 550, bottom: 578, left: 750, right: 790, width: 40, height: 28 };
     trigger.emit('click');
-    assert.equal(env.popup().style.top, '427px');
-    assert.equal(env.popup().style.left, '450px');
-    assert.equal(env.popup().style.maxBlockSize, '461.75px');
+    assert.equal(env.popup().style.top, '430px');
+    assert.equal(env.popup().style.left, '454px');
+    assert.equal(env.popup().style.maxBlockSize, '465.75px');
     env.popup().children[0].emit('click');
     assert.equal(env.popup(), undefined);
     assert.equal(env.document.activeElement, trigger);

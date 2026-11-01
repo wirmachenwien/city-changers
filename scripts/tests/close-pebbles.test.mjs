@@ -32,6 +32,9 @@ test('pebble paint preserves close-button targets, gutter positioning, animation
   const popup = global.match(/\.content-popup-close \{([^}]+)\}/)[1];
   assert.match(popup, /inline-size: 2\.75rem/);
   assert.match(popup, /block-size: 2\.75rem/);
+  assert.match(popup, /--popup-close-inset: -1\.125rem/);
+  assert.match(popup, /inset-block-start: var\(--popup-close-inset\)/);
+  assert.match(popup, /inset-inline-end: var\(--popup-close-inset\)/);
   assert.match(global, /\.article \.bookmark-pin \{\s*position: absolute;/);
   assert.doesNotMatch(section, /(?:inline-size|block-size|padding|margin|inset-inline-start|inset-block-start):/);
   assert.match(drawn, /@media screen and \(forced-colors: none\) \{\s*@supports \(mask-image:/);

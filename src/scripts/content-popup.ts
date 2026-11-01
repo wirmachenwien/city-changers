@@ -156,17 +156,22 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
       const gap = 8;
       // Reserve the close control's space even while hidden in a hover
       // preview, so revealing it never shifts or resizes the popup.
-      const corner = parseFloat(getComputedStyle(closer).inlineSize) / 2;
+      const closeStyle = getComputedStyle(closer);
+      const inlineInset = parseFloat(closeStyle.insetInlineEnd);
+      const blockInset = parseFloat(closeStyle.insetBlockStart);
+      const fallbackOutset = parseFloat(closeStyle.inlineSize) / 2;
+      const inlineOutset = Number.isFinite(inlineInset) ? Math.max(0, -inlineInset) : fallbackOutset;
+      const blockOutset = Number.isFinite(blockInset) ? Math.max(0, -blockInset) : fallbackOutset;
       const column = trigger.closest('[data-prose], .prose') ?? trigger.closest('main');
       const bounds = column?.getBoundingClientRect();
-      const minLeft = Math.max(gap + corner, bounds?.left ?? gap + corner);
-      const maxRight = Math.min(viewport.clientWidth - gap - corner, bounds?.right ?? viewport.clientWidth - gap - corner);
+      const minLeft = Math.max(gap + inlineOutset, bounds?.left ?? gap + inlineOutset);
+      const maxRight = Math.min(viewport.clientWidth - gap - inlineOutset, bounds?.right ?? viewport.clientWidth - gap - inlineOutset);
       popup.style.maxInlineSize = `min(20rem, ${Math.max(0, maxRight - minLeft)}px)`;
-      const minTop = navbarBottom + gap + corner;
+      const minTop = navbarBottom + gap + blockOutset;
       const maxBottom = viewport.clientHeight - gap;
       popup.style.maxBlockSize = `${Math.max(0, maxBottom - minTop)}px`;
       const size = popup.getBoundingClientRect();
-      const anchorGap = 3;
+      const anchorGap = 0;
       const below = rect.bottom + anchorGap;
       const above = rect.top - anchorGap - size.height;
       const preferred = below + size.height <= maxBottom ? below : above;
