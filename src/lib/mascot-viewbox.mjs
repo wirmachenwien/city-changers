@@ -9,3 +9,12 @@ export function mascotViewBox(animationData) {
   if (width <= 0 || height <= 0) return undefined;
   return `${(animationData.w - width) / 2} ${(animationData.h - height) / 2} ${width} ${height}`;
 }
+
+// Logo masters use the inner 256-unit square, without the stills' 16-unit
+// clear space on each side. Keep the animated mascot at the master's scale.
+export function logoMascotViewBox(animationData) {
+  const box = mascotViewBox(animationData);
+  if (!box) return undefined;
+  const [x, y, width, height] = box.split(' ').map(Number);
+  return `${x + width / 18} ${y + height / 18} ${width * 8 / 9} ${height * 8 / 9}`;
+}
