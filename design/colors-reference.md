@@ -26,6 +26,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--pebble-selected-hover` | `#0E6338` | `#59C691` | `#0E6338` | Subtle filled-green hover for the selected language pebble. |
 | `--pebble-selected-hover-ink` | `#F5F9F7` | `#191F18` | `#F5F9F7` | Light/dark inverse text on the selected language pebble's hover fill. |
 | `--line` | `#D9D8D5` | `#3E3C37` | `#999896` | Decorative separators, not sole control boundaries. |
+| `--media-line` | `#D9D8D5` | `#3E3C37` | `#D9D8D5` | Figure outlines match the web line color, including in print; unlike text separators they must not receive the darker print line override. |
 | `--control-border` | `#82807C` | `#797670` | `#82807C` | Visible boundaries for selects and other outlined controls. |
 | `--panel` | `#F6F1EA` | `#23221E` | `#F6F1EA` | Neutral cards and FeatureBoxes. |
 | `--warm` | `#8A4B00` | `#E8A33D` | `#8A4B00` | Warm amber supporting emphasis for callouts, decorative accents and footer boundaries. |
@@ -49,6 +50,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | pebble-selected-hover | green.light 90% + neutral.ink 10% (sRGB) | green.dark 92% + neutral.cream 8% (sRGB) |
 | pebble-selected-hover-ink | neutral.white 96% + green.light 4% (sRGB) | neutral.dark 94% + green.dark 6% (sRGB) |
 | line | neutral.ink 16% + neutral.paper 84% (sRGB) | neutral.cream 18% + neutral.dark 82% (sRGB) |
+| media-line | neutral.ink 16% + neutral.paper 84% (sRGB) | neutral.cream 18% + neutral.dark 82% (sRGB) |
 | control-border | neutral.ink 55.00000000000001% + neutral.paper 45% (sRGB) | neutral.cream 45% + neutral.dark 55% (sRGB) |
 | panel | amber.light 6% + neutral.paper 94% (sRGB) | neutral.cream 6% + neutral.dark 94% (sRGB) |
 | warm-soft | amber.highlight 22% + neutral.paper 78% (sRGB) | amber.dark 14.000000000000002% + neutral.dark 86% (sRGB) |

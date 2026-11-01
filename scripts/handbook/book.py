@@ -39,6 +39,7 @@ from color_registry import load_colors
 from handbook.config import load_config
 from handbook.mdx import find_asset_by_basename, front_opener_for_pages, make_glossary_lang_re, licence_html
 from handbook.typography import smart_quotes_html
+from handbook.markers import marker_hints
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 CONTENT = ROOT / "src" / "content" / "book"
@@ -185,7 +186,7 @@ def markdown_to_html(converted_md: str, lang: str) -> str:
     import markdown  # pip: markdown
 
     body = markdown.markdown(converted_md, extensions=["extra"])
-    return smart_quotes_html(body, lang)
+    return marker_hints(smart_quotes_html(body, lang))
 
 
 def render_math_html(html: str) -> str:

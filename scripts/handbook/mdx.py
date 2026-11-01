@@ -362,7 +362,7 @@ def mascot_open_html(attr_source: str, image_src: Callable[[str], str]) -> str:
     still = mascot_poses()[pose]["still"]
     src = escape(image_src(f"mascot/static/ink/{still}.png"), quote=True)
     title = values.get("title")
-    heading = f'<p><strong>{escape(title)}</strong></p>\n' if title else ''
+    heading = f'<p class="mascot-box__title"><strong>{escape(title)}</strong></p>\n' if title else ''
     return (f'\n\n<div class="mascot-box" markdown="1">\n'
             f'<img class="mascot-box__mascot" src="{src}" alt="" width="1080" height="1080" />\n\n'
             f'<div class="mascot-box__bubble" markdown="1">\n{heading}\n')

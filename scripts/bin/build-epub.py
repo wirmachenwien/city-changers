@@ -52,6 +52,7 @@ from handbook.book import (
     title_page_details_html,
 )
 from handbook.media import figure_video_export_url
+from handbook.drawn import drawn_css, frame_paths, media_svg
 from handbook.mdx import (
     CCBADGE_RE,
     FEATURE_CLOSE_RE,
@@ -86,8 +87,8 @@ def _attr(text: str) -> str:
     """Escape a string for use in an id/href/alt attribute value."""
     return html.escape(text, quote=True)
 
-# Body, UI and headline faces embedded in every EPUB so covers and chapters
-# render in Newsreader/Clarity City/Fraunces on any reader. The Fraunces
+# Body and headline faces embedded in every EPUB so covers and chapters
+# render in Newsreader/Fraunces on any reader. The Fraunces
 # files are static instances of the variable font (see src/styles/epub.css
 # for the axis values and the one-line instancer commands) — reading systems
 # apply font-variation-settings too inconsistently to ship the live file.
@@ -96,8 +97,6 @@ EPUB_FONTS = (
     "NewsreaderText-Italic.ttf",
     "NewsreaderText-Bold.ttf",
     "NewsreaderText-BoldItalic.ttf",
-    "ClarityCity-Regular.ttf",
-    "ClarityCity-Bold.ttf",
     "FrauncesText-Bold.ttf",
     "FrauncesText-BoldItalic.ttf",
     "FrauncesDisplay-Bold.ttf",
@@ -143,6 +142,7 @@ class EpubBook:
         self.out_path = out_path
         self.uid = works.get("identifier") or f"urn:uuid:{uuid.uuid5(uuid.NAMESPACE_URL, download_stem(lang))}"
         self.images: dict[str, str] = {}
+        self.drawn_images: dict[str, str] = {}
         self.fonts: dict[str, str] = {}
         self.chapters: list[dict[str, str]] = []
         self.cover_image: str | None = None
@@ -168,6 +168,22 @@ class EpubBook:
             self.fonts[key] = f"fonts/{source.name}"
         return self.fonts[key]
 
+    def add_figure(self, filename: str, size: str = "", framed: bool = False) -> str:
+        source = find_asset(filename)
+        if source is None:
+            return self.add_image(filename)
+        from PIL import Image
+
+        with Image.open(source) as image:
+            aspect = image.height / image.width
+        width = {"small": 288, "medium": 448}.get(size, 704)
+        height = (width - 32) * aspect + 32 if framed else width * aspect
+        path = frame_paths([(width, height)])[0]
+        svg = media_svg(source.as_uri(), width, height, path, framed)
+        href = f"images/figure-{len(self.drawn_images) + 1}.svg"
+        self.drawn_images[href] = svg
+        return href
+
     def add_katex_font(self, source: Path) -> str:
         key = source.resolve().as_posix()
         if key not in self.fonts:
@@ -189,16 +205,18 @@ class EpubBook:
                 return f'\n\n*Video: [{caption}]({url})*\n'
 
             alt = values.get("alt", "")
-            href = html.escape(self.add_image(src), quote=True)
+            href = html.escape(self.add_figure(src, values.get("size", ""), values.get("frame") == "white"), quote=True)
             alt_text = html.escape(alt, quote=True)
             caption_html = f"<figcaption>{html.escape(caption)}</figcaption>" if caption else ""
             classes = ["figure"]
+            if values.get("frame") == "white":
+                classes.append("figure--framed")
             if values.get("size") in {"small", "medium"}:
                 classes.append(f'figure--{values["size"]}')
             if values.get("float") in {"left", "right", "center"}:
                 classes.append(f'figure--float-{values["float"]}')
             class_attr = html.escape(" ".join(classes), quote=True)
-            return f'<figure class="{class_attr}"><img src="{href}" alt="{alt_text}" />{caption_html}</figure>'
+            return f'<figure class="{class_attr}"><img data-drawn-media="" src="{href}" alt="{alt_text}" />{caption_html}</figure>'
 
         text = FIGURE_RE.sub(figure, text)
         text = strip_static_handlers(text)
@@ -383,6 +401,10 @@ class EpubBook:
             f'<item id="chapter-{index}" href="{xml_escape(chapter["filename"])}" media-type="application/xhtml+xml"/>'
             for index, chapter in enumerate(self.chapters, start=1)
         )
+        image_items.extend(
+            f'<item id="drawn-image-{index}" href="{xml_escape(href)}" media-type="image/svg+xml"/>'
+            for index, href in enumerate(self.drawn_images, start=1)
+        )
         font_items = "\n".join(
             f'<item id="font-{index}" href="{xml_escape(href)}" media-type="{media_type(Path(href))}"/>'
             for index, href in enumerate(self.fonts.values(), start=1)
@@ -444,7 +466,7 @@ class EpubBook:
                 '</rootfiles></container>\n',
                 encoding="utf-8",
             )
-            css = resolve_color_tokens(EPUB_CSS_PATH.read_text(encoding="utf-8")) + "\n" + katex_css("../fonts/")
+            css = resolve_color_tokens(EPUB_CSS_PATH.read_text(encoding="utf-8")) + "\n" + drawn_css() + "\n" + katex_css("../fonts/")
             for name in ("spark", "spark-outline"):
                 image = self.add_image(f"icons/png/light/{name}.png")
                 css = css.replace(f'url("icons/{name}.png")', f'url("../{image}")')
@@ -458,6 +480,8 @@ class EpubBook:
                 )
             for source_key, href in self.images.items():
                 shutil.copyfile(source_key, oebps / href)
+            for href, svg in self.drawn_images.items():
+                (oebps / href).write_text(svg, encoding="utf-8")
             for source_key, href in self.fonts.items():
                 shutil.copyfile(source_key, oebps / href)
 

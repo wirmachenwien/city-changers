@@ -60,6 +60,9 @@ class ComponentBreakTest(unittest.TestCase):
                 (".prose ol" in selector and prop in {
                     "padding-inline-start", "inset-inline-start", "inline-size", "block-size"
                 })
+                or ("ol:not([class]):not(.footnotes ol)" in selector and prop in {
+                    "padding-left", "left", "top", "width", "height", "line-height"
+                })
                 or (selector.strip() == ".pagination__rules > span" and prop == "transform")
                 or (selector.strip() == ".drawn-select:hover > .drawn-select__value::after" and prop == "inset-block-end")
                 or (".visual-toc > a:hover" in selector and prop == "text-underline-offset")

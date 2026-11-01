@@ -30,24 +30,6 @@
   src: url("fonts/NewsreaderText-BoldItalic.ttf") format("truetype");
 }
 
-/* Self-hosted Clarity City (OFL): the PDF's UI face for running headers,
-   captions and tables, embedded so they render identically on every
-   platform instead of falling back to whatever sans-serif Pango happens to
-   resolve. */
-@font-face {
-  font-family: "Clarity City";
-  font-style: normal;
-  font-weight: 400;
-  src: url("fonts/ClarityCity-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Clarity City";
-  font-style: normal;
-  font-weight: 700;
-  src: url("fonts/ClarityCity-Bold.ttf") format("truetype");
-}
-
 /* Self-hosted Fraunces (OFL, see OFL-Fraunces.txt): the PDF's headline
    face, matching the website (src/styles/global.css). Variable font, so the
    same SOFT/WONK/opsz presets work here — WeasyPrint applies them through
@@ -74,12 +56,12 @@
     /* Chapter title on follow-up pages only: first-except stays empty
        on the page where the chapter heading sets the string. */
     content: string(chapter, first-except);
-    font: 8pt "Clarity City", system-ui, sans-serif;
+    font: 8pt "Newsreader", Georgia, serif;
     color: var(--ink-soft);
   }
   @bottom-center {
     content: counter(page);
-    font: 8pt "Clarity City", system-ui, sans-serif;
+    font: 8pt "Newsreader", Georgia, serif;
   }
   @footnote {
     border-top: 0.5pt solid var(--line);
@@ -95,6 +77,11 @@
 
 @page frontmatter {
   @top-center { content: none; }
+}
+
+@page titlepage {
+  @top-center { content: none; }
+  @bottom-center { font-family: "Newsreader", Georgia, serif; }
 }
 
 html {
@@ -307,6 +294,7 @@ dl.glossary dt {
 /* Page two uses the complete outlined wordmark instead of a separate title.
    The cover remains photo + ordinary title, without a mascot. */
 .title-page-sheet {
+  page: titlepage;
   /* A4 content height: 297mm minus the 20mm/22mm page margins above. */
   height: 255mm;
   display: flex;
@@ -326,7 +314,7 @@ dl.glossary dt {
 }
 .title-page-details {
   flex: none;
-  font-family: "Clarity City", sans-serif;
+  font-family: "Newsreader", Georgia, serif;
   font-size: 9pt;
   line-height: 1.5;
 }
@@ -420,7 +408,7 @@ figure img {
 }
 
 figcaption {
-  font: 9pt "Clarity City", system-ui, sans-serif;
+  font: 9pt "Newsreader", Georgia, serif;
   line-height: 1.45;
   color: var(--ink-soft);
   margin-top: 4pt;
@@ -461,7 +449,7 @@ blockquote.pullquote {
 }
 
 blockquote.pullquote footer {
-  font: 9.5pt "Clarity City", system-ui, sans-serif;
+  font: 9.5pt "Newsreader", Georgia, serif;
   line-height: 1.4;
   font-style: normal;
   color: var(--ink-soft);
@@ -512,13 +500,14 @@ blockquote.pullquote footer {
   margin-bottom: 0;
 }
 
-/* Glossary: term in the UI face, definition flush below it (web parity). */
+/* Glossary terms use the same Fraunces display cut as section headings. */
 dl.glossary {
   margin: 12pt 0;
 }
 
 dl.glossary dt {
-  font-family: "Clarity City", system-ui, sans-serif;
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 80;
   font-weight: 700;
   margin-top: 8pt;
 }
@@ -536,7 +525,7 @@ dl.glossary dd {
   border-radius: 2mm;
   padding: 10pt 12pt;
   margin-block: 14pt 0;
-  font-family: "Clarity City", system-ui, sans-serif;
+  font-family: "Newsreader", Georgia, serif;
 }
 
 .question fieldset {
@@ -567,7 +556,7 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  font-family: "Clarity City", system-ui, sans-serif;
+  font-family: "Newsreader", Georgia, serif;
   font-size: 10pt;
   line-height: 1.5;
   border: 0.5pt solid var(--line);
@@ -670,7 +659,7 @@ table tbody tr:last-child > :last-child {
 
 .cc-badge {
   display: block;
-  font: 9.5pt "Clarity City", system-ui, sans-serif;
+  font: 9.5pt "Newsreader", Georgia, serif;
   line-height: 1.4;
   margin: 8pt 0;
 }

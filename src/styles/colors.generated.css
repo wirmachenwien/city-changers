@@ -27,6 +27,7 @@
   --pebble-selected-hover: #0e6338;
   --pebble-selected-hover-ink: #f5f9f7;
   --line: #d9d8d5;
+  --media-line: #d9d8d5;
   --control-border: #82807c;
   --panel: #f6f1ea;
   --warm: #8a4b00;
@@ -53,6 +54,7 @@
   --pebble-selected-hover: #0e6338;
   --pebble-selected-hover-ink: #f5f9f7;
   --line: #d9d8d5;
+  --media-line: #d9d8d5;
   --control-border: #82807c;
   --panel: #f6f1ea;
   --warm: #8a4b00;
@@ -79,6 +81,7 @@
   --pebble-selected-hover: #59c691;
   --pebble-selected-hover-ink: #191f18;
   --line: #3e3c37;
+  --media-line: #3e3c37;
   --control-border: #797670;
   --panel: #23221e;
   --warm: #e8a33d;
@@ -106,6 +109,7 @@
     --pebble-selected-hover: #59c691;
     --pebble-selected-hover-ink: #191f18;
     --line: #3e3c37;
+    --media-line: #3e3c37;
     --control-border: #797670;
     --panel: #23221e;
     --warm: #e8a33d;
@@ -134,6 +138,7 @@
     --pebble-selected-hover: #0e6338;
     --pebble-selected-hover-ink: #f5f9f7;
     --line: #999896;
+    --media-line: #d9d8d5;
     --control-border: #82807c;
     --panel: #f6f1ea;
     --warm: #8a4b00;

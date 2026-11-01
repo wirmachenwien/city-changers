@@ -65,7 +65,7 @@
 
 /* Self-hosted Clarity City (OFL, see OFL-ClarityCity.txt): Regular and Bold
    (both from the @cds/city 1.1.0 release). On screens it sets body copy and
-   UI chrome (--font-text / --font-ui); in print it remains the UI face. */
+   UI chrome (--font-text / --font-ui); print uses Newsreader instead. */
 @font-face {
   font-family: "Clarity City";
   font-style: normal;
@@ -3006,6 +3006,7 @@ input[type="search"]::placeholder {
        PDF, src/styles/print.css) but now shares the web's Fraunces
        headlines — same --fraunces-vars presets as on screen. */
     --font-text: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-ui: "Newsreader", Georgia, "Times New Roman", serif;
   }
 
   .site-head,

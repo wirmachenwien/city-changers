@@ -48,6 +48,7 @@ from handbook.book import (
     title_page_details_html,
 )
 from handbook.media import figure_video_export_url
+from handbook.drawn import drawn_css, pdf_document
 from handbook.mdx import (
     CCBADGE_RE,
     FEATURE_CLOSE_RE,
@@ -187,7 +188,7 @@ def print_css() -> str:
     css = FONT_RE.sub(lambda m: f'url("{font_uri(m.group(1))}")', css)
     css = css.replace('url("icons/', f'url("{(ASSETS / "icons/png/light").as_uri()}/')
     katex_fonts = (ROOT / "node_modules" / "katex" / "dist" / "fonts").as_uri() + "/"
-    return css + "\n" + katex_css(katex_fonts)
+    return css + "\n" + drawn_css() + "\n" + katex_css(katex_fonts)
 
 
 def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
@@ -212,6 +213,8 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
         alt = values.get("alt", "")
         caption_html = f"<figcaption>{caption}</figcaption>" if caption else ""
         classes = ["figure"]
+        if values.get("frame") == "white":
+            classes.append("figure--framed")
         if values.get("size") in {"small", "medium"}:
             classes.append(f'figure--{values["size"]}')
         if values.get("float") in {"left", "right", "center"}:
@@ -409,7 +412,9 @@ def main() -> int:
                   file=sys.stderr)
             return 1
         pdf_path = out_dir / f"{stem}.pdf"
-        HTML(string=html).write_pdf(str(pdf_path))
+        document, html = pdf_document(html)
+        html_path.write_text(html, encoding="utf-8")
+        document.write_pdf(str(pdf_path))
         print(f"wrote {pdf_path}")
     return 0
 
