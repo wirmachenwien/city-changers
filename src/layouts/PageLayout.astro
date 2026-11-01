@@ -2,7 +2,7 @@
 // Project page layout: home, search.
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import OpenerImage from '../components/OpenerImage.astro';
+import Figure from '../components/Figure.astro';
 import LastVisit from '../components/LastVisit.astro';
 import Pagination from '../components/Pagination.astro';
 import { settings } from '../data/settings';
@@ -42,7 +42,7 @@ const content = externalLinks(await Astro.slots.render('default'), site, t(lang,
   currentUrl={currentUrl}
 >
   {!isHome && <Breadcrumbs items={crumbs} lang={lang} />}
-  {isHome && openerImage && <OpenerImage file={openerImage} alt={openerImageAlt ?? ''} caption={openerImageCaption} lang={lang} />}
+  {isHome && openerImage && <Figure src={openerImage} alt={openerImageAlt ?? ''} caption={openerImageCaption} lang={lang} eager />}
   <div class="prose" data-prose set:html={content} />
   {isHome && <LastVisit lang={lang} />}
   {neighbours && settings.web.pagination && <Pagination lang={lang} prev={neighbours.prev} next={neighbours.next} />}

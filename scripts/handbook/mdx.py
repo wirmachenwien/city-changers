@@ -58,8 +58,7 @@ def glossary_slug(term: str, seen: dict[str, int] | None = None) -> str:
 
 
 FRONTMATTER_RE = re.compile(r"^---\n.*?\n---\n", re.DOTALL)
-FIGURE_RE = re.compile(r'<Figure\b([^>]*)\s*/>|<Figure\b([^>]*)>(.*?)</Figure>', re.DOTALL)
-VIDEO_RE = re.compile(r'<Video\b([^>]*)\s*/>|<Video\b([^>]*)>')
+FIGURE_RE = re.compile(r'<(?:Figure|FigureBox)\b([^>]*)\s*/>|<(?:Figure|FigureBox)\b([^>]*)>(.*?)</(?:Figure|FigureBox)>', re.DOTALL)
 BUTTON_RE = re.compile(r'<ButtonLink\b([^>]*)>([^<]+)</ButtonLink>')
 DOWNLOAD_RE = re.compile(r'<DownloadLink\b([^>]*)>(.*?)</DownloadLink>', re.DOTALL)
 COPY_RE = re.compile(r'<CopyText\s+[^>]*/>')
@@ -363,7 +362,7 @@ def mascot_open_html(attr_source: str, image_src: Callable[[str], str]) -> str:
     still = mascot_poses()[pose]["still"]
     src = escape(image_src(f"mascot/static/ink/{still}.png"), quote=True)
     title = values.get("title")
-    heading = f'<p><strong>{escape(title)}</strong></p>\n' if title else ''
+    heading = f'<p class="mascot-box__title"><strong>{escape(title)}</strong></p>\n' if title else ''
     return (f'\n\n<div class="mascot-box" markdown="1">\n'
             f'<img class="mascot-box__mascot" src="{src}" alt="" width="1080" height="1080" />\n\n'
             f'<div class="mascot-box__bubble" markdown="1">\n{heading}\n')

@@ -264,7 +264,7 @@ window.iconCatalog = [
     "id": "play",
     "label": "Play video",
     "sources": [
-      "src/components/Video.astro"
+      "src/components/Figure.astro"
     ],
     "brand": false,
     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 4q6 2 13 8-6 4-13 8Q6 12 7 4Z\"/></svg>",

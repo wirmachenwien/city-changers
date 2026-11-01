@@ -4,7 +4,10 @@ export function initTables(): void {
     if (table.closest('.table-scroll')) continue;
     const wrapper = document.createElement('div');
     wrapper.className = 'table-scroll';
-    table.replaceWith(wrapper);
+    const shell = document.createElement('div');
+    shell.className = 'drawn-scroll-shell';
+    table.replaceWith(shell);
+    shell.append(wrapper);
     wrapper.append(table);
   }
 }

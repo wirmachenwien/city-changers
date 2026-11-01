@@ -38,19 +38,6 @@
   font-weight: 700;
   src: url("../fonts/NewsreaderText-BoldItalic.ttf");
 }
-/* Self-hosted Clarity City (OFL, see OFL-ClarityCity.txt): the UI face. */
-@font-face {
-  font-family: "Clarity City";
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/ClarityCity-Regular.ttf");
-}
-@font-face {
-  font-family: "Clarity City";
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/ClarityCity-Bold.ttf");
-}
 /* Self-hosted Fraunces (OFL, see OFL-Fraunces.txt): the headline face,
    matching the website and the PDF. The source is a variable font with
    wght/opsz/SOFT/WONK axes; EPUB reading systems apply font-variation-settings
@@ -256,7 +243,7 @@ figcaption {
 }
 .title-page-details {
   margin-top: 4rem;
-  font-family: "Clarity City", sans-serif;
+  font-family: "Newsreader", Georgia, serif;
   font-size: 0.85rem;
   line-height: 1.5;
 }
@@ -344,8 +331,8 @@ dl.glossary dt {
   margin-top: 0;
 }
 .feature-box[data-tone="warm"] {
-  background: var(--warn-soft);
-  border-color: var(--warn);
+  background: var(--warm-soft);
+  border-color: var(--warm);
 }
 .feature-box > .feature-box__title {
   margin: 0 0 0.35rem;
@@ -363,6 +350,7 @@ dl.glossary {
   margin: 1rem 0;
 }
 dl.glossary dt {
+  font-family: "Fraunces Display", Georgia, serif;
   font-weight: 700;
   margin-top: 0.7rem;
 }
@@ -370,12 +358,18 @@ dl.glossary dd {
   margin-left: 0;
   margin-bottom: 0.4rem;
 }
+
+/* Center the 1.65em pebble on EPUB's 1.45em first text line. The PDF uses
+   -0.075em for its 1.5em line height in export-drawn.css. */
+body ol:not([class]):not(.footnotes ol) > li::before {
+  top: -0.1em;
+}
 .question {
   border: 1px solid var(--line);
   border-radius: .4rem;
   padding: 1rem 1.25rem;
   margin-block: 1.5rem;
-  font-family: "Clarity City", system-ui, sans-serif;
+  font-family: "Newsreader", Georgia, serif;
   page-break-inside: avoid;
   break-inside: avoid;
 }
@@ -421,7 +415,7 @@ dl.glossary dd {
 .table-scroll table {
   border-collapse: collapse;
   inline-size: 100%;
-  font-family: "Clarity City", system-ui, sans-serif;
+  font-family: "Newsreader", Georgia, serif;
   font-size: 0.9rem;
   line-height: 1.45;
 }

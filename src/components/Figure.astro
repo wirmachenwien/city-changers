@@ -1,14 +1,18 @@
 ---
-// Responsive figure backed by bundled image assets. Looks up raster images
-// by filename across the book and site asset folders and renders an
-// optimised srcset; captions come from the default slot.
+// Responsive figure backed by bundled image assets or click-to-load video.
+// Looks up raster images by filename across book and site asset folders,
+// or embeds YouTube, Vimeo and local video files.
 import { Image } from 'astro:assets';
 import { smartQuotes } from '../lib/smart-quotes';
+import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
+import Icon from './Icon.astro';
+import { resolveFigureVideo } from '../lib/figure-media';
 
 interface Props {
+  /** Bundled image filename, provider URL, or local video URL. */
   src: string;
-  alt: string;
+  alt?: string;
   caption?: string;
   eager?: boolean;
   lang?: Language;
@@ -19,50 +23,95 @@ interface Props {
   size?: 'small' | 'medium';
   /** Let prose wrap around the figure on wide screens, or center it as a block. */
   float?: 'left' | 'right' | 'center';
+  poster?: string;
 }
 
-const { src, alt, caption, eager = false, lang, frame, size, float } = Astro.props;
+const {
+  src,
+  alt,
+  caption,
+  eager = false,
+  lang = 'en',
+  frame,
+  size,
+  float,
+  poster: customPoster,
+} = Astro.props;
+
 // Prop-supplied text bypasses the markdown pipeline, so quotes are localised
 // here to match the hast-transformed prose (only when lang is known).
-const displayAlt = lang ? smartQuotes(alt, lang) : alt;
+const displayAlt = lang ? smartQuotes(alt ?? '', lang) : alt ?? '';
 const displayCaption = caption && lang ? smartQuotes(caption, lang) : caption;
+const hasCaption = Boolean(displayCaption || Astro.slots.has('default'));
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/**/*.{jpg,jpeg,png,webp,avif,gif}',
-  { eager: true },
-);
+if (!src?.trim()) throw new Error('Figure: src must be provided');
+const parsedVideo = resolveFigureVideo(src, customPoster);
 
-const match = Object.entries(images).find(([path]) =>
-  path.endsWith(`/${src.split('/').pop()}`),
-);
-if (!match) {
-  throw new Error(`Figure: unknown image "${src}"`);
+let image: ImageMetadata | undefined;
+let imageSizes: string | undefined;
+
+if (!parsedVideo) {
+  if (alt === undefined) throw new Error(`Figure: image "${src}" requires alt (use alt="" only for decorative images)`);
+  const images = import.meta.glob<{ default: ImageMetadata }>(
+    '/src/assets/**/*.{jpg,jpeg,png,webp,avif,gif}',
+    { eager: true },
+  );
+
+  const match = Object.entries(images).find(([path]) =>
+    path.endsWith(`/${src.split('/').pop()}`),
+  );
+  if (!match) {
+    throw new Error(`Figure: unknown image "${src}"`);
+  }
+  image = match[1].default;
+  imageSizes =
+    size === 'small'
+      ? 'min(100vw, 18rem)'
+      : size === 'medium'
+        ? 'min(100vw, 28rem)'
+        : '(max-width: 44rem) 100vw, 44rem';
 }
-const image = match[1].default;
-const hasCaption = displayCaption || Astro.slots.has('default');
-const imageSizes =
-  size === 'small'
-    ? 'min(100vw, 18rem)'
-    : size === 'medium'
-      ? 'min(100vw, 28rem)'
-      : '(max-width: 44rem) 100vw, 44rem';
 ---
 <figure
   class:list={[
     'figure',
+    parsedVideo && 'figure--video',
     frame === 'white' && 'figure--framed',
     size && `figure--${size}`,
     float && `figure--float-${float}`,
   ]}
+  data-video={parsedVideo ? '' : undefined}
+  data-embed={parsedVideo?.type === 'embed' ? parsedVideo.embedUrl : undefined}
+  data-video-file={parsedVideo?.type === 'file' ? parsedVideo.url : undefined}
 >
-  <Image
-    src={image}
-    alt={displayAlt}
-    title={displayAlt || undefined}
-    widths={[400, 800, 1200]}
-    sizes={imageSizes}
-    loading={eager ? 'eager' : 'lazy'}
-    decoding="async"
-  />
+  <div class:list={['figure__media', parsedVideo && 'video-facade']}>
+    <div class:list={['figure__stage', parsedVideo && 'video-stage']}>
+      {parsedVideo ? (
+        <button
+          type="button"
+          data-play
+          style={parsedVideo.poster ? `background-image: url(${parsedVideo.poster})` : undefined}
+          aria-label={`${t(lang, 'video.play-video', 'Play video')}${displayCaption ? `: ${displayCaption}` : ''}`}
+        >
+          <span class="play"><Icon name="play" /> {t(lang, 'video.play-video', 'Play video')}</span>
+        </button>
+        <noscript>
+          <a href={parsedVideo.type === 'embed' ? parsedVideo.watchUrl : parsedVideo.url}>
+            {t(lang, 'video.play-video', 'Play video')}
+          </a>
+        </noscript>
+      ) : (
+        <Image
+          src={image!}
+          alt={displayAlt}
+          title={displayAlt || undefined}
+          widths={[400, 800, 1200]}
+          sizes={imageSizes!}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      )}
+    </div>
+  </div>
   {hasCaption && <figcaption>{displayCaption ?? <slot />}</figcaption>}
 </figure>

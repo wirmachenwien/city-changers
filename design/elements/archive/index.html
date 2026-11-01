@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restored element studies — City Changers</title>
+  <link rel="stylesheet" href="../../../src/styles/colors.generated.css">
+  <style>
+    @font-face { font-family: Clarity; src: url('../../../src/assets/fonts/ClarityCity-Regular.woff2') format('woff2'); font-display: swap; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 Clarity, sans-serif; }
+    main { max-width: 72rem; margin: auto; padding: 3rem clamp(1rem, 4vw, 4rem); }
+    a { color: var(--accent); text-underline-offset: .2em; overflow-wrap: anywhere; }
+    button { font: inherit; padding: .7rem 1rem; min-height: 2.75rem; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    .intro { max-width: 48rem; color: var(--ink-soft); }
+    section { margin-block: 3rem; }
+    ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1rem; list-style: none; padding: 0; }
+    li { min-width: 0; padding: 1rem; border: 1px solid var(--line); }
+    img { display: block; width: 100%; height: 8rem; margin-bottom: 1rem; object-fit: contain; filter: url('#archive-tint'); }
+    .filters { position: absolute; width: 0; height: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <svg class="filters" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs><filter id="archive-tint" color-interpolation-filters="sRGB"><feFlood style="flood-color: var(--accent)"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs></svg>
+  <main>
+    <p><a href="../index.html">← Selected elements</a></p>
+    <h1>Restored studies</h1>
+    <p class="intro">The 41 discarded SVG sources are restored here without replacing the selected production assets. The original bracket has also been promoted to <a href="../lines/bracket.svg">the active library</a> for the FeatureBox trial. Frames and speech-tail files here are historical references, not new fixed-ratio content containers.</p>
+    <button id="theme" type="button" aria-pressed="false">Dark preview</button>
+    <div id="catalog"><p>See the <a href="README.md">complete source inventory</a> for all SVGs.</p></div>
+  </main>
+  <script src="catalog.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@
 import { t } from '../lib/i18n';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import DrawnSelect from './DrawnSelect.astro';
 
 export interface SelectOption {
   label: string;
@@ -25,11 +26,7 @@ const displayOptions = options.map((option) => ({ ...option, label: smartQuotes(
 ---
 <div class="select-list" data-select-list>
   <label for={id}>{prompt}</label>
-  <select id={id} data-select>
-    {displayOptions.map((option) => (
-      <option value={option.href}>{option.label}</option>
-    ))}
-  </select>
+  <DrawnSelect {id} options={displayOptions} />
   <noscript>
     <ul>
       {displayOptions.map((option) => (

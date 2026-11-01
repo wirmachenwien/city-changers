@@ -1,6 +1,9 @@
 ---
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import bracket from '../../design/elements/lines/bracket.svg?raw';
+import shortBracket from '../../design/elements/lines/bracket-short.svg?raw';
+import mediumBracket from '../../design/elements/lines/bracket-medium.svg?raw';
 
 interface Props {
   title?: string;
@@ -13,8 +16,24 @@ const { title, body, lang, tone = 'default' } = Astro.props;
 // to match the hast-transformed prose (only when lang is known).
 const displayTitle = title && lang ? smartQuotes(title, lang) : title;
 const displayBody = body && lang ? smartQuotes(body, lang) : body;
+const brackets = [
+  { size: 'short', source: shortBracket, height: 56 },
+  { size: 'medium', source: mediumBracket, height: 104 },
+  { size: 'tall', source: bracket, height: 160 },
+].map(({ size, source, height }) => {
+  const path = source.match(/<path d="([^"]+)"/)?.[1];
+  if (!path) throw new Error(`Missing ${size} feature bracket path`);
+  return { size, path, slices: ['0 0 32 24', `0 24 32 ${height - 48}`, `0 ${height - 24} 32 24`] };
+});
 ---
 <aside class="feature-box" data-tone={tone}>
+  <span class="feature-box__bracket" aria-hidden="true">
+    {brackets.map(({ size, path, slices }) => (
+      <span class="feature-box__bracket-variant" data-bracket-variant={size}>
+        {slices.map(viewBox => <svg viewBox={viewBox} preserveAspectRatio="none" focusable="false" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d={path} vector-effect="non-scaling-stroke" /></svg>)}
+      </span>
+    ))}
+  </span>
   {displayTitle && <p class="feature-box__title"><strong>{displayTitle}</strong></p>}
   {displayBody ? <p>{displayBody}</p> : <slot />}
 </aside>

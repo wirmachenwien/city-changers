@@ -47,6 +47,8 @@ from handbook.book import (
     resolve_color_tokens,
     title_page_details_html,
 )
+from handbook.media import figure_video_export_url
+from handbook.drawn import drawn_css, pdf_document
 from handbook.mdx import (
     CCBADGE_RE,
     FEATURE_CLOSE_RE,
@@ -61,7 +63,6 @@ from handbook.mdx import (
     PULLQUOTE_RE,
     QUESTION_RE,
     QUESTION_RE,
-    VIDEO_RE,
     attrs,
     chapter_lists,
     feature_open_html,
@@ -187,7 +188,7 @@ def print_css() -> str:
     css = FONT_RE.sub(lambda m: f'url("{font_uri(m.group(1))}")', css)
     css = css.replace('url("icons/', f'url("{(ASSETS / "icons/png/light").as_uri()}/')
     katex_fonts = (ROOT / "node_modules" / "katex" / "dist" / "fonts").as_uri() + "/"
-    return css + "\n" + katex_css(katex_fonts)
+    return css + "\n" + drawn_css() + "\n" + katex_css(katex_fonts)
 
 
 def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
@@ -203,10 +204,17 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
 
     def figure(match: re.Match[str]) -> str:
         values = attrs(match.group(1) or match.group(2))
-        src, alt = values.get("src", ""), values.get("alt", "")
+        src = values.get("src", "")
         caption = (values.get("caption") or match.group(3) or "").strip()
+        url = figure_video_export_url(src)
+        if url:
+            return f"\n\n[*Video: {caption}*]({url})\n"
+
+        alt = values.get("alt", "")
         caption_html = f"<figcaption>{caption}</figcaption>" if caption else ""
         classes = ["figure"]
+        if values.get("frame") == "white":
+            classes.append("figure--framed")
         if values.get("size") in {"small", "medium"}:
             classes.append(f'figure--{values["size"]}')
         if values.get("float") in {"left", "right", "center"}:
@@ -217,16 +225,6 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
         )
 
     text = FIGURE_RE.sub(figure, text)
-    def video(match: re.Match[str]) -> str:
-        values = attrs(match.group(1) or match.group(2))
-        url = f"https://www.youtube.com/watch?v={values.get('id', '')}"
-        # Emit a regular Markdown link so LINK_RE below moves the URL into
-        # a lettered link note like every other external link. The emphasis
-        # stays inside the link text so the call and note markup appended
-        # by LINK_RE end up outside <em> and print upright, not italic.
-        return f"\n\n[*Video: {values.get('caption', '')}*]({url})\n"
-
-    text = VIDEO_RE.sub(video, text)
     text = strip_static_handlers(text)
     text = CCBADGE_RE.sub(cc_badge_html(), text)
     text = FEATURE_OPEN_RE.sub(lambda m: feature_open_html(
@@ -414,7 +412,9 @@ def main() -> int:
                   file=sys.stderr)
             return 1
         pdf_path = out_dir / f"{stem}.pdf"
-        HTML(string=html).write_pdf(str(pdf_path))
+        document, html = pdf_document(html)
+        html_path.write_text(html, encoding="utf-8")
+        document.write_pdf(str(pdf_path))
         print(f"wrote {pdf_path}")
     return 0
 

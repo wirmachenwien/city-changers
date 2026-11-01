@@ -10,10 +10,13 @@ import { settings } from '../data/settings';
 import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageMenu from './LanguageMenu.astro';
 
 interface Props {
   lang: Language;
   currentUrl: string;
+  kind: 'page' | 'book';
+  file: string;
 }
 
 interface LinkSection {
@@ -28,7 +31,7 @@ interface BookmarkSection {
 
 type Section = LinkSection | BookmarkSection;
 
-const { lang, currentUrl } = Astro.props;
+const { lang, currentUrl, kind, file } = Astro.props;
 const { project: projectLinks, book, position } = await combinedNav(lang, currentUrl);
 
 // Project (Start) and book (Contents … Glossary) render as one continuous
@@ -64,6 +67,9 @@ const deleteLabel = t(lang, 'bookmarks.delete-bookmark', 'Delete');
         ) : (
           section.links.length > 0 && (
             <section class="nav-section">
+              <div class="nav-language">
+                <LanguageMenu {lang} {kind} {file} id="drawer-language" />
+              </div>
               {section.heading && <h2>{section.heading}</h2>}
               <ul class="nav-list">
                 {section.links.map((link) => (

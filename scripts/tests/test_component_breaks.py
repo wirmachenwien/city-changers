@@ -52,10 +52,29 @@ class ComponentBreakTest(unittest.TestCase):
         self.assertIn("max-block-size: calc(100dvb - var(--scroll-offset, 5rem) - 1rem);", bookmarks)
         self.assertIn("overflow-y: auto;", bookmarks)
 
-    def test_styles_use_root_relative_instead_of_element_relative_units(self):
+    def test_layout_uses_root_units_except_explicit_text_relative_decoration(self):
+        # Markers scale with list text; underline placement scales with labels.
+        # Keep this narrow: ordinary layout spacing still must not use em.
+        def text_relative(selector, prop):
+            return (
+                (".prose ol" in selector and prop in {
+                    "padding-inline-start", "inset-inline-start", "inline-size", "block-size"
+                })
+                or ("ol:not([class]):not(.footnotes ol)" in selector and prop in {
+                    "padding-left", "left", "top", "width", "height", "line-height"
+                })
+                or (selector.strip() == ".pagination__rules > span" and prop == "transform")
+                or (selector.strip() == ".drawn-select:hover > .drawn-select__value::after" and prop == "inset-block-end")
+                or (".visual-toc > a:hover" in selector and prop == "text-underline-offset")
+            )
+
         for path in (ROOT / "src/styles").glob("*.css"):
             with self.subTest(stylesheet=path.name):
-                self.assertNotRegex(path.read_text(), r"\d(?:\.\d+)?em\b")
+                css = re.sub(r"/\*.*?\*/", "", path.read_text(), flags=re.DOTALL)
+                for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
+                    for prop, value in re.findall(r"([\w-]+)\s*:\s*([^;]+);", body):
+                        if re.search(r"\d(?:\.\d+)?em\b", value):
+                            self.assertTrue(text_relative(selector, prop), f"unexpected em in {selector.strip()}: {prop}")
 
     def test_web_question_only_adds_feedback_space_when_populated(self):
         css = (ROOT / "src/styles/global.css").read_text()

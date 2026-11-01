@@ -65,7 +65,7 @@
 
 /* Self-hosted Clarity City (OFL, see OFL-ClarityCity.txt): Regular and Bold
    (both from the @cds/city 1.1.0 release). On screens it sets body copy and
-   UI chrome (--font-text / --font-ui); in print it remains the UI face. */
+   UI chrome (--font-text / --font-ui); print uses Newsreader instead. */
 @font-face {
   font-family: "Clarity City";
   font-style: normal;
@@ -93,8 +93,8 @@
      variable font. */
   --fraunces-vars: "SOFT" 75, "WONK" 1;
   --fraunces-vars-display: "SOFT" 75, "WONK" 1, "opsz" 65;
-  /* Web screens: headlines set in Fraunces (variable serif display face),
-     running text and UI in Clarity City (sans). The WeasyPrint PDF and
+  /* Web screens: headlines and button labels set in Fraunces (variable serif
+     display face), running text and other UI in Clarity City (sans). The WeasyPrint PDF and
      browser printouts keep the serif Newsreader body face but share the
      Fraunces headlines; see src/styles/print.css. */
   --font-text: "Clarity City", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -153,7 +153,14 @@ a {
 }
 
 a:hover {
+  color: var(--link-hover);
   text-decoration-thickness: 2px;
+}
+
+/* Compact format/download labels remain ordinary prose links. Containers may
+   tune the small size without replacing typography or underline behavior. */
+.text-link--small {
+  font-size: var(--text-link-small-size, .875rem);
 }
 
 /* iOS Safari renders buttons without an explicit color in system blue.
@@ -169,9 +176,11 @@ button {
    action stays discoverable and on-brand instead of Safari blue. */
 a[x-apple-data-detectors] {
   color: var(--accent);
-  text-decoration: underline;
+  text-decoration-line: underline;
   text-underline-offset: 0.15rem;
 }
+
+a[x-apple-data-detectors]:hover { color: var(--link-hover); }
 
 :focus-visible {
   outline: 3px solid var(--focus);
@@ -199,8 +208,10 @@ a[x-apple-data-detectors] {
 /* ---------- Masthead ---------- */
 
 .site-head {
-  border-block-end: 2px solid var(--ink);
-  background: var(--paper);
+  --toggle-surface: var(--accent-soft);
+  --toggle-hover: var(--pebble-hover);
+  border-block-end: 2px solid var(--accent);
+  background: var(--accent-soft);
   position: sticky;
   inset-block-start: 0;
   z-index: 40;
@@ -211,11 +222,11 @@ a[x-apple-data-detectors] {
   padding-block-start: env(safe-area-inset-top, 0px);
 }
 
-/* Fixed safe-area cap: a non-scrolling paper strip pinned to the viewport
+/* Fixed safe-area cap: a non-scrolling header-colored strip pinned to the viewport
    top. The sticky header's own padding can composite unreliably on iOS
    Safari during momentum scroll (glyphs peek through the "solid" strip),
    so this never-scrolling layer guarantees the Dynamic Island zone stays
-   solid. Same paper tone, so the seam is invisible; it drops behind the
+   solid. Same soft-accent tone, so the seam is invisible; it drops behind the
    nav sheet while the drawer is open (see body.drawer-open .site-head). */
 .site-head::before {
   content: "";
@@ -225,7 +236,7 @@ a[x-apple-data-detectors] {
   right: 0;
   height: constant(safe-area-inset-top, 0px);
   height: env(safe-area-inset-top, 0px);
-  background: var(--paper);
+  background: var(--accent-soft);
 }
 
 .site-head-inner {
@@ -245,7 +256,7 @@ a[x-apple-data-detectors] {
   min-inline-size: 0;
   align-items: center;
   color: var(--ink);
-  text-decoration: none;
+  text-decoration-line: none;
   margin-inline-end: auto;
 }
 
@@ -315,7 +326,7 @@ a[x-apple-data-detectors] {
 }
 
 /* Narrow screens: two stacked rows. Row one holds logo, title and the
-   borderless hamburger; row two holds the language picker and search. */
+   borderless hamburger; row two holds search. */
 @media (max-width: 59.99rem) {
   .site-head-inner {
     flex-direction: column;
@@ -340,10 +351,12 @@ a[x-apple-data-detectors] {
     min-inline-size: 2.75rem;
     min-block-size: 2.75rem;
     justify-content: center;
+    background: var(--toggle-surface, var(--paper));
+    border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
   }
 
-  .menu-toggle:hover {
-    background: transparent;
+  .menu-toggle:is(:hover, :focus-visible) {
+    background: var(--toggle-hover, var(--accent-soft));
     color: var(--ink);
   }
 
@@ -364,18 +377,9 @@ a[x-apple-data-detectors] {
     flex-wrap: wrap;
   }
 
-  .site-head-tools .lang-menu {
-    order: -1;
-    flex: none;
-    font-size: 16px;
-  }
-
-  .site-head-tools .lang-menu select {
-    font-size: 16px;
-  }
-
-  .search-form--mini {
-    flex: 0 1 18rem;
+  .site-head-tools .search-form--mini {
+    flex: 1 1 100%;
+    inline-size: 100%;
     min-inline-size: 0;
     max-inline-size: none;
   }
@@ -400,6 +404,15 @@ a[x-apple-data-detectors] {
   min-inline-size: 0;
 }
 
+.site-head .search-box {
+  --search-surface: var(--accent-soft);
+}
+
+.site-head .search-box:is(:hover, :focus-within),
+.site-head .search-box:has(> input:not(:placeholder-shown)) {
+  --search-surface: var(--paper);
+}
+
 .search-box > .icon {
   position: absolute;
   inset-inline-start: 0.65rem;
@@ -411,9 +424,33 @@ a[x-apple-data-detectors] {
   pointer-events: none;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .search-box > .icon { transition: transform 160ms ease-out, color 160ms ease-out, opacity 160ms ease-out; }
+  .search-box > input[type="search"] { transition: border-color 160ms ease-out; }
+  .search-box::after { transition: background-color 160ms ease-out; }
+  .search-box:hover > .icon,
+  .search-box:focus-within > .icon { transform: translateY(-50%) scale(1.1); }
+}
+
 .search-box > input[type="search"] {
   inline-size: 100%;
   padding-inline-start: 2.25rem;
+}
+
+.search-box > input[type="search"]:focus {
+  border-color: var(--accent);
+}
+
+.search-box:hover > .icon,
+.search-box:focus-within > .icon {
+  color: var(--accent);
+  opacity: 1;
+}
+
+@media screen and (forced-colors: none) {
+  .search-box > input[type="search"][data-search-pointer-focus]:focus {
+    outline: none;
+  }
 }
 
 .lang-menu {
@@ -426,17 +463,6 @@ a[x-apple-data-detectors] {
 
 .lang-menu > .icon {
   opacity: 0.7;
-}
-
-.lang-menu select {
-  font: inherit;
-  color: var(--ink);
-  background: transparent;
-  border: 1px solid var(--control-border);
-  border-radius: var(--radius);
-  padding: 0.3rem 0.4rem;
-  max-inline-size: 8.5rem;
-  cursor: pointer;
 }
 
 /* ---------- Navigation drawer ---------- */
@@ -513,8 +539,8 @@ a[x-apple-data-detectors] {
     animation: float-in 0.18s ease-out;
   }
 
-  body.drawer-open .drawer-toggle-float:hover {
-    background: transparent;
+  body.drawer-open .drawer-toggle-float:is(:hover, :focus-visible) {
+    background: var(--toggle-hover, var(--accent-soft));
     color: var(--ink);
   }
 
@@ -534,8 +560,22 @@ a[x-apple-data-detectors] {
     animation: float-in 0.18s ease-out;
   }
 
-  body.drawer-open .theme-toggle--float:hover {
-    background: var(--panel);
+  /* Language, theme and close controls share the same top row. Keep the
+     picker inside the dialog, but out of the scrolling TOC's layout. */
+  .drawer .nav-language {
+    position: fixed;
+    z-index: 60;
+    inset-block-start: calc(0.6rem + env(safe-area-inset-top, 0px));
+    inset-inline-start: calc(100dvw - min(22rem, 85dvw) + 1.25rem);
+    inset-inline-end: auto;
+    max-inline-size: calc(min(22rem, 85dvw) - 9.25rem);
+    margin: 0;
+    padding: 0;
+  }
+
+  .drawer .nav-language .lang-menu {
+    display: flex;
+    max-inline-size: 100%;
   }
 
   .site-head .theme-toggle {
@@ -618,13 +658,13 @@ body.drawer-open {
   display: block;
   padding-block: 0.3rem;
   color: var(--ink);
-  text-decoration: none;
+  text-decoration-line: none;
   border-inline-start: 3px solid transparent;
   padding-inline-start: 0.6rem;
 }
 
 .nav-list a:hover {
-  text-decoration: underline;
+  text-decoration-line: underline;
 }
 
 .nav-list a[aria-current="page"],
@@ -640,6 +680,15 @@ body.drawer-open {
 .nav-list--nested {
   padding-inline-start: 0.8rem;
   margin-inline-start: 0.6rem;
+}
+
+.nav-language {
+  margin-block-end: 1rem;
+  padding-inline-start: 0.6rem;
+}
+
+.nav-language .lang-menu {
+  font-size: 1rem;
 }
 
 /* ---------- Layout shells ---------- */
@@ -714,7 +763,7 @@ body.drawer-open {
   font-size: 0.75rem;
   line-height: 1;
   vertical-align: super;
-  text-decoration: none;
+  text-decoration-line: none;
 }
 
 .external-link-icon .icon {
@@ -726,7 +775,7 @@ body.drawer-open {
 a[data-external-link]:has(img) {
   position: relative;
   display: inline-block;
-  text-decoration: none;
+  text-decoration-line: none;
 }
 
 a[data-external-link]:has(img) > .external-link-icon {
@@ -975,13 +1024,12 @@ a[data-external-link]:has(img) > .external-link-icon {
   margin-block-end: 0.85rem;
 }
 
-.article > .crumbs a,
-.article > .crumbs-spacer > .crumbs a {
-  text-decoration: none;
+.crumbs a {
+  text-decoration-line: none;
 }
 
-.article > .crumbs a:hover {
-  text-decoration: underline;
+.crumbs a:hover {
+  text-decoration-line: underline;
 }
 
 .crumbs ol {
@@ -1069,15 +1117,26 @@ a[data-external-link]:has(img) > .external-link-icon {
   }
 }
 
-.figure img,
-.opener img {
+.figure__media {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.figure__stage {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.figure img {
   display: block;
   border-radius: var(--radius);
   inline-size: 100%;
 }
 
-.figure figcaption,
-.opener figcaption {
+.figure figcaption {
   font-family: var(--font-ui);
   font-size: 0.91rem;
   line-height: 1.5;
@@ -1088,17 +1147,14 @@ a[data-external-link]:has(img) > .external-link-icon {
 /* Framed variant for brand lockups (e.g. Erasmus+ logo) that must sit on
    white per brand rules: white card with clear space, identical in light
    and dark mode. Never dimmed or filtered. */
-.figure--framed > img,
-.figure--framed > picture > img {
+.figure--framed .figure__media {
   background: var(--white);
-  padding: 1rem;
   border-radius: var(--radius);
 }
 
-.opener {
-  margin-block-end: 1.5rem;
-  margin-inline: 0;
-  max-inline-size: var(--measure);
+.figure--framed .figure__stage {
+  padding: 1rem;
+  background: var(--white);
 }
 
 /* Partner logos (home page): equal-height marks on the page background. */
@@ -1183,11 +1239,14 @@ a[data-external-link]:has(img) > .external-link-icon {
 
 .button-link {
   display: inline-block;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
   font-family: var(--font-ui);
   font-weight: 700;
   background: var(--accent);
   color: var(--accent-ink);
-  text-decoration: none;
+  text-decoration-line: none;
   padding: 0.6rem 1.4rem;
   border-radius: var(--radius);
 }
@@ -1221,10 +1280,13 @@ a[data-external-link]:has(img) > .external-link-icon {
 /* ---------- Video facade ---------- */
 
 .video-facade {
-  margin-block: 1.5rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
+  background: var(--black);
+}
+
+.video-stage {
   background: var(--black);
 }
 
@@ -1250,23 +1312,18 @@ a[data-external-link]:has(img) > .external-link-icon {
   border-radius: 999px;
 }
 
-.video-facade iframe {
+.video-facade iframe,
+.video-facade video {
   display: block;
   inline-size: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
-}
-
-.video-caption {
-  font-family: var(--font-ui);
-  font-size: 0.91rem;
-  line-height: 1.5;
-  color: var(--ink-soft);
-  padding: 0.5rem 0.75rem;
-  background: var(--paper);
+  object-fit: cover;
 }
 
 /* ---------- Boxes & quotes ---------- */
+
+.mascot-box__bubble { border: 1px solid var(--accent); border-radius: var(--radius); background: var(--accent-soft); }
 
 .feature-box {
   position: relative;
@@ -1292,11 +1349,11 @@ a[data-external-link]:has(img) > .external-link-icon {
 }
 
 .feature-box[data-tone="warm"]::before {
-  background: var(--warn);
+  background: var(--warm);
 }
 
 .feature-box[data-tone="warm"] {
-  background: var(--warn-soft);
+  background: var(--warm-soft);
 }
 
 /* Inner copy carries its own block margins (e.g. .prose p); without a
@@ -1577,7 +1634,7 @@ html:not(.js-fold) .accordion-content {
 
 /* ---------- Select list ---------- */
 /* Same look as the language dropdown (.lang-menu): inline label plus a
-   bordered native select. Block-level here so it holds its own line in
+   pebble-backed native select. Block-level here so it holds its own line in
    content and wraps on narrow screens. */
 
 .select-list {
@@ -1591,15 +1648,39 @@ html:not(.js-fold) .accordion-content {
   max-inline-size: 100%;
 }
 
+/* Native selects share the share-action palette, typography and soft shape. */
+.lang-menu select,
 .select-list select {
   font: inherit;
-  color: var(--ink);
-  background: transparent;
-  border: 1px solid var(--control-border);
-  border-radius: var(--radius);
-  padding: 0.3rem 0.4rem;
-  max-inline-size: 8.5rem;
   cursor: pointer;
+  min-block-size: 2.75rem;
+  max-inline-size: min(100%, 12rem);
+  padding: .4rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-optical-sizing: auto;
+  font-variation-settings: var(--fraunces-vars);
+}
+
+.lang-menu option,
+.select-list option {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.lang-menu select:hover,
+.select-list select:hover {
+  background: var(--pebble-hover);
+  color: var(--pebble-hover-ink);
+}
+
+@media (forced-colors: active) {
+  .lang-menu select,
+  .select-list select { border-color: ButtonText; }
 }
 
 /* ---------- Tables ---------- */
@@ -1646,7 +1727,7 @@ html:not(.js-fold) .accordion-content {
   cursor: pointer;
   font-family: var(--font-ui);
   font-size: 0.8rem;
-  text-decoration: none;
+  text-decoration-line: none;
   padding: 0;
 }
 
@@ -1686,7 +1767,7 @@ html:not(.js-fold) .accordion-content {
   align-items: center;
   justify-content: center;
   color: var(--popup-link);
-  text-decoration: none;
+  text-decoration-line: none;
   vertical-align: -0.15rem;
 }
 
@@ -1859,7 +1940,7 @@ html:not(.js-fold) .accordion-content {
 /* ---------- Heading permalinks ---------- */
 
 [data-heading-anchor] {
-  text-decoration: none;
+  text-decoration-line: none;
   margin-inline-start: 0.3rem;
   padding: 0.1rem 0.3rem;
   border-radius: 0.35rem;
@@ -1872,7 +1953,7 @@ html:not(.js-fold) .accordion-content {
 }
 
 [data-heading-anchor]:hover {
-  text-decoration: none;
+  text-decoration-line: none;
   background: var(--accent-soft);
   color: var(--accent);
 }
@@ -1886,29 +1967,8 @@ html:not(.js-fold) .accordion-content {
 
 .copy-btn,
 .share-btn {
-  font-family: var(--font-ui);
-  font-size: 0.91rem;
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--ink);
-  border-radius: var(--radius);
-  padding: 0.2rem 0.6rem;
   cursor: pointer;
   margin-inline-start: 0.4rem;
-}
-
-/* Icon + label stay centered on one line within the button. */
-.copy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.copy-btn:hover,
-.share a:hover,
-.share-btn:hover {
-  background: var(--ink);
-  color: var(--paper);
 }
 
 .share {
@@ -1931,20 +1991,9 @@ html:not(.js-fold) .accordion-content {
 
 .share a,
 .share .share-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-family: var(--font-ui);
-  font-size: 0.91rem;
-  line-height: 1.5;
-  padding: 0.2rem 0.6rem;
-  border: 1px solid var(--ink);
-  border-radius: var(--radius);
-  color: var(--ink);
-  background: transparent;
   margin: 0;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration-line: none;
   white-space: nowrap;
 }
 
@@ -1979,17 +2028,13 @@ html:not(.js-fold) .accordion-content {
 
 .slides .slide-nav {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   margin-block-start: 0.5rem;
   font-family: var(--font-ui);
 }
 
 .slides .slide-nav button {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--ink);
-  border-radius: var(--radius);
-  padding: 0.25rem 0.8rem;
   cursor: pointer;
 }
 
@@ -2042,14 +2087,14 @@ html:not(.js-fold) .accordion-content {
   display: inline-flex;
   align-items: baseline;
   gap: 0.4rem;
-  text-decoration: none;
+  text-decoration-line: none;
   color: var(--ink);
   max-inline-size: 45%;
   min-inline-size: 0;
 }
 
 .pagination a:hover {
-  text-decoration: underline;
+  text-decoration-line: underline;
 }
 
 .pagination .prev {
@@ -2076,9 +2121,14 @@ html:not(.js-fold) .accordion-content {
   inset-inline-start: 0;
   block-size: 4px;
   inline-size: 100%;
-  transform-origin: 0 50%;
+  clip-path: inset(0 calc(100% - var(--reading-progress, 0%)) 0 0);
   background: var(--accent);
+  pointer-events: none;
   z-index: 60;
+}
+
+[dir="rtl"] .reading-progress {
+  clip-path: inset(0 0 0 calc(100% - var(--reading-progress, 0%)));
 }
 
 /* Bookmark gutter: an overlay column pinned directly next to the text.
@@ -2329,7 +2379,12 @@ html:not(.js-fold) .accordion-content {
 
 .search-form input[type="search"] {
   flex: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: none;
   font: inherit;
+  background: var(--search-surface, var(--paper));
+  color: var(--ink);
   padding: 0.5rem 0.75rem;
   padding-inline-start: 2.25rem;
   border: 1px solid var(--ink);
@@ -2337,14 +2392,17 @@ html:not(.js-fold) .accordion-content {
   min-inline-size: 0;
 }
 
-.search-form button {
-  font: inherit;
-  background: var(--accent);
-  color: var(--accent-ink);
-  border: 0;
-  border-radius: var(--radius);
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+.search-form .button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  margin: 0;
+  box-shadow: none;
+}
+
+.search-form .button-link > span:not(.drawn-link-rule) {
+  display: inline-block;
 }
 
 .search-form--mini {
@@ -2357,6 +2415,47 @@ html:not(.js-fold) .accordion-content {
   padding: 0.3rem 0.6rem;
   padding-inline-start: 2rem;
   font-size: 0.91rem;
+  min-block-size: 2.75rem;
+}
+
+/* Native submission, revealed by the input value without JavaScript. Reserve
+   space even while empty so typing never moves the text or the clear control. */
+.site-head .search-box > input[type="search"] {
+  padding-inline-end: 3rem;
+}
+
+.search-box > .search-submit {
+  display: none;
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block: 0;
+  inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.search-box > input:not(:placeholder-shown) ~ .search-submit {
+  display: inline-flex;
+}
+
+.search-box > .search-submit:is(:hover, :focus-visible) {
+  background: var(--pebble-hover);
+  color: var(--pebble-hover-ink);
+}
+
+[dir="rtl"] .search-submit > .icon {
+  transform: scaleX(-1);
+}
+
+@media (forced-colors: active) {
+  .search-box > .search-submit { border: 1px solid ButtonText; }
 }
 
 /* iOS zooms (and pans the page) when focusing inputs below 16px; keep the
@@ -2480,12 +2579,12 @@ html:not(.js-fold) .accordion-content {
   display: block;
   padding-block: 0.6rem;
   color: var(--ink);
-  text-decoration: none;
+  text-decoration-line: none;
   font-size: 1.18rem;
 }
 
 .contents-list a:hover {
-  text-decoration: underline;
+  text-decoration-line: underline;
 }
 
 .contents-list .frontmatter-entry {
@@ -2500,18 +2599,14 @@ html:not(.js-fold) .accordion-content {
 }
 
 .visual-toc a {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 0.75rem;
-  text-decoration: none;
-  color: var(--ink);
-  font-family: var(--font-ui);
+  text-decoration-line: none;
 }
 
 /* ---------- Footer ---------- */
 
 .site-footer {
-  border-block-start: 2px solid var(--ink);
+  border-block-start: 2px solid var(--warm);
+  background: var(--warm-soft);
   margin-block-start: 2rem;
   padding-block: 1.5rem calc(2.5rem + env(safe-area-inset-bottom, 0px));
   font-family: var(--font-ui);
@@ -2533,6 +2628,10 @@ html:not(.js-fold) .accordion-content {
 
 .site-footer a {
   color: var(--ink-soft);
+}
+
+.site-footer a:hover {
+  color: var(--footer-link-hover);
 }
 
 /* ---------- Licence badge ---------- */
@@ -2597,18 +2696,7 @@ html:not(.js-fold) .accordion-content {
 }
 
 .language-switcher a {
-  display: inline-block;
-  border: 1px solid var(--control-border);
-  border-radius: var(--radius);
-  padding: 0.15rem 0.55rem;
-  text-decoration: none;
-  color: var(--ink);
-}
-
-.language-switcher a[aria-current="true"] {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  text-decoration-line: none;
 }
 
 /* Neutralize prose list spacing wherever the switcher renders inside content. */
@@ -2621,7 +2709,66 @@ html:not(.js-fold) .accordion-content {
   margin-block-start: 0;
 }
 
+/* Secondary actions share the same green pebble styling. */
+.copy-btn,
+.share-btn,
+.share .share-btn,
+.share a,
+.language-switcher a,
+.slides .slide-nav button,
+.visual-toc > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  font-size: .91rem;
+  line-height: 1.5;
+  min-block-size: 2.75rem;
+  padding: .4rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.copy-btn:hover,
+.share-btn:hover,
+.share a:hover,
+.language-switcher a:hover,
+.slides .slide-nav button:hover,
+.visual-toc > a:hover {
+  background: var(--pebble-hover);
+  color: var(--pebble-hover-ink);
+  text-decoration-line: underline;
+  text-underline-offset: .2em;
+}
+
+.visual-toc > a {
+  min-block-size: 5.5rem;
+  padding: 1rem 1.25rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: start;
+  border-radius: var(--radius);
+}
+
+.language-switcher a[aria-current="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: transparent;
+}
+
+.language-switcher a[aria-current="true"]:hover {
+  background: var(--pebble-selected-hover);
+  color: var(--pebble-selected-hover-ink);
+}
+
 /* ---------- Component showcase ---------- */
+
+/* Font samples are authored directly in the brand guide. */
+.brand-guide #fraunces + p { font-family: var(--font-title); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; font-variation-settings: var(--fraunces-vars); }
+.brand-guide #clarity-city + p { font-family: var(--font-ui); }
+.brand-guide #newsreader + p { font-family: 'Newsreader', Georgia, serif; font-size: 1.25rem; }
 
 .showcase-demo {
   display: flow-root;
@@ -2701,7 +2848,8 @@ html:not(.js-fold) .accordion-content {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   user-select: none;
-  transition: background-color 0.15s ease-in, color 0.15s ease-in;
+  /* Switch paint immediately: fading an unmasked background flashes a box. */
+  transition: color 0.15s ease-in;
 }
 
 .spoiler:hover .spoiler-text {
@@ -2709,9 +2857,31 @@ html:not(.js-fold) .accordion-content {
 }
 
 .spoiler[aria-expanded="true"] .spoiler-text {
-  background: transparent;
+  background: var(--accent-soft);
   color: inherit;
   user-select: auto;
+}
+
+/* Button labels share the headline face; inline text controls (spoilers,
+   glossary terms, bookmarks) retain their surrounding typography. Keep this
+   after component font shorthands so they cannot reset the button face. */
+.button-link,
+.copy-btn,
+.share-btn,
+.share a,
+.share .share-btn,
+.language-switcher a,
+.visual-toc > a,
+.accordion-controls button,
+.slides .slide-nav button,
+.question button[type="submit"],
+.search-form button,
+.video-facade button,
+.last-visit-toast button {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-optical-sizing: auto;
+  font-variation-settings: var(--fraunces-vars);
 }
 
 /* ---------- Rotate ---------- */
@@ -2750,16 +2920,16 @@ html:not(.js-fold) .accordion-content {
   min-inline-size: 2.75rem;
   min-block-size: 2.75rem;
   padding: 0.45rem;
-  background: transparent;
+  background: var(--toggle-surface, var(--paper));
   border: 0;
-  border-radius: var(--radius);
+  border-radius: 48% 52% 47% 53% / 54% 47% 53% 46%;
   color: var(--ink);
   cursor: pointer;
   transition: transform 0.15s ease;
 }
 
-.theme-toggle:hover {
-  background: var(--panel);
+.theme-toggle:is(:hover, :focus-visible) {
+  background: var(--toggle-hover, var(--accent-soft));
 }
 
 .theme-toggle:active {
@@ -2814,7 +2984,6 @@ input[type="search"]::placeholder {
    QR codes, logos and CC badges are excluded (QR carries its own backing,
    framed brand lockups carry a white card). */
 :root[data-theme="dark"] .figure:not(.figure--framed) img,
-:root[data-theme="dark"] .opener img,
 :root[data-theme="dark"] .prose img,
 :root[data-theme="dark"] .cover-sheet img {
   filter: brightness(0.92) contrast(1.02);
@@ -2822,7 +2991,6 @@ input[type="search"]::placeholder {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) .figure:not(.figure--framed) img,
-  :root:not([data-theme]) .opener img,
   :root:not([data-theme]) .prose img,
   :root:not([data-theme]) .cover-sheet img {
     filter: brightness(0.92) contrast(1.02);
@@ -2906,6 +3074,7 @@ input[type="search"]::placeholder {
        PDF, src/styles/print.css) but now shares the web's Fraunces
        headlines — same --fraunces-vars presets as on screen. */
     --font-text: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-ui: "Newsreader", Georgia, "Times New Roman", serif;
   }
 
   .site-head,

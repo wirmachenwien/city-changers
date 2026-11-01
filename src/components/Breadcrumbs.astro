@@ -27,14 +27,14 @@ const displayItems = lang
   : items;
 ---
 <nav class="crumbs" aria-label={lang ? t(lang, 'nav.breadcrumb', 'Breadcrumb') : 'Breadcrumb'} data-compact={compact ? 'true' : undefined}>
-  <ol>
+  <ol class="crumbs__list">
     {displayItems.map((item, index) => (
       <li>
         {index > 0 && <Icon name="chevron-right" />}
         {item.current || !item.url ? (
           <span aria-current="page">{item.label}</span>
         ) : (
-          <a href={item.url}>{item.label}</a>
+          <a href={item.url} data-link-underline="hover"><span>{item.label}</span></a>
         )}
       </li>
     ))}

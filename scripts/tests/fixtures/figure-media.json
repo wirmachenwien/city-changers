@@ -1,0 +1,23 @@
+[
+  {"src":"street.jpg","url":null},
+  {"src":"87JUbbq48r8","url":null},
+  {"src":"123456","url":null},
+  {"src":"https://www.youtube.com/watch?v=87JUbbq48r8&feature=share","url":"https://www.youtube.com/watch?v=87JUbbq48r8"},
+  {"src":"https://youtube.com/watch?feature=share&v=87JUbbq48r8&t=3","url":"https://www.youtube.com/watch?v=87JUbbq48r8"},
+  {"src":"https://youtu.be/87JUbbq48r8?t=3","url":"https://www.youtube.com/watch?v=87JUbbq48r8"},
+  {"src":"https://www.youtube-nocookie.com/embed/87JUbbq48r8","url":"https://www.youtube.com/watch?v=87JUbbq48r8"},
+  {"src":"https://m.youtube.com/shorts/87JUbbq48r8","url":"https://www.youtube.com/watch?v=87JUbbq48r8"},
+  {"src":"https://vimeo.com/123456/","url":"https://vimeo.com/123456"},
+  {"src":"https://player.vimeo.com/video/123456?autoplay=1","url":"https://vimeo.com/123456"},
+  {"src":"/videos/talk.MP4?download=1#start","url":"/videos/talk.MP4?download=1#start"},
+  {"src":"talk.webm","url":"talk.webm"},
+  {"src":"https://example.com/talk.mov#t=3","url":"https://example.com/talk.mov#t=3"},
+  {"src":" /talk.ogg ","url":"/talk.ogg"},
+  {"src":"https://notyoutube.com/watch?v=87JUbbq48r8","url":null},
+  {"src":"https://youtube.com.evil.test/watch?v=87JUbbq48r8","url":null},
+  {"src":"https://vimeo.com/not-a-number","url":null},
+  {"src":"https://youtube.com/watch?v=bad%2Fid","url":null},
+  {"src":"https://youtube.com/watch?v=&v=87JUbbq48r8","url":null},
+  {"src":"javascript:alert(1).mp4","url":null},
+  {"src":"https://example.com/street.jpg?name=video.mp4","url":null}
+]

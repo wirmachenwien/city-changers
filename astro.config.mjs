@@ -10,7 +10,9 @@ import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { remarkBackslashMath } from './src/lib/remark-backslash-math.mjs';
 import rehypeColorPebbles from './src/lib/rehype-color-pebbles.mjs';
+import rehypeBrandDownloads from './src/lib/rehype-brand-downloads.mjs';
 import { smartQuotesRehypePlugin } from './src/lib/satteri-smart-quotes.ts';
+import { rehypeDrawnContainers } from './src/lib/rehype-drawn-containers.mjs';
 import { chapterUrlSlug } from './src/lib/chapter-slug.ts';
 import { site, base, defaultLang, languages } from './handbook.config.ts';
 
@@ -95,7 +97,7 @@ export default defineConfig({
       gfm: true,
       smartypants: false,
       remarkPlugins: [remarkBackslashMath, remarkMath],
-      rehypePlugins: [rehypeKatex, smartQuotesRehypePlugin(defaultLang), [rehypeColorPebbles, { brandOnly: true }]],
+      rehypePlugins: [rehypeKatex, smartQuotesRehypePlugin(defaultLang), [rehypeColorPebbles, { brandOnly: true }], rehypeBrandDownloads, rehypeDrawnContainers],
     }),
   },
 });

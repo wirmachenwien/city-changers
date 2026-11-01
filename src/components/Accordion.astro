@@ -16,7 +16,7 @@ const { title, open = false, lang } = Astro.props;
 const displayTitle = lang ? smartQuotes(title, lang) : title;
 ---
 <details class="accordion" open={open || undefined}>
-  <summary>{displayTitle}</summary>
+  <summary><span class="drawn-frame" aria-hidden="true"></span>{displayTitle}</summary>
   <div class="accordion-body">
     <div class="accordion-content">
       <slot />

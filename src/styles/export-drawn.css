@@ -1,0 +1,210 @@
+/* Shared PDF/EPUB decoration. Builders embed SVGs and resolve semantic colors.
+   PDF table/media paint is measured during export, not in a reading app.
+   Border images remain the reflowable-panel/older-reader fallback. */
+.question, table {
+  border-image-source: url("drawn/frames/frame-stroke.svg?stroke=line");
+  border-image-slice: 16;
+  border-image-width: 12px;
+  border-image-repeat: stretch;
+}
+
+.question {
+  background: transparent;
+  border-image-source: url("drawn/frames/frame-stroke.svg?stroke=line&fill=panel");
+  border-image-slice: 16 fill;
+}
+
+/* Paint only the left bracket. Border-image top/bottom slices can accidentally
+   turn into full-width rules in paged renderers, so never use them here. */
+.feature-box, .feature-box[data-tone="warm"] {
+  background: transparent;
+  border: 0;
+  border-inline-start-width: 0;
+  border-radius: 0;
+  border-image: none;
+  position: relative;
+  padding: 12pt 15pt 12pt 30pt;
+}
+.feature-box::before, .feature-box::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 24pt;
+  background-repeat: no-repeat;
+}
+.feature-box::before {
+  top: 24px;
+  bottom: 24px;
+  background-image: url("drawn/lines/bracket.svg?stroke=accent&view=0,24,32,112");
+  background-size: 100% 100%;
+}
+.feature-box::after {
+  background-image: url("drawn/lines/bracket.svg?stroke=accent&view=0,0,32,24"), url("drawn/lines/bracket.svg?stroke=accent&view=0,136,32,24");
+  background-position: left top, left bottom;
+  background-size: 100% 24px, 100% 24px;
+}
+.feature-box[data-tone="warm"]::before {
+  background-image: url("drawn/lines/bracket.svg?stroke=warm&view=0,24,32,112");
+}
+.feature-box[data-tone="warm"]::after {
+  background-image: url("drawn/lines/bracket.svg?stroke=warm&view=0,0,32,24"), url("drawn/lines/bracket.svg?stroke=warm&view=0,136,32,24");
+}
+
+blockquote, blockquote.pullquote {
+  border: 0;
+  border-inline-start-width: 0;
+  border-image: none;
+  /* Web uses a centered, natural-height 240px rail for short quotes too. */
+  background: url("drawn/lines/vertical-rule.svg?stroke=accent") left center / 24px 240px repeat-y;
+  padding-left: 18pt;
+  padding-inline-start: 18pt;
+}
+
+/* The mascot remains outside its speech bubble, as on screen. */
+.mascot-box {
+  border: 0;
+  padding: 0;
+}
+.mascot-box__bubble {
+  margin-left: 30mm;
+  min-height: 24mm;
+  padding: 10pt 12pt 10pt 20pt;
+  border: 0.5pt solid var(--accent);
+  border-image-source: url("drawn/frames/bubble-side-stroke.svg?stroke=accent&fill=accent-soft");
+  border-image-slice: 88 24 24 104 fill;
+  border-image-width: 66px 18px 18px 78px;
+  border-image-repeat: stretch;
+}
+.mascot-box__title {
+  margin: 0 0 4pt;
+}
+
+/* Fraunces introduces content; Newsreader carries the copy in every export.
+   EPUB uses the static display cut, PDF the variable face at the same axes. */
+.feature-box__title, .mascot-box__title, .accordion-title,
+.question-title, .question legend, table th {
+  font-family: "Fraunces Display", "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 80;
+}
+
+/* Use the reader's list-item counter rather than inventing another sequence.
+   Endnote lists keep their explicit markers and are deliberately excluded. */
+ol:not([class]):not(.footnotes ol) {
+  padding-left: 2.85em;
+}
+ol:not([class]):not(.footnotes ol) > li {
+  position: relative;
+  list-style-type: none;
+}
+ol:not([class]):not(.footnotes ol) > li::before {
+  content: attr(data-marker-number);
+  position: absolute;
+  left: -2.85em;
+  /* Center 1.65em paint on the PDF's 1.5em first line, not the whole item. */
+  top: -0.075em;
+  width: 2.25em;
+  height: 1.65em;
+  background: url("drawn/frames/share-pebble.svg?stroke=accent-soft") center / 100% 100% no-repeat;
+  color: var(--accent);
+  font-family: "Fraunces Text", "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-variation-settings: "SOFT" 75, "WONK" 1, "opsz" 29;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: center;
+  line-height: 1.65em;
+}
+.feature-box[data-tone="warm"] ol:not([class]) > li::before,
+.question ol:not([class]):not(.footnotes ol) > li::before {
+  color: var(--warm);
+  background-image: url("drawn/frames/share-pebble.svg?stroke=warm-soft");
+}
+ol:not([class]):not(.footnotes ol) > li[data-marker-single]::before {
+  width: 1.5em;
+  left: -2.475em;
+}
+
+hr {
+  border: 0;
+  height: 6pt;
+  background: url("drawn/lines/divider.svg?stroke=ink-soft") center / 100% 100% no-repeat;
+  margin: 16pt 0;
+}
+.title-page-licence {
+  background: transparent;
+  border: 0;
+  position: relative;
+}
+.title-page-licence::before, .footnotes::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 6pt;
+  background: url("drawn/lines/divider.svg?stroke=line&view=4,0,472,24") center / 100% 100% no-repeat;
+}
+.footnotes {
+  position: relative;
+  border-top: 0;
+  padding-top: 6pt;
+}
+
+/* PDF/EPUB builders wrap image content in a clipped SVG using the web geometry.
+   Keep the img and its alternative text, with no second frame or inset card. */
+.figure > img {
+  display: block;
+  box-sizing: border-box;
+  height: auto;
+  border: 0;
+  padding: 0;
+}
+/* Framed partner artwork must retain its white backing and clear space. */
+.figure--framed > img {
+  box-sizing: border-box;
+  background: var(--white);
+  padding: 12pt;
+  border: 0;
+}
+.figure--framed > img[data-drawn-media] { padding: 0; }
+figcaption { color: var(--ink-soft); }
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--panel);
+  border: 0.5pt solid var(--line);
+  padding: 10pt;
+}
+pre {
+  border-image-source: url("drawn/frames/frame-stroke.svg?stroke=line");
+  border-image-slice: 16;
+  border-image-width: 12px;
+  border-image-repeat: stretch;
+}
+
+/* Paged footnote areas cannot host an ordinary pseudo-element. */
+@page {
+  @footnote {
+    border-top: 0;
+    padding-top: 6pt;
+    background: url("drawn/lines/divider.svg?stroke=line&view=4,0,472,24") left top / 100% 6pt no-repeat;
+  }
+}
+
+/* Header paint is clipped to the same outline by the measured PDF surface.
+   EPUB falls back to inset cell paint so it cannot cross the outside stroke. */
+table thead th {
+  background-clip: padding-box;
+  border-top: 3pt solid transparent;
+}
+table thead th:first-child { border-left: 3pt solid transparent; }
+table thead th:last-child { border-right: 3pt solid transparent; }
+table[data-drawn-table] thead th {
+  background: transparent;
+}
+table[data-drawn-table] th, table[data-drawn-table] td {
+  /* Keep border widths for layout, but clip their SVG paint to the frame. */
+  border-color: transparent !important;
+}

@@ -1,4 +1,13 @@
 ---
 // Scroll progress bar for long reads. Painted by src/scripts/reading-progress.ts.
+import boundary from '../../design/elements/lines/divider-strong.svg?raw';
+const boundaryPath = boundary.match(/<path d="([^"]+)"/)?.[1];
+if (!boundaryPath) throw new Error('Missing reading progress boundary path');
+const fillPath = `M0 0${boundaryPath.replace(/^M/, 'L')}V0Z`;
 ---
-<div class="reading-progress" data-reading-progress hidden />
+<div class="reading-progress" data-reading-progress aria-hidden="true" hidden>
+  <svg class="reading-progress__line" viewBox="0 0 960 24" preserveAspectRatio="none" focusable="false" aria-hidden="true">
+    <path d={fillPath} fill="currentColor" />
+    <path d={boundaryPath} fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+  </svg>
+</div>

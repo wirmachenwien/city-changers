@@ -1,5 +1,5 @@
 ---
- // Site masthead: brand mark, search shortcut, language dropdown, menu button.
+ // Site masthead: brand mark, search shortcut, theme toggle, menu button.
  // Breadcrumbs live with the article heading (single source, no duplication).
 import { settings } from '../data/settings';
 import { projectText, t } from '../lib/i18n';
@@ -7,21 +7,28 @@ import { smartQuotes } from '../lib/smart-quotes';
 import { withBase, DEFAULT_LANG } from '../lib/site';
 import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
-import LanguageMenu from './LanguageMenu.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import BrandLogo from './BrandLogo.astro';
+import boundary from '../../design/elements/lines/divider-strong.svg?raw';
 
 interface Props {
   lang: Language;
-  kind: 'page' | 'book';
-  file: string;
 }
 
-const { lang, kind, file } = Astro.props;
+const { lang } = Astro.props;
 const text = projectText(lang);
 const searchParam = settings.web.search.param;
+// One master for both the accent stroke and its soft-accent silhouette. Only the
+// decorative paint is shaped; header content and focus rings are not clipped.
+const boundaryPath = boundary.match(/<path d="([^"]+)"/)?.[1];
+if (!boundaryPath) throw new Error('Missing masthead boundary path');
+const surfacePath = `M0 0V12${boundaryPath.replace(/^M/, 'L')}H960V0Z`;
 ---
 <header class="site-head">
+  <svg class="site-head__edge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d={surfacePath} fill="var(--accent-soft)" />
+    <path d={boundaryPath} fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" />
+  </svg>
   <div class="site-head-inner">
     <div class="site-head-main">
       <a class="brand" href={withBase(lang === DEFAULT_LANG ? '/' : `/${lang}/`)}>
@@ -47,9 +54,11 @@ const searchParam = settings.web.search.param;
             placeholder={t(lang, 'search.placeholder', 'Search…')}
             autocomplete="off"
           />
+          <button class="search-submit" type="submit" aria-label={t(lang, 'search.search-title', 'Search')}>
+            <Icon name="chevron-right" />
+          </button>
         </span>
       </form>
-      <LanguageMenu lang={lang} kind={kind} file={file} />
       <ThemeToggle lang={lang} />
     </div>
   </div>
