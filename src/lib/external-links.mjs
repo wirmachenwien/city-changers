@@ -8,6 +8,12 @@ import { iconSvg } from './icons.ts';
 export function externalLinks(html, site, notice) {
   const processor = unified().use(rehypeParse, { fragment: true }).use(rehypeStringify);
   const tree = processor.parse(html);
+  enhanceExternalLinks(tree, processor, site, notice);
+  return processor.stringify(tree);
+}
+
+/** Shared by the prose renderer so all enhancements use one HTML parse. */
+export function enhanceExternalLinks(tree, processor, site, notice) {
   const origin = new URL(site).origin;
 
   visit(tree, 'element', (node) => {
@@ -43,5 +49,4 @@ export function externalLinks(html, site, notice) {
       });
     }
   });
-  return processor.stringify(tree);
 }

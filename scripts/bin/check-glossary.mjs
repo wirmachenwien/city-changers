@@ -13,7 +13,7 @@ const BOOK = 'src/content/book';
 const reporter = createReporter();
 const fail = (msg) => reporter.fail(msg);
 
-// Pseudo-render: approximate what the browser sees (link texts live inside
+// Pseudo-render: approximate the rendered prose (link texts live inside
 // <a> and are skipped by the highlighter, so drop them; keep other text).
 function pseudoRender(mdx) {
   let text = mdx.replace(/^---\n.*?\n---\n/s, '');

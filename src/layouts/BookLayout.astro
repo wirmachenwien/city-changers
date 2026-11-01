@@ -12,9 +12,7 @@ import { bookCrumbs } from '../lib/nav';
 import { paginationNeighbours } from '../data/book-toc';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
-import { externalLinks } from '../lib/external-links.mjs';
-import { site } from '../../handbook.config';
-import { t } from '../lib/i18n';
+import Prose from '../components/Prose.astro';
 
 interface Props {
   lang: Language;
@@ -32,7 +30,6 @@ const crumbs = await bookCrumbs(lang, file, displayTitle);
 const isChapter = layout === 'chapter';
 const isContents = file === 'contents';
 const neighbours = await paginationNeighbours(lang, 'book', file);
-const content = externalLinks(await Astro.slots.render('default'), site, t(lang, 'external-link-notice'));
 ---
 <BaseLayout
   lang={lang}
@@ -54,7 +51,7 @@ const content = externalLinks(await Astro.slots.render('default'), site, t(lang,
   )}
   {isContents && <ContentsPage lang={lang} title={displayTitle} />}
   {isChapter && <BookmarkAdd lang={lang} />}
-  <div class="prose" data-prose data-glossary-terms set:html={content} />
+  <Prose lang={lang} glossary><slot /></Prose>
   {isChapter && <Share lang={lang} url={currentUrl} title={displayTitle} />}
   {neighbours && settings.web.pagination && <Pagination lang={lang} prev={neighbours.prev} next={neighbours.next} />}
 </BaseLayout>

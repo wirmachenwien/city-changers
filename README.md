@@ -57,6 +57,10 @@ disabled); loading the script alone does not confirm event collection.
 - `src/content/book/<lang>/`, `src/content/pages/<lang>/` — chapters and home/search pages (MDX)
 - `src/components/`, `src/layouts/` — content components and page layouts
 - `src/data/` — book catalogue, nav, locales, glossary (validated JSON)
+- `src/components/Prose.astro` — shared build-time prose renderer: heading
+  permalinks and first-occurrence glossary marks are present in the initial HTML,
+  including inside rendered components. Only definition popup interaction needs
+  JavaScript; matching rules live in `src/lib/render-prose.mjs`.
 - `src/lib/`, `src/scripts/` — URL/i18n helpers and client islands
 - `scripts/bin/` — runnable entry points (PDF/EPUB pipelines, build checks, config sync)
 - `scripts/handbook/` — shared Python library imported by the builders
