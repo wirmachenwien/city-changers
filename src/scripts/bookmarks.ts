@@ -86,7 +86,7 @@ function isChapterUrl(url: string): boolean {
     .filter((lang) => lang !== DEFAULT_LANG)
     .map((lang) => `${lang}/`)
     .join('|');
-  return new RegExp(`\\/book\\/(?:${prefixes})?\\d+\\.html$`).test(pathname);
+  return new RegExp(`\\/book\\/(?:${prefixes})?\\d+(?:-[a-z0-9]+)*\\.html$`).test(pathname);
 }
 
 /** Drop browser text-fragment directives (`#:~:text=...`) to avoid the

@@ -2339,7 +2339,6 @@ html:not(.js-fold) .accordion-content {
   font-family: var(--font-ui);
   font-size: 0.96rem;
   line-height: 1.4;
-  box-shadow: 0 0.5rem 1.5rem var(--shadow-strong);
 }
 
 .last-visit-toast[hidden] {
