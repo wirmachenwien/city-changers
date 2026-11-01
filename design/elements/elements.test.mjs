@@ -83,10 +83,13 @@ test('Natural is the sole shape implementation, with constant-size tails and cor
   }
 });
 
-test('the library uses production CSS without measuring shapes or changing content', () => {
+test('the library shares the production renderer without changing native content', () => {
   const { document, window } = parseHTML(html);
   const before = document.getElementById('shape-previews').textContent;
-  runInNewContext(read('preview.js'), { document });
+  let initialized = false;
+  runInNewContext(read('preview.js').replace(/^import .*;$/m, ''), { document, initDrawnSurfaces() { initialized = true; } });
+  assert.ok(initialized);
+  assert.match(html, /<script type="module" src="preview\.js"><\/script>/);
   assert.equal(document.getElementById('shape-previews').textContent, before);
   assert.equal(document.querySelectorAll('[data-shape] svg').length, 0);
   assert.match(html, /src\/styles\/drawn-elements\.css/);

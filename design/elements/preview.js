@@ -1,4 +1,5 @@
-/* Library controls only. Shape decoration is CSS-only, including without JS. */
+import { initDrawnSurfaces } from '../../src/lib/drawn-surfaces.mjs';
+initDrawnSurfaces();
 (() => {
   document.getElementById('theme').addEventListener('click', event => {
     const dark = document.documentElement.dataset.theme !== 'dark';

@@ -24,10 +24,10 @@ closed panel and accent bar. Other selected treatments remain unchanged.
 | `lines/bracket.svg` | Restored original | FeatureBox margin bracket, default/warm tones |
 | `lines/bracket-short.svg` | 56px, restrained stem | Single-line FeatureBox |
 | `lines/bracket-medium.svg` | 104px, gentle stem | Medium FeatureBox |
-| `frames/frame-*.svg` | Natural | CSS panel masks exported from `framePath` |
-| `frames/compact-*.svg` | Natural | CSS control masks exported from `compactPath` |
-| `frames/bubble-{side,top}-*.svg` | Natural | CSS speech masks exported from `bubblePath` |
-| `geometry.js` → `framePath(width, height)` | Natural | Exact image/video clipping |
+| `geometry.js` → `framePath(width, height)` | Natural | Continuous panel surfaces and image/video clipping |
+| `geometry.js` → `compactPath(width, height)` | Natural | Continuous controls and spoiler highlights |
+| `geometry.js` → `bubblePath(width, height, top)` | Natural | Continuous speech surfaces with fixed tails |
+| `frames/*-{fill,stroke}.svg` | Natural | Retained static nine-slice exports; not used for screen surfaces |
 
 There are no level parameters or alternate profiles in the active geometry.
 Edit the selected masters directly; keep older studies in `archive/`. These
@@ -46,24 +46,30 @@ sources are not recipient-kit assets.
   Default green and warm amber are preserved, and RTL mirrors the bracket.
   Colors
   use the semantic tokens from `design/colors.json`, never baked-in palette copies.
-- `src/styles/drawn-elements.css` uses nine-slice CSS masks for boxes, controls,
-  popups and speech bubbles. These work on first paint and without JavaScript;
-  dynamic content gets the same styling automatically. No box/rail observer or
-  readiness class is used for these boxes. Corners, stroke thickness and tails stay fixed;
-  waves along the connecting edges stretch as content changes.
+- `src/lib/drawn-surfaces.mjs` paints boxes, controls, popups, speech bubbles,
+  table headers, spoilers and media using one actual-size SVG path per surface.
+  Fill and stroke share that path, eliminating internal rasterized tile joins.
+  One ResizeObserver batches layout reads before writes in requestAnimationFrame.
+  Hidden surfaces wait for a nonzero size; added subtrees are wired locally,
+  detached surfaces and headers are unobserved, and reinsertion reuses the SVG.
+  Page height and scrolling are not observed. Corners, stroke weights and tails
+  stay in CSS pixels. Hover transforms only paint, never measured SVG bounds.
+  Native boundaries remain until `drawn-ready`, without JS and in print/forced
+  colors. Single-piece pebbles and rule masks remain CSS-only.
+  The masthead background overlaps the fully filled SVG top by 1 CSS pixel;
+  the visible wave does not move.
 - Run `npm run elements:build` after changing `geometry.js`. This exports only
   eight palette-free SVG masks and `frames/frames.css`; it never touches mascot
-  media. `npm run elements:check` verifies freshness. The library preview uses
-  these same CSS masks. Archived SVG studies remain untouched.
+  media. `npm run elements:check` verifies freshness of the retained static
+  exports. Archived SVG studies remain untouched.
 - Select wrappers and closed-accordion decoration are server-rendered. The
   internal `DrawnSelect.astro` shell is shared by `LanguageMenu` and `SelectList`;
   callers retain their own labels, navigation options and no-JS fallbacks. The
   `rehypeDrawnContainers` plugin and `TableWrap` provide stationary frames outside
-  scrollable table/code content at build time. `src/scripts/drawn-tables.ts`
-  measures header height and paints a separate panel background through the exact
-  same nine-slice CSS mask as the outer frame. Only decorative paint is masked;
-  table text, scrolling and focus indicators remain unclipped. No header fill is
-  shown before measurement or without JS, avoiding a leaking rectangular flash.
+  scrollable table/code content at build time. The shared surface renderer measures
+  header height and uses a hard-stop SVG gradient on the outer frame path.
+  Table text, scrolling and focus indicators remain unclipped. Before measurement
+  or without JS, native table backgrounds and boundaries remain.
   Print and forced colors retain native cell backgrounds and borders.
 - Theme toggles and mobile menu/close toggles use the shared pebble silhouette.
   Their idle fill matches the current surface (`accent-soft` in the masthead,
@@ -76,12 +82,13 @@ sources are not recipient-kit assets.
   medium Gentle uses its original Gentle path with a y=92 crop. Mask lengths
   remain at least 32/80/240px, cropping in shorter space rather than compressing
   a long wave. They extend only when the available space exceeds the source length.
-- `src/scripts/drawn-media.ts` measures only image/video stages for exact clipping,
+- The shared renderer measures image/video stages for exact clipping,
   backed by the original `framePath`. Before enhancement or without JS, media
   uses a normal border in the same semantic color, not a drawn overlay on the
   rectangular image. Captions and focus rings stay unclipped.
-- Speech tails are part of the perimeter, not an attached overlay. CSS media
-  queries choose side/top tails; RTL mirrors only the decorative layers.
+- Speech tails are part of the perimeter, not an attached overlay. A shared media
+  query chooses side/top tails; RTL mirrors only the decorative path. SVG overflow
+  preserves negative-coordinate tails without stretching the shape.
 - Native controls, rectangular hit areas and unclipped keyboard focus remain.
   `src/scripts/link-underlines.ts` measures underlined link text with Range and
   paints the Quiet rule (`lines/divider.svg`) per wrapped line. Paint inherits
@@ -99,10 +106,12 @@ sources are not recipient-kit assets.
   dimensions are observed; neither page height nor hover triggers redraws.
   Artwork is decorative, hidden from assistive technology and pointer-transparent.
   Print, forced colors and unsupported masks keep plain boundaries. Missing
-  JavaScript still gets drawn CSS boxes. PDF/EPUB
+  JavaScript retains native panel boundaries. PDF/EPUB
   styles, icons, logos and mascot media are unchanged.
 
-`preview.js` only wires the disk-openable library controls; it does not draw.
+`preview.js` wires controls and imports the same production surface renderer.
+Serve the repository over HTTP to preview ES modules (opening via `file:` retains
+native fallbacks but browsers may block module loading).
 `geometry.js` exposes named ES module exports, with no global side effects.
 `geometry.d.ts` supplies their shared function types; `elements.test.mjs` validates
 the active inventory, restored archive, geometry and previews. The archive
@@ -126,6 +135,15 @@ paint-only animation and reduced-motion behavior, rather than CSS selector spell
 Rendered select labels, selected-text mirrors and decorative semantics are checked
 in `figure-rendered.mjs`; small unit tests cover client synchronization separately.
 Override `SITE_URL`/`CHROME_URL` if needed. The script closes only its own tab.
+
+`scripts/tests/drawn-surfaces-browser.mjs` adds screenshot-pixel assertions for
+continuous toast/panel/control interiors and the masthead join, at fractional
+sizes, DPR 1/1.5/2, 390/1280px widths and both themes. Run with Chrome on CDP
+9223, or `BROWSER=firefox` with Firefox BiDi on 9225 (`FIREFOX_WS` overrides it).
+Set `SCREENSHOT_DIR` to retain screenshots. These are desktop viewport tests;
+actual Firefox Android verification remains a separate device check.
+Set `PREVIEW_URL` to an HTTP-served `design/elements/index.html` to also test the
+standalone library's shared renderer and width/content controls.
 
 No artwork generator, mascot render or broad design build is needed.
 
