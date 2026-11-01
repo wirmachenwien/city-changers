@@ -195,7 +195,7 @@ test('hover previews reserve corner space on both sides so pinning never moves t
       const preview = { ...env.popup().style };
       assert.equal(preview.left, left === 0 ? '30px' : '450px');
       trigger.emit('click');
-      assert.deepEqual(env.popup().style, preview, 'revealing the circle preserves preview geometry');
+      assert.deepEqual(env.popup().style, preview, 'revealing the close pebble preserves preview geometry');
       env.popup().children[0].emit('click');
     }
   } finally { env.cleanup(); }

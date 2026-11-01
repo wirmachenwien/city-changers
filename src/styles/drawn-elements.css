@@ -10,6 +10,84 @@
 
 @media screen and (forced-colors: none) {
   @supports (mask-image: url('')) {
+    /* X controls share the same pebble as secondary actions. Only decorative
+       layers are masked: icons, focus rings and existing hit areas stay native.
+       The inset fill leaves a pebble outline where a control needs one. */
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button) {
+      isolation: isolate;
+      border-radius: 0;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      --x-pebble-fill: var(--paper);
+      --x-pebble-edge: var(--x-pebble-fill);
+    }
+    .content-popup-close-face, .bookmark-pin, .bookmark-delete { position: relative; }
+    .last-visit-toast button { position: relative; }
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::before,
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat;
+    }
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::before {
+      inset: 0;
+      z-index: -2;
+      background: var(--x-pebble-edge);
+    }
+    :is(.content-popup-close-face, .bookmark-pin, .bookmark-delete, .last-visit-toast button)::after {
+      inset: 1px;
+      z-index: -1;
+      background: var(--x-pebble-fill);
+    }
+    .content-popup-close:focus-visible .content-popup-close-face {
+      --x-pebble-fill: var(--accent);
+      background: transparent;
+    }
+    @media (hover: hover) {
+      .content-popup-close:hover .content-popup-close-face {
+        --x-pebble-fill: var(--accent);
+        background: transparent;
+      }
+    }
+    .content-popup-close:active:hover .content-popup-close-face,
+    .content-popup-close:active:focus-visible .content-popup-close-face {
+      --x-pebble-fill: var(--ink);
+      background: transparent;
+    }
+    .bookmark-pin { --x-pebble-edge: var(--ink); }
+    .bookmark-pin.is-saved {
+      --x-pebble-fill: var(--accent);
+      border-color: transparent;
+      background: transparent;
+    }
+    .bookmark-pin:is(.is-pending, .is-saved):is(:hover, :focus-visible) {
+      --x-pebble-fill: var(--ink);
+      border-color: transparent;
+      background: transparent;
+    }
+    .bookmark-pin.is-pending:is(:hover, :focus-visible) { color: var(--paper); }
+    .bookmark-pin.is-saved { --x-pebble-edge: var(--accent); }
+    .bookmark-pin.is-saved:is(:hover, :focus-visible) { --x-pebble-edge: var(--ink); }
+    .bookmark-delete { --x-pebble-fill: transparent; --x-pebble-edge: transparent; }
+    .bookmark-delete:is(:hover, :focus-visible) {
+      --x-pebble-fill: var(--ink);
+      --x-pebble-edge: var(--ink);
+      background: transparent;
+    }
+    .last-visit-toast button { --x-pebble-fill: var(--ink); --x-pebble-edge: var(--paper); }
+    .last-visit-toast button:is(:hover, :focus-visible) {
+      --x-pebble-fill: var(--paper);
+      background: transparent;
+      color: var(--ink);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .content-popup-close-face::before, .content-popup-close-face::after {
+        transition: background-color 180ms ease-out;
+      }
+    }
+
     /* Icon toggles use a surface-colored pebble at rest. Only its paint is
        masked; the icon, native focus ring and 44px hit target stay intact. */
     .theme-toggle, .menu-toggle {

@@ -95,6 +95,11 @@ sources are not recipient-kit assets.
   Their idle fill matches the current surface (`accent-soft` in the masthead,
   `paper` in the drawer); hover and keyboard focus reveal a stronger soft-green
   fill. Only background paint is masked, leaving icons and focus rings intact.
+- Popup close faces, continue-reading close buttons and bookmark delete/pin
+  controls use that same CSS-only pebble. Separate edge/fill layers preserve
+  outlined inverse controls without masking their X icons or focus indicators.
+  Existing target sizes, gutter positions and popup press/reveal behavior stay
+  unchanged; circular box shadows are removed with the old circular paint.
 - Rails use context rather than measured height: sidebar links default to short,
   quotes to tall. An explicit `data-rail-size="short|medium|tall"` selects a crop
    where needed; medium still selects Gentle.
