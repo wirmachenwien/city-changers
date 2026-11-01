@@ -94,4 +94,8 @@ test('up arrow scrolls to the reference and reopens its pinned popup', () => {
   // The return arrow also opens a popup without a preceding downward jump.
   env.click(back);
   assert.equal(env.document.querySelectorAll('.content-popup').length, 1);
+  env.click(env.ref);
+  assert.equal(env.document.querySelectorAll('.content-popup').length, 0, 'clicking the reference toggles the open popup closed');
+  env.click(back);
+  assert.equal(env.document.querySelectorAll('.content-popup').length, 1, 'return navigation explicitly opens rather than toggles');
 });

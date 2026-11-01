@@ -1,5 +1,6 @@
 // Shared, non-modal explanatory popups for definitions and footnotes.
 // Fixed positioning is recalculated from the trigger on every scroll frame.
+// Hover previews; the first click pins, and a second click closes.
 import { iconSvg } from '../lib/icons.ts';
 interface PopupOptions {
   content: () => string | Node;
@@ -21,7 +22,7 @@ interface PopupState {
 const openPopups = new Map<HTMLElement, PopupState>();
 let preview: PopupState | undefined;
 
-export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): void {
+export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): { open: () => void } {
   const id = `content-popup-${++nextId}`;
   const describedBy = trigger.getAttribute('aria-describedby');
   trigger.removeAttribute('title');
@@ -32,7 +33,8 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
     event.preventDefault();
     const existing = openPopups.get(trigger);
     if (existing) {
-      existing.pin();
+      if (existing.pinned) existing.close();
+      else existing.pin();
       return;
     }
     open(true);
@@ -106,10 +108,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
     }
     function pin(): void {
       cancelDismiss();
-      if (pinned) {
-        closer.focus({ preventScroll: true });
-        return;
-      }
+      if (pinned) return;
       pinned = true;
       state.pinned = true;
       if (preview === state) preview = undefined;
@@ -241,4 +240,14 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): v
     position();
     if (pinned && popup.isConnected) closer.focus({ preventScroll: true });
   }
+
+  // Navigation actions need an explicit open operation, not a synthetic click
+  // whose meaning is now toggle. Keep an already-pinned popup in place.
+  return {
+    open: () => {
+      const existing = openPopups.get(trigger);
+      if (existing) existing.pin();
+      else open(true);
+    },
+  };
 }

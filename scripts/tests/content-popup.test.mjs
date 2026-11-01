@@ -156,36 +156,39 @@ test('hover previews have no close button, are hoverable, and dismiss on leave',
   } finally { env.cleanup(); }
 });
 
-test('click pins an existing preview and adds its close button without replacing it', async () => {
+test('hover previews, first click pins in place, and second click closes', async () => {
   const env = environment();
   try {
     const trigger = env.trigger();
     trigger.emit('pointerenter', { pointerType: 'mouse' });
     const popup = env.popup();
     popup.className += ' drawn-host drawn-ready';
+    trigger.emit('pointerleave'); // A pending hover-dismiss timer must be cancelled by pinning.
     trigger.emit('click');
     assert.equal(env.popup(), popup);
-    assert.ok(popup.className.includes('drawn-ready'), 'pinning preserves decoration classes');
+    assert.equal(popup.isConnected, true);
+    assert.ok(popup.className.includes('drawn-ready'), 'pinning preserves existing decoration');
     assert.ok(!popup.className.includes('content-popup--preview'));
-    assert.equal(popup.getAttribute('role'), 'dialog');
-    assert.equal(popup.children[0].hidden, false);
     assert.equal(trigger.getAttribute('aria-describedby'), null);
+    const pinned = env.popup();
+    assert.equal(pinned.getAttribute('role'), 'dialog');
+    assert.equal(pinned.children[0].hidden, false);
     assert.equal(trigger.getAttribute('aria-expanded'), 'true');
     trigger.emit('pointerleave');
-    popup.emit('pointerleave');
+    pinned.emit('pointerleave');
     await new Promise(resolve => setTimeout(resolve, 180));
-    assert.equal(env.popup(), popup, 'pinned popup persists after leaving');
+    assert.equal(env.popup(), pinned, 'pinned popup persists after leaving');
     const second = env.trigger();
     second.emit('pointerenter', { pointerType: 'mouse' });
-    assert.equal(env.popup(), popup, 'hovering another term does not replace a pinned popup');
+    assert.equal(env.popup(), pinned, 'hovering another term does not replace a pinned popup');
     trigger.emit('click');
-    assert.equal(env.popup(), popup, 'clicking a pinned trigger does not close it');
-    popup.children[0].emit('click');
-    assert.equal(popup.isConnected, false);
+    assert.equal(pinned.isConnected, false, 'clicking a pinned trigger closes it');
+    assert.equal(trigger.getAttribute('aria-expanded'), 'false');
+    assert.equal(trigger.getAttribute('aria-controls'), null);
   } finally { env.cleanup(); }
 });
 
-test('hover previews reserve corner space on both sides so pinning never moves the box', () => {
+test('hover and click-opened popups reserve identical corner space on both sides', () => {
   const env = environment();
   try {
     for (const left of [0, 750]) {
@@ -195,13 +198,13 @@ test('hover previews reserve corner space on both sides so pinning never moves t
       const preview = { ...env.popup().style };
       assert.equal(preview.left, left === 0 ? '26px' : '454px');
       trigger.emit('click');
-      assert.deepEqual(env.popup().style, preview, 'revealing the close pebble preserves preview geometry');
+      assert.deepEqual(env.popup().style, preview, 'the close pebble preserves the preview geometry');
       env.popup().children[0].emit('click');
     }
   } finally { env.cleanup(); }
 });
 
-test('multiple pinned popups only close through their own X controls', () => {
+test('pinned popups close through their own trigger or X, without dismissing other pinned popups', () => {
   const env = environment();
   try {
     const first = env.trigger();
@@ -212,9 +215,14 @@ test('multiple pinned popups only close through their own X controls', () => {
     assert.equal(oldPopup.isConnected, true);
     assert.equal(first.getAttribute('aria-expanded'), 'true');
     assert.equal(env.popups().length, 2);
-    const secondPopup = env.popups()[1];
+    let secondPopup = env.popups()[1];
     second.emit('click');
-    assert.equal(env.popups().length, 2, 'repeated trigger activation does not duplicate or close');
+    assert.equal(env.popups().length, 1, 'repeated trigger activation closes its popup');
+    assert.equal(secondPopup.isConnected, false);
+    assert.equal(oldPopup.isConnected, true);
+    second.emit('click');
+    assert.equal(env.popups().length, 2, 'the trigger can reopen its popup');
+    secondPopup = env.popups()[1];
     env.document.emit('keydown', { key: 'Escape' });
     assert.equal(env.popups().length, 2);
     env.document.emit('pointerdown', { target: env.document.body });
@@ -246,8 +254,12 @@ test('footnote navigation actions are labelled native links, including in hover 
     assert.equal(jump.getAttribute('aria-label'), 'Jump to footnote');
     trigger.emit('click');
     assert.equal(env.popup(), popup);
-    assert.equal(popup.children[0].hidden, false);
-    assert.equal(popup.children[1].children.at(-1), jump, 'pinning preserves the navigation action');
+    const pinned = env.popup();
+    assert.equal(pinned.children[0].hidden, false);
+    const pinnedJump = pinned.children[1].children.at(-1);
+    assert.equal(pinnedJump, jump, 'pinning preserves the existing navigation action');
+    assert.equal(pinnedJump.href, '#listed-note-1');
+    assert.equal(pinnedJump.getAttribute('aria-label'), 'Jump to footnote');
   } finally { env.cleanup(); }
 });
 
@@ -281,8 +293,10 @@ test('popup boxes align with the reading column edges without extra inset', () =
       assert.equal(x, left === 170 ? 170 : 300);
       const preview = { ...popup.style };
       trigger.emit('click');
-      assert.deepEqual(popup.style, preview);
-      popup.children[0].emit('click');
+      assert.equal(popup.isConnected, true);
+      assert.equal(env.popup(), popup);
+      assert.deepEqual(env.popup().style, preview);
+      env.popup().children[0].emit('click');
     }
   } finally { env.cleanup(); }
 });

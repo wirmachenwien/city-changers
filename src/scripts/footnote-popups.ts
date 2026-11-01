@@ -18,6 +18,7 @@ export function initFootnotePopups(closeLabel = 'Close'): void {
   const prose = document.querySelector<HTMLElement>('[data-prose]');
   const article = prose ?? document.querySelector<HTMLElement>('main.article') ?? document.querySelector<HTMLElement>('main');
   const refs = [...document.querySelectorAll<HTMLElement>('[data-footnote-ref]')];
+  const popups = new Map<HTMLElement, ReturnType<typeof bindContentPopup>>();
   refs.forEach((ref, index) => {
     if (ref.dataset.wired) return;
     ref.dataset.wired = 'true';
@@ -28,7 +29,7 @@ export function initFootnotePopups(closeLabel = 'Close'): void {
     const describedBy = ref.getAttribute('aria-describedby');
     const target = describedBy ? document.getElementById(describedBy) : ref.nextElementSibling;
     if (!target) return;
-    bindContentPopup(ref, {
+    popups.set(ref, bindContentPopup(ref, {
       content: () => target.textContent ?? '',
       label: openLabel,
       closeLabel: closeFootnoteLabel || closeLabel,
@@ -36,7 +37,7 @@ export function initFootnotePopups(closeLabel = 'Close'): void {
         href: `#listed-${describedBy || number}`,
         label: t(lang, 'footnotes.jump-to-note', 'Jump to footnote'),
       } : undefined,
-    });
+    }));
   });
 
   if (!article || article.querySelector('[data-generated-footnotes]')) return;
@@ -67,7 +68,7 @@ export function initFootnotePopups(closeLabel = 'Close'): void {
       // scrolling would initially be anchored to an off-screen reference.
       ref.scrollIntoView({ behavior: 'instant', block: 'start' });
       ref.focus({ preventScroll: true });
-      ref.click();
+      popups.get(ref)?.open();
     });
     item.append(' ', back);
     list.append(item);
