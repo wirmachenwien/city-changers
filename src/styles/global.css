@@ -1368,7 +1368,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 .button-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.5rem;
   appearance: none;
   border: 0;
   cursor: pointer;
@@ -1410,7 +1410,7 @@ a[data-external-link]:has(img) > .external-link-icon {
 .button-link__content {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.5rem;
   transition: transform 160ms ease-out;
 }
 

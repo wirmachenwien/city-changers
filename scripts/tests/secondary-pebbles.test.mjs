@@ -17,11 +17,24 @@ test('language picker leads desktop and mobile navigation, not the header', () =
   for (const [file, id] of [['SideNav.astro', 'side-language'], ['NavDrawer.astro', 'drawer-language']]) {
     const source = read(`src/components/${file}`);
     assert.match(source, new RegExp(`<section class="nav-section">\\s*<div class="nav-language">\\s*<LanguageMenu[^>]*id="${id}"`));
-    assert.ok(source.indexOf(`id="${id}"`) < source.indexOf('<ul class="nav-list">'));
+    const chapterNav = source.indexOf('<ChapterNavLinks links={section.links} />');
+    assert.ok(chapterNav !== -1, `${file} renders the shared chapter navigation`);
+    assert.ok(source.indexOf(`id="${id}"`) < chapterNav);
     assert.match(source, /kind: 'page' \| 'book'/);
     assert.match(source, /file: string/);
   }
   assert.match(read('src/layouts/BaseLayout.astro'), /<div class="nav-language"><LanguageMenu[^>]+\/><\/div>\s*<ul class="nav-list" \/>/);
+});
+
+test('shared chapter navigation keeps numbers decorative and underlines on labels only', () => {
+  const source = read('src/components/ChapterNavLinks.astro');
+  assert.match(source, /<ul class="nav-list nav-list--chapters">/);
+  assert.match(source, /class="nav-chapter__number" aria-hidden="true"/);
+  assert.match(source, /data-link-underline=\{link.chapterNumber !== undefined \? 'hover' : undefined\}/);
+  assert.match(source, /<span class="nav-chapter__label">/);
+  const css = read('src/styles/global.css');
+  assert.match(css, /\.nav-list--chapters a\.nav-chapter\s*\{[^}]*text-decoration-line: none;/);
+  assert.match(css, /\.nav-list--chapters a\.nav-chapter:is\(:hover, :focus-visible, :active\) \.nav-chapter__label\s*\{\s*text-decoration-line: underline;/);
 });
 
 test('all header surfaces and the drawn boundary use the accent palette', () => {
