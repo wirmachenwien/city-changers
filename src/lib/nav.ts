@@ -10,6 +10,7 @@ export interface NavLink {
   label: string;
   url: string;
   current: boolean;
+  chapterNumber?: number;
 }
 
 /** Project navigation links for a language, with the current page flagged.
@@ -33,6 +34,7 @@ export async function bookNav(lang: Language, currentUrl: string): Promise<NavLi
     label: entry.label,
     url: entry.url,
     current: entry.url === currentUrl,
+    ...(/^\d+$/.test(entry.file) ? { chapterNumber: Number(entry.file) } : {}),
   }));
 }
 

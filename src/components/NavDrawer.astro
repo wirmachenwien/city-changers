@@ -11,6 +11,7 @@ import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageMenu from './LanguageMenu.astro';
+import ChapterNavLinks from './ChapterNavLinks.astro';
 
 interface Props {
   lang: Language;
@@ -71,15 +72,7 @@ const deleteLabel = t(lang, 'bookmarks.delete-bookmark', 'Delete');
                 <LanguageMenu {lang} {kind} {file} id="drawer-language" />
               </div>
               {section.heading && <h2>{section.heading}</h2>}
-              <ul class="nav-list">
-                {section.links.map((link) => (
-                  <li>
-                    <a href={link.url} aria-current={link.current ? 'page' : undefined}>
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ChapterNavLinks links={section.links} />
             </section>
           )
         ),

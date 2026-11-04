@@ -460,7 +460,10 @@
     .nav-list a[data-rail-size="tall"] { --rail-source: url('../../design/elements/lines/accent-bar.svg'); --rail-native-height: 240px; }
     .prose blockquote::before { content: ''; position: absolute; inset-inline-start: -.2rem; inset-block: 0; inline-size: 1.5rem; background: var(--accent); mask: var(--rail-source) center / 100% max(var(--rail-native-height), 100%) no-repeat; pointer-events: none; }
     .nav-list a[aria-current="page"], .nav-list a[aria-current="location"] { position: relative; border-inline-start-color: transparent; }
-    .nav-list a[aria-current]::before { content: ''; position: absolute; inset-inline-start: -.5rem; inset-block: .3rem; inline-size: 1rem; background: var(--accent); mask: var(--rail-source) center / 100% max(var(--rail-native-height), 100%) no-repeat; pointer-events: none; }
+    .nav-list a[aria-current]:not(.nav-chapter)::before { content: ''; position: absolute; inset-inline-start: -.5rem; inset-block: .3rem; inline-size: 1rem; background: var(--accent); mask: var(--rail-source) center / 100% max(var(--rail-native-height), 100%) no-repeat; pointer-events: none; }
+    /* Preserve the original rail-to-label spacing after reserving the
+       chapter number column (2.25rem label inset minus the old 1.1rem gap). */
+    .nav-list--chapters a[aria-current]:not(.nav-chapter)::before { inset-inline-start: 1.325rem; inline-size: 0.65rem; }
     .shape { --drawn-stroke: var(--accent); }
     .shape--filled { --drawn-fill: var(--accent); }
   }

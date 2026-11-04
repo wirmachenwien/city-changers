@@ -7,6 +7,7 @@ import { t } from '../lib/i18n';
 import { settings } from '../data/settings';
 import type { Language } from '../data/locales';
 import LanguageMenu from './LanguageMenu.astro';
+import ChapterNavLinks from './ChapterNavLinks.astro';
 
 interface Props {
   lang: Language;
@@ -65,15 +66,7 @@ const deleteLabel = t(lang, 'bookmarks.delete-bookmark', 'Delete');
             <LanguageMenu {lang} {kind} {file} id="side-language" />
           </div>
           {section.heading && <h2>{section.heading}</h2>}
-          <ul class="nav-list">
-            {section.links.map((link) => (
-              <li>
-                <a href={link.url} aria-current={link.current ? 'page' : undefined}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <ChapterNavLinks links={section.links} />
         </section>
       )
     ),

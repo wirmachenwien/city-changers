@@ -1,0 +1,25 @@
+---
+import type { NavLink } from '../lib/nav';
+
+interface Props {
+  links: NavLink[];
+}
+
+const { links } = Astro.props;
+---
+<ul class="nav-list nav-list--chapters">
+  {links.map((link) => (
+    <li>
+      <a href={link.url} aria-current={link.current ? 'page' : undefined} data-link-underline={link.chapterNumber !== undefined ? 'hover' : undefined} class:list={{ 'nav-chapter': link.chapterNumber !== undefined }}>
+        {link.chapterNumber !== undefined && (
+          <span class="nav-chapter__number" aria-hidden="true" data-digits={String(link.chapterNumber).length}>{link.chapterNumber}</span>
+        )}
+        <span class="nav-chapter__label">
+          {link.chapterNumber !== undefined ? (
+            <><span class="visually-hidden">{link.chapterNumber}. </span>{link.label.replace(/^\d+\.\s*/, '')}</>
+          ) : link.label}
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>
