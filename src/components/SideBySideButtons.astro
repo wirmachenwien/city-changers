@@ -1,10 +1,13 @@
 ---
 import DownloadLink from './DownloadLink.astro';
+import type { IconName } from '../lib/icons';
 import { downloadEnabled } from '../lib/downloads';
 
 interface Link {
   href: string;
   label: string;
+  iconBefore?: IconName;
+  iconAfter?: IconName;
 }
 
 interface Props {
@@ -16,6 +19,6 @@ const visibleLinks = links.filter((link) => downloadEnabled(link.href));
 ---
 {visibleLinks.length > 0 && (
   <div class="download-buttons">
-    {visibleLinks.map((link) => <DownloadLink href={link.href}>{link.label}</DownloadLink>)}
+    {visibleLinks.map((link) => <DownloadLink href={link.href} iconBefore={link.iconBefore} iconAfter={link.iconAfter}>{link.label}</DownloadLink>)}
   </div>
 )}

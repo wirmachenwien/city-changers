@@ -1,12 +1,15 @@
 ---
 import ButtonLink from './ButtonLink.astro';
+import type { IconName } from '../lib/icons';
 import { downloadEnabled } from '../lib/downloads';
 import { withBase } from '../lib/site';
 
 interface Props {
   href: string;
+  iconBefore?: IconName;
+  iconAfter?: IconName;
 }
 
-const { href } = Astro.props;
+const { href, iconBefore, iconAfter } = Astro.props;
 ---
-{downloadEnabled(href) && <ButtonLink href={withBase(href)}><slot /></ButtonLink>}
+{downloadEnabled(href) && <ButtonLink href={withBase(href)} iconBefore={iconBefore} iconAfter={iconAfter}><slot /></ButtonLink>}

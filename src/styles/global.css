@@ -1278,7 +1278,9 @@ a[data-external-link]:has(img) > .external-link-icon {
 /* ---------- Buttons ---------- */
 
 .button-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
   appearance: none;
   border: 0;
   cursor: pointer;
@@ -1315,6 +1317,23 @@ a[data-external-link]:has(img) > .external-link-icon {
 .button-link:hover {
   color: var(--accent-ink);
   filter: brightness(1.1);
+}
+
+.button-link__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: transform 160ms ease-out;
+}
+
+.button-link .drawn-link-rule > span {
+  transition: transform 160ms ease-out;
+  transform-origin: center;
+}
+
+.button-link:is(:hover, :focus-visible) .button-link__content,
+.button-link:is(:hover, :focus-visible) .drawn-link-rule > span {
+  transform: scale(1.04);
 }
 
 /* ---------- Video facade ---------- */

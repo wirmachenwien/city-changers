@@ -35,6 +35,10 @@ prevents cross-platform rasterization differences from causing unnecessary churn
 
 ## Visual language
 
+Format icons use `file-text` for documents/PDF and `book-open` for books/EPUB.
+Both are available through `Icon`, the icon catalog and brand-guide downloads,
+including SVG and light/dark PNG exports.
+
 Hand-drawn curves, rounded ends and a consistent optical weight. The link uses
 two clearly separated chain loops joined by a short bridge. The SVG sources are
 shared by static components, popup controls, bookmarks, heading permalinks,
