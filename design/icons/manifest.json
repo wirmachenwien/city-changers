@@ -9,6 +9,8 @@
     { "id": "mail", "label": "Mail", "sources": ["src/components/Share.astro"] },
     { "id": "bookmark", "label": "Bookmark", "sources": ["src/components/BookmarkAdd.astro", "src/scripts/bookmarks.ts"] },
     { "id": "download", "label": "Download", "sources": ["src/components/DownloadLink.astro"] },
+    { "id": "file-text", "label": "Document / PDF", "sources": ["src/content/pages/en/index.mdx", "src/content/pages/de/index.mdx", "src/content/pages/sl/index.mdx"] },
+    { "id": "book-open", "label": "Open book / EPUB", "sources": ["src/content/pages/en/index.mdx", "src/content/pages/de/index.mdx", "src/content/pages/sl/index.mdx"] },
     { "id": "check", "label": "Correct / copied", "sources": ["src/components/Question.astro", "src/components/CopyText.astro"] },
     { "id": "copy", "label": "Copy", "sources": ["src/components/CopyText.astro"] },
     { "id": "back", "label": "Back", "sources": ["src/components/Icon.astro"] },

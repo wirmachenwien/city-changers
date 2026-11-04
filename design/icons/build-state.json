@@ -1,5 +1,5 @@
 {
-  "inputs": "dbcc444a2df3dd937a2066b01f147a6818170768b7c7cbca0e886bf3a70079fe",
+  "inputs": "ca318547cdd89ae47ad41669985ebfb0adb0844f3df372fe96c861f6e7c06f98",
   "pngs": {
     "src/assets/icons/png/light/search.png": "27d84e3c6215e65d5124e89d0d0964801d90b22b6d0af9f38c04222f2b013590",
     "src/assets/icons/png/dark/search.png": "8b2095200a2398b2c42c687fc5528922390b9d68d93612f2eb5f73bcbf7f9dd0",
@@ -15,6 +15,10 @@
     "src/assets/icons/png/dark/bookmark.png": "eb0011f0c09726e5c1acdd4ff535a0a495f405f0bd0f8bcdf26eb9086864fc40",
     "src/assets/icons/png/light/download.png": "6463e6639f6f41a014333c25538af531956e87425efc3292f9eb00d78bc38521",
     "src/assets/icons/png/dark/download.png": "822da560768655b58ed6df3af6ed443750994a713c884d0e7b986f2029dceacb",
+    "src/assets/icons/png/light/file-text.png": "cf45af403891926ff2262645c9e48c2eb7314868cc136ddf1240fdf665e3dda8",
+    "src/assets/icons/png/dark/file-text.png": "78f06dfd9dd5370c0c55ca9c5791a53e7f970d0d4ba67557ecc1d0af070f0098",
+    "src/assets/icons/png/light/book-open.png": "f5d0504a99044be9149d8ae57be665b628557ac712a614ac3e3987652bebb68d",
+    "src/assets/icons/png/dark/book-open.png": "bc647ac1746cc3bf3f547f3559906224bad2141a03a12411188b447cf0ce33c5",
     "src/assets/icons/png/light/check.png": "3c49e5b20a94db95ea3dc5e89a45e2b7c4f29e1299825eb623917b92fe25919a",
     "src/assets/icons/png/dark/check.png": "9b069141078eab57d1e8eb506ebbd5da91ceb72b53874e30413ff1d246d11e47",
     "src/assets/icons/png/light/copy.png": "bae75d2e6c33c3837cfd8c97ffa8d3c15ebc8b2c437858bfffcee658dff127d4",

@@ -1,8 +1,13 @@
 ---
+import Icon from './Icon.astro';
+import type { IconName } from '../lib/icons';
+
 interface Props {
   href: string;
   label?: string;
+  iconBefore?: IconName;
+  iconAfter?: IconName;
 }
-const { href, label } = Astro.props;
+const { href, label, iconBefore, iconAfter } = Astro.props;
 ---
-<a class="button-link" href={href}>{label ?? <slot />}</a>
+<a class="button-link" href={href}><span class="button-link__content">{iconBefore && <Icon name={iconBefore} />}{label ?? <slot />}{iconAfter && <Icon name={iconAfter} />}</span></a>
