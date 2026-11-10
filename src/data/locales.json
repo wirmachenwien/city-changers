@@ -120,7 +120,7 @@
   "en": {
     "direction": "ltr",
     "local-name": "English",
-    "external-link-notice": "External link, opens in a new tab",
+    "external-link-notice": "External link (opens in a new tab)",
     "nav": {
       "breadcrumb": "Breadcrumb",
       "menu": "Menu",
@@ -148,7 +148,7 @@
       "check-answers-button": "Check my answers",
       "correct-answers": "Correct answers",
       "feedback-correct": "Correct!",
-      "feedback-incorrect": "Incorrect",
+      "feedback-incorrect": "Not quite",
       "feedback-unfinished": "Almost – you haven't selected all the correct answers yet.",
       "feedback-empty": "Please select at least one answer."
     },
@@ -161,7 +161,7 @@
       "set-bookmark": "Set bookmark",
       "remove-bookmark": "Remove bookmark",
       "bookmarks": "Bookmarks",
-      "last-location-prompt": "Continue from your last visit?",
+      "last-location-prompt": "Continue where you left off?",
       "delete-bookmark": "Delete",
       "component-labels": {
         "video": "Video", "image": "Image", "slideshow": "Slideshow", "table": "Table",
@@ -232,7 +232,7 @@
       "slides": "Slides"
     },
     "visual-toc": {
-      "link-to-page-assistive-text": "Link to page"
+      "link-to-page-assistive-text": "Go to page"
     }
   },
   "sl": {

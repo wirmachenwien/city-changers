@@ -125,7 +125,7 @@
   "en": [
     {
       "term": "Agenda setting",
-      "definition": "A tactic for making an issue publicly visible, for example through an action, a petition or a media image.",
+      "definition": "A tactic for making an issue publicly visible, for example through an action, a petition, or a striking image for the media.",
       "forms": [
         "Agenda setting",
         "Set the agenda"
@@ -152,7 +152,7 @@
     },
     {
       "term": "Low-traffic neighbourhood",
-      "definition": "A cheaper form of traffic calming with little through traffic, discussed as a Viennese variant.",
+      "definition": "A form of traffic calming that reduces through traffic, discussed as a Viennese variant called Low-Traffic-Grätzl.",
       "forms": [
         "Low-traffic neighbourhood",
         "Low-traffic neighbourhoods",
@@ -162,7 +162,7 @@
     },
     {
       "term": "Milestone",
-      "definition": "A visible intermediate goal that gives a campaign progress and orientation.",
+      "definition": "A visible intermediate goal that shows a campaign is making progress and keeps it on track.",
       "forms": [
         "Milestone",
         "Milestones"
@@ -195,7 +195,7 @@
     },
     {
       "term": "Narrative",
-      "definition": "The story of an engagement that clearly states its goal, window of opportunity, alliances and intended change.",
+      "definition": "The story an initiative tells about its goal, window of opportunity, alliances, and intended change.",
       "forms": [
         "Narrative",
         "Narratives"
@@ -203,7 +203,7 @@
     },
     {
       "term": "Street design",
-      "definition": "Jointly designing streets with simple modules such as a street plan, banner or tree visualisation.",
+      "definition": "Jointly designing streets with simple tools such as a street plan, banner, or tree visualisation.",
       "forms": [
         "Street design"
       ]
@@ -243,9 +243,63 @@
       "definition": "A favourable moment for change, such as an election, media attention or a political decision.",
       "forms": [
         "Window of opportunity",
-        "Window of opportunities",
         "Windows of opportunity"
       ]
+    },
+    {
+      "term": "Leiwande Straßen Radar",
+      "definition": "An official Wir machen Wien street-survey tool for assessing quality of life, safety, and where action is needed.",
+      "forms": ["Leiwande Straßen Radar"]
+    },
+    {
+      "term": "Street Shit Bingo",
+      "definition": "An official tool name for a guided walk that helps participants spot obstacles, hazards, and surprising uses of street space.",
+      "forms": ["Street Shit Bingo"]
+    },
+    {
+      "term": "Street Design Table",
+      "definition": "An official tool name for adapting a street plan with paper pieces to explore alternative uses of street space.",
+      "forms": ["Street Design Table"]
+    },
+    {
+      "term": "Tree Love Set",
+      "definition": "An official tool name for mobile tree visualisations that show where shade and greenery are needed.",
+      "forms": ["Tree Love Set"]
+    },
+    {
+      "term": "Geht-doch",
+      "definition": "An official name associated with the Vienna pedestrian initiative that helped develop the Superblock base map.",
+      "forms": ["Geht-doch"]
+    },
+    {
+      "term": "Supergrätzl",
+      "definition": "Viennese term for a superblock, literally a 'super neighbourhood'.",
+      "forms": ["Supergrätzl"]
+    },
+    {
+      "term": "Play street",
+      "definition": "A street temporarily closed to traffic so children can play.",
+      "forms": ["play street", "play streets"]
+    },
+    {
+      "term": "Quality of stay",
+      "definition": "An indicator describing how comfortable and usable a public space is for people spending time there.",
+      "forms": ["Quality of stay"]
+    },
+    {
+      "term": "Places to spend time",
+      "definition": "Public spaces where people can pause, sit, meet, or take part in activities.",
+      "forms": ["place to spend time", "places to spend time"]
+    },
+    {
+      "term": "Plan to win",
+      "definition": "An initiative's idea of how change will happen and which actions will help achieve it.",
+      "forms": ["plan to win"]
+    },
+    {
+      "term": "LTN",
+      "definition": "Abbreviation for low-traffic neighbourhood, a neighbourhood traffic-filtering approach.",
+      "forms": ["LTN", "LTNs"]
     }
   ],
   "sl": [
