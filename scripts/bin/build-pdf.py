@@ -10,6 +10,9 @@ Usage:
     python3 scripts/bin/build-pdf.py --all
     python3 scripts/bin/build-pdf.py --lang de --out dist/downloads
     python3 scripts/bin/build-pdf.py --lang sl --html-only
+
+Intermediate print HTML is written to dist-pdf/ (gitignored) so it is never
+published alongside the PDF; --html-out overrides that directory.
 """
 
 from __future__ import annotations
@@ -393,16 +396,23 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Build handbook PDFs with WeasyPrint.")
     add_common_arguments(parser, "PDFs")
     parser.add_argument("--html-only", action="store_true", help="skip WeasyPrint, emit HTML")
+    parser.add_argument(
+        "--html-out",
+        default="dist-pdf",
+        help="intermediate print HTML directory (not published)",
+    )
     args = parser.parse_args()
 
     jobs = resolve_jobs(args)
     out_dir = ROOT / args.out
     out_dir.mkdir(parents=True, exist_ok=True)
+    html_dir = ROOT / args.html_out
+    html_dir.mkdir(parents=True, exist_ok=True)
 
     for lang in jobs:
         html = build_document(lang)
         stem = download_stem(lang)
-        html_path = out_dir / f"{stem}.html"
+        html_path = html_dir / f"{stem}.html"
         html_path.write_text(html, encoding="utf-8")
         print(f"wrote {html_path}")
         if args.html_only:

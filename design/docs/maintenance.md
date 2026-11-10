@@ -100,6 +100,21 @@ and ZIP therefore use the same asset versions as Git, with no bot commits.
 
 Generated artwork still requires artistic review and rights approval before use.
 
+## Handbook PDF/EPUB exports
+
+`npm run build:downloads` publishes only the final PDFs and EPUBs in
+`dist/downloads/`. Intermediate print HTML used by WeasyPrint and the rendered
+regression tests is written to `dist-pdf/` (gitignored); stale `.html` files in
+`dist/downloads/` are removed during every build so they are never uploaded to
+Pages.
+
+EPUB packaging bounds raster payloads without touching the approved originals:
+figures embed a derivative at 2x their display width, large packaged images
+(covers) are capped at 1600 px, JPEGs use quality 82 and PNGs stay PNG. The same
+source and width reuse one cached derivative, so a photo used as cover and in
+two figures is no longer embedded at camera resolution three times. PDFs keep
+the full-resolution source images for print quality.
+
 ## Preview and release
 
 The website's `/brand` renders the sole Markdown guide and

@@ -60,7 +60,7 @@ for (const lang of languages) {
     assert.equal(lists[1].children.length, 7);
   });
 
-  const printPath = `dist/downloads/toolbox-city-changer-${lang}.html`;
+  const printPath = `dist-pdf/toolbox-city-changer-${lang}.html`;
   test(`${lang}: print export preserves both seven-step lists and nested workshop tools`, {
     skip: !existsSync(new URL(`../../${printPath}`, import.meta.url)),
   }, () => {
@@ -115,6 +115,12 @@ for (const lang of languages.filter(lang => lang !== SOURCE_LANG)) {
     }
   });
 }
+
+test('downloads publish only final PDF/EPUB files', () => {
+  const dir = new URL('../../dist/downloads/', import.meta.url);
+  if (!existsSync(dir)) return;
+  assert.deepEqual(readdirSync(dir).filter(name => name.toLowerCase().endsWith('.html')), []);
+});
 
 test('former chapter title URLs redirect to the current translated titles', () => {
   for (const [lang, chapter, oldSlug] of [

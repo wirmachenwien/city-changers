@@ -77,7 +77,12 @@ def image_uri(src: str) -> str:
     return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode()}"
 
 
-def media_svg(src: str, width: float, height: float, path: str, framed: bool = False) -> str:
+def media_svg(src: str, width: float, height: float, path: str, framed: bool = False,
+              uri: str | None = None) -> str:
+    """Draw one figure frame; `uri` lets a builder supply a size-bounded image.
+
+    PDF passes the original local file; EPUB passes its optimized derivative.
+    """
     line = resolve_color_tokens("var(--media-line)")
     backing = f'<path d="{path}" fill="{resolve_color_tokens("var(--white)")}"/>' if framed else ""
     inset = 16 if framed else 0
@@ -85,7 +90,7 @@ def media_svg(src: str, width: float, height: float, path: str, framed: bool = F
             f'width="{width}" height="{height}" viewBox="0 0 {width} {height}">'
             f'<defs><clipPath id="frame"><path d="{path}"/></clipPath></defs>{backing}'
             f'<image x="{inset}" y="{inset}" width="{width - inset * 2}" height="{height - inset * 2}" '
-            f'xlink:href="{escape(image_uri(src), quote=True)}" clip-path="url(#frame)"/>'
+            f'xlink:href="{escape(uri or image_uri(src), quote=True)}" clip-path="url(#frame)"/>'
             f'<path d="{path}" fill="none" stroke="{line}" stroke-width="1.5" '
             f'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 

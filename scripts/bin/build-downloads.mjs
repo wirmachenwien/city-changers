@@ -16,6 +16,15 @@ const jobs = [
   { enabled: settings.downloads.epub, ext: '.epub', args: ['scripts/bin/build-epub.py', '--all'] },
 ];
 
+// Print HTML is an intermediate artefact for PDF rendering and tests. Older
+// builds published it under dist/downloads (hundreds of MiB); remove leftovers.
+function removeStalePrintHtml() {
+  if (!existsSync(OUT_DIR)) return;
+  for (const name of readdirSync(OUT_DIR)) {
+    if (name.toLowerCase().endsWith('.html')) unlinkSync(join(OUT_DIR, name));
+  }
+}
+
 function removeDisabledDownloads() {
   if (!existsSync(OUT_DIR)) return;
   const disabled = jobs.filter((job) => !job.enabled).map((job) => job.ext);
@@ -27,6 +36,7 @@ function removeDisabledDownloads() {
   }
 }
 
+removeStalePrintHtml();
 removeDisabledDownloads();
 
 const enabledJobs = jobs.filter((job) => job.enabled);

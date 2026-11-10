@@ -13,7 +13,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import base64
 import html
+import io
 import mimetypes
 import posixpath
 import re
@@ -24,6 +26,8 @@ import uuid
 import zipfile
 from pathlib import Path
 from xml.sax.saxutils import escape as xml_escape
+
+from PIL import Image, ImageOps
 
 # Entry point in scripts/bin/: add scripts/ to sys.path so the handbook
 # package imports work regardless of where Python is invoked from.
@@ -52,7 +56,7 @@ from handbook.book import (
     title_page_details_html,
 )
 from handbook.media import figure_video_export_url
-from handbook.drawn import drawn_css, frame_paths, media_svg
+from handbook.drawn import drawn_css, frame_paths, image_uri, media_svg
 from handbook.mdx import (
     CCBADGE_RE,
     FEATURE_CLOSE_RE,
@@ -104,6 +108,13 @@ EPUB_FONTS = (
     "FrauncesDisplay-BoldItalic.ttf",
 )
 
+# Readers display figures at ~704 CSS px at most; a 2x raster covers high-DPI
+# screens without shipping the multi-megapixel camera originals three times
+# (cover copy plus one embedded copy per SVG frame). Covers use the same bound.
+EPUB_MAX_IMAGE_WIDTH = 1600
+EPUB_LARGE_IMAGE_BYTES = 512 * 1024
+EPUB_JPEG_QUALITY = 82
+
 
 def epub_pullquote_html(match: re.Match[str]) -> str:
     """Pull quote keeping an optional citation (cite escaped for XML)."""
@@ -147,6 +158,54 @@ class EpubBook:
         self.fonts: dict[str, str] = {}
         self.chapters: list[dict[str, str]] = []
         self.cover_image: str | None = None
+        self._derivatives: dict[tuple[str, int], tuple[bytes, str]] = {}
+
+    def _derivative(self, source: Path, max_width: int) -> tuple[bytes, str] | None:
+        """Bounded JPEG/PNG bytes for one raster source, cached per width.
+
+        The source file is never modified and the original format is kept so
+        packaged image hrefs and declared media types stay valid.
+        """
+        fmt = {".jpg": "JPEG", ".jpeg": "JPEG", ".png": "PNG"}.get(source.suffix.lower())
+        if fmt is None:
+            return None
+        key = (source.resolve().as_posix(), max_width)
+        if key in self._derivatives:
+            return self._derivatives[key]
+        with Image.open(source) as original:
+            image = ImageOps.exif_transpose(original)
+            if fmt == "JPEG":
+                image = image.convert("RGB")
+            elif image.mode not in {"RGB", "RGBA", "L", "LA"}:
+                image = image.convert("RGBA" if "transparency" in image.info else "RGB")
+            if image.width > max_width:
+                height = max(1, round(image.height * max_width / image.width))
+                image = image.resize((max_width, height), Image.Resampling.LANCZOS)
+            buffer = io.BytesIO()
+            if fmt == "JPEG":
+                image.save(buffer, "JPEG", quality=EPUB_JPEG_QUALITY, optimize=True, progressive=True)
+                mime = "image/jpeg"
+            else:
+                image.save(buffer, "PNG", optimize=True)
+                mime = "image/png"
+        self._derivatives[key] = (buffer.getvalue(), mime)
+        return self._derivatives[key]
+
+    def _data_uri(self, source: Path, max_width: int) -> str:
+        derivative = self._derivative(source, max_width)
+        if derivative is None:
+            return image_uri(source.as_uri())
+        data, mime = derivative
+        return f"data:{mime};base64,{base64.b64encode(data).decode()}"
+
+    def packaged_image_bytes(self, source_key: str) -> bytes:
+        """Only large raster originals get a bounded derivative on disk."""
+        source = Path(source_key)
+        if source.stat().st_size >= EPUB_LARGE_IMAGE_BYTES:
+            derivative = self._derivative(source, EPUB_MAX_IMAGE_WIDTH)
+            if derivative is not None:
+                return derivative[0]
+        return source.read_bytes()
 
     def add_image(self, filename: str) -> str:
         source = find_asset(filename)
@@ -173,14 +232,16 @@ class EpubBook:
         source = find_asset(filename)
         if source is None:
             return self.add_image(filename)
-        from PIL import Image
 
-        with Image.open(source) as image:
-            aspect = image.height / image.width
+        with Image.open(source) as original:
+            oriented = ImageOps.exif_transpose(original)
+            aspect = oriented.height / oriented.width
         width = {"small": 288, "medium": 448}.get(size, 704)
         height = (width - 32) * aspect + 32 if framed else width * aspect
         path = frame_paths([(width, height)])[0]
-        svg = media_svg(source.as_uri(), width, height, path, framed)
+        # 2x the CSS width keeps figures crisp without embedding camera originals.
+        uri = self._data_uri(source, min(EPUB_MAX_IMAGE_WIDTH, round(width * 2)))
+        svg = media_svg(source.as_uri(), width, height, path, framed, uri=uri)
         href = f"images/figure-{len(self.drawn_images) + 1}.svg"
         self.drawn_images[href] = svg
         return href
@@ -481,7 +542,7 @@ class EpubBook:
                     self.xhtml_document(chapter["title"], chapter["body"]), encoding="utf-8"
                 )
             for source_key, href in self.images.items():
-                shutil.copyfile(source_key, oebps / href)
+                (oebps / href).write_bytes(self.packaged_image_bytes(source_key))
             for href, svg in self.drawn_images.items():
                 (oebps / href).write_text(svg, encoding="utf-8")
             for source_key, href in self.fonts.items():
