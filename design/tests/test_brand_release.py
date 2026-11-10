@@ -113,6 +113,33 @@ class BrandReleaseTest(unittest.TestCase):
         with patch.object(PUBLISH.subprocess, "run", return_value=response), self.assertRaises(RuntimeError):
             PUBLISH.find_release("test")
 
+    def test_draft_lookup_falls_back_to_paginated_release_listing(self):
+        response = Mock(returncode=1, stderr="HTTP 404: Not Found")
+        pages = [[{"id": 1, "tag_name": "other", "draft": True}],
+                 [{"id": 42, "tag_name": "test", "draft": True}]]
+        with patch.object(PUBLISH.subprocess, "run", return_value=response), \
+             patch.object(PUBLISH, "gh", side_effect=[json.dumps(pages), json.dumps([[{"name": "one"}], [{"name": "two"}]])]) as gh:
+            remote = PUBLISH.find_release("test")
+            self.assertEqual(remote["id"], 42)
+            self.assertTrue(remote["draft"])
+            self.assertEqual(len(remote["assets"]), 2)
+            self.assertIn("/releases?per_page=100", gh.call_args_list[0].args[1])
+            self.assertIn("/releases/42/assets?per_page=100", gh.call_args_list[1].args[1])
+            self.assertTrue(all("--paginate" in call.args for call in gh.call_args_list))
+
+    def test_missing_release_requires_successful_draft_lookup(self):
+        response = Mock(returncode=1, stderr="HTTP 404: Not Found")
+        with patch.object(PUBLISH.subprocess, "run", return_value=response), \
+             patch.object(PUBLISH, "gh", return_value="[[]]"):
+            self.assertIsNone(PUBLISH.find_release("test"))
+        with patch.object(PUBLISH.subprocess, "run", return_value=response), \
+             patch.object(PUBLISH, "gh", side_effect=RuntimeError("HTTP 403: forbidden")), self.assertRaises(RuntimeError):
+            PUBLISH.find_release("test")
+
+    def test_missing_release_validation_blocks_publication(self):
+        with self.assertRaisesRegex(ValueError, "Brand release not found"):
+            PUBLISH.validate_release(None, {})
+
     def test_new_release_is_uploaded_and_verified_as_draft_before_publication(self):
         release = BRAND.inventory()
         def package(output):

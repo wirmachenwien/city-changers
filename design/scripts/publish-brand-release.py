@@ -23,16 +23,24 @@ def find_release(tag):
     result = subprocess.run(["gh", "api", f"repos/{REPOSITORY}/releases/tags/{tag}"], text=True, capture_output=True)
     if result.returncode == 0:
         remote = json.loads(result.stdout)
-        # The kit has over 100 individual files; never trust a truncated list.
-        pages = json.loads(gh("api", f"repos/{REPOSITORY}/releases/{remote['id']}/assets?per_page=100", "--paginate", "--slurp"))
-        remote["assets"] = [asset for page in pages for asset in page]
-        return remote
-    if "HTTP 404" in result.stderr:
-        return None
-    raise RuntimeError(result.stderr)
+    elif "HTTP 404" in result.stderr:
+        # Lookup by tag only finds published releases. Authenticated listing
+        # also exposes drafts, including ones whose tag does not exist yet.
+        pages = json.loads(gh("api", f"repos/{REPOSITORY}/releases?per_page=100", "--paginate", "--slurp"))
+        remote = next((release for page in pages for release in page if release["tag_name"] == tag), None)
+        if remote is None:
+            return None
+    else:
+        raise RuntimeError(result.stderr)
+    # The kit has over 100 individual files; never trust a truncated list.
+    pages = json.loads(gh("api", f"repos/{REPOSITORY}/releases/{remote['id']}/assets?per_page=100", "--paginate", "--slurp"))
+    remote["assets"] = [asset for page in pages for asset in page]
+    return remote
 
 
 def validate_release(remote, release):
+    if remote is None:
+        raise ValueError("Brand release not found; refusing to publish/deploy")
     assets = {asset["name"]: asset for asset in remote["assets"]}
     expected = {KIT_NAME, "brand-release.json"} | {record["releaseAsset"] for record in release["assets"]}
     if set(assets) != expected:
