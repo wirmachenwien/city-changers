@@ -1,8 +1,23 @@
 name: Validate committed design assets
 description: Check committed artwork freshness and prepare website previews without regenerating assets
+inputs:
+  force-full:
+    description: Run every design and motion check regardless of changed paths
+    default: 'false'
 runs:
   using: composite
   steps:
+    - name: Decide design validation scope
+      id: scope
+      shell: bash
+      run: node scripts/bin/ci-design-scope.mjs
+      env:
+        FORCE_FULL_DESIGN: ${{ inputs.force-full }}
+
+    - name: Check validation scope rules
+      shell: bash
+      run: node --test scripts/tests/ci-design-scope.test.mjs
+
     - name: Install pinned design image tools
       shell: bash
       run: pip install -r design/requirements.txt
@@ -12,6 +27,7 @@ runs:
       run: npm run design:prepare
 
     - name: Check editable motion sources
+      if: steps.scope.outputs.motion == 'true'
       shell: bash
       run: |
         if [ ! -d design/motion/node_modules ]; then
@@ -20,10 +36,21 @@ runs:
         npm run lint --prefix design/motion
         npm run check:motion --prefix design/motion
 
-    - name: Validate design assets and release inventory
+    - name: Full design regression tests
+      if: steps.scope.outputs.design == 'true'
+      shell: bash
+      run: python3 -m unittest discover -s design/tests -v
+
+    - name: Lightweight design and release checks
+      if: steps.scope.outputs.design != 'true'
       shell: bash
       run: |
-        python3 -m unittest discover -s design/tests -v
+        python3 -m unittest discover -s design/tests -p 'test_design_pipeline.py' -v
+        python3 -m unittest discover -s design/tests -p 'test_brand_release.py' -v
+
+    - name: Export and brand-guide regression tests
+      shell: bash
+      run: |
         python3 -m unittest discover -s scripts/tests -p 'test_*.py' -v
         node --test scripts/tests/brand-downloads.test.mjs scripts/tests/brand-guide.test.mjs
 

@@ -72,6 +72,15 @@ change. Old ignored build-state caches are never used for freshness checks.
 
 ## CI validation and automatic packaging
 
+Design validation is change-aware (`scripts/bin/ci-design-scope.mjs`). Motion
+sources, shared pose definitions and toolchain/workflow changes run motion lint
+and tests. Design sources, assets, packaging and test edits run the full design
+suite. Unrelated prose/UI edits retain freshness, lightweight pipeline/release
+tests and all export/brand-guide checks, without installing motion dependencies.
+PRs compare the tested merge commit with its base; pushes compare the previous
+tip, fetching that single commit if necessary. Missing history falls back to
+full validation. Manual CI/deploy runs always validate everything.
+
 `npm run design:check` checks the committed record without changing any files.
 `npm run design:prepare` performs the same check, then refreshes release-link
 metadata and small SVG/WebP previews in `public/brand-assets/`. It neither

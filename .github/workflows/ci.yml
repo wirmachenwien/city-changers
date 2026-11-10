@@ -4,6 +4,12 @@ name: CI
 # generated handbook files for review. Deploying is deploy.yml's job.
 on:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      full_design_validation:
+        description: Run full design and motion validation
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -19,12 +25,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Set up toolchain
         uses: ./.github/actions/setup
 
       - name: Validate committed design assets and prepare previews
         uses: ./.github/actions/design
+        with:
+          force-full: ${{ inputs.full_design_validation || false }}
 
       - name: Check color registry, generated outputs and contrast
         run: npm run colors:check && node --test scripts/tests/colors.test.mjs

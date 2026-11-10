@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      full_design_validation:
+        description: Run full design and motion validation
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -26,12 +31,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Set up toolchain
         uses: ./.github/actions/setup
 
       - name: Validate committed design assets and prepare previews
         uses: ./.github/actions/design
+        with:
+          force-full: ${{ inputs.full_design_validation || false }}
 
       - name: Set up GitHub Pages
         uses: actions/configure-pages@v5
