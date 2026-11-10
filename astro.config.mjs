@@ -52,11 +52,30 @@ function chapterSlug(/** @type {string} */ lang, /** @type {string} */ file) {
 // straight at the new unprefixed target.
 /** @type {Record<string, string>} */
 const bookRedirects = {};
+// Keep published title URLs reachable when English or its translations change.
+/** @type {Record<string, Record<string, string[]>>} */
+const formerChapterSlugs = {
+  en: { '04': ['04-mobilisation-and-strategies-for-change'] },
+  de: {
+    '02': ['02-superblocks-starten'],
+    '04': ['04-mobilisierung-und-strategien-des-wandels'],
+  },
+  sl: {
+    '02': ['02-kako-zaceti-s-superbloki'],
+    '04': ['04-mobilizacija-in-strategije-sprememb'],
+  },
+};
 for (const lang of languages) {
   const prefix = lang === defaultLang ? '' : `/${lang}`;
   for (const chapter of works[lang]?.chapters ?? []) {
     if (chapter.web === false) continue;
     const slug = chapterSlug(lang, chapter.file);
+    for (const formerSlug of formerChapterSlugs[lang]?.[chapter.file] ?? []) {
+      bookRedirects[`/book${prefix}/${formerSlug}`] = `/book${prefix}/${slug}`;
+      if (lang === defaultLang) {
+        bookRedirects[`/book/${defaultLang}/${formerSlug}`] = `/book/${slug}`;
+      }
+    }
     if (slug !== chapter.file) {
       bookRedirects[`/book${prefix}/${chapter.file}`] = `/book${prefix}/${slug}`;
     }

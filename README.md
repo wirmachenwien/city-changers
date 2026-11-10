@@ -41,6 +41,13 @@ English is the default language and lives at the root (`/`, `/book/…`);
 other languages live under `/<lang>/` and `/book/<lang>/…`. Prefixed default
 language URLs (`/en/…`) redirect to the canonical root locations.
 
+English content in `src/content/book/en/` and `src/content/pages/en/` is the
+editorial source of truth. After editing it, update both German and Slovene,
+including headings, examples, questions, source links and media captions.
+`npm run check:site` checks every chapter against English for structural and
+reference coverage after building; translation meaning still needs editorial
+review. Run the build and checks again after merging or rebasing content edits.
+
 ## Analytics
 
 Cookieless [Plausible](https://plausible.io) tracking (production builds only,

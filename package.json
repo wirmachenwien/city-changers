@@ -28,7 +28,7 @@
     "astro": "astro",
     "sync:config": "node scripts/bin/sync-config.mjs",
     "check:config": "node scripts/bin/sync-config.mjs --check",
-    "check:site": "node scripts/bin/check-site.mjs",
+    "check:site": "node scripts/bin/check-site.mjs && node --test scripts/tests/handbook-rendered.mjs",
     "check:glossary": "node scripts/bin/check-glossary.mjs"
   },
   "dependencies": {
