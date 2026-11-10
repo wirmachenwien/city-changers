@@ -56,6 +56,7 @@ from handbook.mdx import (
     FIGURE_RE,
     FOOTNOTE_RE,
     FRONTMATTER_RE,
+    MDX_COMMENT_RE,
     GLOSSARY_RE,
     LINK_RE,
     MASCOT_OPEN_RE,
@@ -199,6 +200,7 @@ def convert_mdx(text: str, lang: str = DEFAULT_LANG) -> str:
     footnote_count = 0
     link_count = 0
     text = FRONTMATTER_RE.sub("", text, count=1)
+    text = MDX_COMMENT_RE.sub("", text)
     text = MASCOT_OPEN_RE.sub(lambda m: mascot_open_html(m.group(1), image_uri), text)
     text = MASCOT_CLOSE_RE.sub('\n\n</div>\n</div>\n\n', text)
 

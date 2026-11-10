@@ -5,7 +5,8 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
 
 const dist = new URL('../../dist/', import.meta.url);
-const files = readdirSync(dist, { recursive: true }).filter(file => file.endsWith('.html'));
+// Download HTML is a print intermediate, not a page using web media controls.
+const files = readdirSync(dist, { recursive: true }).filter(file => file.endsWith('.html') && !file.startsWith('downloads/'));
 
 test('built figures preserve media wrappers, captions, alt text and click-to-load playback', () => {
   let images = 0, videos = 0;

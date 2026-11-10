@@ -19,6 +19,24 @@ def builder(name):
 
 
 class FigureMediaTest(unittest.TestCase):
+    def test_exporters_ignore_commented_components_before_resolving_assets(self):
+        pdf, epub = builder("build-pdf"), builder("build-epub")
+        source = '''Visible text.
+{/* TODO: later
+<Figure src="missing-draft-image.png" caption="Draft caption" />
+<Footnote text="Draft note" />
+*/}
+Still visible.'''
+        book = epub.EpubBook("en", {"title": "Test"}, Path("unused.epub"))
+        with patch.object(pdf, "image_uri") as pdf_image, patch.object(book, "add_figure") as epub_image:
+            for output in (pdf.convert_mdx(source, "en"), book.convert_mdx(source)):
+                self.assertIn("Visible text.", output)
+                self.assertIn("Still visible.", output)
+                self.assertNotIn("Draft", output)
+                self.assertNotIn("TODO", output)
+            self.assertNotIn("missing-draft-image.png", [call.args[0] for call in pdf_image.call_args_list])
+            epub_image.assert_not_called()
+
     def test_shared_url_contract(self):
         for case in json.loads((Path(__file__).parent / "fixtures/figure-media.json").read_text()):
             with self.subTest(src=case["src"]):

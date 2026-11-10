@@ -60,6 +60,7 @@ from handbook.mdx import (
     FIGURE_RE,
     FOOTNOTE_RE,
     FRONTMATTER_RE,
+    MDX_COMMENT_RE,
     GLOSSARY_RE,
     MASCOT_OPEN_RE,
     MASCOT_CLOSE_RE,
@@ -192,6 +193,7 @@ class EpubBook:
 
     def convert_mdx(self, text: str) -> str:
         text = FRONTMATTER_RE.sub("", text, count=1)
+        text = MDX_COMMENT_RE.sub("", text)
         text = MASCOT_OPEN_RE.sub(lambda m: mascot_open_html(m.group(1), self.add_image), text)
         text = MASCOT_CLOSE_RE.sub('\n\n</div>\n</div>\n\n', text)
         answers_label = locale_text(self.lang, "questions.correct-answers", "Correct answers")

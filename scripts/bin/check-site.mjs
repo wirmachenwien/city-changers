@@ -102,7 +102,12 @@ function links(html) {
 }
 
 function resolveUrl(from, url) {
-  if (/^(https?:|mailto:|tel:|data:)/.test(url) || url.startsWith('#')) return null;
+  if (/^https?:/.test(url) || url.startsWith('//')) {
+    const target = new URL(url, site);
+    if (target.origin !== new URL(site).origin) return null;
+    return `${target.pathname}${target.search}${target.hash}`;
+  }
+  if (/^(mailto:|tel:|data:)/.test(url) || url.startsWith('#')) return null;
   if (url.startsWith('/')) return url;
   const dir = posix.dirname(`/${from}`);
   return posix.normalize(posix.join(dir, url));

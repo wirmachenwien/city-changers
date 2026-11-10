@@ -101,6 +101,7 @@
   "audit": {
     "scan": ["."],
     "exceptions": [
+      { "path": "design/merch", "reason": "Standalone merchandise artwork and screen-print separations use production ink colors, not website UI tokens; preserve the supplied artwork unchanged." },
       { "path": "src/assets", "reason": "Supplied and generated artwork, photos, partner marks and fonts are not UI palette choices." },
       { "path": "design/icons/artwork/favicon.svg", "reason": "Byte-identical inventory copy of public/favicon.svg; icons:check verifies preservation, never recolors artwork." },
       { "path": "design/icons/artwork/logo-small.svg", "reason": "Byte-identical inventory copy of src/assets/site/logo-small.svg; icons:check verifies preservation, never recolors artwork." },

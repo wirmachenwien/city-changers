@@ -75,7 +75,7 @@ for (const lang of languages) {
 
   // Spot checks on known occurrences.
   const mustFind = {
-    de: [['02.mdx', 'superblock'], ['02.mdx', 'modalfilter'], ['04.mdx', 'narrativ'], ['04.mdx', 'framing']],
+    de: [['02.mdx', 'superblock'], ['02.mdx', 'modalfilter'], ['04.mdx', 'narrativ'], ['04.mdx', 'theories of change']],
     en: [['02.mdx', 'superblock'], ['04.mdx', 'theories of change'], ['02.mdx', 'modal filter']],
     sl: [['02.mdx', 'superbloki'], ['02.mdx', 'tranzitni promet'], ['04.mdx', 'teorije sprememb']],
   }[lang] ?? [];

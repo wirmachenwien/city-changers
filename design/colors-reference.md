@@ -123,6 +123,7 @@ assets; changing a documented artwork color cannot silently mislabel the assets.
 Literal-color exceptions are limited to generated outputs, tests and protected
 artwork/tooling. Each exception is listed with its reason in the registry.
 
+- `design/merch`: Standalone merchandise artwork and screen-print separations use production ink colors, not website UI tokens; preserve the supplied artwork unchanged.
 - `src/assets`: Supplied and generated artwork, photos, partner marks and fonts are not UI palette choices.
 - `design/icons/artwork/favicon.svg`: Byte-identical inventory copy of public/favicon.svg; icons:check verifies preservation, never recolors artwork.
 - `design/icons/artwork/logo-small.svg`: Byte-identical inventory copy of src/assets/site/logo-small.svg; icons:check verifies preservation, never recolors artwork.
