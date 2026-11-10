@@ -23,7 +23,7 @@ jobs:
       - name: Set up toolchain
         uses: ./.github/actions/setup
 
-      - name: Validate and package committed design assets
+      - name: Validate committed design assets and prepare previews
         uses: ./.github/actions/design
 
       - name: Check color registry, generated outputs and contrast

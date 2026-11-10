@@ -1,7 +1,9 @@
 ---
 import BrandLogo from './BrandLogo.astro';
+import { brandAsset, brandAssetUrl } from '../lib/brand-release.mjs';
 import { withBase } from '../lib/site';
-const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}`);
+const logoUrl = (file: string) => brandAssetUrl(`01-logos/${file}`);
+const previewUrl = (file: string) => withBase(brandAsset(`01-logos/${file}`).preview);
 ---
 <div class="showcase-demo"><BrandLogo label="City Changers logo lockup" /> <BrandLogo variant="symbol" label="Green Fix symbol" /></div>
 <div class="logo-grid">
@@ -11,7 +13,7 @@ const logoUrl = (file: string) => withBase(`/brand-assets/files/01-logos/${file}
     { file: 'logo.svg', label: 'Symbol on light backgrounds', dark: false },
     { file: 'logo-dark.svg', label: 'Symbol on dark backgrounds', dark: true },
   ].map(({ file, label, dark }) => (
-    <figure><div class:list={['logo-preview', { 'logo-preview--dark': dark }]}><img src={logoUrl(file)} alt={label} width="320" height="120" /></div><figcaption><a href={logoUrl(file)} download>{label} (SVG)</a></figcaption></figure>
+    <figure><div class:list={['logo-preview', { 'logo-preview--dark': dark }]}><img src={previewUrl(file)} alt={label} width="320" height="120" /></div><figcaption><a href={logoUrl(file)} download>{label} (SVG)</a></figcaption></figure>
   ))}
 </div>
 <style>

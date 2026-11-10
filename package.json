@@ -19,7 +19,7 @@
     "design:build": "python3 design/scripts/build-design.py",
     "design:plan": "python3 design/scripts/build-design.py --plan",
     "design:check": "python3 design/scripts/build-design.py --check",
-    "design:prepare": "python3 design/scripts/build-design.py --prepare",
+    "design:prepare": "python3 design/scripts/prepare-brand-site.py",
     "build:downloads": "node scripts/bin/build-downloads.mjs",
     "build:pdf": "npm run colors:check && npm run icons:check && python3 scripts/bin/build-pdf.py --all",
     "build:epub": "npm run colors:check && npm run icons:check && python3 scripts/bin/build-epub.py --all",
@@ -28,7 +28,7 @@
     "astro": "astro",
     "sync:config": "node scripts/bin/sync-config.mjs",
     "check:config": "node scripts/bin/sync-config.mjs --check",
-    "check:site": "node scripts/bin/check-site.mjs && node --test scripts/tests/handbook-rendered.mjs",
+    "check:site": "node scripts/bin/check-site.mjs && node --test scripts/tests/handbook-rendered.mjs scripts/tests/brand-release-rendered.mjs",
     "check:glossary": "node scripts/bin/check-glossary.mjs"
   },
   "dependencies": {

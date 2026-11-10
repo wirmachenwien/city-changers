@@ -21,8 +21,8 @@ Application assets live directly at their normal codebase paths; there is no
 parallel media library in `design/assets/`. Fonts, handbook images and supporting
 marks are edited in `src/assets/`, including through the CMS. Logos, mascot media
 and web icons are generated there (or in `public/`) from their design sources.
-`public/brand-assets/` is a disposable delivery copy for the team page, not an
-independent source library.
+`public/brand-assets/` contains disposable release-link metadata and lightweight
+website previews, not original downloads or an independent source library.
 
 `design/assets/logo/logo-lockup.svg` is the sole editable logo master and the
 source for every derived logo and web icon. Generation copies it unchanged to
@@ -50,8 +50,8 @@ do not invalidate animations. Existing video exports must remain unchanged.
 Node is needed only when an animation product must be rebuilt. The pipeline
 installs the motion project's locked dependencies with `npm ci` on demand.
 Use the root Node engine requirement (22.23.4 or newer, subject to motion's engine
-constraint). Image tools are pinned in `design/requirements.txt`; packaging and
-delivery copying use Python's standard library. The contact sheet uses our bundled font
+constraint). Image tools are pinned in `design/requirements.txt`; packaging uses
+Python's standard library and website thumbnails use Pillow. The contact sheet uses our bundled font
 rather than an operating-system font.
 
 The local generator fingerprints both inputs and outputs, rather than modification
@@ -73,9 +73,10 @@ change. Old ignored build-state caches are never used for freshness checks.
 ## CI validation and automatic packaging
 
 `npm run design:check` checks the committed record without changing any files.
-`npm run design:prepare` performs the same check, then refreshes only the ZIP,
-download copies and catalogue in `public/brand-assets/`. Packaging uses Python's
-standard library, not the artwork renderer.
+`npm run design:prepare` performs the same check, then refreshes release-link
+metadata and small SVG/WebP previews in `public/brand-assets/`. It neither
+packages a ZIP nor copies original downloads into the website. Install
+`design/requirements.txt` before preparing previews.
 
 Normal website builds and development startup call `design:prepare`, never the
 artwork generator. Stale assets fail with instructions to regenerate locally and
@@ -83,7 +84,7 @@ commit the updated sources, assets and record together. CI explicitly refuses
 artwork generation, restores no artwork cache and does not update the record.
 
 Pull-request checks and deployment validate
-the committed artwork and package the kit for review/download. Regression tests
+the committed artwork. Regression tests
 may render disposable fixtures, but never regenerate committed assets. CI checks
 that tracked design/application assets remain unchanged. The deployed website
 and ZIP therefore use the same asset versions as Git, with no bot commits.
@@ -92,11 +93,20 @@ Generated artwork still requires artistic review and rights approval before use.
 
 ## Preview and release
 
-The website's `/preview/brand-guide.html` renders the sole Markdown guide and
+The website's `/brand` renders the sole Markdown guide and
 lists downloads from the same manifest as the ZIP. It stays out of navigation,
 Pagefind and the sitemap, with `noindex` and no analytics. This is not access
 control. The downloadable files are public too; add authentication separately
 if confidential material is ever introduced.
+
+Deployments run `design/scripts/publish-brand-release.py` after validation and
+before Pages upload. A SHA-256 of the complete inventory and packaging inputs
+identifies the release. Existing published releases are verified and reused;
+only new inputs cause ZIP packaging and attachment uploads. Individual originals
+use flat, category-prefixed attachment names; the ZIP retains its original folder
+structure. Publication uses a draft until all attachments pass checksum checks.
+The guide is pinned to that inventory's release, so later unrelated software
+releases cannot redirect its download links. See `design/README.md` for rollout.
 
 For an immutable recipient folder and ZIP, first run the incremental build,
 then package to a fresh output directory:

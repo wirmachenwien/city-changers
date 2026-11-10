@@ -36,9 +36,9 @@ It is not authenticated: anyone with its URL can access it.
 
 ```sh
 npm run design:plan   # list stale asset groups without changing files
-npm run design:build  # rebuild only stale groups and refresh the website ZIP
+npm run design:build  # explicit local artwork generation; inspect the plan first
 npm run design:check  # fail if any generated artwork is stale
-npm run design:prepare # validate committed artwork and refresh the website ZIP only
+npm run design:prepare # validate committed artwork; prepare release links and previews
 ```
 
 After editing design sources, run `npm run design:build` locally, review the
@@ -46,12 +46,25 @@ results, and commit the sources, generated assets and `design/build-state.json`
 together. That tracked record fingerprints both inputs and outputs.
 
 Normal `npm run build`, `npm run dev`, CI and deployment validate that record and
-package the committed assets. They never regenerate artwork or silently repair
-stale outputs. CI restores no artwork cache and makes no bot commits. The ZIP
-and website delivery copies are still prepared automatically.
+prepare lightweight website previews (Pillow from `design/requirements.txt` is
+required). They never regenerate artwork or silently repair stale outputs.
+CI restores no artwork cache and makes no bot commits.
 
-Download the current kit from the team page, or send
-`public/brand-assets/city-changers-brand-kit.zip`. For an immutable local handoff:
+The guide at `/brand` links to the matching GitHub Release for the complete ZIP
+and every individual original. Deployment publishes a new content-addressed
+`brand-kit-<sha256>` release only when kit inputs change, after all checks and
+before uploading Pages. Unchanged inventories reuse a checksum-verified release
+without repackaging/uploading. Drafts can resume after interrupted uploads;
+published releases are never overwritten and do not replace the repository's
+latest software release. Pull requests do not publish releases. The publisher
+uses `GITHUB_TOKEN` with `contents: write` in the deployment build job.
+
+`public/brand-assets/` contains only a catalogue, release links, SVG previews and
+small responsive WebP previews, not the ZIP, MOVs, fonts or original photos.
+The first deployment of this change creates the initial release automatically.
+Do not manually publish from an uncommitted working tree.
+
+For an immutable local handoff:
 
 ```sh
 python3 design/scripts/package-brand-kit.py --output design/handoff/2026-10-28

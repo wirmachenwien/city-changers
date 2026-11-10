@@ -1,9 +1,7 @@
 ---
 import MascotPreview from './MascotPreview.astro';
-import catalogSource from '../../public/brand-assets/catalog.json?raw';
-import { withBase } from '../lib/site';
+import { brandAssetUrl } from '../lib/brand-release.mjs';
 
-const assetFiles = new Set((JSON.parse(catalogSource) as { file: string }[]).map(({ file }) => file));
 const treatments = ['ink', 'linen'] as const;
 function downloads(pose: string, treatment: string, animated = false) {
   const files = animated ? [
@@ -14,8 +12,7 @@ function downloads(pose: string, treatment: string, animated = false) {
     { file: `02-mascot-stills/${treatment}/${pose}.png`, label: 'PNG' },
   ];
   return files.map(({ file, label }) => {
-    if (!assetFiles.has(file)) throw new Error(`Missing mascot download in asset catalog: ${file}`);
-    return { href: withBase(`/brand-assets/files/${file}`), label };
+    return { href: brandAssetUrl(file), label };
   });
 }
 

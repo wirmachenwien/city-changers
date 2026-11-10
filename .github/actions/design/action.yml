@@ -1,15 +1,15 @@
 name: Validate committed design assets
-description: Check committed artwork freshness and package the brand kit without regenerating assets
+description: Check committed artwork freshness and prepare website previews without regenerating assets
 runs:
   using: composite
   steps:
-    - name: Check freshness and package committed assets for website downloads
-      shell: bash
-      run: npm run design:prepare
-
     - name: Install pinned design image tools
       shell: bash
       run: pip install -r design/requirements.txt
+
+    - name: Check freshness and prepare brand release links and previews
+      shell: bash
+      run: npm run design:prepare
 
     - name: Check editable motion sources
       shell: bash
@@ -25,14 +25,8 @@ runs:
       run: |
         python3 -m unittest discover -s design/tests -v
         python3 -m unittest discover -s scripts/tests -p 'test_*.py' -v
+        node --test scripts/tests/brand-downloads.test.mjs scripts/tests/brand-guide.test.mjs
 
     - name: Ensure validation and packaging did not change tracked assets
       shell: bash
       run: git diff --exit-code -- design src/assets public
-
-    - name: Upload generated brand kit for review
-      uses: actions/upload-artifact@v4
-      with:
-        name: city-changers-brand-kit
-        path: public/brand-assets/city-changers-brand-kit.zip
-        if-no-files-found: error

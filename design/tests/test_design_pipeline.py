@@ -171,7 +171,7 @@ class DesignPipelineTest(unittest.TestCase):
             self.assertLess(steps.index("npm run colors:check"), steps.index(f"astro {command}"), command)
             self.assertLess(steps.index("npm run design:prepare"), steps.index(f"astro {command}"), command)
             self.assertNotIn("design:build", scripts[command], command)
-        self.assertEqual(scripts["design:prepare"], "python3 design/scripts/build-design.py --prepare")
+        self.assertEqual(scripts["design:prepare"], "python3 design/scripts/prepare-brand-site.py")
         self.assertEqual(scripts["design:build"], "python3 design/scripts/build-design.py")
 
     def test_stills_only_never_runs_motion_or_marks_videos_fresh(self):

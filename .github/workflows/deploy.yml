@@ -19,6 +19,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: read
 
     steps:
       - name: Checkout
@@ -27,7 +30,7 @@ jobs:
       - name: Set up toolchain
         uses: ./.github/actions/setup
 
-      - name: Validate and package committed design assets
+      - name: Validate committed design assets and prepare previews
         uses: ./.github/actions/design
 
       - name: Set up GitHub Pages
@@ -62,6 +65,11 @@ jobs:
 
       - name: Check glossary term coverage and dictionary sync
         run: npm run check:glossary
+
+      - name: Publish or reuse matching brand release
+        run: python3 design/scripts/publish-brand-release.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
