@@ -115,6 +115,15 @@ source and width reuse one cached derivative, so a photo used as cover and in
 two figures is no longer embedded at camera resolution three times. PDFs keep
 the full-resolution source images for print quality.
 
+Successful exports are cached in `design/.cache/downloads/<fingerprint>/`.
+`scripts/bin/build-downloads.mjs` hashes the content, assets, builder sources
+and installed Python toolchain, then validates each cached file's size, SHA-256
+and magic bytes before restoring it; anything stale or corrupt is rebuilt.
+`DOWNLOADS_CACHE=off` forces a rebuild. GitHub Actions restores that directory
+under a `pr` or `prod` namespace, so deployment never consumes a cache written
+by an untrusted pull request. `setup-node` also caches both npm lockfiles and
+`setup-python` caches pip downloads for both requirements files.
+
 ## Preview and release
 
 The website's `/brand` renders the sole Markdown guide and

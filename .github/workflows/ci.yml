@@ -36,6 +36,21 @@ jobs:
         with:
           force-full: ${{ inputs.full_design_validation || false }}
 
+      - name: Compute handbook export cache key
+        id: export-cache
+        shell: bash
+        run: |
+          toolchain="$(python3 -V; python3 -m pip freeze | LC_ALL=C sort; node --version)"
+          echo "toolchain=$(printf '%s' "$toolchain" | sha256sum | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore handbook export cache
+        uses: actions/cache@v4
+        with:
+          path: design/.cache/downloads
+          key: handbook-exports-${{ runner.os }}-${{ github.event_name == 'pull_request' && 'pr' || 'prod' }}-${{ steps.export-cache.outputs.toolchain }}-${{ hashFiles('src/content/book/**', 'src/content/pages/**', 'src/data/**', 'src/assets/**', 'src/styles/**', 'scripts/handbook/**', 'scripts/bin/build-pdf.py', 'scripts/bin/build-epub.py', 'scripts/bin/build-downloads.mjs', 'scripts/bin/drawn-paths.mjs', 'scripts/bin/render-math.mjs', 'design/elements/**', 'design/colors.json', 'handbook.config.ts', 'package-lock.json', 'requirements.txt', 'design/requirements.txt') }}
+          restore-keys: |
+            handbook-exports-${{ runner.os }}-${{ github.event_name == 'pull_request' && 'pr' || 'prod' }}-
+
       - name: Check color registry, generated outputs and contrast
         run: npm run colors:check && node --test scripts/tests/colors.test.mjs
 
