@@ -8,8 +8,8 @@ interface Props {
 const { links } = Astro.props;
 ---
 <ul class="nav-list nav-list--chapters">
-  {links.map((link) => (
-    <li>
+  {links.map((link, index) => (
+    <li class:list={{ 'nav-chapter-group-start': link.chapterNumber !== undefined && index > 0 && links[index - 1].chapterNumber === undefined }}>
       <a href={link.url} aria-current={link.current ? 'page' : undefined} data-link-underline={link.chapterNumber !== undefined ? 'hover' : undefined} class:list={{ 'nav-chapter': link.chapterNumber !== undefined }}>
         {link.chapterNumber !== undefined && (
           <span class="nav-chapter__number" aria-hidden="true" data-digits={String(link.chapterNumber).length}>{link.chapterNumber}</span>

@@ -10,31 +10,65 @@ test('all pebble hover colors come from registered, contrast-checked brand recip
   assert.ok(registry.contrast.text.some(pair => pair[0] === 'pebble-selected-hover-ink' && pair[1] === 'pebble-selected-hover'));
 });
 
-test('language picker leads desktop and mobile navigation, not the header', () => {
+test('language picker follows desktop chapters but leads the mobile drawer, not the header', () => {
   assert.doesNotMatch(read('src/components/Masthead.astro'), /LanguageMenu/);
   assert.doesNotMatch(read('src/components/DrawnSelect.astro'), /outlined/);
   assert.doesNotMatch(read('src/styles/drawn-elements.css'), /pebble--outlined|share-pebble-stroke/);
   for (const [file, id] of [['SideNav.astro', 'side-language'], ['NavDrawer.astro', 'drawer-language']]) {
     const source = read(`src/components/${file}`);
-    assert.match(source, new RegExp(`<section class="nav-section">\\s*<div class="nav-language">\\s*<LanguageMenu[^>]*id="${id}"`));
     const chapterNav = source.indexOf('<ChapterNavLinks links={section.links} />');
     assert.ok(chapterNav !== -1, `${file} renders the shared chapter navigation`);
-    assert.ok(source.indexOf(`id="${id}"`) < chapterNav);
+    if (file === 'SideNav.astro') {
+      assert.ok(source.indexOf(`id="${id}"`) > chapterNav);
+    } else {
+      assert.ok(source.indexOf(`id="${id}"`) < chapterNav);
+    }
     assert.match(source, /kind: 'page' \| 'book'/);
     assert.match(source, /file: string/);
   }
   assert.match(read('src/layouts/BaseLayout.astro'), /<div class="nav-language"><LanguageMenu[^>]+\/><\/div>\s*<ul class="nav-list" \/>/);
 });
 
+test('desktop navigation separates front matter from chapter one and keeps space before the language picker', () => {
+  const css = read('src/styles/global.css');
+  assert.match(css, /\.side-nav\s*\{[^}]*--nav-chapter-group-gap: 1rem;/);
+  assert.match(css, /\.side-nav \.nav-chapter-group-start\s*\{\s*margin-block-start: var\(--nav-chapter-group-gap\);/);
+  const linkPadding = css.match(/\.nav-list a\s*\{[^}]*padding-block:\s*([^;]+);/)[1];
+  const languageGap = css.match(/\.side-nav \.nav-list--chapters \+ \.nav-language\s*\{([^}]+)\}/)[1];
+  assert.ok(languageGap.includes(`margin-block: calc(var(--nav-chapter-group-gap) + ${linkPadding}) 0;`));
+  const source = read('src/components/ChapterNavLinks.astro');
+  assert.match(source, /'nav-chapter-group-start': link\.chapterNumber !== undefined && index > 0 && links\[index - 1\]\.chapterNumber === undefined/);
+});
+
 test('shared chapter navigation keeps numbers decorative and underlines on labels only', () => {
   const source = read('src/components/ChapterNavLinks.astro');
   assert.match(source, /<ul class="nav-list nav-list--chapters">/);
+  assert.match(source, /link.chapterNumber !== undefined && \(/);
   assert.match(source, /class="nav-chapter__number" aria-hidden="true"/);
   assert.match(source, /data-link-underline=\{link.chapterNumber !== undefined \? 'hover' : undefined\}/);
+  assert.doesNotMatch(source, /nav-chapter__number--empty/);
   assert.match(source, /<span class="nav-chapter__label">/);
   const css = read('src/styles/global.css');
+  assert.doesNotMatch(css, /\.nav-chapter__number--empty/);
   assert.match(css, /\.nav-list--chapters a\.nav-chapter\s*\{[^}]*text-decoration-line: none;/);
   assert.match(css, /\.nav-list--chapters a\.nav-chapter:is\(:hover, :focus-visible, :active\) \.nav-chapter__label\s*\{\s*text-decoration-line: underline;/);
+});
+
+test('ordinary navigation lines retain their shape and use the chapter pebble state palette', () => {
+  const drawn = read('src/styles/drawn-elements.css');
+  const line = drawn.match(/\.nav-list--chapters a:not\(\.nav-chapter\)::before,\s*\.nav-list--chapters a\[aria-current\]:not\(\.nav-chapter\)::before\s*\{([^}]+)\}/)[1];
+  assert.match(line, /inline-size: 0\.65rem/);
+  assert.match(line, /inset-inline-start: 1\.325rem/);
+  assert.match(line, /opacity: 0/);
+  assert.match(line, /background: var\(--accent\)/);
+  assert.match(line, /mask: var\(--rail-source\)/);
+  assert.match(drawn, /\.nav-list--chapters a:not\(\.nav-chapter\):is\(\[aria-current\], :hover, :focus-visible, :active\)::before\s*\{\s*background: var\(--accent\);\s*opacity: 1;/);
+});
+
+test('navigation lines have a subtle tilt without scaling or overriding reduced motion', () => {
+  const drawn = read('src/styles/drawn-elements.css');
+  assert.match(drawn, /@media \(prefers-reduced-motion: no-preference\)\s*\{\s*\.nav-list--chapters a:not\(\.nav-chapter\)::before\s*\{\s*transition: opacity 180ms ease-out, transform 160ms ease-out;/);
+  assert.match(drawn, /\.nav-list--chapters a:not\(\.nav-chapter\):is\(:hover, :focus-visible\)::before\s*\{\s*transform: rotate\(-2deg\);/);
 });
 
 test('all header surfaces and the drawn boundary use the accent palette', () => {

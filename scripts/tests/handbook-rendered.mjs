@@ -19,6 +19,21 @@ function page(lang, chapter) {
 }
 
 for (const lang of languages) {
+  test(`${lang}: glossary is chapter seven and the final reading-order entry`, () => {
+    const work = JSON.parse(read('src/data/works.json'))[lang];
+    assert.deepEqual(work.chapters.filter(chapter => chapter.web !== false).map(chapter => chapter.file),
+      ['contents', '01', '02', '03', '04', '05', '06', 'glossary']);
+    const glossary = page(lang, 'glossary');
+    assert.match(glossary.querySelector('h1').textContent, /^7\. /);
+    const navigation = glossary.ownerDocument.querySelector('.side-nav .nav-list--chapters');
+    assert.deepEqual([...navigation.querySelectorAll('.nav-chapter__number')].map(node => node.textContent),
+      ['1', '2', '3', '4', '5', '6', '7']);
+    assert.ok(navigation.lastElementChild.querySelector('a').getAttribute('href').endsWith('/glossary.html'));
+    assert.ok(page(lang, '06').querySelector('.pagination a[rel="next"]').getAttribute('href').endsWith('/glossary.html'));
+    assert.equal(glossary.querySelector('.pagination a[rel="next"]'), null);
+    assert.match(glossary.querySelector('.pagination a[rel="prev"]').getAttribute('href'), /\/06-/);
+  });
+
   test(`${lang}: handbook has no duplicate headings or published editorial placeholders`, () => {
     const home = lang === defaultLang ? 'index.html' : `${lang}/index.html`;
     const pages = [parseHTML(read(`dist/${home}`)).document.querySelector('main'),

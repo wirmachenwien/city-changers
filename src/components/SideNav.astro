@@ -62,11 +62,11 @@ const deleteLabel = t(lang, 'bookmarks.delete-bookmark', 'Delete');
     ) : (
       section.links.length > 0 && (
         <section class="nav-section">
+          {section.heading && <h2>{section.heading}</h2>}
+          <ChapterNavLinks links={section.links} />
           <div class="nav-language">
             <LanguageMenu {lang} {kind} {file} id="side-language" />
           </div>
-          {section.heading && <h2>{section.heading}</h2>}
-          <ChapterNavLinks links={section.links} />
         </section>
       )
     ),

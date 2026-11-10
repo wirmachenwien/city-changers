@@ -30,12 +30,17 @@ export function projectNav(lang: Language, currentUrl: string): NavLink[] {
 /** Book chapter navigation (expandable on the landing page per settings). */
 export async function bookNav(lang: Language, currentUrl: string): Promise<NavLink[]> {
   const toc = await bookToc(lang);
-  return toc.map((entry) => ({
-    label: entry.label,
-    url: entry.url,
-    current: entry.url === currentUrl,
-    ...(/^\d+$/.test(entry.file) ? { chapterNumber: Number(entry.file) } : {}),
-  }));
+  return toc.map((entry) => {
+    // Display numbering follows the title, including named chapters such as
+    // the glossary, whose existing URL remains stable.
+    const number = entry.label.match(/^(\d+)\.\s/);
+    return {
+      label: entry.label,
+      url: entry.url,
+      current: entry.url === currentUrl,
+      ...(number ? { chapterNumber: Number(number[1]) } : {}),
+    };
+  });
 }
 
 /** Project + book navigation in the configured order. */

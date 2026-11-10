@@ -840,8 +840,19 @@ body.drawer-open {
 }
 
 .side-nav {
+  --nav-chapter-group-gap: 1rem;
   font-family: var(--font-ui);
   font-size: 0.98rem;
+}
+
+.side-nav .nav-chapter-group-start {
+  margin-block-start: var(--nav-chapter-group-gap);
+}
+
+.side-nav .nav-list--chapters + .nav-language {
+  /* Match the chapter links' 0.3rem top padding: the picker paint starts
+     at its box edge, unlike the chapter text and number pebbles. */
+  margin-block: calc(var(--nav-chapter-group-gap) + 0.3rem) 0;
 }
 
 @media (min-width: 60rem) {

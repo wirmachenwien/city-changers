@@ -20,9 +20,6 @@
         "file": "contents"
       },
       {
-        "file": "glossary"
-      },
-      {
         "file": "01"
       },
       {
@@ -39,6 +36,9 @@
       },
       {
         "file": "06"
+      },
+      {
+        "file": "glossary"
       }
     ]
   },
@@ -63,9 +63,6 @@
         "file": "contents"
       },
       {
-        "file": "glossary"
-      },
-      {
         "file": "01"
       },
       {
@@ -82,6 +79,9 @@
       },
       {
         "file": "06"
+      },
+      {
+        "file": "glossary"
       }
     ]
   },
@@ -106,9 +106,6 @@
         "file": "contents"
       },
       {
-        "file": "glossary"
-      },
-      {
         "file": "01"
       },
       {
@@ -125,6 +122,9 @@
       },
       {
         "file": "06"
+      },
+      {
+        "file": "glossary"
       }
     ]
   }
