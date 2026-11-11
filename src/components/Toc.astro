@@ -10,11 +10,17 @@ interface Props {
 }
 const { lang, excludeFile } = Astro.props;
 const entries = (await bookToc(lang)).filter(entry => entry.file !== excludeFile);
+const chapterNumber = (file: string) => /^\d+$/.test(file) ? Number(file) : file === 'glossary' ? 7 : undefined;
 ---
 <ol class="contents-list">
   {entries.map((entry) => (
     <li>
-      <a href={entry.url} class={entry.class}>{entry.label}</a>
+      <a href={entry.url} class:list={[entry.class, { 'contents-chapter': chapterNumber(entry.file) !== undefined }]}>
+        {chapterNumber(entry.file) !== undefined && (
+          <span class="nav-chapter__number" aria-hidden="true" data-digits={String(chapterNumber(entry.file)).length}>{chapterNumber(entry.file)}</span>
+        )}
+        <span>{/^\d+$/.test(entry.file) || entry.file === 'glossary' ? entry.label.replace(/^\d+\.\s*/, '') : entry.label}</span>
+      </a>
     </li>
   ))}
 </ol>
