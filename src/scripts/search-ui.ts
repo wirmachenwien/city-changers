@@ -1,7 +1,7 @@
 // Client search UI powered by the static Pagefind index.
 // Reads the configured search parameter, searches the prebuilt index, and renders
 // locale-aware result counts. Results are filtered to the active language
-// by URL prefix (default language: no prefix, others: /<lang>/).
+// by URL prefix (translations use /<lang>/ and /book/<lang>/).
 import { t } from '../lib/i18n';
 import { DEFAULT_LANG } from '../lib/site';
 import { languages, type Language } from '../data/locales';
@@ -14,6 +14,7 @@ interface PagefindResult {
 }
 
 interface Pagefind {
+  init: () => Promise<void>;
   search: (term: string) => Promise<{ results: { data: () => Promise<PagefindResult> }[] }>;
 }
 
@@ -28,18 +29,11 @@ function basePath(): string {
   return base.endsWith('/') ? base.slice(0, -1) : base;
 }
 
-function langPrefix(lang: Language): string {
-  return lang === DEFAULT_LANG ? '/' : `/${lang}/`;
-}
-
 function inLanguage(url: string, lang: Language): boolean {
-  const prefix = langPrefix(lang);
-  if (!url.startsWith(prefix)) return false;
-  if (lang !== DEFAULT_LANG) return true;
-  const rest = url.slice(prefix.length);
-  return !languages
+  const translatedLanguage = languages
     .filter((other) => other !== DEFAULT_LANG)
-    .some((other) => rest.startsWith(`${other}/`));
+    .find((other) => url.startsWith(`/${other}/`) || url.startsWith(`/book/${other}/`));
+  return (translatedLanguage ?? DEFAULT_LANG) === lang;
 }
 
 /** Pagefind records site-root-relative URLs; rebase them under the subpath. */
@@ -67,24 +61,24 @@ export async function initSearchUI(lang: Language): Promise<void> {
   }
   status.textContent = t(lang, 'search.placeholder-searching', 'Searching...');
   try {
-    if (import.meta.env.DEV) {
-      // The Pagefind index is generated into dist/ after the build, so it
-      // never exists under `astro dev` — skip the request (it would 404
-      // against the [...slug] catch-all) and render the empty state.
-      render(lang, query, [], status, list);
-      return;
-    }
     if (!window.pagefind) {
       const module = (await import(
         /* @vite-ignore */ `${basePath()}/pagefind/pagefind.js`
       )) as Pagefind;
+      await module.init();
       window.pagefind = module;
     }
     const response = await window.pagefind.search(query);
     const items: PagefindResult[] = [];
-    for (const result of response.results.slice(0, 30)) {
+    // Apply the language filter before the display cap. Pagefind's global
+    // ranking can place many other-language results first, especially for
+    // common terms; slicing first can make a valid localized search look empty.
+    for (const result of response.results) {
       const data = await result.data();
-      if (inLanguage(data.url, lang)) items.push(data);
+      if (inLanguage(data.url, lang)) {
+        items.push(data);
+        if (items.length === 30) break;
+      }
     }
     render(lang, query, items, status, list);
   } catch {

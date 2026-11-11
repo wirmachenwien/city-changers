@@ -5,6 +5,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import devSearch from './scripts/lib/dev-search.mjs';
 import { unified } from '@astrojs/markdown-remark';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
@@ -105,7 +106,7 @@ export default defineConfig({
     [`/book/${defaultLang}`]: '/book',
     ...bookRedirects,
   },
-  integrations: [mdx()],
+  integrations: [mdx(), devSearch()],
   markdown: {
     // Render-time typographic quotes: source keeps straight `"` / `'`,
     // output gets „ “ (de/sl) or “ ” (en) per frontmatter `lang`.

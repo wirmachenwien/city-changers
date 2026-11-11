@@ -14,9 +14,14 @@ npm run build      # site + PDF/EPUB downloads + search index
 npm run preview    # serve the production build locally
 ```
 
-Downloads and search need a build first (`npm run build` or
-`npm run build:downloads`): under `astro dev` alone, downloads 404 and
-search comes back empty. Without Python, the build skips the PDF/EPUB
+Search works in dev: `astro dev` builds a fresh HTML snapshot and Pagefind
+index before starting, stored under `.astro/` without changing `dist/`.
+Restart the dev server to refresh the search index after content edits.
+This startup step does not generate downloads or render design assets.
+
+Downloads still need a build first (`npm run build` or
+`npm run build:downloads`); otherwise they 404 in dev.
+Without Python, the build skips the PDF/EPUB
 downloads with a warning and still succeeds (CI always has Python and
 stays strict).
 
