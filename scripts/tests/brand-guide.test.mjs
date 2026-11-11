@@ -62,7 +62,11 @@ test('font specimens and every font/licence download are authored directly in th
 test('home opening images use the shared Figure with eager loading', () => {
   const layout = read('src/layouts/PageLayout.astro');
   assert.ok(layout.includes("import Figure from '../components/Figure.astro'"));
-  assert.match(layout, /<Figure src=\{openerImage\}[^>]+\beager\s*\/>/);
+  const opener = layout.match(/<Figure\s[^>]*\bsrc=\{openerImage\}[^>]*\/>/)?.[0];
+  assert.ok(opener, 'homepage opener uses the shared Figure');
+  // Boolean props must be present, but their order is not significant.
+  assert.match(opener, /\seager(?=\s|\/>)/);
+  assert.match(opener, /\swide(?=\s|\/>)/);
   for (const path of ['src/layouts/PageLayout.astro', 'src/components/MdxContent.astro', guidePath]) {
     assert.doesNotMatch(read(path), /OpenerImage/);
   }
