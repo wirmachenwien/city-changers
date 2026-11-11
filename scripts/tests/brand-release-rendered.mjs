@@ -7,6 +7,11 @@ import { brandAssets, brandRelease } from '../../src/lib/brand-release.mjs';
 
 const { document } = parseHTML(readFileSync('dist/brand.html', 'utf8'));
 
+test('the brand guide has no searchable Pagefind root', () => {
+  assert.equal(document.querySelector('[data-pagefind-body]'), null);
+  assert.ok(document.querySelector('meta[name="robots"][content="noindex"]'));
+});
+
 test('every original and the brand ZIP link to the matching GitHub release', () => {
   const links = [...document.querySelectorAll('a')].map(link => link.getAttribute('href'));
   assert.ok(links.includes(brandRelease.kit));

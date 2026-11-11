@@ -313,8 +313,8 @@ LICENCE_TEXT: dict[str, dict[str, str]] = {
     },
     "en": {
         "deed": "https://creativecommons.org/licenses/by/4.0/",
-        "pre": "Unless stated otherwise, the contents of this handbook are licensed under the Creative Commons license ",
-        "post": " Wir machen Wien, Changing Cities & Prostorož. You may share and adapt the contents as long as you give appropriate credit to the authors.",
+        "pre": "Unless stated otherwise, the contents of this handbook are licensed under the Creative Commons licence ",
+        "post": " by Wir machen Wien, Changing Cities, and Prostorož. You may share and adapt the contents as long as you give appropriate credit to the authors.",
     },
     "sl": {
         "deed": "https://creativecommons.org/licenses/by/4.0/",

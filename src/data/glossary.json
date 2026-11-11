@@ -3,9 +3,7 @@
     {
       "term": "Agenda Setting",
       "definition": "Taktik, ein Thema öffentlich sichtbar zu machen, etwa durch Aktion, Petition oder Medienbild.",
-      "forms": [
-        "Agenda Setting"
-      ]
+      "forms": ["Agenda Setting"]
     },
     {
       "term": "Durchzugsverkehr",
@@ -34,9 +32,7 @@
     {
       "term": "Low-Traffic-Grätzl",
       "definition": "Günstigere Form der Verkehrsberuhigung mit wenig Durchzugsverkehr, diskutiert als Wiener Variante.",
-      "forms": [
-        "Low-Traffic-Grätzl"
-      ]
+      "forms": ["Low-Traffic-Grätzl"]
     },
     {
       "term": "Meilenstein",
@@ -68,9 +64,7 @@
     {
       "term": "Monitoring",
       "definition": "Systematisches Beobachten und Dokumentieren von Verkehr, Nutzung, Unterstützung und politischem Fortschritt.",
-      "forms": [
-        "Monitoring"
-      ]
+      "forms": ["Monitoring"]
     },
     {
       "term": "Narrativ",
@@ -85,9 +79,7 @@
     {
       "term": "Street Design",
       "definition": "Gemeinsames Entwerfen von Straßen mit einfachen Modulen wie Straßenplan, Banner oder Baum-Visualisierung.",
-      "forms": [
-        "Street Design"
-      ]
+      "forms": ["Street Design"]
     },
     {
       "term": "Superblock",
@@ -102,9 +94,7 @@
     {
       "term": "Tactical Urbanism",
       "definition": "Temporäre, kostengünstige Eingriffe im Stadtraum, mit denen Veränderungen getestet und sichtbar gemacht werden.",
-      "forms": [
-        "Tactical Urbanism"
-      ]
+      "forms": ["Tactical Urbanism"]
     },
     {
       "term": "Theory of Change",
@@ -117,15 +107,87 @@
     {
       "term": "Window of Opportunity",
       "definition": "Günstiges Zeitfenster für Veränderung, etwa eine Wahl, Medienaufmerksamkeit oder ein politischer Entscheidungsmoment.",
+      "forms": ["Window of Opportunity"]
+    },
+    {
+      "term": "Leiwande Straßen Radar",
+      "definition": "Ein Erhebungsbogen zur Bewertung von Lebensqualität, Sicherheit und Handlungsbedarf im Straßenraum.",
+      "forms": ["Leiwande Straßen Radar"]
+    },
+    {
+      "term": "Street Shit Bingo",
+      "definition": "Ein Werkzeug für einen gemeinsamen Rundgang, bei dem Hindernisse, Gefahren und überraschende Nutzungen des Straßenraums entdeckt werden.",
+      "forms": ["Street Shit Bingo"]
+    },
+    {
+      "term": "Street Design Table",
+      "definition": "Ein Gestaltungstool, mit dem sich ein Straßenplan mithilfe von Papierteilen anpassen und alternative Nutzungen erkunden lassen.",
+      "forms": ["Street Design Table"]
+    },
+    {
+      "term": "Tree Love Set",
+      "definition": "Ein Set von Baumkostümen, das zeigt, wo Schatten und Begrünung gebraucht werden.",
+      "forms": ["Tree Love Set"]
+    },
+    {
+      "term": "Plan zum Erfolg",
+      "definition": "Die Vorstellung eurer Initiative davon, wie Veränderung erreicht wird, zum Beispiel 1.000 Unterschriften sammeln und sie der lokalen Politik übergeben.",
+      "forms": ["Plan zum Erfolg"]
+    },
+    {
+      "term": "Verkehrsverdunstung",
+      "definition": "Wenn der Straßenraum für Autos reduziert wird, nimmt der Gesamtverkehr oft ab, statt sich nur anderswohin zu verlagern.",
+      "forms": ["Verkehrsverdunstung"]
+    },
+    {
+      "term": "Hotspot-Mapping",
+      "definition": "Erfahrungen von Menschen zu bestimmten Orten auf einer gemeinsamen Karte sammeln, um Muster wie Hitzeinseln oder gefährliche Querungen sichtbar zu machen.",
+      "forms": ["Hotspot-Mapping"]
+    },
+    {
+      "term": "Public Life Data Protocol",
+      "definition": "Ein offener Standard des Gehl Institute für vergleichbare Daten darüber, wie Menschen sich im öffentlichen Raum bewegen und dort verweilen.",
+      "forms": ["Public Life Data Protocol"]
+    },
+    {
+      "term": "Supergrätzl",
+      "definition": "Wiener Bezeichnung für einen Superblock, wörtlich etwa 'Super-Nachbarschaft'.",
+      "forms": ["Supergrätzl"]
+    },
+    {
+      "term": "Spielstraße",
+      "definition": "Eine vorübergehend für den Verkehr gesperrte Straße, auf der Kinder spielen können.",
       "forms": [
-        "Window of Opportunity"
+        "Spielstraße",
+        "Spielstraßen"
+      ]
+    },
+    {
+      "term": "Aufenthaltsqualität",
+      "definition": "Ein Indikator dafür, wie angenehm und nutzbar ein öffentlicher Raum für Menschen ist, die sich dort aufhalten.",
+      "forms": ["Aufenthaltsqualität"]
+    },
+    {
+      "term": "Aufenthaltsorte",
+      "definition": "Öffentliche Orte, an denen Menschen verweilen, sitzen, sich treffen oder Aktivitäten nachgehen können.",
+      "forms": [
+        "Aufenthaltsort",
+        "Aufenthaltsorte"
+      ]
+    },
+    {
+      "term": "LTN",
+      "definition": "Abkürzung für Low-Traffic-Neighbourhood, ein Ansatz zur Verkehrsberuhigung in Nachbarschaften.",
+      "forms": [
+        "LTN",
+        "LTNs"
       ]
     }
   ],
   "en": [
     {
       "term": "Agenda setting",
-      "definition": "A tactic for making an issue publicly visible, for example through an action, a petition or a media image.",
+      "definition": "A tactic for making an issue publicly visible, for example through an action, a petition, or a striking image for the media.",
       "forms": [
         "Agenda setting",
         "Set the agenda"
@@ -152,7 +214,7 @@
     },
     {
       "term": "Low-traffic neighbourhood",
-      "definition": "A cheaper form of traffic calming with little through traffic, discussed as a Viennese variant.",
+      "definition": "A form of traffic calming that reduces through traffic, discussed as a Viennese variant called Low-Traffic-Grätzl.",
       "forms": [
         "Low-traffic neighbourhood",
         "Low-traffic neighbourhoods",
@@ -162,7 +224,7 @@
     },
     {
       "term": "Milestone",
-      "definition": "A visible intermediate goal that gives a campaign progress and orientation.",
+      "definition": "A visible intermediate goal that shows a campaign is making progress and keeps it on track.",
       "forms": [
         "Milestone",
         "Milestones"
@@ -189,13 +251,11 @@
     {
       "term": "Monitoring",
       "definition": "Systematic observation and documentation of traffic, use, support and political progress.",
-      "forms": [
-        "Monitoring"
-      ]
+      "forms": ["Monitoring"]
     },
     {
       "term": "Narrative",
-      "definition": "The story of an engagement that clearly states its goal, window of opportunity, alliances and intended change.",
+      "definition": "The story an initiative tells about its goal, window of opportunity, alliances, and intended change.",
       "forms": [
         "Narrative",
         "Narratives"
@@ -203,10 +263,8 @@
     },
     {
       "term": "Street design",
-      "definition": "Jointly designing streets with simple modules such as a street plan, banner or tree visualisation.",
-      "forms": [
-        "Street design"
-      ]
+      "definition": "Jointly designing streets with simple tools such as a street plan, banner, or tree visualisation.",
+      "forms": ["Street design"]
     },
     {
       "term": "Superblock",
@@ -219,9 +277,7 @@
     {
       "term": "Tactical urbanism",
       "definition": "Temporary, low-cost interventions in urban space that test changes and make them visible.",
-      "forms": [
-        "Tactical urbanism"
-      ]
+      "forms": ["Tactical urbanism"]
     },
     {
       "term": "Theory of change",
@@ -234,18 +290,89 @@
     {
       "term": "Through traffic",
       "definition": "Traffic that only crosses an area without having a destination or origin there.",
-      "forms": [
-        "Through traffic"
-      ]
+      "forms": ["Through traffic"]
     },
     {
       "term": "Window of opportunity",
       "definition": "A favourable moment for change, such as an election, media attention or a political decision.",
       "forms": [
         "Window of opportunity",
-        "Window of opportunities",
         "Windows of opportunity"
       ]
+    },
+    {
+      "term": "Leiwande Straßen Radar",
+      "definition": "A tool for assessing quality of life, safety, and where action is needed.",
+      "forms": ["Leiwande Straßen Radar"]
+    },
+    {
+      "term": "Street Shit Bingo",
+      "definition": "A tool for a guided walk that helps participants spot obstacles, hazards, and surprising uses of street space.",
+      "forms": ["Street Shit Bingo"]
+    },
+    {
+      "term": "Street Design Table",
+      "definition": "A design tool for adapting a street plan with paper pieces to explore alternative uses of street space.",
+      "forms": ["Street Design Table"]
+    },
+    {
+      "term": "Tree Love Set",
+      "definition": "A set of tree-shaped costumes to show where shade and greenery are needed.",
+      "forms": ["Tree Love Set"]
+    },
+    {
+      "term": "Supergrätzl",
+      "definition": "Viennese term for a superblock, literally a 'super neighbourhood'.",
+      "forms": ["Supergrätzl"]
+    },
+    {
+      "term": "Play street",
+      "definition": "A street temporarily closed to traffic so children can play.",
+      "forms": [
+        "play street",
+        "play streets"
+      ]
+    },
+    {
+      "term": "Quality of stay",
+      "definition": "An indicator describing how comfortable and usable a public space is for people spending time there.",
+      "forms": ["Quality of stay"]
+    },
+    {
+      "term": "Places to spend time",
+      "definition": "Public spaces where people can pause, sit, meet, or take part in activities.",
+      "forms": [
+        "place to spend time",
+        "places to spend time"
+      ]
+    },
+    {
+      "term": "Plan to win",
+      "definition": "An initiative's idea of how change will happen and which actions will help achieve it.",
+      "forms": ["plan to win"]
+    },
+    {
+      "term": "LTN",
+      "definition": "Abbreviation for low-traffic neighbourhood, a neighbourhood traffic-filtering approach.",
+      "forms": [
+        "LTN",
+        "LTNs"
+      ]
+    },
+    {
+      "term": "Traffic evaporation",
+      "definition": "When road space for cars is reduced, overall traffic often decreases instead of simply moving elsewhere.",
+      "forms": ["traffic evaporation"]
+    },
+    {
+      "term": "Hot spot mapping",
+      "definition": "Collecting people's experiences of specific places on a shared map to reveal patterns, for example heat islands or dangerous crossings.",
+      "forms": ["hot spot mapping"]
+    },
+    {
+      "term": "Public Life Data Protocol",
+      "definition": "An open standard by the Gehl Institute for collecting comparable data on how people move through and stay in public spaces.",
+      "forms": ["Public Life Data Protocol"]
     }
   ],
   "sl": [
@@ -416,6 +543,80 @@
         "Zgodb",
         "Zgodbah",
         "Zgodbami"
+      ]
+    },
+    {
+      "term": "Leiwande Straßen Radar",
+      "definition": "Popisni list za ocenjevanje kakovosti življenja, varnosti in potrebe po ukrepanju na ulici.",
+      "forms": ["Leiwande Straßen Radar"]
+    },
+    {
+      "term": "Street Shit Bingo",
+      "definition": "Orodje za skupni sprehod, na katerem udeleženci odkrivajo ovire, nevarnosti in presenetljive rabe uličnega prostora.",
+      "forms": ["Street Shit Bingo"]
+    },
+    {
+      "term": "Street Design Table",
+      "definition": "Orodje za prilagajanje načrta ulice s papirnatimi elementi in raziskovanje alternativnih rab prostora.",
+      "forms": ["Street Design Table"]
+    },
+    {
+      "term": "Tree Love Set",
+      "definition": "Komplet kostumov v obliki dreves, s katerimi pokažemo, kje sta potrebni senca in ozelenitev.",
+      "forms": ["Tree Love Set"]
+    },
+    {
+      "term": "načrt za uspeh",
+      "definition": "Predstava vaše pobude o tem, kako boste dosegli spremembo, na primer zbrati 1.000 podpisov in jih predati lokalnim politikom.",
+      "forms": ["načrt za uspeh"]
+    },
+    {
+      "term": "izhlapevanje prometa",
+      "definition": "Ko se cestni prostor za avtomobile zmanjša, se skupni promet pogosto zmanjša, namesto da bi se le preselil drugam.",
+      "forms": ["izhlapevanje prometa"]
+    },
+    {
+      "term": "kartiranje vročih točk",
+      "definition": "Zbiranje izkušenj ljudi z določenimi kraji na skupnem zemljevidu, da se pokažejo vzorci, na primer toplotni otoki ali nevarni prehodi.",
+      "forms": ["kartiranje vročih točk"]
+    },
+    {
+      "term": "Public Life Data Protocol",
+      "definition": "Odprt standard inštituta Gehl za zbiranje primerljivih podatkov o tem, kako se ljudje premikajo in zadržujejo v javnih prostorih.",
+      "forms": ["Public Life Data Protocol"]
+    },
+    {
+      "term": "Supergrätzl",
+      "definition": "Dunajsko poimenovanje za superblok, dobesedno približno 'super soseska'.",
+      "forms": ["Supergrätzl"]
+    },
+    {
+      "term": "Igralna ulica",
+      "definition": "Ulica, začasno zaprta za promet, da se lahko na njej igrajo otroci.",
+      "forms": [
+        "igralna ulica",
+        "igralne ulice"
+      ]
+    },
+    {
+      "term": "Kakovost zadrževanja",
+      "definition": "Kazalnik, kako prijeten in uporaben je javni prostor za ljudi, ki se tam zadržujejo.",
+      "forms": ["Kakovost zadrževanja"]
+    },
+    {
+      "term": "Prostori za zadrževanje",
+      "definition": "Javni prostori, kjer se ljudje lahko ustavijo, usedejo, srečajo ali sodelujejo pri dejavnostih.",
+      "forms": [
+        "prostor za zadrževanje",
+        "prostori za zadrževanje"
+      ]
+    },
+    {
+      "term": "LTN",
+      "definition": "Kratica za Low-Traffic-Neighbourhood, pristop k umirjanju prometa v soseskah.",
+      "forms": [
+        "LTN",
+        "LTN-ji"
       ]
     }
   ]

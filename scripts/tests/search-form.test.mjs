@@ -23,6 +23,14 @@ test('search input disables native inset chrome but retains explicit colors, bor
   assert.doesNotMatch(input, /outline:\s*(?:none|0)/);
 });
 
+test('localized search filters Pagefind results before limiting the displayed results', () => {
+  const search = read('src/scripts/search-ui.ts');
+  assert.match(search, /await module\.init\(\);/);
+  assert.match(search, /for \(const result of response\.results\)/);
+  assert.match(search, /if \(inLanguage\(data\.url, lang\)\) \{\s*items\.push\(data\);\s*if \(items\.length === 30\) break;/);
+  assert.doesNotMatch(search, /response\.results\.slice\(0, 30\)/);
+});
+
 test('navigation search includes a native, labelled chevron submit pebble revealed by its input value', () => {
   const head = read('src/components/Masthead.astro');
   assert.match(head, /<button class="search-submit" type="submit" aria-label=\{t\(lang, 'search.search-title', 'Search'\)\}>\s*<Icon name="chevron-right" \/>/);

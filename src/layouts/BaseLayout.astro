@@ -94,7 +94,7 @@ const hideFromIndex = noindex || !settings.web.indexing;
               </section>
             </nav>
           ) : <SideNav lang={lang} kind={kind} file={file} currentUrl={currentUrl} />}
-          <main id="main" class="article" data-pagefind-body>
+          <main id="main" class="article" data-pagefind-body={noindex ? undefined : ''}>
             <slot />
           </main>
         </div>

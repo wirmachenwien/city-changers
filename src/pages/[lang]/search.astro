@@ -26,7 +26,9 @@ const query = Astro.url.searchParams.get(settings.web.search.param) ?? '';
   <p data-search-status aria-live="polite" />
   <ol class="search-results" data-search-results />
 </PageLayout>
-<script define:vars={{ lang: language }}>
+<script>
   import { initSearchUI } from '../../scripts/search-ui';
+  import type { Language } from '../../data/locales';
+  const lang = document.documentElement.lang as Language;
   void initSearchUI(lang);
 </script>
