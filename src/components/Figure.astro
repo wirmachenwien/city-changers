@@ -8,6 +8,7 @@ import { t } from '../lib/i18n';
 import type { Language } from '../data/locales';
 import Icon from './Icon.astro';
 import { resolveFigureVideo } from '../lib/figure-media';
+import { figureImageProps } from '../lib/figure-image';
 
 interface Props {
   /** Bundled image filename, provider URL, or local video URL. */
@@ -19,8 +20,10 @@ interface Props {
   /** Render the image on a white card (brand lockups such as the
    *  Erasmus+ logo that must sit on white per brand rules). */
   frame?: 'white';
-  /** Constrain the rendered figure width without changing image optimisation. */
+  /** Constrain the rendered width and tailor responsive image variants. */
   size?: 'small' | 'medium';
+  /** Opener outside prose: use the full article column's responsive width. */
+  wide?: boolean;
   /** Let prose wrap around the figure on wide screens, or center it as a block. */
   float?: 'left' | 'right' | 'center';
   poster?: string;
@@ -34,6 +37,7 @@ const {
   lang = 'en',
   frame,
   size,
+  wide,
   float,
   poster: customPoster,
 } = Astro.props;
@@ -48,7 +52,6 @@ if (!src?.trim()) throw new Error('Figure: src must be provided');
 const parsedVideo = resolveFigureVideo(src, customPoster);
 
 let image: ImageMetadata | undefined;
-let imageSizes: string | undefined;
 
 if (!parsedVideo) {
   if (alt === undefined) throw new Error(`Figure: image "${src}" requires alt (use alt="" only for decorative images)`);
@@ -64,12 +67,6 @@ if (!parsedVideo) {
     throw new Error(`Figure: unknown image "${src}"`);
   }
   image = match[1].default;
-  imageSizes =
-    size === 'small'
-      ? 'min(100vw, 18rem)'
-      : size === 'medium'
-        ? 'min(100vw, 28rem)'
-        : '(max-width: 44rem) 100vw, 44rem';
 }
 ---
 <figure
@@ -105,8 +102,7 @@ if (!parsedVideo) {
           src={image!}
           alt={displayAlt}
           title={displayAlt || undefined}
-          widths={[400, 800, 1200]}
-          sizes={imageSizes!}
+          {...figureImageProps(image!, { size, float, frame, wide })}
           loading={eager ? 'eager' : 'lazy'}
           decoding="async"
         />

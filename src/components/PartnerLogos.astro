@@ -3,20 +3,20 @@
 // partners.json names an image in src/assets/site by filename; the URL
 // comes from the bundler (hashed, base-aware) rather than from public/.
 import partners from '../data/partners.json';
+import { Image } from 'astro:assets';
 
 const assets = import.meta.glob<{ default: ImageMetadata | string }>(
   '/src/assets/site/*.{svg,png}',
   { eager: true },
 );
 
-const urlFor = (file: string): string => {
+const imageFor = (file: string): ImageMetadata | string => {
   const name = file.split('/').pop();
   const match = Object.entries(assets).find(([path]) => path.endsWith(`/${name}`));
   if (!match) {
     throw new Error(`PartnerLogos: unknown image "${file}" in src/assets/site`);
   }
-  const imported = match[1].default;
-  return typeof imported === 'string' ? imported : imported.src;
+  return match[1].default;
 };
 
 interface Props {
@@ -25,20 +25,39 @@ interface Props {
 
 const { compact = false } = Astro.props;
 
+const logos = partners.map(partner => {
+  const image = imageFor(partner.src);
+  // Match the normal/compact block sizes in global.css, keeping the
+  // original aspect ratio and providing up to 3x pixel density.
+  const height = partner.mod === 'wirmachen-wien' ? (compact ? 40 : 76) : (compact ? 28 : 52);
+  const width = Math.ceil(height * partner.width / partner.height);
+  return { ...partner, image, displayWidth: width };
+});
+
 ---
 <ul class:list={['partner-logos', { 'partner-logos--compact': compact }]}>
-  {partners.map((partner) => (
+  {logos.map((partner) => (
     <li class="partner-logos__item">
       <a class:list={['partner-logos__link', partner.mod && `partner-logos__link--${partner.mod}`]} href={partner.href}>
-        <img
+        {typeof partner.image === 'string' || partner.src.endsWith('.svg') ? <img
           class:list={['partner-logos__logo', partner.mod && `partner-logos__logo--${partner.mod}`]}
-          src={urlFor(partner.src)}
+          src={typeof partner.image === 'string' ? partner.image : partner.image.src}
           alt={partner.name}
           width={partner.width}
           height={partner.height}
           loading="lazy"
           decoding="async"
-        />
+        /> : <Image
+          class:list={['partner-logos__logo', partner.mod && `partner-logos__logo--${partner.mod}`]}
+          src={partner.image}
+          alt={partner.name}
+          width={partner.displayWidth}
+          densities={[1, 2, 3]}
+          format="webp"
+          quality={85}
+          loading="lazy"
+          decoding="async"
+        />}
       </a>
     </li>
   ))}

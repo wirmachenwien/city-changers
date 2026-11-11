@@ -19,6 +19,26 @@ function page(lang, chapter) {
 }
 
 for (const lang of languages) {
+  test(`${lang}: homepage raster logos and figures use right-sized WebP variants`, () => {
+    const home = lang === defaultLang ? 'index.html' : `${lang}/index.html`;
+    const { document } = parseHTML(read(`dist/${home}`));
+    for (const logo of document.querySelectorAll('.partner-logos__logo:not(.partner-logos__logo--changing-cities)')) {
+      assert.match(logo.getAttribute('src'), /\.webp$/);
+      assert.match(logo.getAttribute('srcset'), /1x,.*2x,.*3x/);
+      assert.ok(Number(logo.getAttribute('width')) <= 198);
+      assert.equal(logo.getAttribute('loading'), 'lazy');
+    }
+    assert.match(document.querySelector('.partner-logos__logo--changing-cities').getAttribute('src'), /\.svg$/);
+    const opener = document.querySelector('main .figure img');
+    assert.equal(opener.getAttribute('loading'), 'eager');
+    assert.match(opener.getAttribute('sizes'), /52rem/);
+    assert.ok(Number(opener.getAttribute('width')) < 1000);
+    const erasmus = document.querySelector('main .figure--small img');
+    assert.match(erasmus.getAttribute('srcset'), / 266w/);
+    assert.match(erasmus.getAttribute('srcset'), / 532w/);
+    assert.equal(Number(erasmus.getAttribute('width')), 266);
+  });
+
   test(`${lang}: glossary is chapter seven and the final reading-order entry`, () => {
     const work = JSON.parse(read('src/data/works.json'))[lang];
     assert.deepEqual(work.chapters.filter(chapter => chapter.web !== false).map(chapter => chapter.file),

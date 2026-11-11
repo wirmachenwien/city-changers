@@ -39,7 +39,7 @@ const neighbours = await paginationNeighbours(lang, 'page', file);
   currentUrl={currentUrl}
 >
   {!isHome && <Breadcrumbs items={crumbs} lang={lang} />}
-  {isHome && openerImage && <Figure src={openerImage} alt={openerImageAlt ?? ''} caption={openerImageCaption} lang={lang} eager />}
+  {isHome && openerImage && <Figure src={openerImage} alt={openerImageAlt ?? ''} caption={openerImageCaption} lang={lang} eager wide />}
   <Prose lang={lang}><slot /></Prose>
   {isHome && <LastVisit lang={lang} />}
   {neighbours && settings.web.pagination && <Pagination lang={lang} prev={neighbours.prev} next={neighbours.next} />}
