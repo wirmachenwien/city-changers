@@ -330,6 +330,15 @@ test('ordinary play retries do not force a media reload', async () => {
   p.play.click(); await settle();
   assert.equal(p.loads(), loads);
 });
+test('media-error retry preserves playback speed when native load resets it', async () => {
+  const p = player({ saved: { 'chapter-audio:speed': '1.5' } });
+  const load = p.audio.load;
+  p.audio.load = () => { p.audio.playbackRate = 1; load(); };
+  p.audio.error = { code: 4 };
+  p.play.click(); await settle();
+  assert.equal(p.audio.playbackRate, 1.5);
+  assert.equal(p.speed.value, '1.5');
+});
 test('retry retains the last cursor when a media failure clears native time and readyState', async () => {
   const p = player();
   p.play.click(); await settle(); p.play.click();

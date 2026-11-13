@@ -97,7 +97,9 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     try {
       if (audio.error) {
         savedPosition = playbackPosition();
+        const rate = audio.playbackRate;
         audio.load();
+        audio.playbackRate = rate;
       }
       await audio.play();
     }
