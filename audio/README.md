@@ -123,11 +123,17 @@ npm run audio:release -- --publish  # Requires gh authentication and committed i
 npm run audio:release -- --verify   # Existing public release + MP3 ranges; no uploads
 ```
 
-Readable edition names and titles live in `audio/edition.json`. For example,
-`audiobook-2026-11-13-en-de-sl-footnotes-<12-character digest>` identifies the
-date, languages and edition; the complete SHA-256 remains in the inventory.
-Use a new descriptive edition name for a later edition. Changes to this label
-do not regenerate speech or alter media; preparation refreshes release URLs.
+For the next audio edition, set `audio/edition.json` to a committed date and
+same-day revision, for example `{"date":"2026-11-13","revision":0}`. Tags are
+`audio-2026-11-13` for that day's first edition, `audio-2026-11-13a` for its
+second (`revision: 1`), then `b`, `c`, … (`aa` after `z`). New releases are titled
+exactly **City Changers audio**. The complete SHA-256 remains in the inventory,
+not in the tag. Advance the date/revision before publishing different content;
+the publisher refuses to replace a tag with a different inventory. Explicit
+committed dates keep offline builds deterministic rather than changing daily.
+The current `name`/`title` edition format remains supported only to verify the
+release already published under its legacy descriptive tag; do not republish
+merely to rename it. Naming changes do not regenerate speech or alter media.
 The publisher uses flat attachment names, paginated lookup, SHA-256/size
 verification, resumable draft uploads and `--latest=false`.
 Publication holds an OS-backed repository/tag lock shared across local checkouts
@@ -156,7 +162,7 @@ Do not delete the release referenced by `audio/published.json`, nor a brand
 release still used by the deployed site. Published release tags are download
 addresses, not disposable build caches. Native immutability protects attachments
 and tags but does not prevent deletion of an entire release; a deleted immutable
-tag cannot be reused. Recovery then requires a new edition name/tag and updated
+tag cannot be reused. Recovery then requires a new edition date/revision and updated
 manifests, using the verified local handoff rather than regenerating narration.
 Old GitHub releases are retained, keeping old media URLs valid even when local
 public folders are pruned. Tabs using deleted website cues may need a reload.

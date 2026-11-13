@@ -9,6 +9,7 @@ import { releaseInventory, validateReleaseInventory } from '../audio/release.mjs
 import { prunePublicAudio } from '../audio/prune.mjs';
 import audioSite, { copySitePublic } from '../lib/audio-site.mjs';
 import { navigationOptionLinks } from '../lib/site-links.mjs';
+import { datedReleaseTag } from '../lib/release-tag.mjs';
 
 const revision = 'a'.repeat(20);
 const artifact = extension => ({ file: `${revision}/en/01.${extension}`, bytes: 10, sha256: hash(extension), url: `/audio/${revision}/en/01.${extension}` });
@@ -19,6 +20,17 @@ const write = (root, file, content) => { const target = join(root, file); mkdirS
 
 test('site checker validates navigation options, not audio playback speed values', () => {
   assert.deepEqual(navigationOptionLinks('<div data-select-list><select data-select><option value="/book.html">Book</option></select></div><select data-select data-speed><option value="1.5">1.5×</option></select>'), ['/book.html']);
+});
+test('future release tags use the date and same-day ordinal without a digest suffix', () => {
+  for (const kind of ['audio', 'brand']) {
+    for (const [revision, suffix] of [[0, ''], [1, 'a'], [2, 'b'], [26, 'z'], [27, 'aa']]) {
+      assert.equal(datedReleaseTag(kind, { date: '2026-11-13', revision }), `${kind}-2026-11-13${suffix}`);
+    }
+    assert.equal(datedReleaseTag(kind, { date: '2026-11-14' }), `${kind}-2026-11-14`);
+    for (const edition of [{ date: '2026-02-30' }, { date: '20261113' }, { date: 'bad' }, { date: '2026-11-13', revision: -1 }, { date: '2026-11-13', revision: 1.5 }, { date: '2026-11-13', revision: true }]) {
+      assert.throws(() => datedReleaseTag(kind, edition), /edition date/);
+    }
+  }
 });
 
 test('audio release fingerprints are deterministic, portable and include complete outputs', () => {
@@ -31,17 +43,30 @@ test('audio release fingerprints are deterministic, portable and include complet
   assert.equal(release.assets.length, 2);
   assert.equal(release.publication.chapters[0].cues.url, input.chapters[0].cues.url);
   assert.equal('transcript' in release.publication.chapters[0], false);
-  assert.match(release.tag, /^audiobook-2026-11-13-en-de-sl-footnotes-[a-f0-9]{12}$/);
-  assert.ok(release.edition.title.includes('English, German & Slovenian'));
+  const edition = JSON.parse(readFileSync('audio/edition.json', 'utf8'));
+  assert.deepEqual(release.edition, edition);
+  assert.equal(release.tag, Object.hasOwn(edition, 'date') ? datedReleaseTag('audio', edition) : `audiobook-${edition.name}-${release.fingerprint.slice(0, 12)}`);
   assert.ok(release.publication.chapters[0].track.url.includes(`/releases/download/${release.tag}/`));
   assert.ok(release.assets.every(a => a.download.includes(a.releaseAsset) && !a.releaseAsset.includes('/')));
   input.chapters[0].cues.sha256 = hash('corrected cues');
-  assert.notEqual(releaseInventory(input).tag, release.tag);
+  assert.notEqual(releaseInventory(input).fingerprint, release.fingerprint);
   const corrupt = structuredClone(release);
   corrupt.assets[0].sha256 = hash('corrupt');
   assert.throws(() => validateReleaseInventory(corrupt), /inconsistent/);
   input.chapters[0].track.file = '../../private/source.mp3';
   assert.throws(() => releaseInventory(input), /Invalid public audio artifact/);
+});
+test('dated audio inventories round-trip and changed bytes require a new date/revision instead of an overwrite', () => {
+  const input = publication(), edition = { date: '2026-11-13', revision: 1 };
+  const release = releaseInventory(input, edition);
+  assert.equal(release.tag, 'audio-2026-11-13a');
+  assert.deepEqual(validateReleaseInventory(release, edition), release);
+  assert.ok(release.publication.chapters[0].track.url.includes('/download/audio-2026-11-13a/'));
+  input.chapters[0].cues.sha256 = hash('changed cues');
+  const changed = releaseInventory(input, edition);
+  assert.equal(changed.tag, release.tag);
+  assert.notEqual(changed.fingerprint, release.fingerprint, 'The publisher rejects a conflicting fingerprint at an existing tag');
+  assert.equal(releaseInventory(input, { ...edition, revision: 2 }).tag, 'audio-2026-11-13b');
 });
 
 test('partial preparations remove legacy transcript references from publication and release inventories', () => {

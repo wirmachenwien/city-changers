@@ -67,6 +67,15 @@ class FakeGitHub:
 
 
 class ReleaseTest(unittest.TestCase):
+    def test_date_tags_use_the_same_day_ordinal_and_reject_invalid_editions(self):
+        for kind in ["audio", "brand"]:
+            for revision, suffix in [(0, ""), (1, "a"), (2, "b"), (26, "z"), (27, "aa")]:
+                self.assertEqual(RELEASE.dated_release_tag(kind, {"date": "2026-11-13", "revision": revision}), f"{kind}-2026-11-13{suffix}")
+            self.assertEqual(RELEASE.dated_release_tag(kind, {"date": "2026-11-14"}), f"{kind}-2026-11-14")
+            for edition in [{"date": "2026-02-30"}, {"date": "20261113"}, {"date": "bad"}, {"date": "2026-11-13", "revision": -1}, {"date": "2026-11-13", "revision": 1.5}, {"date": "2026-11-13", "revision": True}]:
+                with self.subTest(kind=kind, edition=edition), self.assertRaises(ValueError):
+                    RELEASE.dated_release_tag(kind, edition)
+
     def test_published_release_reuse_does_not_stage_or_upload(self):
         validate, stage, gh = Mock(), Mock(), Mock()
         remote = {"body": "managed", "draft": False}
@@ -272,6 +281,7 @@ class ReleaseTest(unittest.TestCase):
                  patch.object(AUDIO, "range_check"), patch.object(AUDIO, "publish_release", side_effect=publish) as upload:
                 AUDIO.run(publish=True)
                 upload.assert_called_once()
+                self.assertEqual(upload.call_args.kwargs["title"], "City Changers audio")
             self.assertFalse((root / ".cache").exists())
 
 

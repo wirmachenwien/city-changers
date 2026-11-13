@@ -27,7 +27,7 @@ def remote_release(release, draft=False):
 class BrandReleaseTest(unittest.TestCase):
     def test_inventory_is_deterministic_complete_and_has_safe_unique_names(self):
         release = BRAND.inventory()
-        self.assertRegex(release["tag"], r"^brand-kit-v[0-9]+\.[0-9]+\.[0-9]+-[a-f0-9]{12}$")
+        self.assertRegex(release["tag"], r"^brand-[0-9]{4}-[0-9]{2}-[0-9]{2}[a-z]*$")
         self.assertEqual(release, BRAND.inventory())
         names = [record["releaseAsset"] for record in release["assets"]]
         self.assertEqual(len(names), len(set(names)))
@@ -37,12 +37,14 @@ class BrandReleaseTest(unittest.TestCase):
             self.assertIn(f"/download/{release['tag']}/", record["download"])
             self.assertTrue(record["download"].endswith(record["releaseAsset"]))
 
-    def test_content_changes_create_new_release_but_no_preview_fields_are_fingerprinted(self):
+    def test_content_changes_require_a_new_edition_and_no_preview_fields_are_fingerprinted(self):
         original = BRAND.inventory()
         records = BRAND.asset_records()
         records[0]["sha256"] = "changed"
         with patch.object(BRAND, "asset_records", return_value=records):
-            self.assertNotEqual(original["tag"], BRAND.inventory()["tag"])
+            changed = BRAND.inventory()
+            self.assertNotEqual(original["fingerprint"], changed["fingerprint"])
+            self.assertEqual(original["tag"], changed["tag"], "Dates/revisions are explicit; the publisher refuses reuse for a different fingerprint")
         self.assertFalse(any("preview" in record for record in original["assets"]))
 
     def test_website_contains_small_previews_not_originals_or_zip(self):
@@ -154,6 +156,7 @@ class BrandReleaseTest(unittest.TestCase):
             calls = [call.args for call in gh.call_args_list]
             self.assertEqual([args[1] for args in calls], ["create", "upload", "edit"])
             self.assertIn("--draft", calls[0])
+            self.assertEqual(calls[0][calls[0].index("--title") + 1], "City Changers brand")
             self.assertIn("--draft=false", calls[-1])
             self.assertTrue(all("--latest=false" in args for args in (calls[0], calls[-1])))
 

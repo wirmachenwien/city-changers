@@ -66,7 +66,7 @@ def publish():
             yield [str(path) for path in sorted(attachments.iterdir())]
 
     created = publish_release(repository=REPOSITORY, tag=tag, target=lambda: os.environ["GITHUB_SHA"],
-                              title=f"City Changers brand kit · v{release['version']}",
+                              title="City Changers brand",
                               notes="Approved committed exports; no artwork was regenerated.\n\n"
                                     "Download the complete ZIP (original folder structure) or individual attachments. "
                                     "Attachment names include their category and treatment.",

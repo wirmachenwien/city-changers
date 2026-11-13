@@ -9,6 +9,22 @@ import hashlib
 import os
 from contextlib import contextmanager
 from pathlib import Path
+from datetime import date
+
+
+def dated_release_tag(kind, edition):
+    """A committed date and ordinal, not wall-clock time or a digest tag."""
+    day = edition.get("date")
+    revision = edition.get("revision", 0)
+    if kind not in {"audio", "brand"} or not isinstance(day, str) or type(revision) is not int or revision < 0 or revision > 9007199254740991:
+        raise ValueError("Set a valid edition date (YYYY-MM-DD) and nonnegative integer revision")
+    if date.fromisoformat(day).isoformat() != day:
+        raise ValueError("Set an edition date in YYYY-MM-DD format")
+    suffix = ""
+    while revision:
+        revision, digit = divmod(revision - 1, 26)
+        suffix = chr(97 + digit) + suffix
+    return f"{kind}-{day}{suffix}"
 
 
 @contextmanager

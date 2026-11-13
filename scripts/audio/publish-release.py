@@ -100,7 +100,7 @@ def run(*, publish=False, verify=False, allow_missing=False):
 
     if publish:
         created = publish_release(repository=repository, tag=tag, target=target,
-                                  title=release["edition"]["title"],
+                                  title="City Changers audio",
                                   notes="Complete audio edition: chapter MP3s, language M4Bs, timing cues and public inventory. Publication uses prepared media; this command does not generate narration.",
                                   marker=marker, lookup=lookup, validate=validate, stage=stage)
         print("Published audio release." if created else "Unchanged audio; verified existing release without uploads.")
