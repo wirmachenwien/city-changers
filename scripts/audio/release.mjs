@@ -2,7 +2,7 @@ import { hash } from './content.mjs';
 
 export const repository = 'wirmachenwien/city-changers';
 export const releaseMetadata = 'audio-release.json';
-export const artifactPattern = /^[a-f0-9]{20}\/(en|de|sl)\/([a-z0-9-]+\.(mp3|cues\.json|transcript\.html)|book\.m4b)$/;
+export const artifactPattern = /^[a-f0-9]{20}\/(en|de|sl)\/[a-z0-9-]+\.(mp3|m4b|cues\.json|transcript\.html)$/;
 
 export function publicationArtifacts(publication) {
   return publication.chapters.flatMap(c => [

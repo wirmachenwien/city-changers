@@ -34,7 +34,7 @@ export function checkAudioRelease({ allowMissing = false } = {}) {
   }
   for (const lang of new Set(plan.chapters.map(c => c.lang))) {
     const book = publication.audiobooks.find(b => b.lang === lang);
-    if (!book || !Number.isFinite(book.duration) || book.duration <= 0 || publication.chapters.some(c => c.lang === lang && c.revision !== book.revision)) throw new Error(`${lang}: stale/incomplete audiobook`);
+    if (!book || book.metadataVersion !== 2 || !Number.isFinite(book.duration) || book.duration <= 0 || publication.chapters.some(c => c.lang === lang && c.revision !== book.revision)) throw new Error(`${lang}: stale/incomplete audiobook`);
   }
   return release;
 }

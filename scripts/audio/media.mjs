@@ -21,6 +21,11 @@ export function probe(file) {
 }
 const digest = file => hash(readFileSync(path(file)));
 const duration = file => Number(probe(file).format.duration);
+export function audiobookFilename(title, lang) {
+  const name = title.normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  if (!name || !['en', 'de', 'sl'].includes(lang)) throw new Error('Invalid audiobook filename');
+  return `${name}-${lang}.m4b`;
+}
 function artifact(file, url) { return { url, file: file.slice(staging.length + 1), bytes: statSync(path(file)).size, sha256: digest(file) }; }
 
 export function validateCues(cues, seconds, blockIds) {
@@ -58,13 +63,14 @@ export function assemble(plan, { audiobooks = true } = {}) {
   const previousFile = `${staging}/manifest.json`;
   const previous = existsSync(path(previousFile)) ? read(previousFile) : { chapters: [], audiobooks: [] };
   let reusedOutputs = 0;
+  let remuxedOutputs = 0;
   const config = plan.config;
   const processing = config.processing;
   // These settings are intentionally fixed: no variable loudness, speed changes,
   // silence removal, crossfades or hidden offsets after alignment.
   if (processing.sampleRate !== 44100 || processing.channels !== 1 || processing.gainDb !== 0) throw new Error('Processing changes require implementation and timing review');
   // Cue/transcript revisions change independently of narration cache keys.
-  const revision = hash({ planHash: plan.planHash, cueSchemaVersion: 2, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
+  const revision = hash({ planHash: plan.planHash, cueSchemaVersion: 2, audiobookMetadataVersion: 2, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
   const prefix = `${staging}/${revision}`;
   mkdirSync(path(prefix), { recursive: true });
   const mediaBase = config.mediaBaseUrl.replace(/\/$/, '');
@@ -152,28 +158,39 @@ export function assemble(plan, { audiobooks = true } = {}) {
       return `[CHAPTER]\nTIMEBASE=1/1000\nSTART=${start}\nEND=${Math.round(offset * 1000)}\ntitle=${ffescape(c.title)}`;
     });
     const metaFile = `${prefix}/${lang}/book.ffmetadata`;
-    writeFileSync(path(metaFile), `;FFMETADATA1\ntitle=${ffescape(title)}\nlanguage=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}\nartist=${ffescape(metadata.author)}\nalbum_artist=${ffescape(narrator)}\ncomposer=${ffescape(narrator)}\ncopyright=${ffescape(metadata.rights)}\ncomment=${ffescape(metadata.rights)}\nmedia_type=2\n${markers.join('\n')}\n`);
-    const m4b = `${prefix}/${lang}/book.m4b`;
-    const recipeHash = hash({ lang, title, processing, narrator, author: metadata.author, rights: metadata.rights, coverHash: digest(metadata.cover),
+    writeFileSync(path(metaFile), `;FFMETADATA1\ntitle=${ffescape(title)}\nalbum=${ffescape(title)}\nlanguage=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}\nartist=${ffescape(metadata.author)}\nalbum_artist=${ffescape(narrator)}\ncomposer=${ffescape(narrator)}\ncopyright=${ffescape(metadata.rights)}\ncomment=${ffescape(metadata.rights)}\nmedia_type=2\n${markers.join('\n')}\n`);
+    const filename = audiobookFilename(title, lang);
+    const m4b = `${prefix}/${lang}/${filename}`;
+    const mediaRecipeHash = hash({ lang, title, processing, narrator, author: metadata.author, rights: metadata.rights, coverHash: digest(metadata.cover),
       chapters: chapters.map(c => ({ title: c.title, duration: c.pcmDuration, audio: c.assembly.map(a => a.insertedPauses.length ? { hash: a.audioHash, pauses: a.insertedPauses } : a.audioHash) })) });
-    const old = previous.audiobooks.find(b => b.lang === lang && b.recipeHash === recipeHash);
-    if (old && existsSync(path(`${staging}/${old.file}`)) && digest(`${staging}/${old.file}`) === old.sha256) {
+    const recipeHash = hash({ mediaRecipeHash, metadataVersion: 2, chapterTimescale: 1000, filename });
+    const old = previous.audiobooks.find(b => b.lang === lang && (b.recipeHash === recipeHash || b.recipeHash === mediaRecipeHash || b.mediaRecipeHash === mediaRecipeHash) &&
+      existsSync(path(`${staging}/${b.file}`)) && digest(`${staging}/${b.file}`) === b.sha256);
+    if (old?.recipeHash === recipeHash) {
       if (path(`${staging}/${old.file}`) !== path(m4b)) copyFileSync(path(`${staging}/${old.file}`), path(m4b));
       reusedOutputs++;
+    } else if (old) {
+      // Add Apple Books' album/book title without re-encoding retained AAC or
+      // cover artwork. Legacy recipe hashes identify the exact same media.
+      run('ffmpeg', ['-v', 'error', '-y', '-i', path(`${staging}/${old.file}`), '-i', path(metaFile),
+        '-map', '0:a', '-map', '0:v', '-map_metadata', '1', '-map_chapters', '1', '-c', 'copy', '-disposition:v', 'attached_pic',
+        '-metadata:s:a:0', `language=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}`, '-video_track_timescale', '1000', '-movie_timescale', '1000',
+        '-movflags', '+faststart', '-f', 'mp4', path(m4b)]);
+      remuxedOutputs++;
     } else {
       const raw = `${prefix}/${lang}/book.pcm`;
       openPcm(raw, chapters.map(c => `${prefix}/${lang}/${c.file}.pcm`));
       run('ffmpeg', ['-v', 'error', '-y', '-f', 's16le', '-ar', '44100', '-ac', '1', '-i', path(raw), '-i', path(metaFile), '-i', path(metadata.cover),
         '-map', '0:a', '-map', '2:v', '-map_metadata', '1', '-map_chapters', '1', '-c:a', 'aac', '-b:a', processing.audiobookAacBitrate,
         '-c:v', 'mjpeg', '-disposition:v', 'attached_pic', '-metadata:s:a:0', `language=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}`,
-        '-movflags', '+faststart', '-f', 'mp4', path(m4b)]);
+        '-video_track_timescale', '1000', '-movie_timescale', '1000', '-movflags', '+faststart', '-f', 'mp4', path(m4b)]);
     }
-    manifest.audiobooks.push({ lang, revision, title, recipeHash, duration: duration(m4b), ...artifact(m4b, `${mediaBase}/${revision}/${lang}/book.m4b`) });
+    manifest.audiobooks.push({ lang, revision, title, recipeHash, mediaRecipeHash, metadataVersion: 2, duration: duration(m4b), ...artifact(m4b, `${mediaBase}/${revision}/${lang}/${filename}`) });
   }
+  checkRelease(plan, { candidate: true, strict: true, audiobooks, manifest });
   write(`${staging}/manifest.json`, manifest);
-  checkRelease(plan, { candidate: true, strict: true, audiobooks });
   const bytes = manifest.chapters.flatMap(c => [c.track, c.cues, c.transcript]).concat(manifest.audiobooks).reduce((sum, a) => sum + a.bytes, 0);
-  console.log(`Assembled ${manifest.chapters.length} chapter(s), ${manifest.audiobooks.length} M4B(s) (${bytes} bytes; ${reusedOutputs} unchanged encoded outputs reused).`);
+  console.log(`Assembled ${manifest.chapters.length} chapter(s), ${manifest.audiobooks.length} M4B(s) (${bytes} bytes; ${reusedOutputs} unchanged encoded outputs reused; ${remuxedOutputs} metadata-only remuxes).`);
   return manifest;
 }
 
@@ -191,9 +208,9 @@ function openPcm(output, files) {
   return output;
 }
 
-export function checkRelease(plan, { strict = false, candidate = false, audiobooks = true } = {}) {
+export function checkRelease(plan, { strict = false, candidate = false, audiobooks = true, manifest: suppliedManifest } = {}) {
   const file = candidate ? `${staging}/manifest.json` : 'audio/published.json';
-  const manifest = read(file);
+  const manifest = suppliedManifest ?? read(file);
   const issues = [];
   if (manifest.schemaVersion !== 1) throw new Error('Unsupported audio manifest version');
   if (strict && (manifest.chapters.length !== plan.chapters.length || new Set(manifest.chapters.map(c => c.id)).size !== plan.chapters.length ||
@@ -249,7 +266,7 @@ export function checkRelease(plan, { strict = false, candidate = false, audioboo
       let offset = 0;
       if (!info.format.format_name.includes('mp4') || !info.streams.some(s => s.codec_name === 'aac' && s.tags?.language === ({ en: 'eng', de: 'deu', sl: 'slv' }[lang])) ||
           !info.streams.some(s => s.disposition?.attached_pic === 1) || info.chapters.length !== expected.length ||
-          !info.format.tags?.title || !info.format.tags?.copyright || !info.format.tags?.artist) throw new Error('Invalid audiobook container/metadata/cover/chapter count');
+          info.format.tags?.title !== book.title || info.format.tags?.album !== book.title || info.format.tags?.media_type !== '2' || !info.format.tags?.copyright || !info.format.tags?.artist) throw new Error('Invalid audiobook container/metadata/cover/chapter count');
       info.chapters.forEach((c, i) => {
         if (c.tags?.title !== expected[i].title || Math.abs(Number(c.start_time) - offset) > 0.05 || Number(c.end_time) <= Number(c.start_time)) throw new Error('Invalid audiobook chapter order/boundaries');
         offset += expected[i].pcmDuration;

@@ -98,6 +98,11 @@ npm run audio:test
 Review the chapter recordings and manually test M4B import, chapter navigation,
 seeking and resume in Apple Books and an Android audiobook player. Automated
 container checks do not substitute for those tests.
+M4Bs carry the localized book title in both the title and album tags, with a
+descriptive language-specific filename. Metadata-only upgrades reuse encoded
+AAC streams without quality loss. If Apple Books already imported an older file
+as “book”, remove that library entry and import the corrected download again;
+its cached title is not updated by publishing a replacement edition.
 
 Commit the reviewed `audio/` inputs, `audio/release.json`, `audio/published.json`
 and the matching `public/audio/` cues/transcripts on a review branch. Push that

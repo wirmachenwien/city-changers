@@ -50,6 +50,35 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   assert.equal(first.chapters.length, 21);
   assert.equal(first.audiobooks.length, 3);
   assert.equal(first.chapters[0].assembly[0].offset, 0);
+  for (const book of first.audiobooks) {
+    const info = JSON.parse(run('ffprobe', ['-v', 'error', '-show_format', '-of', 'json', `.cache/audio/release/${book.file}`]));
+    assert.equal(info.format.tags.title, book.title);
+    assert.equal(info.format.tags.album, book.title, 'Apple Books needs the book/album title, not just the track title');
+    assert.equal(info.format.tags.media_type, '2');
+    assert.equal(book.metadataVersion, 2);
+    assert.ok(book.file.endsWith(`/test-${book.lang}-${book.lang}.m4b`), 'Filename is descriptive and language-specific');
+  }
+  // Migrate legacy book.m4b files without an album atom. Metadata-only fixes
+  // must copy AAC packets, not run the lossy encoder again.
+  const legacy = structuredClone(first);
+  for (const book of legacy.audiobooks) {
+    const original = `.cache/audio/release/${book.file}`;
+    book.file = `${first.revision}/${book.lang}/book.m4b`;
+    run('ffmpeg', ['-v', 'error', '-y', '-i', original, '-map', '0:a', '-map', '0:v', '-map_chapters', '0', '-c', 'copy', '-metadata', 'album=', '-f', 'mp4', `.cache/audio/release/${book.file}`]);
+    book.sha256 = hash(readFileSync(join(temp, `.cache/audio/release/${book.file}`)));
+    book.recipeHash = book.mediaRecipeHash;
+    delete book.mediaRecipeHash;
+    delete book.metadataVersion;
+  }
+  write('.cache/audio/release/manifest.json', legacy);
+  assert.match(run(process.execPath, ['--input-type=module', '-e', execute]), /21 unchanged encoded outputs reused; 3 metadata-only remuxes/);
+  const migrated = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  const packetHash = file => run('ffmpeg', ['-v', 'error', '-i', `.cache/audio/release/${file}`, '-map', '0:a:0', '-c', 'copy', '-f', 'hash', '-hash', 'sha256', '-']);
+  for (const book of migrated.audiobooks) {
+    assert.equal(packetHash(book.file), packetHash(legacy.audiobooks.find(b => b.lang === book.lang).file), 'AAC packets preserved');
+    const chapters = JSON.parse(run('ffprobe', ['-v', 'error', '-show_chapters', '-of', 'json', `.cache/audio/release/${book.file}`])).chapters;
+    assert.ok(chapters.every(c => c.time_base === '1/1000'), 'Bound chapter timescale to prevent duration overflow in long remuxed chapters');
+  }
   const prepare = options => `import {prepare} from ${JSON.stringify(mediaUrl)};import{readFileSync}from'node:fs';prepare(JSON.parse(readFileSync('fixture-plan.json','utf8')),${JSON.stringify(options)});`;
   // A chapter is a finalized frontend artifact, not a private preview. It needs
   // no audiobook metadata, and preparing another chapter preserves it.
