@@ -7,7 +7,8 @@ interface Props {
   label?: string;
   iconBefore?: IconName;
   iconAfter?: IconName;
+  download?: boolean;
 }
-const { href, label, iconBefore, iconAfter } = Astro.props;
+const { href, label, iconBefore, iconAfter, download } = Astro.props;
 ---
-<a class="button-link" href={href}><span class="button-link__content">{iconBefore && <Icon name={iconBefore} />}{label ?? <slot />}{iconAfter && <Icon name={iconAfter} />}</span></a>
+<a class="button-link" href={href} download={download}><span class="button-link__content">{iconBefore && <Icon name={iconBefore} />}{label ?? <slot />}{iconAfter && <Icon name={iconAfter} />}</span></a>

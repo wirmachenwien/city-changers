@@ -13,6 +13,7 @@ import { site, base, defaultLang, languages } from '../../handbook.config.ts';
 import { chapterUrlSlug } from '../../src/lib/chapter-slug.ts';
 import { DIST_DIR, normalizeBase } from '../lib/paths.mjs';
 import { createReporter } from '../lib/reporter.mjs';
+import { navigationOptionLinks } from '../lib/site-links.mjs';
 
 const BASE = normalizeBase(base);
 const LANGS = [...languages];
@@ -94,7 +95,7 @@ function searchFormAction(html) {
 function links(html) {
   const out = [];
   for (const match of html.matchAll(/<(?:a|link)[^>]*href="([^"]+)"/g)) out.push(match[1]);
-  for (const match of html.matchAll(/<option[^>]*value="([^"]+)"/g)) out.push(match[1]);
+  out.push(...navigationOptionLinks(html));
   for (const match of html.matchAll(/<img[^>]*src="([^"]+)"/g)) out.push(match[1]);
   const action = searchFormAction(html);
   if (action) out.push(action);

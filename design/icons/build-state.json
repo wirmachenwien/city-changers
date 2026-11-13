@@ -1,5 +1,5 @@
 {
-  "inputs": "ca318547cdd89ae47ad41669985ebfb0adb0844f3df372fe96c861f6e7c06f98",
+  "inputs": "fcb7729015025cae31aea2f2f13da6c57e079952f5146431b8e7f3268643b9a0",
   "pngs": {
     "src/assets/icons/png/light/search.png": "27d84e3c6215e65d5124e89d0d0964801d90b22b6d0af9f38c04222f2b013590",
     "src/assets/icons/png/dark/search.png": "8b2095200a2398b2c42c687fc5528922390b9d68d93612f2eb5f73bcbf7f9dd0",
@@ -57,6 +57,8 @@
     "src/assets/icons/png/dark/arrow-down.png": "37d8ac3805b2cbf61fe03f91733703afbdab9259242dc90fc8fc1691dace218f",
     "src/assets/icons/png/light/play.png": "0fdffe9703b850b99d6ec2cd39de7587f75cce80d63167d72d67f7534ce1aa2e",
     "src/assets/icons/png/dark/play.png": "3e3aeb8669fd94e402e3d5549dfeabcfddf3f80956109cfd7cbfafe973881f6e",
+    "src/assets/icons/png/light/play-out-loud.png": "c7345721519eb7e65153f11dfa50d26f010748f1e2f8c1f3a12761e51a8fd69e",
+    "src/assets/icons/png/dark/play-out-loud.png": "d381c20d2829eb28452570678496a3d8d77bf319d7af95d58c4cde28d0188d0a",
     "src/assets/icons/png/light/chevron-right.png": "e852e08330b55694f382f3ff85217dcabf16258486d89829853976eec416bdb2",
     "src/assets/icons/png/dark/chevron-right.png": "3ca296a993c6e820a1790b3157629e0d9ca0dc80bc432d9ec36733cb1ff8e26e",
     "src/assets/icons/png/light/disclosure.png": "ac403e476b9cb11407448d43c2d55b6347f31c1b5ee0d2b9fbee506c2e87e70b",

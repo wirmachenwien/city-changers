@@ -58,6 +58,10 @@ without repackaging/uploading. Drafts can resume after interrupted uploads;
 published releases are never overwritten and do not replace the repository's
 latest software release. Pull requests do not publish releases. The publisher
 uses `GITHUB_TOKEN` with `contents: write` in the deployment build job.
+Paginated lookup and the draft/upload/verify/publish lifecycle share
+`scripts/github_release.py` with the audio
+publisher. The inventories and generation workflows stay independent; see
+[`audio/README.md`](../audio/README.md) for the explicit local audio handoff.
 
 `public/brand-assets/` contains only a catalogue, release links, SVG previews and
 small responsive WebP previews, not the ZIP, MOVs, fonts or original photos.

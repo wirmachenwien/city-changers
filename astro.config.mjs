@@ -6,10 +6,12 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import devSearch from './scripts/lib/dev-search.mjs';
+import audioSite from './scripts/lib/audio-site.mjs';
 import { unified } from '@astrojs/markdown-remark';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { remarkBackslashMath } from './src/lib/remark-backslash-math.mjs';
+import remarkAudioBlocks from './src/lib/remark-audio-blocks.mjs';
 import rehypeColorPebbles from './src/lib/rehype-color-pebbles.mjs';
 import rehypeBrandDownloads from './src/lib/rehype-brand-downloads.mjs';
 import { smartQuotesRehypePlugin } from './src/lib/satteri-smart-quotes.ts';
@@ -106,7 +108,7 @@ export default defineConfig({
     [`/book/${defaultLang}`]: '/book',
     ...bookRedirects,
   },
-  integrations: [mdx(), devSearch()],
+  integrations: [mdx(), devSearch(), audioSite()],
   markdown: {
     // Render-time typographic quotes: source keeps straight `"` / `'`,
     // output gets „ “ (de/sl) or “ ” (en) per frontmatter `lang`.
@@ -116,7 +118,7 @@ export default defineConfig({
     processor: unified({
       gfm: true,
       smartypants: false,
-      remarkPlugins: [remarkBackslashMath, remarkMath],
+      remarkPlugins: [remarkAudioBlocks, remarkBackslashMath, remarkMath],
       rehypePlugins: [rehypeKatex, smartQuotesRehypePlugin(defaultLang), [rehypeColorPebbles, { brandOnly: true }], rehypeBrandDownloads, rehypeDrawnContainers],
     }),
   },

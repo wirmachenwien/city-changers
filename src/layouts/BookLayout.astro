@@ -13,6 +13,7 @@ import { paginationNeighbours } from '../data/book-toc';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
 import Prose from '../components/Prose.astro';
+import ChapterAudio from '../components/ChapterAudio.astro';
 
 interface Props {
   lang: Language;
@@ -51,7 +52,10 @@ const neighbours = await paginationNeighbours(lang, 'book', file);
   )}
   {isContents && <ContentsPage lang={lang} title={displayTitle} />}
   {isChapter && <BookmarkAdd lang={lang} />}
-  <Prose lang={lang} glossary><slot /></Prose>
+  <Prose lang={lang} glossary audioChapter={isChapter ? `${lang}/${file}` : undefined}>
+    {isChapter && <ChapterAudio slot="after-title" lang={lang} file={file} />}
+    <slot />
+  </Prose>
   {isChapter && <Share lang={lang} url={currentUrl} title={displayTitle} />}
   {neighbours && settings.web.pagination && <Pagination lang={lang} prev={neighbours.prev} next={neighbours.next} />}
 </BaseLayout>

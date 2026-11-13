@@ -4,19 +4,30 @@ import { renderProse } from '../lib/render-prose.mjs';
 import { t } from '../lib/i18n';
 import { site } from '../../handbook.config';
 import type { Language } from '../data/locales';
+import { audioScriptChapter } from '../lib/audio-publication.mjs';
 
 interface Props {
   lang: Language;
   glossary?: boolean;
   class?: string;
   externalLinks?: boolean;
+  audioChapter?: string;
 }
-const { lang, glossary = false, class: className, externalLinks = true } = Astro.props;
+const { lang, glossary = false, class: className, externalLinks = true, audioChapter } = Astro.props;
 const content = renderProse(await Astro.slots.render('default'), {
   lang,
   glossary,
+  audioBlocks: audioChapter ? audioScriptChapter(audioChapter)?.blocks : undefined,
   anchorLabel: t(lang, 'headings.link-to-section', 'Link to this section'),
   external: externalLinks ? { site, notice: t(lang, 'external-link-notice') } : undefined,
 });
+// Keep the actual MDX heading (and its read-along hooks) intact, with an optional
+// component slot immediately below it rather than above the chapter title.
+const heading = Astro.slots.has('after-title') ? /<\/h1\s*>/i.exec(content) : null;
+const split = heading ? heading.index + heading[0].length : 0;
 ---
-<div class:list={['prose', className]} data-prose data-glossary-terms={glossary || undefined} set:html={content} />
+<div class:list={['prose', className]} data-prose data-glossary-terms={glossary || undefined}>
+  <Fragment set:html={content.slice(0, split)} />
+  <slot name="after-title" />
+  <Fragment set:html={content.slice(split)} />
+</div>

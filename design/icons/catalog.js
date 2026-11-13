@@ -295,6 +295,16 @@ window.iconCatalog = [
     "note": "Hand-drawn family selected and applied to the production interface."
   },
   {
+    "id": "play-out-loud",
+    "label": "Play out loud",
+    "sources": [
+      "design/icons/drawn/play-out-loud.svg"
+    ],
+    "brand": false,
+    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><g transform=\"translate(-1.2 2.64) scale(.78)\" stroke-width=\"2.4358974358974357\"><path d=\"M7 4q6 2 13 8-6 4-13 8Q6 12 7 4Z\"/></g><path d=\"M16 8q3.2 3.7.1 8M19.2 4.8q5.5 7.1.1 14.4\"/></svg>",
+    "note": "Hand-drawn family selected and applied to the production interface."
+  },
+  {
     "id": "chevron-right",
     "label": "Breadcrumb separator",
     "sources": [
