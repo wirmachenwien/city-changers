@@ -2,10 +2,12 @@
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+import zipfile
 from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
@@ -13,6 +15,7 @@ import brand_release as BRAND
 
 PREPARE = BRAND.load_script("prepare-brand-site")
 PUBLISH = BRAND.load_script("publish-brand-release")
+PACKAGE = BRAND.load_script("package-brand-kit")
 
 
 def remote_release(release, draft=False):
@@ -25,6 +28,56 @@ def remote_release(release, draft=False):
 
 
 class BrandReleaseTest(unittest.TestCase):
+    def test_packaging_normalizes_zip_metadata_and_bytes_across_staging_attempts(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source.txt"
+            source.write_text("Grüße from the brand kit.\n", encoding="utf-8")
+            with patch.object(PACKAGE, "ROOT", root), \
+                 patch.object(PACKAGE, "asset_map", return_value={"START-HERE.txt": source}), \
+                 patch.object(PACKAGE, "load_colors", return_value={"themes": {"light": {"ink": "black", "paper": "white"}}}):
+                PACKAGE.build(root / "first")
+                os.utime(source, (1700000000, 1700000000))
+                source.chmod(0o600)
+                PACKAGE.build(root / "second")
+            first = root / "first" / BRAND.KIT_NAME
+            second = root / "second" / BRAND.KIT_NAME
+            self.assertEqual(first.read_bytes(), second.read_bytes())
+            with zipfile.ZipFile(second) as archive:
+                self.assertEqual(len(archive.infolist()), 3)
+                for member in archive.infolist():
+                    self.assertEqual(member.date_time, (1980, 1, 1, 0, 0, 0))
+                    self.assertEqual(member.create_system, 3)
+                    self.assertEqual(member.external_attr >> 16, 0o100644)
+                self.assertEqual(archive.read("city-changers-brand-kit/START-HERE.txt"), source.read_bytes())
+
+    def test_draft_with_previously_staged_zip_resumes_without_replacing_it(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source.txt"
+            source.write_text("Approved exports only.\n", encoding="utf-8")
+            release = {"tag": "brand-test", "fingerprint": "fixture", "url": "https://example.com/brand", "assets": []}
+            with patch.object(PACKAGE, "ROOT", root), \
+                 patch.object(PACKAGE, "asset_map", return_value={"START-HERE.txt": source}), \
+                 patch.object(PACKAGE, "load_colors", return_value={"themes": {"light": {"ink": "black", "paper": "white"}}}):
+                PACKAGE.build(root / "earlier-attempt")
+                archive = (root / "earlier-attempt" / BRAND.KIT_NAME).read_bytes()
+                remote = {"draft": True, "body": "Brand inventory SHA-256: fixture", "assets": [
+                    {"name": BRAND.KIT_NAME, "size": len(archive), "digest": "sha256:" + hashlib.sha256(archive).hexdigest()}]}
+                completed = copy.deepcopy(remote)
+                metadata = (json.dumps(release, indent=2) + "\n").encode("utf-8")
+                completed["assets"].append({"name": "brand-release.json", "size": len(metadata),
+                                            "digest": "sha256:" + hashlib.sha256(metadata).hexdigest()})
+                os.utime(source, (1700000000, 1700000000))
+                with patch.object(PUBLISH, "check_artwork"), patch.object(PUBLISH, "inventory", return_value=release), \
+                     patch.object(PUBLISH, "find_release", side_effect=[remote, remote, completed]), \
+                     patch.object(PUBLISH, "load_script", return_value=PACKAGE), patch.object(PUBLISH, "gh") as gh:
+                    PUBLISH.publish()
+                calls = [call.args for call in gh.call_args_list]
+                self.assertEqual([args[1] for args in calls], ["upload", "edit"])
+                self.assertEqual([Path(arg).name for arg in calls[0][5:]], ["brand-release.json"])
+                self.assertIn("--draft=false", calls[1])
+
     def test_inventory_is_deterministic_complete_and_has_safe_unique_names(self):
         release = BRAND.inventory()
         self.assertRegex(release["tag"], r"^brand-[0-9]{4}-[0-9]{2}-[0-9]{2}[a-z]*$")

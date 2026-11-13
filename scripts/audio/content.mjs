@@ -36,6 +36,7 @@ export function text(node) {
 const wrappers = new Set(['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox', 'TableWrap', 'Slideshow']);
 const blockComponents = new Set([...wrappers, 'Figure', 'Question', 'Glossary', 'Bibliography']);
 const containsFootnote = node => node.name === 'Footnote' || (node.children ?? []).some(containsFootnote);
+const containsQuestion = node => node.name === 'Question' || (node.children ?? []).some(containsQuestion);
 const hasInlineContent = nodes => clean(nodes.map(text).join('')) || nodes.some(containsFootnote);
 
 // MDX parses adjacent one-line components as JSX *text* elements inside one
@@ -136,12 +137,13 @@ export function extractTree(tree, lang, glossary) {
       if (!referenceDepth || node.depth <= referenceDepth) referenceDepth = referenceHeadings.test(clean(text(node))) ? node.depth : 0;
       if (!referenceDepth) {
         const sourceTitle = clean(text(node));
+        const spokenTitle = clean(narrationText(node, lang));
         const chapter = node.depth === 1 ? sourceTitle.match(/^(\d+)\.\s+(.+)$/u) : null;
         if (chapter) {
           const number = Number(chapter[1]);
           const prefix = { en: 'Chapter', de: 'Kapitel', sl: 'Poglavje' }[lang];
-          add(node, 'heading', sourceTitle, true, { chapterNumber: number, narration: `${prefix} ${number}: ${chapter[2]}` });
-        } else add(node, 'heading', sourceTitle);
+          add(node, 'heading', sourceTitle, true, { chapterNumber: number, narration: `${prefix} ${number}: ${spokenTitle.replace(/^\d+\.\s+/u, '')}` });
+        } else add(node, 'heading', sourceTitle, spokenTitle !== sourceTitle, spokenTitle !== sourceTitle ? { narration: spokenTitle } : {});
       }
       return;
     }
@@ -185,6 +187,7 @@ export function extractTree(tree, lang, glossary) {
     }
     if (node.type === 'list') {
       node.children.forEach((item, index) => {
+        if (containsQuestion(item)) throw new Error(`Question inside a list item at line ${item.position.start.line} requires editorial handling`);
         const number = (node.start ?? 1) + index;
         const narration = clean(`${node.ordered ? `${spokenCounter(number, lang)}. ` : ''}${narrationText(item, lang)}`);
         const identity = clean(text(item)) || narration;

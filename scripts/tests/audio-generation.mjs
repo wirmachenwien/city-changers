@@ -103,8 +103,9 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
   const planHash = planned.stdout.trim();
   const cli = new URL('../audio/cli.mjs', import.meta.url).href;
   const bootstrap = `
-    let posts = 0;
+    let posts = 0, fetches = 0;
     globalThis.fetch = async (url, options = {}) => {
+      fetches++;
       if (!url.startsWith('https://api.elevenlabs.io/')) throw new Error('Unexpected network request');
       let data;
       if (options.method === 'POST') {
@@ -122,11 +123,21 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
     process.argv = ['node','cli','generate','--budget',process.env.MOCK_BUDGET,'--units',process.env.MOCK_UNITS,'--plan',process.env.MOCK_PLAN,'--yes'];
     await import(${JSON.stringify(cli)});
     console.log('MOCK_POSTS='+posts);
+    console.log('MOCK_FETCHES='+fetches);
   `;
-  const run = (budget, fail = false, units = unit.id) => spawnSync(process.execPath, ['--input-type=module', '-e', bootstrap], {
-    cwd: temp, encoding: 'utf8', env: { PATH: process.env.PATH, ELEVENLABS_API_KEY: 'mock-key-not-a-real-key', ELEVENLABS_VOICE_ID: 'mock-voice',
+  const run = (budget, fail = false, units = unit.id, key = 'mock-key-not-a-real-key') => spawnSync(process.execPath, ['--input-type=module', '-e', bootstrap], {
+    cwd: temp, encoding: 'utf8', env: { PATH: process.env.PATH, ELEVENLABS_API_KEY: key, ELEVENLABS_VOICE_ID: 'mock-voice',
       MOCK_BUDGET: String(budget), MOCK_UNITS: units, MOCK_PLAN: planHash, MOCK_FAILURE: fail ? 'yes' : 'no' },
   });
+  for (const separator of ['\r', '\n', '\r\n']) {
+    const invalid = run(unit.text.length, false, unit.id, `private-fixture-key${separator}private-fixture-suffix`);
+    assert.notEqual(invalid.status, 0);
+    assert.equal(invalid.stderr.trim(), 'Audio: The API key contains a line break. Correct it locally; do not share its value.');
+    assert.match(invalid.stdout, /MOCK_POSTS=0/);
+    assert.match(invalid.stdout, /MOCK_FETCHES=0/);
+    assert.doesNotMatch(invalid.stdout + invalid.stderr, /private-fixture-key|private-fixture-suffix/);
+    assert.ok(!readdirSync(temp).includes('.cache'), 'Credential rejection must happen before reservations');
+  }
   const overBudget = run(unit.text.length - 1);
   assert.notEqual(overBudget.status, 0);
   assert.match(overBudget.stderr, /above the .*budget/);

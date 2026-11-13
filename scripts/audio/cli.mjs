@@ -46,6 +46,7 @@ function credentials(config, lang) {
   const voice = process.env[config.voices[lang]];
   if (!key || !voice) throw new Error('Set ELEVENLABS_API_KEY and the configured voice variable in .env or export them, then use npm run audio:preflight or audio:generate.');
   if (key !== key.trim() || voice !== voice.trim()) throw new Error('A credential has leading/trailing whitespace. Correct it locally; do not share its value.');
+  if (/[\r\n]/u.test(key)) throw new Error('The API key contains a line break. Correct it locally; do not share its value.');
   return { key, voice };
 }
 async function get(endpoint, key, check) {

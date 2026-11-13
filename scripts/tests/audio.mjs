@@ -29,6 +29,29 @@ test('numbered chapter headings use localized chapter prefixes without changing 
     assert.equal(blocks[2].narration, undefined);
   }
 });
+test('heading footnotes are read in place while source identities and chapter prefixes stay stable', () => {
+  for (const [lang, prefix] of [['en', 'Chapter'], ['de', 'Kapitel'], ['sl', 'Poglavje']]) {
+    for (const heading of ['# 2. Heading', '## Heading', '# Heading']) {
+      for (const note of ['<Footnote text="Read this note." />', '<Footnote>Read this note.</Footnote>']) {
+        const plain = identify(parseSource(source(`${heading} ending`), lang, {}).blocks)[0];
+        const noted = identify(parseSource(source(`${heading} ${note} ending`), lang, {}).blocks)[0];
+        assert.equal(noted.id, plain.id);
+        assert.equal(noted.fingerprint, plain.fingerprint);
+        assert.equal(noted.text, plain.text);
+        assert.equal(noted.narration, `${heading.startsWith('# 2.') ? `${prefix} 2: ` : ''}Heading Read this note. ending`);
+        assert.equal(noted.adaptation, true);
+      }
+    }
+  }
+});
+test('questions inside list items fail with a source location instead of losing quiz narration', () => {
+  const question = '<Question question="Why?" options={["Yes"]} answer={0} />';
+  for (const body of [`- ${question}`, `1. ${question}`, `- Prose ${question}`, `- <Accordion title="Details">${question}</Accordion>`, `- Parent\n  - ${question}`]) {
+    assert.throws(() => extract(body), /Question inside a list item at line 5 requires editorial handling/);
+  }
+  assert.ok(extract(question).some(block => block.kind === 'quiz'));
+  assert.equal(extract('- Ordinary item.')[0].narration, 'Ordinary item.');
+});
 test('adjacent inline MDX components preserve titles and include only the approved semicircle figure', () => {
   const blocks = extract('<Accordion title="First">One.</Accordion>\n<Accordion title="Second">Two.</Accordion>\n\n<Slideshow>\n<Figure alt="Excluded visual." src="x.jpg">Photo: Person.</Figure>\n<Figure alt="Allowed semicircle." src="spectrum-of-allies.png">Photo: Other.</Figure>\n</Slideshow>');
   assert.deepEqual(blocks.map(b => b.text), ['First', 'One.', 'Second', 'Two.', 'Allowed semicircle.']);
