@@ -161,17 +161,26 @@ export function assemble(plan, { audiobooks = true } = {}) {
     writeFileSync(path(metaFile), `;FFMETADATA1\ntitle=${ffescape(title)}\nalbum=${ffescape(title)}\nlanguage=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}\nartist=${ffescape(metadata.author)}\nalbum_artist=${ffescape(narrator)}\ncomposer=${ffescape(narrator)}\ncopyright=${ffescape(metadata.rights)}\ncomment=${ffescape(metadata.rights)}\nmedia_type=2\n${markers.join('\n')}\n`);
     const filename = audiobookFilename(title, lang);
     const m4b = `${prefix}/${lang}/${filename}`;
-    const mediaRecipeHash = hash({ lang, title, processing, narrator, author: metadata.author, rights: metadata.rights, coverHash: digest(metadata.cover),
-      chapters: chapters.map(c => ({ title: c.title, duration: c.pcmDuration, audio: c.assembly.map(a => a.insertedPauses.length ? { hash: a.audioHash, pauses: a.insertedPauses } : a.audioHash) })) });
+    const mediaRecipe = { lang, title, processing, narrator, author: metadata.author, rights: metadata.rights, coverHash: digest(metadata.cover),
+      chapters: chapters.map(c => ({ title: c.title, duration: c.pcmDuration, audio: c.assembly.map(a => a.insertedPauses.length ? { hash: a.audioHash, pauses: a.insertedPauses } : a.audioHash) })) };
+    const mediaRecipeHash = hash(mediaRecipe);
     const recipeHash = hash({ mediaRecipeHash, metadataVersion: 2, chapterTimescale: 1000, filename });
-    const old = previous.audiobooks.find(b => b.lang === lang && (b.recipeHash === recipeHash || b.recipeHash === mediaRecipeHash || b.mediaRecipeHash === mediaRecipeHash) &&
-      existsSync(path(`${staging}/${b.file}`)) && digest(`${staging}/${b.file}`) === b.sha256);
+    const old = previous.audiobooks.find(b => {
+      const source = `${staging}/${b.file}`;
+      if (b.lang !== lang || !existsSync(path(source)) || digest(source) !== b.sha256) return false;
+      if (b.recipeHash === recipeHash || b.recipeHash === mediaRecipeHash || b.mediaRecipeHash === mediaRecipeHash) return true;
+      // Credit/title edits are container metadata, not a reason to re-encode
+      // AAC. Reconstruct the old recipe from its verified embedded tags; audio,
+      // cover, processing and chapter structure must still match exactly.
+      const tags = probe(source).format.tags ?? {};
+      const priorRecipeHash = hash({ ...mediaRecipe, title: tags.title, author: tags.artist, narrator: tags.album_artist, rights: tags.copyright });
+      return b.mediaRecipeHash === priorRecipeHash || b.recipeHash === priorRecipeHash;
+    });
     if (old?.recipeHash === recipeHash) {
       if (path(`${staging}/${old.file}`) !== path(m4b)) copyFileSync(path(`${staging}/${old.file}`), path(m4b));
       reusedOutputs++;
     } else if (old) {
-      // Add Apple Books' album/book title without re-encoding retained AAC or
-      // cover artwork. Legacy recipe hashes identify the exact same media.
+      // Update book metadata without re-encoding retained AAC or cover artwork.
       run('ffmpeg', ['-v', 'error', '-y', '-i', path(`${staging}/${old.file}`), '-i', path(metaFile),
         '-map', '0:a', '-map', '0:v', '-map_metadata', '1', '-map_chapters', '1', '-c', 'copy', '-disposition:v', 'attached_pic',
         '-metadata:s:a:0', `language=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}`, '-video_track_timescale', '1000', '-movie_timescale', '1000',

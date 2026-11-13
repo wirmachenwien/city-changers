@@ -79,6 +79,18 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
     const chapters = JSON.parse(run('ffprobe', ['-v', 'error', '-show_chapters', '-of', 'json', `.cache/audio/release/${book.file}`])).chapters;
     assert.ok(chapters.every(c => c.time_base === '1/1000'), 'Bound chapter timescale to prevent duration overflow in long remuxed chapters');
   }
+  config.metadata.author = 'Fixture organization & Partner';
+  config.metadata.rights = 'Canonical test credit; not narration';
+  plan.planHash = hash('canonical-credit');
+  write('fixture-plan.json', plan);
+  assert.match(run(process.execPath, ['--input-type=module', '-e', execute]), /21 unchanged encoded outputs reused; 3 metadata-only remuxes/);
+  const credited = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  for (const book of credited.audiobooks) {
+    const info = JSON.parse(run('ffprobe', ['-v', 'error', '-show_format', '-of', 'json', `.cache/audio/release/${book.file}`]));
+    assert.equal(info.format.tags.artist, config.metadata.author);
+    assert.equal(info.format.tags.copyright, config.metadata.rights);
+    assert.equal(packetHash(book.file), packetHash(migrated.audiobooks.find(b => b.lang === book.lang).file), 'Credit changes preserve AAC packets');
+  }
   const prepare = options => `import {prepare} from ${JSON.stringify(mediaUrl)};import{readFileSync}from'node:fs';prepare(JSON.parse(readFileSync('fixture-plan.json','utf8')),${JSON.stringify(options)});`;
   // A chapter is a finalized frontend artifact, not a private preview. It needs
   // no audiobook metadata, and preparing another chapter preserves it.
@@ -140,7 +152,7 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   const bookInfo = JSON.parse(run('ffprobe', ['-v', 'error', '-show_chapters', '-of', 'json', `.cache/audio/release/${second.audiobooks[0].file}`]));
   assert.ok(Number(bookInfo.chapters[1].start_time) > first.chapters[0].pcmDuration + .4);
   assert.equal(second.chapters[0].blockIds[0], first.chapters[0].blockIds[0]);
-  assert.deepEqual(second.audiobooks.slice(1).map(b => b.sha256), first.audiobooks.slice(1).map(b => b.sha256));
+  assert.deepEqual(second.audiobooks.slice(1).map(b => b.sha256), credited.audiobooks.slice(1).map(b => b.sha256));
   // Add a thinking pause using the very same retained source clip. The fake
   // character alignment stands in for API output; no narration is requested.
   const quizText = 'Pause to think. Answer: Yes.';

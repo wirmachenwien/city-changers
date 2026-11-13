@@ -147,6 +147,12 @@ test('complete 21-track catalogue plan is deterministic, stable and endpoint-bou
   assert.ok(plan.chapters.flatMap(c => c.blocks).filter(b => b.kind === 'table').every(b => b.submitted.includes('\n\n')));
   for (const c of plan.chapters) for (const b of c.blocks.filter(b => b.ordered)) assert.ok(b.submitted.startsWith(`${spokenCounter(b.counter, c.lang)}. `));
 });
+test('audiobook organization credits use the canonical project writing style', () => {
+  const config = JSON.parse(readFileSync('audio/config.json', 'utf8'));
+  const project = JSON.parse(readFileSync('src/data/project.json', 'utf8'));
+  assert.equal(config.metadata.author, project.creator);
+  assert.ok(config.metadata.rights.includes(project.creator));
+});
 test('generation requires an explicit budget', () => {
   const result = spawnSync(process.execPath, ['scripts/audio/cli.mjs', 'generate'], { encoding: 'utf8', env: { PATH: process.env.PATH } });
   assert.notEqual(result.status, 0);
