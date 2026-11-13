@@ -1,0 +1,869 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "f2b1a330c5e4875d7f1d",
+  "chapterId": "sl/glossary",
+  "cues": [
+    {
+      "start": 0,
+      "end": 2.4,
+      "blockIds": [
+        "b-24b5b92e64a06b10"
+      ]
+    },
+    {
+      "start": 2.4,
+      "end": 10.8,
+      "blockIds": [
+        "b-67d1c4322e2db111"
+      ]
+    },
+    {
+      "start": 10.8,
+      "end": 16.16,
+      "blockIds": [
+        "b-b2eedd04c9bfc9df"
+      ]
+    },
+    {
+      "start": 16.16,
+      "end": 23.759999999999998,
+      "blockIds": [
+        "b-cd679227b7be440b"
+      ]
+    },
+    {
+      "start": 23.759999999999998,
+      "end": 35.76,
+      "blockIds": [
+        "b-20c89d43187447f9"
+      ]
+    },
+    {
+      "start": 35.76,
+      "end": 45.599999999999994,
+      "blockIds": [
+        "b-314ec563e15adc6d"
+      ]
+    },
+    {
+      "start": 45.599999999999994,
+      "end": 54.08,
+      "blockIds": [
+        "b-3f63fa4268520faa"
+      ]
+    },
+    {
+      "start": 54.08,
+      "end": 63.68,
+      "blockIds": [
+        "b-b01224c7b0c01183"
+      ]
+    },
+    {
+      "start": 63.68,
+      "end": 70,
+      "blockIds": [
+        "b-9ce43238f4b57cb3"
+      ]
+    },
+    {
+      "start": 70,
+      "end": 79.84,
+      "blockIds": [
+        "b-78c09cf48e1ca109"
+      ]
+    },
+    {
+      "start": 79.84,
+      "end": 88.16,
+      "blockIds": [
+        "b-ecd8812bcd4e593b"
+      ]
+    },
+    {
+      "start": 88.16,
+      "end": 97.92,
+      "blockIds": [
+        "b-6deab8e13a93815c"
+      ]
+    },
+    {
+      "start": 97.92,
+      "end": 106.08,
+      "blockIds": [
+        "b-ef05aa6abe8f5a07"
+      ]
+    },
+    {
+      "start": 106.08,
+      "end": 115.28,
+      "blockIds": [
+        "b-1efaebb8caa95324"
+      ]
+    },
+    {
+      "start": 115.28,
+      "end": 121.92,
+      "blockIds": [
+        "b-c7e052ce4c80948b"
+      ]
+    },
+    {
+      "start": 121.92,
+      "end": 129.52,
+      "blockIds": [
+        "b-065e8507d197a186"
+      ]
+    },
+    {
+      "start": 129.52,
+      "end": 137.52,
+      "blockIds": [
+        "b-87c6efb22deee7ff"
+      ]
+    },
+    {
+      "start": 137.52,
+      "end": 146.08,
+      "blockIds": [
+        "b-7674646c1424783c"
+      ]
+    },
+    {
+      "start": 146.08,
+      "end": 156.24,
+      "blockIds": [
+        "b-a99508a072ee3501"
+      ]
+    },
+    {
+      "start": 156.24,
+      "end": 165.44,
+      "blockIds": [
+        "b-84dcb45dc44540e9"
+      ]
+    },
+    {
+      "start": 165.44,
+      "end": 173.44,
+      "blockIds": [
+        "b-4faa80f7d025b2e0"
+      ]
+    },
+    {
+      "start": 173.44,
+      "end": 183.84,
+      "blockIds": [
+        "b-a460b4d6b5ea6d5c"
+      ]
+    },
+    {
+      "start": 183.84,
+      "end": 193.28,
+      "blockIds": [
+        "b-82cdf807d976ded4"
+      ]
+    },
+    {
+      "start": 193.28,
+      "end": 205.2,
+      "blockIds": [
+        "b-4cc3bc19382191dc"
+      ]
+    },
+    {
+      "start": 205.2,
+      "end": 216.39999999999998,
+      "blockIds": [
+        "b-683e9502ee86cee9"
+      ]
+    },
+    {
+      "start": 216.39999999999998,
+      "end": 223.67999999999998,
+      "blockIds": [
+        "b-f2f561087400b8c9"
+      ]
+    },
+    {
+      "start": 223.67999999999998,
+      "end": 230.64,
+      "blockIds": [
+        "b-0a075f450d9259f0"
+      ]
+    },
+    {
+      "start": 230.64,
+      "end": 238.55999999999997,
+      "blockIds": [
+        "b-6811fe3eab0a2407"
+      ]
+    },
+    {
+      "start": 238.55999999999997,
+      "end": 247.83999999999997,
+      "blockIds": [
+        "b-e18ea320f5417384"
+      ]
+    },
+    {
+      "start": 247.83999999999997,
+      "end": 254.87999999999997,
+      "blockIds": [
+        "b-76051edfac068d69"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-24b5b92e64a06b10-s1",
+      "blockIds": [
+        "b-24b5b92e64a06b10"
+      ],
+      "start": 0,
+      "end": 2.4,
+      "startOffset": 0,
+      "endOffset": 18,
+      "text": "Poglavje 7: Glosar"
+    },
+    {
+      "sentenceId": "b-67d1c4322e2db111-s1",
+      "blockIds": [
+        "b-67d1c4322e2db111"
+      ],
+      "start": 2.4,
+      "end": 6.640000000000001,
+      "startOffset": 0,
+      "endOffset": 57,
+      "text": "Ta glosar po abecedi razlaga ključne pojme zbirke orodij."
+    },
+    {
+      "sentenceId": "b-67d1c4322e2db111-s2",
+      "blockIds": [
+        "b-67d1c4322e2db111"
+      ],
+      "start": 6.880000000000001,
+      "end": 10.8,
+      "startOffset": 58,
+      "endOffset": 103,
+      "text": "Pomaga brati poglavja 1 do 6 brez predznanja."
+    },
+    {
+      "sentenceId": "b-b2eedd04c9bfc9df-s1",
+      "blockIds": [
+        "b-b2eedd04c9bfc9df"
+      ],
+      "start": 10.8,
+      "end": 11.680000000000001,
+      "startOffset": 0,
+      "endOffset": 7,
+      "text": "Mejnik."
+    },
+    {
+      "sentenceId": "b-b2eedd04c9bfc9df-s2",
+      "blockIds": [
+        "b-b2eedd04c9bfc9df"
+      ],
+      "start": 11.920000000000002,
+      "end": 16.16,
+      "startOffset": 8,
+      "endOffset": 66,
+      "text": "Viden vmesni cilj, ki daje kampanji napredek in usmeritev."
+    },
+    {
+      "sentenceId": "b-cd679227b7be440b-s1",
+      "blockIds": [
+        "b-cd679227b7be440b"
+      ],
+      "start": 16.16,
+      "end": 17.28,
+      "startOffset": 0,
+      "endOffset": 13,
+      "text": "Mobilizacija."
+    },
+    {
+      "sentenceId": "b-cd679227b7be440b-s2",
+      "blockIds": [
+        "b-cd679227b7be440b"
+      ],
+      "start": 17.84,
+      "end": 23.759999999999998,
+      "startOffset": 14,
+      "endOffset": 100,
+      "text": "Delo, s katerim ljudje razumejo, zakaj sodelujejo, in so pripravljeni skupaj ukrepati."
+    },
+    {
+      "sentenceId": "b-20c89d43187447f9-s1",
+      "blockIds": [
+        "b-20c89d43187447f9"
+      ],
+      "start": 23.759999999999998,
+      "end": 25.24,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Modalni filter."
+    },
+    {
+      "sentenceId": "b-20c89d43187447f9-s2",
+      "blockIds": [
+        "b-20c89d43187447f9"
+      ],
+      "start": 25.52,
+      "end": 35.76,
+      "startOffset": 16,
+      "endOffset": 156,
+      "text": "Ovira, kot so stebriček, sadilni obroč ali betonski element, ki ustavi tranzitni promet, dostopnemu in dostavnemu prometu pa omogoči prehod."
+    },
+    {
+      "sentenceId": "b-314ec563e15adc6d-s1",
+      "blockIds": [
+        "b-314ec563e15adc6d"
+      ],
+      "start": 35.76,
+      "end": 37.199999999999996,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Oblikovanje ulic."
+    },
+    {
+      "sentenceId": "b-314ec563e15adc6d-s2",
+      "blockIds": [
+        "b-314ec563e15adc6d"
+      ],
+      "start": 37.68,
+      "end": 45.599999999999994,
+      "startOffset": 18,
+      "endOffset": 121,
+      "text": "Skupno oblikovanje ulic s preprostimi moduli, kot so načrt ulice, transparent ali vizualizacija dreves."
+    },
+    {
+      "sentenceId": "b-3f63fa4268520faa-s1",
+      "blockIds": [
+        "b-3f63fa4268520faa"
+      ],
+      "start": 45.599999999999994,
+      "end": 47.07999999999999,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Okno priložnosti."
+    },
+    {
+      "sentenceId": "b-3f63fa4268520faa-s2",
+      "blockIds": [
+        "b-3f63fa4268520faa"
+      ],
+      "start": 47.279999999999994,
+      "end": 54.08,
+      "startOffset": 18,
+      "endOffset": 110,
+      "text": "Ugodni trenutek za spremembo, na primer volitve, medijska pozornost ali politična odločitev."
+    },
+    {
+      "sentenceId": "b-b01224c7b0c01183-s1",
+      "blockIds": [
+        "b-b01224c7b0c01183"
+      ],
+      "start": 54.08,
+      "end": 56.48,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Postavljanje teme na dnevni red."
+    },
+    {
+      "sentenceId": "b-b01224c7b0c01183-s2",
+      "blockIds": [
+        "b-b01224c7b0c01183"
+      ],
+      "start": 56.72,
+      "end": 63.68,
+      "startOffset": 33,
+      "endOffset": 126,
+      "text": "Taktika, s katero temo naredimo javno vidno, na primer z akcijo, peticijo ali medijsko sliko."
+    },
+    {
+      "sentenceId": "b-9ce43238f4b57cb3-s1",
+      "blockIds": [
+        "b-9ce43238f4b57cb3"
+      ],
+      "start": 63.68,
+      "end": 64.72,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Kiezblock."
+    },
+    {
+      "sentenceId": "b-9ce43238f4b57cb3-s2",
+      "blockIds": [
+        "b-9ce43238f4b57cb3"
+      ],
+      "start": 64.96,
+      "end": 70,
+      "startOffset": 11,
+      "endOffset": 80,
+      "text": "Berlinska različica superbloka, ki močno temelji na lokalnih pobudah."
+    },
+    {
+      "sentenceId": "b-78c09cf48e1ca109-s1",
+      "blockIds": [
+        "b-78c09cf48e1ca109"
+      ],
+      "start": 70,
+      "end": 71.76,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Soseska z malo prometa."
+    },
+    {
+      "sentenceId": "b-78c09cf48e1ca109-s2",
+      "blockIds": [
+        "b-78c09cf48e1ca109"
+      ],
+      "start": 72.24,
+      "end": 79.84,
+      "startOffset": 24,
+      "endOffset": 132,
+      "text": "Cenejša oblika umirjanja prometa z malo tranzitnega prometa, o kateri razpravljajo kot o dunajski različici."
+    },
+    {
+      "sentenceId": "b-ecd8812bcd4e593b-s1",
+      "blockIds": [
+        "b-ecd8812bcd4e593b"
+      ],
+      "start": 79.84,
+      "end": 81,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Spremljanje."
+    },
+    {
+      "sentenceId": "b-ecd8812bcd4e593b-s2",
+      "blockIds": [
+        "b-ecd8812bcd4e593b"
+      ],
+      "start": 81.28,
+      "end": 88.16,
+      "startOffset": 13,
+      "endOffset": 102,
+      "text": "Sistematično opazovanje in dokumentiranje prometa, rabe, podpore in političnega napredka."
+    },
+    {
+      "sentenceId": "b-6deab8e13a93815c-s1",
+      "blockIds": [
+        "b-6deab8e13a93815c"
+      ],
+      "start": 88.16,
+      "end": 89.03999999999999,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Superblok."
+    },
+    {
+      "sentenceId": "b-6deab8e13a93815c-s2",
+      "blockIds": [
+        "b-6deab8e13a93815c"
+      ],
+      "start": 89.44,
+      "end": 97.92,
+      "startOffset": 11,
+      "endOffset": 139,
+      "text": "Območje, kjer je tranzitni promet sistematično prekinjen, da se ulice v notranjosti lahko uporabljajo varneje in bolj raznoliko."
+    },
+    {
+      "sentenceId": "b-ef05aa6abe8f5a07-s1",
+      "blockIds": [
+        "b-ef05aa6abe8f5a07"
+      ],
+      "start": 97.92,
+      "end": 99.56,
+      "startOffset": 0,
+      "endOffset": 19,
+      "text": "Taktični urbanizem."
+    },
+    {
+      "sentenceId": "b-ef05aa6abe8f5a07-s2",
+      "blockIds": [
+        "b-ef05aa6abe8f5a07"
+      ],
+      "start": 99.76,
+      "end": 106.08,
+      "startOffset": 20,
+      "endOffset": 110,
+      "text": "Začasni, poceni posegi v mestni prostor, s katerimi preizkušamo spremembe in jih pokažemo."
+    },
+    {
+      "sentenceId": "b-1efaebb8caa95324-s1",
+      "blockIds": [
+        "b-1efaebb8caa95324"
+      ],
+      "start": 106.08,
+      "end": 107.44,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Teorija sprememb."
+    },
+    {
+      "sentenceId": "b-1efaebb8caa95324-s2",
+      "blockIds": [
+        "b-1efaebb8caa95324"
+      ],
+      "start": 107.92,
+      "end": 115.28,
+      "startOffset": 18,
+      "endOffset": 122,
+      "text": "Predpostavka o tem, kako nastajajo družbene in politične spremembe, ki pomaga zavestno izbirati taktike."
+    },
+    {
+      "sentenceId": "b-c7e052ce4c80948b-s1",
+      "blockIds": [
+        "b-c7e052ce4c80948b"
+      ],
+      "start": 115.28,
+      "end": 116.72,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Tranzitni promet."
+    },
+    {
+      "sentenceId": "b-c7e052ce4c80948b-s2",
+      "blockIds": [
+        "b-c7e052ce4c80948b"
+      ],
+      "start": 117.12,
+      "end": 121.92,
+      "startOffset": 18,
+      "endOffset": 84,
+      "text": "Promet, ki območje le prečka, ne da bi imel v njem cilj ali izvor."
+    },
+    {
+      "sentenceId": "b-065e8507d197a186-s1",
+      "blockIds": [
+        "b-065e8507d197a186"
+      ],
+      "start": 121.92,
+      "end": 122.88,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Uokvirjanje."
+    },
+    {
+      "sentenceId": "b-065e8507d197a186-s2",
+      "blockIds": [
+        "b-065e8507d197a186"
+      ],
+      "start": 123.36,
+      "end": 129.52,
+      "startOffset": 13,
+      "endOffset": 101,
+      "text": "Poimenovanje in pripoved problema ter njegove rešitve tako, da ju razumemo na nov način."
+    },
+    {
+      "sentenceId": "b-87c6efb22deee7ff-s1",
+      "blockIds": [
+        "b-87c6efb22deee7ff"
+      ],
+      "start": 129.52,
+      "end": 130.26000000000002,
+      "startOffset": 0,
+      "endOffset": 7,
+      "text": "Zgodba."
+    },
+    {
+      "sentenceId": "b-87c6efb22deee7ff-s2",
+      "blockIds": [
+        "b-87c6efb22deee7ff"
+      ],
+      "start": 130.57000000000002,
+      "end": 137.52,
+      "startOffset": 8,
+      "endOffset": 92,
+      "text": "Zgodba angažiranja, ki jasno pove cilj, priložnost, zavezništva in želeno spremembo."
+    },
+    {
+      "sentenceId": "b-7674646c1424783c-s1",
+      "blockIds": [
+        "b-7674646c1424783c"
+      ],
+      "start": 137.52,
+      "end": 139.20000000000002,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Leiwande Straßen Radar."
+    },
+    {
+      "sentenceId": "b-7674646c1424783c-s2",
+      "blockIds": [
+        "b-7674646c1424783c"
+      ],
+      "start": 139.60000000000002,
+      "end": 146.08,
+      "startOffset": 24,
+      "endOffset": 115,
+      "text": "Popisni list za ocenjevanje kakovosti življenja, varnosti in potrebe po ukrepanju na ulici."
+    },
+    {
+      "sentenceId": "b-a99508a072ee3501-s1",
+      "blockIds": [
+        "b-a99508a072ee3501"
+      ],
+      "start": 146.08,
+      "end": 147.60000000000002,
+      "startOffset": 0,
+      "endOffset": 18,
+      "text": "Street Shit Bingo."
+    },
+    {
+      "sentenceId": "b-a99508a072ee3501-s2",
+      "blockIds": [
+        "b-a99508a072ee3501"
+      ],
+      "start": 148.08,
+      "end": 156.24,
+      "startOffset": 19,
+      "endOffset": 135,
+      "text": "Orodje za skupni sprehod, na katerem udeleženci odkrivajo ovire, nevarnosti in presenetljive rabe uličnega prostora."
+    },
+    {
+      "sentenceId": "b-84dcb45dc44540e9-s1",
+      "blockIds": [
+        "b-84dcb45dc44540e9"
+      ],
+      "start": 156.24,
+      "end": 157.92000000000002,
+      "startOffset": 0,
+      "endOffset": 20,
+      "text": "Street Design Table."
+    },
+    {
+      "sentenceId": "b-84dcb45dc44540e9-s2",
+      "blockIds": [
+        "b-84dcb45dc44540e9"
+      ],
+      "start": 158.16,
+      "end": 165.44,
+      "startOffset": 21,
+      "endOffset": 123,
+      "text": "Orodje za prilagajanje načrta ulice s papirnatimi elementi in raziskovanje alternativnih rab prostora."
+    },
+    {
+      "sentenceId": "b-4faa80f7d025b2e0-s1",
+      "blockIds": [
+        "b-4faa80f7d025b2e0"
+      ],
+      "start": 165.44,
+      "end": 166.56,
+      "startOffset": 0,
+      "endOffset": 14,
+      "text": "Tree Love Set."
+    },
+    {
+      "sentenceId": "b-4faa80f7d025b2e0-s2",
+      "blockIds": [
+        "b-4faa80f7d025b2e0"
+      ],
+      "start": 166.96,
+      "end": 173.44,
+      "startOffset": 15,
+      "endOffset": 107,
+      "text": "Komplet kostumov v obliki dreves, s katerimi pokažemo, kje sta potrebni senca in ozelenitev."
+    },
+    {
+      "sentenceId": "b-a460b4d6b5ea6d5c-s1",
+      "blockIds": [
+        "b-a460b4d6b5ea6d5c"
+      ],
+      "start": 173.44,
+      "end": 175.12,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "načrt za uspeh."
+    },
+    {
+      "sentenceId": "b-a460b4d6b5ea6d5c-s2",
+      "blockIds": [
+        "b-a460b4d6b5ea6d5c"
+      ],
+      "start": 175.35999999999999,
+      "end": 183.84,
+      "startOffset": 16,
+      "endOffset": 141,
+      "text": "Predstava vaše pobude o tem, kako boste dosegli spremembo, na primer zbrati 1.000 podpisov in jih predati lokalnim politikom."
+    },
+    {
+      "sentenceId": "b-82cdf807d976ded4-s1",
+      "blockIds": [
+        "b-82cdf807d976ded4"
+      ],
+      "start": 183.84,
+      "end": 185.36,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "izhlapevanje prometa."
+    },
+    {
+      "sentenceId": "b-82cdf807d976ded4-s2",
+      "blockIds": [
+        "b-82cdf807d976ded4"
+      ],
+      "start": 185.76,
+      "end": 193.28,
+      "startOffset": 22,
+      "endOffset": 136,
+      "text": "Ko se cestni prostor za avtomobile zmanjša, se skupni promet pogosto zmanjša, namesto da bi se le preselil drugam."
+    },
+    {
+      "sentenceId": "b-4cc3bc19382191dc-s1",
+      "blockIds": [
+        "b-4cc3bc19382191dc"
+      ],
+      "start": 193.28,
+      "end": 195.04,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "kartiranje vročih točk."
+    },
+    {
+      "sentenceId": "b-4cc3bc19382191dc-s2",
+      "blockIds": [
+        "b-4cc3bc19382191dc"
+      ],
+      "start": 195.52,
+      "end": 205.2,
+      "startOffset": 24,
+      "endOffset": 158,
+      "text": "Zbiranje izkušenj ljudi z določenimi kraji na skupnem zemljevidu, da se pokažejo vzorci, na primer toplotni otoki ali nevarni prehodi."
+    },
+    {
+      "sentenceId": "b-683e9502ee86cee9-s1",
+      "blockIds": [
+        "b-683e9502ee86cee9"
+      ],
+      "start": 205.2,
+      "end": 207.11999999999998,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Public Life Data Protocol."
+    },
+    {
+      "sentenceId": "b-683e9502ee86cee9-s2",
+      "blockIds": [
+        "b-683e9502ee86cee9"
+      ],
+      "start": 207.6,
+      "end": 216.39999999999998,
+      "startOffset": 27,
+      "endOffset": 156,
+      "text": "Odprt standard inštituta Gehl za zbiranje primerljivih podatkov o tem, kako se ljudje premikajo in zadržujejo v javnih prostorih."
+    },
+    {
+      "sentenceId": "b-f2f561087400b8c9-s1",
+      "blockIds": [
+        "b-f2f561087400b8c9"
+      ],
+      "start": 216.39999999999998,
+      "end": 217.59999999999997,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Supergrätzl."
+    },
+    {
+      "sentenceId": "b-f2f561087400b8c9-s2",
+      "blockIds": [
+        "b-f2f561087400b8c9"
+      ],
+      "start": 217.83999999999997,
+      "end": 223.67999999999998,
+      "startOffset": 13,
+      "endOffset": 85,
+      "text": "Dunajsko poimenovanje za superblok, dobesedno približno 'super soseska'."
+    },
+    {
+      "sentenceId": "b-0a075f450d9259f0-s1",
+      "blockIds": [
+        "b-0a075f450d9259f0"
+      ],
+      "start": 223.67999999999998,
+      "end": 224.95999999999998,
+      "startOffset": 0,
+      "endOffset": 14,
+      "text": "Igralna ulica."
+    },
+    {
+      "sentenceId": "b-0a075f450d9259f0-s2",
+      "blockIds": [
+        "b-0a075f450d9259f0"
+      ],
+      "start": 225.43999999999997,
+      "end": 230.64,
+      "startOffset": 15,
+      "endOffset": 82,
+      "text": "Ulica, začasno zaprta za promet, da se lahko na njej igrajo otroci."
+    },
+    {
+      "sentenceId": "b-6811fe3eab0a2407-s1",
+      "blockIds": [
+        "b-6811fe3eab0a2407"
+      ],
+      "start": 230.64,
+      "end": 232.32,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Kakovost zadrževanja."
+    },
+    {
+      "sentenceId": "b-6811fe3eab0a2407-s2",
+      "blockIds": [
+        "b-6811fe3eab0a2407"
+      ],
+      "start": 232.88,
+      "end": 238.55999999999997,
+      "startOffset": 22,
+      "endOffset": 106,
+      "text": "Kazalnik, kako prijeten in uporaben je javni prostor za ljudi, ki se tam zadržujejo."
+    },
+    {
+      "sentenceId": "b-e18ea320f5417384-s1",
+      "blockIds": [
+        "b-e18ea320f5417384"
+      ],
+      "start": 238.55999999999997,
+      "end": 240.59999999999997,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "Prostori za zadrževanje."
+    },
+    {
+      "sentenceId": "b-e18ea320f5417384-s2",
+      "blockIds": [
+        "b-e18ea320f5417384"
+      ],
+      "start": 240.87999999999997,
+      "end": 247.83999999999997,
+      "startOffset": 25,
+      "endOffset": 120,
+      "text": "Javni prostori, kjer se ljudje lahko ustavijo, usedejo, srečajo ali sodelujejo pri dejavnostih."
+    },
+    {
+      "sentenceId": "b-76051edfac068d69-s1",
+      "blockIds": [
+        "b-76051edfac068d69"
+      ],
+      "start": 247.83999999999997,
+      "end": 248.95999999999998,
+      "startOffset": 0,
+      "endOffset": 4,
+      "text": "LTN."
+    },
+    {
+      "sentenceId": "b-76051edfac068d69-s2",
+      "blockIds": [
+        "b-76051edfac068d69"
+      ],
+      "start": 249.35999999999999,
+      "end": 254.87999999999997,
+      "startOffset": 5,
+      "endOffset": 82,
+      "text": "Kratica za Low-Traffic-Neighbourhood, pristop k umirjanju prometa v soseskah."
+    }
+  ]
+}
