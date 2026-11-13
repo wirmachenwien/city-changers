@@ -121,7 +121,7 @@ export function spokenAttribution(cite, lang) {
 export function extractTree(tree, lang, glossary) {
   normalizeBlocks(tree);
   const blocks = [];
-  let references = false;
+  let referenceDepth = 0;
   const add = (node, kind, spoken, adaptation = false, extra = {}) => {
     spoken = clean(spoken);
     if (!spoken) return;
@@ -131,8 +131,8 @@ export function extractTree(tree, lang, glossary) {
   };
   function walk(node) {
     if (node.type === 'heading') {
-      references = referenceHeadings.test(clean(text(node)));
-      if (!references) {
+      if (!referenceDepth || node.depth <= referenceDepth) referenceDepth = referenceHeadings.test(clean(text(node))) ? node.depth : 0;
+      if (!referenceDepth) {
         const sourceTitle = clean(text(node));
         const chapter = node.depth === 1 ? sourceTitle.match(/^(\d+)\.\s+(.+)$/u) : null;
         if (chapter) {
@@ -143,7 +143,7 @@ export function extractTree(tree, lang, glossary) {
       }
       return;
     }
-    if (references || node.name === 'Bibliography' || node.type === 'mdxjsEsm') return;
+    if (referenceDepth || node.name === 'Bibliography' || node.type === 'mdxjsEsm') return;
     if (node.name === 'Footnote') {
       add(node, 'footnote', attr(node, 'text') ?? (node.children ?? []).map(text).join(' '));
       return;
@@ -185,13 +185,15 @@ export function extractTree(tree, lang, glossary) {
       node.children.forEach((item, index) => {
         const number = (node.start ?? 1) + index;
         const narration = clean(`${node.ordered ? `${spokenCounter(number, lang)}. ` : ''}${narrationText(item, lang)}`);
-        if (narration) add(item, 'list', text(item), node.ordered || narration !== clean(text(item)), { narration, ordered: Boolean(node.ordered), ...(node.ordered ? { counter: number } : {}) });
+        const identity = clean(text(item)) || narration;
+        if (narration) add(item, 'list', identity, node.ordered || narration !== identity, { narration, ordered: Boolean(node.ordered), ...(node.ordered ? { counter: number } : {}) });
       });
       return;
     }
     if (node.type === 'listItem' || node.type === 'paragraph') {
       const narration = clean(narrationText(node, lang));
-      if (narration) add(node, node.type === 'listItem' ? 'list' : 'paragraph', text(node), narration !== clean(text(node)), { narration });
+      const identity = clean(text(node)) || narration;
+      if (narration) add(node, node.type === 'listItem' ? 'list' : 'paragraph', identity, narration !== identity, { narration });
       return;
     }
     if (wrappers.has(node.name)) {
@@ -230,9 +232,12 @@ export function identify(blocks, previous = [], bindings = {}) {
   const previousCounts = new Map();
   for (const block of previous) previousCounts.set(block.fingerprint, (previousCounts.get(block.fingerprint) ?? 0) + 1);
   const previousIndex = new Map(previous.map((block, index) => [block.id, index]));
+  const occurrences = new Map();
   const result = blocks.map(block => {
     const matches = previous.filter(p => p.fingerprint === block.fingerprint && !used.has(p.id));
-    const key = `${block.fingerprint}:${blocks.filter(b => b.fingerprint === block.fingerprint && b.line <= block.line).length}`;
+    const occurrence = (occurrences.get(block.fingerprint) ?? 0) + 1;
+    occurrences.set(block.fingerprint, occurrence);
+    const key = `${block.fingerprint}:${occurrence}`;
     let id = bindings[key];
     let identityReview = false;
     if (!id && matches.length === 1 && currentCounts.get(block.fingerprint) === 1) id = matches[0].id;

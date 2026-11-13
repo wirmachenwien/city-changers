@@ -123,9 +123,21 @@ npm run audio:release -- --publish  # Requires gh authentication and committed i
 npm run audio:release -- --verify   # Existing public release + MP3 ranges; no uploads
 ```
 
-The publisher follows the brand-kit release convention: `audio-<sha256>` tags,
-flat attachment names, paginated lookup, SHA-256/size verification, resumable
-draft uploads, no overwrite of published releases, and `--latest=false`.
+Readable edition names and titles live in `audio/edition.json`. For example,
+`audiobook-2026-11-13-en-de-sl-footnotes-<12-character digest>` identifies the
+date, languages and edition; the complete SHA-256 remains in the inventory.
+Use a new descriptive edition name for a later edition. Changes to this label
+do not regenerate speech or alter media; preparation refreshes release URLs.
+The publisher uses flat attachment names, paginated lookup, SHA-256/size
+verification, resumable draft uploads and `--latest=false`.
+Publication holds an OS-backed repository/tag lock shared across local checkouts
+from lookup through staging, validation and publication. It fails clearly if
+another local publisher holds the lock; process exit automatically releases it.
+Uploads never use clobber: matching attachments are verified and skipped, only
+missing attachments are uploaded, and mismatched/unknown draft assets stop the
+run without deleting anything. This also prevents destructive replacement when
+another machine publishes concurrently. GitHub native release immutability is
+enabled for new publications as an additional safeguard.
 All MP3s, M4Bs, cues and `audio-release.json` are archived in the
 release. Only MP3s/M4Bs are loaded from GitHub by the website; cues
 remain same-origin. Always use the stable release download URLs, not their
@@ -140,6 +152,12 @@ There is no paid generation, assembly or upload in normal site builds, dev or CI
 Deployment verifies the committed public release and MP3 range responses before
 uploading Pages. Publish an edition **before pushing its manifest to main**;
 the deployment gate deliberately rejects unpublished/mismatched releases.
+Do not delete the release referenced by `audio/published.json`, nor a brand
+release still used by the deployed site. Published release tags are download
+addresses, not disposable build caches. Native immutability protects attachments
+and tags but does not prevent deletion of an entire release; a deleted immutable
+tag cannot be reused. Recovery then requires a new edition name/tag and updated
+manifests, using the verified local handoff rather than regenerating narration.
 Old GitHub releases are retained, keeping old media URLs valid even when local
 public folders are pruned. Tabs using deleted website cues may need a reload.
 
@@ -170,6 +188,9 @@ source recording or sentence fails closed. Never edit raw provider alignment.
 - Pending units and cost are refreshed under the generation lock. Responses
   without exact, structurally valid alignment remain in private `incomplete.json`
   files and cannot become reusable audio; legacy incomplete results are rejected too.
+- Provider allowance is read under that same lock, before reserving requests.
+  This serializes this checkout's generators, not unrelated consumers of the
+  provider account; avoid using the same provider account from multiple machines concurrently.
 - Keep `.cache/audio/`: it contains reusable source clips, alignments and journals.
   Back it up privately; never commit credentials, requests or raw provider responses.
 - Complete individual chapters can be served independently. Stale or corrupt

@@ -3,7 +3,7 @@ import { lstatSync, readdirSync, readFileSync } from 'node:fs';
 // Stat unchanged inputs rather than repeatedly reading/hashing large media.
 // Missing files and directory membership are part of the key as well.
 export function audioInputSignature(resolvePath) {
-  const inputs = ['audio/config.json', 'audio/blocks.json', 'audio/overrides.json', 'audio/sentence-timing-corrections.json',
+  const inputs = ['audio/config.json', 'audio/edition.json', 'audio/blocks.json', 'audio/overrides.json', 'audio/sentence-timing-corrections.json',
     'audio/published.json', 'src/data/works.json', 'src/data/glossary.json', 'src/content/book',
     'handbook.config.ts', 'src/lib/chapter-slug.ts', '.cache/audio/units', 'public/audio'];
   try {

@@ -27,6 +27,7 @@ def remote_release(release, draft=False):
 class BrandReleaseTest(unittest.TestCase):
     def test_inventory_is_deterministic_complete_and_has_safe_unique_names(self):
         release = BRAND.inventory()
+        self.assertRegex(release["tag"], r"^brand-kit-v[0-9]+\.[0-9]+\.[0-9]+-[a-f0-9]{12}$")
         self.assertEqual(release, BRAND.inventory())
         names = [record["releaseAsset"] for record in release["assets"]]
         self.assertEqual(len(names), len(set(names)))
@@ -146,7 +147,7 @@ class BrandReleaseTest(unittest.TestCase):
             output.mkdir()
             (output / BRAND.KIT_NAME).write_bytes(b"test ZIP")
         with patch.object(PUBLISH, "check_artwork"), patch.object(PUBLISH, "inventory", return_value=release), \
-             patch.object(PUBLISH, "find_release", side_effect=[None, remote_release(release, draft=True)]), \
+             patch.object(PUBLISH, "find_release", side_effect=[None, None, remote_release(release, draft=True)]), \
              patch.object(PUBLISH, "load_script", return_value=Mock(build=package)), \
              patch.object(PUBLISH, "gh") as gh, patch.dict("os.environ", {"GITHUB_SHA": "commit"}):
             PUBLISH.publish()
@@ -161,8 +162,10 @@ class BrandReleaseTest(unittest.TestCase):
         def package(output):
             output.mkdir()
             (output / BRAND.KIT_NAME).write_bytes(b"test ZIP")
+        remote = remote_release(release, draft=True)
+        remote["assets"] = []
         with patch.object(PUBLISH, "check_artwork"), patch.object(PUBLISH, "inventory", return_value=release), \
-             patch.object(PUBLISH, "find_release", return_value=remote_release(release, draft=True)), \
+             patch.object(PUBLISH, "find_release", return_value=remote), \
              patch.object(PUBLISH, "load_script", return_value=Mock(build=package)), \
              patch.object(PUBLISH, "gh", side_effect=RuntimeError("interrupted")) as gh, self.assertRaises(RuntimeError):
             PUBLISH.publish()

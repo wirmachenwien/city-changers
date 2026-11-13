@@ -133,8 +133,6 @@ async function generate(plan) {
     finally { readline.close(); }
     if (answer.trim().toLowerCase() !== 'yes') throw new Error('Generation cancelled');
   }
-  const account = await preflight(plan.config, langs);
-  if (cost > account.remaining) throw new Error(`Requested units exceed the remaining account allowance (${account.remaining} characters)`);
   const journalPath = `.cache/audio/journals/${hash({ planHash: plan.planHash, budget, unitIds: selected.map(u => u.id).sort(), voiceHashes })}.json`;
   mkdirSync(path('.cache/audio/journals'), { recursive: true });
   // A process lock covers budgeting AND requests. Stale locks require manual reconciliation.
@@ -142,12 +140,15 @@ async function generate(plan) {
   const lock = openSync(lockPath, 'wx', 0o600);
   try {
     checkJournals();
+    // Read provider usage only while serialized with other local generators.
+    const account = await preflight(plan.config, langs);
     ({ pending, cost } = refreshPending());
     if (!pending.length) {
       console.log(`Nothing to generate: ${selected.length} selected units reuse retained audio.`);
       return;
     }
-    if (cost > budget || cost > account.remaining) throw new Error('Refreshed pending units exceed the budget or account allowance; run generation again');
+    if (cost > budget) throw new Error('Refreshed pending units exceed the budget; run generation again');
+    if (cost > account.remaining) throw new Error(`Requested units exceed the remaining account allowance (${account.remaining} characters)`);
     const journal = existsSync(path(journalPath)) ? read(journalPath) : {
       schemaVersion: 1, planHash: plan.planHash, budget, unitIds: selected.map(u => u.id), voiceHashes,
       createdAt: new Date().toISOString(), reservedCharacters: 0, requests: [] };

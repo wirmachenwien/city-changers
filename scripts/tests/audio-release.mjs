@@ -31,7 +31,9 @@ test('audio release fingerprints are deterministic, portable and include complet
   assert.equal(release.assets.length, 2);
   assert.equal(release.publication.chapters[0].cues.url, input.chapters[0].cues.url);
   assert.equal('transcript' in release.publication.chapters[0], false);
-  assert.match(release.publication.chapters[0].track.url, /\/releases\/download\/audio-[a-f0-9]{64}\//);
+  assert.match(release.tag, /^audiobook-2026-11-13-en-de-sl-footnotes-[a-f0-9]{12}$/);
+  assert.ok(release.edition.title.includes('English, German & Slovenian'));
+  assert.ok(release.publication.chapters[0].track.url.includes(`/releases/download/${release.tag}/`));
   assert.ok(release.assets.every(a => a.download.includes(a.releaseAsset) && !a.releaseAsset.includes('/')));
   input.chapters[0].cues.sha256 = hash('corrected cues');
   assert.notEqual(releaseInventory(input).tag, release.tag);

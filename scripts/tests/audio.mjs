@@ -101,6 +101,33 @@ test('duplicate passages do not silently steal identities', () => {
   assert.ok(next.every(b => b.identityReview));
   assert.throws(() => identify(extract('A.\n\nB.'), [], Object.fromEntries(identify(extract('A.\n\nB.')).map(b => [b.bindingKey, 'same']))), /Duplicate/);
 });
+test('same-line duplicate component titles have distinct deterministic occurrence keys and bindings', () => {
+  const body = '<Accordion title="Same">First.</Accordion><Accordion title="Same">Second.</Accordion>';
+  const first = identify(extract(body));
+  const titles = first.filter(b => b.kind === 'callout-title');
+  assert.equal(titles[0].line, titles[1].line);
+  assert.ok(titles[0].bindingKey.endsWith(':1'));
+  assert.ok(titles[1].bindingKey.endsWith(':2'));
+  assert.notEqual(titles[0].id, titles[1].id);
+  assert.deepEqual(identify(extract(body)).map(b => b.id), first.map(b => b.id));
+  const bindings = Object.fromEntries(titles.map((b, i) => [b.bindingKey, `bound-${i}`]));
+  assert.deepEqual(identify(extract(body), [], bindings).filter(b => b.kind === 'callout-title').map(b => b.id), ['bound-0', 'bound-1']);
+});
+test('reference headings exclude deeper subsections until a peer or ancestor heading in every language', () => {
+  for (const [lang, label] of [['en', 'Materials'], ['de', 'Materialien'], ['sl', 'Gradiva']]) {
+    const blocks = parseSource(source(`Before.\n\n## ${label}\n\n### Books\n\nResource.\n\n#### Notes\n\n<Footnote text="Reference note." />\n\n## Resume\n\nRead this.\n\n## ${label}\n\n### Nested\n\nHidden.\n\n# New chapter\n\nRead again.`), lang, {}).blocks;
+    assert.deepEqual(blocks.map(b => b.text), ['Before.', 'Resume', 'Read this.', 'New chapter', 'Read again.'], lang);
+  }
+});
+test('narration-only list items retain footnotes and preserve existing prose identities', () => {
+  for (const [body, expected] of [['- <Footnote text="A note." />', 'A note.'], ['1. <Footnote text="A note." />', 'First. A note.']]) {
+    const blocks = extract(body);
+    assert.equal(blocks.length, 1);
+    assert.equal(blocks[0].narration, expected);
+    assert.equal(blocks[0].text, expected);
+  }
+  assert.equal(identify(extract('- Prose.<Footnote text="A note." />'))[0].id, identify(extract('- Prose.'))[0].id);
+});
 test('serialized registry preserves kinds, replacement IDs and keyed overrides', () => {
   const blocks = identify(extract('First.\n\nSecond.'));
   const registry = JSON.parse(JSON.stringify(registryFor({ chapters: [{ id: 'en/test', blocks }] })));

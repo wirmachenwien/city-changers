@@ -119,7 +119,7 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   assert.ok(published.chapters.every(chapter => !('assembly' in chapter)));
   assert.equal(hash(readFileSync(join(temp, `public/audio/${published.chapters[0].track.file}`))), published.chapters[0].track.sha256, 'Complete local handoff in public/audio');
   assert.equal(hash(readFileSync(join(temp, `public/audio/${published.chapters[0].cues.file}`))), published.chapters[0].cues.sha256);
-  assert.match(published.chapters[0].track.url, /github.com\/wirmachenwien\/city-changers\/releases\/download\/audio-/);
+  assert.match(published.chapters[0].track.url, /github.com\/wirmachenwien\/city-changers\/releases\/download\/audiobook-/);
   assert.equal(JSON.parse(readFileSync(join(temp, 'audio/release.json'), 'utf8')).assets.length, 45);
   assert.equal(published.chapters.some(c => 'transcript' in c), false);
   assert.equal(readdirSync(join(temp, '.cache/audio/release'), { recursive: true }).some(file => file.endsWith('.transcript.html')), false, 'Assembly never generates transcript HTML');

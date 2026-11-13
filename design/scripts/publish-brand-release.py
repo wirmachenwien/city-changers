@@ -18,7 +18,7 @@ from github_release import publish_release
 
 
 def gh(*args):
-    result = subprocess.run(["gh", *args], text=True, capture_output=True)
+    result = subprocess.run(["gh", *args], text=True, encoding="utf-8", capture_output=True)
     if result.returncode:
         raise RuntimeError(result.stderr)
     return result.stdout
@@ -66,7 +66,7 @@ def publish():
             yield [str(path) for path in sorted(attachments.iterdir())]
 
     created = publish_release(repository=REPOSITORY, tag=tag, target=lambda: os.environ["GITHUB_SHA"],
-                              title=f"City Changers brand kit · {release['fingerprint'][:12]}",
+                              title=f"City Changers brand kit · v{release['version']}",
                               notes="Approved committed exports; no artwork was regenerated.\n\n"
                                     "Download the complete ZIP (original folder structure) or individual attachments. "
                                     "Attachment names include their category and treatment.",

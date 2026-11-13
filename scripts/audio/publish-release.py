@@ -24,7 +24,7 @@ METADATA = "audio-release.json"
 
 
 def checked(*args):
-    result = subprocess.run(args, cwd=ROOT, text=True, capture_output=True)
+    result = subprocess.run(args, cwd=ROOT, text=True, encoding="utf-8", capture_output=True)
     if result.returncode:
         raise RuntimeError(result.stderr or result.stdout)
     return result.stdout.strip()
@@ -63,7 +63,7 @@ def run(*, publish=False, verify=False, allow_missing=False):
     inventory_file = ROOT / "audio/release.json"
     if not inventory_file.exists():
         return
-    release = json.loads(inventory_file.read_text())
+    release = json.loads(inventory_file.read_text(encoding="utf-8"))
     if not (publish or verify):
         for asset in release["assets"]:
             source = ROOT / "public/audio" / asset["file"]
@@ -100,7 +100,7 @@ def run(*, publish=False, verify=False, allow_missing=False):
 
     if publish:
         created = publish_release(repository=repository, tag=tag, target=target,
-                                  title=f"City Changers audio · {release['fingerprint'][:12]}",
+                                  title=release["edition"]["title"],
                                   notes="Complete audio edition: chapter MP3s, language M4Bs, timing cues and public inventory. Publication uses prepared media; this command does not generate narration.",
                                   marker=marker, lookup=lookup, validate=validate, stage=stage)
         print("Published audio release." if created else "Unchanged audio; verified existing release without uploads.")

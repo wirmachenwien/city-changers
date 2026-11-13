@@ -154,7 +154,7 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
   }
 });
 
-for (const scenario of ['preflight-race', 'preflight-partial-race', 'missing-alignment', 'invalid-alignment', 'legacy-incomplete', 'uncertain-complete']) {
+for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-under-lock', 'missing-alignment', 'invalid-alignment', 'legacy-incomplete', 'uncertain-complete']) {
   test(`generation safety: ${scenario}`, () => {
     const directory = join(tmpdir(), 'opencode');
     mkdirSync(directory, { recursive: true });
@@ -195,8 +195,9 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'missing-ali
           }
           if(scenario==='invalid-alignment')data.alignment={...alignment,character_end_times_seconds:[]};
         }else if(url.endsWith('/v1/user/subscription')){
+          if(!existsSync('.cache/audio/generation.lock'))throw Error('Allowance read without generation lock');
           if(scenario.startsWith('preflight-')){retain();write('.cache/audio/journals/other-budget.json',{requests:[{state:'complete'}]});}
-          data={character_limit:100000,character_count:0,tier:'fixture'};
+          data={character_limit:100000,character_count:scenario==='allowance-under-lock'?100000:0,tier:'fixture'};
         }else if(url.endsWith('/v1/models'))data=[{model_id:'eleven_v4',can_do_text_to_speech:true,languages:[{language_id:'en'}]}];
         else data={voice_id:'mock-voice'};
         return {ok:true,headers:new Headers(),json:async()=>data};
@@ -216,6 +217,7 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'missing-ali
       assert.equal(state.reusable, scenario === 'preflight-race' ? 1 : 2);
     } else {
       assert.notEqual(result.status, 0);
+      if (scenario === 'allowance-under-lock') assert.match(result.stderr, /remaining account allowance/);
       assert.equal(state.posts, ['missing-alignment', 'invalid-alignment'].includes(scenario) ? 1 : 0);
       if (scenario !== 'uncertain-complete') assert.equal(state.reusable, 0);
       if (scenario.endsWith('-alignment')) {

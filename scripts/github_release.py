@@ -5,17 +5,54 @@ local staging and publication gates. Published attachments are never replaced.
 """
 import json
 import subprocess
+import hashlib
+import os
+from contextlib import contextmanager
+from pathlib import Path
+
+
+@contextmanager
+def publication_lock(repository, tag):
+    """One OS-backed lock per user/repository/tag, shared across checkouts.
+
+    Keep the lock file: unlinking it can let waiters lock different inodes.
+    The OS releases the lock on exit/crash, so no stale-lock deletion is needed.
+    """
+    directory = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "city-changers/release-locks"
+    directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+    key = hashlib.sha256(f"{repository}\n{tag}".encode("utf-8")).hexdigest()
+    with os.fdopen(os.open(directory / f"{key}.lock", os.O_RDWR | os.O_CREAT, 0o600), "r+b") as lock:
+        if os.name == "nt":
+            import msvcrt
+            if lock.seek(0, os.SEEK_END) == 0:
+                lock.write(b"\0")
+                lock.flush()
+            lock.seek(0)
+            acquire = lambda: msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+            release = lambda: (lock.seek(0), msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1))
+        else:
+            import fcntl
+            acquire = lambda: fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            release = lambda: fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
+        try:
+            acquire()
+        except OSError as error:
+            raise RuntimeError(f"Another publisher is active for {repository} / {tag}; retry after it exits") from error
+        try:
+            yield
+        finally:
+            release()
 
 
 def gh(*args):
-    result = subprocess.run(["gh", *args], text=True, capture_output=True)
+    result = subprocess.run(["gh", *args], text=True, encoding="utf-8", capture_output=True)
     if result.returncode:
         raise RuntimeError(result.stderr)
     return result.stdout
 
 
 def find_release(repository, tag, command=gh, run=subprocess.run):
-    result = run(["gh", "api", f"repos/{repository}/releases/tags/{tag}"], text=True, capture_output=True)
+    result = run(["gh", "api", f"repos/{repository}/releases/tags/{tag}"], text=True, encoding="utf-8", capture_output=True)
     if result.returncode == 0:
         remote = json.loads(result.stdout)
     elif "HTTP 404" in result.stderr:
@@ -44,6 +81,12 @@ def validate_assets(remote, expected):
 
 
 def publish_release(*, repository, tag, target, title, notes, marker, lookup, validate, stage, command=gh):
+    with publication_lock(repository, tag):
+        return _publish_release(repository=repository, tag=tag, target=target, title=title, notes=notes,
+                                marker=marker, lookup=lookup, validate=validate, stage=stage, command=command)
+
+
+def _publish_release(*, repository, tag, target, title, notes, marker, lookup, validate, stage, command):
     remote = lookup(tag)
     if remote and marker not in (remote.get("body") or ""):
         raise ValueError("Existing release is not managed by this publisher")
@@ -52,10 +95,45 @@ def publish_release(*, repository, tag, target, title, notes, marker, lookup, va
         return False
     # Validate/stage local attachments before creating a remote draft.
     with stage() as attachments:
+        expected = {}
+        for filename in attachments:
+            file = Path(filename)
+            if file.name in expected:
+                raise ValueError(f"Duplicate staged attachment: {file.name}")
+            with file.open("rb") as stream:
+                digest = hashlib.file_digest(stream, "sha256").hexdigest()
+            expected[file.name] = {"bytes": file.stat().st_size, "sha256": digest}
+        # Another machine can publish during staging; local locks alone cannot
+        # coordinate it. Never delete/replace assets, even on a resumed draft.
+        remote = lookup(tag)
+        if remote and marker not in (remote.get("body") or ""):
+            raise ValueError("Existing release is not managed by this publisher")
+        if remote and not remote["draft"]:
+            validate(remote)
+            return False
         if not remote:
             command("release", "create", tag, "--repo", repository, "--draft", "--latest=false",
                     "--target", target() if callable(target) else target, "--title", title, "--notes", notes + "\n\n" + marker)
-        command("release", "upload", tag, "--repo", repository, "--clobber", *attachments)
-        validate(lookup(tag))
+        existing = (remote or {}).get("assets", [])
+        names = {asset["name"] for asset in existing}
+        if len(names) != len(existing) or not names <= expected.keys():
+            raise ValueError("Draft contains unexpected or duplicate attachments; no files replaced")
+        validate_assets({"assets": existing}, {name: expected[name] for name in names})
+        missing = [file for file in attachments if Path(file).name not in names]
+        try:
+            if missing:
+                command("release", "upload", tag, "--repo", repository, *missing)
+        except RuntimeError:
+            # A concurrent publisher on another machine may have finished.
+            # Reuse only its exact complete publication; otherwise fail closed.
+            latest = lookup(tag)
+            if latest and not latest["draft"] and marker in (latest.get("body") or ""):
+                validate(latest)
+                return False
+            raise
+        verified = lookup(tag)
+        validate(verified)
+        if not verified["draft"]:
+            return False
         command("release", "edit", tag, "--repo", repository, "--draft=false", "--latest=false")
     return True

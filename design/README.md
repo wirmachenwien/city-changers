@@ -52,7 +52,7 @@ CI restores no artwork cache and makes no bot commits.
 
 The guide at `/brand` links to the matching GitHub Release for the complete ZIP
 and every individual original. Deployment publishes a new content-addressed
-`brand-kit-<sha256>` release only when kit inputs change, after all checks and
+`brand-kit-v<package-version>-<12-character digest>` release only when kit inputs change, after all checks and
 before uploading Pages. Unchanged inventories reuse a checksum-verified release
 without repackaging/uploading. Drafts can resume after interrupted uploads;
 published releases are never overwritten and do not replace the repository's
@@ -62,6 +62,14 @@ Paginated lookup and the draft/upload/verify/publish lifecycle share
 `scripts/github_release.py` with the audio
 publisher. The inventories and generation workflows stay independent; see
 [`audio/README.md`](../audio/README.md) for the explicit local audio handoff.
+The full inventory digest is still validated; shortening the tag does not weaken
+checksum checks. Existing tags are not renamed, because download links use them.
+The shared publisher locks the full local transaction across checkouts, skips
+verified existing attachments and uploads only missing ones without clobbering.
+Corrupt or unexpected draft attachments fail closed; nothing is deleted to retry.
+Native GitHub immutability protects new publications. Do not delete releases
+still referenced by deployed pages; even immutable releases can be deleted as
+a whole, after which their tag cannot be reused.
 
 `public/brand-assets/` contains only a catalogue, release links, SVG previews and
 small responsive WebP previews, not the ZIP, MOVs, fonts or original photos.

@@ -16,6 +16,10 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   const rates = [0.75, 1, 1.25, 1.5, 1.75, 2];
   let savedPosition = 0;
   let playRequested = false;
+  let playbackAttempt = 0;
+  let playbackFailed = false;
+  let cuesFailed = false;
+  const updateStatus = () => { status.textContent = playbackFailed ? root.dataset.playbackFailed! : cuesFailed ? root.dataset.failed! : ''; };
   let activated = false;
   try {
     const saved = JSON.parse(localStorage.getItem(key) ?? '{}');
@@ -87,12 +91,15 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     if (!activated) root.setAttribute('data-opening', '');
     showTimeline();
     if (playRequested || !audio.paused) {
+      playbackAttempt++;
       playRequested = false;
       audio.pause();
       return;
     }
     playRequested = true;
-    status.textContent = '';
+    const attempt = ++playbackAttempt;
+    playbackFailed = false;
+    updateStatus();
     fixedVolume();
     try {
       if (audio.error) {
@@ -104,10 +111,9 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
       await audio.play();
     }
     catch {
-      if (playRequested) status.textContent = root.dataset.playbackFailed!;
+      if (attempt === playbackAttempt && playRequested) { playbackFailed = true; updateStatus(); }
     } finally {
-      playRequested = false;
-      updatePlayback();
+      if (attempt === playbackAttempt) { playRequested = false; updatePlayback(); }
     }
   });
   position.addEventListener('input', () => {
@@ -134,7 +140,8 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   audio.addEventListener('ended', () => { updatePlayback(); updatePosition(); clear(); save(); });
   audio.addEventListener('error', () => {
     savedPosition = audio.currentTime || savedPosition || lastPosition;
-    status.textContent = root.dataset.playbackFailed!;
+    playbackFailed = true;
+    updateStatus();
     updatePlayback();
   });
   window.addEventListener('pagehide', save);
@@ -181,9 +188,12 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
           }
         }
         sentenceCues = result.sentenceCues;
+        cuesFailed = false;
+        updateStatus();
         updateHighlight();
       } catch {
-        status.textContent = root.dataset.failed!;
+        cuesFailed = true;
+        updateStatus();
         highlight.checked = false;
         loading = undefined;
         clear();

@@ -1,4 +1,5 @@
 import { hash } from './content.mjs';
+import edition from '../../audio/edition.json' with { type: 'json' };
 
 export const repository = 'wirmachenwien/city-changers';
 export const releaseMetadata = 'audio-release.json';
@@ -13,6 +14,7 @@ export function publicationArtifacts(publication) {
 // Fingerprint public edition metadata and output checksums, not credentials,
 // local paths, publication state or a signed/expiring GitHub redirect URL.
 export function releaseInventory(publication) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(edition.name) || typeof edition.title !== 'string' || !edition.title.trim()) throw new Error('Set a readable edition name and title in audio/edition.json');
   const normalized = structuredClone(publication);
   delete normalized.release;
   for (const chapter of normalized.chapters) {
@@ -25,15 +27,15 @@ export function releaseInventory(publication) {
     return { file, bytes, sha256, kind, releaseAsset: file.replaceAll('/', '--') };
   });
   if (new Set(assets.map(a => a.releaseAsset)).size !== assets.length) throw new Error('Duplicate audio release attachment');
-  const fingerprint = hash({ schemaVersion: 1, repository, publication: normalized, assets });
-  const tag = `audio-${fingerprint}`;
+  const fingerprint = hash({ schemaVersion: 1, repository, edition, publication: normalized, assets });
+  const tag = `audiobook-${edition.name}-${fingerprint.slice(0, 12)}`;
   const url = `https://github.com/${repository}/releases/tag/${tag}`;
   const download = name => `https://github.com/${repository}/releases/download/${tag}/${name}`;
   const ready = structuredClone(normalized);
   ready.release = { fingerprint, tag, url };
   for (const chapter of ready.chapters) chapter.track.url = download(chapter.track.file.replaceAll('/', '--'));
   for (const book of ready.audiobooks) book.url = download(book.file.replaceAll('/', '--'));
-  return { schemaVersion: 1, repository, fingerprint, tag, url, publication: ready,
+  return { schemaVersion: 1, repository, edition: structuredClone(edition), fingerprint, tag, url, publication: ready,
     assets: assets.map(a => ({ ...a, download: download(a.releaseAsset) })) };
 }
 

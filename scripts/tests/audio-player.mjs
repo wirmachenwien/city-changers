@@ -37,7 +37,7 @@ function player({ saved = {}, fail = false, failPlayback = false, highlighted = 
       { start: 0, end: 2, blockIds: ['a'], sentenceId: 'a-s1' }, { start: 2, end: 5, blockIds: ['a'], sentenceId: 'a-s2' },
       { start: 6, end: 10, blockIds: ['b'], sentenceId: 'b-s1' }, { start: 11, end: 15, blockIds: ['adapted'], sentenceId: 'adapted-s1' },
     ] }) }; } });
-  return { document, window, Event, audio, play, position, speed, storage, metadata, loads: () => loads, counts: () => ({ plays, fetches }) };
+  return { document, window, Event, audio, play, position, speed, storage, metadata, setCueFailure: value => { fail = value; }, loads: () => loads, counts: () => ({ plays, fetches }) };
 }
 const settle = () => new Promise(resolve => setImmediate(resolve));
 test('player defers loading and the timeline until play; no native volume or removed controls', () => {
@@ -296,6 +296,41 @@ test('failed playback restores the play button and keeps the timeline available 
   assert.equal(p.play.getAttribute('aria-label'), 'Play chapter');
   assert.equal(p.document.querySelector('[data-audio-status]').textContent, 'Playback unavailable');
   assert.equal(p.document.querySelector('[data-timeline]').hidden, false);
+});
+test('successful cue retry clears only its own failure, preserving playback failures', async () => {
+  for (const playbackError of [false, true]) {
+    const p = player({ fail: true, saved: { 'chapter-audio:en/01:new': '{"position":12}' } });
+    await settle();
+    assert.equal(p.document.querySelector('[data-audio-status]').textContent, 'Highlighting unavailable');
+    if (playbackError) p.audio.dispatchEvent(new p.Event('error'));
+    p.setCueFailure(false);
+    const highlight = p.document.querySelector('[data-highlight]');
+    highlight.checked = true;
+    highlight.dispatchEvent(new p.Event('change'));
+    await settle();
+    assert.ok(p.document.querySelector('[data-audio-active]'));
+    assert.equal(p.document.querySelector('[data-audio-status]').textContent, playbackError ? 'Playback unavailable' : '');
+  }
+});
+test('cancelled playback promises cannot overwrite a newer attempt or clear its pending flag', async () => {
+  for (const completion of ['resolve', 'reject']) {
+    const p = player({ highlighted: false });
+    const pending = [];
+    p.audio.play = () => new Promise((resolve, reject) => pending.push({ resolve, reject }));
+    p.play.click(); p.play.click(); p.play.click();
+    pending[0][completion](new Error('Cancelled attempt'));
+    await settle();
+    assert.equal(p.document.querySelector('[data-audio-status]').textContent, '');
+    p.play.click();
+    assert.equal(pending.length, 2, 'The fourth click cancels the second pending attempt, not starts a third');
+    pending[1].reject(new Error('Cancelled second attempt'));
+    await settle();
+    assert.equal(p.document.querySelector('[data-audio-status]').textContent, '');
+    p.play.click();
+    pending[2].reject(new Error('Real failure'));
+    await settle();
+    assert.equal(p.document.querySelector('[data-audio-status]').textContent, 'Playback unavailable');
+  }
 });
 test('leaving before loading preserves saved position; ending resets it without autoplay', async () => {
   const p = player({ saved: { 'chapter-audio:en/01:new': '{"position":12}' } });

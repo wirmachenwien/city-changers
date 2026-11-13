@@ -32,12 +32,15 @@ def inventory():
                  "design/scripts/asset_library.py", "design/scripts/brand_release.py",
                  "scripts/color_registry.py", "src/data/colors.generated.json"]
     inputs = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in packaging}
-    fingerprint = hashlib.sha256(json.dumps({"assets": records, "inputs": inputs}, sort_keys=True).encode()).hexdigest()
-    tag = f"brand-kit-{fingerprint}"
+    version = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["version"]
+    if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-[A-Za-z0-9.-]+)?", version):
+        raise ValueError("Set a semantic package version for readable brand release tags")
+    fingerprint = hashlib.sha256(json.dumps({"assets": records, "inputs": inputs, "version": version}, sort_keys=True).encode()).hexdigest()
+    tag = f"brand-kit-v{version}-{fingerprint[:12]}"
     base = f"https://github.com/{REPOSITORY}/releases"
     for record in records:
         record["download"] = f"{base}/download/{tag}/{quote(record['releaseAsset'])}"
-    return {"fingerprint": fingerprint, "tag": tag, "repository": REPOSITORY,
+    return {"fingerprint": fingerprint, "version": version, "tag": tag, "repository": REPOSITORY,
             "url": f"{base}/tag/{tag}", "kit": f"{base}/download/{tag}/{KIT_NAME}", "assets": records}
 
 
