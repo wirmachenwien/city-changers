@@ -192,4 +192,39 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   assert.ok(Math.abs(longer.audiobooks[0].duration - paused.audiobooks[0].duration - 1) < .05);
   assert.equal(longer.chapters[0].assembly[0].audioHash, changedHash);
   assert.equal(hash(readFileSync(join(temp, `.cache/audio/units/${quizKey}/source.mp3`))), changedHash);
+  // A global plan hash must never bless preserved books with obsolete credits.
+  run(process.execPath, ['--input-type=module', '-e', prepare({})]);
+  const beforeMetadata = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
+  config.metadata.rights = 'Updated shared rights';
+  plan.planHash = hash('updated-rights');
+  write('fixture-plan.json', plan);
+  run(process.execPath, ['--input-type=module', '-e', prepare({ language: 'en' })]);
+  const afterMetadata = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
+  assert.deepEqual(afterMetadata.audiobooks.map(b => b.lang), ['en'], 'Partial preparation invalidates other-language stale metadata');
+  assert.equal(afterMetadata.chapters.length, 21, 'Unaffected chapter audio remains available');
+  assert.notEqual(afterMetadata.audiobooks[0].metadataHash, beforeMetadata.audiobooks[0].metadataHash);
+  write('old-publication.json', { ...beforeMetadata, planHash: plan.planHash });
+  run(process.execPath, ['--input-type=module', '-e', `
+    import {checkRelease} from ${JSON.stringify(mediaUrl)};
+    import {readFileSync} from 'node:fs';
+    import assert from 'node:assert/strict';
+    const issues=checkRelease(JSON.parse(readFileSync('fixture-plan.json')), {manifest:JSON.parse(readFileSync('old-publication.json'))});
+    assert.ok(issues.includes('de: M4B metadata stale'));
+    assert.ok(issues.includes('sl: M4B metadata stale'));
+  `]);
+  // Titles/cover contents are not in planHash, but must change output paths.
+  const oldPlanHash = plan.planHash;
+  works.en.title = 'Changed audiobook title';
+  write('src/data/works.json', works);
+  run(process.execPath, ['--input-type=module', '-e', prepare({ language: 'en' })]);
+  const retitled = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
+  assert.notEqual(retitled.revision, afterMetadata.revision);
+  assert.equal(retitled.audiobooks[0].title, works.en.title);
+  const cover = readFileSync(join(temp, 'cover.png'));
+  write('cover.png', Buffer.concat([cover, Buffer.from('cover content identity fixture')]));
+  run(process.execPath, ['--input-type=module', '-e', prepare({ language: 'en' })]);
+  const recovered = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
+  assert.notEqual(recovered.revision, retitled.revision, 'Cover changes in place get a new immutable revision');
+  assert.notEqual(recovered.audiobooks[0].metadataHash, retitled.audiobooks[0].metadataHash);
+  assert.equal(recovered.planHash, oldPlanHash);
 });

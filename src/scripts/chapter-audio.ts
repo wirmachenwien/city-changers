@@ -39,6 +39,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   };
   const duration = () => Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : Number(root.dataset.duration) || 0;
   if (duration() > 0 && savedPosition >= duration() - 1) savedPosition = 0;
+  let lastPosition = savedPosition;
   const showTimeline = () => {
     activated = true;
     root.setAttribute('data-activated', '');
@@ -53,6 +54,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   function updatePosition() {
     const seconds = duration();
     const time = Math.min(Math.max(0, playbackPosition()), seconds);
+    lastPosition = time;
     position.max = String(seconds);
     position.value = String(time);
     position.disabled = seconds <= 0;
@@ -72,7 +74,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     savedPosition = 0;
     updatePosition();
     updateHighlight();
-  }, { once: true });
+  });
   audio.addEventListener('durationchange', updatePosition);
   audio.addEventListener('ratechange', updatePosition);
   const save = () => {
@@ -92,7 +94,13 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     playRequested = true;
     status.textContent = '';
     fixedVolume();
-    try { await audio.play(); }
+    try {
+      if (audio.error) {
+        savedPosition = playbackPosition();
+        audio.load();
+      }
+      await audio.play();
+    }
     catch {
       if (playRequested) status.textContent = root.dataset.playbackFailed!;
     } finally {
@@ -122,7 +130,11 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   audio.addEventListener('play', updatePlayback);
   audio.addEventListener('pause', () => { updatePlayback(); save(); });
   audio.addEventListener('ended', () => { updatePlayback(); updatePosition(); clear(); save(); });
-  audio.addEventListener('error', () => { status.textContent = root.dataset.playbackFailed!; updatePlayback(); });
+  audio.addEventListener('error', () => {
+    savedPosition = audio.currentTime || savedPosition || lastPosition;
+    status.textContent = root.dataset.playbackFailed!;
+    updatePlayback();
+  });
   window.addEventListener('pagehide', save);
   let lastSaved = 0;
   let sentenceCues: SentenceCue[] = [];

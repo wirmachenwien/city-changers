@@ -111,7 +111,8 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
         posts++;
         if (process.env.MOCK_FAILURE === 'yes') throw new Error('Mock ambiguous timeout');
         const text = JSON.parse(options.body).inputs[0].text;
-        data = {audio_base64: Buffer.from('mock audio, not media').toString('base64'),alignment:{characters:[...text]},normalized_alignment:{characters:[...text]}};
+        const alignment = {characters:[...text],character_start_times_seconds:[...text].map((_,i)=>i*.01),character_end_times_seconds:[...text].map((_,i)=>(i+1)*.01)};
+        data = {audio_base64: Buffer.from('mock audio, not media').toString('base64'),alignment,normalized_alignment:alignment};
       } else if (url.endsWith('/v1/user/subscription')) data = {character_limit:100000,character_count:0,tier:'creator'};
       else if (url.endsWith('/v1/models')) data = [{model_id:'eleven_v4',can_do_text_to_speech:true,languages:[{language_id:'en'},{language_id:'de'},{language_id:'sl'}]}];
       else if (url.endsWith('/v1/voices/mock-voice')) data = {voice_id:'mock-voice'};
@@ -152,3 +153,78 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
     assert.ok(!readFileSync(join(temp, '.cache/audio/journals', file), 'utf8').includes('mock-key-not-a-real-key'));
   }
 });
+
+for (const scenario of ['preflight-race', 'preflight-partial-race', 'missing-alignment', 'invalid-alignment', 'legacy-incomplete', 'uncertain-complete']) {
+  test(`generation safety: ${scenario}`, () => {
+    const directory = join(tmpdir(), 'opencode');
+    mkdirSync(directory, { recursive: true });
+    const temp = mkdtempSync(join(directory, 'audio-safety-'));
+    const plan = makePlan();
+    for (const file of ['audio/config.json', 'audio/blocks.json', 'audio/overrides.json', 'audio/sentence-timing-corrections.json',
+      'src/data/works.json', 'src/data/glossary.json', ...plan.chapters.map(c => `src/content/book/${c.id}.mdx`)]) {
+      mkdirSync(join(temp, file, '..'), { recursive: true });
+      copyFileSync(file, join(temp, file));
+    }
+    const config = JSON.parse(readFileSync(join(temp, 'audio/config.json'), 'utf8'));
+    config.voiceHashes.en = hash('mock-voice');
+    writeFileSync(join(temp, 'audio/config.json'), JSON.stringify(config));
+    const planUrl = new URL('../audio/plan.mjs', import.meta.url).href;
+    const contentUrl = new URL('../audio/content.mjs', import.meta.url).href;
+    const cli = new URL('../audio/cli.mjs', import.meta.url).href;
+    const bootstrap = `
+      import {makePlan,write,assets} from ${JSON.stringify(planUrl)};
+      import {hash} from ${JSON.stringify(contentUrl)};
+      import {mkdirSync,writeFileSync,existsSync,readFileSync} from 'node:fs';
+      const plan=makePlan(), units=plan.chapters.find(c=>c.id==='en/01').units, unit=units[0];
+      const scenario=${JSON.stringify(scenario)};
+      const key=hash({cacheKey:unit.cacheKey,voice:'mock-voice'}), dir='.cache/audio/units/'+key;
+      const audio=Buffer.from('retained fixture');
+      const alignment={characters:[...unit.text],character_start_times_seconds:[...unit.text].map((_,i)=>i*.01),character_end_times_seconds:[...unit.text].map((_,i)=>(i+1)*.01)};
+      const retain=(complete=true)=>{mkdirSync(dir,{recursive:true});writeFileSync(dir+'/source.mp3',audio);write(dir+'/result.json',{unit,sourceAudioHash:hash(audio),timings:complete?{alignment}:{}});};
+      if(scenario==='legacy-incomplete')retain(false);
+      if(scenario==='uncertain-complete'){retain();write('.cache/audio/journals/old.json',{requests:[{state:'uncertain'}]});}
+      let posts=0;
+      globalThis.fetch=async(url,options={})=>{
+        let data;
+        if(options.method==='POST'){
+          posts++;
+          data={audio_base64:audio.toString('base64')};
+          if(scenario==='preflight-partial-race'){
+            const text=JSON.parse(options.body).inputs[0].text;
+            data.alignment={characters:[...text],character_start_times_seconds:[...text].map((_,i)=>i*.01),character_end_times_seconds:[...text].map((_,i)=>(i+1)*.01)};
+          }
+          if(scenario==='invalid-alignment')data.alignment={...alignment,character_end_times_seconds:[]};
+        }else if(url.endsWith('/v1/user/subscription')){
+          if(scenario.startsWith('preflight-')){retain();write('.cache/audio/journals/other-budget.json',{requests:[{state:'complete'}]});}
+          data={character_limit:100000,character_count:0,tier:'fixture'};
+        }else if(url.endsWith('/v1/models'))data=[{model_id:'eleven_v4',can_do_text_to_speech:true,languages:[{language_id:'en'}]}];
+        else data={voice_id:'mock-voice'};
+        return {ok:true,headers:new Headers(),json:async()=>data};
+      };
+      process.argv=['node','cli','generate','--budget','10000','--units',scenario==='preflight-partial-race'?unit.id+','+units[1].id:unit.id,'--yes'];
+      await import(${JSON.stringify(cli)});
+      console.log(JSON.stringify({posts,reusable:assets().length,result:existsSync(dir+'/result.json'),incomplete:existsSync(dir+'/incomplete.json')}));
+    `;
+    const run = () => spawnSync(process.execPath, ['--input-type=module', '-e', bootstrap], {
+      cwd: temp, encoding: 'utf8', env: { PATH: process.env.PATH, ELEVENLABS_API_KEY: 'mock-key', ELEVENLABS_VOICE_ID: 'mock-voice' },
+    });
+    const result = run();
+    const state = JSON.parse(result.stdout.trim().split('\n').at(-1));
+    if (scenario.startsWith('preflight-')) {
+      assert.equal(result.status, 0, result.stderr);
+      assert.equal(state.posts, scenario === 'preflight-race' ? 0 : 1);
+      assert.equal(state.reusable, scenario === 'preflight-race' ? 1 : 2);
+    } else {
+      assert.notEqual(result.status, 0);
+      assert.equal(state.posts, ['missing-alignment', 'invalid-alignment'].includes(scenario) ? 1 : 0);
+      if (scenario !== 'uncertain-complete') assert.equal(state.reusable, 0);
+      if (scenario.endsWith('-alignment')) {
+        assert.equal(state.result, false);
+        assert.equal(state.incomplete, true);
+        const resumed = run();
+        assert.notEqual(resumed.status, 0);
+        assert.equal(JSON.parse(resumed.stdout.trim().split('\n').at(-1)).posts, 0);
+      }
+    }
+  });
+}

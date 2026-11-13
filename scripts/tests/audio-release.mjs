@@ -18,7 +18,7 @@ const temporary = () => { const root = join(tmpdir(), 'opencode'); mkdirSync(roo
 const write = (root, file, content) => { const target = join(root, file); mkdirSync(join(target, '..'), { recursive: true }); writeFileSync(target, content); };
 
 test('site checker validates navigation options, not audio playback speed values', () => {
-  assert.deepEqual(navigationOptionLinks('<select data-select><option value="/book.html">Book</option></select><select data-speed><option value="1.5">1.5×</option></select>'), ['/book.html']);
+  assert.deepEqual(navigationOptionLinks('<div data-select-list><select data-select><option value="/book.html">Book</option></select></div><select data-select data-speed><option value="1.5">1.5×</option></select>'), ['/book.html']);
 });
 
 test('audio release fingerprints are deterministic, portable and include complete outputs', () => {

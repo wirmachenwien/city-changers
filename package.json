@@ -32,7 +32,7 @@
     "audio:prepare": "node scripts/audio/cli.mjs prepare",
     "audio:check": "node scripts/audio/check-release.mjs",
     "audio:release": "python3 scripts/audio/publish-release.py",
-    "audio:test": "node --test scripts/tests/audio.mjs scripts/tests/audio-player.mjs scripts/tests/audio-media.mjs scripts/tests/audio-generation.mjs scripts/tests/audio-sentences.mjs scripts/tests/audio-proofread.mjs scripts/tests/audio-pauses.mjs scripts/tests/audio-release.mjs && python3 -m unittest discover -s scripts/tests -p 'test*release*.py'",
+    "audio:test": "node --test scripts/tests/audio.mjs scripts/tests/audio-player.mjs scripts/tests/audio-publication.mjs scripts/tests/audio-media.mjs scripts/tests/audio-generation.mjs scripts/tests/audio-sentences.mjs scripts/tests/audio-proofread.mjs scripts/tests/audio-pauses.mjs scripts/tests/audio-release.mjs && python3 -m unittest discover -s scripts/tests -p 'test*release*.py'",
     "astro": "astro",
     "sync:config": "node scripts/bin/sync-config.mjs",
     "check:config": "node scripts/bin/sync-config.mjs --check",

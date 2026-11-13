@@ -31,6 +31,8 @@ npm run audio:generate -- --chapter en/01 --budget 3200
 Preflight and generation load `.env` automatically; exported values take precedence.
 Matching retained audio is reused automatically. Choose a budget from the current
 plan; the example is not permission to spend.
+Footnotes are read in place, including inline `text` props and flow-level content;
+bibliographies and reference/material sections remain text-only.
 
 - Omit `--chapter` to select the whole book, or use `--units ID,ID` for exact units.
 - Add `--plan HASH` to reject unexpected plan changes.
@@ -58,8 +60,12 @@ inventory, separate from the lightweight website payload:
 
 Other prepared chapters are preserved. A chapter-only update removes that
 language's old M4B link; prepare the whole language to rebuild its audiobook.
+Each audiobook also records its metadata identity (localized title, narrator,
+author, rights and cover contents). Partial preparations discard preserved books
+whose metadata no longer matches, without discarding their chapter tracks.
 Releases require the complete catalogue and three audiobooks, not a partial
 preparation. Unchanged inputs reuse the same revision and release identity.
+Changing a title or replacing cover contents creates a new immutable revision.
 
 After a successful manifest update, preparation **automatically deletes stale
 managed subfolders** of `public/audio/`. Every revision still referenced by the
@@ -79,6 +85,10 @@ Astro's ordinary static serving, with byte-range support. This includes the
 localized frontpage audiobook download. Private source clips and API responses
 never enter `public/`. If no verified local copy exists, dev uses the release URL
 instead (which only works after publication).
+Development caches unchanged plans and validated media, invalidating when source,
+configuration, manifests, cover artwork or retained/public assets change. Production
+keeps its per-build cache. Failed playback can be retried without reloading the
+page: the player reloads failed media and restores the listening cursor.
 
 MP3s/M4Bs are ignored by Git. The `audio-site` integration gives **production
 builds only** a filtered public-directory mirror, excluding `audio/**/*.mp3`
@@ -157,6 +167,9 @@ source recording or sentence fails closed. Never edit raw provider alignment.
   to the same plan, selection, budget and voices. There are **no automatic retries**.
 - After a failed/uncertain request or stale lock, reconcile provider usage before
   continuing. Don't delete journals or locks just to retry.
+- Pending units and cost are refreshed under the generation lock. Responses
+  without exact, structurally valid alignment remain in private `incomplete.json`
+  files and cannot become reusable audio; legacy incomplete results are rejected too.
 - Keep `.cache/audio/`: it contains reusable source clips, alignments and journals.
   Back it up privately; never commit credentials, requests or raw provider responses.
 - Complete individual chapters can be served independently. Stale or corrupt

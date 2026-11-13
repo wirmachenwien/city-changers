@@ -4,7 +4,8 @@ import { readFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { parseHTML } from 'linkedom';
 import { hash, parseSource, identify, splitText, spokenCounter } from '../audio/content.mjs';
-import { makePlan, movedIds, path } from '../audio/plan.mjs';
+import { makePlan, movedIds, path, registryFor } from '../audio/plan.mjs';
+import { audioPublication } from '../../src/lib/audio-publication.mjs';
 import { validateCues, validateAlignment } from '../audio/media.mjs';
 const source = body => `---\ntitle: Test\nlang: en\n---\n${body}`;
 const extract = body => parseSource(source(body), 'en', { en: [{ term: 'Test', definition: 'A definition.' }] }).blocks;
@@ -100,6 +101,34 @@ test('duplicate passages do not silently steal identities', () => {
   assert.ok(next.every(b => b.identityReview));
   assert.throws(() => identify(extract('A.\n\nB.'), [], Object.fromEntries(identify(extract('A.\n\nB.')).map(b => [b.bindingKey, 'same']))), /Duplicate/);
 });
+test('serialized registry preserves kinds, replacement IDs and keyed overrides', () => {
+  const blocks = identify(extract('First.\n\nSecond.'));
+  const registry = JSON.parse(JSON.stringify(registryFor({ chapters: [{ id: 'en/test', blocks }] })));
+  assert.equal(registry.chapters['en/test'][0].kind, 'paragraph');
+  const edited = identify(extract('Edited.\n\nSecond.'), registry.chapters['en/test']);
+  assert.equal(edited[0].id, blocks[0].id);
+  const overrides = { [blocks[0].id]: 'Retained adaptation.' };
+  assert.equal(overrides[edited[0].id], 'Retained adaptation.');
+});
+test('footnotes are narrated in place in props, inline children and flow children', () => {
+  assert.equal(extract('Prose.<Footnote text="A note." />')[0].narration, 'Prose. A note.');
+  assert.equal(extract('Prose.<Footnote>A note.</Footnote>')[0].narration, 'Prose. A note.');
+  assert.deepEqual(extract('<Footnote>\n\nText-only aside.\n\n</Footnote>').map(b => b.text), ['Text-only aside.']);
+  assert.deepEqual(extract('<Footnote text="Standalone note." />').map(b => b.text), ['Standalone note.']);
+  assert.equal(identify(extract('Prose.<Footnote text="A note." />'))[0].id, identify(extract('Prose.'))[0].id);
+  for (const chapter of makePlan().chapters.filter(c => c.file === '04')) {
+    const source = readFileSync(`src/content/book/${chapter.id}.mdx`, 'utf8');
+    const note = source.match(/<Footnote text="([^"]+)"/)[1];
+    assert.ok(chapter.units.some(u => u.text.includes(note)), chapter.id);
+  }
+});
+test('Slovenian monitoring narration uses the corrected verb without changing its block ID', () => {
+  const chapter = makePlan().chapters.find(c => c.id === 'sl/05');
+  const unit = chapter.units.find(u => u.blockIds.includes('b-428e41b17409970f'));
+  assert.ok(unit);
+  assert.match(unit.text, /da so imela nekatera/);
+  assert.doesNotMatch(unit.text, /da so bila so imela/);
+});
 test('sentence splitting is bounded and cue offsets validate final duration and block coverage', () => {
   assert.deepEqual(splitText('First sentence. Second sentence.', 'en', 20), ['First sentence.', 'Second sentence.']);
   assert.throws(() => splitText('Unbreakable sentence.', 'en', 5), /Sentence exceeds/);
@@ -184,7 +213,7 @@ test('rendered chapter hooks cover every narration block (build first)', { skip:
 });
 
 test('frontpages link to the complete localized audiobook with a simple download label', { skip: !existsSync(path('dist/index.html')) }, () => {
-  const manifest = existsSync('audio/published.json') ? JSON.parse(readFileSync('audio/published.json', 'utf8')) : { audiobooks: [] };
+  const manifest = audioPublication();
   for (const lang of ['en', 'de', 'sl']) {
     const { document } = parseHTML(readFileSync(path(`dist/${lang === 'en' ? '' : `${lang}/`}index.html`), 'utf8'));
     const links = [...document.querySelectorAll('.download-buttons a')].filter(a => a.getAttribute('href').endsWith('.m4b'));

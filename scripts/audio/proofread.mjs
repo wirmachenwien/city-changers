@@ -9,7 +9,7 @@ import { site } from '../../handbook.config.ts';
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const callouts = new Set(['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox']);
 const components = new Set([...callouts, 'Figure', 'Question', 'Bibliography', 'Glossary', 'Footnote', 'Spoiler', 'TableWrap', 'Slideshow']);
-const label = { visual: 'Figure / image description', quiz: 'Quiz → reflection question', table: 'Table → spoken comparison', glossary: 'Glossary entry', 'callout-title': 'Callout / accordion title', attribution: 'Quotation attribution', heading: 'Heading', paragraph: 'Prose', list: 'List item', omitted: 'Not narrated' };
+const label = { visual: 'Figure / image description', quiz: 'Quiz → reflection question', table: 'Table → spoken comparison', glossary: 'Glossary entry', 'callout-title': 'Callout / accordion title', attribution: 'Quotation attribution', footnote: 'Footnote', heading: 'Heading', paragraph: 'Prose', list: 'List item', omitted: 'Not narrated' };
 function componentNames(node) {
   return [...new Set([...(node.type === 'image' ? ['Figure'] : node.name ? [node.name] : []), ...(node.children ?? []).flatMap(componentNames)])];
 }
@@ -45,7 +45,7 @@ function original(node, block) {
   return `<p>${escape(block.text)}</p>`;
 }
 
-export function proofreadChapter(chapter, glossary) {
+export function proofreadChapter(chapter, glossary, retained = assets()) {
   const sourceFile = `src/content/book/${chapter.id}.mdx`;
   const source = readFileSync(path(sourceFile), 'utf8');
   const parsed = parseSource(source, chapter.lang, glossary);
@@ -56,7 +56,6 @@ export function proofreadChapter(chapter, glossary) {
     for (const child of node.children ?? []) walk(child, [...parents, node]);
   }
   walk(parsed.tree);
-  const retained = assets();
   const rows = chapter.blocks.map((block, index) => {
     const raw = parsed.blocks[index];
     if (raw.fingerprint !== block.fingerprint) throw new Error(`Proofreading fingerprint mismatch: ${chapter.id}/${block.id}`);
@@ -76,11 +75,11 @@ export function proofreadChapter(chapter, glossary) {
   function omissions(node) {
     const hasNarration = parsed.blocks.some(b => b.node === node || (ancestors.get(b.node) ?? []).includes(node));
     const figure = node.name === 'Figure' || node.type === 'image';
-    const omitted = node.name === 'Footnote' || (node.type === 'image' && !shouldNarrateFigure(node)) || (components.has(node.name) && !hasNarration && node.name !== 'Spoiler');
+    const inlineFootnote = node.name === 'Footnote' && (ancestors.get(node) ?? []).some(parent => represented.has(parent));
+    const omitted = (node.type === 'image' && !shouldNarrateFigure(node)) || (components.has(node.name) && !hasNarration && !inlineFootnote && node.name !== 'Spoiler');
     const excludedHeading = node.type === 'heading' && !represented.has(node);
     if (omitted || excludedHeading) {
-      const reason = node.name === 'Footnote' ? 'Footnote stays in text; it is not spoken by default.'
-        : figure ? shouldNarrateFigure(node)
+      const reason = figure ? shouldNarrateFigure(node)
           ? 'This allowed semicircle diagram has no narration here (missing alt text or excluded reference section).'
           : 'Figure/video excluded from TTS by editorial policy. Only the five-group semicircle diagram (spectrum-of-allies.png) is narrated.'
           : excludedHeading ? 'Reference/material/video heading is excluded by the current editorial policy. Its text remains available in the book.'
@@ -116,6 +115,7 @@ function rowHtml(row) {
   if (row.kind === 'attribution') notes.push('Attribution is spoken as a localized “says NAME from ORGANIZATION” phrase after the quotation.');
   if (row.kind === 'glossary') notes.push('Term and definition come from shared glossary data, not just the glossary MDX.');
   if (row.componentNames.includes('Spoiler')) notes.push('The inline spoiler answer is read immediately as part of this passage. There is no interactive reveal or inserted timed pause.');
+  if (row.componentNames.includes('Footnote') && row.kind !== 'omitted') notes.push('Footnote text is read in place, immediately after its surrounding prose.');
   if (row.adaptation && !notes.length) notes.push('Audio-specific adaptation: review against the source.');
   const requests = row.units.map((unit, i) => `<div class="request"><h4>API input${row.units.length > 1 ? ` ${i + 1} of ${row.units.length}` : ''} · ${unit.text.length} characters</h4><pre data-request-text>${escape(unit.text)}</pre><details><summary>Request identity</summary><code>${escape(unit.id)}</code></details></div>`).join('');
   const status = row.kind === 'omitted' ? 'Not sent to the API' : row.state === 'generated' ? 'Generated audio available' : 'Needs generation';
@@ -134,7 +134,8 @@ function rowHtml(row) {
 
 export function buildProofread(plan) {
   const glossary = read('src/data/glossary.json');
-  const chapters = plan.chapters.map(chapter => ({ ...chapter, rows: proofreadChapter(chapter, glossary) }));
+  const retained = assets();
+  const chapters = plan.chapters.map(chapter => ({ ...chapter, rows: proofreadChapter(chapter, glossary, retained) }));
   const directory = '.cache/audio/proofread';
   mkdirSync(path(directory), { recursive: true });
   writePlan(plan);

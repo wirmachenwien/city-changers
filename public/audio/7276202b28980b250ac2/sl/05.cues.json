@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "granularity": "sentence",
-  "revision": "6c1b8dc75be7270d3248",
+  "revision": "7276202b28980b250ac2",
   "chapterId": "sl/05",
   "cues": [
     {
@@ -139,294 +139,294 @@
     },
     {
       "start": 147.36,
-      "end": 171.28000000000003,
+      "end": 170.08,
       "blockIds": [
         "b-428e41b17409970f"
       ]
     },
     {
-      "start": 171.28000000000003,
-      "end": 173.36000000000004,
+      "start": 170.08,
+      "end": 172.16000000000003,
       "blockIds": [
         "b-88284c5de74204e4"
       ]
     },
     {
-      "start": 173.36000000000004,
-      "end": 202.24000000000004,
+      "start": 172.16000000000003,
+      "end": 201.04000000000002,
       "blockIds": [
         "b-8b34559d118f2033"
       ]
     },
     {
-      "start": 202.24000000000004,
-      "end": 203.76000000000005,
+      "start": 201.04000000000002,
+      "end": 202.56000000000003,
       "blockIds": [
         "b-09231c6fd23917c0"
       ]
     },
     {
-      "start": 203.76000000000005,
-      "end": 210.16000000000005,
+      "start": 202.56000000000003,
+      "end": 208.96000000000004,
       "blockIds": [
         "b-7c089f22e97508b9"
       ]
     },
     {
-      "start": 210.16000000000005,
-      "end": 216.00000000000006,
+      "start": 208.96000000000004,
+      "end": 214.80000000000004,
       "blockIds": [
         "b-470926f342415145"
       ]
     },
     {
-      "start": 216.00000000000006,
-      "end": 222.00000000000006,
+      "start": 214.80000000000004,
+      "end": 220.80000000000004,
       "blockIds": [
         "b-2b465e281b1d8474"
       ]
     },
     {
-      "start": 222.00000000000006,
-      "end": 229.20000000000005,
+      "start": 220.80000000000004,
+      "end": 228.00000000000003,
       "blockIds": [
         "b-ec98a4113cf90e35"
       ]
     },
     {
-      "start": 229.20000000000005,
-      "end": 233.76000000000005,
+      "start": 228.00000000000003,
+      "end": 232.56000000000003,
       "blockIds": [
         "b-e350b8f8c55973de"
       ]
     },
     {
-      "start": 233.76000000000005,
-      "end": 242.08000000000004,
+      "start": 232.56000000000003,
+      "end": 240.88000000000002,
       "blockIds": [
         "b-b53c02b70a97f4ec"
       ]
     },
     {
-      "start": 242.08000000000004,
-      "end": 248.96000000000004,
+      "start": 240.88000000000002,
+      "end": 247.76000000000002,
       "blockIds": [
         "b-9910b4bc4af54da1"
       ]
     },
     {
-      "start": 248.96000000000004,
-      "end": 256.00000000000006,
+      "start": 247.76000000000002,
+      "end": 254.8,
       "blockIds": [
         "b-ec137b90a32b2b0a"
       ]
     },
     {
-      "start": 256.00000000000006,
-      "end": 366.24000000000007,
+      "start": 254.8,
+      "end": 365.04,
       "blockIds": [
         "b-c3defb4319448f44"
       ]
     },
     {
-      "start": 366.24000000000007,
-      "end": 368.32000000000005,
+      "start": 365.04,
+      "end": 367.12,
       "blockIds": [
         "b-dd482276613ecafe"
       ]
     },
     {
-      "start": 368.32000000000005,
-      "end": 403.52000000000004,
+      "start": 367.12,
+      "end": 402.32,
       "blockIds": [
         "b-11ade2cfc7656544"
       ]
     },
     {
-      "start": 403.52000000000004,
-      "end": 405.68000000000006,
+      "start": 402.32,
+      "end": 404.48,
       "blockIds": [
         "b-ecdad7c29d12eba7"
       ]
     },
     {
-      "start": 405.68000000000006,
-      "end": 415.2800000000001,
+      "start": 404.48,
+      "end": 414.08000000000004,
       "blockIds": [
         "b-c201b7fd75bee196"
       ]
     },
     {
-      "start": 415.2800000000001,
-      "end": 426.4000000000001,
+      "start": 414.08000000000004,
+      "end": 425.20000000000005,
       "blockIds": [
         "b-6d74beceab15f9d1"
       ]
     },
     {
-      "start": 426.4000000000001,
-      "end": 436.24000000000007,
+      "start": 425.20000000000005,
+      "end": 435.04,
       "blockIds": [
         "b-6e690c4efd6b4cab"
       ]
     },
     {
-      "start": 436.24000000000007,
-      "end": 445.8400000000001,
+      "start": 435.04,
+      "end": 444.64000000000004,
       "blockIds": [
         "b-d8669b8665e142ce"
       ]
     },
     {
-      "start": 445.8400000000001,
-      "end": 448.0800000000001,
+      "start": 444.64000000000004,
+      "end": 446.88000000000005,
       "blockIds": [
         "b-62763ce3d55dde95"
       ]
     },
     {
-      "start": 448.0800000000001,
-      "end": 456.4800000000001,
+      "start": 446.88000000000005,
+      "end": 455.28000000000003,
       "blockIds": [
         "b-b64a30824f0f666e"
       ]
     },
     {
-      "start": 456.4800000000001,
-      "end": 465.2800000000001,
+      "start": 455.28000000000003,
+      "end": 464.08000000000004,
       "blockIds": [
         "b-9b51626de0a07527"
       ]
     },
     {
-      "start": 465.2800000000001,
-      "end": 477.12000000000006,
+      "start": 464.08000000000004,
+      "end": 475.92,
       "blockIds": [
         "b-5629f54eac4a1af3"
       ]
     },
     {
-      "start": 477.12000000000006,
-      "end": 485.12000000000006,
+      "start": 475.92,
+      "end": 483.92,
       "blockIds": [
         "b-d3b3d089d16f99c9"
       ]
     },
     {
-      "start": 485.12000000000006,
-      "end": 494.40000000000003,
+      "start": 483.92,
+      "end": 493.2,
       "blockIds": [
         "b-8ef80560988b2494"
       ]
     },
     {
-      "start": 494.40000000000003,
-      "end": 504.88000000000005,
+      "start": 493.2,
+      "end": 503.68,
       "blockIds": [
         "b-515edcc3453c8935"
       ]
     },
     {
-      "start": 504.88000000000005,
-      "end": 512.4000000000001,
+      "start": 503.68,
+      "end": 511.2,
       "blockIds": [
         "b-ed794abdee989017"
       ]
     },
     {
-      "start": 512.4000000000001,
-      "end": 513.9200000000001,
+      "start": 511.2,
+      "end": 512.72,
       "blockIds": [
         "b-d87709538d563847"
       ]
     },
     {
-      "start": 513.9200000000001,
-      "end": 525.2800000000001,
+      "start": 512.72,
+      "end": 524.08,
       "blockIds": [
         "b-a274429e16ed413f"
       ]
     },
     {
-      "start": 525.2800000000001,
-      "end": 527.7600000000001,
+      "start": 524.08,
+      "end": 526.5600000000001,
       "blockIds": [
         "b-0062e85fdad8f442"
       ]
     },
     {
-      "start": 527.7600000000001,
-      "end": 548.8800000000001,
+      "start": 526.5600000000001,
+      "end": 547.6800000000001,
       "blockIds": [
         "b-6a75b82ea2e7840d"
       ]
     },
     {
-      "start": 548.8800000000001,
-      "end": 573.4000000000001,
+      "start": 547.6800000000001,
+      "end": 572.2,
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ]
     },
     {
-      "start": 573.4000000000001,
-      "end": 575.5600000000001,
+      "start": 572.2,
+      "end": 574.36,
       "blockIds": [
         "b-35343e384ec29b44"
       ]
     },
     {
-      "start": 575.5600000000001,
-      "end": 579.96,
+      "start": 574.36,
+      "end": 578.76,
       "blockIds": [
         "b-bf9678b741e0edf1"
       ]
     },
     {
-      "start": 579.96,
-      "end": 584.44,
+      "start": 578.76,
+      "end": 583.24,
       "blockIds": [
         "b-a0cc162ce6bd9fc3"
       ]
     },
     {
-      "start": 584.44,
-      "end": 588.6800000000001,
+      "start": 583.24,
+      "end": 587.48,
       "blockIds": [
         "b-45c48999aa36a720"
       ]
     },
     {
-      "start": 588.6800000000001,
-      "end": 591.96,
+      "start": 587.48,
+      "end": 590.76,
       "blockIds": [
         "b-c8a5a02146023503"
       ]
     },
     {
-      "start": 591.96,
-      "end": 595.8000000000001,
+      "start": 590.76,
+      "end": 594.6,
       "blockIds": [
         "b-f38a64392dc61329"
       ]
     },
     {
-      "start": 595.8000000000001,
-      "end": 599.48,
+      "start": 594.6,
+      "end": 598.28,
       "blockIds": [
         "b-298a5c5da5fb9c73"
       ]
     },
     {
-      "start": 599.48,
-      "end": 605,
+      "start": 598.28,
+      "end": 603.8,
       "blockIds": [
         "b-55ac1838524b2ab4"
       ]
     },
     {
-      "start": 605,
-      "end": 610.12,
+      "start": 603.8,
+      "end": 608.92,
       "blockIds": [
         "b-5511f0c4d56f23a8"
       ]
@@ -780,7 +780,7 @@
         "b-428e41b17409970f"
       ],
       "start": 147.36,
-      "end": 151.52,
+      "end": 151.56,
       "startOffset": 0,
       "endOffset": 63,
       "text": "Katera parkirišča okoli mestnega središča so dejansko zasedena?"
@@ -790,21 +790,21 @@
       "blockIds": [
         "b-428e41b17409970f"
       ],
-      "start": 152,
-      "end": 162.08,
+      "start": 151.84,
+      "end": 161.12,
       "startOffset": 64,
-      "endOffset": 212,
-      "text": "Opazovanja so pokazala, da so bila so imela nekatera ob konicah več avtomobilov kot označenih parkirnih mest, druga pa so imela proste zmogljivosti."
+      "endOffset": 204,
+      "text": "Opazovanja so pokazala, da so imela nekatera ob konicah več avtomobilov kot označenih parkirnih mest, druga pa so imela proste zmogljivosti."
     },
     {
       "sentenceId": "b-428e41b17409970f-s3",
       "blockIds": [
         "b-428e41b17409970f"
       ],
-      "start": 162.4,
-      "end": 171.28000000000003,
-      "startOffset": 213,
-      "endOffset": 345,
+      "start": 161.44000000000003,
+      "end": 170.08,
+      "startOffset": 205,
+      "endOffset": 337,
       "text": "Primerjava z gospodarsko dejavnostjo bližnjih trgovin pomaga preveriti predpostavko, da je vsako parkirno mesto nujno za poslovanje."
     },
     {
@@ -812,8 +812,8 @@
       "blockIds": [
         "b-88284c5de74204e4"
       ],
-      "start": 171.28000000000003,
-      "end": 173.36000000000004,
+      "start": 170.08,
+      "end": 172.16000000000003,
       "startOffset": 0,
       "endOffset": 22,
       "text": "Aplikacija Public Life"
@@ -823,8 +823,8 @@
       "blockIds": [
         "b-8b34559d118f2033"
       ],
-      "start": 173.36000000000004,
-      "end": 183.40000000000003,
+      "start": 172.16000000000003,
+      "end": 182.20000000000002,
       "startOffset": 0,
       "endOffset": 127,
       "text": "Brezplačna aplikacija Urban95 Public Life, ki sta jo razvila Gehl in Van Leer Foundation, temelji na Public Life Data Protocol."
@@ -834,8 +834,8 @@
       "blockIds": [
         "b-8b34559d118f2033"
       ],
-      "start": 183.68000000000004,
-      "end": 188.40000000000003,
+      "start": 182.48000000000002,
+      "end": 187.20000000000002,
       "startOffset": 128,
       "endOffset": 179,
       "text": "Več preberite v Urban95 Public Life Data Framework."
@@ -845,8 +845,8 @@
       "blockIds": [
         "b-8b34559d118f2033"
       ],
-      "start": 188.72000000000003,
-      "end": 196.72000000000003,
+      "start": 187.52000000000004,
+      "end": 195.52000000000004,
       "startOffset": 180,
       "endOffset": 289,
       "text": "Načrtujte pet do šest prostovoljcev na ulico in opazovalno obdobje od zgodnjega jutra (ob 5. uri) do polnoči."
@@ -856,8 +856,8 @@
       "blockIds": [
         "b-8b34559d118f2033"
       ],
-      "start": 196.96000000000004,
-      "end": 202.24000000000004,
+      "start": 195.76000000000002,
+      "end": 201.04000000000002,
       "startOffset": 290,
       "endOffset": 372,
       "text": "Ne potrebujete veliko dni, za analizo rezultatov pa boste potrebovali preglednice."
@@ -867,8 +867,8 @@
       "blockIds": [
         "b-09231c6fd23917c0"
       ],
-      "start": 202.24000000000004,
-      "end": 203.76000000000005,
+      "start": 201.04000000000002,
+      "end": 202.56000000000003,
       "startOffset": 0,
       "endOffset": 16,
       "text": "Kaj lahko merimo"
@@ -878,8 +878,8 @@
       "blockIds": [
         "b-7c089f22e97508b9"
       ],
-      "start": 203.76000000000005,
-      "end": 210.16000000000005,
+      "start": 202.56000000000003,
+      "end": 208.96000000000004,
       "startOffset": 0,
       "endOffset": 86,
       "text": "Za superbloke, taktični urbanizem in oblikovanje ulic so primerni preprosti kazalniki:"
@@ -889,8 +889,8 @@
       "blockIds": [
         "b-470926f342415145"
       ],
-      "start": 210.16000000000005,
-      "end": 216.00000000000006,
+      "start": 208.96000000000004,
+      "end": 214.80000000000004,
       "startOffset": 0,
       "endOffset": 67,
       "text": "Obseg prometa: Koliko avtomobilov, koles in pešcev uporablja odsek?"
@@ -900,8 +900,8 @@
       "blockIds": [
         "b-2b465e281b1d8474"
       ],
-      "start": 216.00000000000006,
-      "end": 222.00000000000006,
+      "start": 214.80000000000004,
+      "end": 220.80000000000004,
       "startOffset": 0,
       "endOffset": 78,
       "text": "Hitrost in konflikti: Kje se vozi prehitro in kje nastajajo nevarne situacije?"
@@ -911,8 +911,8 @@
       "blockIds": [
         "b-ec98a4113cf90e35"
       ],
-      "start": 222.00000000000006,
-      "end": 229.20000000000005,
+      "start": 220.80000000000004,
+      "end": 228.00000000000003,
       "startOffset": 0,
       "endOffset": 84,
       "text": "Zadrževanje: Ali se ljudje ustavljajo, sedijo, se otroci igrajo, nastajajo pogovori?"
@@ -922,8 +922,8 @@
       "blockIds": [
         "b-e350b8f8c55973de"
       ],
-      "start": 229.20000000000005,
-      "end": 233.76000000000005,
+      "start": 228.00000000000003,
+      "end": 232.56000000000003,
       "startOffset": 0,
       "endOffset": 54,
       "text": "Parkiranje: Katera mesta so dejansko zasedena in kdaj?"
@@ -933,8 +933,8 @@
       "blockIds": [
         "b-b53c02b70a97f4ec"
       ],
-      "start": 233.76000000000005,
-      "end": 242.08000000000004,
+      "start": 232.56000000000003,
+      "end": 240.88000000000002,
       "startOffset": 0,
       "endOffset": 99,
       "text": "Podnebje in udobje: Ali so prisotni senca, toplotni otoki, zelenje, pitna voda in zmanjšanje hrupa?"
@@ -944,8 +944,8 @@
       "blockIds": [
         "b-9910b4bc4af54da1"
       ],
-      "start": 242.08000000000004,
-      "end": 248.96000000000004,
+      "start": 240.88000000000002,
+      "end": 247.76000000000002,
       "startOffset": 0,
       "endOffset": 83,
       "text": "Podpora: Koliko ljudi se podpiše, pride na srečanja, deli vsebine ali ponudi pomoč?"
@@ -955,8 +955,8 @@
       "blockIds": [
         "b-ec137b90a32b2b0a"
       ],
-      "start": 248.96000000000004,
-      "end": 256.00000000000006,
+      "start": 247.76000000000002,
+      "end": 254.8,
       "startOffset": 0,
       "endOffset": 87,
       "text": "Politični napredek: Kateri predlogi, pogovori, zaveze ali upravna preverjanja potekajo?"
@@ -966,8 +966,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 256.00000000000006,
-      "end": 258.1600000000001,
+      "start": 254.8,
+      "end": 256.96000000000004,
       "startOffset": 0,
       "endOffset": 27,
       "text": "Kazalnik: Tranzitni promet."
@@ -977,8 +977,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 258.32000000000005,
-      "end": 262.7200000000001,
+      "start": 257.12,
+      "end": 261.52000000000004,
       "startOffset": 28,
       "endOffset": 83,
       "text": "Preprosta metoda: Štetje v dveh stalnih časovnih oknih."
@@ -988,8 +988,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 262.96000000000004,
-      "end": 267.32000000000005,
+      "start": 261.76,
+      "end": 266.12,
       "startOffset": 84,
       "endOffset": 141,
       "text": "Dobra oblika rezultata: Številka, fotografija, zemljevid."
@@ -999,8 +999,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 267.52000000000004,
-      "end": 269.76000000000005,
+      "start": 266.32,
+      "end": 268.56,
       "startOffset": 143,
       "endOffset": 167,
       "text": "Kazalnik: Tokovi pešcev."
@@ -1010,8 +1010,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 269.9200000000001,
-      "end": 275.2800000000001,
+      "start": 268.72,
+      "end": 274.08000000000004,
       "startOffset": 168,
       "endOffset": 242,
       "text": "Preprosta metoda: Štetje v 15-minutnih intervalih, vključno s smerjo hoje."
@@ -1021,8 +1021,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 275.68000000000006,
-      "end": 278.64000000000004,
+      "start": 274.48,
+      "end": 277.44,
       "startOffset": 243,
       "endOffset": 283,
       "text": "Dobra oblika rezultata: Zemljevid tokov."
@@ -1032,8 +1032,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 278.80000000000007,
-      "end": 281.44000000000005,
+      "start": 277.6,
+      "end": 280.24,
       "startOffset": 285,
       "endOffset": 316,
       "text": "Kazalnik: Hitrost in konflikti."
@@ -1043,8 +1043,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 281.6000000000001,
-      "end": 291.76000000000005,
+      "start": 280.40000000000003,
+      "end": 290.56,
       "startOffset": 317,
       "endOffset": 466,
       "text": "Preprosta metoda: Opazovanje in analiza fotografij na stalnih točkah; kjer je mogoče, podatki prikazovalnikov hitrosti in policijske evidence nesreč."
@@ -1054,8 +1054,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 292.00000000000006,
-      "end": 299.84000000000003,
+      "start": 290.8,
+      "end": 298.64,
       "startOffset": 467,
       "endOffset": 582,
       "text": "Dobra oblika rezultata: Zemljevid konfliktov z mesti prehitre vožnje in nesreč, ključnimi podatki in fotografijami."
@@ -1065,8 +1065,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 299.89300000000003,
-      "end": 302.56000000000006,
+      "start": 298.693,
+      "end": 301.36,
       "startOffset": 584,
       "endOffset": 615,
       "text": "Kazalnik: Kakovost zadrževanja."
@@ -1076,8 +1076,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 302.72,
-      "end": 307.84000000000003,
+      "start": 301.52,
+      "end": 306.64,
       "startOffset": 616,
       "endOffset": 686,
       "text": "Preprosta metoda: Opazovanje na terenu in kartiranje mest zadrževanja."
@@ -1087,8 +1087,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 307.88000000000005,
-      "end": 312.40000000000003,
+      "start": 306.68,
+      "end": 311.2,
       "startOffset": 687,
       "endOffset": 744,
       "text": "Dobra oblika rezultata: Kratke opombe, izjave, zemljevid."
@@ -1098,8 +1098,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 312.4530000000001,
-      "end": 314.24000000000007,
+      "start": 311.25300000000004,
+      "end": 313.04,
       "startOffset": 746,
       "endOffset": 767,
       "text": "Kazalnik: Parkiranje."
@@ -1109,8 +1109,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 314.40000000000003,
-      "end": 318.44000000000005,
+      "start": 313.2,
+      "end": 317.24,
       "startOffset": 768,
       "endOffset": 823,
       "text": "Preprosta metoda: Štetje zasedenosti ob različnih urah."
@@ -1120,8 +1120,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 318.64000000000004,
-      "end": 321.76000000000005,
+      "start": 317.44,
+      "end": 320.56,
       "startOffset": 824,
       "endOffset": 865,
       "text": "Dobra oblika rezultata: Graf zasedenosti."
@@ -1131,8 +1131,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 321.9200000000001,
-      "end": 324.4000000000001,
+      "start": 320.72,
+      "end": 323.20000000000005,
       "startOffset": 867,
       "endOffset": 895,
       "text": "Kazalnik: Vročina in udobje."
@@ -1142,8 +1142,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 324.56000000000006,
-      "end": 330.0400000000001,
+      "start": 323.36,
+      "end": 328.84000000000003,
       "startOffset": 896,
       "endOffset": 968,
       "text": "Preprosta metoda: Kartiranje vročih točk, karta senc, fotografske točke."
@@ -1153,8 +1153,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 330.24000000000007,
-      "end": 336.00000000000006,
+      "start": 329.04,
+      "end": 334.8,
       "startOffset": 969,
       "endOffset": 1052,
       "text": "Dobra oblika rezultata: Toplotni zemljevid, par fotografij pred posegom in po njem."
@@ -1164,8 +1164,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 336.1600000000001,
-      "end": 337.76000000000005,
+      "start": 334.96000000000004,
+      "end": 336.56,
       "startOffset": 1054,
       "endOffset": 1072,
       "text": "Kazalnik: Podpora."
@@ -1175,8 +1175,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 338.00000000000006,
-      "end": 342.00000000000006,
+      "start": 336.8,
+      "end": 340.8,
       "startOffset": 1073,
       "endOffset": 1119,
       "text": "Preprosta metoda: Pogovori, podpisi, srečanja."
@@ -1186,8 +1186,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 342.08000000000004,
-      "end": 345.6,
+      "start": 340.88,
+      "end": 344.4,
       "startOffset": 1120,
       "endOffset": 1170,
       "text": "Dobra oblika rezultata: Seznam z vlogami in stiki."
@@ -1197,8 +1197,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 345.84000000000003,
-      "end": 348.24000000000007,
+      "start": 344.64,
+      "end": 347.04,
       "startOffset": 1172,
       "endOffset": 1201,
       "text": "Kazalnik: Politični napredek."
@@ -1208,8 +1208,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 348.4000000000001,
-      "end": 358.80000000000007,
+      "start": 347.20000000000005,
+      "end": 357.6,
       "startOffset": 1202,
       "endOffset": 1352,
       "text": "Preprosta metoda: Spremljanje dnevnih redov in zapisnikov, predlogov, odgovorov in zavez; beleženje datumov, pristojnih organov in naslednjih korakov."
@@ -1219,8 +1219,8 @@
       "blockIds": [
         "b-c3defb4319448f44"
       ],
-      "start": 358.84000000000003,
-      "end": 366.24000000000007,
+      "start": 357.64,
+      "end": 365.04,
       "startOffset": 1353,
       "endOffset": 1463,
       "text": "Dobra oblika rezultata: Časovnica ali sledilna tabela z datumi, stanjem in povezavami do ustreznih dokumentov."
@@ -1230,8 +1230,8 @@
       "blockIds": [
         "b-dd482276613ecafe"
       ],
-      "start": 366.24000000000007,
-      "end": 368.32000000000005,
+      "start": 365.04,
+      "end": 367.12,
       "startOffset": 0,
       "endOffset": 23,
       "text": "Od podatkov do sprememb"
@@ -1241,8 +1241,8 @@
       "blockIds": [
         "b-11ade2cfc7656544"
       ],
-      "start": 368.32000000000005,
-      "end": 371.0400000000001,
+      "start": 367.12,
+      "end": 369.84000000000003,
       "startOffset": 0,
       "endOffset": 35,
       "text": "Sami podatki redko koga prepričajo."
@@ -1252,8 +1252,8 @@
       "blockIds": [
         "b-11ade2cfc7656544"
       ],
-      "start": 371.52000000000004,
-      "end": 377.76000000000005,
+      "start": 370.32,
+      "end": 376.56,
       "startOffset": 36,
       "endOffset": 116,
       "text": "Prostorož povezuje tri korake: aktiviranje, oblikovanje vizije in zagovorništvo."
@@ -1263,8 +1263,8 @@
       "blockIds": [
         "b-11ade2cfc7656544"
       ],
-      "start": 378.00000000000006,
-      "end": 382.80000000000007,
+      "start": 376.8,
+      "end": 381.6,
       "startOffset": 117,
       "endOffset": 191,
       "text": "Ugotovitve postanejo prepričljive, ko jih ljudje lahko vidijo in doživijo."
@@ -1274,8 +1274,8 @@
       "blockIds": [
         "b-11ade2cfc7656544"
       ],
-      "start": 383.0400000000001,
-      "end": 403.52000000000004,
+      "start": 381.84000000000003,
+      "end": 402.32,
       "startOffset": 192,
       "endOffset": 482,
       "text": "Vizualizacije, ki se neposredno odzivajo na raziskovalne ugotovitve, povedo več kot tabela številk, začasna akcija pa rezultate naredi oprijemljive: pri eni akciji so stojala za kajake, rdeča streha iz blaga in nekaj zložljivih stolov pet parkirnih mest spremenili v prostor za zadrževanje."
@@ -1285,8 +1285,8 @@
       "blockIds": [
         "b-ecdad7c29d12eba7"
       ],
-      "start": 403.52000000000004,
-      "end": 405.68000000000006,
+      "start": 402.32,
+      "end": 404.48,
       "startOffset": 0,
       "endOffset": 25,
       "text": "Štirje nauki iz Ljubljane"
@@ -1296,8 +1296,8 @@
       "blockIds": [
         "b-c201b7fd75bee196"
       ],
-      "start": 405.68000000000006,
-      "end": 406.24000000000007,
+      "start": 404.48,
+      "end": 405.04,
       "startOffset": 0,
       "endOffset": 6,
       "text": "Prvič."
@@ -1307,8 +1307,8 @@
       "blockIds": [
         "b-c201b7fd75bee196"
       ],
-      "start": 406.4800000000001,
-      "end": 409.80000000000007,
+      "start": 405.28000000000003,
+      "end": 408.6,
       "startOffset": 7,
       "endOffset": 48,
       "text": "Povežite podatke in pripovedovanje zgodb."
@@ -1318,8 +1318,8 @@
       "blockIds": [
         "b-c201b7fd75bee196"
       ],
-      "start": 410.00000000000006,
-      "end": 415.2800000000001,
+      "start": 408.8,
+      "end": 414.08000000000004,
       "startOffset": 49,
       "endOffset": 123,
       "text": "Številke postanejo močne, ko so del zgodbe, v kateri se ljudje prepoznajo."
@@ -1329,8 +1329,8 @@
       "blockIds": [
         "b-6d74beceab15f9d1"
       ],
-      "start": 415.2800000000001,
-      "end": 416.0800000000001,
+      "start": 414.08000000000004,
+      "end": 414.88000000000005,
       "startOffset": 0,
       "endOffset": 7,
       "text": "Drugič."
@@ -1340,8 +1340,8 @@
       "blockIds": [
         "b-6d74beceab15f9d1"
       ],
-      "start": 416.3200000000001,
-      "end": 420.2800000000001,
+      "start": 415.12000000000006,
+      "end": 419.08000000000004,
       "startOffset": 8,
       "endOffset": 62,
       "text": "Povežite fizične intervencije z dolgoročnimi vizijami."
@@ -1351,8 +1351,8 @@
       "blockIds": [
         "b-6d74beceab15f9d1"
       ],
-      "start": 420.56000000000006,
-      "end": 426.4000000000001,
+      "start": 419.36,
+      "end": 425.20000000000005,
       "startOffset": 63,
       "endOffset": 129,
       "text": "Začasna akcija pokaže, kaj je mogoče; vizija pojasni, kam to vodi."
@@ -1362,8 +1362,8 @@
       "blockIds": [
         "b-6e690c4efd6b4cab"
       ],
-      "start": 426.4000000000001,
-      "end": 427.2800000000001,
+      "start": 425.20000000000005,
+      "end": 426.08000000000004,
       "startOffset": 0,
       "endOffset": 8,
       "text": "Tretjič."
@@ -1373,8 +1373,8 @@
       "blockIds": [
         "b-6e690c4efd6b4cab"
       ],
-      "start": 427.5200000000001,
-      "end": 429.7600000000001,
+      "start": 426.32000000000005,
+      "end": 428.56000000000006,
       "startOffset": 9,
       "endOffset": 40,
       "text": "Učite se od »nasprotne strani«."
@@ -1384,8 +1384,8 @@
       "blockIds": [
         "b-6e690c4efd6b4cab"
       ],
-      "start": 430.1600000000001,
-      "end": 436.24000000000007,
+      "start": 428.96000000000004,
+      "end": 435.04,
       "startOffset": 41,
       "endOffset": 121,
       "text": "Uporabite marketinška orodja: močne podobe, preprosta sporočila, pravi trenutek."
@@ -1395,8 +1395,8 @@
       "blockIds": [
         "b-d8669b8665e142ce"
       ],
-      "start": 436.24000000000007,
-      "end": 437.0400000000001,
+      "start": 435.04,
+      "end": 435.84000000000003,
       "startOffset": 0,
       "endOffset": 8,
       "text": "Četrtič."
@@ -1406,8 +1406,8 @@
       "blockIds": [
         "b-d8669b8665e142ce"
       ],
-      "start": 437.52000000000004,
-      "end": 439.0400000000001,
+      "start": 436.32,
+      "end": 437.84000000000003,
       "startOffset": 9,
       "endOffset": 31,
       "text": "Veliko fotografirajte."
@@ -1417,8 +1417,8 @@
       "blockIds": [
         "b-d8669b8665e142ce"
       ],
-      "start": 439.52000000000004,
-      "end": 445.8400000000001,
+      "start": 438.32,
+      "end": 444.64000000000004,
       "startOffset": 32,
       "endOffset": 122,
       "text": "Fotografije boste potrebovali za poročila, družbena omrežja, medije in politične pogovore."
@@ -1428,8 +1428,8 @@
       "blockIds": [
         "b-62763ce3d55dde95"
       ],
-      "start": 445.8400000000001,
-      "end": 448.0800000000001,
+      "start": 444.64000000000004,
+      "end": 446.88000000000005,
       "startOffset": 0,
       "endOffset": 27,
       "text": "Minimalni načrt spremljanja"
@@ -1439,8 +1439,8 @@
       "blockIds": [
         "b-b64a30824f0f666e"
       ],
-      "start": 448.0800000000001,
-      "end": 448.8800000000001,
+      "start": 446.88000000000005,
+      "end": 447.68000000000006,
       "startOffset": 0,
       "endOffset": 6,
       "text": "Prvič."
@@ -1450,8 +1450,8 @@
       "blockIds": [
         "b-b64a30824f0f666e"
       ],
-      "start": 449.1200000000001,
-      "end": 456.4800000000001,
+      "start": 447.9200000000001,
+      "end": 455.28000000000003,
       "startOffset": 7,
       "endOffset": 101,
       "text": "Dokumentirajte izhodiščno stanje: fotografije, zemljevid, kratek opis problema in prvo štetje."
@@ -1461,8 +1461,8 @@
       "blockIds": [
         "b-9b51626de0a07527"
       ],
-      "start": 456.4800000000001,
-      "end": 457.2800000000001,
+      "start": 455.28000000000003,
+      "end": 456.08000000000004,
       "startOffset": 0,
       "endOffset": 7,
       "text": "Drugič."
@@ -1472,8 +1472,8 @@
       "blockIds": [
         "b-9b51626de0a07527"
       ],
-      "start": 457.5200000000001,
-      "end": 465.2800000000001,
+      "start": 456.32000000000005,
+      "end": 464.08000000000004,
       "startOffset": 8,
       "endOffset": 110,
       "text": "Določite ciljno vrednost: na primer manj tranzitnega prometa, več varnih prehodov ali več podpornikov."
@@ -1483,8 +1483,8 @@
       "blockIds": [
         "b-5629f54eac4a1af3"
       ],
-      "start": 465.2800000000001,
-      "end": 466.12000000000006,
+      "start": 464.08000000000004,
+      "end": 464.92,
       "startOffset": 0,
       "endOffset": 8,
       "text": "Tretjič."
@@ -1494,8 +1494,8 @@
       "blockIds": [
         "b-5629f54eac4a1af3"
       ],
-      "start": 466.3200000000001,
-      "end": 477.12000000000006,
+      "start": 465.12000000000006,
+      "end": 475.92,
       "startOffset": 9,
       "endOffset": 138,
       "text": "Izberite metodo: anketa, kartiranje, štetje prometa ali pešcev, opazovanje, ulični radar ali fotografije pred posegom in po njem."
@@ -1505,8 +1505,8 @@
       "blockIds": [
         "b-d3b3d089d16f99c9"
       ],
-      "start": 477.12000000000006,
-      "end": 477.8400000000001,
+      "start": 475.92,
+      "end": 476.64000000000004,
       "startOffset": 0,
       "endOffset": 8,
       "text": "Četrtič."
@@ -1516,8 +1516,8 @@
       "blockIds": [
         "b-d3b3d089d16f99c9"
       ],
-      "start": 477.9200000000001,
-      "end": 485.12000000000006,
+      "start": 476.72,
+      "end": 483.92,
       "startOffset": 9,
       "endOffset": 89,
       "text": "Izberite pravi trenutek: vročino v vročih dneh, promet ob konici, igro po pouku."
@@ -1527,8 +1527,8 @@
       "blockIds": [
         "b-8ef80560988b2494"
       ],
-      "start": 485.12000000000006,
-      "end": 485.9200000000001,
+      "start": 483.92,
+      "end": 484.72,
       "startOffset": 0,
       "endOffset": 6,
       "text": "Petič."
@@ -1538,8 +1538,8 @@
       "blockIds": [
         "b-8ef80560988b2494"
       ],
-      "start": 486.1600000000001,
-      "end": 494.40000000000003,
+      "start": 484.96000000000004,
+      "end": 493.2,
       "startOffset": 7,
       "endOffset": 98,
       "text": "Določite odgovorne: ena oseba usklajuje podatke, druga fotografije, tretja izjave in stike."
@@ -1549,8 +1549,8 @@
       "blockIds": [
         "b-515edcc3453c8935"
       ],
-      "start": 494.40000000000003,
-      "end": 495.32000000000005,
+      "start": 493.2,
+      "end": 494.12,
       "startOffset": 0,
       "endOffset": 7,
       "text": "Šestič."
@@ -1560,8 +1560,8 @@
       "blockIds": [
         "b-515edcc3453c8935"
       ],
-      "start": 495.52000000000004,
-      "end": 504.88000000000005,
+      "start": 494.32,
+      "end": 503.68,
       "startOffset": 8,
       "endOffset": 122,
       "text": "Pripravite rezultate: Pogosto zadošča ena stran: problem, metoda, najpomembnejše številke, fotografije in zahteva."
@@ -1571,8 +1571,8 @@
       "blockIds": [
         "b-ed794abdee989017"
       ],
-      "start": 504.88000000000005,
-      "end": 505.84000000000003,
+      "start": 503.68,
+      "end": 504.64,
       "startOffset": 0,
       "endOffset": 7,
       "text": "Sedmič."
@@ -1582,8 +1582,8 @@
       "blockIds": [
         "b-ed794abdee989017"
       ],
-      "start": 506.08000000000004,
-      "end": 512.4000000000001,
+      "start": 504.88,
+      "end": 511.2,
       "startOffset": 8,
       "endOffset": 87,
       "text": "Učite se: Kaj je treba prilagoditi pri zahtevi, akciji ali gradnji zavezništev?"
@@ -1593,8 +1593,8 @@
       "blockIds": [
         "b-d87709538d563847"
       ],
-      "start": 512.4000000000001,
-      "end": 513.9200000000001,
+      "start": 511.2,
+      "end": 512.72,
       "startOffset": 0,
       "endOffset": 15,
       "text": "Začnite z malim"
@@ -1604,8 +1604,8 @@
       "blockIds": [
         "b-a274429e16ed413f"
       ],
-      "start": 513.9200000000001,
-      "end": 517.44,
+      "start": 512.72,
+      "end": 516.24,
       "startOffset": 0,
       "endOffset": 51,
       "text": "Zanesljivo spremljanje ni nujno znanstveno popolno."
@@ -1615,8 +1615,8 @@
       "blockIds": [
         "b-a274429e16ed413f"
       ],
-      "start": 517.9200000000001,
-      "end": 525.2800000000001,
+      "start": 516.72,
+      "end": 524.08,
       "startOffset": 52,
       "endOffset": 145,
       "text": "Za začetek pogosto zadošča ponovljiva metoda: isti kraj, isti čas, isto opazovalno vprašanje."
@@ -1626,8 +1626,8 @@
       "blockIds": [
         "b-0062e85fdad8f442"
       ],
-      "start": 525.2800000000001,
-      "end": 527.7600000000001,
+      "start": 524.08,
+      "end": 526.5600000000001,
       "startOffset": 0,
       "endOffset": 28,
       "text": "Spremljanje kot mobilizacija"
@@ -1637,8 +1637,8 @@
       "blockIds": [
         "b-6a75b82ea2e7840d"
       ],
-      "start": 527.7600000000001,
-      "end": 530.5600000000001,
+      "start": 526.5600000000001,
+      "end": 529.36,
       "startOffset": 0,
       "endOffset": 41,
       "text": "Spremljanje je lahko samo po sebi akcija."
@@ -1648,8 +1648,8 @@
       "blockIds": [
         "b-6a75b82ea2e7840d"
       ],
-      "start": 531.0400000000001,
-      "end": 534.0000000000001,
+      "start": 529.84,
+      "end": 532.8000000000001,
       "startOffset": 42,
       "endOffset": 83,
       "text": "Štetje prometa na ulici spodbuja pogovor."
@@ -1659,8 +1659,8 @@
       "blockIds": [
         "b-6a75b82ea2e7840d"
       ],
-      "start": 534.2400000000001,
-      "end": 539.4000000000001,
+      "start": 533.0400000000001,
+      "end": 538.2,
       "startOffset": 84,
       "endOffset": 158,
       "text": "Testne klopi z obrazcem za odziv vabijo mimoidoče, da povedo svoje mnenje."
@@ -1670,8 +1670,8 @@
       "blockIds": [
         "b-6a75b82ea2e7840d"
       ],
-      "start": 539.6800000000001,
-      "end": 548.8800000000001,
+      "start": 538.48,
+      "end": 547.6800000000001,
       "startOffset": 159,
       "endOffset": 290,
       "text": "Zemljevid vročih ali nevarnih mest lahko pritegne nove podpornike – in vsak, ki sodeluje pri štetju, je lahko nov dejavni zaveznik."
@@ -1681,8 +1681,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 548.8800000000001,
-      "end": 550.7600000000001,
+      "start": 547.6800000000001,
+      "end": 549.5600000000001,
       "startOffset": 0,
       "endOffset": 23,
       "text": "Vprašanje za razmislek."
@@ -1692,8 +1692,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 551.0400000000001,
-      "end": 554.3200000000002,
+      "start": 549.84,
+      "end": 553.1200000000001,
       "startOffset": 24,
       "endOffset": 72,
       "text": "V svoji soseski želite kartirati mestno vročino."
@@ -1703,8 +1703,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 554.8000000000001,
-      "end": 556.3200000000002,
+      "start": 553.6,
+      "end": 555.1200000000001,
       "startOffset": 73,
       "endOffset": 97,
       "text": "Kdaj naj začnete anketo?"
@@ -1714,8 +1714,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 556.8000000000001,
-      "end": 559.0400000000001,
+      "start": 555.6,
+      "end": 557.84,
       "startOffset": 98,
       "endOffset": 128,
       "text": "Spomladi, ko imajo ljudje čas."
@@ -1725,8 +1725,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 559.44,
-      "end": 561.8400000000001,
+      "start": 558.24,
+      "end": 560.6400000000001,
       "startOffset": 129,
       "endOffset": 146,
       "text": "V dneh nad 30 °C."
@@ -1736,8 +1736,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 562.4000000000001,
-      "end": 563.8000000000001,
+      "start": 561.2,
+      "end": 562.6,
       "startOffset": 147,
       "endOffset": 163,
       "text": "Čas ni pomemben."
@@ -1747,8 +1747,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 564.0800000000002,
-      "end": 566.0800000000002,
+      "start": 562.8800000000001,
+      "end": 564.8800000000001,
       "startOffset": 164,
       "endOffset": 197,
       "text": "Vzemite si trenutek za razmislek."
@@ -1758,8 +1758,8 @@
       "blockIds": [
         "b-4de1b1cfcdd69426"
       ],
-      "start": 569.6400000000001,
-      "end": 573.4000000000001,
+      "start": 568.44,
+      "end": 572.2,
       "startOffset": 198,
       "endOffset": 224,
       "text": "Odgovor: V dneh nad 30 °C."
@@ -1769,8 +1769,8 @@
       "blockIds": [
         "b-35343e384ec29b44"
       ],
-      "start": 573.4000000000001,
-      "end": 575.5600000000001,
+      "start": 572.2,
+      "end": 574.36,
       "startOffset": 0,
       "endOffset": 25,
       "text": "Orodja iz serije delavnic"
@@ -1780,8 +1780,8 @@
       "blockIds": [
         "b-bf9678b741e0edf1"
       ],
-      "start": 575.5600000000001,
-      "end": 579.96,
+      "start": 574.36,
+      "end": 578.76,
       "startOffset": 0,
       "endOffset": 55,
       "text": "Ankete in kartiranje vročih točk po pristopu Prostoroža"
@@ -1791,8 +1791,8 @@
       "blockIds": [
         "b-a0cc162ce6bd9fc3"
       ],
-      "start": 579.96,
-      "end": 584.44,
+      "start": 578.76,
+      "end": 583.24,
       "startOffset": 0,
       "endOffset": 55,
       "text": "Štetje tokov pešcev in opazovanje zasedenosti parkirišč"
@@ -1802,8 +1802,8 @@
       "blockIds": [
         "b-45c48999aa36a720"
       ],
-      "start": 584.44,
-      "end": 588.6800000000001,
+      "start": 583.24,
+      "end": 587.48,
       "startOffset": 0,
       "endOffset": 55,
       "text": "Aplikacija Public Life za opazovanje življenja na ulici"
@@ -1813,8 +1813,8 @@
       "blockIds": [
         "b-c8a5a02146023503"
       ],
-      "start": 588.6800000000001,
-      "end": 591.96,
+      "start": 587.48,
+      "end": 590.76,
       "startOffset": 0,
       "endOffset": 39,
       "text": "Štetje prometa po vzoru Changing Cities"
@@ -1824,8 +1824,8 @@
       "blockIds": [
         "b-f38a64392dc61329"
       ],
-      "start": 591.96,
-      "end": 595.8000000000001,
+      "start": 590.76,
+      "end": 594.6,
       "startOffset": 0,
       "endOffset": 53,
       "text": "Vodniki za pogovore s podjetniki in lokalnimi akterji"
@@ -1835,8 +1835,8 @@
       "blockIds": [
         "b-298a5c5da5fb9c73"
       ],
-      "start": 595.8000000000001,
-      "end": 599.48,
+      "start": 594.6,
+      "end": 598.28,
       "startOffset": 0,
       "endOffset": 47,
       "text": "Leiwande Straßen Radar za hitro oceno na terenu"
@@ -1846,8 +1846,8 @@
       "blockIds": [
         "b-55ac1838524b2ab4"
       ],
-      "start": 599.48,
-      "end": 605,
+      "start": 598.28,
+      "end": 603.8,
       "startOffset": 0,
       "endOffset": 69,
       "text": "Osnovni zemljevid za superbloke in orodje LTN za prostorske scenarije"
@@ -1857,8 +1857,8 @@
       "blockIds": [
         "b-5511f0c4d56f23a8"
       ],
-      "start": 605,
-      "end": 610.12,
+      "start": 603.8,
+      "end": 608.92,
       "startOffset": 0,
       "endOffset": 67,
       "text": "Dokumentiranje stanja pred akcijami taktičnega urbanizma in po njih"

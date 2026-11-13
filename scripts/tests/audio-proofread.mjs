@@ -32,7 +32,9 @@ test('proofreading exposes exact API inputs in order, component sources, audio s
   for (const kind of ['visual', 'quiz', 'table', 'glossary', 'callout-title', 'omitted']) assert.ok(rows.some(r => r.kind === kind), kind);
   assert.ok(rows.some(r => r.componentNames.includes('Spoiler') && r.categories.includes('quiz')));
   assert.ok(rows.some(r => r.componentNames.includes('Accordion') && r.categories.includes('callout')));
-  assert.ok(rows.some(r => r.kind === 'omitted' && r.componentNames.includes('Footnote') && !r.units.length));
+  assert.ok(rows.some(r => r.kind !== 'omitted' && r.componentNames.includes('Footnote') && r.units.length));
+  assert.ok(!rows.some(r => r.kind === 'omitted' && r.componentNames.includes('Footnote')));
+  assert.match(document.querySelector('main').textContent, /Footnote text is read in place/);
   assert.ok(rows.some(r => r.kind === 'quiz' && r.originalHtml.includes('(correct)')));
   assert.ok(rows.every(r => ['missing', 'generated', 'omitted'].includes(r.state)));
   const retained = new Set(assets().map(asset => asset.unit.cacheKey));

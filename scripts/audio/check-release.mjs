@@ -6,6 +6,7 @@ import { hash } from './content.mjs';
 import { validateReleaseInventory } from './release.mjs';
 import { validateSentenceCues } from './sentence-cues.mjs';
 import { validateCues } from './media.mjs';
+import { audiobookMetadataHash } from './audiobook-metadata.mjs';
 
 export function checkAudioRelease({ allowMissing = false } = {}) {
   if (!existsSync(path('audio/release.json'))) {
@@ -34,7 +35,7 @@ export function checkAudioRelease({ allowMissing = false } = {}) {
   }
   for (const lang of new Set(plan.chapters.map(c => c.lang))) {
     const book = publication.audiobooks.find(b => b.lang === lang);
-    if (!book || book.metadataVersion !== 2 || !Number.isFinite(book.duration) || book.duration <= 0 || publication.chapters.some(c => c.lang === lang && c.revision !== book.revision)) throw new Error(`${lang}: stale/incomplete audiobook`);
+    if (!book || book.metadataVersion !== 2 || book.metadataHash !== audiobookMetadataHash(plan, lang) || !Number.isFinite(book.duration) || book.duration <= 0 || publication.chapters.some(c => c.lang === lang && c.revision !== book.revision)) throw new Error(`${lang}: stale/incomplete audiobook`);
   }
   return release;
 }

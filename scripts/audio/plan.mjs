@@ -19,6 +19,14 @@ export function write(value, data) {
 }
 // Retained narration is the source of truth for freshness. No separate approval
 // ledger can drift from what actually exists on disk.
+export function reusableAlignment(alignment, text) {
+  const characters = alignment?.characters;
+  const starts = alignment?.character_start_times_seconds;
+  const ends = alignment?.character_end_times_seconds;
+  return Array.isArray(characters) && characters.length > 0 && characters.join('') === text &&
+    Array.isArray(starts) && Array.isArray(ends) && starts.length === characters.length && ends.length === characters.length &&
+    starts.every((start, i) => Number.isFinite(start) && start >= 0 && (i === 0 || start >= starts[i - 1] - .001) && Number.isFinite(ends[i]) && ends[i] >= start);
+}
 export function assets() {
   const directory = path('.cache/audio/units');
   return existsSync(directory) ? readdirSync(directory).filter(name => /^[a-f0-9]{64}$/.test(name)).flatMap(key => {
@@ -28,7 +36,7 @@ export function assets() {
     const result = read(file);
     // A result without a verified source is not reusable. This keeps plan,
     // generation and assembly aligned; incomplete responses stay journal-blocked.
-    return result.sourceAudioHash && hash(readFileSync(path(source))) === result.sourceAudioHash ? [{ key, ...result }] : [];
+    return reusableAlignment(result.timings?.alignment, result.unit?.text) && result.sourceAudioHash && hash(readFileSync(path(source))) === result.sourceAudioHash ? [{ key, ...result }] : [];
   }) : [];
 }
 export function movedIds(previous, current) {
@@ -116,9 +124,9 @@ export function makePlan() {
 export function writePlan(plan) {
   write('.cache/audio/plan.json', plan);
 }
-function registryFor(plan) {
+export function registryFor(plan) {
   return { schemaVersion: 1, chapters: Object.fromEntries(plan.chapters.map(c => [c.id, c.blocks.map(b => ({
-    id: b.id, fingerprint: b.fingerprint, bindingKey: b.bindingKey, line: b.line,
+    id: b.id, kind: b.kind, fingerprint: b.fingerprint, bindingKey: b.bindingKey, line: b.line,
   }))])) };
 }
 export function saveRegistry(plan) {

@@ -6,6 +6,7 @@ import { unitSentenceCues, correctSentenceCues, validateSentenceCues } from './s
 import { resolveUnitPauses, retimeSentence, insertPcmPauses } from './pauses.mjs';
 import { releaseInventory } from './release.mjs';
 import { prunePublicAudio } from './prune.mjs';
+import { audiobookMetadata, audiobookMetadataHash } from './audiobook-metadata.mjs';
 
 const staging = '.cache/audio/release';
 const ffescape = value => value.replace(/([\\=;#\n])/g, '\\$1');
@@ -68,7 +69,9 @@ export function assemble(plan, { audiobooks = true } = {}) {
   // silence removal, crossfades or hidden offsets after alignment.
   if (processing.sampleRate !== 44100 || processing.channels !== 1 || processing.gainDb !== 0) throw new Error('Processing changes require implementation and timing review');
   // Publication/cue revisions change independently of narration cache keys.
-  const revision = hash({ planHash: plan.planHash, publicationVersion: 2, cueSchemaVersion: 2, audiobookMetadataVersion: 2, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
+  const bookMetadata = Object.fromEntries((audiobooks ? [...new Set(plan.chapters.map(c => c.lang))] : []).map(lang => [lang, audiobookMetadata(plan, lang)]));
+  const revision = hash({ planHash: plan.planHash, publicationVersion: 2, cueSchemaVersion: 2, audiobookMetadataVersion: 2,
+    bookMetadata, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
   const prefix = `${staging}/${revision}`;
   mkdirSync(path(prefix), { recursive: true });
   const mediaBase = config.mediaBaseUrl.replace(/\/$/, '');
@@ -144,9 +147,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
   for (const lang of audiobooks ? [...new Set(plan.chapters.map(c => c.lang))] : []) {
     const chapters = manifest.chapters.filter(c => c.lang === lang);
     const metadata = config.metadata;
-    const narrator = typeof metadata.narrator === 'string' ? metadata.narrator : metadata.narrator?.[lang];
-    if (!narrator || !metadata.rights || !metadata.cover || !existsSync(path(metadata.cover))) throw new Error('Set the configured narrator, rights/AI-narration credits and permitted existing cover artwork');
-    const title = read('src/data/works.json')[lang].title;
+    const { title, narrator, coverHash } = bookMetadata[lang];
     let offset = 0;
     const markers = chapters.map(c => {
       const start = Math.round(offset * 1000);
@@ -157,7 +158,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
     writeFileSync(path(metaFile), `;FFMETADATA1\ntitle=${ffescape(title)}\nalbum=${ffescape(title)}\nlanguage=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}\nartist=${ffescape(metadata.author)}\nalbum_artist=${ffescape(narrator)}\ncomposer=${ffescape(narrator)}\ncopyright=${ffescape(metadata.rights)}\ncomment=${ffescape(metadata.rights)}\nmedia_type=2\n${markers.join('\n')}\n`);
     const filename = audiobookFilename(title, lang);
     const m4b = `${prefix}/${lang}/${filename}`;
-    const mediaRecipe = { lang, title, processing, narrator, author: metadata.author, rights: metadata.rights, coverHash: digest(metadata.cover),
+    const mediaRecipe = { lang, title, processing, narrator, author: metadata.author, rights: metadata.rights, coverHash,
       chapters: chapters.map(c => ({ title: c.title, duration: c.pcmDuration, audio: c.assembly.map(a => a.insertedPauses.length ? { hash: a.audioHash, pauses: a.insertedPauses } : a.audioHash) })) };
     const mediaRecipeHash = hash(mediaRecipe);
     const recipeHash = hash({ mediaRecipeHash, metadataVersion: 2, chapterTimescale: 1000, filename });
@@ -190,7 +191,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
         '-c:v', 'mjpeg', '-disposition:v', 'attached_pic', '-metadata:s:a:0', `language=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}`,
         '-video_track_timescale', '1000', '-movie_timescale', '1000', '-movflags', '+faststart', '-f', 'mp4', path(m4b)]);
     }
-    manifest.audiobooks.push({ lang, revision, title, recipeHash, mediaRecipeHash, metadataVersion: 2, duration: duration(m4b), ...artifact(m4b, `${mediaBase}/${revision}/${lang}/${filename}`) });
+    manifest.audiobooks.push({ lang, revision, title, recipeHash, mediaRecipeHash, metadataVersion: 2, metadataHash: hash(bookMetadata[lang]), duration: duration(m4b), ...artifact(m4b, `${mediaBase}/${revision}/${lang}/${filename}`) });
   }
   checkRelease(plan, { candidate: true, strict: true, audiobooks, manifest });
   write(`${staging}/manifest.json`, manifest);
@@ -263,6 +264,7 @@ export function checkRelease(plan, { strict = false, candidate = false, audioboo
   for (const lang of audiobooks ? [...new Set(plan.chapters.map(c => c.lang))] : []) {
     const book = manifest.audiobooks.find(b => b.lang === lang);
     if (!book) { issues.push(`${lang}: M4B missing`); continue; }
+    if (book.metadataHash !== audiobookMetadataHash(plan, lang)) issues.push(`${lang}: M4B metadata stale`);
     const local = candidate ? `${staging}/${book.file}` : `public/audio/${book.file}`;
     if (candidate || !book.url.startsWith('https://')) {
       if (!existsSync(path(local)) || digest(local) !== book.sha256) { issues.push(`${lang}: M4B missing/corrupt`); continue; }
@@ -271,7 +273,9 @@ export function checkRelease(plan, { strict = false, candidate = false, audioboo
       let offset = 0;
       if (!info.format.format_name.includes('mp4') || !info.streams.some(s => s.codec_name === 'aac' && s.tags?.language === ({ en: 'eng', de: 'deu', sl: 'slv' }[lang])) ||
           !info.streams.some(s => s.disposition?.attached_pic === 1) || info.chapters.length !== expected.length ||
-          info.format.tags?.title !== book.title || info.format.tags?.album !== book.title || info.format.tags?.media_type !== '2' || !info.format.tags?.copyright || !info.format.tags?.artist) throw new Error('Invalid audiobook container/metadata/cover/chapter count');
+          info.format.tags?.title !== book.title || info.format.tags?.album !== book.title || info.format.tags?.media_type !== '2' ||
+          info.format.tags?.copyright !== plan.config.metadata.rights || info.format.tags?.artist !== plan.config.metadata.author ||
+          info.format.tags?.album_artist !== audiobookMetadata(plan, lang).narrator) throw new Error('Invalid audiobook container/metadata/cover/chapter count');
       info.chapters.forEach((c, i) => {
         if (c.tags?.title !== expected[i].title || Math.abs(Number(c.start_time) - offset) > 0.05 || Number(c.end_time) <= Number(c.start_time)) throw new Error('Invalid audiobook chapter order/boundaries');
         offset += expected[i].pcmDuration;
@@ -312,7 +316,7 @@ export function prepare(plan, { chapter: chapterId, language } = {}) {
   // Public manifest deliberately excludes private requests, assets and alignment.
   const publicManifest = { schemaVersion: 1, planHash: manifest.planHash, revision: manifest.revision,
     chapters: plan.chapters.map(c => ready.get(c.id)).filter(Boolean),
-    audiobooks: [...previous.audiobooks.filter(b => !affectedLanguages.has(b.lang)), ...manifest.audiobooks] };
+    audiobooks: [...previous.audiobooks.filter(b => !affectedLanguages.has(b.lang) && b.metadataHash === audiobookMetadataHash(plan, b.lang)), ...manifest.audiobooks] };
   const release = releaseInventory(publicManifest);
   // Write the live manifest last; failed preparation never triggers pruning.
   write('audio/release.json', release);

@@ -6,7 +6,7 @@ import { transpileModule, ModuleKind } from 'typescript';
 import { parseHTML } from 'linkedom';
 
 const script = transpileModule(readFileSync('src/scripts/chapter-audio.ts', 'utf8'), { compilerOptions: { module: ModuleKind.None } }).outputText;
-function player({ saved = {}, fail = false, failPlayback = false, highlighted = true } = {}) {
+function player({ saved = {}, fail = false, failPlayback = false, highlighted = true, delayedMetadata = false } = {}) {
   const { document, window, Event } = parseHTML(`<section data-chapter-audio data-id="en/01" data-revision="new" data-cues="/cues.json" data-duration="20" data-play="Play chapter" data-pause="Pause playback" data-failed="Highlighting unavailable" data-playback-failed="Playback unavailable" hidden>
     <audio preload="none" hidden></audio><button data-play-toggle aria-label="Play chapter"></button>
     <div data-invitation>Listen</div><div data-timeline hidden><input data-position type="range" value="0" disabled><span data-elapsed></span><span data-total></span></div>
@@ -20,8 +20,9 @@ function player({ saved = {}, fail = false, failPlayback = false, highlighted = 
   document.querySelector('[data-highlight]').checked = highlighted;
   Object.defineProperty(speed, 'value', { value: '1', writable: true });
   Object.assign(audio, { currentTime: 0, duration: 20, playbackRate: 1, readyState: 0, ended: false, paused: true, volume: .5, muted: true });
-  let plays = 0, fetches = 0;
-  audio.load = () => { audio.readyState = 1; audio.dispatchEvent(new Event('loadedmetadata')); };
+  let plays = 0, fetches = 0, loads = 0;
+  const metadata = () => { audio.readyState = 1; audio.dispatchEvent(new Event('loadedmetadata')); };
+  audio.load = () => { loads++; audio.error = null; audio.readyState = 0; audio.currentTime = 0; if (!delayedMetadata) metadata(); };
   audio.play = () => {
     plays++;
     if (failPlayback) return Promise.reject(new Error('Blocked playback'));
@@ -36,7 +37,7 @@ function player({ saved = {}, fail = false, failPlayback = false, highlighted = 
       { start: 0, end: 2, blockIds: ['a'], sentenceId: 'a-s1' }, { start: 2, end: 5, blockIds: ['a'], sentenceId: 'a-s2' },
       { start: 6, end: 10, blockIds: ['b'], sentenceId: 'b-s1' }, { start: 11, end: 15, blockIds: ['adapted'], sentenceId: 'adapted-s1' },
     ] }) }; } });
-  return { document, window, Event, audio, play, position, speed, storage, counts: () => ({ plays, fetches }) };
+  return { document, window, Event, audio, play, position, speed, storage, metadata, loads: () => loads, counts: () => ({ plays, fetches }) };
 }
 const settle = () => new Promise(resolve => setImmediate(resolve));
 test('player defers loading and the timeline until play; no native volume or removed controls', () => {
@@ -305,4 +306,39 @@ test('leaving before loading preserves saved position; ending resets it without 
   assert.equal(JSON.parse(p.storage.get('chapter-audio:en/01:new')).position, 0);
   assert.equal(p.counts().plays, 1);
   assert.equal(p.play.getAttribute('aria-label'), 'Play chapter');
+});
+test('media errors reload on retry and restore the cursor after delayed metadata, including repeated failures', async () => {
+  const p = player({ delayedMetadata: true, saved: { 'chapter-audio:en/01:new': '{"position":12}' } });
+  p.audio.error = { code: 4 };
+  p.play.click(); await settle();
+  assert.equal(p.loads(), 2, 'Explicit error reload and mock play loading');
+  assert.equal(p.position.value, '12');
+  p.metadata();
+  assert.equal(p.audio.currentTime, 12);
+  p.play.click();
+  p.audio.currentTime = 7;
+  p.audio.error = { code: 2 };
+  p.play.click(); await settle();
+  p.metadata();
+  assert.equal(p.audio.currentTime, 7, 'Metadata restoration is not a one-shot listener');
+  assert.equal(p.document.querySelector('[data-audio-status]').textContent, '');
+});
+test('ordinary play retries do not force a media reload', async () => {
+  const p = player();
+  p.play.click(); await settle(); p.play.click();
+  const loads = p.loads();
+  p.play.click(); await settle();
+  assert.equal(p.loads(), loads);
+});
+test('retry retains the last cursor when a media failure clears native time and readyState', async () => {
+  const p = player();
+  p.play.click(); await settle(); p.play.click();
+  p.audio.currentTime = 7;
+  p.audio.dispatchEvent(new p.Event('timeupdate'));
+  p.audio.currentTime = 0;
+  p.audio.readyState = 0;
+  p.audio.error = { code: 4 };
+  p.audio.dispatchEvent(new p.Event('error'));
+  p.play.click(); await settle();
+  assert.equal(p.audio.currentTime, 7);
 });

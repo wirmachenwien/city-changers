@@ -25,7 +25,7 @@ export function attr(node, name) {
 export function text(node) {
   if (['text', 'inlineCode'].includes(node.type)) return node.value;
   if (node.type === 'image') return node.alt ?? '';
-  if (node.name === 'Footnote') return ''; // retained in text, not read as an aside
+  if (node.name === 'Footnote') return ''; // Preserve the host paragraph's established source identity.
   if (node.type?.includes('Expression')) {
     if (!node.data?.estree?.body?.length) return '';
     return String(literal(node.data.estree.body[0].expression));
@@ -100,7 +100,8 @@ export function spokenCounter(number, lang) {
 }
 function narrationText(node, lang) {
   if (node.name === 'Figure') return shouldNarrateFigure(node) ? attr(node, 'alt') ?? '' : '';
-  if (node.name === 'Bibliography' || node.name === 'Footnote') return '';
+  if (node.name === 'Bibliography') return '';
+  if (node.name === 'Footnote') return ` ${attr(node, 'text') ?? (node.children ?? []).map(child => narrationText(child, lang)).join(' ')} `;
   if (node.type === 'image') return shouldNarrateFigure(node) ? node.alt ?? '' : '';
   if (node.type === 'list') return node.children.map((item, index) => `${node.ordered ? `${spokenCounter((node.start ?? 1) + index, lang)}. ` : ''}${narrationText(item, lang)}`).join(' ');
   if (node.children) {
@@ -143,6 +144,10 @@ export function extractTree(tree, lang, glossary) {
       return;
     }
     if (references || node.name === 'Bibliography' || node.type === 'mdxjsEsm') return;
+    if (node.name === 'Footnote') {
+      add(node, 'footnote', attr(node, 'text') ?? (node.children ?? []).map(text).join(' '));
+      return;
+    }
     if (node.name === 'Glossary') {
       for (const entry of glossary[lang] ?? []) add(node, 'glossary', `${entry.term}. ${entry.definition}`, false, { term: entry.term });
       return;

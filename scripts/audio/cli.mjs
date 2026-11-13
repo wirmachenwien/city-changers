@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // No dotenv import: only explicitly invoked network commands use process.env.
 import { existsSync, readdirSync, writeFileSync, mkdirSync, openSync, closeSync, unlinkSync } from 'node:fs';
-import { makePlan, savePlan, report, assets, read, write, path } from './plan.mjs';
+import { makePlan, savePlan, report, assets, reusableAlignment, read, write, path } from './plan.mjs';
 import { hash } from './content.mjs';
 import { prepare } from './media.mjs';
 import { preflightFailure } from './api-errors.mjs';
@@ -102,11 +102,21 @@ async function generate(plan) {
   // Cache keys pin actual resolved voices too; changing an environment value
   // cannot accidentally reuse another narrator's assets.
   const resolved = selected.map(u => ({ ...u, assetKey: hash({ cacheKey: u.cacheKey, voice: voices[u.lang] }) }));
-  const retainedKeys = new Set(assets().map(asset => asset.key));
-  const broken = resolved.find(u => !retainedKeys.has(u.assetKey) && existsSync(path(`.cache/audio/units/${u.assetKey}/result.json`)));
-  if (broken) throw new Error(`Retained audio for ${broken.id} is incomplete or corrupt; reconcile or remove its private asset instead of overwriting it`);
-  const pending = [...new Map(resolved.filter(u => !retainedKeys.has(u.assetKey)).map(u => [u.assetKey, u])).values()];
-  const cost = pending.reduce((sum, u) => sum + u.text.length, 0);
+  const refreshPending = () => {
+    const retainedKeys = new Set(assets().map(asset => asset.key));
+    const broken = resolved.find(u => !retainedKeys.has(u.assetKey) && ['result.json', 'incomplete.json'].some(file => existsSync(path(`.cache/audio/units/${u.assetKey}/${file}`))));
+    if (broken) throw new Error(`Retained audio for ${broken.id} is incomplete or corrupt; reconcile its private asset and journal instead of overwriting it`);
+    const pending = [...new Map(resolved.filter(u => !retainedKeys.has(u.assetKey)).map(u => [u.assetKey, u])).values()];
+    return { pending, cost: pending.reduce((sum, u) => sum + u.text.length, 0) };
+  };
+  const checkJournals = () => {
+    const directory = path('.cache/audio/journals');
+    for (const file of existsSync(directory) ? readdirSync(directory).filter(f => f.endsWith('.json')) : []) {
+      if (read(`.cache/audio/journals/${file}`).requests.some(r => r.state !== 'complete')) throw new Error('An earlier request needs manual reconciliation; changing budgets or selections cannot bypass an uncertain request');
+    }
+  };
+  checkJournals();
+  let { pending, cost } = refreshPending();
   if (cost > budget) throw new Error(`Selected units need ${cost} characters, above the ${budget}-character budget`);
   if (!pending.length) {
     console.log(`Nothing to generate: ${selected.length} selected units reuse retained audio.`);
@@ -131,9 +141,13 @@ async function generate(plan) {
   const lockPath = path('.cache/audio/generation.lock');
   const lock = openSync(lockPath, 'wx', 0o600);
   try {
-    for (const file of readdirSync(path('.cache/audio/journals')).filter(f => f.endsWith('.json'))) {
-      if (read(`.cache/audio/journals/${file}`).requests.some(r => r.state !== 'complete')) throw new Error('An earlier request needs manual reconciliation; changing budgets or selections cannot bypass an uncertain request');
+    checkJournals();
+    ({ pending, cost } = refreshPending());
+    if (!pending.length) {
+      console.log(`Nothing to generate: ${selected.length} selected units reuse retained audio.`);
+      return;
     }
+    if (cost > budget || cost > account.remaining) throw new Error('Refreshed pending units exceed the budget or account allowance; run generation again');
     const journal = existsSync(path(journalPath)) ? read(journalPath) : {
       schemaVersion: 1, planHash: plan.planHash, budget, unitIds: selected.map(u => u.id), voiceHashes,
       createdAt: new Date().toISOString(), reservedCharacters: 0, requests: [] };
@@ -159,8 +173,8 @@ async function generate(plan) {
       mkdirSync(path(dir), { recursive: true, mode: 0o700 });
       const { audio_base64, ...timings } = result;
       if (audio_base64) writeFileSync(path(`${dir}/source.mp3`), Buffer.from(audio_base64, 'base64'), { mode: 0o600 });
-      const complete = Boolean(audio_base64 && result.alignment?.characters?.length);
-      write(`${dir}/result.json`, { schemaVersion: 1, unit, request, timings, requestId: response.headers.get('request-id') ?? response.headers.get('x-request-id'),
+      const complete = Boolean(audio_base64 && reusableAlignment(result.alignment, unit.text));
+      write(`${dir}/${complete ? 'result' : 'incomplete'}.json`, { schemaVersion: 1, unit, request, timings, requestId: response.headers.get('request-id') ?? response.headers.get('x-request-id'),
         config: plan.config, sourceAudioHash: audio_base64 ? hash(Buffer.from(audio_base64, 'base64')) : null,
         generatedAt: new Date().toISOString() });
       if (!complete) throw new Error('Missing audio/alignment: available response/audio retained privately; investigate the reserved request, do not retry blindly');

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "granularity": "sentence",
-  "revision": "6c1b8dc75be7270d3248",
+  "revision": "7276202b28980b250ac2",
   "chapterId": "de/04",
   "cues": [
     {
@@ -41,525 +41,525 @@
     },
     {
       "start": 40.16,
-      "end": 65.44,
+      "end": 72.4,
       "blockIds": [
         "b-d472eb14a0969d27"
       ]
     },
     {
-      "start": 65.44,
-      "end": 73.12,
+      "start": 72.4,
+      "end": 80.08000000000001,
       "blockIds": [
         "b-d25a5bd9209a95ab"
       ]
     },
     {
-      "start": 73.12,
-      "end": 75.60000000000001,
+      "start": 80.08000000000001,
+      "end": 82.56000000000002,
       "blockIds": [
         "b-a92d4cdca9e9c6e6"
       ]
     },
     {
-      "start": 75.60000000000001,
-      "end": 79.28000000000002,
+      "start": 82.56000000000002,
+      "end": 86.24000000000002,
       "blockIds": [
         "b-041e2e4ba990a865"
       ]
     },
     {
-      "start": 79.28000000000002,
-      "end": 86.16000000000001,
+      "start": 86.24000000000002,
+      "end": 93.12000000000002,
       "blockIds": [
         "b-a631b27e8454c9c0"
       ]
     },
     {
-      "start": 86.16000000000001,
-      "end": 91.20000000000002,
+      "start": 93.12000000000002,
+      "end": 98.16000000000003,
       "blockIds": [
         "b-11f41c2ac7fd76e5"
       ]
     },
     {
-      "start": 91.20000000000002,
-      "end": 102.72000000000001,
+      "start": 98.16000000000003,
+      "end": 109.68000000000002,
       "blockIds": [
         "b-32d9258e19190f24"
       ]
     },
     {
-      "start": 102.72000000000001,
-      "end": 114.48000000000002,
+      "start": 109.68000000000002,
+      "end": 121.44000000000003,
       "blockIds": [
         "b-c71a73326306486a"
       ]
     },
     {
-      "start": 114.48000000000002,
-      "end": 119.20000000000002,
+      "start": 121.44000000000003,
+      "end": 126.16000000000003,
       "blockIds": [
         "b-f686685383f70f23"
       ]
     },
     {
-      "start": 119.20000000000002,
-      "end": 120.88000000000002,
+      "start": 126.16000000000003,
+      "end": 127.84000000000003,
       "blockIds": [
         "b-49588ac0b6f410ac"
       ]
     },
     {
-      "start": 120.88000000000002,
-      "end": 130.16000000000003,
+      "start": 127.84000000000003,
+      "end": 137.12000000000003,
       "blockIds": [
         "b-783d9126cbcf2af7"
       ]
     },
     {
-      "start": 130.16000000000003,
-      "end": 133.76000000000002,
+      "start": 137.12000000000003,
+      "end": 140.72000000000003,
       "blockIds": [
         "b-d0bfe662436d5655"
       ]
     },
     {
-      "start": 133.76000000000002,
-      "end": 147.12,
+      "start": 140.72000000000003,
+      "end": 154.08000000000004,
       "blockIds": [
         "b-2180680a262d2ffb"
       ]
     },
     {
-      "start": 147.12,
-      "end": 153.36,
+      "start": 154.08000000000004,
+      "end": 160.32000000000005,
       "blockIds": [
         "b-0c175274277b8011"
       ]
     },
     {
-      "start": 153.36,
-      "end": 166.56,
+      "start": 160.32000000000005,
+      "end": 173.52000000000004,
       "blockIds": [
         "b-f76ba0fe0a5362c8"
       ]
     },
     {
-      "start": 166.56,
-      "end": 204.32,
+      "start": 173.52000000000004,
+      "end": 211.28000000000003,
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ]
     },
     {
-      "start": 204.32,
-      "end": 215.92,
+      "start": 211.28000000000003,
+      "end": 222.88000000000002,
       "blockIds": [
         "b-38dda626882ac6ec"
       ]
     },
     {
-      "start": 215.92,
-      "end": 218.32,
+      "start": 222.88000000000002,
+      "end": 225.28000000000003,
       "blockIds": [
         "b-73e09ec4f533af5a"
       ]
     },
     {
-      "start": 218.32,
-      "end": 235.68,
+      "start": 225.28000000000003,
+      "end": 242.64000000000004,
       "blockIds": [
         "b-2a5ce3557e579885"
       ]
     },
     {
-      "start": 235.68,
-      "end": 255.76,
+      "start": 242.64000000000004,
+      "end": 262.72,
       "blockIds": [
         "b-5d33c2f8d9558099"
       ]
     },
     {
-      "start": 255.76,
-      "end": 280.44,
+      "start": 262.72,
+      "end": 287.40000000000003,
       "blockIds": [
         "b-826ba372e40c53f1"
       ]
     },
     {
-      "start": 280.44,
-      "end": 283.4,
+      "start": 287.40000000000003,
+      "end": 290.36,
       "blockIds": [
         "b-e5ff7f847da08c89"
       ]
     },
     {
-      "start": 283.4,
-      "end": 287.96,
+      "start": 290.36,
+      "end": 294.92,
       "blockIds": [
         "b-e84092bf0c88e46d"
       ]
     },
     {
-      "start": 287.96,
-      "end": 298.91999999999996,
+      "start": 294.92,
+      "end": 305.88,
       "blockIds": [
         "b-97c2a5b2ee3873e4"
       ]
     },
     {
-      "start": 298.91999999999996,
-      "end": 313.55999999999995,
+      "start": 305.88,
+      "end": 320.52,
       "blockIds": [
         "b-d08a8a818d619b79"
       ]
     },
     {
-      "start": 313.55999999999995,
-      "end": 321.3999999999999,
+      "start": 320.52,
+      "end": 328.35999999999996,
       "blockIds": [
         "b-4352518455ee968a"
       ]
     },
     {
-      "start": 321.3999999999999,
-      "end": 325.2399999999999,
+      "start": 328.35999999999996,
+      "end": 332.19999999999993,
       "blockIds": [
         "b-7873a4ffca2eae68"
       ]
     },
     {
-      "start": 325.2399999999999,
-      "end": 326.7599999999999,
+      "start": 332.19999999999993,
+      "end": 333.7199999999999,
       "blockIds": [
         "b-da0ee4178c4e93b4"
       ]
     },
     {
-      "start": 326.7599999999999,
-      "end": 336.03999999999985,
+      "start": 333.7199999999999,
+      "end": 342.9999999999999,
       "blockIds": [
         "b-f7d6387874885274"
       ]
     },
     {
-      "start": 336.03999999999985,
-      "end": 339.79999999999984,
+      "start": 342.9999999999999,
+      "end": 346.7599999999999,
       "blockIds": [
         "b-670e92803d57d4c3"
       ]
     },
     {
-      "start": 339.79999999999984,
-      "end": 353.55999999999983,
+      "start": 346.7599999999999,
+      "end": 360.51999999999987,
       "blockIds": [
         "b-986cc0414338f8e7"
       ]
     },
     {
-      "start": 353.55999999999983,
-      "end": 355.6399999999998,
+      "start": 360.51999999999987,
+      "end": 362.59999999999985,
       "blockIds": [
         "b-6873af6efa6bac12"
       ]
     },
     {
-      "start": 355.6399999999998,
-      "end": 369.7199999999998,
+      "start": 362.59999999999985,
+      "end": 376.67999999999984,
       "blockIds": [
         "b-37adf808c8f0e862"
       ]
     },
     {
-      "start": 369.7199999999998,
-      "end": 372.3599999999998,
+      "start": 376.67999999999984,
+      "end": 379.3199999999998,
       "blockIds": [
         "b-fb0ccebc8139a41f"
       ]
     },
     {
-      "start": 372.3599999999998,
-      "end": 394.6799999999998,
+      "start": 379.3199999999998,
+      "end": 401.6399999999998,
       "blockIds": [
         "b-fd4e6688489de6e5"
       ]
     },
     {
-      "start": 394.6799999999998,
-      "end": 397.1599999999998,
+      "start": 401.6399999999998,
+      "end": 404.11999999999983,
       "blockIds": [
         "b-5cb7e39c37fca3d4"
       ]
     },
     {
-      "start": 397.1599999999998,
-      "end": 401.3999999999998,
+      "start": 404.11999999999983,
+      "end": 408.35999999999984,
       "blockIds": [
         "b-ee09032e00134dfa"
       ]
     },
     {
-      "start": 401.3999999999998,
-      "end": 403.7999999999998,
+      "start": 408.35999999999984,
+      "end": 410.7599999999998,
       "blockIds": [
         "b-6961c36969e1ab25"
       ]
     },
     {
-      "start": 403.7999999999998,
-      "end": 411.87999999999977,
+      "start": 410.7599999999998,
+      "end": 418.8399999999998,
       "blockIds": [
         "b-5db952c8ca5a1a01"
       ]
     },
     {
-      "start": 411.87999999999977,
-      "end": 425.87999999999977,
+      "start": 418.8399999999998,
+      "end": 432.8399999999998,
       "blockIds": [
         "b-f7715be6d7a946a5"
       ]
     },
     {
-      "start": 425.87999999999977,
-      "end": 428.83999999999975,
+      "start": 432.8399999999998,
+      "end": 435.7999999999998,
       "blockIds": [
         "b-9d18ac6aa9a1a397"
       ]
     },
     {
-      "start": 428.83999999999975,
-      "end": 444.27999999999975,
+      "start": 435.7999999999998,
+      "end": 451.2399999999998,
       "blockIds": [
         "b-cd1d4b0a3dea5164"
       ]
     },
     {
-      "start": 444.27999999999975,
-      "end": 458.03999999999974,
+      "start": 451.2399999999998,
+      "end": 464.9999999999998,
       "blockIds": [
         "b-5ffdc3fc6b46dd73"
       ]
     },
     {
-      "start": 458.03999999999974,
-      "end": 461.2399999999997,
+      "start": 464.9999999999998,
+      "end": 468.19999999999976,
       "blockIds": [
         "b-0b58342eaad67ffc"
       ]
     },
     {
-      "start": 461.2399999999997,
-      "end": 465.71999999999974,
+      "start": 468.19999999999976,
+      "end": 472.6799999999998,
       "blockIds": [
         "b-e3a8131881a20c07"
       ]
     },
     {
-      "start": 465.71999999999974,
-      "end": 471.5599999999997,
+      "start": 472.6799999999998,
+      "end": 478.51999999999975,
       "blockIds": [
         "b-62a904c3b9a363c7"
       ]
     },
     {
-      "start": 471.5599999999997,
-      "end": 483.6399999999997,
+      "start": 478.51999999999975,
+      "end": 490.59999999999974,
       "blockIds": [
         "b-5c21d84f047404a6"
       ]
     },
     {
-      "start": 483.6399999999997,
-      "end": 489.8799999999997,
+      "start": 490.59999999999974,
+      "end": 496.83999999999975,
       "blockIds": [
         "b-b460b27d20c099ca"
       ]
     },
     {
-      "start": 489.8799999999997,
-      "end": 506.2799999999997,
+      "start": 496.83999999999975,
+      "end": 513.2399999999998,
       "blockIds": [
         "b-6513765b336bc5a4"
       ]
     },
     {
-      "start": 506.2799999999997,
-      "end": 508.5199999999997,
+      "start": 513.2399999999998,
+      "end": 515.4799999999998,
       "blockIds": [
         "b-cd946327dfb23691"
       ]
     },
     {
-      "start": 508.5199999999997,
-      "end": 515.7199999999997,
+      "start": 515.4799999999998,
+      "end": 522.6799999999998,
       "blockIds": [
         "b-d237f6d5c1453511"
       ]
     },
     {
-      "start": 515.7199999999997,
-      "end": 522.5199999999996,
+      "start": 522.6799999999998,
+      "end": 529.4799999999998,
       "blockIds": [
         "b-4108e8f95b6ad7d8"
       ]
     },
     {
-      "start": 522.5199999999996,
-      "end": 530.2799999999996,
+      "start": 529.4799999999998,
+      "end": 537.2399999999998,
       "blockIds": [
         "b-a7f85f60521427ed"
       ]
     },
     {
-      "start": 530.2799999999996,
-      "end": 536.5199999999996,
+      "start": 537.2399999999998,
+      "end": 543.4799999999998,
       "blockIds": [
         "b-25367eaa786168e2"
       ]
     },
     {
-      "start": 536.5199999999996,
-      "end": 538.7599999999996,
+      "start": 543.4799999999998,
+      "end": 545.7199999999998,
       "blockIds": [
         "b-f9ec0d9d2bcba612"
       ]
     },
     {
-      "start": 538.7599999999996,
-      "end": 541.7999999999996,
+      "start": 545.7199999999998,
+      "end": 548.7599999999998,
       "blockIds": [
         "b-bec5f8198a94ad23"
       ]
     },
     {
-      "start": 541.7999999999996,
-      "end": 549.1599999999996,
+      "start": 548.7599999999998,
+      "end": 556.1199999999998,
       "blockIds": [
         "b-c46fb47b11b3e2cf"
       ]
     },
     {
-      "start": 549.1599999999996,
-      "end": 551.0799999999996,
+      "start": 556.1199999999998,
+      "end": 558.0399999999997,
       "blockIds": [
         "b-0e8fc81fbd9f26e9"
       ]
     },
     {
-      "start": 551.0799999999996,
-      "end": 554.1999999999996,
+      "start": 558.0399999999997,
+      "end": 561.1599999999997,
       "blockIds": [
         "b-d24139a904784fad"
       ]
     },
     {
-      "start": 554.1999999999996,
-      "end": 556.3599999999996,
+      "start": 561.1599999999997,
+      "end": 563.3199999999997,
       "blockIds": [
         "b-b8ed4a22d44a25a8"
       ]
     },
     {
-      "start": 556.3599999999996,
-      "end": 559.4799999999996,
+      "start": 563.3199999999997,
+      "end": 566.4399999999997,
       "blockIds": [
         "b-c9bfe13ee0349a74"
       ]
     },
     {
-      "start": 559.4799999999996,
-      "end": 578.0399999999995,
+      "start": 566.4399999999997,
+      "end": 584.9999999999997,
       "blockIds": [
         "b-9ff8e086898e5042"
       ]
     },
     {
-      "start": 578.0399999999995,
-      "end": 615.7999999999995,
+      "start": 584.9999999999997,
+      "end": 622.7599999999996,
       "blockIds": [
         "b-8f7ffcb2ca4e65cf"
       ]
     },
     {
-      "start": 615.7999999999995,
-      "end": 625.6399999999995,
+      "start": 622.7599999999996,
+      "end": 632.5999999999997,
       "blockIds": [
         "b-6f87b2d837dcb822"
       ]
     },
     {
-      "start": 625.6399999999995,
-      "end": 638.9199999999995,
+      "start": 632.5999999999997,
+      "end": 645.8799999999997,
       "blockIds": [
         "b-699298ddb889ce61"
       ]
     },
     {
-      "start": 638.9199999999995,
-      "end": 671.3199999999995,
+      "start": 645.8799999999997,
+      "end": 678.2799999999996,
       "blockIds": [
         "b-213fea1b1bb74f00"
       ]
     },
     {
-      "start": 671.3199999999995,
-      "end": 673.0799999999995,
+      "start": 678.2799999999996,
+      "end": 680.0399999999996,
       "blockIds": [
         "b-e82d1fc921d56b0c"
       ]
     },
     {
-      "start": 673.0799999999995,
-      "end": 676.3599999999994,
+      "start": 680.0399999999996,
+      "end": 683.3199999999996,
       "blockIds": [
         "b-f2473c822dc75bf4"
       ]
     },
     {
-      "start": 676.3599999999994,
-      "end": 680.4399999999995,
+      "start": 683.3199999999996,
+      "end": 687.3999999999996,
       "blockIds": [
         "b-d0aee2f45c504cb7"
       ]
     },
     {
-      "start": 680.4399999999995,
-      "end": 685.4799999999994,
+      "start": 687.3999999999996,
+      "end": 692.4399999999996,
       "blockIds": [
         "b-556c1235586788b2"
       ]
     },
     {
-      "start": 685.4799999999994,
-      "end": 694.0399999999994,
+      "start": 692.4399999999996,
+      "end": 700.9999999999995,
       "blockIds": [
         "b-18c05293f94054dc"
       ]
     },
     {
-      "start": 694.0399999999994,
-      "end": 699.7999999999994,
+      "start": 700.9999999999995,
+      "end": 706.7599999999995,
       "blockIds": [
         "b-c91fa82a62da45fd"
       ]
     },
     {
-      "start": 699.7999999999994,
-      "end": 708.8399999999993,
+      "start": 706.7599999999995,
+      "end": 715.7999999999995,
       "blockIds": [
         "b-e3ab0644eb7634ec"
       ]
     },
     {
-      "start": 708.8399999999993,
-      "end": 716.4399999999994,
+      "start": 715.7999999999995,
+      "end": 723.3999999999995,
       "blockIds": [
         "b-acc76339a50fcb8d"
       ]
     },
     {
-      "start": 716.4399999999994,
-      "end": 755.1999999999994,
+      "start": 723.3999999999995,
+      "end": 762.1599999999995,
       "blockIds": [
         "b-9733cdff1dd43f24"
       ]
@@ -660,7 +660,7 @@
         "b-d472eb14a0969d27"
       ],
       "start": 40.16,
-      "end": 43.12,
+      "end": 42.879999999999995,
       "startOffset": 0,
       "endOffset": 45,
       "text": "Changing Cities zeigt, wie das aussehen kann."
@@ -671,7 +671,7 @@
         "b-d472eb14a0969d27"
       ],
       "start": 43.36,
-      "end": 51.12,
+      "end": 51.36,
       "startOffset": 46,
       "endOffset": 168,
       "text": "Seit 2019 unterstützt die Berliner Organisation Bewohner:innen dabei, Nachbarschaftsinitiativen für Kiezblocks zu gründen."
@@ -681,8 +681,8 @@
       "blockIds": [
         "b-d472eb14a0969d27"
       ],
-      "start": 51.519999999999996,
-      "end": 56.76,
+      "start": 51.599999999999994,
+      "end": 56.72,
       "startOffset": 169,
       "endOffset": 250,
       "text": "In Workshops, Veranstaltungen und Onlineformaten gab sie ihr Wissen offen weiter."
@@ -693,18 +693,29 @@
         "b-d472eb14a0969d27"
       ],
       "start": 56.959999999999994,
-      "end": 65.44,
+      "end": 65.6,
       "startOffset": 251,
       "endOffset": 378,
       "text": "Rund 70 Initiativen entstanden, über 30 Kiezblocks wurden politisch beschlossen und 13 werden bereits auf der Straße umgesetzt."
+    },
+    {
+      "sentenceId": "b-d472eb14a0969d27-s5",
+      "blockIds": [
+        "b-d472eb14a0969d27"
+      ],
+      "start": 65.67999999999999,
+      "end": 72.4,
+      "startOffset": 379,
+      "endOffset": 472,
+      "text": "Zahlen laut Präsentation von Changing Cities beim Workshop der Toolbox für City Changer 2026."
     },
     {
       "sentenceId": "b-d25a5bd9209a95ab-s1",
       "blockIds": [
         "b-d25a5bd9209a95ab"
       ],
-      "start": 65.44,
-      "end": 73.12,
+      "start": 72.4,
+      "end": 80.08000000000001,
       "startOffset": 0,
       "endOffset": 122,
       "text": "Berlin ist noch kein Kiezblock-Paradies – aber jede dieser Straßen zeigt, was organisierte Nachbar:innen erreichen können."
@@ -714,8 +725,8 @@
       "blockIds": [
         "b-a92d4cdca9e9c6e6"
       ],
-      "start": 73.12,
-      "end": 75.60000000000001,
+      "start": 80.08000000000001,
+      "end": 82.56000000000002,
       "startOffset": 0,
       "endOffset": 29,
       "text": "Fünf Werkzeuge für Organising"
@@ -725,8 +736,8 @@
       "blockIds": [
         "b-041e2e4ba990a865"
       ],
-      "start": 75.60000000000001,
-      "end": 79.28000000000002,
+      "start": 82.56000000000002,
+      "end": 86.24000000000002,
       "startOffset": 0,
       "endOffset": 28,
       "text": "Werkzeug 1: Kopf, Herz, Hand"
@@ -736,8 +747,8 @@
       "blockIds": [
         "b-a631b27e8454c9c0"
       ],
-      "start": 79.28000000000002,
-      "end": 86.16000000000001,
+      "start": 86.24000000000002,
+      "end": 93.12000000000002,
       "startOffset": 0,
       "endOffset": 111,
       "text": "Weniger ein Werkzeug als ein Grundsatz, den ihr beim Organisieren von Menschen immer im Blick behalten solltet:"
@@ -747,8 +758,8 @@
       "blockIds": [
         "b-11f41c2ac7fd76e5"
       ],
-      "start": 86.16000000000001,
-      "end": 88.4,
+      "start": 93.12000000000002,
+      "end": 95.36000000000001,
       "startOffset": 0,
       "endOffset": 30,
       "text": "Kopf: Wie können wir gewinnen?"
@@ -758,8 +769,8 @@
       "blockIds": [
         "b-11f41c2ac7fd76e5"
       ],
-      "start": 88.56000000000002,
-      "end": 91.20000000000002,
+      "start": 95.52000000000002,
+      "end": 98.16000000000003,
       "startOffset": 31,
       "endOffset": 62,
       "text": "Strategie, Taktiken, Argumente."
@@ -769,8 +780,8 @@
       "blockIds": [
         "b-32d9258e19190f24"
       ],
-      "start": 91.20000000000002,
-      "end": 93.72000000000001,
+      "start": 98.16000000000003,
+      "end": 100.68000000000002,
       "startOffset": 0,
       "endOffset": 26,
       "text": "Herz: Was bewegt Menschen?"
@@ -780,8 +791,8 @@
       "blockIds": [
         "b-32d9258e19190f24"
       ],
-      "start": 94.00000000000001,
-      "end": 102.72000000000001,
+      "start": 100.96000000000002,
+      "end": 109.68000000000002,
       "startOffset": 27,
       "endOffset": 163,
       "text": "Der unsichere Schulweg eines Enkelkindes, die Erinnerung ans Spielen auf der Straße, die Angst, durch Luftverschmutzung krank zu werden."
@@ -791,8 +802,8 @@
       "blockIds": [
         "b-c71a73326306486a"
       ],
-      "start": 102.72000000000001,
-      "end": 108.32000000000001,
+      "start": 109.68000000000002,
+      "end": 115.28000000000002,
       "startOffset": 0,
       "endOffset": 75,
       "text": "Hand: Was ist unser Hebel zum Erfolg, und wie können Menschen aktiv werden?"
@@ -802,8 +813,8 @@
       "blockIds": [
         "b-c71a73326306486a"
       ],
-      "start": 108.427,
-      "end": 114.48000000000002,
+      "start": 115.38700000000001,
+      "end": 121.44000000000003,
       "startOffset": 76,
       "endOffset": 166,
       "text": "Macht immer ein konkretes Angebot – eine Aufgabe, eine Veranstaltung, etwas zum Mitmachen."
@@ -813,8 +824,8 @@
       "blockIds": [
         "b-f686685383f70f23"
       ],
-      "start": 114.48000000000002,
-      "end": 119.20000000000002,
+      "start": 121.44000000000003,
+      "end": 126.16000000000003,
       "startOffset": 0,
       "endOffset": 71,
       "text": "Eine Bewegung von unten kann nur wachsen, wenn ihr alle drei ansprecht."
@@ -824,8 +835,8 @@
       "blockIds": [
         "b-49588ac0b6f410ac"
       ],
-      "start": 119.20000000000002,
-      "end": 120.88000000000002,
+      "start": 126.16000000000003,
+      "end": 127.84000000000003,
       "startOffset": 0,
       "endOffset": 20,
       "text": "Nimm dir eine Minute"
@@ -835,8 +846,8 @@
       "blockIds": [
         "b-783d9126cbcf2af7"
       ],
-      "start": 120.88000000000002,
-      "end": 122.48000000000002,
+      "start": 127.84000000000003,
+      "end": 129.44000000000003,
       "startOffset": 0,
       "endOffset": 18,
       "text": "Was ist dein Herz?"
@@ -846,8 +857,8 @@
       "blockIds": [
         "b-783d9126cbcf2af7"
       ],
-      "start": 122.60000000000002,
-      "end": 126.36000000000003,
+      "start": 129.56000000000003,
+      "end": 133.32000000000002,
       "startOffset": 19,
       "endOffset": 79,
       "text": "Was bewegt dich, weiter für lebenswertere Städte zu kämpfen?"
@@ -857,8 +868,8 @@
       "blockIds": [
         "b-783d9126cbcf2af7"
       ],
-      "start": 126.64000000000003,
-      "end": 130.16000000000003,
+      "start": 133.60000000000002,
+      "end": 137.12000000000003,
       "startOffset": 80,
       "endOffset": 149,
       "text": "Kehre dazu zurück, wenn du nicht mehr weißt, wie es weitergehen soll."
@@ -868,8 +879,8 @@
       "blockIds": [
         "b-d0bfe662436d5655"
       ],
-      "start": 130.16000000000003,
-      "end": 133.76000000000002,
+      "start": 137.12000000000003,
+      "end": 140.72000000000003,
       "startOffset": 0,
       "endOffset": 40,
       "text": "Werkzeug 2: Das Spektrum der Verbündeten"
@@ -879,8 +890,8 @@
       "blockIds": [
         "b-2180680a262d2ffb"
       ],
-      "start": 133.76000000000002,
-      "end": 135.52,
+      "start": 140.72000000000003,
+      "end": 142.48000000000002,
       "startOffset": 0,
       "endOffset": 35,
       "text": "Wen wollt ihr eigentlich erreichen?"
@@ -890,8 +901,8 @@
       "blockIds": [
         "b-2180680a262d2ffb"
       ],
-      "start": 136.00000000000003,
-      "end": 140.00000000000003,
+      "start": 142.96000000000004,
+      "end": 146.96000000000004,
       "startOffset": 36,
       "endOffset": 101,
       "text": "Initiativen konzentrieren sich oft zu sehr auf ihre Gegner:innen."
@@ -901,8 +912,8 @@
       "blockIds": [
         "b-2180680a262d2ffb"
       ],
-      "start": 140.24,
-      "end": 147.12,
+      "start": 147.20000000000002,
+      "end": 154.08000000000004,
       "startOffset": 102,
       "endOffset": 214,
       "text": "Das Spektrum der Verbündeten von George Lakey (Training for Change) ordnet die Menschen um euch in fünf Gruppen:"
@@ -912,8 +923,8 @@
       "blockIds": [
         "b-0c175274277b8011"
       ],
-      "start": 147.12,
-      "end": 153.36,
+      "start": 154.08000000000004,
+      "end": 160.32000000000005,
       "startOffset": 0,
       "endOffset": 93,
       "text": "Ein Halbkreis mit fünf Gruppen und Pfeilen von aktiver Gegnerschaft zu aktiver Unterstützung."
@@ -923,8 +934,8 @@
       "blockIds": [
         "b-f76ba0fe0a5362c8"
       ],
-      "start": 153.36,
-      "end": 157.44000000000003,
+      "start": 160.32000000000005,
+      "end": 164.40000000000006,
       "startOffset": 0,
       "endOffset": 65,
       "text": "Ziel ist nicht, alle auf einmal zu aktiven Verbündeten zu machen."
@@ -934,8 +945,8 @@
       "blockIds": [
         "b-f76ba0fe0a5362c8"
       ],
-      "start": 157.68,
-      "end": 161.92000000000002,
+      "start": 164.64000000000004,
+      "end": 168.88000000000005,
       "startOffset": 66,
       "endOffset": 135,
       "text": "Entscheidend ist, eine Gruppe einen Schritt näher zu euch zu bewegen."
@@ -945,8 +956,8 @@
       "blockIds": [
         "b-f76ba0fe0a5362c8"
       ],
-      "start": 162.16000000000003,
-      "end": 166.56,
+      "start": 169.12000000000006,
+      "end": 173.52000000000004,
       "startOffset": 136,
       "endOffset": 219,
       "text": "Beginnt auf der Seite der Verbündeten und lasst die Gegnerschaft zunächst beiseite."
@@ -956,8 +967,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 166.56,
-      "end": 168.8,
+      "start": 173.52000000000004,
+      "end": 175.76000000000005,
       "startOffset": 0,
       "endOffset": 26,
       "text": "Gruppe: Aktive Verbündete."
@@ -967,8 +978,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 169.28,
-      "end": 177.76,
+      "start": 176.24000000000004,
+      "end": 184.72000000000003,
       "startOffset": 27,
       "endOffset": 159,
       "text": "Was ihr tun könnt: Baut starke Beziehungen auf – vor allem durch persönliche Begegnungen bei Treffen, Veranstaltungen und Workshops."
@@ -978,8 +989,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 178,
-      "end": 180.48,
+      "start": 184.96000000000004,
+      "end": 187.44000000000003,
       "startOffset": 160,
       "endOffset": 194,
       "text": "Gebt ihnen eine konkrete Aufgabe.."
@@ -989,8 +1000,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 180.72,
-      "end": 182.8,
+      "start": 187.68000000000004,
+      "end": 189.76000000000005,
       "startOffset": 196,
       "endOffset": 223,
       "text": "Gruppe: Passive Verbündete."
@@ -1000,8 +1011,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 183.2,
-      "end": 193.12,
+      "start": 190.16000000000003,
+      "end": 200.08000000000004,
       "startOffset": 224,
       "endOffset": 385,
       "text": "Was ihr tun könnt: Findet heraus, was sie passiv hält, und bietet einen kleinen, konkreten Schritt an – etwa einen Kuchen für die nächste Spielstraße zu backen.."
@@ -1011,8 +1022,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 193.2,
-      "end": 194.56,
+      "start": 200.16000000000003,
+      "end": 201.52000000000004,
       "startOffset": 387,
       "endOffset": 404,
       "text": "Gruppe: Neutrale."
@@ -1022,8 +1033,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 194.96,
-      "end": 198.64,
+      "start": 201.92000000000004,
+      "end": 205.60000000000002,
       "startOffset": 405,
       "endOffset": 468,
       "text": "Was ihr tun könnt: Sie können sich in beide Richtungen bewegen."
@@ -1033,8 +1044,8 @@
       "blockIds": [
         "b-cf14d4aabbe3b208"
       ],
-      "start": 198.8,
-      "end": 204.32,
+      "start": 205.76000000000005,
+      "end": 211.28000000000003,
       "startOffset": 469,
       "endOffset": 554,
       "text": "Stellt euch vor: mit Haustürgesprächen, einem Infostand in eurer Straße oder Flyern.."
@@ -1044,8 +1055,8 @@
       "blockIds": [
         "b-38dda626882ac6ec"
       ],
-      "start": 204.32,
-      "end": 208.16,
+      "start": 211.28000000000003,
+      "end": 215.12000000000003,
       "startOffset": 0,
       "endOffset": 53,
       "text": "Die Gegnerschaft ist oft laut und wirkt deshalb groß."
@@ -1055,8 +1066,8 @@
       "blockIds": [
         "b-38dda626882ac6ec"
       ],
-      "start": 208.2,
-      "end": 210.88,
+      "start": 215.16000000000003,
+      "end": 217.84000000000003,
       "startOffset": 54,
       "endOffset": 94,
       "text": "Aber welche Gruppe ist meist am größten?"
@@ -1066,8 +1077,8 @@
       "blockIds": [
         "b-38dda626882ac6ec"
       ],
-      "start": 211.12,
-      "end": 215.92,
+      "start": 218.08000000000004,
+      "end": 222.88000000000002,
       "startOffset": 95,
       "endOffset": 172,
       "text": "Die Neutralen – konzentriert euch also auf sie und eure passiven Verbündeten."
@@ -1077,8 +1088,8 @@
       "blockIds": [
         "b-73e09ec4f533af5a"
       ],
-      "start": 215.92,
-      "end": 218.32,
+      "start": 222.88000000000002,
+      "end": 225.28000000000003,
       "startOffset": 0,
       "endOffset": 36,
       "text": "Probiert es mit eurer Initiative aus"
@@ -1088,8 +1099,8 @@
       "blockIds": [
         "b-2a5ce3557e579885"
       ],
-      "start": 218.32,
-      "end": 222.07999999999998,
+      "start": 225.28000000000003,
+      "end": 229.04000000000002,
       "startOffset": 0,
       "endOffset": 62,
       "text": "Druckt das Spektrum aus oder zeichnet es auf ein großes Blatt."
@@ -1099,8 +1110,8 @@
       "blockIds": [
         "b-2a5ce3557e579885"
       ],
-      "start": 222.56,
-      "end": 232.95999999999998,
+      "start": 229.52000000000004,
+      "end": 239.92000000000002,
       "startOffset": 63,
       "endOffset": 223,
       "text": "Schreibt die Akteur:innen rund um eure Initiative auf Klebezettel – lokale Politiker:innen, Schulen, Cafés, andere Initiativen – und ordnet sie im Spektrum ein."
@@ -1110,8 +1121,8 @@
       "blockIds": [
         "b-2a5ce3557e579885"
       ],
-      "start": 233.2,
-      "end": 235.68,
+      "start": 240.16000000000003,
+      "end": 242.64000000000004,
       "startOffset": 224,
       "endOffset": 267,
       "text": "Entscheidet dann über euren ersten Schritt."
@@ -1121,8 +1132,8 @@
       "blockIds": [
         "b-5d33c2f8d9558099"
       ],
-      "start": 235.68,
-      "end": 248.12,
+      "start": 242.64000000000004,
+      "end": 255.08000000000004,
       "startOffset": 0,
       "endOffset": 177,
       "text": "Beispiel: Im Gründungsworkshop einer deutschen Superblock-Initiative ordnete die Gruppe eine örtliche Schule – Eltern und Kinder – zwischen \"passiv verbündet\" und \"neutral\" ein."
@@ -1132,8 +1143,8 @@
       "blockIds": [
         "b-5d33c2f8d9558099"
       ],
-      "start": 248.4,
-      "end": 251.28,
+      "start": 255.36000000000004,
+      "end": 258.24000000000007,
       "startOffset": 178,
       "endOffset": 227,
       "text": "Sie organisierte einen Aktionstag vor der Schule."
@@ -1143,8 +1154,8 @@
       "blockIds": [
         "b-5d33c2f8d9558099"
       ],
-      "start": 251.52,
-      "end": 255.76,
+      "start": 258.48,
+      "end": 262.72,
       "startOffset": 228,
       "endOffset": 300,
       "text": "Menschen lernten die Initiative kennen, einige schlossen sich danach an."
@@ -1154,8 +1165,8 @@
       "blockIds": [
         "b-826ba372e40c53f1"
       ],
-      "start": 255.76,
-      "end": 257.52,
+      "start": 262.72,
+      "end": 264.48,
       "startOffset": 0,
       "endOffset": 21,
       "text": "Frage zum Nachdenken."
@@ -1165,8 +1176,8 @@
       "blockIds": [
         "b-826ba372e40c53f1"
       ],
-      "start": 257.84,
-      "end": 260.56,
+      "start": 264.8,
+      "end": 267.52000000000004,
       "startOffset": 22,
       "endOffset": 69,
       "text": "Was ist das Ziel des Spektrums der Verbündeten?"
@@ -1176,8 +1187,8 @@
       "blockIds": [
         "b-826ba372e40c53f1"
       ],
-      "start": 261.12,
-      "end": 264.24,
+      "start": 268.08000000000004,
+      "end": 271.20000000000005,
       "startOffset": 70,
       "endOffset": 112,
       "text": "Zuerst die aktive Gegnerschaft überzeugen."
@@ -1187,8 +1198,8 @@
       "blockIds": [
         "b-826ba372e40c53f1"
       ],
-      "start": 264.48,
-      "end": 267.28,
+      "start": 271.44000000000005,
+      "end": 274.24,
       "startOffset": 113,
       "endOffset": 161,
       "text": "Eine Gruppe einen Schritt näher zu euch bewegen."
@@ -1198,8 +1209,8 @@
       "blockIds": [
         "b-826ba372e40c53f1"
       ],
-      "start": 267.76,
-      "end": 270.92,
+      "start": 274.72,
+      "end": 277.88000000000005,
       "startOffset": 162,
       "endOffset": 208,
       "text": "Alle auf einmal zu aktiven Verbündeten machen."
@@ -1209,8 +1220,8 @@
       "blockIds": [
         "b-826ba372e40c53f1"
       ],
-      "start": 271.28,
-      "end": 272.96,
+      "start": 278.24,
+      "end": 279.92,
       "startOffset": 209,
       "endOffset": 236,
       "text": "Nimm dir einen Moment Zeit."
@@ -1220,8 +1231,8 @@
       "blockIds": [
         "b-826ba372e40c53f1"
       ],
-      "start": 276.36,
-      "end": 280.44,
+      "start": 283.32000000000005,
+      "end": 287.40000000000003,
       "startOffset": 237,
       "endOffset": 294,
       "text": "Antwort: Eine Gruppe einen Schritt näher zu euch bewegen."
@@ -1231,8 +1242,8 @@
       "blockIds": [
         "b-e5ff7f847da08c89"
       ],
-      "start": 280.44,
-      "end": 283.4,
+      "start": 287.40000000000003,
+      "end": 290.36,
       "startOffset": 0,
       "endOffset": 27,
       "text": "Werkzeug 3: Einzelgespräche"
@@ -1242,8 +1253,8 @@
       "blockIds": [
         "b-e84092bf0c88e46d"
       ],
-      "start": 283.4,
-      "end": 287.96,
+      "start": 290.36,
+      "end": 294.92,
       "startOffset": 0,
       "endOffset": 70,
       "text": "Ein persönliches Gespräch ist mehr wert als fünf WhatsApp-Nachrichten."
@@ -1253,8 +1264,8 @@
       "blockIds": [
         "b-97c2a5b2ee3873e4"
       ],
-      "start": 287.96,
-      "end": 290.08,
+      "start": 294.92,
+      "end": 297.04,
       "startOffset": 0,
       "endOffset": 32,
       "text": "Gespräche bleiben in Erinnerung."
@@ -1264,8 +1275,8 @@
       "blockIds": [
         "b-97c2a5b2ee3873e4"
       ],
-      "start": 290.28,
-      "end": 298.91999999999996,
+      "start": 297.24,
+      "end": 305.88,
       "startOffset": 33,
       "endOffset": 168,
       "text": "Sie helfen herauszufinden, was jemanden bewegt, wütend oder hoffnungsvoll macht – und die Person für euren Plan zum Erfolg zu gewinnen."
@@ -1275,8 +1286,8 @@
       "blockIds": [
         "b-d08a8a818d619b79"
       ],
-      "start": 298.91999999999996,
-      "end": 299.4,
+      "start": 305.88,
+      "end": 306.36,
       "startOffset": 0,
       "endOffset": 5,
       "text": "Wann?"
@@ -1286,8 +1297,8 @@
       "blockIds": [
         "b-d08a8a818d619b79"
       ],
-      "start": 299.79999999999995,
-      "end": 305.91999999999996,
+      "start": 306.76,
+      "end": 312.88,
       "startOffset": 6,
       "endOffset": 99,
       "text": "Am Beginn einer Initiative, um herauszufinden, welche Themen im Grätzl wirklich wichtig sind."
@@ -1297,8 +1308,8 @@
       "blockIds": [
         "b-d08a8a818d619b79"
       ],
-      "start": 306.19999999999993,
-      "end": 313.55999999999995,
+      "start": 313.15999999999997,
+      "end": 320.52,
       "startOffset": 100,
       "endOffset": 217,
       "text": "Später, um passive Verbündete zu aktivieren, Menschen zu einer Versammlung einzuladen oder Unterschriften zu sammeln."
@@ -1308,8 +1319,8 @@
       "blockIds": [
         "b-4352518455ee968a"
       ],
-      "start": 313.55999999999995,
-      "end": 314.03999999999996,
+      "start": 320.52,
+      "end": 321,
       "startOffset": 0,
       "endOffset": 3,
       "text": "Wo?"
@@ -1319,8 +1330,8 @@
       "blockIds": [
         "b-4352518455ee968a"
       ],
-      "start": 314.5199999999999,
-      "end": 321.3999999999999,
+      "start": 321.47999999999996,
+      "end": 328.35999999999996,
       "startOffset": 4,
       "endOffset": 109,
       "text": "An der Haustür – oder als Straßengespräch an der Haltestelle, vor dem Supermarkt oder auf dem Spielplatz."
@@ -1330,8 +1341,8 @@
       "blockIds": [
         "b-7873a4ffca2eae68"
       ],
-      "start": 321.3999999999999,
-      "end": 321.87999999999994,
+      "start": 328.35999999999996,
+      "end": 328.84,
       "startOffset": 0,
       "endOffset": 4,
       "text": "Wie?"
@@ -1341,8 +1352,8 @@
       "blockIds": [
         "b-7873a4ffca2eae68"
       ],
-      "start": 322.43999999999994,
-      "end": 325.2399999999999,
+      "start": 329.4,
+      "end": 332.19999999999993,
       "startOffset": 5,
       "endOffset": 70,
       "text": "Folgt diesen sechs Schritten mit Beispielsätzen (zum Aufklappen):"
@@ -1352,8 +1363,8 @@
       "blockIds": [
         "b-da0ee4178c4e93b4"
       ],
-      "start": 325.2399999999999,
-      "end": 325.6399999999999,
+      "start": 332.19999999999993,
+      "end": 332.5999999999999,
       "startOffset": 0,
       "endOffset": 2,
       "text": "1."
@@ -1363,8 +1374,8 @@
       "blockIds": [
         "b-da0ee4178c4e93b4"
       ],
-      "start": 325.7199999999999,
-      "end": 326.7599999999999,
+      "start": 332.67999999999995,
+      "end": 333.7199999999999,
       "startOffset": 3,
       "endOffset": 14,
       "text": "Vorstellung"
@@ -1374,8 +1385,8 @@
       "blockIds": [
         "b-f7d6387874885274"
       ],
-      "start": 326.7599999999999,
-      "end": 332.7599999999999,
+      "start": 333.7199999999999,
+      "end": 339.7199999999999,
       "startOffset": 0,
       "endOffset": 86,
       "text": "\"Hallo, ich heiße …, wohne hier in der Nähe und bin Teil der Nachbarschaftsinitiative."
@@ -1385,8 +1396,8 @@
       "blockIds": [
         "b-f7d6387874885274"
       ],
-      "start": 332.7999999999999,
-      "end": 336.03999999999985,
+      "start": 339.75999999999993,
+      "end": 342.9999999999999,
       "startOffset": 87,
       "endOffset": 146,
       "text": "Heute sprechen wir mit vielen Menschen aus unserem Grätzl.\""
@@ -1396,8 +1407,8 @@
       "blockIds": [
         "b-670e92803d57d4c3"
       ],
-      "start": 336.03999999999985,
-      "end": 336.67999999999984,
+      "start": 342.9999999999999,
+      "end": 343.6399999999999,
       "startOffset": 0,
       "endOffset": 2,
       "text": "2."
@@ -1407,8 +1418,8 @@
       "blockIds": [
         "b-670e92803d57d4c3"
       ],
-      "start": 336.99999999999983,
-      "end": 339.79999999999984,
+      "start": 343.95999999999987,
+      "end": 346.7599999999999,
       "startOffset": 3,
       "endOffset": 38,
       "text": "Herausfinden, was die Person bewegt"
@@ -1418,8 +1429,8 @@
       "blockIds": [
         "b-986cc0414338f8e7"
       ],
-      "start": 339.79999999999984,
-      "end": 345.39999999999986,
+      "start": 346.7599999999999,
+      "end": 352.3599999999999,
       "startOffset": 0,
       "endOffset": 88,
       "text": "Fragt, wie sie die Situation erlebt: \"Wie geht es dir mit dem Verkehr in unserem Grätzl?"
@@ -1429,8 +1440,8 @@
       "blockIds": [
         "b-986cc0414338f8e7"
       ],
-      "start": 345.47999999999985,
-      "end": 347.47999999999985,
+      "start": 352.4399999999999,
+      "end": 354.4399999999999,
       "startOffset": 89,
       "endOffset": 121,
       "text": "Was würdest du gerne verändern?\""
@@ -1440,8 +1451,8 @@
       "blockIds": [
         "b-986cc0414338f8e7"
       ],
-      "start": 347.55999999999983,
-      "end": 353.55999999999983,
+      "start": 354.51999999999987,
+      "end": 360.51999999999987,
       "startOffset": 122,
       "endOffset": 212,
       "text": "Fragt dann genauer nach: \"Was bedeutet das für dich und deine Familie oder deinen Alltag?\""
@@ -1451,8 +1462,8 @@
       "blockIds": [
         "b-6873af6efa6bac12"
       ],
-      "start": 353.55999999999983,
-      "end": 353.9599999999998,
+      "start": 360.51999999999987,
+      "end": 360.91999999999985,
       "startOffset": 0,
       "endOffset": 2,
       "text": "3."
@@ -1462,8 +1473,8 @@
       "blockIds": [
         "b-6873af6efa6bac12"
       ],
-      "start": 354.03999999999985,
-      "end": 355.6399999999998,
+      "start": 360.9999999999999,
+      "end": 362.59999999999985,
       "startOffset": 3,
       "endOffset": 27,
       "text": "Dringlichkeit vermitteln"
@@ -1473,8 +1484,8 @@
       "blockIds": [
         "b-37adf808c8f0e862"
       ],
-      "start": 355.6399999999998,
-      "end": 362.23999999999984,
+      "start": 362.59999999999985,
+      "end": 369.1999999999999,
       "startOffset": 0,
       "endOffset": 109,
       "text": "Helft zu erkennen, dass der Status quo nicht unveränderlich ist: \"Wer ist deiner Meinung nach verantwortlich?"
@@ -1484,8 +1495,8 @@
       "blockIds": [
         "b-37adf808c8f0e862"
       ],
-      "start": 362.4399999999998,
-      "end": 364.11999999999983,
+      "start": 369.39999999999986,
+      "end": 371.07999999999987,
       "startOffset": 110,
       "endOffset": 137,
       "text": "Was verhindert eine Lösung?"
@@ -1495,8 +1506,8 @@
       "blockIds": [
         "b-37adf808c8f0e862"
       ],
-      "start": 364.35999999999984,
-      "end": 369.7199999999998,
+      "start": 371.3199999999999,
+      "end": 376.67999999999984,
       "startOffset": 138,
       "endOffset": 233,
       "text": "Findest du es nicht ungerecht, dass Autos so viel Platz bekommen und Fußgänger:innen so wenig?\""
@@ -1506,8 +1517,8 @@
       "blockIds": [
         "b-fb0ccebc8139a41f"
       ],
-      "start": 369.7199999999998,
-      "end": 370.1999999999998,
+      "start": 376.67999999999984,
+      "end": 377.15999999999985,
       "startOffset": 0,
       "endOffset": 2,
       "text": "4."
@@ -1517,8 +1528,8 @@
       "blockIds": [
         "b-fb0ccebc8139a41f"
       ],
-      "start": 370.6799999999998,
-      "end": 372.3599999999998,
+      "start": 377.6399999999998,
+      "end": 379.3199999999998,
       "startOffset": 3,
       "endOffset": 23,
       "text": "Euer Plan zum Erfolg"
@@ -1528,8 +1539,8 @@
       "blockIds": [
         "b-fd4e6688489de6e5"
       ],
-      "start": 372.3599999999998,
-      "end": 374.75999999999976,
+      "start": 379.3199999999998,
+      "end": 381.7199999999998,
       "startOffset": 0,
       "endOffset": 35,
       "text": "Erst jetzt seid ihr mit Reden dran."
@@ -1539,8 +1550,8 @@
       "blockIds": [
         "b-fd4e6688489de6e5"
       ],
-      "start": 374.9999999999998,
-      "end": 383.7999999999998,
+      "start": 381.9599999999998,
+      "end": 390.7599999999998,
       "startOffset": 36,
       "endOffset": 172,
       "text": "\"Du hast gesagt … Viele andere, mit denen wir gesprochen haben, empfinden das genauso … Deshalb haben wir beschlossen, aktiv zu werden.\""
@@ -1550,8 +1561,8 @@
       "blockIds": [
         "b-fd4e6688489de6e5"
       ],
-      "start": 384.0399999999998,
-      "end": 394.6799999999998,
+      "start": 390.99999999999983,
+      "end": 401.6399999999998,
       "startOffset": 173,
       "endOffset": 328,
       "text": "Erklärt, was eure Initiative plant – eine Demonstration, eine Petition, Gespräche mit der lokalen Politik – und macht klar: Das funktioniert nur gemeinsam."
@@ -1561,8 +1572,8 @@
       "blockIds": [
         "b-5cb7e39c37fca3d4"
       ],
-      "start": 394.6799999999998,
-      "end": 395.2399999999998,
+      "start": 401.6399999999998,
+      "end": 402.1999999999998,
       "startOffset": 0,
       "endOffset": 2,
       "text": "5."
@@ -1572,8 +1583,8 @@
       "blockIds": [
         "b-5cb7e39c37fca3d4"
       ],
-      "start": 395.7199999999998,
-      "end": 397.1599999999998,
+      "start": 402.67999999999984,
+      "end": 404.11999999999983,
       "startOffset": 3,
       "endOffset": 21,
       "text": "Die konkrete Bitte"
@@ -1583,8 +1594,8 @@
       "blockIds": [
         "b-ee09032e00134dfa"
       ],
-      "start": 397.1599999999998,
-      "end": 399.6399999999998,
+      "start": 404.11999999999983,
+      "end": 406.59999999999985,
       "startOffset": 0,
       "endOffset": 35,
       "text": "Eine direkte Frage: \"Machst du mit?"
@@ -1594,8 +1605,8 @@
       "blockIds": [
         "b-ee09032e00134dfa"
       ],
-      "start": 400.0399999999998,
-      "end": 401.3999999999998,
+      "start": 406.99999999999983,
+      "end": 408.35999999999984,
       "startOffset": 36,
       "endOffset": 62,
       "text": "Kann ich auf dich zählen?\""
@@ -1605,8 +1616,8 @@
       "blockIds": [
         "b-6961c36969e1ab25"
       ],
-      "start": 401.3999999999998,
-      "end": 401.9329999999998,
+      "start": 408.35999999999984,
+      "end": 408.89299999999986,
       "startOffset": 0,
       "endOffset": 2,
       "text": "6."
@@ -1616,8 +1627,8 @@
       "blockIds": [
         "b-6961c36969e1ab25"
       ],
-      "start": 402.0399999999998,
-      "end": 403.7999999999998,
+      "start": 408.99999999999983,
+      "end": 410.7599999999998,
       "startOffset": 3,
       "endOffset": 22,
       "text": "Der nächste Schritt"
@@ -1627,8 +1638,8 @@
       "blockIds": [
         "b-5db952c8ca5a1a01"
       ],
-      "start": 403.7999999999998,
-      "end": 409.05299999999977,
+      "start": 410.7599999999998,
+      "end": 416.0129999999998,
       "startOffset": 0,
       "endOffset": 80,
       "text": "Endet immer mit einer konkreten Vereinbarung: \"Sehen wir uns beim Treffen am …?\""
@@ -1638,8 +1649,8 @@
       "blockIds": [
         "b-5db952c8ca5a1a01"
       ],
-      "start": 409.07999999999976,
-      "end": 411.87999999999977,
+      "start": 416.0399999999998,
+      "end": 418.8399999999998,
       "startOffset": 81,
       "endOffset": 127,
       "text": "oder \"Ich nehme dich jetzt in die Gruppe auf.\""
@@ -1649,8 +1660,8 @@
       "blockIds": [
         "b-f7715be6d7a946a5"
       ],
-      "start": 411.87999999999977,
-      "end": 416.75999999999976,
+      "start": 418.8399999999998,
+      "end": 423.7199999999998,
       "startOffset": 0,
       "endOffset": 40,
       "text": "Goldene Regel: 20 % reden, 80 % zuhören."
@@ -1660,8 +1671,8 @@
       "blockIds": [
         "b-f7715be6d7a946a5"
       ],
-      "start": 416.9999999999998,
-      "end": 421.7999999999998,
+      "start": 423.9599999999998,
+      "end": 428.7599999999998,
       "startOffset": 41,
       "endOffset": 119,
       "text": "Geht zu zweit, bereitet einen kurzen Leitfaden vor und übt vorher miteinander."
@@ -1671,8 +1682,8 @@
       "blockIds": [
         "b-f7715be6d7a946a5"
       ],
-      "start": 422.19999999999976,
-      "end": 425.87999999999977,
+      "start": 429.1599999999998,
+      "end": 432.8399999999998,
       "startOffset": 120,
       "endOffset": 172,
       "text": "Macht euch immer Notizen – und sammelt Kontaktdaten."
@@ -1682,8 +1693,8 @@
       "blockIds": [
         "b-9d18ac6aa9a1a397"
       ],
-      "start": 425.87999999999977,
-      "end": 428.83999999999975,
+      "start": 432.8399999999998,
+      "end": 435.7999999999998,
       "startOffset": 0,
       "endOffset": 29,
       "text": "Werkzeug 4: Kontaktmanagement"
@@ -1693,8 +1704,8 @@
       "blockIds": [
         "b-cd1d4b0a3dea5164"
       ],
-      "start": 428.83999999999975,
-      "end": 432.47999999999973,
+      "start": 435.7999999999998,
+      "end": 439.43999999999977,
       "startOffset": 0,
       "endOffset": 57,
       "text": "Es klingt selbstverständlich, wird aber oft unterschätzt."
@@ -1704,8 +1715,8 @@
       "blockIds": [
         "b-cd1d4b0a3dea5164"
       ],
-      "start": 432.75999999999976,
-      "end": 444.27999999999975,
+      "start": 439.7199999999998,
+      "end": 451.2399999999998,
       "startOffset": 58,
       "endOffset": 240,
       "text": "Sammelt mehr als eine E-Mail-Adresse: eine Telefonnummer, die Themen, die einer Person wichtig sind (ihr Herz), und besondere Fähigkeiten – vielleicht kann jemand eine Website bauen."
@@ -1715,8 +1726,8 @@
       "blockIds": [
         "b-5ffdc3fc6b46dd73"
       ],
-      "start": 444.27999999999975,
-      "end": 452.83999999999975,
+      "start": 451.2399999999998,
+      "end": 459.7999999999998,
       "startOffset": 0,
       "endOffset": 139,
       "text": "Dann nutzt diese Informationen: Ladet Menschen persönlich zu Veranstaltungen über ihr Thema ein oder ruft sie mit einer konkreten Bitte an."
@@ -1726,8 +1737,8 @@
       "blockIds": [
         "b-5ffdc3fc6b46dd73"
       ],
-      "start": 453.07999999999976,
-      "end": 458.03999999999974,
+      "start": 460.0399999999998,
+      "end": 464.9999999999998,
       "startOffset": 140,
       "endOffset": 222,
       "text": "Eine Tabelle reicht am Anfang; auch spezielle Organising-Apps entstehen zunehmend."
@@ -1737,8 +1748,8 @@
       "blockIds": [
         "b-0b58342eaad67ffc"
       ],
-      "start": 458.03999999999974,
-      "end": 461.2399999999997,
+      "start": 464.9999999999998,
+      "end": 468.19999999999976,
       "startOffset": 0,
       "endOffset": 32,
       "text": "Werkzeug 5: Verantwortung teilen"
@@ -1748,8 +1759,8 @@
       "blockIds": [
         "b-e3a8131881a20c07"
       ],
-      "start": 461.2399999999997,
-      "end": 465.71999999999974,
+      "start": 468.19999999999976,
+      "end": 472.6799999999998,
       "startOffset": 0,
       "endOffset": 68,
       "text": "Nur wer Verantwortung für eine Aufgabe trägt, ist Teil der Bewegung."
@@ -1759,8 +1770,8 @@
       "blockIds": [
         "b-62a904c3b9a363c7"
       ],
-      "start": 465.71999999999974,
-      "end": 471.5599999999997,
+      "start": 472.6799999999998,
+      "end": 478.51999999999975,
       "startOffset": 0,
       "endOffset": 94,
       "text": "Stabile Gruppen brauchen geteilte Verantwortung – sie darf nicht auf wenigen Schultern lasten."
@@ -1770,8 +1781,8 @@
       "blockIds": [
         "b-5c21d84f047404a6"
       ],
-      "start": 471.5599999999997,
-      "end": 478.91999999999973,
+      "start": 478.51999999999975,
+      "end": 485.87999999999977,
       "startOffset": 0,
       "endOffset": 108,
       "text": "Persönlich fragen: Fragt in einem Raum mit 20 Menschen, wer eine Aufgabe übernimmt, und niemand meldet sich."
@@ -1781,8 +1792,8 @@
       "blockIds": [
         "b-5c21d84f047404a6"
       ],
-      "start": 479.15999999999974,
-      "end": 483.6399999999997,
+      "start": 486.1199999999998,
+      "end": 490.59999999999974,
       "startOffset": 109,
       "endOffset": 183,
       "text": "Fragt jemanden direkt vor oder nach dem Treffen, und die meisten sagen ja."
@@ -1792,8 +1803,8 @@
       "blockIds": [
         "b-b460b27d20c099ca"
       ],
-      "start": 483.6399999999997,
-      "end": 489.8799999999997,
+      "start": 490.59999999999974,
+      "end": 496.83999999999975,
       "startOffset": 0,
       "endOffset": 88,
       "text": "Tandems: Stellt einer neuen Person eine erfahrene zur Seite – auch bei kleinen Aufgaben."
@@ -1803,8 +1814,8 @@
       "blockIds": [
         "b-6513765b336bc5a4"
       ],
-      "start": 489.8799999999997,
-      "end": 495.0799999999997,
+      "start": 496.83999999999975,
+      "end": 502.03999999999974,
       "startOffset": 0,
       "endOffset": 83,
       "text": "Nach außen delegieren: Eine Kerngruppe wird es immer geben, und das ist in Ordnung."
@@ -1814,8 +1825,8 @@
       "blockIds": [
         "b-6513765b336bc5a4"
       ],
-      "start": 495.47999999999973,
-      "end": 506.2799999999997,
+      "start": 502.43999999999977,
+      "end": 513.2399999999998,
       "startOffset": 84,
       "endOffset": 261,
       "text": "Gebt aber laufend Aufgaben an weniger Engagierte weiter, etwa Menschen in eurer Chatgruppe, die selten zu Treffen kommen: Flyer verteilen, Unterschriften sammeln, Plakate malen."
@@ -1825,8 +1836,8 @@
       "blockIds": [
         "b-cd946327dfb23691"
       ],
-      "start": 506.2799999999997,
-      "end": 508.5199999999997,
+      "start": 513.2399999999998,
+      "end": 515.4799999999998,
       "startOffset": 0,
       "endOffset": 31,
       "text": "Erkenntnisse aus der Diskussion"
@@ -1836,8 +1847,8 @@
       "blockIds": [
         "b-d237f6d5c1453511"
       ],
-      "start": 508.5199999999997,
-      "end": 515.7199999999997,
+      "start": 515.4799999999998,
+      "end": 522.6799999999998,
       "startOffset": 0,
       "endOffset": 102,
       "text": "Ansprechbar sein: Stellt euch als Initiative mit einem Anliegen vor, nicht als Expert:innenkonsortium."
@@ -1847,8 +1858,8 @@
       "blockIds": [
         "b-4108e8f95b6ad7d8"
       ],
-      "start": 515.7199999999997,
-      "end": 522.5199999999996,
+      "start": 522.6799999999998,
+      "end": 529.4799999999998,
       "startOffset": 0,
       "endOffset": 103,
       "text": "Gemeinsame Vorteile finden: Ein getrennter Radweg kann auch für Busse und Autos Verbesserungen bringen."
@@ -1858,8 +1869,8 @@
       "blockIds": [
         "b-a7f85f60521427ed"
       ],
-      "start": 522.5199999999996,
-      "end": 530.2799999999996,
+      "start": 529.4799999999998,
+      "end": 537.2399999999998,
       "startOffset": 0,
       "endOffset": 120,
       "text": "Fakten kennen: Bei Straßensperren führt Verkehrsverdunstung oft dazu, dass der Verkehr abnimmt, statt sich zu verlagern."
@@ -1869,8 +1880,8 @@
       "blockIds": [
         "b-25367eaa786168e2"
       ],
-      "start": 530.2799999999996,
-      "end": 536.5199999999996,
+      "start": 537.2399999999998,
+      "end": 543.4799999999998,
       "startOffset": 0,
       "endOffset": 85,
       "text": "Kreativ denken: Eine Aktion als Kunstprojekt zu positionieren kann neue Türen öffnen."
@@ -1880,8 +1891,8 @@
       "blockIds": [
         "b-f9ec0d9d2bcba612"
       ],
-      "start": 536.5199999999996,
-      "end": 538.7599999999996,
+      "start": 543.4799999999998,
+      "end": 545.7199999999998,
       "startOffset": 0,
       "endOffset": 33,
       "text": "Keine Angst vor Gesprächen haben."
@@ -1891,8 +1902,8 @@
       "blockIds": [
         "b-bec5f8198a94ad23"
       ],
-      "start": 538.7599999999996,
-      "end": 541.7999999999996,
+      "start": 545.7199999999998,
+      "end": 548.7599999999998,
       "startOffset": 0,
       "endOffset": 37,
       "text": "Das eigene Narrativ und die Strategie"
@@ -1902,8 +1913,8 @@
       "blockIds": [
         "b-c46fb47b11b3e2cf"
       ],
-      "start": 541.7999999999996,
-      "end": 545.4799999999996,
+      "start": 548.7599999999998,
+      "end": 552.4399999999997,
       "startOffset": 0,
       "endOffset": 57,
       "text": "Jeder Plan zum Erfolg beruht auf einer klaren Geschichte."
@@ -1913,8 +1924,8 @@
       "blockIds": [
         "b-c46fb47b11b3e2cf"
       ],
-      "start": 545.7199999999996,
-      "end": 549.1599999999996,
+      "start": 552.6799999999997,
+      "end": 556.1199999999998,
       "startOffset": 58,
       "endOffset": 111,
       "text": "Ein Narrativ des Engagements beantwortet vier Fragen:"
@@ -1924,8 +1935,8 @@
       "blockIds": [
         "b-0e8fc81fbd9f26e9"
       ],
-      "start": 549.1599999999996,
-      "end": 551.0799999999996,
+      "start": 556.1199999999998,
+      "end": 558.0399999999997,
       "startOffset": 0,
       "endOffset": 25,
       "text": "Wofür setzen wir uns ein?"
@@ -1935,8 +1946,8 @@
       "blockIds": [
         "b-d24139a904784fad"
       ],
-      "start": 551.0799999999996,
-      "end": 554.1999999999996,
+      "start": 558.0399999999997,
+      "end": 561.1599999999997,
       "startOffset": 0,
       "endOffset": 45,
       "text": "Warum ist gerade jetzt ein gutes Zeitfenster?"
@@ -1946,8 +1957,8 @@
       "blockIds": [
         "b-b8ed4a22d44a25a8"
       ],
-      "start": 554.1999999999996,
-      "end": 556.3599999999996,
+      "start": 561.1599999999997,
+      "end": 563.3199999999997,
       "startOffset": 0,
       "endOffset": 32,
       "text": "Wer kann mit uns Macht aufbauen?"
@@ -1957,8 +1968,8 @@
       "blockIds": [
         "b-c9bfe13ee0349a74"
       ],
-      "start": 556.3599999999996,
-      "end": 559.4799999999996,
+      "start": 563.3199999999997,
+      "end": 566.4399999999997,
       "startOffset": 0,
       "endOffset": 49,
       "text": "Welche Veränderung soll aus unserem Druck folgen?"
@@ -1968,8 +1979,8 @@
       "blockIds": [
         "b-9ff8e086898e5042"
       ],
-      "start": 559.4799999999996,
-      "end": 572.6799999999996,
+      "start": 566.4399999999997,
+      "end": 579.6399999999998,
       "startOffset": 0,
       "endOffset": 199,
       "text": "Wir machen Wien beschreibt als Beispiel die Kampagne Platz für Wien: Viele Unterschriften, starkes Medienecho und die Wienwahl 2020 sollten politischen Druck für eine andere Verkehrspolitik erzeugen."
@@ -1979,8 +1990,8 @@
       "blockIds": [
         "b-9ff8e086898e5042"
       ],
-      "start": 572.9199999999996,
-      "end": 578.0399999999995,
+      "start": 579.8799999999998,
+      "end": 584.9999999999997,
       "startOffset": 200,
       "endOffset": 277,
       "text": "Eine lokale Initiative kann kleiner beginnen, braucht aber dieselbe Klarheit."
@@ -1990,8 +2001,8 @@
       "blockIds": [
         "b-8f7ffcb2ca4e65cf"
       ],
-      "start": 578.0399999999995,
-      "end": 584.0399999999995,
+      "start": 584.9999999999997,
+      "end": 590.9999999999997,
       "startOffset": 0,
       "endOffset": 87,
       "text": "Theories of Change sind Annahmen darüber, wie sozialer und politischer Wandel entsteht."
@@ -2001,8 +2012,8 @@
       "blockIds": [
         "b-8f7ffcb2ca4e65cf"
       ],
-      "start": 584.2799999999995,
-      "end": 589.1999999999995,
+      "start": 591.2399999999997,
+      "end": 596.1599999999996,
       "startOffset": 88,
       "endOffset": 166,
       "text": "Sie helfen, Taktiken bewusst zu wählen, statt alles gleichzeitig zu versuchen."
@@ -2012,8 +2023,8 @@
       "blockIds": [
         "b-8f7ffcb2ca4e65cf"
       ],
-      "start": 589.4799999999996,
-      "end": 615.7999999999995,
+      "start": 596.4399999999997,
+      "end": 622.7599999999996,
       "startOffset": 167,
       "endOffset": 546,
       "text": "Für lokale Initiativen sind drei Sichtweisen besonders nützlich: große Sprünge (wesentliche Fortschritte werden möglich, wenn ein Problem neu definiert wird, neue Akteur:innen auftreten oder sich ein Zeitfenster öffnet), Grassroots (Menschen bauen durch gemeinsames Handeln Macht auf) und Gruppenbildung (gemeinsame Werte, Identität und Normen halten eine Gruppe handlungsfähig)."
@@ -2023,8 +2034,8 @@
       "blockIds": [
         "b-6f87b2d837dcb822"
       ],
-      "start": 615.7999999999995,
-      "end": 618.2799999999995,
+      "start": 622.7599999999996,
+      "end": 625.2399999999997,
       "startOffset": 0,
       "endOffset": 38,
       "text": "Nicht alles passt zu jeder Initiative."
@@ -2034,8 +2045,8 @@
       "blockIds": [
         "b-6f87b2d837dcb822"
       ],
-      "start": 618.6799999999995,
-      "end": 625.6399999999995,
+      "start": 625.6399999999996,
+      "end": 632.5999999999997,
       "startOffset": 39,
       "endOffset": 143,
       "text": "Eine kleine Gruppe sollte lieber zwei oder drei passende Hebel konsequent einsetzen als zehn halbherzig."
@@ -2045,8 +2056,8 @@
       "blockIds": [
         "b-699298ddb889ce61"
       ],
-      "start": 625.6399999999995,
-      "end": 630.1999999999995,
+      "start": 632.5999999999997,
+      "end": 637.1599999999996,
       "startOffset": 0,
       "endOffset": 79,
       "text": "Die folgende Tabelle zeigt praktische Ansätze für unterschiedliche Bedürfnisse."
@@ -2056,8 +2067,8 @@
       "blockIds": [
         "b-699298ddb889ce61"
       ],
-      "start": 630.7599999999995,
-      "end": 638.9199999999995,
+      "start": 637.7199999999997,
+      "end": 645.8799999999997,
       "startOffset": 80,
       "endOffset": 204,
       "text": "Agenda Setting bedeutet, ein Thema öffentlich sichtbar zu machen; das ist nicht dasselbe wie große Fortschritte zu erzielen."
@@ -2067,8 +2078,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 638.9199999999995,
-      "end": 641.7599999999995,
+      "start": 645.8799999999997,
+      "end": 648.7199999999997,
       "startOffset": 0,
       "endOffset": 47,
       "text": "Wenn ihr vor allem ...: Aufmerksamkeit braucht."
@@ -2078,8 +2089,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 641.9599999999995,
-      "end": 644.3599999999996,
+      "start": 648.9199999999996,
+      "end": 651.3199999999997,
       "startOffset": 48,
       "endOffset": 84,
       "text": "Dann passt eher ...: Agenda Setting."
@@ -2089,8 +2100,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 644.7599999999995,
-      "end": 649.1999999999995,
+      "start": 651.7199999999997,
+      "end": 656.1599999999996,
       "startOffset": 85,
       "endOffset": 134,
       "text": "Beispiel: Medienbild, Petition, sichtbare Aktion."
@@ -2100,8 +2111,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 649.4799999999994,
-      "end": 652.6399999999995,
+      "start": 656.4399999999996,
+      "end": 659.5999999999997,
       "startOffset": 136,
       "endOffset": 188,
       "text": "Wenn ihr vor allem ...: lokale Macht aufbauen wollt."
@@ -2111,8 +2122,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 652.8399999999995,
-      "end": 655.3999999999995,
+      "start": 659.7999999999996,
+      "end": 662.3599999999997,
       "startOffset": 189,
       "endOffset": 232,
       "text": "Dann passt eher ...: Grassroots-Organising."
@@ -2122,8 +2133,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 655.7999999999995,
-      "end": 661.0399999999995,
+      "start": 662.7599999999996,
+      "end": 667.9999999999997,
       "startOffset": 233,
       "endOffset": 303,
       "text": "Beispiel: Einzelgespräche, Spektrum der Verbündeten, Rollen verteilen."
@@ -2133,8 +2144,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 661.3199999999995,
-      "end": 664.2799999999995,
+      "start": 668.2799999999996,
+      "end": 671.2399999999997,
       "startOffset": 305,
       "endOffset": 361,
       "text": "Wenn ihr vor allem ...: eine Gruppe stabilisieren müsst."
@@ -2144,8 +2155,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 664.5199999999995,
-      "end": 666.5999999999995,
+      "start": 671.4799999999997,
+      "end": 673.5599999999996,
       "startOffset": 362,
       "endOffset": 398,
       "text": "Dann passt eher ...: Gruppenbildung."
@@ -2155,8 +2166,8 @@
       "blockIds": [
         "b-213fea1b1bb74f00"
       ],
-      "start": 666.9999999999995,
-      "end": 671.3199999999995,
+      "start": 673.9599999999997,
+      "end": 678.2799999999996,
       "startOffset": 399,
       "endOffset": 451,
       "text": "Beispiel: Werte klären, Rituale, gemeinsame Sprache."
@@ -2166,8 +2177,8 @@
       "blockIds": [
         "b-e82d1fc921d56b0c"
       ],
-      "start": 671.3199999999995,
-      "end": 673.0799999999995,
+      "start": 678.2799999999996,
+      "end": 680.0399999999996,
       "startOffset": 0,
       "endOffset": 17,
       "text": "Kampagnenstruktur"
@@ -2177,8 +2188,8 @@
       "blockIds": [
         "b-f2473c822dc75bf4"
       ],
-      "start": 673.0799999999995,
-      "end": 676.3599999999994,
+      "start": 680.0399999999996,
+      "end": 683.3199999999996,
       "startOffset": 0,
       "endOffset": 54,
       "text": "Eine einfache Kampagnenstruktur reicht für den Anfang:"
@@ -2188,8 +2199,8 @@
       "blockIds": [
         "b-d0aee2f45c504cb7"
       ],
-      "start": 676.3599999999994,
-      "end": 677.0799999999995,
+      "start": 683.3199999999996,
+      "end": 684.0399999999996,
       "startOffset": 0,
       "endOffset": 8,
       "text": "Erstens."
@@ -2199,8 +2210,8 @@
       "blockIds": [
         "b-d0aee2f45c504cb7"
       ],
-      "start": 677.4799999999994,
-      "end": 680.4399999999995,
+      "start": 684.4399999999996,
+      "end": 687.3999999999996,
       "startOffset": 9,
       "endOffset": 45,
       "text": "Ziel: Was soll bis wann anders sein?"
@@ -2210,8 +2221,8 @@
       "blockIds": [
         "b-556c1235586788b2"
       ],
-      "start": 680.4399999999995,
-      "end": 681.1599999999995,
+      "start": 687.3999999999996,
+      "end": 688.1199999999997,
       "startOffset": 0,
       "endOffset": 9,
       "text": "Zweitens."
@@ -2221,8 +2232,8 @@
       "blockIds": [
         "b-556c1235586788b2"
       ],
-      "start": 681.4799999999994,
-      "end": 685.4799999999994,
+      "start": 688.4399999999996,
+      "end": 692.4399999999996,
       "startOffset": 10,
       "endOffset": 71,
       "text": "Entscheidungspunkt: Wer kann das beschließen oder verhindern?"
@@ -2232,8 +2243,8 @@
       "blockIds": [
         "b-18c05293f94054dc"
       ],
-      "start": 685.4799999999994,
-      "end": 686.3199999999995,
+      "start": 692.4399999999996,
+      "end": 693.2799999999996,
       "startOffset": 0,
       "endOffset": 9,
       "text": "Drittens."
@@ -2243,8 +2254,8 @@
       "blockIds": [
         "b-18c05293f94054dc"
       ],
-      "start": 686.5199999999994,
-      "end": 691.3999999999994,
+      "start": 693.4799999999996,
+      "end": 698.3599999999996,
       "startOffset": 10,
       "endOffset": 85,
       "text": "Zielgruppen: Wen müssen wir aktivieren, überzeugen oder unter Druck setzen?"
@@ -2254,8 +2265,8 @@
       "blockIds": [
         "b-18c05293f94054dc"
       ],
-      "start": 691.8799999999994,
-      "end": 694.0399999999994,
+      "start": 698.8399999999996,
+      "end": 700.9999999999995,
       "startOffset": 86,
       "endOffset": 121,
       "text": "Nutzt das Spektrum der Verbündeten!"
@@ -2265,8 +2276,8 @@
       "blockIds": [
         "b-c91fa82a62da45fd"
       ],
-      "start": 694.0399999999994,
-      "end": 694.7599999999994,
+      "start": 700.9999999999995,
+      "end": 701.7199999999996,
       "startOffset": 0,
       "endOffset": 9,
       "text": "Viertens."
@@ -2276,8 +2287,8 @@
       "blockIds": [
         "b-c91fa82a62da45fd"
       ],
-      "start": 695.1599999999994,
-      "end": 699.7999999999994,
+      "start": 702.1199999999995,
+      "end": 706.7599999999995,
       "startOffset": 10,
       "endOffset": 75,
       "text": "Meilensteine: Welche sichtbaren Zwischenziele zeigen Fortschritt?"
@@ -2287,8 +2298,8 @@
       "blockIds": [
         "b-e3ab0644eb7634ec"
       ],
-      "start": 699.7999999999994,
-      "end": 700.7199999999993,
+      "start": 706.7599999999995,
+      "end": 707.6799999999995,
       "startOffset": 0,
       "endOffset": 9,
       "text": "Fünftens."
@@ -2298,8 +2309,8 @@
       "blockIds": [
         "b-e3ab0644eb7634ec"
       ],
-      "start": 700.9199999999994,
-      "end": 708.8399999999993,
+      "start": 707.8799999999995,
+      "end": 715.7999999999995,
       "startOffset": 10,
       "endOffset": 108,
       "text": "Aufgaben: Wer übernimmt Recherche, Outreach, Aktionen, Dokumentation, Medien und Politikgespräche?"
@@ -2309,8 +2320,8 @@
       "blockIds": [
         "b-acc76339a50fcb8d"
       ],
-      "start": 708.8399999999993,
-      "end": 709.6399999999993,
+      "start": 715.7999999999995,
+      "end": 716.5999999999995,
       "startOffset": 0,
       "endOffset": 10,
       "text": "Sechstens."
@@ -2320,8 +2331,8 @@
       "blockIds": [
         "b-acc76339a50fcb8d"
       ],
-      "start": 710.0399999999994,
-      "end": 716.4399999999994,
+      "start": 716.9999999999995,
+      "end": 723.3999999999995,
       "startOffset": 11,
       "endOffset": 105,
       "text": "Rhythmus: Wann trifft sich die Gruppe, wann wird öffentlich kommuniziert, wann wird evaluiert?"
@@ -2331,8 +2342,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 716.4399999999994,
-      "end": 718.2399999999993,
+      "start": 723.3999999999995,
+      "end": 725.1999999999995,
       "startOffset": 0,
       "endOffset": 21,
       "text": "Frage zum Nachdenken."
@@ -2342,8 +2353,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 718.5199999999994,
-      "end": 721.4399999999994,
+      "start": 725.4799999999996,
+      "end": 728.3999999999995,
       "startOffset": 22,
       "endOffset": 70,
       "text": "Welche Schritte gehören zu einem Einzelgespräch?"
@@ -2353,8 +2364,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 721.7199999999993,
-      "end": 724.0399999999994,
+      "start": 728.6799999999995,
+      "end": 730.9999999999995,
       "startOffset": 71,
       "endOffset": 107,
       "text": "Herausfinden, was die Person bewegt."
@@ -2364,8 +2375,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 724.4399999999994,
-      "end": 726.7599999999994,
+      "start": 731.3999999999995,
+      "end": 733.7199999999996,
       "startOffset": 108,
       "endOffset": 141,
       "text": "Euren Plan zum Erfolg vorstellen."
@@ -2375,8 +2386,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 726.9999999999993,
-      "end": 729.3199999999994,
+      "start": 733.9599999999995,
+      "end": 736.2799999999995,
       "startOffset": 142,
       "endOffset": 182,
       "text": "Selbst den Großteil des Gesprächs reden."
@@ -2386,8 +2397,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 729.7199999999993,
-      "end": 732.2799999999994,
+      "start": 736.6799999999995,
+      "end": 739.2399999999996,
       "startOffset": 183,
       "endOffset": 228,
       "text": "Einen konkreten nächsten Schritt vereinbaren."
@@ -2397,8 +2408,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 732.7599999999994,
-      "end": 734.5199999999994,
+      "start": 739.7199999999996,
+      "end": 741.4799999999996,
       "startOffset": 229,
       "endOffset": 256,
       "text": "Nimm dir einen Moment Zeit."
@@ -2408,8 +2419,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 737.8399999999993,
-      "end": 741.3199999999994,
+      "start": 744.7999999999995,
+      "end": 748.2799999999995,
       "startOffset": 257,
       "endOffset": 302,
       "text": "Antwort: Herausfinden, was die Person bewegt."
@@ -2419,8 +2430,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 741.5199999999994,
-      "end": 743.7999999999994,
+      "start": 748.4799999999996,
+      "end": 750.7599999999995,
       "startOffset": 303,
       "endOffset": 336,
       "text": "Euren Plan zum Erfolg vorstellen."
@@ -2430,8 +2441,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 743.9999999999993,
-      "end": 746.5599999999994,
+      "start": 750.9599999999995,
+      "end": 753.5199999999995,
       "startOffset": 337,
       "endOffset": 382,
       "text": "Einen konkreten nächsten Schritt vereinbaren."
@@ -2441,8 +2452,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 747.0399999999994,
-      "end": 747.6799999999994,
+      "start": 753.9999999999995,
+      "end": 754.6399999999995,
       "startOffset": 383,
       "endOffset": 391,
       "text": "Richtig!"
@@ -2452,8 +2463,8 @@
       "blockIds": [
         "b-9733cdff1dd43f24"
       ],
-      "start": 748.0799999999994,
-      "end": 755.1999999999994,
+      "start": 755.0399999999995,
+      "end": 762.1599999999995,
       "startOffset": 392,
       "endOffset": 499,
       "text": "Erst zuhören, dann euren Plan zum Erfolg vorstellen und immer einen konkreten nächsten Schritt vereinbaren."

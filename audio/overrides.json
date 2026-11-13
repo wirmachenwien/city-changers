@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "policy": "Speak link labels; keep bibliographies and materials in text. Use informal German address (du/dir/dein), never formal Sie/Ihnen; preserve third-person sie. Speak numbered chapter headings as localized 'Chapter NUMBER: TITLE'. Exclude all figures except spectrum-of-allies.png, the five-group semicircle. Speak ordered-list counters in the narration language. Separate spoken table rows with two newline characters. Read pullquote attributions as localized 'says NAME from ORGANIZATION'. Adapt quizzes into reflection questions and insert an offline silent pause after the thinking prompt, with length set in assembly config. Review changed passages in the proofreading snapshot.",
+  "policy": "Speak link labels and read footnotes in place; keep bibliographies and materials in text. Use informal German address (du/dir/dein), never formal Sie/Ihnen; preserve third-person sie. Speak numbered chapter headings as localized 'Chapter NUMBER: TITLE'. Exclude all figures except spectrum-of-allies.png, the five-group semicircle. Speak ordered-list counters in the narration language. Separate spoken table rows with two newline characters. Read pullquote attributions as localized 'says NAME from ORGANIZATION'. Adapt quizzes into reflection questions and insert an offline silent pause after the thinking prompt, with length set in assembly config. Review changed passages in the proofreading snapshot.",
   "bindings": {},
   "blocks": {}
 }
