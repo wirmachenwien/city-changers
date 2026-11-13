@@ -35,6 +35,8 @@ export function text(node) {
 }
 const wrappers = new Set(['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox', 'TableWrap', 'Slideshow']);
 const blockComponents = new Set([...wrappers, 'Figure', 'Question', 'Glossary', 'Bibliography']);
+const containsFootnote = node => node.name === 'Footnote' || (node.children ?? []).some(containsFootnote);
+const hasInlineContent = nodes => clean(nodes.map(text).join('')) || nodes.some(containsFootnote);
 
 // MDX parses adjacent one-line components as JSX *text* elements inside one
 // paragraph. Canonicalize those into genuine blocks in BOTH pipelines, so
@@ -46,7 +48,7 @@ function normalizeBlocks(parent) {
       const result = [];
       let inline = [];
       const flush = () => {
-        if (inline.length && clean(inline.map(text).join(''))) result.push({ type: 'paragraph', children: inline, position: { start: inline[0].position.start, end: inline.at(-1).position.end } });
+        if (inline.length && hasInlineContent(inline)) result.push({ type: 'paragraph', children: inline, position: { start: inline[0].position.start, end: inline.at(-1).position.end } });
         inline = [];
       };
       for (const child of node.children) {
@@ -67,7 +69,7 @@ function normalizeBlocks(parent) {
     const result = [];
     let inline = [];
     const flush = () => {
-      if (inline.length && clean(inline.map(text).join(''))) result.push({ type: 'paragraph', children: inline, position: { start: inline[0].position.start, end: inline.at(-1).position.end } });
+      if (inline.length && hasInlineContent(inline)) result.push({ type: 'paragraph', children: inline, position: { start: inline[0].position.start, end: inline.at(-1).position.end } });
       inline = [];
     };
     for (const child of parent.children) {
@@ -280,8 +282,12 @@ export function identify(blocks, previous = [], bindings = {}) {
   for (const block of result) {
     if (block.id) continue;
     block.id = `b-${hash(block.bindingKey).slice(0, 16)}`;
+    // An edited block can retain an ID derived from wording that later returns.
+    // Only generated IDs may be disambiguated; explicit conflicts fail above.
+    for (let occurrence = 1; used.has(block.id); occurrence++) {
+      block.id = `b-${hash({ bindingKey: block.bindingKey, occurrence }).slice(0, 16)}`;
+    }
     block.identityReview = previous.length > 0;
-    if (used.has(block.id)) throw new Error(`Duplicate audio block identity ${block.id}`);
     used.add(block.id);
   }
   return result;

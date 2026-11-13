@@ -7,6 +7,7 @@ import { hash, parseSource, identify, splitText, spokenCounter } from '../audio/
 import { makePlan, movedIds, path, registryFor } from '../audio/plan.mjs';
 import { audioPublication } from '../../src/lib/audio-publication.mjs';
 import { validateCues, validateAlignment } from '../audio/media.mjs';
+import remarkAudioBlocks from '../../src/lib/remark-audio-blocks.mjs';
 const source = body => `---\ntitle: Test\nlang: en\n---\n${body}`;
 const extract = body => parseSource(source(body), 'en', { en: [{ term: 'Test', definition: 'A definition.' }] }).blocks;
 
@@ -101,6 +102,27 @@ test('duplicate passages do not silently steal identities', () => {
   assert.ok(next.every(b => b.identityReview));
   assert.throws(() => identify(extract('A.\n\nB.'), [], Object.fromEntries(identify(extract('A.\n\nB.')).map(b => [b.bindingKey, 'same']))), /Duplicate/);
 });
+test('returning original wording allocates unused deterministic IDs after registry round trips', () => {
+  const persist = blocks => JSON.parse(JSON.stringify(registryFor({ chapters: [{ id: 'en/test', blocks }] }))).chapters['en/test'];
+  const original = persist(identify(extract('A.')));
+  const edited = persist(identify(extract('Edited.'), original));
+  assert.equal(edited[0].id, original[0].id);
+  const body = 'Edited.\n\nA.';
+  const returned = identify(extract(body), edited);
+  assert.equal(returned[0].id, original[0].id);
+  assert.notEqual(returned[1].id, original[0].id);
+  assert.equal(returned[1].identityReview, true);
+  assert.deepEqual(identify(extract(body), edited).map(b => b.id), returned.map(b => b.id));
+  assert.deepEqual(identify(extract(body), persist(returned)).map(b => b.id), returned.map(b => b.id));
+  // A second collision must also be skipped, including explicitly reserved IDs.
+  const reserved = { [edited[0].bindingKey]: returned[1].id };
+  const twice = identify(extract('Edited.\n\nA.\n\nOther.'), [], {
+    ...reserved, [identify(extract('Other.'))[0].bindingKey]: original[0].id,
+  });
+  assert.equal(new Set(twice.map(b => b.id)).size, 3);
+  assert.notEqual(twice[1].id, returned[1].id);
+  assert.throws(() => identify(extract(body), edited, { [returned[1].bindingKey]: original[0].id }), /Duplicate audio block identity/);
+});
 test('same-line duplicate component titles have distinct deterministic occurrence keys and bindings', () => {
   const body = '<Accordion title="Same">First.</Accordion><Accordion title="Same">Second.</Accordion>';
   const first = identify(extract(body));
@@ -147,6 +169,33 @@ test('footnotes are narrated in place in props, inline children and flow childre
     const source = readFileSync(`src/content/book/${chapter.id}.mdx`, 'utf8');
     const note = source.match(/<Footnote text="([^"]+)"/)[1];
     assert.ok(chapter.units.some(u => u.text.includes(note)), chapter.id);
+  }
+});
+test('normalization preserves footnote-only runs around block components and inside wrappers', () => {
+  for (const note of ['<Footnote text="Read this." />', '<Footnote>Read this.</Footnote>', '**<Footnote text="Read this." />**']) {
+    const blocks = extract(`${note}<Accordion title="Details">Body.</Accordion>${note}`);
+    assert.deepEqual(blocks.map(b => b.narration ?? b.text), ['Read this.', 'Details', 'Body.', 'Read this.']);
+    const wrapped = extract(`<Accordion title="Details">${note}</Accordion>`);
+    assert.deepEqual(wrapped.map(b => b.narration ?? b.text), ['Details', 'Read this.']);
+  }
+  const plain = identify(extract('Prose.<Accordion title="Details">Body.</Accordion>'));
+  const noted = identify(extract('Prose.<Footnote text="Read this." /><Accordion title="Details">Body.</Accordion>'));
+  assert.deepEqual(noted.map(b => b.id), plain.map(b => b.id));
+});
+test('inline footnotes share their host paragraph hook while standalone footnotes receive flow wrappers', () => {
+  for (const body of ['Prose.<Footnote text="A note." />', '<Accordion title="Details">Prose.<Footnote text="A note." /></Accordion>', '<Footnote text="A note." />']) {
+    const parsed = parseSource(source(body), 'en', {});
+    const narrated = parsed.blocks.find(b => (b.narration ?? b.text).includes('A note.'));
+    const expected = identify(parsed.blocks)[parsed.blocks.indexOf(narrated)];
+    remarkAudioBlocks()(parsed.tree, { path: path('src/content/book/en/test.mdx') });
+    if (narrated.kind === 'paragraph') {
+      assert.equal(narrated.node.data.hProperties['data-audio-block'], expected.id);
+      assert.ok(narrated.node.children.some(child => child.name === 'Footnote'));
+    } else {
+      const wrapper = parsed.tree.children.find(node => node.name === 'div');
+      assert.equal(wrapper.attributes.find(attr => attr.name === 'data-audio-block').value, expected.id);
+      assert.equal(wrapper.children[0].name, 'Footnote');
+    }
   }
 });
 test('Slovenian monitoring narration uses the corrected verb without changing its block ID', () => {
