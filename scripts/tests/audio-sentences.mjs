@@ -83,6 +83,14 @@ test('adaptations and non-matching visible prose are not falsely marked as verba
     assert.equal(document.querySelector('p').dataset.audioBlock, 'b');
   }
 });
+test('adapted chapter headings retain block cues with an inline text highlight rather than a box', () => {
+  const b = { ...block('1. A chapter'), kind: 'heading', adaptation: true, spoken: 'Chapter 1: A chapter', submitted: 'Chapter 1: A chapter' };
+  const { document } = parseHTML(renderProse('<h1 data-audio-block="b">1. A <em>chapter</em></h1>', { lang: 'en', audioBlocks: [b] }));
+  assert.equal(document.querySelector('h1 > [data-audio-heading]').textContent, '1. A chapter');
+  assert.ok(document.querySelector('[data-audio-heading] em'));
+  assert.equal(document.querySelector('h1').dataset.audioBlock, 'b');
+  assert.equal(document.querySelector('[data-audio-sentence]'), null);
+});
 test('rendered prose has sentence hooks in all three languages', { skip: !existsSync(path('dist/book/02-the-power-of-superblocks.html')) }, () => {
   const plan = makePlan();
   for (const lang of new Set(plan.chapters.map(chapter => chapter.lang))) {

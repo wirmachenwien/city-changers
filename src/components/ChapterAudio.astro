@@ -1,6 +1,7 @@
 ---
 import { audioPublication } from '../lib/audio-publication.mjs';
 import Icon from './Icon.astro';
+import DrawnSelect from './DrawnSelect.astro';
 import type { Language } from '../data/locales';
 interface Props { lang: Language; file: string; }
 const { lang, file } = Astro.props;
@@ -16,13 +17,13 @@ const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Ma
   <section class="chapter-audio" aria-label={labels.listen} data-chapter-audio data-id={track.id} data-revision={track.revision} data-cues={track.cues.url} data-duration={track.duration} data-play={labels.play} data-pause={labels.pause} data-failed={labels.failed} data-playback-failed={labels.playbackFailed} data-pagefind-ignore hidden>
     <audio preload="none" src={track.track.url} hidden />
     <div class="audio-shell">
-      <button class="audio-play" type="button" data-play-toggle aria-label={labels.play}>
+      <button class="audio-play" type="button" data-play-toggle aria-label={labels.listen}>
         <span class="audio-icon-play" aria-hidden="true"><Icon name="play-out-loud" /></span>
         <svg class="audio-icon-pause" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 5q-.4 7 0 14M16 5q.4 7 0 14" /></svg>
+        <span class="audio-invitation" data-invitation><span>{labels.listen}</span><span class="audio-duration">· {formatTime(track.duration)}</span></span>
       </button>
       <div class="audio-main">
         <div class="audio-display">
-          <div class="audio-invitation" data-invitation><span>{labels.listen}</span><span class="audio-duration">{formatTime(track.duration)}</span></div>
           <div class="audio-timeline" data-timeline hidden>
             <label class="visually-hidden" for={`audio-position-${lang}-${file}`}>{labels.position}</label>
             <input id={`audio-position-${lang}-${file}`} class="audio-position" data-position type="range" min="0" max={track.duration} step="1" value="0" disabled />
@@ -30,8 +31,8 @@ const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Ma
           </div>
         </div>
         <div class="audio-options" data-audio-options hidden>
-          <label class="audio-speed"><span>{labels.speed}</span><span class="audio-speed-select"><select data-speed aria-label={labels.speed}>{[0.75, 1, 1.25, 1.5, 1.75, 2].map(rate => <option value={rate} selected={rate === 1}>{rate}×</option>)}</select><span aria-hidden="true"><Icon name="chevron-right" /></span></span></label>
-          <label class="audio-highlight"><input class="visually-hidden" type="checkbox" data-highlight /><span class="audio-check" aria-hidden="true"><Icon name="check" /></span><span>{labels.highlight}</span></label>
+          <label class="audio-speed"><span>{labels.speed}</span><DrawnSelect id={`audio-speed-${lang}-${file}`} options={[0.75, 1, 1.25, 1.5, 1.75, 2].map(rate => ({ value: String(rate), label: `${rate}×`, selected: rate === 1 }))} selectAttributes={{ 'data-speed': true, 'aria-label': labels.speed }} /></label>
+          <label class="audio-highlight"><input class="visually-hidden" type="checkbox" data-highlight checked /><span class="audio-check" aria-hidden="true"><Icon name="check" /></span><span>{labels.highlight}</span></label>
         </div>
       </div>
     </div>
@@ -43,36 +44,37 @@ const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Ma
   import '../scripts/chapter-audio';
 </script>
 <style>
-  .chapter-audio { --audio-play-size: 5.5rem; margin-block: 1.5rem 2rem; color: var(--ink); }
+  .chapter-audio { margin-block: .75rem 1.5rem; color: var(--ink); }
   .chapter-audio[hidden], .chapter-audio [hidden] { display: none; }
-  .audio-shell { display: flex; align-items: center; gap: 1.25rem; }
-  .audio-play { position: relative; isolation: isolate; display: grid; place-items: center; flex: 0 0 var(--audio-play-size); inline-size: var(--audio-play-size); block-size: 5rem; padding: 0; border: 0; background: transparent; color: var(--accent-ink); cursor: pointer; }
-  .audio-play::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--accent); mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat; }
-  .audio-play:is(:hover, :focus-visible)::before { background: var(--pebble-selected-hover); }
-  .audio-play:is(:hover, :focus-visible) { color: var(--pebble-selected-hover-ink); }
+  .audio-shell { display: flex; align-items: flex-start; gap: .75rem; }
+  .audio-play { position: relative; isolation: isolate; display: grid; grid-template-columns: 2.75rem auto; align-items: center; gap: .5rem; min-inline-size: 2.75rem; min-block-size: 2.75rem; block-size: 2.75rem; padding: 0; border: 0; background: transparent; color: var(--ink-soft); font: inherit; font-size: .875rem; text-align: start; cursor: pointer; }
+  .audio-play::before { content: ''; position: absolute; inset-inline-start: 0; inset-block-start: 50%; inline-size: 2.75rem; block-size: 2.5rem; transform: translateY(-50%); z-index: -1; background: var(--accent-soft); mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat; }
+  .audio-play:is(:hover, :focus-visible)::before { background: var(--pebble-hover); }
+  [data-opening] .audio-play::before { animation: audio-pebble-wake 360ms ease-out; }
+  [data-opening] .audio-main { animation: audio-controls-reveal 280ms ease-out; }
+  @keyframes audio-pebble-wake {
+    0%, 100% { transform: translateY(-50%) scale(1) rotate(0deg); }
+    45% { transform: translateY(-50%) scale(1.06) rotate(-3deg); }
+  }
+  @keyframes audio-controls-reveal {
+    from { opacity: 0; transform: translateY(.25rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .audio-play:is(:hover, :focus-visible) { color: var(--ink); }
+  .audio-play:hover .audio-invitation > span:first-child { text-decoration: underline; text-underline-offset: .2em; }
+  [data-activated] .audio-play { grid-template-columns: 2.75rem; justify-content: center; flex-shrink: 0; }
   .audio-play:focus-visible, .audio-position:focus-visible, .audio-speed:has(select:focus-visible), .audio-highlight:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 4px; border-radius: .5rem; }
-  .audio-icon-play, .audio-icon-pause { grid-area: 1 / 1; inline-size: 2.25rem; block-size: 2.25rem; }
+  .audio-icon-play, .audio-icon-pause { grid-area: 1 / 1; justify-self: center; inline-size: 1.25rem; block-size: 1.25rem; color: var(--accent); }
   .audio-icon-play :global(.icon) { inline-size: 100%; block-size: 100%; }
   .audio-icon-play, .audio-icon-pause { transition: opacity 160ms ease-out, transform 220ms ease-out; }
   .audio-icon-play { opacity: 1; transform: scale(1) rotate(0deg); }
   .audio-icon-pause { opacity: 0; transform: scale(.75) rotate(-12deg); }
   [data-playing] .audio-icon-play { opacity: 0; transform: scale(.75) rotate(12deg); }
   [data-playing] .audio-icon-pause { opacity: 1; transform: scale(1) rotate(0deg); }
-  .audio-play { transition: transform 180ms ease-out; }
-  .audio-play::before { transition: background-color 160ms ease-out, transform 220ms ease-out; }
-  .audio-play:hover::before { transform: rotate(-3deg) scale(1.025); }
-  .audio-play:active { transform: scale(.94); }
   .audio-main { position: relative; flex: 1; min-inline-size: 0; }
-  /* Keep the finalized controls measured while hidden. Revealing them never
-     moves the pebble or following chapter text. */
+  .chapter-audio:not([data-activated]) .audio-main { display: none; }
   .audio-display { display: grid; align-items: center; }
-  .audio-invitation, .audio-timeline { grid-area: 1 / 1; }
-  .chapter-audio .audio-invitation[hidden] { display: flex; visibility: hidden; opacity: 0; transform: translateY(-.25rem); pointer-events: none; }
-  .chapter-audio .audio-timeline[hidden] { display: block; visibility: hidden; opacity: 0; transform: translateY(.375rem); }
-  .chapter-audio .audio-options[hidden] { display: flex; visibility: hidden; opacity: 0; transform: translateY(.375rem); }
-  /* Center the invitation across the entire reserved control area, so its
-     midpoint aligns with the pebble before playback has been activated. */
-  .audio-invitation { position: absolute; inset: 0; display: flex; align-items: center; align-content: center; flex-wrap: wrap; gap: .25rem .75rem; font-weight: 600; line-height: 1.4; opacity: 1; transform: translateY(0); transition: opacity 160ms ease-out, transform 200ms ease-out, visibility 0s linear 160ms; }
+  .audio-invitation { grid-column: 2; display: flex; align-items: baseline; flex-wrap: wrap; gap: .25rem .5rem; font-weight: 400; line-height: 1.4; }
   .audio-duration, .audio-times { color: var(--ink-soft); font-size: .8125rem; font-weight: 400; font-variant-numeric: tabular-nums; }
   .audio-timeline { min-inline-size: 0; opacity: 1; transform: translateY(0); transition: opacity 240ms ease-out 80ms, transform 280ms ease-out 80ms, visibility 0s; }
   .audio-position { display: block; appearance: none; inline-size: 100%; block-size: 2.75rem; padding: 0; margin: 0; border: 0; background: transparent; accent-color: var(--accent); cursor: pointer; }
@@ -85,13 +87,8 @@ const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Ma
   .audio-times { display: flex; justify-content: space-between; margin-block-start: -.375rem; }
   .audio-options { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1rem; margin-block-start: .375rem; font-size: .8125rem; line-height: 1.3; opacity: 1; transform: translateY(0); transition: opacity 240ms ease-out 120ms, transform 280ms ease-out 120ms, visibility 0s; }
   .audio-speed, .audio-highlight { display: inline-flex; align-items: center; gap: .5rem; min-block-size: 2.75rem; cursor: pointer; }
-  .audio-speed-select { position: relative; isolation: isolate; display: inline-flex; align-items: center; }
-  .audio-speed-select::before { content: ''; position: absolute; inset: .125rem 0; z-index: -1; background: var(--accent-soft); mask: url('../../design/elements/frames/share-pebble.svg') center / 100% 100% no-repeat; }
-  .audio-speed-select:has(select:hover)::before { background: var(--pebble-hover); }
-  .audio-speed select { appearance: none; position: relative; z-index: 1; min-block-size: 2.75rem; padding: .5rem 1.75rem .5rem .875rem; border: 0; border-radius: 0; background: transparent; color: var(--accent); font: inherit; font-weight: 600; cursor: pointer; }
-  .audio-speed select:focus-visible { outline: none; }
-  .audio-speed-select > span { position: absolute; inset-inline-end: .5rem; inline-size: .875rem; block-size: .875rem; transform: rotate(90deg); color: var(--accent); pointer-events: none; }
-  .audio-speed-select :global(.icon) { inline-size: 100%; block-size: 100%; }
+  .audio-speed :global(select:focus-visible) { outline: none; }
+  .audio-speed :global(.drawn-select:not(:hover):not(:has(select:focus-visible)) > .drawn-select__value::after) { content: none; }
   .audio-check { display: grid; place-items: center; inline-size: 1.125rem; block-size: 1.125rem; flex-shrink: 0; border: 1px solid var(--control-border); border-radius: .25rem; color: var(--accent-ink); }
   .audio-check :global(.icon) { inline-size: .875rem; block-size: .875rem; visibility: hidden; }
   .audio-highlight:has(input:checked) .audio-check { background: var(--accent); border-color: var(--accent); }
@@ -99,18 +96,19 @@ const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Ma
   .audio-status { margin: 0; color: var(--error); font-size: .875rem; }
   .audio-status:empty { display: none; }
   .audio-status:not(:empty) { margin-block-start: .75rem; }
-  :global([data-prose] [data-audio-sentence][data-audio-active]) { background: var(--accent-soft); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: .2em; box-decoration-break: clone; }
+  :global([data-prose]) { --read-along-fill: var(--audio-highlight); --read-along-ink: var(--ink); }
+  :global([data-prose] .mascot-box) { --read-along-fill: var(--audio-highlight-on-tint); --read-along-ink: var(--mark-ink); }
+  :global([data-prose] [data-audio-sentence][data-audio-active]), :global([data-prose] [data-audio-active] > [data-audio-heading]) { background: var(--read-along-fill); color: var(--read-along-ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: .2em; box-decoration-break: clone; }
   :global([data-prose] [data-audio-block][data-audio-active]) { outline: 2px solid var(--accent); outline-offset: 4px; }
+  :global([data-prose] [data-audio-block][data-audio-active]:has(> [data-audio-heading])) { outline: none; }
   @media (max-width: 30rem) {
-    .chapter-audio { --audio-play-size: 4.5rem; }
-    .audio-play { block-size: 4.25rem; }
-    .audio-shell { gap: .75rem; }
     .audio-options { gap: 0 .75rem; }
   }
   @media (prefers-reduced-motion: reduce) {
+    [data-opening] .audio-play::before, [data-opening] .audio-main { animation: none; }
     .audio-invitation, .audio-timeline, .audio-options { transition: none; transform: none; }
-    .audio-play, .audio-play::before, .audio-icon-play, .audio-icon-pause { transition: none; }
-    .audio-play:active, .audio-play:hover::before, .audio-icon-play, .audio-icon-pause, [data-playing] .audio-icon-play, [data-playing] .audio-icon-pause { transform: none; }
+    .audio-icon-play, .audio-icon-pause { transition: none; }
+    .audio-icon-play, .audio-icon-pause, [data-playing] .audio-icon-play, [data-playing] .audio-icon-pause { transform: none; }
   }
   @media print { .chapter-audio, noscript { display: none; } }
 </style>

@@ -22,6 +22,8 @@
   --footer-link-hover: #514e4a;
   --accent-ink: #ffffff;
   --accent-soft: #e5eee6;
+  --audio-highlight: #e5eee6;
+  --audio-highlight-on-tint: #ffe08a;
   --pebble-hover: #d2e2d7;
   --pebble-hover-ink: #0f5f36;
   --pebble-selected-hover: #0e6338;
@@ -53,6 +55,8 @@
   --footer-link-hover: #514e4a;
   --accent-ink: #ffffff;
   --accent-soft: #e5eee6;
+  --audio-highlight: #e5eee6;
+  --audio-highlight-on-tint: #ffe08a;
   --pebble-hover: #d2e2d7;
   --pebble-hover-ink: #0f5f36;
   --pebble-selected-hover: #0e6338;
@@ -84,6 +88,8 @@
   --footer-link-hover: #d5d0c7;
   --accent-ink: #161511;
   --accent-soft: #1e2d22;
+  --audio-highlight: #1e2d22;
+  --audio-highlight-on-tint: #513d1d;
   --pebble-hover: #223b2c;
   --pebble-hover-ink: #5dc793;
   --pebble-selected-hover: #59c691;
@@ -116,6 +122,8 @@
     --footer-link-hover: #d5d0c7;
     --accent-ink: #161511;
     --accent-soft: #1e2d22;
+    --audio-highlight: #1e2d22;
+    --audio-highlight-on-tint: #513d1d;
     --pebble-hover: #223b2c;
     --pebble-hover-ink: #5dc793;
     --pebble-selected-hover: #59c691;
@@ -149,6 +157,8 @@
     --footer-link-hover: #514e4a;
     --accent-ink: #ffffff;
     --accent-soft: #e5eee6;
+    --audio-highlight: #e5eee6;
+    --audio-highlight-on-tint: #ffe08a;
     --pebble-hover: #d2e2d7;
     --pebble-hover-ink: #0f5f36;
     --pebble-selected-hover: #0e6338;

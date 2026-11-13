@@ -6,11 +6,11 @@ import { transpileModule, ModuleKind } from 'typescript';
 import { parseHTML } from 'linkedom';
 
 const script = transpileModule(readFileSync('src/scripts/chapter-audio.ts', 'utf8'), { compilerOptions: { module: ModuleKind.None } }).outputText;
-function player({ saved = {}, fail = false, failPlayback = false, highlighted = false } = {}) {
+function player({ saved = {}, fail = false, failPlayback = false, highlighted = true } = {}) {
   const { document, window, Event } = parseHTML(`<section data-chapter-audio data-id="en/01" data-revision="new" data-cues="/cues.json" data-duration="20" data-play="Play chapter" data-pause="Pause playback" data-failed="Highlighting unavailable" data-playback-failed="Playback unavailable" hidden>
     <audio preload="none" hidden></audio><button data-play-toggle aria-label="Play chapter"></button>
     <div data-invitation>Listen</div><div data-timeline hidden><input data-position type="range" value="0" disabled><span data-elapsed></span><span data-total></span></div>
-    <div class="audio-options" data-audio-options hidden><select data-speed></select><input data-highlight type="checkbox"></div><p data-audio-status></p></section>
+    <div class="audio-options" data-audio-options hidden><span class="drawn-select"><select data-speed></select><span data-select-value>1×</span></span><input data-highlight type="checkbox"></div><p data-audio-status></p></section>
     <div data-prose><p data-audio-block="a"><span data-audio-sentence="a-s1">One.</span> <span data-audio-sentence="a-s2">Another.</span></p><p data-audio-block="b"><span data-audio-sentence="b-s1">Two.</span></p><table data-audio-block="adapted"><tr><td>Different displayed wording</td></tr></table></div>`);
   const storage = new Map(Object.entries(saved));
   const audio = document.querySelector('audio');
@@ -43,6 +43,7 @@ test('player defers loading and the timeline until play; no native volume or rem
   const p = player();
   assert.deepEqual(p.counts(), { plays: 0, fetches: 0 });
   assert.equal(p.document.querySelector('[data-chapter-audio]').hidden, false);
+  assert.equal(p.document.querySelector('[data-chapter-audio]').hasAttribute('data-activated'), false);
   assert.equal(p.document.querySelector('[data-timeline]').hidden, true);
   assert.equal(p.document.querySelector('[data-invitation]').hidden, false);
   assert.equal(p.document.querySelector('[data-audio-options]').hidden, true);
@@ -51,10 +52,12 @@ test('player defers loading and the timeline until play; no native volume or rem
   assert.equal(p.audio.muted, false);
   assert.equal(p.document.querySelector('[data-seek], a[download]'), null);
 });
-test('pebble toggles playback and exposes the keyboard-accessible timeline only on first click', async () => {
-  const p = player();
+test('inline invitation toggles playback and exposes the keyboard-accessible timeline only on first click', async () => {
+  const p = player({ highlighted: false });
   p.play.click(); await settle();
   assert.equal(p.counts().plays, 1);
+  assert.equal(p.document.querySelector('[data-chapter-audio]').hasAttribute('data-activated'), true);
+  assert.equal(p.document.querySelector('[data-chapter-audio]').hasAttribute('data-opening'), true);
   assert.equal(p.counts().fetches, 0);
   assert.equal(p.document.querySelector('[data-timeline]').hidden, false);
   assert.equal(p.document.querySelector('[data-invitation]').hidden, true);
@@ -121,7 +124,7 @@ test('player restores revision-scoped positions only on loading, and remembers v
   assert.equal(p.document.querySelector('[data-audio-options]').hidden, false);
   assert.equal(p.document.querySelector('[data-elapsed]').textContent, '0:12');
   assert.equal(p.position.value, '12');
-  assert.deepEqual(p.counts(), { plays: 0, fetches: 0 });
+  assert.deepEqual(p.counts(), { plays: 0, fetches: 1 });
   p.play.click(); await settle();
   assert.equal(p.audio.currentTime, 12);
   p.speed.value = '2'; p.speed.dispatchEvent(new p.Event('change'));
@@ -139,7 +142,7 @@ test('saved playback can be seeked before loading, without autoplay or losing th
   assert.equal(p.audio.currentTime, 0, 'Do not load or seek the media before the first play');
   assert.equal(p.document.querySelector('[data-elapsed]').textContent, '0:07');
   assert.equal(JSON.parse(p.storage.get('chapter-audio:en/01:new')).position, 7);
-  assert.deepEqual(p.counts(), { plays: 0, fetches: 0 });
+  assert.deepEqual(p.counts(), { plays: 0, fetches: 1 });
   p.play.click(); await settle();
   assert.equal(p.audio.currentTime, 7);
 });
@@ -152,33 +155,43 @@ test('empty, completed, invalid and other-revision positions do not expand the t
   const p = player({ saved: { 'chapter-audio:en/01:old': '{"position":12}' } });
   assert.equal(p.document.querySelector('[data-timeline]').hidden, true);
 });
-test('player reserves both display states and uses keyboard-only focus styling for speed', () => {
+test('player keeps controls out of the initial layout and uses keyboard-only focus styling for speed', () => {
   const component = readFileSync('src/components/ChapterAudio.astro', 'utf8');
   assert.match(component, /\.audio-display\s*\{[^}]*display: grid/);
-  assert.match(component, /\.audio-invitation, \.audio-timeline\s*\{[^}]*grid-area: 1 \/ 1/);
-  assert.match(component, /\.audio-invitation\[hidden\]\s*\{[^}]*visibility: hidden/);
-  assert.match(component, /\.audio-timeline\[hidden\]\s*\{[^}]*visibility: hidden/);
-  assert.match(component, /\.audio-options\[hidden\]\s*\{[^}]*visibility: hidden/);
+  assert.match(component, /\.chapter-audio:not\(\[data-activated\]\) \.audio-main\s*\{[^}]*display: none/);
+  assert.match(component, /\.chapter-audio \[hidden\]\s*\{[^}]*display: none/);
   assert.match(component, /\.audio-speed:has\(select:focus-visible\)/);
   assert.doesNotMatch(component, /\.audio-speed:focus-within/);
 });
-test('null invitation is vertically centered and activation uses reduced-motion-aware transitions', () => {
+test('quiet invitation is inside the play button with regular-weight text and a generous touch target', () => {
   const component = readFileSync('src/components/ChapterAudio.astro', 'utf8');
-  assert.match(component, /\.audio-shell\s*\{[^}]*align-items: center/);
+  assert.match(component, /\.audio-shell\s*\{[^}]*align-items: flex-start/);
   assert.match(component, /\.audio-main\s*\{[^}]*position: relative/);
-  assert.match(component, /\.audio-invitation\s*\{[^}]*position: absolute; inset: 0;[^}]*align-items: center; align-content: center/);
+  assert.match(component, /<button class="audio-play"[^>]*>[\s\S]*?data-invitation[\s\S]*?<\/button>/);
+  assert.match(component, /\.audio-invitation\s*\{[^}]*font-weight: 400/);
+  assert.match(component, /\.audio-play\s*\{[^}]*min-block-size: 2\.75rem;[^}]*background: transparent/);
   assert.match(component, /\.audio-timeline\s*\{[^}]*transition: opacity/);
   assert.match(component, /\.audio-options\s*\{[^}]*transition: opacity/);
-  assert.match(component, /@media \(prefers-reduced-motion: reduce\)\s*\{\s*\.audio-invitation, \.audio-timeline, \.audio-options\s*\{[^}]*transition: none/);
-  assert.doesNotMatch(component, /align-items: flex-start/);
+  assert.match(component, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.audio-invitation, \.audio-timeline, \.audio-options\s*\{[^}]*transition: none/);
 });
-test('play/pause icons crossfade with a subtle press effect and reduced-motion support', () => {
+test('compact soft pebble keeps icon crossfades and reduced-motion support without a press effect', () => {
   const component = readFileSync('src/components/ChapterAudio.astro', 'utf8');
   assert.match(component, /\.audio-icon-play, \.audio-icon-pause\s*\{[^}]*transition: opacity/);
   assert.match(component, /\[data-playing\] \.audio-icon-play\s*\{[^}]*opacity: 0/);
   assert.match(component, /\[data-playing\] \.audio-icon-pause\s*\{[^}]*opacity: 1/);
-  assert.match(component, /\.audio-play:active\s*\{[^}]*transform: scale\(\.94\)/);
-  assert.match(component, /\.audio-play, \.audio-play::before, \.audio-icon-play, \.audio-icon-pause\s*\{[^}]*transition: none/);
+  assert.match(component, /\.audio-play::before\s*\{[^}]*inline-size: 2\.75rem;[^}]*background: var\(--accent-soft\)/);
+  assert.doesNotMatch(component, /\.audio-play:active/);
+  assert.match(component, /\.audio-icon-play, \.audio-icon-pause\s*\{[^}]*transition: none/);
+});
+test('activation anchors the pebble and animates only the first user activation, respecting reduced motion', async () => {
+  const component = readFileSync('src/components/ChapterAudio.astro', 'utf8');
+  assert.match(component, /\.audio-play\s*\{[^}]*block-size: 2\.75rem; padding: 0/);
+  assert.match(component, /\[data-opening\] \.audio-play::before\s*\{[^}]*animation: audio-pebble-wake/);
+  assert.match(component, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\[data-opening\] \.audio-main\s*\{ animation: none/);
+  const restored = player({ saved: { 'chapter-audio:en/01:new': '{"position":7}' } });
+  assert.equal(restored.document.querySelector('[data-chapter-audio]').hasAttribute('data-opening'), false);
+  restored.play.click(); await settle();
+  assert.equal(restored.document.querySelector('[data-chapter-audio]').hasAttribute('data-opening'), false);
 });
 test('volume is always full and cannot be muted through the player', () => {
   const p = player();
@@ -187,8 +200,20 @@ test('volume is always full and cannot be muted through the player', () => {
   assert.equal(p.audio.volume, 1);
   assert.equal(p.audio.muted, false);
 });
-test('opt-in highlighting follows sentences without focus, scroll or paragraph seek buttons', async () => {
-  const p = player();
+test('speed uses the shared language-select shell and keeps its animated label mirror in sync', () => {
+  const component = readFileSync('src/components/ChapterAudio.astro', 'utf8');
+  assert.match(component, /<DrawnSelect id=\{`audio-speed-/);
+  assert.doesNotMatch(component, /audio-speed-select/);
+  assert.match(component, /\.drawn-select:not\(:hover\):not\(:has\(select:focus-visible\)\) > \.drawn-select__value::after\)\s*\{ content: none/);
+  const p = player({ saved: { 'chapter-audio:speed': '1.5' } });
+  assert.equal(p.document.querySelector('[data-select-value]').textContent, '1.5×');
+  p.speed.value = '2';
+  p.speed.dispatchEvent(new p.Event('change'));
+  assert.equal(p.document.querySelector('[data-select-value]').textContent, '2×');
+  assert.equal(p.audio.playbackRate, 2);
+});
+test('optional highlighting follows sentences without focus, scroll or paragraph seek buttons', async () => {
+  const p = player({ highlighted: false });
   p.play.click(); await settle();
   const highlight = p.document.querySelector('[data-highlight]');
   highlight.checked = true; highlight.dispatchEvent(new p.Event('change')); await settle();
@@ -201,6 +226,20 @@ test('opt-in highlighting follows sentences without focus, scroll or paragraph s
   assert.equal(p.counts().fetches, 1);
   highlight.checked = false; highlight.dispatchEvent(new p.Event('change'));
   assert.equal(p.document.querySelectorAll('[data-audio-active]').length, 0);
+});
+test('sentence highlighting is on by default, starts on play, and can be switched off', async () => {
+  const component = readFileSync('src/components/ChapterAudio.astro', 'utf8');
+  assert.match(component, /data-highlight checked/);
+  assert.match(component, /\.mascot-box\)\s*\{ --read-along-fill: var\(--audio-highlight-on-tint\)/);
+  assert.match(component, /:has\(> \[data-audio-heading\]\)\)\s*\{ outline: none/);
+  const p = player();
+  assert.equal(p.document.querySelector('[data-audio-active]'), null);
+  p.play.click(); await settle();
+  assert.equal(p.document.querySelector('[data-audio-active]').dataset.audioSentence, 'a-s1');
+  const toggle = p.document.querySelector('[data-highlight]');
+  toggle.checked = false;
+  toggle.dispatchEvent(new p.Event('change'));
+  assert.equal(p.document.querySelector('[data-audio-active]'), null);
 });
 test('adapted passages highlight their corresponding book block', async () => {
   const p = player();

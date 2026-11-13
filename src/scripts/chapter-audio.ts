@@ -24,6 +24,9 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     if (rates.includes(rate)) audio.playbackRate = rate;
   } catch { /* Storage is optional. */ }
   speed.value = String(audio.playbackRate);
+  const speedLabel = speed.closest('.drawn-select')?.querySelector<HTMLElement>('[data-select-value]');
+  const syncSpeedLabel = () => { if (speedLabel) speedLabel.textContent = `${speed.value}×`; };
+  syncSpeedLabel();
   const fixedVolume = () => {
     if (audio.volume !== 1) audio.volume = 1;
     if (audio.muted) audio.muted = false;
@@ -38,6 +41,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   if (duration() > 0 && savedPosition >= duration() - 1) savedPosition = 0;
   const showTimeline = () => {
     activated = true;
+    root.setAttribute('data-activated', '');
     timeline.hidden = false;
     invitation.hidden = true;
     options.hidden = false;
@@ -61,7 +65,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   function updatePlayback() {
     const playing = !audio.paused && !audio.ended;
     root.toggleAttribute('data-playing', playing);
-    play.setAttribute('aria-label', (playing ? root.dataset.pause : root.dataset.play)!);
+    play.setAttribute('aria-label', (!activated ? root.getAttribute('aria-label') : playing ? root.dataset.pause : root.dataset.play) ?? root.dataset.play!);
   }
   audio.addEventListener('loadedmetadata', () => {
     if (savedPosition < audio.duration - 1) audio.currentTime = savedPosition;
@@ -78,6 +82,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     } catch { /* Private browsing/quota restrictions must not break playback. */ }
   };
   play.addEventListener('click', async () => {
+    if (!activated) root.setAttribute('data-opening', '');
     showTimeline();
     if (playRequested || !audio.paused) {
       playRequested = false;
@@ -110,6 +115,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     const rate = Number(speed.value);
     if (rates.includes(rate)) audio.playbackRate = rate;
     speed.value = String(audio.playbackRate);
+    syncSpeedLabel();
     updatePosition();
     save();
   });

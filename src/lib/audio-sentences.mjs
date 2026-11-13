@@ -38,6 +38,15 @@ export function markSentenceHooks(tree, blocks, lang) {
     if (node.type !== 'element' || !node.properties?.dataAudioBlock) return;
     for (const id of String(node.properties.dataAudioBlock).split(' ')) {
       const block = lookup.get(id);
+      // Chapter titles are narrated as “Chapter N: …”, not the displayed “N. …”.
+      // Keep block-level cue matching, but paint only the inline heading text.
+      if (block?.kind === 'heading' && /^h[1-6]$/.test(node.tagName) &&
+          (block.adaptation || block.spoken !== block.text || block.submitted !== block.text)) {
+        if (!node.children.some(child => child.properties?.dataAudioHeading !== undefined)) {
+          node.children = [{ type: 'element', tagName: 'span', properties: { dataAudioHeading: '' }, children: node.children }];
+        }
+        continue;
+      }
       if (!block || block.adaptation || block.spoken !== block.text || block.submitted !== block.text) continue;
       const leaves = [];
       let visible = '';
