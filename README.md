@@ -63,7 +63,7 @@ Preparation needs FFmpeg/ffprobe; publishing needs an authenticated GitHub CLI.
   The complete local edition goes into `public/audio/`; stale managed folders
   are pruned after success. Private recordings and API responses stay in `.cache/audio/`.
 - Dev serves local MP3s/M4Bs; Git ignores them and production builds exclude them.
-  Production media comes from GitHub Releases; cues and transcripts stay on the site.
+  Production media comes from GitHub Releases; only cue JSON stays on the site.
 - Generation is manual and budget-capped. Commit a reviewed edition on a branch,
   push that branch, then explicitly publish with `npm run audio:release -- --publish`
   before merging its manifests to `main`. Keep credentials out of Git.

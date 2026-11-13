@@ -1,0 +1,1525 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "sl/06",
+  "cues": [
+    {
+      "start": 0,
+      "end": 3.6,
+      "blockIds": [
+        "b-f50429431accffcf"
+      ]
+    },
+    {
+      "start": 3.6,
+      "end": 12.719999999999999,
+      "blockIds": [
+        "b-ec75dc5d89d9ed9c"
+      ]
+    },
+    {
+      "start": 12.719999999999999,
+      "end": 15.04,
+      "blockIds": [
+        "b-8ca8c01eea4f5dfb"
+      ]
+    },
+    {
+      "start": 15.04,
+      "end": 34.72,
+      "blockIds": [
+        "b-55e38511bf8b3634"
+      ]
+    },
+    {
+      "start": 34.72,
+      "end": 37.92,
+      "blockIds": [
+        "b-2ce26bf7a54057cc"
+      ]
+    },
+    {
+      "start": 37.92,
+      "end": 50.08,
+      "blockIds": [
+        "b-c71d747773ba8156"
+      ]
+    },
+    {
+      "start": 50.08,
+      "end": 64.32,
+      "blockIds": [
+        "b-89113e1ec4869f42"
+      ]
+    },
+    {
+      "start": 64.32,
+      "end": 80.32,
+      "blockIds": [
+        "b-a9c701c0e0e843ba"
+      ]
+    },
+    {
+      "start": 80.32,
+      "end": 91.83999999999999,
+      "blockIds": [
+        "b-018d9787f74534a9"
+      ]
+    },
+    {
+      "start": 91.83999999999999,
+      "end": 101.99999999999999,
+      "blockIds": [
+        "b-e157f813b151d430"
+      ]
+    },
+    {
+      "start": 101.99999999999999,
+      "end": 110.23999999999998,
+      "blockIds": [
+        "b-8b226926ddd8ed72"
+      ]
+    },
+    {
+      "start": 110.23999999999998,
+      "end": 114.55999999999997,
+      "blockIds": [
+        "b-144f591d84e72dc2"
+      ]
+    },
+    {
+      "start": 114.55999999999997,
+      "end": 128.31999999999996,
+      "blockIds": [
+        "b-6fab165afdf06c2c"
+      ]
+    },
+    {
+      "start": 128.31999999999996,
+      "end": 137.03999999999996,
+      "blockIds": [
+        "b-011b04fec0579853"
+      ]
+    },
+    {
+      "start": 137.03999999999996,
+      "end": 152.07999999999996,
+      "blockIds": [
+        "b-2a63b9511a606cfe"
+      ]
+    },
+    {
+      "start": 152.07999999999996,
+      "end": 163.51999999999995,
+      "blockIds": [
+        "b-5d41f25e2f47479a"
+      ]
+    },
+    {
+      "start": 163.51999999999995,
+      "end": 180.79999999999995,
+      "blockIds": [
+        "b-f6810049eaf084ae"
+      ]
+    },
+    {
+      "start": 180.79999999999995,
+      "end": 187.91999999999996,
+      "blockIds": [
+        "b-d1f04f58729d7e29"
+      ]
+    },
+    {
+      "start": 187.91999999999996,
+      "end": 195.35999999999996,
+      "blockIds": [
+        "b-f0c123c4830a338c"
+      ]
+    },
+    {
+      "start": 195.35999999999996,
+      "end": 199.43999999999997,
+      "blockIds": [
+        "b-ec09c0d188e1598e"
+      ]
+    },
+    {
+      "start": 199.43999999999997,
+      "end": 212.39999999999998,
+      "blockIds": [
+        "b-350493b51b5ad224"
+      ]
+    },
+    {
+      "start": 212.39999999999998,
+      "end": 224.71999999999997,
+      "blockIds": [
+        "b-88d9c2bdfa850763"
+      ]
+    },
+    {
+      "start": 224.71999999999997,
+      "end": 237.43999999999997,
+      "blockIds": [
+        "b-3a9b01472d392a4e"
+      ]
+    },
+    {
+      "start": 237.43999999999997,
+      "end": 253.11999999999998,
+      "blockIds": [
+        "b-5eebf1e22c92e852"
+      ]
+    },
+    {
+      "start": 253.11999999999998,
+      "end": 264.79999999999995,
+      "blockIds": [
+        "b-427abd4d9a128a57"
+      ]
+    },
+    {
+      "start": 264.79999999999995,
+      "end": 276.96,
+      "blockIds": [
+        "b-1c5ef072830201f5"
+      ]
+    },
+    {
+      "start": 276.96,
+      "end": 285.44,
+      "blockIds": [
+        "b-bfadb2e19de8a288"
+      ]
+    },
+    {
+      "start": 285.44,
+      "end": 290.16,
+      "blockIds": [
+        "b-711c7baff2c81269"
+      ]
+    },
+    {
+      "start": 290.16,
+      "end": 302.32000000000005,
+      "blockIds": [
+        "b-81b406fb26a80f5f"
+      ]
+    },
+    {
+      "start": 302.32000000000005,
+      "end": 313.9200000000001,
+      "blockIds": [
+        "b-80223e4eb19a01af"
+      ]
+    },
+    {
+      "start": 313.9200000000001,
+      "end": 325.5200000000001,
+      "blockIds": [
+        "b-e6954d4025a63927"
+      ]
+    },
+    {
+      "start": 325.5200000000001,
+      "end": 341.9200000000001,
+      "blockIds": [
+        "b-4e731c60f4b176c8"
+      ]
+    },
+    {
+      "start": 341.9200000000001,
+      "end": 353.44000000000005,
+      "blockIds": [
+        "b-4bf8fc67aa12d1e7"
+      ]
+    },
+    {
+      "start": 353.44000000000005,
+      "end": 362.08000000000004,
+      "blockIds": [
+        "b-f9b5d1dd7948a603"
+      ]
+    },
+    {
+      "start": 362.08000000000004,
+      "end": 370.16,
+      "blockIds": [
+        "b-a5d636d5123eae09"
+      ]
+    },
+    {
+      "start": 370.16,
+      "end": 371.20000000000005,
+      "blockIds": [
+        "b-2042a9ec40465aae"
+      ]
+    },
+    {
+      "start": 371.36,
+      "end": 386.88,
+      "blockIds": [
+        "b-fe18ffefeb579e1b"
+      ]
+    },
+    {
+      "start": 386.88,
+      "end": 388.48,
+      "blockIds": [
+        "b-53fc2d1708016602"
+      ]
+    },
+    {
+      "start": 388.48,
+      "end": 400.8,
+      "blockIds": [
+        "b-e0adf053c4b6627b"
+      ]
+    },
+    {
+      "start": 400.8,
+      "end": 403.76,
+      "blockIds": [
+        "b-52ede63279416e24"
+      ]
+    },
+    {
+      "start": 403.76,
+      "end": 416.64,
+      "blockIds": [
+        "b-6ce9c2c728b35342"
+      ]
+    },
+    {
+      "start": 416.64,
+      "end": 465.08,
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ]
+    },
+    {
+      "start": 465.08,
+      "end": 466.52,
+      "blockIds": [
+        "b-2341271f88709724"
+      ]
+    },
+    {
+      "start": 466.52,
+      "end": 470.59999999999997,
+      "blockIds": [
+        "b-4589cc6afe6c2275"
+      ]
+    },
+    {
+      "start": 470.59999999999997,
+      "end": 473.32,
+      "blockIds": [
+        "b-e2767e2d08726baa"
+      ]
+    },
+    {
+      "start": 473.32,
+      "end": 476.76,
+      "blockIds": [
+        "b-9122cf4b658ce091"
+      ]
+    },
+    {
+      "start": 476.76,
+      "end": 479.4,
+      "blockIds": [
+        "b-9f2849860e053d19"
+      ]
+    },
+    {
+      "start": 479.4,
+      "end": 482.91999999999996,
+      "blockIds": [
+        "b-6e6219535122af88"
+      ]
+    },
+    {
+      "start": 482.91999999999996,
+      "end": 484.43999999999994,
+      "blockIds": [
+        "b-7152c20bc2be2355"
+      ]
+    },
+    {
+      "start": 484.43999999999994,
+      "end": 485.55999999999995,
+      "blockIds": [
+        "b-da41c15927e592f7"
+      ]
+    },
+    {
+      "start": 485.55999999999995,
+      "end": 486.67999999999995,
+      "blockIds": [
+        "b-6424c6329b649784"
+      ]
+    },
+    {
+      "start": 486.8399999999999,
+      "end": 488.8399999999999,
+      "blockIds": [
+        "b-571798bec3435326"
+      ]
+    },
+    {
+      "start": 488.8399999999999,
+      "end": 492.6799999999999,
+      "blockIds": [
+        "b-2645dfdea9955fa6"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-f50429431accffcf-s1",
+      "blockIds": [
+        "b-f50429431accffcf"
+      ],
+      "start": 0,
+      "end": 3.6,
+      "startOffset": 0,
+      "endOffset": 33,
+      "text": "Poglavje 6: Delovni načrt in viri"
+    },
+    {
+      "sentenceId": "b-ec75dc5d89d9ed9c-s1",
+      "blockIds": [
+        "b-ec75dc5d89d9ed9c"
+      ],
+      "start": 3.6,
+      "end": 12.719999999999999,
+      "startOffset": 0,
+      "endOffset": 111,
+      "text": "To poglavje povezuje orodja iz poglavij 2–5 v prilagodljiv delovni načrt za novo ali obstoječo sosedsko pobudo."
+    },
+    {
+      "sentenceId": "b-8ca8c01eea4f5dfb-s1",
+      "blockIds": [
+        "b-8ca8c01eea4f5dfb"
+      ],
+      "start": 12.719999999999999,
+      "end": 15.04,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Štiritedenski začetni načrt"
+    },
+    {
+      "sentenceId": "b-55e38511bf8b3634-s1",
+      "blockIds": [
+        "b-55e38511bf8b3634"
+      ],
+      "start": 15.04,
+      "end": 18.96,
+      "startOffset": 0,
+      "endOffset": 56,
+      "text": "Za začetek ne potrebujete dokončanega celovitega načrta."
+    },
+    {
+      "sentenceId": "b-55e38511bf8b3634-s2",
+      "blockIds": [
+        "b-55e38511bf8b3634"
+      ],
+      "start": 19.36,
+      "end": 25.92,
+      "startOffset": 57,
+      "endOffset": 152,
+      "text": "V teh štirih tednih spoznajte svojo sosesko, povežite ljudi in naredite prvi korak k spremembi."
+    },
+    {
+      "sentenceId": "b-55e38511bf8b3634-s3",
+      "blockIds": [
+        "b-55e38511bf8b3634"
+      ],
+      "start": 26.4,
+      "end": 34.72,
+      "startOffset": 153,
+      "endOffset": 276,
+      "text": "Tempo prilagodite svoji skupini in lokalnim okoliščinam: gradnja odnosov in doseganje trajnih izboljšav lahko trajata dlje."
+    },
+    {
+      "sentenceId": "b-2ce26bf7a54057cc-s1",
+      "blockIds": [
+        "b-2ce26bf7a54057cc"
+      ],
+      "start": 34.72,
+      "end": 37.92,
+      "startOffset": 0,
+      "endOffset": 33,
+      "text": "1. teden: Spoznajte svojo sosesko"
+    },
+    {
+      "sentenceId": "b-c71d747773ba8156-s1",
+      "blockIds": [
+        "b-c71d747773ba8156"
+      ],
+      "start": 37.92,
+      "end": 39.36,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Izberite območje."
+    },
+    {
+      "sentenceId": "b-c71d747773ba8156-s2",
+      "blockIds": [
+        "b-c71d747773ba8156"
+      ],
+      "start": 39.84,
+      "end": 43.84,
+      "startOffset": 18,
+      "endOffset": 69,
+      "text": "Na zemljevidu označite ulico, križišče ali sosesko."
+    },
+    {
+      "sentenceId": "b-c71d747773ba8156-s3",
+      "blockIds": [
+        "b-c71d747773ba8156"
+      ],
+      "start": 44.32,
+      "end": 50.08,
+      "startOffset": 70,
+      "endOffset": 151,
+      "text": "Če razmišljate o superbloku, poglejte širše območje in potek tranzitnega prometa."
+    },
+    {
+      "sentenceId": "b-89113e1ec4869f42-s1",
+      "blockIds": [
+        "b-89113e1ec4869f42"
+      ],
+      "start": 50.08,
+      "end": 52.199999999999996,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "Prisluhnite in opazujte."
+    },
+    {
+      "sentenceId": "b-89113e1ec4869f42-s2",
+      "blockIds": [
+        "b-89113e1ec4869f42"
+      ],
+      "start": 52.48,
+      "end": 59.16,
+      "startOffset": 25,
+      "endOffset": 119,
+      "text": "Sprehodite se po območju in se pogovorite z ljudmi, ki tam živijo, delajo ali preživljajo čas."
+    },
+    {
+      "sentenceId": "b-89113e1ec4869f42-s3",
+      "blockIds": [
+        "b-89113e1ec4869f42"
+      ],
+      "start": 59.44,
+      "end": 63.36,
+      "startOffset": 120,
+      "endOffset": 170,
+      "text": "Kaj se jim zdi nevarno ali neprijetno, kaj manjka?"
+    },
+    {
+      "sentenceId": "b-89113e1ec4869f42-s4",
+      "blockIds": [
+        "b-89113e1ec4869f42"
+      ],
+      "start": 63.4,
+      "end": 64.32,
+      "startOffset": 171,
+      "endOffset": 182,
+      "text": "Kaj cenijo?"
+    },
+    {
+      "sentenceId": "b-a9c701c0e0e843ba-s1",
+      "blockIds": [
+        "b-a9c701c0e0e843ba"
+      ],
+      "start": 64.32,
+      "end": 66.16,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Dokumentirajte izhodišče."
+    },
+    {
+      "sentenceId": "b-a9c701c0e0e843ba-s2",
+      "blockIds": [
+        "b-a9c701c0e0e843ba"
+      ],
+      "start": 66.55999999999999,
+      "end": 80.32,
+      "startOffset": 26,
+      "endOffset": 212,
+      "text": "Fotografirajte, na zemljevidu označite problematična mesta in izberite eno ali dve stvari za opazovanje ali štetje, na primer promet, gibanje pešcev ali kraje, kjer se ljudje ustavljajo."
+    },
+    {
+      "sentenceId": "b-018d9787f74534a9-s1",
+      "blockIds": [
+        "b-018d9787f74534a9"
+      ],
+      "start": 80.32,
+      "end": 82.11999999999999,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Zberite osrednjo ekipo."
+    },
+    {
+      "sentenceId": "b-018d9787f74534a9-s2",
+      "blockIds": [
+        "b-018d9787f74534a9"
+      ],
+      "start": 82.32,
+      "end": 85.19999999999999,
+      "startOffset": 24,
+      "endOffset": 67,
+      "text": "Poiščite nekaj sosedov, ki želijo pomagati."
+    },
+    {
+      "sentenceId": "b-018d9787f74534a9-s3",
+      "blockIds": [
+        "b-018d9787f74534a9"
+      ],
+      "start": 85.44,
+      "end": 91.83999999999999,
+      "startOffset": 68,
+      "endOffset": 165,
+      "text": "Razdelite začetne vloge, vzpostavite komunikacijski kanal in se dogovorite za naslednje srečanje."
+    },
+    {
+      "sentenceId": "b-e157f813b151d430-s1",
+      "blockIds": [
+        "b-e157f813b151d430"
+      ],
+      "start": 91.83999999999999,
+      "end": 98.07999999999998,
+      "startOffset": 0,
+      "endOffset": 80,
+      "text": "Preizkusite: Na sprehodu uporabite Street Shit Bingo ali Leiwande Straßen Radar."
+    },
+    {
+      "sentenceId": "b-e157f813b151d430-s2",
+      "blockIds": [
+        "b-e157f813b151d430"
+      ],
+      "start": 98.32,
+      "end": 101.99999999999999,
+      "startOffset": 81,
+      "endOffset": 137,
+      "text": "Več zamisli najdete pri moči superblokov in spremljanju."
+    },
+    {
+      "sentenceId": "b-8b226926ddd8ed72-s1",
+      "blockIds": [
+        "b-8b226926ddd8ed72"
+      ],
+      "start": 101.99999999999999,
+      "end": 110.23999999999998,
+      "startOffset": 0,
+      "endOffset": 108,
+      "text": "Ob koncu tedna: Imate določeno območje, začetno sliko problemov in majhno skupino, pripravljeno nadaljevati."
+    },
+    {
+      "sentenceId": "b-144f591d84e72dc2-s1",
+      "blockIds": [
+        "b-144f591d84e72dc2"
+      ],
+      "start": 110.23999999999998,
+      "end": 114.55999999999997,
+      "startOffset": 0,
+      "endOffset": 47,
+      "text": "2. teden: Oblikujte skupno vizijo in strategijo"
+    },
+    {
+      "sentenceId": "b-6fab165afdf06c2c-s1",
+      "blockIds": [
+        "b-6fab165afdf06c2c"
+      ],
+      "start": 114.55999999999997,
+      "end": 116.83999999999997,
+      "startOffset": 0,
+      "endOffset": 29,
+      "text": "Skupaj oblikujte alternative."
+    },
+    {
+      "sentenceId": "b-6fab165afdf06c2c-s2",
+      "blockIds": [
+        "b-6fab165afdf06c2c"
+      ],
+      "start": 117.03999999999998,
+      "end": 124.63999999999997,
+      "startOffset": 30,
+      "endOffset": 128,
+      "text": "Z načrtom ulice, orodjem Street Design Table ali preprosto skico raziščite drugačne rabe prostora."
+    },
+    {
+      "sentenceId": "b-6fab165afdf06c2c-s3",
+      "blockIds": [
+        "b-6fab165afdf06c2c"
+      ],
+      "start": 124.67999999999998,
+      "end": 128.31999999999996,
+      "startOffset": 129,
+      "endOffset": 180,
+      "text": "Pomislite na majhne spremembe in dolgoročno vizijo."
+    },
+    {
+      "sentenceId": "b-011b04fec0579853-s1",
+      "blockIds": [
+        "b-011b04fec0579853"
+      ],
+      "start": 128.31999999999996,
+      "end": 130.03999999999996,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Postavite jasen cilj."
+    },
+    {
+      "sentenceId": "b-011b04fec0579853-s2",
+      "blockIds": [
+        "b-011b04fec0579853"
+      ],
+      "start": 130.23999999999995,
+      "end": 133.15999999999997,
+      "startOffset": 22,
+      "endOffset": 58,
+      "text": "Kaj naj se spremeni, kje in do kdaj?"
+    },
+    {
+      "sentenceId": "b-011b04fec0579853-s3",
+      "blockIds": [
+        "b-011b04fec0579853"
+      ],
+      "start": 133.43999999999997,
+      "end": 137.03999999999996,
+      "startOffset": 59,
+      "endOffset": 108,
+      "text": "Svojo vizijo pretvorite v konkretno prvo zahtevo."
+    },
+    {
+      "sentenceId": "b-2a63b9511a606cfe-s1",
+      "blockIds": [
+        "b-2a63b9511a606cfe"
+      ],
+      "start": 137.03999999999996,
+      "end": 138.95999999999995,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Razvrstite zaveznike."
+    },
+    {
+      "sentenceId": "b-2a63b9511a606cfe-s2",
+      "blockIds": [
+        "b-2a63b9511a606cfe"
+      ],
+      "start": 139.27999999999997,
+      "end": 147.79999999999995,
+      "startOffset": 22,
+      "endOffset": 145,
+      "text": "S spektrom zaveznikov prepoznajte ljudi in skupine, ki so že na vaši strani, bi vas lahko podprli ali jih še niste dosegli."
+    },
+    {
+      "sentenceId": "b-2a63b9511a606cfe-s3",
+      "blockIds": [
+        "b-2a63b9511a606cfe"
+      ],
+      "start": 148.07999999999996,
+      "end": 152.07999999999996,
+      "startOffset": 146,
+      "endOffset": 207,
+      "text": "Izberite eno skupino, ki bi jo lahko premaknili korak bližje."
+    },
+    {
+      "sentenceId": "b-5d41f25e2f47479a-s1",
+      "blockIds": [
+        "b-5d41f25e2f47479a"
+      ],
+      "start": 152.07999999999996,
+      "end": 153.99999999999994,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Poiščite točko odločanja."
+    },
+    {
+      "sentenceId": "b-5d41f25e2f47479a-s2",
+      "blockIds": [
+        "b-5d41f25e2f47479a"
+      ],
+      "start": 154.47999999999996,
+      "end": 158.87999999999997,
+      "startOffset": 26,
+      "endOffset": 81,
+      "text": "Kdo lahko vašo zahtevo odobri, izvede ali vpliva nanjo?"
+    },
+    {
+      "sentenceId": "b-5d41f25e2f47479a-s3",
+      "blockIds": [
+        "b-5d41f25e2f47479a"
+      ],
+      "start": 159.19999999999996,
+      "end": 163.51999999999995,
+      "startOffset": 82,
+      "endOffset": 149,
+      "text": "Zabeležite prihajajoča srečanja ali priložnosti, da jo predstavite."
+    },
+    {
+      "sentenceId": "b-f6810049eaf084ae-s1",
+      "blockIds": [
+        "b-f6810049eaf084ae"
+      ],
+      "start": 163.51999999999995,
+      "end": 165.43999999999994,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "Načrtujte pot do uspeha."
+    },
+    {
+      "sentenceId": "b-f6810049eaf084ae-s2",
+      "blockIds": [
+        "b-f6810049eaf084ae"
+      ],
+      "start": 165.83999999999995,
+      "end": 180.79999999999995,
+      "startOffset": 25,
+      "endOffset": 229,
+      "text": "Odločite se, kateri dve ali tri dejavnosti najbolj ustrezajo vašemu cilju: na primer osebni pogovori za krepitev lokalne podpore, vidna akcija za pritegnitev pozornosti ali srečanje s predstavniki četrti."
+    },
+    {
+      "sentenceId": "b-d1f04f58729d7e29-s1",
+      "blockIds": [
+        "b-d1f04f58729d7e29"
+      ],
+      "start": 180.79999999999995,
+      "end": 187.91999999999996,
+      "startOffset": 0,
+      "endOffset": 92,
+      "text": "Preizkusite: Uporabite proces oblikovanja ulic ter spekter zaveznikov in strukturo kampanje."
+    },
+    {
+      "sentenceId": "b-f0c123c4830a338c-s1",
+      "blockIds": [
+        "b-f0c123c4830a338c"
+      ],
+      "start": 187.91999999999996,
+      "end": 195.35999999999996,
+      "startOffset": 0,
+      "endOffset": 98,
+      "text": "Ob koncu tedna: Imate skupno vizijo, prvo zahtevo in preprosto strategijo za pridobivanje podpore."
+    },
+    {
+      "sentenceId": "b-ec09c0d188e1598e-s1",
+      "blockIds": [
+        "b-ec09c0d188e1598e"
+      ],
+      "start": 195.35999999999996,
+      "end": 199.43999999999997,
+      "startOffset": 0,
+      "endOffset": 43,
+      "text": "3. teden: Povabite ljudi in pokažite vizijo"
+    },
+    {
+      "sentenceId": "b-350493b51b5ad224-s1",
+      "blockIds": [
+        "b-350493b51b5ad224"
+      ],
+      "start": 199.43999999999997,
+      "end": 201.47999999999996,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Opravite osebne pogovore."
+    },
+    {
+      "sentenceId": "b-350493b51b5ad224-s2",
+      "blockIds": [
+        "b-350493b51b5ad224"
+      ],
+      "start": 201.67999999999998,
+      "end": 212.39999999999998,
+      "startOffset": 26,
+      "endOffset": 178,
+      "text": "Vprašajte ljudi, kaj jim je pomembno, prisluhnite njihovim izkušnjam in jih konkretno povabite: na srečanje, k pomoči pri akciji ali k deljenju zamisli."
+    },
+    {
+      "sentenceId": "b-88d9c2bdfa850763-s1",
+      "blockIds": [
+        "b-88d9c2bdfa850763"
+      ],
+      "start": 212.39999999999998,
+      "end": 214.92,
+      "startOffset": 0,
+      "endOffset": 33,
+      "text": "Načrtujte manjšo javno dejavnost."
+    },
+    {
+      "sentenceId": "b-88d9c2bdfa850763-s2",
+      "blockIds": [
+        "b-88d9c2bdfa850763"
+      ],
+      "start": 215.11999999999998,
+      "end": 224.71999999999997,
+      "startOffset": 34,
+      "endOffset": 162,
+      "text": "Sprehod po ulici, oblikovalska delavnica, štetje ali igriva intervencija lahko pokažejo problem in ljudem omogočijo sodelovanje."
+    },
+    {
+      "sentenceId": "b-3a9b01472d392a4e-s1",
+      "blockIds": [
+        "b-3a9b01472d392a4e"
+      ],
+      "start": 224.71999999999997,
+      "end": 226.71999999999997,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Akcijo povežite z zahtevo."
+    },
+    {
+      "sentenceId": "b-3a9b01472d392a4e-s2",
+      "blockIds": [
+        "b-3a9b01472d392a4e"
+      ],
+      "start": 227.03999999999996,
+      "end": 229.75999999999996,
+      "startOffset": 27,
+      "endOffset": 65,
+      "text": "Pokažite problem in možno alternativo."
+    },
+    {
+      "sentenceId": "b-3a9b01472d392a4e-s3",
+      "blockIds": [
+        "b-3a9b01472d392a4e"
+      ],
+      "start": 230.23999999999998,
+      "end": 237.43999999999997,
+      "startOffset": 66,
+      "endOffset": 170,
+      "text": "Z orodjem Street Banner ali začasnimi sedišči na primer povabite ljudi, naj si zamislijo drugačno ulico."
+    },
+    {
+      "sentenceId": "b-5eebf1e22c92e852-s1",
+      "blockIds": [
+        "b-5eebf1e22c92e852"
+      ],
+      "start": 237.43999999999997,
+      "end": 239.19999999999996,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Preverite, kaj potrebujete."
+    },
+    {
+      "sentenceId": "b-5eebf1e22c92e852-s2",
+      "blockIds": [
+        "b-5eebf1e22c92e852"
+      ],
+      "start": 239.27999999999997,
+      "end": 245.19999999999996,
+      "startOffset": 28,
+      "endOffset": 105,
+      "text": "Pred ukrepanjem razjasnite dovoljenja, dostopnost, materiale in odgovornosti."
+    },
+    {
+      "sentenceId": "b-5eebf1e22c92e852-s3",
+      "blockIds": [
+        "b-5eebf1e22c92e852"
+      ],
+      "start": 245.67999999999998,
+      "end": 253.11999999999998,
+      "startOffset": 106,
+      "endOffset": 215,
+      "text": "Zaveznike prosite, naj prevzamejo konkretne naloge, nove prostovoljce pa po potrebi povežite z izkušenejšimi."
+    },
+    {
+      "sentenceId": "b-427abd4d9a128a57-s1",
+      "blockIds": [
+        "b-427abd4d9a128a57"
+      ],
+      "start": 253.11999999999998,
+      "end": 254.55999999999997,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Zberite odzive."
+    },
+    {
+      "sentenceId": "b-427abd4d9a128a57-s2",
+      "blockIds": [
+        "b-427abd4d9a128a57"
+      ],
+      "start": 254.79999999999998,
+      "end": 258.79999999999995,
+      "startOffset": 16,
+      "endOffset": 75,
+      "text": "Udeležence in mimoidoče povabite, naj delijo svoje poglede."
+    },
+    {
+      "sentenceId": "b-427abd4d9a128a57-s3",
+      "blockIds": [
+        "b-427abd4d9a128a57"
+      ],
+      "start": 259.28,
+      "end": 264.79999999999995,
+      "startOffset": 76,
+      "endOffset": 157,
+      "text": "Jasno povejte, kaj se še lahko spremeni in kako boste uporabili njihove predloge."
+    },
+    {
+      "sentenceId": "b-1c5ef072830201f5-s1",
+      "blockIds": [
+        "b-1c5ef072830201f5"
+      ],
+      "start": 264.79999999999995,
+      "end": 276.96,
+      "startOffset": 0,
+      "endOffset": 150,
+      "text": "Preizkusite: Povežite taktični urbanizem s pristopom glava, srce, roka: to, kar ljudi gane, povežite z jasnim načrtom in konkretno možnostjo za pomoč."
+    },
+    {
+      "sentenceId": "b-bfadb2e19de8a288-s1",
+      "blockIds": [
+        "b-bfadb2e19de8a288"
+      ],
+      "start": 276.96,
+      "end": 285.44,
+      "startOffset": 0,
+      "endOffset": 117,
+      "text": "Ob koncu tedna: Več ljudi pozna vašo pobudo in je imelo priložnost sodelovati pri njenem oblikovanju ali jo podpreti."
+    },
+    {
+      "sentenceId": "b-711c7baff2c81269-s1",
+      "blockIds": [
+        "b-711c7baff2c81269"
+      ],
+      "start": 285.44,
+      "end": 290.16,
+      "startOffset": 0,
+      "endOffset": 55,
+      "text": "4. teden: Delite spoznanja in načrtujte naslednji korak"
+    },
+    {
+      "sentenceId": "b-81b406fb26a80f5f-s1",
+      "blockIds": [
+        "b-81b406fb26a80f5f"
+      ],
+      "start": 290.16,
+      "end": 291.56,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Preglejte dokaze."
+    },
+    {
+      "sentenceId": "b-81b406fb26a80f5f-s2",
+      "blockIds": [
+        "b-81b406fb26a80f5f"
+      ],
+      "start": 291.76000000000005,
+      "end": 295.52000000000004,
+      "startOffset": 18,
+      "endOffset": 66,
+      "text": "Zberite opažanja, štetja, fotografije in odzive."
+    },
+    {
+      "sentenceId": "b-81b406fb26a80f5f-s3",
+      "blockIds": [
+        "b-81b406fb26a80f5f"
+      ],
+      "start": 296.08000000000004,
+      "end": 302.32000000000005,
+      "startOffset": 67,
+      "endOffset": 163,
+      "text": "Če ste preizkusili intervencijo, jo po možnosti z isto metodo primerjajte z izhodiščnim stanjem."
+    },
+    {
+      "sentenceId": "b-80223e4eb19a01af-s1",
+      "blockIds": [
+        "b-80223e4eb19a01af"
+      ],
+      "start": 302.32000000000005,
+      "end": 303.36000000000007,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Povejte zgodbo."
+    },
+    {
+      "sentenceId": "b-80223e4eb19a01af-s2",
+      "blockIds": [
+        "b-80223e4eb19a01af"
+      ],
+      "start": 303.76000000000005,
+      "end": 307.52000000000004,
+      "startOffset": 16,
+      "endOffset": 72,
+      "text": "Povzemite problem, predlagano rešitev in izkušnje ljudi."
+    },
+    {
+      "sentenceId": "b-80223e4eb19a01af-s3",
+      "blockIds": [
+        "b-80223e4eb19a01af"
+      ],
+      "start": 308.00000000000006,
+      "end": 313.9200000000001,
+      "startOffset": 73,
+      "endOffset": 161,
+      "text": "Kratka stran z zemljevidom, nekaj številkami, fotografijami in izjavami je lahko dovolj."
+    },
+    {
+      "sentenceId": "b-e6954d4025a63927-s1",
+      "blockIds": [
+        "b-e6954d4025a63927"
+      ],
+      "start": 313.9200000000001,
+      "end": 315.9200000000001,
+      "startOffset": 0,
+      "endOffset": 30,
+      "text": "Ostanite v stiku z udeleženci."
+    },
+    {
+      "sentenceId": "b-e6954d4025a63927-s2",
+      "blockIds": [
+        "b-e6954d4025a63927"
+      ],
+      "start": 316.24000000000007,
+      "end": 320.7200000000001,
+      "startOffset": 31,
+      "endOffset": 91,
+      "text": "Povejte, kaj ste slišali, kaj boste spremenili in kaj sledi."
+    },
+    {
+      "sentenceId": "b-e6954d4025a63927-s3",
+      "blockIds": [
+        "b-e6954d4025a63927"
+      ],
+      "start": 321.0400000000001,
+      "end": 325.5200000000001,
+      "startOffset": 92,
+      "endOffset": 160,
+      "text": "Ljudi povabite, naj prevzamejo vlogo, ki ustreza njihovim interesom."
+    },
+    {
+      "sentenceId": "b-4e731c60f4b176c8-s1",
+      "blockIds": [
+        "b-4e731c60f4b176c8"
+      ],
+      "start": 325.5200000000001,
+      "end": 327.7600000000001,
+      "startOffset": 0,
+      "endOffset": 33,
+      "text": "Zahtevo predstavite odločevalcem."
+    },
+    {
+      "sentenceId": "b-4e731c60f4b176c8-s2",
+      "blockIds": [
+        "b-4e731c60f4b176c8"
+      ],
+      "start": 328.1600000000001,
+      "end": 337.2000000000001,
+      "startOffset": 34,
+      "endOffset": 148,
+      "text": "Izberite primeren naslednji korak: srečanje, odprto pismo, peticijo, predlog četrtnim organom ali medijsko zgodbo."
+    },
+    {
+      "sentenceId": "b-4e731c60f4b176c8-s3",
+      "blockIds": [
+        "b-4e731c60f4b176c8"
+      ],
+      "start": 337.4400000000001,
+      "end": 341.9200000000001,
+      "startOffset": 149,
+      "endOffset": 210,
+      "text": "Jasno povejte, kdo mora ukrepati in kaj od njega pričakujete."
+    },
+    {
+      "sentenceId": "b-4bf8fc67aa12d1e7-s1",
+      "blockIds": [
+        "b-4bf8fc67aa12d1e7"
+      ],
+      "start": 341.9200000000001,
+      "end": 343.6000000000001,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Postavite naslednji mejnik."
+    },
+    {
+      "sentenceId": "b-4bf8fc67aa12d1e7-s2",
+      "blockIds": [
+        "b-4bf8fc67aa12d1e7"
+      ],
+      "start": 343.9200000000001,
+      "end": 353.44000000000005,
+      "startOffset": 28,
+      "endOffset": 162,
+      "text": "Dogovorite se za datum, razdelite odgovornosti in določite, kako boste spremljali napredek, vključno s političnimi odzivi in zavezami."
+    },
+    {
+      "sentenceId": "b-f9b5d1dd7948a603-s1",
+      "blockIds": [
+        "b-f9b5d1dd7948a603"
+      ],
+      "start": 353.44000000000005,
+      "end": 362.08000000000004,
+      "startOffset": 0,
+      "endOffset": 116,
+      "text": "Preizkusite: Z minimalnim načrtom spremljanja povežite dokaze s svojo zgodbo in ugotovite, kaj je treba prilagoditi."
+    },
+    {
+      "sentenceId": "b-a5d636d5123eae09-s1",
+      "blockIds": [
+        "b-a5d636d5123eae09"
+      ],
+      "start": 362.08000000000004,
+      "end": 370.16,
+      "startOffset": 0,
+      "endOffset": 104,
+      "text": "Ob koncu tedna: Imate jasnejšo zahtevo, dokaze zanjo in naslednji korak, h kateremu lahko skupaj težite."
+    },
+    {
+      "sentenceId": "b-2042a9ec40465aae-s1",
+      "blockIds": [
+        "b-2042a9ec40465aae"
+      ],
+      "start": 370.16,
+      "end": 371.20000000000005,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Nadaljujte"
+    },
+    {
+      "sentenceId": "b-fe18ffefeb579e1b-s1",
+      "blockIds": [
+        "b-fe18ffefeb579e1b"
+      ],
+      "start": 371.36,
+      "end": 374,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Spremembe redko sledijo ravni črti."
+    },
+    {
+      "sentenceId": "b-fe18ffefeb579e1b-s2",
+      "blockIds": [
+        "b-fe18ffefeb579e1b"
+      ],
+      "start": 374.24,
+      "end": 378.44,
+      "startOffset": 36,
+      "endOffset": 89,
+      "text": "Še naprej poslušajte, preizkušajte in gradite odnose."
+    },
+    {
+      "sentenceId": "b-fe18ffefeb579e1b-s3",
+      "blockIds": [
+        "b-fe18ffefeb579e1b"
+      ],
+      "start": 378.72,
+      "end": 382.40000000000003,
+      "startOffset": 90,
+      "endOffset": 141,
+      "text": "Ob novih spoznanjih se vrnite k načrtu: Kaj deluje?"
+    },
+    {
+      "sentenceId": "b-fe18ffefeb579e1b-s4",
+      "blockIds": [
+        "b-fe18ffefeb579e1b"
+      ],
+      "start": 382.8,
+      "end": 384.44,
+      "startOffset": 142,
+      "endOffset": 169,
+      "text": "Koga je še treba vključiti?"
+    },
+    {
+      "sentenceId": "b-fe18ffefeb579e1b-s5",
+      "blockIds": [
+        "b-fe18ffefeb579e1b"
+      ],
+      "start": 384.64,
+      "end": 386.88,
+      "startOffset": 170,
+      "endOffset": 204,
+      "text": "Kateri je naslednji smiseln korak?"
+    },
+    {
+      "sentenceId": "b-53fc2d1708016602-s1",
+      "blockIds": [
+        "b-53fc2d1708016602"
+      ],
+      "start": 386.88,
+      "end": 388.48,
+      "startOffset": 0,
+      "endOffset": 14,
+      "text": "Vodilno načelo"
+    },
+    {
+      "sentenceId": "b-e0adf053c4b6627b-s1",
+      "blockIds": [
+        "b-e0adf053c4b6627b"
+      ],
+      "start": 388.48,
+      "end": 400.8,
+      "startOffset": 0,
+      "endOffset": 158,
+      "text": "Dobre pobude povezujejo štiri stvari: jasno zahtevo, vidno lokalno skupino, prepričljivo prostorsko rešitev in dokaze, da je sprememba potrebna in izvedljiva."
+    },
+    {
+      "sentenceId": "b-52ede63279416e24-s1",
+      "blockIds": [
+        "b-52ede63279416e24"
+      ],
+      "start": 400.8,
+      "end": 403.76,
+      "startOffset": 0,
+      "endOffset": 42,
+      "text": "Zadnje preverjanje pred naslednjim korakom"
+    },
+    {
+      "sentenceId": "b-6ce9c2c728b35342-s1",
+      "blockIds": [
+        "b-6ce9c2c728b35342"
+      ],
+      "start": 403.76,
+      "end": 412.71999999999997,
+      "startOffset": 0,
+      "endOffset": 102,
+      "text": "Naslednje sporočilo oblikujte tako, da vsebuje vse štiri elemente: zahtevo, skupino, rešitev in dokaz."
+    },
+    {
+      "sentenceId": "b-6ce9c2c728b35342-s2",
+      "blockIds": [
+        "b-6ce9c2c728b35342"
+      ],
+      "start": 413.03999999999996,
+      "end": 416.64,
+      "startOffset": 103,
+      "endOffset": 158,
+      "text": "Če kateri manjka, bo zgodba za zunanje manj razumljiva."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s1",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 416.64,
+      "end": 418.32,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Vprašanje za razmislek."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s2",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 418.8,
+      "end": 420.71999999999997,
+      "startOffset": 24,
+      "endOffset": 50,
+      "text": "Kaj odlikuje dobro pobudo?"
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s3",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 421.28,
+      "end": 424.03999999999996,
+      "startOffset": 51,
+      "endOffset": 84,
+      "text": "Odmevna akcija z velikim dosegom."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s4",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 424.32,
+      "end": 433.68,
+      "startOffset": 85,
+      "endOffset": 220,
+      "text": "Jasna zahteva, ki jo nosi vidna lokalna skupina, s prepričljivo prostorsko rešitvijo in dokazi, da je sprememba potrebna in izvedljiva."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s5",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 434.15999999999997,
+      "end": 437.64,
+      "startOffset": 221,
+      "endOffset": 260,
+      "text": "Podroben, uradno potrjen celovit načrt."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s6",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 437.91999999999996,
+      "end": 441.03999999999996,
+      "startOffset": 261,
+      "endOffset": 310,
+      "text": "Velik proračun za profesionalna gradiva kampanje."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s7",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 441.59999999999997,
+      "end": 443.59999999999997,
+      "startOffset": 311,
+      "endOffset": 344,
+      "text": "Vzemite si trenutek za razmislek."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s8",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 447.24,
+      "end": 457.88,
+      "startOffset": 345,
+      "endOffset": 489,
+      "text": "Odgovor: Jasna zahteva, ki jo nosi vidna lokalna skupina, s prepričljivo prostorsko rešitvijo in dokazi, da je sprememba potrebna in izvedljiva."
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s9",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 458.12,
+      "end": 459,
+      "startOffset": 490,
+      "endOffset": 499,
+      "text": "Pravilno!"
+    },
+    {
+      "sentenceId": "b-b90229e3df37ab25-s10",
+      "blockIds": [
+        "b-b90229e3df37ab25"
+      ],
+      "start": 459.24,
+      "end": 465.08,
+      "startOffset": 500,
+      "endOffset": 571,
+      "text": "Zahteva, skupina, rešitev in dokaz skupaj naredijo zgodbo prepričljivo."
+    },
+    {
+      "sentenceId": "b-2341271f88709724-s1",
+      "blockIds": [
+        "b-2341271f88709724"
+      ],
+      "start": 465.08,
+      "end": 466.52,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Ključni viri"
+    },
+    {
+      "sentenceId": "b-4589cc6afe6c2275-s1",
+      "blockIds": [
+        "b-4589cc6afe6c2275"
+      ],
+      "start": 466.52,
+      "end": 470.59999999999997,
+      "startOffset": 0,
+      "endOffset": 49,
+      "text": "Zbirka orodij za spreminjanje mest: tri delavnice"
+    },
+    {
+      "sentenceId": "b-e2767e2d08726baa-s1",
+      "blockIds": [
+        "b-e2767e2d08726baa"
+      ],
+      "start": 470.59999999999997,
+      "end": 473.32,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Kako začeti pobude za superbloke"
+    },
+    {
+      "sentenceId": "b-9122cf4b658ce091-s1",
+      "blockIds": [
+        "b-9122cf4b658ce091"
+      ],
+      "start": 473.32,
+      "end": 476.76,
+      "startOffset": 0,
+      "endOffset": 45,
+      "text": "Kako uporabljati taktični urbanizem na Dunaju"
+    },
+    {
+      "sentenceId": "b-9f2849860e053d19-s1",
+      "blockIds": [
+        "b-9f2849860e053d19"
+      ],
+      "start": 476.76,
+      "end": 479.4,
+      "startOffset": 0,
+      "endOffset": 34,
+      "text": "Kako razvijati strategije sprememb"
+    },
+    {
+      "sentenceId": "b-6e6219535122af88-s1",
+      "blockIds": [
+        "b-6e6219535122af88"
+      ],
+      "start": 479.4,
+      "end": 482.91999999999996,
+      "startOffset": 0,
+      "endOffset": 44,
+      "text": "Delavnica oblikovanja ulic z Wir machen Wien"
+    },
+    {
+      "sentenceId": "b-7152c20bc2be2355-s1",
+      "blockIds": [
+        "b-7152c20bc2be2355"
+      ],
+      "start": 482.91999999999996,
+      "end": 484.43999999999994,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Changing Cities"
+    },
+    {
+      "sentenceId": "b-da41c15927e592f7-s1",
+      "blockIds": [
+        "b-da41c15927e592f7"
+      ],
+      "start": 484.43999999999994,
+      "end": 485.55999999999995,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Kiezblocks"
+    },
+    {
+      "sentenceId": "b-6424c6329b649784-s1",
+      "blockIds": [
+        "b-6424c6329b649784"
+      ],
+      "start": 485.55999999999995,
+      "end": 486.67999999999995,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Prostorož"
+    },
+    {
+      "sentenceId": "b-571798bec3435326-s1",
+      "blockIds": [
+        "b-571798bec3435326"
+      ],
+      "start": 486.8399999999999,
+      "end": 488.8399999999999,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Tactical Urbanism Guide"
+    },
+    {
+      "sentenceId": "b-2645dfdea9955fa6-s1",
+      "blockIds": [
+        "b-2645dfdea9955fa6"
+      ],
+      "start": 488.8399999999999,
+      "end": 492.6799999999999,
+      "startOffset": 0,
+      "endOffset": 36,
+      "text": "Orodje LTN za soseske z malo prometa"
+    }
+  ]
+}

@@ -9,17 +9,6 @@ export function sentenceSpans(text, lang, blockId) {
   }).map((sentence, index) => ({ ...sentence, id: `${blockId}-s${index + 1}` }));
 }
 
-export function sentenceHtml(text, lang, blockId, escape) {
-  let position = 0;
-  let html = '';
-  for (const sentence of sentenceSpans(text, lang, blockId)) {
-    html += escape(text.slice(position, sentence.startOffset));
-    html += `<span data-audio-sentence="${escape(sentence.id)}">${escape(sentence.text)}</span>`;
-    position = sentence.endOffset;
-  }
-  return html + escape(text.slice(position));
-}
-
 // Compare exact visible prose, allowing only typography and whitespace changes.
 // Keep UTF-16 source offsets so spans can cross emphasis/links without flattening.
 function canonical(text) {
@@ -61,7 +50,7 @@ export function markSentenceHooks(tree, blocks, lang) {
       collect(node);
       const actual = canonical(visible);
       const expected = canonical(block.submitted);
-      if (actual.value !== expected.value) continue; // adaptations/UI differences use the exact transcript
+      if (actual.value !== expected.value) continue; // Non-verbatim passages use block highlighting instead.
       const ranges = sentenceSpans(block.submitted, lang, id).map(sentence => {
         const first = expected.positions.findIndex(p => p.end > sentence.startOffset);
         let last = first;

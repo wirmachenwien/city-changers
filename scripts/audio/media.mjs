@@ -2,14 +2,12 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, statSync } from 'node:fs';
 import { read, write, path, assets } from './plan.mjs';
 import { hash } from './content.mjs';
-import { sentenceHtml } from '../../src/lib/audio-sentences.mjs';
 import { unitSentenceCues, correctSentenceCues, validateSentenceCues } from './sentence-cues.mjs';
 import { resolveUnitPauses, retimeSentence, insertPcmPauses } from './pauses.mjs';
 import { releaseInventory } from './release.mjs';
 import { prunePublicAudio } from './prune.mjs';
 
 const staging = '.cache/audio/release';
-const escapeHtml = value => value.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const ffescape = value => value.replace(/([\\=;#\n])/g, '\\$1');
 function run(program, args, options = {}) {
   const result = spawnSync(program, args, { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024, ...options });
@@ -69,8 +67,8 @@ export function assemble(plan, { audiobooks = true } = {}) {
   // These settings are intentionally fixed: no variable loudness, speed changes,
   // silence removal, crossfades or hidden offsets after alignment.
   if (processing.sampleRate !== 44100 || processing.channels !== 1 || processing.gainDb !== 0) throw new Error('Processing changes require implementation and timing review');
-  // Cue/transcript revisions change independently of narration cache keys.
-  const revision = hash({ planHash: plan.planHash, cueSchemaVersion: 2, audiobookMetadataVersion: 2, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
+  // Publication/cue revisions change independently of narration cache keys.
+  const revision = hash({ planHash: plan.planHash, publicationVersion: 2, cueSchemaVersion: 2, audiobookMetadataVersion: 2, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
   const prefix = `${staging}/${revision}`;
   mkdirSync(path(prefix), { recursive: true });
   const mediaBase = config.mediaBaseUrl.replace(/\/$/, '');
@@ -137,12 +135,10 @@ export function assemble(plan, { audiobooks = true } = {}) {
     catch (error) { throw new Error(`${chapter.id}: ${error.message}`); }
     const cueFile = `${dir}/${chapter.file}.cues.json`;
     write(cueFile, { schemaVersion: 2, granularity: 'sentence', revision, chapterId: chapter.id, cues, sentenceCues });
-    const transcript = `${dir}/${chapter.file}.transcript.html`;
-    writeFileSync(path(transcript), `<!doctype html><html lang="${chapter.lang}"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escapeHtml(chapter.title)}</title><main><h1>${escapeHtml(chapter.title)}</h1>${chapter.blocks.map(b => `<p id="${b.id}" data-audio-block="${b.id}">${sentenceHtml(b.submitted, chapter.lang, b.id, escapeHtml)}</p>`).join('\n')}</main></html>`);
     const url = `${mediaBase}/${revision}/${chapter.lang}/${chapter.file}`;
     manifest.chapters.push({ id: chapter.id, lang: chapter.lang, file: chapter.file, title: chapter.title, pageUrl: chapter.pageUrl,
       revision, cueSchemaVersion: 2, recipeHash, sourceHash: chapter.sourceHash, scriptHash: chapter.scriptHash, assemblyHash: chapter.assemblyHash, duration: measured, pcmDuration: offset,
-      track: artifact(mp3, `${url}.mp3`), cues: artifact(cueFile, `${url}.cues.json`), transcript: artifact(transcript, `${url}.transcript.html`),
+      track: artifact(mp3, `${url}.mp3`), cues: artifact(cueFile, `${url}.cues.json`),
       blockIds: chapter.blocks.map(b => b.id), assembly: offsets });
   }
   for (const lang of audiobooks ? [...new Set(plan.chapters.map(c => c.lang))] : []) {
@@ -198,7 +194,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
   }
   checkRelease(plan, { candidate: true, strict: true, audiobooks, manifest });
   write(`${staging}/manifest.json`, manifest);
-  const bytes = manifest.chapters.flatMap(c => [c.track, c.cues, c.transcript]).concat(manifest.audiobooks).reduce((sum, a) => sum + a.bytes, 0);
+  const bytes = manifest.chapters.flatMap(c => [c.track, c.cues]).concat(manifest.audiobooks).reduce((sum, a) => sum + a.bytes, 0);
   console.log(`Assembled ${manifest.chapters.length} chapter(s), ${manifest.audiobooks.length} M4B(s) (${bytes} bytes; ${reusedOutputs} unchanged encoded outputs reused; ${remuxedOutputs} metadata-only remuxes).`);
   return manifest;
 }
@@ -230,7 +226,7 @@ export function checkRelease(plan, { strict = false, candidate = false, audioboo
     if (track.cueSchemaVersion !== 2) issues.push(`${chapter.id}: sentence cue upgrade required (hidden)`);
     if (track.sourceHash !== chapter.sourceHash || track.scriptHash !== chapter.scriptHash) issues.push(`${chapter.id}: stale (hidden)`);
     if (track.assemblyHash !== chapter.assemblyHash) issues.push(`${chapter.id}: assembly/pause settings stale (hidden)`);
-    const artifacts = [track.track, track.cues, track.transcript];
+    const artifacts = [track.track, track.cues];
     for (const item of artifacts) {
       const local = candidate ? `${staging}/${item.file}` : `public/audio/${item.file}`;
       if (!/^https:\/\//.test(item.url) || candidate) {
@@ -300,7 +296,7 @@ export function prepare(plan, { chapter: chapterId, language } = {}) {
   const manifest = assemble(selected, { audiobooks: !chapterId });
   // Keep the complete local handoff in public/audio/ for ordinary dev serving
   // and release uploads. Git ignores media; the build filters it out of Pages.
-  const artifacts = manifest.chapters.flatMap(c => [c.track, c.cues, c.transcript]).concat(manifest.audiobooks);
+  const artifacts = manifest.chapters.flatMap(c => [c.track, c.cues]).concat(manifest.audiobooks);
   for (const item of artifacts) {
     const target = `public/audio/${item.file}`;
     mkdirSync(path(`${target}/..`), { recursive: true });

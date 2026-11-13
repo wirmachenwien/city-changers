@@ -1,0 +1,1340 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "de/02",
+  "cues": [
+    {
+      "start": 0,
+      "end": 3.52,
+      "blockIds": [
+        "b-c2819564db0984d4"
+      ]
+    },
+    {
+      "start": 3.52,
+      "end": 38.720000000000006,
+      "blockIds": [
+        "b-01f1d4ca32c71c4e"
+      ]
+    },
+    {
+      "start": 38.720000000000006,
+      "end": 40.24000000000001,
+      "blockIds": [
+        "b-ba7e8e6d75e217a7"
+      ]
+    },
+    {
+      "start": 40.24000000000001,
+      "end": 48.72000000000001,
+      "blockIds": [
+        "b-2c94027dffa0562c"
+      ]
+    },
+    {
+      "start": 48.72000000000001,
+      "end": 55.280000000000015,
+      "blockIds": [
+        "b-d09538be05d558a5"
+      ]
+    },
+    {
+      "start": 55.280000000000015,
+      "end": 60.960000000000015,
+      "blockIds": [
+        "b-c3eca3e6b899b944"
+      ]
+    },
+    {
+      "start": 60.960000000000015,
+      "end": 69.92000000000002,
+      "blockIds": [
+        "b-277b2add01fab31f"
+      ]
+    },
+    {
+      "start": 69.92000000000002,
+      "end": 106.88000000000002,
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ]
+    },
+    {
+      "start": 106.88000000000002,
+      "end": 108.64000000000003,
+      "blockIds": [
+        "b-73666011c503308b"
+      ]
+    },
+    {
+      "start": 108.64000000000003,
+      "end": 128.08000000000004,
+      "blockIds": [
+        "b-b71d612c9f3ef4f2"
+      ]
+    },
+    {
+      "start": 128.08000000000004,
+      "end": 136.64000000000004,
+      "blockIds": [
+        "b-d345fa3d7281183d"
+      ]
+    },
+    {
+      "start": 136.64000000000004,
+      "end": 138.64000000000004,
+      "blockIds": [
+        "b-5362d6daa42a10b6"
+      ]
+    },
+    {
+      "start": 138.64000000000004,
+      "end": 141.04000000000005,
+      "blockIds": [
+        "b-25dcb5f1f68ce05a"
+      ]
+    },
+    {
+      "start": 141.04000000000005,
+      "end": 156.64000000000004,
+      "blockIds": [
+        "b-50ef966701763c37"
+      ]
+    },
+    {
+      "start": 156.64000000000004,
+      "end": 165.44000000000005,
+      "blockIds": [
+        "b-1a49848f9e99bd64"
+      ]
+    },
+    {
+      "start": 165.44000000000005,
+      "end": 174.56000000000006,
+      "blockIds": [
+        "b-261102dc9ddd2db5"
+      ]
+    },
+    {
+      "start": 174.56000000000006,
+      "end": 185.84000000000006,
+      "blockIds": [
+        "b-3f99281f5cd98e6c"
+      ]
+    },
+    {
+      "start": 185.84000000000006,
+      "end": 195.44000000000005,
+      "blockIds": [
+        "b-546f526a0f4ff8d2"
+      ]
+    },
+    {
+      "start": 195.44000000000005,
+      "end": 204.96000000000006,
+      "blockIds": [
+        "b-874a703c9835d12c"
+      ]
+    },
+    {
+      "start": 204.96000000000006,
+      "end": 216.56000000000006,
+      "blockIds": [
+        "b-eb2aa586816d48b3"
+      ]
+    },
+    {
+      "start": 216.56000000000006,
+      "end": 218.16000000000005,
+      "blockIds": [
+        "b-c6fd0d57e7500dee"
+      ]
+    },
+    {
+      "start": 218.16000000000005,
+      "end": 228.88000000000005,
+      "blockIds": [
+        "b-287c108524fe0945"
+      ]
+    },
+    {
+      "start": 228.88000000000005,
+      "end": 234.64000000000004,
+      "blockIds": [
+        "b-c84fa98d63b300d2"
+      ]
+    },
+    {
+      "start": 234.64000000000004,
+      "end": 236.80000000000004,
+      "blockIds": [
+        "b-dd26ecd59da1f619"
+      ]
+    },
+    {
+      "start": 236.80000000000004,
+      "end": 263.04,
+      "blockIds": [
+        "b-55a420042d82736f"
+      ]
+    },
+    {
+      "start": 263.04,
+      "end": 274.56,
+      "blockIds": [
+        "b-dccace84b688b7ac"
+      ]
+    },
+    {
+      "start": 274.56,
+      "end": 277.04,
+      "blockIds": [
+        "b-bfca1cef4cc021df"
+      ]
+    },
+    {
+      "start": 277.04,
+      "end": 293.36,
+      "blockIds": [
+        "b-2ef4d1dfa0bb246c"
+      ]
+    },
+    {
+      "start": 293.36,
+      "end": 300.56,
+      "blockIds": [
+        "b-c4be3fdca02372e8"
+      ]
+    },
+    {
+      "start": 300.56,
+      "end": 328.56,
+      "blockIds": [
+        "b-36db46b06dfc7d20"
+      ]
+    },
+    {
+      "start": 328.56,
+      "end": 335.68,
+      "blockIds": [
+        "b-c353f8dabe42963f"
+      ]
+    },
+    {
+      "start": 335.68,
+      "end": 367.28000000000003,
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ]
+    },
+    {
+      "start": 367.28000000000003,
+      "end": 374.88000000000005,
+      "blockIds": [
+        "b-0e3be05ac9930240"
+      ]
+    },
+    {
+      "start": 374.88000000000005,
+      "end": 383.0400000000001,
+      "blockIds": [
+        "b-9249f4d7510f44a1"
+      ]
+    },
+    {
+      "start": 383.0400000000001,
+      "end": 396.4800000000001,
+      "blockIds": [
+        "b-932b86f3d4eaa37d"
+      ]
+    },
+    {
+      "start": 396.4800000000001,
+      "end": 437.0800000000001,
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-c2819564db0984d4-s1",
+      "blockIds": [
+        "b-c2819564db0984d4"
+      ],
+      "start": 0,
+      "end": 3.52,
+      "startOffset": 0,
+      "endOffset": 36,
+      "text": "Kapitel 2: Die Kraft der Superblocks"
+    },
+    {
+      "sentenceId": "b-01f1d4ca32c71c4e-s1",
+      "blockIds": [
+        "b-01f1d4ca32c71c4e"
+      ],
+      "start": 3.52,
+      "end": 11.559999999999999,
+      "startOffset": 0,
+      "endOffset": 120,
+      "text": "Superblocks reduzieren Durchzugsverkehr und schaffen Raum für Aufenthalt, Gehen, Radfahren, Begrünung und Nachbarschaft."
+    },
+    {
+      "sentenceId": "b-01f1d4ca32c71c4e-s2",
+      "blockIds": [
+        "b-01f1d4ca32c71c4e"
+      ],
+      "start": 11.84,
+      "end": 28.24,
+      "startOffset": 121,
+      "endOffset": 377,
+      "text": "Barcelona machte das Konzept international bekannt; Berlin entwickelte mit den Kiezblocks eine stark initiativengetragene Variante; Wien hat mit dem Supergrätzl Favoriten eine hochwertige Umsetzung und diskutiert inzwischen günstigere \"Low-Traffic-Grätzl\"."
+    },
+    {
+      "sentenceId": "b-01f1d4ca32c71c4e-s3",
+      "blockIds": [
+        "b-01f1d4ca32c71c4e"
+      ],
+      "start": 28.32,
+      "end": 31.16,
+      "startOffset": 378,
+      "endOffset": 430,
+      "text": "Studien belegen die Vorteile für die Bewohner:innen."
+    },
+    {
+      "sentenceId": "b-01f1d4ca32c71c4e-s4",
+      "blockIds": [
+        "b-01f1d4ca32c71c4e"
+      ],
+      "start": 31.36,
+      "end": 38.720000000000006,
+      "startOffset": 431,
+      "endOffset": 566,
+      "text": "Dank vielfältiger Gestaltungsmöglichkeiten sind Superblocks in den meisten Nachbarschaften und mit unterschiedlichen Budgets umsetzbar."
+    },
+    {
+      "sentenceId": "b-ba7e8e6d75e217a7-s1",
+      "blockIds": [
+        "b-ba7e8e6d75e217a7"
+      ],
+      "start": 38.720000000000006,
+      "end": 40.24000000000001,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Was sich ändert"
+    },
+    {
+      "sentenceId": "b-2c94027dffa0562c-s1",
+      "blockIds": [
+        "b-2c94027dffa0562c"
+      ],
+      "start": 40.24000000000001,
+      "end": 45.60000000000001,
+      "startOffset": 0,
+      "endOffset": 79,
+      "text": "Ein Superblock ist keine einzelne Möblierung und kein reines Begrünungsprojekt."
+    },
+    {
+      "sentenceId": "b-2c94027dffa0562c-s2",
+      "blockIds": [
+        "b-2c94027dffa0562c"
+      ],
+      "start": 45.68000000000001,
+      "end": 48.72000000000001,
+      "startOffset": 80,
+      "endOffset": 128,
+      "text": "Der zentrale Hebel ist die Verkehrsorganisation:"
+    },
+    {
+      "sentenceId": "b-d09538be05d558a5-s1",
+      "blockIds": [
+        "b-d09538be05d558a5"
+      ],
+      "start": 48.72000000000001,
+      "end": 55.280000000000015,
+      "startOffset": 0,
+      "endOffset": 100,
+      "text": "Durchzugsverkehr wird mit Modalfiltern, Einbahnführungen, Pollern oder anderen Maßnahmen verhindert."
+    },
+    {
+      "sentenceId": "b-c3eca3e6b899b944-s1",
+      "blockIds": [
+        "b-c3eca3e6b899b944"
+      ],
+      "start": 55.280000000000015,
+      "end": 60.960000000000015,
+      "startOffset": 0,
+      "endOffset": 87,
+      "text": "Ziel- und Lieferverkehr bleibt möglich, fährt aber langsamer und direkter kontrolliert."
+    },
+    {
+      "sentenceId": "b-277b2add01fab31f-s1",
+      "blockIds": [
+        "b-277b2add01fab31f"
+      ],
+      "start": 60.960000000000015,
+      "end": 69.92000000000002,
+      "startOffset": 0,
+      "endOffset": 125,
+      "text": "Flächen im Inneren werden für Aufenthalt, Schulwege, Mikrofreiräume, Bäume, Sitzgelegenheiten und sichere Kreuzungen nutzbar."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s1",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 69.92000000000002,
+      "end": 71.72000000000001,
+      "startOffset": 0,
+      "endOffset": 16,
+      "text": "Aspekt: Verkehr."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s2",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 72.00000000000001,
+      "end": 76.72000000000001,
+      "startOffset": 17,
+      "endOffset": 93,
+      "text": "Superblock-Logik: Durchzugsverkehr wird im Gebiet systematisch unterbrochen."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s3",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 77.12000000000002,
+      "end": 82.32000000000002,
+      "startOffset": 94,
+      "endOffset": 173,
+      "text": "Einzelmaßnahme: Eine Kreuzung, ein Gehsteig oder ein Abschnitt wird verbessert."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s4",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 82.56000000000002,
+      "end": 84.48000000000002,
+      "startOffset": 175,
+      "endOffset": 194,
+      "text": "Aspekt: Raumgewinn."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s5",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 84.72000000000001,
+      "end": 88.96000000000001,
+      "startOffset": 195,
+      "endOffset": 257,
+      "text": "Superblock-Logik: Mehrere Straßen werden zusammen neu nutzbar."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s6",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 89.28000000000002,
+      "end": 93.68000000000002,
+      "startOffset": 258,
+      "endOffset": 322,
+      "text": "Einzelmaßnahme: Ein konkreter Ort wird sicherer oder angenehmer."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s7",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 93.92000000000002,
+      "end": 95.76000000000002,
+      "startOffset": 324,
+      "endOffset": 344,
+      "text": "Aspekt: Beteiligung."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s8",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 96.00000000000001,
+      "end": 102.36000000000001,
+      "startOffset": 345,
+      "endOffset": 440,
+      "text": "Superblock-Logik: Nachbarschaft, Schulen, Gewerbe und Bezirk brauchen ein gemeinsames Zielbild."
+    },
+    {
+      "sentenceId": "b-f6071af8f4825982-s9",
+      "blockIds": [
+        "b-f6071af8f4825982"
+      ],
+      "start": 102.56000000000002,
+      "end": 106.88000000000002,
+      "startOffset": 441,
+      "endOffset": 510,
+      "text": "Einzelmaßnahme: Betroffene Gruppen können gezielt eingebunden werden."
+    },
+    {
+      "sentenceId": "b-73666011c503308b-s1",
+      "blockIds": [
+        "b-73666011c503308b"
+      ],
+      "start": 106.88000000000002,
+      "end": 108.64000000000003,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Von Berlin lernen"
+    },
+    {
+      "sentenceId": "b-b71d612c9f3ef4f2-s1",
+      "blockIds": [
+        "b-b71d612c9f3ef4f2"
+      ],
+      "start": 108.64000000000003,
+      "end": 114.24000000000002,
+      "startOffset": 0,
+      "endOffset": 91,
+      "text": "Die Berliner Kiezblock-Initiativen zeigen, dass es am Anfang keine perfekten Pläne braucht."
+    },
+    {
+      "sentenceId": "b-b71d612c9f3ef4f2-s2",
+      "blockIds": [
+        "b-b71d612c9f3ef4f2"
+      ],
+      "start": 114.48000000000003,
+      "end": 122.08000000000003,
+      "startOffset": 92,
+      "endOffset": 221,
+      "text": "Entscheidend ist vielmehr, dass eine Handvoll Bewohner:innen eine Initiative von unten startet, die Nachbar:innen zusammenbringt."
+    },
+    {
+      "sentenceId": "b-b71d612c9f3ef4f2-s3",
+      "blockIds": [
+        "b-b71d612c9f3ef4f2"
+      ],
+      "start": 122.32000000000002,
+      "end": 128.08000000000004,
+      "startOffset": 222,
+      "endOffset": 306,
+      "text": "Es geht darum, lokale Verbündete zu finden und gemeinsam Macht von unten aufzubauen."
+    },
+    {
+      "sentenceId": "b-d345fa3d7281183d-s1",
+      "blockIds": [
+        "b-d345fa3d7281183d"
+      ],
+      "start": 128.08000000000004,
+      "end": 136.64000000000004,
+      "startOffset": 0,
+      "endOffset": 137,
+      "text": "Nicht auf den fertigen Masterplan warten: Ein klares Gebiet, ein belegbares Problem und erste Bündnispartner:innen reichen für den Start."
+    },
+    {
+      "sentenceId": "b-5362d6daa42a10b6-s1",
+      "blockIds": [
+        "b-5362d6daa42a10b6"
+      ],
+      "start": 136.64000000000004,
+      "end": 138.64000000000004,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Eure Initiative starten"
+    },
+    {
+      "sentenceId": "b-25dcb5f1f68ce05a-s1",
+      "blockIds": [
+        "b-25dcb5f1f68ce05a"
+      ],
+      "start": 138.64000000000004,
+      "end": 141.04000000000005,
+      "startOffset": 0,
+      "endOffset": 34,
+      "text": "Zum Superblock in sieben Schritten"
+    },
+    {
+      "sentenceId": "b-50ef966701763c37-s1",
+      "blockIds": [
+        "b-50ef966701763c37"
+      ],
+      "start": 141.04000000000005,
+      "end": 141.76000000000005,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Erstens."
+    },
+    {
+      "sentenceId": "b-50ef966701763c37-s2",
+      "blockIds": [
+        "b-50ef966701763c37"
+      ],
+      "start": 142.08000000000004,
+      "end": 151.92000000000004,
+      "startOffset": 9,
+      "endOffset": 149,
+      "text": "Gebiet abgrenzen: Wählt ein Grätzl, in dem Durchzugsverkehr, Schulwege, Hitze, fehlende Bäume oder unsichere Kreuzungen klar benennbar sind."
+    },
+    {
+      "sentenceId": "b-50ef966701763c37-s3",
+      "blockIds": [
+        "b-50ef966701763c37"
+      ],
+      "start": 152.40000000000003,
+      "end": 156.64000000000004,
+      "startOffset": 150,
+      "endOffset": 224,
+      "text": "Ihr selbst oder zumindest die meisten in eurer Gruppe solltet dort wohnen."
+    },
+    {
+      "sentenceId": "b-1a49848f9e99bd64-s1",
+      "blockIds": [
+        "b-1a49848f9e99bd64"
+      ],
+      "start": 156.64000000000004,
+      "end": 157.36000000000004,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Zweitens."
+    },
+    {
+      "sentenceId": "b-1a49848f9e99bd64-s2",
+      "blockIds": [
+        "b-1a49848f9e99bd64"
+      ],
+      "start": 157.76000000000005,
+      "end": 165.44000000000005,
+      "startOffset": 10,
+      "endOffset": 116,
+      "text": "Problem belegen: Dokumentiert Beobachtungen, Fotos, Konfliktpunkte und nach Möglichkeit Verkehrszählungen."
+    },
+    {
+      "sentenceId": "b-261102dc9ddd2db5-s1",
+      "blockIds": [
+        "b-261102dc9ddd2db5"
+      ],
+      "start": 165.44000000000005,
+      "end": 166.28000000000006,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Drittens."
+    },
+    {
+      "sentenceId": "b-261102dc9ddd2db5-s2",
+      "blockIds": [
+        "b-261102dc9ddd2db5"
+      ],
+      "start": 166.48000000000005,
+      "end": 174.56000000000006,
+      "startOffset": 10,
+      "endOffset": 121,
+      "text": "Kernteam bilden: Klärt Rollen für Recherche, Nachbarschaftskontakt, Social Media, Bezirkskontakte und Aktionen."
+    },
+    {
+      "sentenceId": "b-3f99281f5cd98e6c-s1",
+      "blockIds": [
+        "b-3f99281f5cd98e6c"
+      ],
+      "start": 174.56000000000006,
+      "end": 175.44000000000005,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Viertens."
+    },
+    {
+      "sentenceId": "b-3f99281f5cd98e6c-s2",
+      "blockIds": [
+        "b-3f99281f5cd98e6c"
+      ],
+      "start": 175.68000000000006,
+      "end": 185.84000000000006,
+      "startOffset": 10,
+      "endOffset": 155,
+      "text": "Ziel einfach formulieren: Zum Beispiel \"kein Durchzugsverkehr rund um die Schule\" oder \"sichere Wege und mehr Aufenthalt im Inneren des Grätzls\"."
+    },
+    {
+      "sentenceId": "b-546f526a0f4ff8d2-s1",
+      "blockIds": [
+        "b-546f526a0f4ff8d2"
+      ],
+      "start": 185.84000000000006,
+      "end": 186.56000000000006,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Fünftens."
+    },
+    {
+      "sentenceId": "b-546f526a0f4ff8d2-s2",
+      "blockIds": [
+        "b-546f526a0f4ff8d2"
+      ],
+      "start": 187.04000000000005,
+      "end": 195.44000000000005,
+      "startOffset": 10,
+      "endOffset": 135,
+      "text": "Erste Skizze erstellen: Arbeitet mit einer Grundkarte und prüft, wo Modalfilter, Einbahnen oder Aufenthaltsorte denkbar sind."
+    },
+    {
+      "sentenceId": "b-874a703c9835d12c-s1",
+      "blockIds": [
+        "b-874a703c9835d12c"
+      ],
+      "start": 195.44000000000005,
+      "end": 196.16000000000005,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Sechstens."
+    },
+    {
+      "sentenceId": "b-874a703c9835d12c-s2",
+      "blockIds": [
+        "b-874a703c9835d12c"
+      ],
+      "start": 196.36000000000004,
+      "end": 204.96000000000006,
+      "startOffset": 11,
+      "endOffset": 120,
+      "text": "Bündnisse aufbauen: Sprecht Anrainer:innen, Eltern, Schulen, lokale Vereine, Geschäfte und Bezirkspolitik an."
+    },
+    {
+      "sentenceId": "b-eb2aa586816d48b3-s1",
+      "blockIds": [
+        "b-eb2aa586816d48b3"
+      ],
+      "start": 204.96000000000006,
+      "end": 205.88000000000005,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Siebtens."
+    },
+    {
+      "sentenceId": "b-eb2aa586816d48b3-s2",
+      "blockIds": [
+        "b-eb2aa586816d48b3"
+      ],
+      "start": 206.08000000000007,
+      "end": 216.56000000000006,
+      "startOffset": 10,
+      "endOffset": 161,
+      "text": "Forderung öffentlich machen: Nutzt Aktionen, Medienarbeit, Petition, Bezirksanträge oder offene Briefe, je nachdem welches Fenster politisch offen ist."
+    },
+    {
+      "sentenceId": "b-c6fd0d57e7500dee-s1",
+      "blockIds": [
+        "b-c6fd0d57e7500dee"
+      ],
+      "start": 216.56000000000006,
+      "end": 218.16000000000005,
+      "startOffset": 0,
+      "endOffset": 19,
+      "text": "Ich habe eine Idee!"
+    },
+    {
+      "sentenceId": "b-287c108524fe0945-s1",
+      "blockIds": [
+        "b-287c108524fe0945"
+      ],
+      "start": 218.16000000000005,
+      "end": 224.48000000000005,
+      "startOffset": 0,
+      "endOffset": 94,
+      "text": "Positive Slogans wirken am besten, weil sie die Fantasie anregen: \"Sichere Straßen für Kinder!"
+    },
+    {
+      "sentenceId": "b-287c108524fe0945-s2",
+      "blockIds": [
+        "b-287c108524fe0945"
+      ],
+      "start": 224.72000000000006,
+      "end": 226.24000000000007,
+      "startOffset": 95,
+      "endOffset": 119,
+      "text": "Mehr Schatten im Sommer!"
+    },
+    {
+      "sentenceId": "b-287c108524fe0945-s3",
+      "blockIds": [
+        "b-287c108524fe0945"
+      ],
+      "start": 226.48000000000005,
+      "end": 228.88000000000005,
+      "startOffset": 120,
+      "endOffset": 152,
+      "text": "Orte zum Ausruhen und Begegnen!\""
+    },
+    {
+      "sentenceId": "b-c84fa98d63b300d2-s1",
+      "blockIds": [
+        "b-c84fa98d63b300d2"
+      ],
+      "start": 228.88000000000005,
+      "end": 234.64000000000004,
+      "startOffset": 0,
+      "endOffset": 89,
+      "text": "Mehr Details findet ihr im vollständigen Leitfaden How to Superblock von Changing Cities."
+    },
+    {
+      "sentenceId": "b-dd26ecd59da1f619-s1",
+      "blockIds": [
+        "b-dd26ecd59da1f619"
+      ],
+      "start": 234.64000000000004,
+      "end": 236.80000000000004,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Spielerische Interventionen"
+    },
+    {
+      "sentenceId": "b-55a420042d82736f-s1",
+      "blockIds": [
+        "b-55a420042d82736f"
+      ],
+      "start": 236.80000000000004,
+      "end": 242.36000000000004,
+      "startOffset": 0,
+      "endOffset": 90,
+      "text": "Spielerische Interventionen machen sichtbar, wie anders eine Straße genutzt werden könnte."
+    },
+    {
+      "sentenceId": "b-55a420042d82736f-s2",
+      "blockIds": [
+        "b-55a420042d82736f"
+      ],
+      "start": 242.64000000000004,
+      "end": 251.04000000000005,
+      "startOffset": 91,
+      "endOffset": 239,
+      "text": "Sie sind zum Beispiel für Superblock-Initiativen ein ideales Werkzeug, um Aufmerksamkeit zu gewinnen und mit der Nachbarschaft in Kontakt zu kommen."
+    },
+    {
+      "sentenceId": "b-55a420042d82736f-s3",
+      "blockIds": [
+        "b-55a420042d82736f"
+      ],
+      "start": 251.28000000000003,
+      "end": 263.04,
+      "startOffset": 240,
+      "endOffset": 409,
+      "text": "Sie können niedrigschwellig sein: Kreide, mobile Sitzgelegenheiten, Pop-up-Spiele, temporäre Begrünung, Infostände, Straßenpicknick oder eine Visualisierung mit Bannern."
+    },
+    {
+      "sentenceId": "b-dccace84b688b7ac-s1",
+      "blockIds": [
+        "b-dccace84b688b7ac"
+      ],
+      "start": 263.04,
+      "end": 270.88,
+      "startOffset": 0,
+      "endOffset": 123,
+      "text": "Wichtig ist, dass die Aktion nicht nur nett aussieht, sondern eine Forderung erkennbar macht: Welches Problem wird gezeigt?"
+    },
+    {
+      "sentenceId": "b-dccace84b688b7ac-s2",
+      "blockIds": [
+        "b-dccace84b688b7ac"
+      ],
+      "start": 270.96000000000004,
+      "end": 273.04,
+      "startOffset": 124,
+      "endOffset": 158,
+      "text": "Welche Lösung wird vorweggenommen?"
+    },
+    {
+      "sentenceId": "b-dccace84b688b7ac-s3",
+      "blockIds": [
+        "b-dccace84b688b7ac"
+      ],
+      "start": 273.16,
+      "end": 274.56,
+      "startOffset": 159,
+      "endOffset": 183,
+      "text": "Wer soll danach handeln?"
+    },
+    {
+      "sentenceId": "b-bfca1cef4cc021df-s1",
+      "blockIds": [
+        "b-bfca1cef4cc021df"
+      ],
+      "start": 274.56,
+      "end": 277.04,
+      "startOffset": 0,
+      "endOffset": 31,
+      "text": "Gestaltet eure Straße gemeinsam"
+    },
+    {
+      "sentenceId": "b-2ef4d1dfa0bb246c-s1",
+      "blockIds": [
+        "b-2ef4d1dfa0bb246c"
+      ],
+      "start": 277.04,
+      "end": 283.24,
+      "startOffset": 0,
+      "endOffset": 98,
+      "text": "Ein Street-Design-Workshop hilft euch, alltäglichen Ärger in eine gemeinsame Vision zu verwandeln."
+    },
+    {
+      "sentenceId": "b-2ef4d1dfa0bb246c-s2",
+      "blockIds": [
+        "b-2ef4d1dfa0bb246c"
+      ],
+      "start": 283.52000000000004,
+      "end": 289.76000000000005,
+      "startOffset": 99,
+      "endOffset": 200,
+      "text": "Wir machen Wien nutzt verschiedene Werkzeuge, um Probleme zu erkunden und Alternativen zu entwickeln."
+    },
+    {
+      "sentenceId": "b-2ef4d1dfa0bb246c-s3",
+      "blockIds": [
+        "b-2ef4d1dfa0bb246c"
+      ],
+      "start": 289.8,
+      "end": 293.36,
+      "startOffset": 201,
+      "endOffset": 260,
+      "text": "Wählt die aus, die zu eurer Gruppe und euren Zielen passen."
+    },
+    {
+      "sentenceId": "b-c4be3fdca02372e8-s1",
+      "blockIds": [
+        "b-c4be3fdca02372e8"
+      ],
+      "start": 293.36,
+      "end": 294.2,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Erstens."
+    },
+    {
+      "sentenceId": "b-c4be3fdca02372e8-s2",
+      "blockIds": [
+        "b-c4be3fdca02372e8"
+      ],
+      "start": 294.40000000000003,
+      "end": 296.64,
+      "startOffset": 9,
+      "endOffset": 40,
+      "text": "Straße oder Kreuzung auswählen."
+    },
+    {
+      "sentenceId": "b-c4be3fdca02372e8-s3",
+      "blockIds": [
+        "b-c4be3fdca02372e8"
+      ],
+      "start": 296.88,
+      "end": 300.56,
+      "startOffset": 41,
+      "endOffset": 102,
+      "text": "Wählt einen Ort, den eure Gruppe kennt und verbessern möchte."
+    },
+    {
+      "sentenceId": "b-36db46b06dfc7d20-s1",
+      "blockIds": [
+        "b-36db46b06dfc7d20"
+      ],
+      "start": 300.56,
+      "end": 301.44,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Zweitens."
+    },
+    {
+      "sentenceId": "b-36db46b06dfc7d20-s2",
+      "blockIds": [
+        "b-36db46b06dfc7d20"
+      ],
+      "start": 301.6,
+      "end": 302.76,
+      "startOffset": 10,
+      "endOffset": 27,
+      "text": "Probleme sammeln."
+    },
+    {
+      "sentenceId": "b-36db46b06dfc7d20-s3",
+      "blockIds": [
+        "b-36db46b06dfc7d20"
+      ],
+      "start": 302.96,
+      "end": 312.24,
+      "startOffset": 28,
+      "endOffset": 162,
+      "text": "Achtet auf Hitze, Lärm, schmale Gehsteige, schwierige Querungen, Parkdruck, Konflikte sowie fehlende Sitzgelegenheiten oder Begrünung."
+    },
+    {
+      "sentenceId": "b-36db46b06dfc7d20-s4",
+      "blockIds": [
+        "b-36db46b06dfc7d20"
+      ],
+      "start": 312.72,
+      "end": 320.4,
+      "startOffset": 163,
+      "endOffset": 289,
+      "text": "Street Shit Bingo: Entdeckt bei einem gemeinsamen Rundgang Hindernisse, Gefahren und überraschende Nutzungen des Straßenraums."
+    },
+    {
+      "sentenceId": "b-36db46b06dfc7d20-s5",
+      "blockIds": [
+        "b-36db46b06dfc7d20"
+      ],
+      "start": 320.64,
+      "end": 328.56,
+      "startOffset": 290,
+      "endOffset": 409,
+      "text": "Leiwande Straßen Radar: Ein einfacher Erhebungsbogen hilft, Lebensqualität, Sicherheit und Handlungsbedarf zu erkunden."
+    },
+    {
+      "sentenceId": "b-c353f8dabe42963f-s1",
+      "blockIds": [
+        "b-c353f8dabe42963f"
+      ],
+      "start": 328.56,
+      "end": 329.4,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Drittens."
+    },
+    {
+      "sentenceId": "b-c353f8dabe42963f-s2",
+      "blockIds": [
+        "b-c353f8dabe42963f"
+      ],
+      "start": 329.6,
+      "end": 330.8,
+      "startOffset": 10,
+      "endOffset": 29,
+      "text": "Den Raum verstehen."
+    },
+    {
+      "sentenceId": "b-c353f8dabe42963f-s3",
+      "blockIds": [
+        "b-c353f8dabe42963f"
+      ],
+      "start": 331.28000000000003,
+      "end": 335.68,
+      "startOffset": 30,
+      "endOffset": 97,
+      "text": "Messt die Straße oder ermittelt ihre Abmessungen anhand von Plänen."
+    },
+    {
+      "sentenceId": "b-ef037e82ba3cbfb6-s1",
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ],
+      "start": 335.68,
+      "end": 336.32,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Viertens."
+    },
+    {
+      "sentenceId": "b-ef037e82ba3cbfb6-s2",
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ],
+      "start": 336.40000000000003,
+      "end": 338.16,
+      "startOffset": 10,
+      "endOffset": 34,
+      "text": "Alternativen entwickeln."
+    },
+    {
+      "sentenceId": "b-ef037e82ba3cbfb6-s3",
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ],
+      "start": 338.56,
+      "end": 343.64,
+      "startOffset": 35,
+      "endOffset": 111,
+      "text": "Denkt an kleine Verbesserungen, mutige Ideen und langfristige Möglichkeiten."
+    },
+    {
+      "sentenceId": "b-ef037e82ba3cbfb6-s4",
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ],
+      "start": 343.92,
+      "end": 349.2,
+      "startOffset": 112,
+      "endOffset": 193,
+      "text": "Street Design Table: Bearbeitet einen Straßenplan mit Papier, Schere und Stiften."
+    },
+    {
+      "sentenceId": "b-ef037e82ba3cbfb6-s5",
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ],
+      "start": 349.6,
+      "end": 353.72,
+      "startOffset": 194,
+      "endOffset": 261,
+      "text": "Diskutiert Nutzungen, ihren Platzbedarf und mögliche Veränderungen."
+    },
+    {
+      "sentenceId": "b-ef037e82ba3cbfb6-s6",
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ],
+      "start": 354,
+      "end": 361.76,
+      "startOffset": 262,
+      "endOffset": 391,
+      "text": "Street Banner: Zeigt vor Ort, wie die Straßenbreite zwischen Gehen, Radfahren, Begrünung und Aufenthalt aufgeteilt werden könnte."
+    },
+    {
+      "sentenceId": "b-ef037e82ba3cbfb6-s7",
+      "blockIds": [
+        "b-ef037e82ba3cbfb6"
+      ],
+      "start": 362.16,
+      "end": 367.28000000000003,
+      "startOffset": 392,
+      "endOffset": 474,
+      "text": "Tree Love Set: Die Baumkostüme zeigen, wo Schatten und Begrünung gebraucht werden."
+    },
+    {
+      "sentenceId": "b-0e3be05ac9930240-s1",
+      "blockIds": [
+        "b-0e3be05ac9930240"
+      ],
+      "start": 367.28000000000003,
+      "end": 368.20000000000005,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Fünftens."
+    },
+    {
+      "sentenceId": "b-0e3be05ac9930240-s2",
+      "blockIds": [
+        "b-0e3be05ac9930240"
+      ],
+      "start": 368.40000000000003,
+      "end": 370.40000000000003,
+      "startOffset": 10,
+      "endOffset": 37,
+      "text": "Eine Sofortmaßnahme wählen."
+    },
+    {
+      "sentenceId": "b-0e3be05ac9930240-s3",
+      "blockIds": [
+        "b-0e3be05ac9930240"
+      ],
+      "start": 370.64000000000004,
+      "end": 374.88000000000005,
+      "startOffset": 38,
+      "endOffset": 103,
+      "text": "Welche temporäre Intervention macht eure Idee am besten erlebbar?"
+    },
+    {
+      "sentenceId": "b-9249f4d7510f44a1-s1",
+      "blockIds": [
+        "b-9249f4d7510f44a1"
+      ],
+      "start": 374.88000000000005,
+      "end": 375.80000000000007,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Sechstens."
+    },
+    {
+      "sentenceId": "b-9249f4d7510f44a1-s2",
+      "blockIds": [
+        "b-9249f4d7510f44a1"
+      ],
+      "start": 376.00000000000006,
+      "end": 378.36000000000007,
+      "startOffset": 11,
+      "endOffset": 46,
+      "text": "Genehmigungen und Bündnisse klären."
+    },
+    {
+      "sentenceId": "b-9249f4d7510f44a1-s3",
+      "blockIds": [
+        "b-9249f4d7510f44a1"
+      ],
+      "start": 378.56000000000006,
+      "end": 383.0400000000001,
+      "startOffset": 47,
+      "endOffset": 124,
+      "text": "Findet heraus, welche Erlaubnis ihr braucht und wer euch unterstützen könnte."
+    },
+    {
+      "sentenceId": "b-932b86f3d4eaa37d-s1",
+      "blockIds": [
+        "b-932b86f3d4eaa37d"
+      ],
+      "start": 383.0400000000001,
+      "end": 383.7600000000001,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Siebtens."
+    },
+    {
+      "sentenceId": "b-932b86f3d4eaa37d-s2",
+      "blockIds": [
+        "b-932b86f3d4eaa37d"
+      ],
+      "start": 383.9600000000001,
+      "end": 385.8400000000001,
+      "startOffset": 10,
+      "endOffset": 35,
+      "text": "Die Aktion dokumentieren."
+    },
+    {
+      "sentenceId": "b-932b86f3d4eaa37d-s3",
+      "blockIds": [
+        "b-932b86f3d4eaa37d"
+      ],
+      "start": 386.24000000000007,
+      "end": 392.7200000000001,
+      "startOffset": 36,
+      "endOffset": 128,
+      "text": "Sammelt Fotos, Stimmen, Beobachtungen zur Nutzung, Medienberichte und politische Reaktionen."
+    },
+    {
+      "sentenceId": "b-932b86f3d4eaa37d-s4",
+      "blockIds": [
+        "b-932b86f3d4eaa37d"
+      ],
+      "start": 392.9600000000001,
+      "end": 396.4800000000001,
+      "startOffset": 129,
+      "endOffset": 187,
+      "text": "Sie helfen, für dauerhafte Veränderungen zu argumentieren."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s1",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 396.4800000000001,
+      "end": 398.00000000000006,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Frage zum Nachdenken."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s2",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 398.56000000000006,
+      "end": 402.0800000000001,
+      "startOffset": 22,
+      "endOffset": 85,
+      "text": "Was gehört zu einem guten Start für eine Superblock-Initiative?"
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s3",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 402.7200000000001,
+      "end": 404.9600000000001,
+      "startOffset": 86,
+      "endOffset": 115,
+      "text": "Ein klar abgegrenztes Gebiet."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s4",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 405.2000000000001,
+      "end": 407.12000000000006,
+      "startOffset": 116,
+      "endOffset": 147,
+      "text": "Eine dokumentierte Problemlage."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s5",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 407.6000000000001,
+      "end": 409.8400000000001,
+      "startOffset": 148,
+      "endOffset": 185,
+      "text": "Ein fertiger behördlicher Masterplan."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s6",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 410.4000000000001,
+      "end": 412.56000000000006,
+      "startOffset": 186,
+      "endOffset": 220,
+      "text": "Erste lokale Bündnispartner:innen."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s7",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 413.2800000000001,
+      "end": 414.6400000000001,
+      "startOffset": 221,
+      "endOffset": 248,
+      "text": "Nimm dir einen Moment Zeit."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s8",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 418.36000000000007,
+      "end": 421.7200000000001,
+      "startOffset": 249,
+      "endOffset": 287,
+      "text": "Antwort: Ein klar abgegrenztes Gebiet."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s9",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 421.9600000000001,
+      "end": 423.88000000000005,
+      "startOffset": 288,
+      "endOffset": 319,
+      "text": "Eine dokumentierte Problemlage."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s10",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 424.36000000000007,
+      "end": 426.80000000000007,
+      "startOffset": 320,
+      "endOffset": 354,
+      "text": "Erste lokale Bündnispartner:innen."
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s11",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 427.0800000000001,
+      "end": 427.7200000000001,
+      "startOffset": 355,
+      "endOffset": 363,
+      "text": "Richtig!"
+    },
+    {
+      "sentenceId": "b-93499625579bc7b4-s12",
+      "blockIds": [
+        "b-93499625579bc7b4"
+      ],
+      "start": 428.12000000000006,
+      "end": 437.0800000000001,
+      "startOffset": 364,
+      "endOffset": 504,
+      "text": "Ein klar abgegrenztes Gebiet, ein dokumentiertes Problem und erste Bündnispartner:innen reichen für den Start – der Masterplan kommt später."
+    }
+  ]
+}

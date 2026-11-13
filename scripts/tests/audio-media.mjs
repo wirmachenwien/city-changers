@@ -1,7 +1,7 @@
 // Synthetic tones only: no account, credentials, voices or paid generation.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
@@ -120,7 +120,9 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   assert.equal(hash(readFileSync(join(temp, `public/audio/${published.chapters[0].track.file}`))), published.chapters[0].track.sha256, 'Complete local handoff in public/audio');
   assert.equal(hash(readFileSync(join(temp, `public/audio/${published.chapters[0].cues.file}`))), published.chapters[0].cues.sha256);
   assert.match(published.chapters[0].track.url, /github.com\/wirmachenwien\/city-changers\/releases\/download\/audio-/);
-  assert.equal(JSON.parse(readFileSync(join(temp, 'audio/release.json'), 'utf8')).assets.length, 66);
+  assert.equal(JSON.parse(readFileSync(join(temp, 'audio/release.json'), 'utf8')).assets.length, 45);
+  assert.equal(published.chapters.some(c => 'transcript' in c), false);
+  assert.equal(readdirSync(join(temp, '.cache/audio/release'), { recursive: true }).some(file => file.endsWith('.transcript.html')), false, 'Assembly never generates transcript HTML');
   const sourceFile = `.cache/audio/units/${hash('en/01:voice')}/source.mp3`;
   const originalSource = readFileSync(join(temp, sourceFile));
   write(sourceFile, Buffer.from('corrupt fixture'));

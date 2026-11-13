@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { parseHTML } from 'linkedom';
-import { sentenceSpans, sentenceHtml } from '../../src/lib/audio-sentences.mjs';
+import { sentenceSpans } from '../../src/lib/audio-sentences.mjs';
 import { unitSentenceCues, correctSentenceCues, validateSentenceCues } from '../audio/sentence-cues.mjs';
 import { renderProse } from '../../src/lib/render-prose.mjs';
 import { readFileSync, existsSync } from 'node:fs';
@@ -15,8 +15,6 @@ test('sentence segmentation preserves exact text and localized punctuation in al
     assert.equal(spans.length, 2);
     assert.deepEqual(spans.map(s => s.id), ['b-s1', 'b-s2']);
     for (const s of spans) assert.equal(text.slice(s.startOffset, s.endOffset), s.text);
-    const html = sentenceHtml(text, lang, 'b', value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;'));
-    assert.equal(parseHTML(`<div>${html}</div>`).document.querySelector('div').textContent, text);
   }
 });
 test('sentence cues map Unicode character cells, joining offsets and split paragraph units', () => {

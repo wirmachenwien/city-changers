@@ -8,7 +8,7 @@ export function copySitePublic(source, target) {
   if (!existsSync(source)) return;
   cpSync(source, target, { recursive: true, filter: file => {
     const name = relative(source, file).split(sep).join('/');
-    return !/^audio\/.*\.(mp3|m4b)$/i.test(name);
+    return !/^audio\/.*\.(mp3|m4b|transcript\.html)$/i.test(name);
   } });
 }
 

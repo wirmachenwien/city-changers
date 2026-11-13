@@ -1,0 +1,2462 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "de/04",
+  "cues": [
+    {
+      "start": 0,
+      "end": 4.4,
+      "blockIds": [
+        "b-4e6bdee449b127d1"
+      ]
+    },
+    {
+      "start": 4.4,
+      "end": 29.68,
+      "blockIds": [
+        "b-e5358c3b021df78d"
+      ]
+    },
+    {
+      "start": 29.68,
+      "end": 34.8,
+      "blockIds": [
+        "b-a02f4bb5038e4f82"
+      ]
+    },
+    {
+      "start": 34.8,
+      "end": 37.519999999999996,
+      "blockIds": [
+        "b-5c44d2c1dbf7c6e1"
+      ]
+    },
+    {
+      "start": 37.519999999999996,
+      "end": 40.16,
+      "blockIds": [
+        "b-d20cbfa55f88edb1"
+      ]
+    },
+    {
+      "start": 40.16,
+      "end": 65.44,
+      "blockIds": [
+        "b-d472eb14a0969d27"
+      ]
+    },
+    {
+      "start": 65.44,
+      "end": 73.12,
+      "blockIds": [
+        "b-d25a5bd9209a95ab"
+      ]
+    },
+    {
+      "start": 73.12,
+      "end": 75.60000000000001,
+      "blockIds": [
+        "b-a92d4cdca9e9c6e6"
+      ]
+    },
+    {
+      "start": 75.60000000000001,
+      "end": 79.28000000000002,
+      "blockIds": [
+        "b-041e2e4ba990a865"
+      ]
+    },
+    {
+      "start": 79.28000000000002,
+      "end": 86.16000000000001,
+      "blockIds": [
+        "b-a631b27e8454c9c0"
+      ]
+    },
+    {
+      "start": 86.16000000000001,
+      "end": 91.20000000000002,
+      "blockIds": [
+        "b-11f41c2ac7fd76e5"
+      ]
+    },
+    {
+      "start": 91.20000000000002,
+      "end": 102.72000000000001,
+      "blockIds": [
+        "b-32d9258e19190f24"
+      ]
+    },
+    {
+      "start": 102.72000000000001,
+      "end": 114.48000000000002,
+      "blockIds": [
+        "b-c71a73326306486a"
+      ]
+    },
+    {
+      "start": 114.48000000000002,
+      "end": 119.20000000000002,
+      "blockIds": [
+        "b-f686685383f70f23"
+      ]
+    },
+    {
+      "start": 119.20000000000002,
+      "end": 120.88000000000002,
+      "blockIds": [
+        "b-49588ac0b6f410ac"
+      ]
+    },
+    {
+      "start": 120.88000000000002,
+      "end": 130.16000000000003,
+      "blockIds": [
+        "b-783d9126cbcf2af7"
+      ]
+    },
+    {
+      "start": 130.16000000000003,
+      "end": 133.76000000000002,
+      "blockIds": [
+        "b-d0bfe662436d5655"
+      ]
+    },
+    {
+      "start": 133.76000000000002,
+      "end": 147.12,
+      "blockIds": [
+        "b-2180680a262d2ffb"
+      ]
+    },
+    {
+      "start": 147.12,
+      "end": 153.36,
+      "blockIds": [
+        "b-0c175274277b8011"
+      ]
+    },
+    {
+      "start": 153.36,
+      "end": 166.56,
+      "blockIds": [
+        "b-f76ba0fe0a5362c8"
+      ]
+    },
+    {
+      "start": 166.56,
+      "end": 204.32,
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ]
+    },
+    {
+      "start": 204.32,
+      "end": 215.92,
+      "blockIds": [
+        "b-38dda626882ac6ec"
+      ]
+    },
+    {
+      "start": 215.92,
+      "end": 218.32,
+      "blockIds": [
+        "b-73e09ec4f533af5a"
+      ]
+    },
+    {
+      "start": 218.32,
+      "end": 235.68,
+      "blockIds": [
+        "b-2a5ce3557e579885"
+      ]
+    },
+    {
+      "start": 235.68,
+      "end": 255.76,
+      "blockIds": [
+        "b-5d33c2f8d9558099"
+      ]
+    },
+    {
+      "start": 255.76,
+      "end": 280.44,
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ]
+    },
+    {
+      "start": 280.44,
+      "end": 283.4,
+      "blockIds": [
+        "b-e5ff7f847da08c89"
+      ]
+    },
+    {
+      "start": 283.4,
+      "end": 287.96,
+      "blockIds": [
+        "b-e84092bf0c88e46d"
+      ]
+    },
+    {
+      "start": 287.96,
+      "end": 298.91999999999996,
+      "blockIds": [
+        "b-97c2a5b2ee3873e4"
+      ]
+    },
+    {
+      "start": 298.91999999999996,
+      "end": 313.55999999999995,
+      "blockIds": [
+        "b-d08a8a818d619b79"
+      ]
+    },
+    {
+      "start": 313.55999999999995,
+      "end": 321.3999999999999,
+      "blockIds": [
+        "b-4352518455ee968a"
+      ]
+    },
+    {
+      "start": 321.3999999999999,
+      "end": 325.2399999999999,
+      "blockIds": [
+        "b-7873a4ffca2eae68"
+      ]
+    },
+    {
+      "start": 325.2399999999999,
+      "end": 326.7599999999999,
+      "blockIds": [
+        "b-da0ee4178c4e93b4"
+      ]
+    },
+    {
+      "start": 326.7599999999999,
+      "end": 336.03999999999985,
+      "blockIds": [
+        "b-f7d6387874885274"
+      ]
+    },
+    {
+      "start": 336.03999999999985,
+      "end": 339.79999999999984,
+      "blockIds": [
+        "b-670e92803d57d4c3"
+      ]
+    },
+    {
+      "start": 339.79999999999984,
+      "end": 353.55999999999983,
+      "blockIds": [
+        "b-986cc0414338f8e7"
+      ]
+    },
+    {
+      "start": 353.55999999999983,
+      "end": 355.6399999999998,
+      "blockIds": [
+        "b-6873af6efa6bac12"
+      ]
+    },
+    {
+      "start": 355.6399999999998,
+      "end": 369.7199999999998,
+      "blockIds": [
+        "b-37adf808c8f0e862"
+      ]
+    },
+    {
+      "start": 369.7199999999998,
+      "end": 372.3599999999998,
+      "blockIds": [
+        "b-fb0ccebc8139a41f"
+      ]
+    },
+    {
+      "start": 372.3599999999998,
+      "end": 394.6799999999998,
+      "blockIds": [
+        "b-fd4e6688489de6e5"
+      ]
+    },
+    {
+      "start": 394.6799999999998,
+      "end": 397.1599999999998,
+      "blockIds": [
+        "b-5cb7e39c37fca3d4"
+      ]
+    },
+    {
+      "start": 397.1599999999998,
+      "end": 401.3999999999998,
+      "blockIds": [
+        "b-ee09032e00134dfa"
+      ]
+    },
+    {
+      "start": 401.3999999999998,
+      "end": 403.7999999999998,
+      "blockIds": [
+        "b-6961c36969e1ab25"
+      ]
+    },
+    {
+      "start": 403.7999999999998,
+      "end": 411.87999999999977,
+      "blockIds": [
+        "b-5db952c8ca5a1a01"
+      ]
+    },
+    {
+      "start": 411.87999999999977,
+      "end": 425.87999999999977,
+      "blockIds": [
+        "b-f7715be6d7a946a5"
+      ]
+    },
+    {
+      "start": 425.87999999999977,
+      "end": 428.83999999999975,
+      "blockIds": [
+        "b-9d18ac6aa9a1a397"
+      ]
+    },
+    {
+      "start": 428.83999999999975,
+      "end": 444.27999999999975,
+      "blockIds": [
+        "b-cd1d4b0a3dea5164"
+      ]
+    },
+    {
+      "start": 444.27999999999975,
+      "end": 458.03999999999974,
+      "blockIds": [
+        "b-5ffdc3fc6b46dd73"
+      ]
+    },
+    {
+      "start": 458.03999999999974,
+      "end": 461.2399999999997,
+      "blockIds": [
+        "b-0b58342eaad67ffc"
+      ]
+    },
+    {
+      "start": 461.2399999999997,
+      "end": 465.71999999999974,
+      "blockIds": [
+        "b-e3a8131881a20c07"
+      ]
+    },
+    {
+      "start": 465.71999999999974,
+      "end": 471.5599999999997,
+      "blockIds": [
+        "b-62a904c3b9a363c7"
+      ]
+    },
+    {
+      "start": 471.5599999999997,
+      "end": 483.6399999999997,
+      "blockIds": [
+        "b-5c21d84f047404a6"
+      ]
+    },
+    {
+      "start": 483.6399999999997,
+      "end": 489.8799999999997,
+      "blockIds": [
+        "b-b460b27d20c099ca"
+      ]
+    },
+    {
+      "start": 489.8799999999997,
+      "end": 506.2799999999997,
+      "blockIds": [
+        "b-6513765b336bc5a4"
+      ]
+    },
+    {
+      "start": 506.2799999999997,
+      "end": 508.5199999999997,
+      "blockIds": [
+        "b-cd946327dfb23691"
+      ]
+    },
+    {
+      "start": 508.5199999999997,
+      "end": 515.7199999999997,
+      "blockIds": [
+        "b-d237f6d5c1453511"
+      ]
+    },
+    {
+      "start": 515.7199999999997,
+      "end": 522.5199999999996,
+      "blockIds": [
+        "b-4108e8f95b6ad7d8"
+      ]
+    },
+    {
+      "start": 522.5199999999996,
+      "end": 530.2799999999996,
+      "blockIds": [
+        "b-a7f85f60521427ed"
+      ]
+    },
+    {
+      "start": 530.2799999999996,
+      "end": 536.5199999999996,
+      "blockIds": [
+        "b-25367eaa786168e2"
+      ]
+    },
+    {
+      "start": 536.5199999999996,
+      "end": 538.7599999999996,
+      "blockIds": [
+        "b-f9ec0d9d2bcba612"
+      ]
+    },
+    {
+      "start": 538.7599999999996,
+      "end": 541.7999999999996,
+      "blockIds": [
+        "b-bec5f8198a94ad23"
+      ]
+    },
+    {
+      "start": 541.7999999999996,
+      "end": 549.1599999999996,
+      "blockIds": [
+        "b-c46fb47b11b3e2cf"
+      ]
+    },
+    {
+      "start": 549.1599999999996,
+      "end": 551.0799999999996,
+      "blockIds": [
+        "b-0e8fc81fbd9f26e9"
+      ]
+    },
+    {
+      "start": 551.0799999999996,
+      "end": 554.1999999999996,
+      "blockIds": [
+        "b-d24139a904784fad"
+      ]
+    },
+    {
+      "start": 554.1999999999996,
+      "end": 556.3599999999996,
+      "blockIds": [
+        "b-b8ed4a22d44a25a8"
+      ]
+    },
+    {
+      "start": 556.3599999999996,
+      "end": 559.4799999999996,
+      "blockIds": [
+        "b-c9bfe13ee0349a74"
+      ]
+    },
+    {
+      "start": 559.4799999999996,
+      "end": 578.0399999999995,
+      "blockIds": [
+        "b-9ff8e086898e5042"
+      ]
+    },
+    {
+      "start": 578.0399999999995,
+      "end": 615.7999999999995,
+      "blockIds": [
+        "b-8f7ffcb2ca4e65cf"
+      ]
+    },
+    {
+      "start": 615.7999999999995,
+      "end": 625.6399999999995,
+      "blockIds": [
+        "b-6f87b2d837dcb822"
+      ]
+    },
+    {
+      "start": 625.6399999999995,
+      "end": 638.9199999999995,
+      "blockIds": [
+        "b-699298ddb889ce61"
+      ]
+    },
+    {
+      "start": 638.9199999999995,
+      "end": 671.3199999999995,
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ]
+    },
+    {
+      "start": 671.3199999999995,
+      "end": 673.0799999999995,
+      "blockIds": [
+        "b-e82d1fc921d56b0c"
+      ]
+    },
+    {
+      "start": 673.0799999999995,
+      "end": 676.3599999999994,
+      "blockIds": [
+        "b-f2473c822dc75bf4"
+      ]
+    },
+    {
+      "start": 676.3599999999994,
+      "end": 680.4399999999995,
+      "blockIds": [
+        "b-d0aee2f45c504cb7"
+      ]
+    },
+    {
+      "start": 680.4399999999995,
+      "end": 685.4799999999994,
+      "blockIds": [
+        "b-556c1235586788b2"
+      ]
+    },
+    {
+      "start": 685.4799999999994,
+      "end": 694.0399999999994,
+      "blockIds": [
+        "b-18c05293f94054dc"
+      ]
+    },
+    {
+      "start": 694.0399999999994,
+      "end": 699.7999999999994,
+      "blockIds": [
+        "b-c91fa82a62da45fd"
+      ]
+    },
+    {
+      "start": 699.7999999999994,
+      "end": 708.8399999999993,
+      "blockIds": [
+        "b-e3ab0644eb7634ec"
+      ]
+    },
+    {
+      "start": 708.8399999999993,
+      "end": 716.4399999999994,
+      "blockIds": [
+        "b-acc76339a50fcb8d"
+      ]
+    },
+    {
+      "start": 716.4399999999994,
+      "end": 755.1999999999994,
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-4e6bdee449b127d1-s1",
+      "blockIds": [
+        "b-4e6bdee449b127d1"
+      ],
+      "start": 0,
+      "end": 4.4,
+      "startOffset": 0,
+      "endOffset": 48,
+      "text": "Kapitel 4: Organising und Strategien des Wandels"
+    },
+    {
+      "sentenceId": "b-e5358c3b021df78d-s1",
+      "blockIds": [
+        "b-e5358c3b021df78d"
+      ],
+      "start": 4.4,
+      "end": 6.880000000000001,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Organising ist mehr als Reichweite."
+    },
+    {
+      "sentenceId": "b-e5358c3b021df78d-s2",
+      "blockIds": [
+        "b-e5358c3b021df78d"
+      ],
+      "start": 7.28,
+      "end": 17.28,
+      "startOffset": 36,
+      "endOffset": 193,
+      "text": "Es geht nicht nur darum, wie viele Menschen etwas sehen, sondern warum sie bereit sind, gemeinsam zu handeln – und was jede einzelne Person konkret tun kann."
+    },
+    {
+      "sentenceId": "b-e5358c3b021df78d-s3",
+      "blockIds": [
+        "b-e5358c3b021df78d"
+      ],
+      "start": 17.759999999999998,
+      "end": 27,
+      "startOffset": 194,
+      "endOffset": 351,
+      "text": "Große Veränderungen kamen selten von oben: Das Frauenwahlrecht zum Beispiel wurde von Menschen erkämpft, die sich für ein gemeinsames Anliegen organisierten."
+    },
+    {
+      "sentenceId": "b-e5358c3b021df78d-s4",
+      "blockIds": [
+        "b-e5358c3b021df78d"
+      ],
+      "start": 27.200000000000003,
+      "end": 29.68,
+      "startOffset": 352,
+      "endOffset": 390,
+      "text": "Dasselbe gilt für lebenswerte Straßen."
+    },
+    {
+      "sentenceId": "b-a02f4bb5038e4f82-s1",
+      "blockIds": [
+        "b-a02f4bb5038e4f82"
+      ],
+      "start": 29.68,
+      "end": 34.8,
+      "startOffset": 0,
+      "endOffset": 85,
+      "text": "Wenn wir wollen, dass sich etwas verändert, müssen wir immer von unten dafür kämpfen."
+    },
+    {
+      "sentenceId": "b-5c44d2c1dbf7c6e1-s1",
+      "blockIds": [
+        "b-5c44d2c1dbf7c6e1"
+      ],
+      "start": 34.8,
+      "end": 37.519999999999996,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "sagt Valentina von Changing Cities."
+    },
+    {
+      "sentenceId": "b-d20cbfa55f88edb1-s1",
+      "blockIds": [
+        "b-d20cbfa55f88edb1"
+      ],
+      "start": 37.519999999999996,
+      "end": 40.16,
+      "startOffset": 0,
+      "endOffset": 33,
+      "text": "Von einer Initiative zur Bewegung"
+    },
+    {
+      "sentenceId": "b-d472eb14a0969d27-s1",
+      "blockIds": [
+        "b-d472eb14a0969d27"
+      ],
+      "start": 40.16,
+      "end": 43.12,
+      "startOffset": 0,
+      "endOffset": 45,
+      "text": "Changing Cities zeigt, wie das aussehen kann."
+    },
+    {
+      "sentenceId": "b-d472eb14a0969d27-s2",
+      "blockIds": [
+        "b-d472eb14a0969d27"
+      ],
+      "start": 43.36,
+      "end": 51.12,
+      "startOffset": 46,
+      "endOffset": 168,
+      "text": "Seit 2019 unterstützt die Berliner Organisation Bewohner:innen dabei, Nachbarschaftsinitiativen für Kiezblocks zu gründen."
+    },
+    {
+      "sentenceId": "b-d472eb14a0969d27-s3",
+      "blockIds": [
+        "b-d472eb14a0969d27"
+      ],
+      "start": 51.519999999999996,
+      "end": 56.76,
+      "startOffset": 169,
+      "endOffset": 250,
+      "text": "In Workshops, Veranstaltungen und Onlineformaten gab sie ihr Wissen offen weiter."
+    },
+    {
+      "sentenceId": "b-d472eb14a0969d27-s4",
+      "blockIds": [
+        "b-d472eb14a0969d27"
+      ],
+      "start": 56.959999999999994,
+      "end": 65.44,
+      "startOffset": 251,
+      "endOffset": 378,
+      "text": "Rund 70 Initiativen entstanden, über 30 Kiezblocks wurden politisch beschlossen und 13 werden bereits auf der Straße umgesetzt."
+    },
+    {
+      "sentenceId": "b-d25a5bd9209a95ab-s1",
+      "blockIds": [
+        "b-d25a5bd9209a95ab"
+      ],
+      "start": 65.44,
+      "end": 73.12,
+      "startOffset": 0,
+      "endOffset": 122,
+      "text": "Berlin ist noch kein Kiezblock-Paradies – aber jede dieser Straßen zeigt, was organisierte Nachbar:innen erreichen können."
+    },
+    {
+      "sentenceId": "b-a92d4cdca9e9c6e6-s1",
+      "blockIds": [
+        "b-a92d4cdca9e9c6e6"
+      ],
+      "start": 73.12,
+      "end": 75.60000000000001,
+      "startOffset": 0,
+      "endOffset": 29,
+      "text": "Fünf Werkzeuge für Organising"
+    },
+    {
+      "sentenceId": "b-041e2e4ba990a865-s1",
+      "blockIds": [
+        "b-041e2e4ba990a865"
+      ],
+      "start": 75.60000000000001,
+      "end": 79.28000000000002,
+      "startOffset": 0,
+      "endOffset": 28,
+      "text": "Werkzeug 1: Kopf, Herz, Hand"
+    },
+    {
+      "sentenceId": "b-a631b27e8454c9c0-s1",
+      "blockIds": [
+        "b-a631b27e8454c9c0"
+      ],
+      "start": 79.28000000000002,
+      "end": 86.16000000000001,
+      "startOffset": 0,
+      "endOffset": 111,
+      "text": "Weniger ein Werkzeug als ein Grundsatz, den ihr beim Organisieren von Menschen immer im Blick behalten solltet:"
+    },
+    {
+      "sentenceId": "b-11f41c2ac7fd76e5-s1",
+      "blockIds": [
+        "b-11f41c2ac7fd76e5"
+      ],
+      "start": 86.16000000000001,
+      "end": 88.4,
+      "startOffset": 0,
+      "endOffset": 30,
+      "text": "Kopf: Wie können wir gewinnen?"
+    },
+    {
+      "sentenceId": "b-11f41c2ac7fd76e5-s2",
+      "blockIds": [
+        "b-11f41c2ac7fd76e5"
+      ],
+      "start": 88.56000000000002,
+      "end": 91.20000000000002,
+      "startOffset": 31,
+      "endOffset": 62,
+      "text": "Strategie, Taktiken, Argumente."
+    },
+    {
+      "sentenceId": "b-32d9258e19190f24-s1",
+      "blockIds": [
+        "b-32d9258e19190f24"
+      ],
+      "start": 91.20000000000002,
+      "end": 93.72000000000001,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Herz: Was bewegt Menschen?"
+    },
+    {
+      "sentenceId": "b-32d9258e19190f24-s2",
+      "blockIds": [
+        "b-32d9258e19190f24"
+      ],
+      "start": 94.00000000000001,
+      "end": 102.72000000000001,
+      "startOffset": 27,
+      "endOffset": 163,
+      "text": "Der unsichere Schulweg eines Enkelkindes, die Erinnerung ans Spielen auf der Straße, die Angst, durch Luftverschmutzung krank zu werden."
+    },
+    {
+      "sentenceId": "b-c71a73326306486a-s1",
+      "blockIds": [
+        "b-c71a73326306486a"
+      ],
+      "start": 102.72000000000001,
+      "end": 108.32000000000001,
+      "startOffset": 0,
+      "endOffset": 75,
+      "text": "Hand: Was ist unser Hebel zum Erfolg, und wie können Menschen aktiv werden?"
+    },
+    {
+      "sentenceId": "b-c71a73326306486a-s2",
+      "blockIds": [
+        "b-c71a73326306486a"
+      ],
+      "start": 108.427,
+      "end": 114.48000000000002,
+      "startOffset": 76,
+      "endOffset": 166,
+      "text": "Macht immer ein konkretes Angebot – eine Aufgabe, eine Veranstaltung, etwas zum Mitmachen."
+    },
+    {
+      "sentenceId": "b-f686685383f70f23-s1",
+      "blockIds": [
+        "b-f686685383f70f23"
+      ],
+      "start": 114.48000000000002,
+      "end": 119.20000000000002,
+      "startOffset": 0,
+      "endOffset": 71,
+      "text": "Eine Bewegung von unten kann nur wachsen, wenn ihr alle drei ansprecht."
+    },
+    {
+      "sentenceId": "b-49588ac0b6f410ac-s1",
+      "blockIds": [
+        "b-49588ac0b6f410ac"
+      ],
+      "start": 119.20000000000002,
+      "end": 120.88000000000002,
+      "startOffset": 0,
+      "endOffset": 20,
+      "text": "Nimm dir eine Minute"
+    },
+    {
+      "sentenceId": "b-783d9126cbcf2af7-s1",
+      "blockIds": [
+        "b-783d9126cbcf2af7"
+      ],
+      "start": 120.88000000000002,
+      "end": 122.48000000000002,
+      "startOffset": 0,
+      "endOffset": 18,
+      "text": "Was ist dein Herz?"
+    },
+    {
+      "sentenceId": "b-783d9126cbcf2af7-s2",
+      "blockIds": [
+        "b-783d9126cbcf2af7"
+      ],
+      "start": 122.60000000000002,
+      "end": 126.36000000000003,
+      "startOffset": 19,
+      "endOffset": 79,
+      "text": "Was bewegt dich, weiter für lebenswertere Städte zu kämpfen?"
+    },
+    {
+      "sentenceId": "b-783d9126cbcf2af7-s3",
+      "blockIds": [
+        "b-783d9126cbcf2af7"
+      ],
+      "start": 126.64000000000003,
+      "end": 130.16000000000003,
+      "startOffset": 80,
+      "endOffset": 149,
+      "text": "Kehre dazu zurück, wenn du nicht mehr weißt, wie es weitergehen soll."
+    },
+    {
+      "sentenceId": "b-d0bfe662436d5655-s1",
+      "blockIds": [
+        "b-d0bfe662436d5655"
+      ],
+      "start": 130.16000000000003,
+      "end": 133.76000000000002,
+      "startOffset": 0,
+      "endOffset": 40,
+      "text": "Werkzeug 2: Das Spektrum der Verbündeten"
+    },
+    {
+      "sentenceId": "b-2180680a262d2ffb-s1",
+      "blockIds": [
+        "b-2180680a262d2ffb"
+      ],
+      "start": 133.76000000000002,
+      "end": 135.52,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Wen wollt ihr eigentlich erreichen?"
+    },
+    {
+      "sentenceId": "b-2180680a262d2ffb-s2",
+      "blockIds": [
+        "b-2180680a262d2ffb"
+      ],
+      "start": 136.00000000000003,
+      "end": 140.00000000000003,
+      "startOffset": 36,
+      "endOffset": 101,
+      "text": "Initiativen konzentrieren sich oft zu sehr auf ihre Gegner:innen."
+    },
+    {
+      "sentenceId": "b-2180680a262d2ffb-s3",
+      "blockIds": [
+        "b-2180680a262d2ffb"
+      ],
+      "start": 140.24,
+      "end": 147.12,
+      "startOffset": 102,
+      "endOffset": 214,
+      "text": "Das Spektrum der Verbündeten von George Lakey (Training for Change) ordnet die Menschen um euch in fünf Gruppen:"
+    },
+    {
+      "sentenceId": "b-0c175274277b8011-s1",
+      "blockIds": [
+        "b-0c175274277b8011"
+      ],
+      "start": 147.12,
+      "end": 153.36,
+      "startOffset": 0,
+      "endOffset": 93,
+      "text": "Ein Halbkreis mit fünf Gruppen und Pfeilen von aktiver Gegnerschaft zu aktiver Unterstützung."
+    },
+    {
+      "sentenceId": "b-f76ba0fe0a5362c8-s1",
+      "blockIds": [
+        "b-f76ba0fe0a5362c8"
+      ],
+      "start": 153.36,
+      "end": 157.44000000000003,
+      "startOffset": 0,
+      "endOffset": 65,
+      "text": "Ziel ist nicht, alle auf einmal zu aktiven Verbündeten zu machen."
+    },
+    {
+      "sentenceId": "b-f76ba0fe0a5362c8-s2",
+      "blockIds": [
+        "b-f76ba0fe0a5362c8"
+      ],
+      "start": 157.68,
+      "end": 161.92000000000002,
+      "startOffset": 66,
+      "endOffset": 135,
+      "text": "Entscheidend ist, eine Gruppe einen Schritt näher zu euch zu bewegen."
+    },
+    {
+      "sentenceId": "b-f76ba0fe0a5362c8-s3",
+      "blockIds": [
+        "b-f76ba0fe0a5362c8"
+      ],
+      "start": 162.16000000000003,
+      "end": 166.56,
+      "startOffset": 136,
+      "endOffset": 219,
+      "text": "Beginnt auf der Seite der Verbündeten und lasst die Gegnerschaft zunächst beiseite."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s1",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 166.56,
+      "end": 168.8,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Gruppe: Aktive Verbündete."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s2",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 169.28,
+      "end": 177.76,
+      "startOffset": 27,
+      "endOffset": 159,
+      "text": "Was ihr tun könnt: Baut starke Beziehungen auf – vor allem durch persönliche Begegnungen bei Treffen, Veranstaltungen und Workshops."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s3",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 178,
+      "end": 180.48,
+      "startOffset": 160,
+      "endOffset": 194,
+      "text": "Gebt ihnen eine konkrete Aufgabe.."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s4",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 180.72,
+      "end": 182.8,
+      "startOffset": 196,
+      "endOffset": 223,
+      "text": "Gruppe: Passive Verbündete."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s5",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 183.2,
+      "end": 193.12,
+      "startOffset": 224,
+      "endOffset": 385,
+      "text": "Was ihr tun könnt: Findet heraus, was sie passiv hält, und bietet einen kleinen, konkreten Schritt an – etwa einen Kuchen für die nächste Spielstraße zu backen.."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s6",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 193.2,
+      "end": 194.56,
+      "startOffset": 387,
+      "endOffset": 404,
+      "text": "Gruppe: Neutrale."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s7",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 194.96,
+      "end": 198.64,
+      "startOffset": 405,
+      "endOffset": 468,
+      "text": "Was ihr tun könnt: Sie können sich in beide Richtungen bewegen."
+    },
+    {
+      "sentenceId": "b-cf14d4aabbe3b208-s8",
+      "blockIds": [
+        "b-cf14d4aabbe3b208"
+      ],
+      "start": 198.8,
+      "end": 204.32,
+      "startOffset": 469,
+      "endOffset": 554,
+      "text": "Stellt euch vor: mit Haustürgesprächen, einem Infostand in eurer Straße oder Flyern.."
+    },
+    {
+      "sentenceId": "b-38dda626882ac6ec-s1",
+      "blockIds": [
+        "b-38dda626882ac6ec"
+      ],
+      "start": 204.32,
+      "end": 208.16,
+      "startOffset": 0,
+      "endOffset": 53,
+      "text": "Die Gegnerschaft ist oft laut und wirkt deshalb groß."
+    },
+    {
+      "sentenceId": "b-38dda626882ac6ec-s2",
+      "blockIds": [
+        "b-38dda626882ac6ec"
+      ],
+      "start": 208.2,
+      "end": 210.88,
+      "startOffset": 54,
+      "endOffset": 94,
+      "text": "Aber welche Gruppe ist meist am größten?"
+    },
+    {
+      "sentenceId": "b-38dda626882ac6ec-s3",
+      "blockIds": [
+        "b-38dda626882ac6ec"
+      ],
+      "start": 211.12,
+      "end": 215.92,
+      "startOffset": 95,
+      "endOffset": 172,
+      "text": "Die Neutralen – konzentriert euch also auf sie und eure passiven Verbündeten."
+    },
+    {
+      "sentenceId": "b-73e09ec4f533af5a-s1",
+      "blockIds": [
+        "b-73e09ec4f533af5a"
+      ],
+      "start": 215.92,
+      "end": 218.32,
+      "startOffset": 0,
+      "endOffset": 36,
+      "text": "Probiert es mit eurer Initiative aus"
+    },
+    {
+      "sentenceId": "b-2a5ce3557e579885-s1",
+      "blockIds": [
+        "b-2a5ce3557e579885"
+      ],
+      "start": 218.32,
+      "end": 222.07999999999998,
+      "startOffset": 0,
+      "endOffset": 62,
+      "text": "Druckt das Spektrum aus oder zeichnet es auf ein großes Blatt."
+    },
+    {
+      "sentenceId": "b-2a5ce3557e579885-s2",
+      "blockIds": [
+        "b-2a5ce3557e579885"
+      ],
+      "start": 222.56,
+      "end": 232.95999999999998,
+      "startOffset": 63,
+      "endOffset": 223,
+      "text": "Schreibt die Akteur:innen rund um eure Initiative auf Klebezettel – lokale Politiker:innen, Schulen, Cafés, andere Initiativen – und ordnet sie im Spektrum ein."
+    },
+    {
+      "sentenceId": "b-2a5ce3557e579885-s3",
+      "blockIds": [
+        "b-2a5ce3557e579885"
+      ],
+      "start": 233.2,
+      "end": 235.68,
+      "startOffset": 224,
+      "endOffset": 267,
+      "text": "Entscheidet dann über euren ersten Schritt."
+    },
+    {
+      "sentenceId": "b-5d33c2f8d9558099-s1",
+      "blockIds": [
+        "b-5d33c2f8d9558099"
+      ],
+      "start": 235.68,
+      "end": 248.12,
+      "startOffset": 0,
+      "endOffset": 177,
+      "text": "Beispiel: Im Gründungsworkshop einer deutschen Superblock-Initiative ordnete die Gruppe eine örtliche Schule – Eltern und Kinder – zwischen \"passiv verbündet\" und \"neutral\" ein."
+    },
+    {
+      "sentenceId": "b-5d33c2f8d9558099-s2",
+      "blockIds": [
+        "b-5d33c2f8d9558099"
+      ],
+      "start": 248.4,
+      "end": 251.28,
+      "startOffset": 178,
+      "endOffset": 227,
+      "text": "Sie organisierte einen Aktionstag vor der Schule."
+    },
+    {
+      "sentenceId": "b-5d33c2f8d9558099-s3",
+      "blockIds": [
+        "b-5d33c2f8d9558099"
+      ],
+      "start": 251.52,
+      "end": 255.76,
+      "startOffset": 228,
+      "endOffset": 300,
+      "text": "Menschen lernten die Initiative kennen, einige schlossen sich danach an."
+    },
+    {
+      "sentenceId": "b-826ba372e40c53f1-s1",
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ],
+      "start": 255.76,
+      "end": 257.52,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Frage zum Nachdenken."
+    },
+    {
+      "sentenceId": "b-826ba372e40c53f1-s2",
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ],
+      "start": 257.84,
+      "end": 260.56,
+      "startOffset": 22,
+      "endOffset": 69,
+      "text": "Was ist das Ziel des Spektrums der Verbündeten?"
+    },
+    {
+      "sentenceId": "b-826ba372e40c53f1-s3",
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ],
+      "start": 261.12,
+      "end": 264.24,
+      "startOffset": 70,
+      "endOffset": 112,
+      "text": "Zuerst die aktive Gegnerschaft überzeugen."
+    },
+    {
+      "sentenceId": "b-826ba372e40c53f1-s4",
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ],
+      "start": 264.48,
+      "end": 267.28,
+      "startOffset": 113,
+      "endOffset": 161,
+      "text": "Eine Gruppe einen Schritt näher zu euch bewegen."
+    },
+    {
+      "sentenceId": "b-826ba372e40c53f1-s5",
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ],
+      "start": 267.76,
+      "end": 270.92,
+      "startOffset": 162,
+      "endOffset": 208,
+      "text": "Alle auf einmal zu aktiven Verbündeten machen."
+    },
+    {
+      "sentenceId": "b-826ba372e40c53f1-s6",
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ],
+      "start": 271.28,
+      "end": 272.96,
+      "startOffset": 209,
+      "endOffset": 236,
+      "text": "Nimm dir einen Moment Zeit."
+    },
+    {
+      "sentenceId": "b-826ba372e40c53f1-s7",
+      "blockIds": [
+        "b-826ba372e40c53f1"
+      ],
+      "start": 276.36,
+      "end": 280.44,
+      "startOffset": 237,
+      "endOffset": 294,
+      "text": "Antwort: Eine Gruppe einen Schritt näher zu euch bewegen."
+    },
+    {
+      "sentenceId": "b-e5ff7f847da08c89-s1",
+      "blockIds": [
+        "b-e5ff7f847da08c89"
+      ],
+      "start": 280.44,
+      "end": 283.4,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Werkzeug 3: Einzelgespräche"
+    },
+    {
+      "sentenceId": "b-e84092bf0c88e46d-s1",
+      "blockIds": [
+        "b-e84092bf0c88e46d"
+      ],
+      "start": 283.4,
+      "end": 287.96,
+      "startOffset": 0,
+      "endOffset": 70,
+      "text": "Ein persönliches Gespräch ist mehr wert als fünf WhatsApp-Nachrichten."
+    },
+    {
+      "sentenceId": "b-97c2a5b2ee3873e4-s1",
+      "blockIds": [
+        "b-97c2a5b2ee3873e4"
+      ],
+      "start": 287.96,
+      "end": 290.08,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Gespräche bleiben in Erinnerung."
+    },
+    {
+      "sentenceId": "b-97c2a5b2ee3873e4-s2",
+      "blockIds": [
+        "b-97c2a5b2ee3873e4"
+      ],
+      "start": 290.28,
+      "end": 298.91999999999996,
+      "startOffset": 33,
+      "endOffset": 168,
+      "text": "Sie helfen herauszufinden, was jemanden bewegt, wütend oder hoffnungsvoll macht – und die Person für euren Plan zum Erfolg zu gewinnen."
+    },
+    {
+      "sentenceId": "b-d08a8a818d619b79-s1",
+      "blockIds": [
+        "b-d08a8a818d619b79"
+      ],
+      "start": 298.91999999999996,
+      "end": 299.4,
+      "startOffset": 0,
+      "endOffset": 5,
+      "text": "Wann?"
+    },
+    {
+      "sentenceId": "b-d08a8a818d619b79-s2",
+      "blockIds": [
+        "b-d08a8a818d619b79"
+      ],
+      "start": 299.79999999999995,
+      "end": 305.91999999999996,
+      "startOffset": 6,
+      "endOffset": 99,
+      "text": "Am Beginn einer Initiative, um herauszufinden, welche Themen im Grätzl wirklich wichtig sind."
+    },
+    {
+      "sentenceId": "b-d08a8a818d619b79-s3",
+      "blockIds": [
+        "b-d08a8a818d619b79"
+      ],
+      "start": 306.19999999999993,
+      "end": 313.55999999999995,
+      "startOffset": 100,
+      "endOffset": 217,
+      "text": "Später, um passive Verbündete zu aktivieren, Menschen zu einer Versammlung einzuladen oder Unterschriften zu sammeln."
+    },
+    {
+      "sentenceId": "b-4352518455ee968a-s1",
+      "blockIds": [
+        "b-4352518455ee968a"
+      ],
+      "start": 313.55999999999995,
+      "end": 314.03999999999996,
+      "startOffset": 0,
+      "endOffset": 3,
+      "text": "Wo?"
+    },
+    {
+      "sentenceId": "b-4352518455ee968a-s2",
+      "blockIds": [
+        "b-4352518455ee968a"
+      ],
+      "start": 314.5199999999999,
+      "end": 321.3999999999999,
+      "startOffset": 4,
+      "endOffset": 109,
+      "text": "An der Haustür – oder als Straßengespräch an der Haltestelle, vor dem Supermarkt oder auf dem Spielplatz."
+    },
+    {
+      "sentenceId": "b-7873a4ffca2eae68-s1",
+      "blockIds": [
+        "b-7873a4ffca2eae68"
+      ],
+      "start": 321.3999999999999,
+      "end": 321.87999999999994,
+      "startOffset": 0,
+      "endOffset": 4,
+      "text": "Wie?"
+    },
+    {
+      "sentenceId": "b-7873a4ffca2eae68-s2",
+      "blockIds": [
+        "b-7873a4ffca2eae68"
+      ],
+      "start": 322.43999999999994,
+      "end": 325.2399999999999,
+      "startOffset": 5,
+      "endOffset": 70,
+      "text": "Folgt diesen sechs Schritten mit Beispielsätzen (zum Aufklappen):"
+    },
+    {
+      "sentenceId": "b-da0ee4178c4e93b4-s1",
+      "blockIds": [
+        "b-da0ee4178c4e93b4"
+      ],
+      "start": 325.2399999999999,
+      "end": 325.6399999999999,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "1."
+    },
+    {
+      "sentenceId": "b-da0ee4178c4e93b4-s2",
+      "blockIds": [
+        "b-da0ee4178c4e93b4"
+      ],
+      "start": 325.7199999999999,
+      "end": 326.7599999999999,
+      "startOffset": 3,
+      "endOffset": 14,
+      "text": "Vorstellung"
+    },
+    {
+      "sentenceId": "b-f7d6387874885274-s1",
+      "blockIds": [
+        "b-f7d6387874885274"
+      ],
+      "start": 326.7599999999999,
+      "end": 332.7599999999999,
+      "startOffset": 0,
+      "endOffset": 86,
+      "text": "\"Hallo, ich heiße …, wohne hier in der Nähe und bin Teil der Nachbarschaftsinitiative."
+    },
+    {
+      "sentenceId": "b-f7d6387874885274-s2",
+      "blockIds": [
+        "b-f7d6387874885274"
+      ],
+      "start": 332.7999999999999,
+      "end": 336.03999999999985,
+      "startOffset": 87,
+      "endOffset": 146,
+      "text": "Heute sprechen wir mit vielen Menschen aus unserem Grätzl.\""
+    },
+    {
+      "sentenceId": "b-670e92803d57d4c3-s1",
+      "blockIds": [
+        "b-670e92803d57d4c3"
+      ],
+      "start": 336.03999999999985,
+      "end": 336.67999999999984,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "2."
+    },
+    {
+      "sentenceId": "b-670e92803d57d4c3-s2",
+      "blockIds": [
+        "b-670e92803d57d4c3"
+      ],
+      "start": 336.99999999999983,
+      "end": 339.79999999999984,
+      "startOffset": 3,
+      "endOffset": 38,
+      "text": "Herausfinden, was die Person bewegt"
+    },
+    {
+      "sentenceId": "b-986cc0414338f8e7-s1",
+      "blockIds": [
+        "b-986cc0414338f8e7"
+      ],
+      "start": 339.79999999999984,
+      "end": 345.39999999999986,
+      "startOffset": 0,
+      "endOffset": 88,
+      "text": "Fragt, wie sie die Situation erlebt: \"Wie geht es dir mit dem Verkehr in unserem Grätzl?"
+    },
+    {
+      "sentenceId": "b-986cc0414338f8e7-s2",
+      "blockIds": [
+        "b-986cc0414338f8e7"
+      ],
+      "start": 345.47999999999985,
+      "end": 347.47999999999985,
+      "startOffset": 89,
+      "endOffset": 121,
+      "text": "Was würdest du gerne verändern?\""
+    },
+    {
+      "sentenceId": "b-986cc0414338f8e7-s3",
+      "blockIds": [
+        "b-986cc0414338f8e7"
+      ],
+      "start": 347.55999999999983,
+      "end": 353.55999999999983,
+      "startOffset": 122,
+      "endOffset": 212,
+      "text": "Fragt dann genauer nach: \"Was bedeutet das für dich und deine Familie oder deinen Alltag?\""
+    },
+    {
+      "sentenceId": "b-6873af6efa6bac12-s1",
+      "blockIds": [
+        "b-6873af6efa6bac12"
+      ],
+      "start": 353.55999999999983,
+      "end": 353.9599999999998,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "3."
+    },
+    {
+      "sentenceId": "b-6873af6efa6bac12-s2",
+      "blockIds": [
+        "b-6873af6efa6bac12"
+      ],
+      "start": 354.03999999999985,
+      "end": 355.6399999999998,
+      "startOffset": 3,
+      "endOffset": 27,
+      "text": "Dringlichkeit vermitteln"
+    },
+    {
+      "sentenceId": "b-37adf808c8f0e862-s1",
+      "blockIds": [
+        "b-37adf808c8f0e862"
+      ],
+      "start": 355.6399999999998,
+      "end": 362.23999999999984,
+      "startOffset": 0,
+      "endOffset": 109,
+      "text": "Helft zu erkennen, dass der Status quo nicht unveränderlich ist: \"Wer ist deiner Meinung nach verantwortlich?"
+    },
+    {
+      "sentenceId": "b-37adf808c8f0e862-s2",
+      "blockIds": [
+        "b-37adf808c8f0e862"
+      ],
+      "start": 362.4399999999998,
+      "end": 364.11999999999983,
+      "startOffset": 110,
+      "endOffset": 137,
+      "text": "Was verhindert eine Lösung?"
+    },
+    {
+      "sentenceId": "b-37adf808c8f0e862-s3",
+      "blockIds": [
+        "b-37adf808c8f0e862"
+      ],
+      "start": 364.35999999999984,
+      "end": 369.7199999999998,
+      "startOffset": 138,
+      "endOffset": 233,
+      "text": "Findest du es nicht ungerecht, dass Autos so viel Platz bekommen und Fußgänger:innen so wenig?\""
+    },
+    {
+      "sentenceId": "b-fb0ccebc8139a41f-s1",
+      "blockIds": [
+        "b-fb0ccebc8139a41f"
+      ],
+      "start": 369.7199999999998,
+      "end": 370.1999999999998,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "4."
+    },
+    {
+      "sentenceId": "b-fb0ccebc8139a41f-s2",
+      "blockIds": [
+        "b-fb0ccebc8139a41f"
+      ],
+      "start": 370.6799999999998,
+      "end": 372.3599999999998,
+      "startOffset": 3,
+      "endOffset": 23,
+      "text": "Euer Plan zum Erfolg"
+    },
+    {
+      "sentenceId": "b-fd4e6688489de6e5-s1",
+      "blockIds": [
+        "b-fd4e6688489de6e5"
+      ],
+      "start": 372.3599999999998,
+      "end": 374.75999999999976,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Erst jetzt seid ihr mit Reden dran."
+    },
+    {
+      "sentenceId": "b-fd4e6688489de6e5-s2",
+      "blockIds": [
+        "b-fd4e6688489de6e5"
+      ],
+      "start": 374.9999999999998,
+      "end": 383.7999999999998,
+      "startOffset": 36,
+      "endOffset": 172,
+      "text": "\"Du hast gesagt … Viele andere, mit denen wir gesprochen haben, empfinden das genauso … Deshalb haben wir beschlossen, aktiv zu werden.\""
+    },
+    {
+      "sentenceId": "b-fd4e6688489de6e5-s3",
+      "blockIds": [
+        "b-fd4e6688489de6e5"
+      ],
+      "start": 384.0399999999998,
+      "end": 394.6799999999998,
+      "startOffset": 173,
+      "endOffset": 328,
+      "text": "Erklärt, was eure Initiative plant – eine Demonstration, eine Petition, Gespräche mit der lokalen Politik – und macht klar: Das funktioniert nur gemeinsam."
+    },
+    {
+      "sentenceId": "b-5cb7e39c37fca3d4-s1",
+      "blockIds": [
+        "b-5cb7e39c37fca3d4"
+      ],
+      "start": 394.6799999999998,
+      "end": 395.2399999999998,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "5."
+    },
+    {
+      "sentenceId": "b-5cb7e39c37fca3d4-s2",
+      "blockIds": [
+        "b-5cb7e39c37fca3d4"
+      ],
+      "start": 395.7199999999998,
+      "end": 397.1599999999998,
+      "startOffset": 3,
+      "endOffset": 21,
+      "text": "Die konkrete Bitte"
+    },
+    {
+      "sentenceId": "b-ee09032e00134dfa-s1",
+      "blockIds": [
+        "b-ee09032e00134dfa"
+      ],
+      "start": 397.1599999999998,
+      "end": 399.6399999999998,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Eine direkte Frage: \"Machst du mit?"
+    },
+    {
+      "sentenceId": "b-ee09032e00134dfa-s2",
+      "blockIds": [
+        "b-ee09032e00134dfa"
+      ],
+      "start": 400.0399999999998,
+      "end": 401.3999999999998,
+      "startOffset": 36,
+      "endOffset": 62,
+      "text": "Kann ich auf dich zählen?\""
+    },
+    {
+      "sentenceId": "b-6961c36969e1ab25-s1",
+      "blockIds": [
+        "b-6961c36969e1ab25"
+      ],
+      "start": 401.3999999999998,
+      "end": 401.9329999999998,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "6."
+    },
+    {
+      "sentenceId": "b-6961c36969e1ab25-s2",
+      "blockIds": [
+        "b-6961c36969e1ab25"
+      ],
+      "start": 402.0399999999998,
+      "end": 403.7999999999998,
+      "startOffset": 3,
+      "endOffset": 22,
+      "text": "Der nächste Schritt"
+    },
+    {
+      "sentenceId": "b-5db952c8ca5a1a01-s1",
+      "blockIds": [
+        "b-5db952c8ca5a1a01"
+      ],
+      "start": 403.7999999999998,
+      "end": 409.05299999999977,
+      "startOffset": 0,
+      "endOffset": 80,
+      "text": "Endet immer mit einer konkreten Vereinbarung: \"Sehen wir uns beim Treffen am …?\""
+    },
+    {
+      "sentenceId": "b-5db952c8ca5a1a01-s2",
+      "blockIds": [
+        "b-5db952c8ca5a1a01"
+      ],
+      "start": 409.07999999999976,
+      "end": 411.87999999999977,
+      "startOffset": 81,
+      "endOffset": 127,
+      "text": "oder \"Ich nehme dich jetzt in die Gruppe auf.\""
+    },
+    {
+      "sentenceId": "b-f7715be6d7a946a5-s1",
+      "blockIds": [
+        "b-f7715be6d7a946a5"
+      ],
+      "start": 411.87999999999977,
+      "end": 416.75999999999976,
+      "startOffset": 0,
+      "endOffset": 40,
+      "text": "Goldene Regel: 20 % reden, 80 % zuhören."
+    },
+    {
+      "sentenceId": "b-f7715be6d7a946a5-s2",
+      "blockIds": [
+        "b-f7715be6d7a946a5"
+      ],
+      "start": 416.9999999999998,
+      "end": 421.7999999999998,
+      "startOffset": 41,
+      "endOffset": 119,
+      "text": "Geht zu zweit, bereitet einen kurzen Leitfaden vor und übt vorher miteinander."
+    },
+    {
+      "sentenceId": "b-f7715be6d7a946a5-s3",
+      "blockIds": [
+        "b-f7715be6d7a946a5"
+      ],
+      "start": 422.19999999999976,
+      "end": 425.87999999999977,
+      "startOffset": 120,
+      "endOffset": 172,
+      "text": "Macht euch immer Notizen – und sammelt Kontaktdaten."
+    },
+    {
+      "sentenceId": "b-9d18ac6aa9a1a397-s1",
+      "blockIds": [
+        "b-9d18ac6aa9a1a397"
+      ],
+      "start": 425.87999999999977,
+      "end": 428.83999999999975,
+      "startOffset": 0,
+      "endOffset": 29,
+      "text": "Werkzeug 4: Kontaktmanagement"
+    },
+    {
+      "sentenceId": "b-cd1d4b0a3dea5164-s1",
+      "blockIds": [
+        "b-cd1d4b0a3dea5164"
+      ],
+      "start": 428.83999999999975,
+      "end": 432.47999999999973,
+      "startOffset": 0,
+      "endOffset": 57,
+      "text": "Es klingt selbstverständlich, wird aber oft unterschätzt."
+    },
+    {
+      "sentenceId": "b-cd1d4b0a3dea5164-s2",
+      "blockIds": [
+        "b-cd1d4b0a3dea5164"
+      ],
+      "start": 432.75999999999976,
+      "end": 444.27999999999975,
+      "startOffset": 58,
+      "endOffset": 240,
+      "text": "Sammelt mehr als eine E-Mail-Adresse: eine Telefonnummer, die Themen, die einer Person wichtig sind (ihr Herz), und besondere Fähigkeiten – vielleicht kann jemand eine Website bauen."
+    },
+    {
+      "sentenceId": "b-5ffdc3fc6b46dd73-s1",
+      "blockIds": [
+        "b-5ffdc3fc6b46dd73"
+      ],
+      "start": 444.27999999999975,
+      "end": 452.83999999999975,
+      "startOffset": 0,
+      "endOffset": 139,
+      "text": "Dann nutzt diese Informationen: Ladet Menschen persönlich zu Veranstaltungen über ihr Thema ein oder ruft sie mit einer konkreten Bitte an."
+    },
+    {
+      "sentenceId": "b-5ffdc3fc6b46dd73-s2",
+      "blockIds": [
+        "b-5ffdc3fc6b46dd73"
+      ],
+      "start": 453.07999999999976,
+      "end": 458.03999999999974,
+      "startOffset": 140,
+      "endOffset": 222,
+      "text": "Eine Tabelle reicht am Anfang; auch spezielle Organising-Apps entstehen zunehmend."
+    },
+    {
+      "sentenceId": "b-0b58342eaad67ffc-s1",
+      "blockIds": [
+        "b-0b58342eaad67ffc"
+      ],
+      "start": 458.03999999999974,
+      "end": 461.2399999999997,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Werkzeug 5: Verantwortung teilen"
+    },
+    {
+      "sentenceId": "b-e3a8131881a20c07-s1",
+      "blockIds": [
+        "b-e3a8131881a20c07"
+      ],
+      "start": 461.2399999999997,
+      "end": 465.71999999999974,
+      "startOffset": 0,
+      "endOffset": 68,
+      "text": "Nur wer Verantwortung für eine Aufgabe trägt, ist Teil der Bewegung."
+    },
+    {
+      "sentenceId": "b-62a904c3b9a363c7-s1",
+      "blockIds": [
+        "b-62a904c3b9a363c7"
+      ],
+      "start": 465.71999999999974,
+      "end": 471.5599999999997,
+      "startOffset": 0,
+      "endOffset": 94,
+      "text": "Stabile Gruppen brauchen geteilte Verantwortung – sie darf nicht auf wenigen Schultern lasten."
+    },
+    {
+      "sentenceId": "b-5c21d84f047404a6-s1",
+      "blockIds": [
+        "b-5c21d84f047404a6"
+      ],
+      "start": 471.5599999999997,
+      "end": 478.91999999999973,
+      "startOffset": 0,
+      "endOffset": 108,
+      "text": "Persönlich fragen: Fragt in einem Raum mit 20 Menschen, wer eine Aufgabe übernimmt, und niemand meldet sich."
+    },
+    {
+      "sentenceId": "b-5c21d84f047404a6-s2",
+      "blockIds": [
+        "b-5c21d84f047404a6"
+      ],
+      "start": 479.15999999999974,
+      "end": 483.6399999999997,
+      "startOffset": 109,
+      "endOffset": 183,
+      "text": "Fragt jemanden direkt vor oder nach dem Treffen, und die meisten sagen ja."
+    },
+    {
+      "sentenceId": "b-b460b27d20c099ca-s1",
+      "blockIds": [
+        "b-b460b27d20c099ca"
+      ],
+      "start": 483.6399999999997,
+      "end": 489.8799999999997,
+      "startOffset": 0,
+      "endOffset": 88,
+      "text": "Tandems: Stellt einer neuen Person eine erfahrene zur Seite – auch bei kleinen Aufgaben."
+    },
+    {
+      "sentenceId": "b-6513765b336bc5a4-s1",
+      "blockIds": [
+        "b-6513765b336bc5a4"
+      ],
+      "start": 489.8799999999997,
+      "end": 495.0799999999997,
+      "startOffset": 0,
+      "endOffset": 83,
+      "text": "Nach außen delegieren: Eine Kerngruppe wird es immer geben, und das ist in Ordnung."
+    },
+    {
+      "sentenceId": "b-6513765b336bc5a4-s2",
+      "blockIds": [
+        "b-6513765b336bc5a4"
+      ],
+      "start": 495.47999999999973,
+      "end": 506.2799999999997,
+      "startOffset": 84,
+      "endOffset": 261,
+      "text": "Gebt aber laufend Aufgaben an weniger Engagierte weiter, etwa Menschen in eurer Chatgruppe, die selten zu Treffen kommen: Flyer verteilen, Unterschriften sammeln, Plakate malen."
+    },
+    {
+      "sentenceId": "b-cd946327dfb23691-s1",
+      "blockIds": [
+        "b-cd946327dfb23691"
+      ],
+      "start": 506.2799999999997,
+      "end": 508.5199999999997,
+      "startOffset": 0,
+      "endOffset": 31,
+      "text": "Erkenntnisse aus der Diskussion"
+    },
+    {
+      "sentenceId": "b-d237f6d5c1453511-s1",
+      "blockIds": [
+        "b-d237f6d5c1453511"
+      ],
+      "start": 508.5199999999997,
+      "end": 515.7199999999997,
+      "startOffset": 0,
+      "endOffset": 102,
+      "text": "Ansprechbar sein: Stellt euch als Initiative mit einem Anliegen vor, nicht als Expert:innenkonsortium."
+    },
+    {
+      "sentenceId": "b-4108e8f95b6ad7d8-s1",
+      "blockIds": [
+        "b-4108e8f95b6ad7d8"
+      ],
+      "start": 515.7199999999997,
+      "end": 522.5199999999996,
+      "startOffset": 0,
+      "endOffset": 103,
+      "text": "Gemeinsame Vorteile finden: Ein getrennter Radweg kann auch für Busse und Autos Verbesserungen bringen."
+    },
+    {
+      "sentenceId": "b-a7f85f60521427ed-s1",
+      "blockIds": [
+        "b-a7f85f60521427ed"
+      ],
+      "start": 522.5199999999996,
+      "end": 530.2799999999996,
+      "startOffset": 0,
+      "endOffset": 120,
+      "text": "Fakten kennen: Bei Straßensperren führt Verkehrsverdunstung oft dazu, dass der Verkehr abnimmt, statt sich zu verlagern."
+    },
+    {
+      "sentenceId": "b-25367eaa786168e2-s1",
+      "blockIds": [
+        "b-25367eaa786168e2"
+      ],
+      "start": 530.2799999999996,
+      "end": 536.5199999999996,
+      "startOffset": 0,
+      "endOffset": 85,
+      "text": "Kreativ denken: Eine Aktion als Kunstprojekt zu positionieren kann neue Türen öffnen."
+    },
+    {
+      "sentenceId": "b-f9ec0d9d2bcba612-s1",
+      "blockIds": [
+        "b-f9ec0d9d2bcba612"
+      ],
+      "start": 536.5199999999996,
+      "end": 538.7599999999996,
+      "startOffset": 0,
+      "endOffset": 33,
+      "text": "Keine Angst vor Gesprächen haben."
+    },
+    {
+      "sentenceId": "b-bec5f8198a94ad23-s1",
+      "blockIds": [
+        "b-bec5f8198a94ad23"
+      ],
+      "start": 538.7599999999996,
+      "end": 541.7999999999996,
+      "startOffset": 0,
+      "endOffset": 37,
+      "text": "Das eigene Narrativ und die Strategie"
+    },
+    {
+      "sentenceId": "b-c46fb47b11b3e2cf-s1",
+      "blockIds": [
+        "b-c46fb47b11b3e2cf"
+      ],
+      "start": 541.7999999999996,
+      "end": 545.4799999999996,
+      "startOffset": 0,
+      "endOffset": 57,
+      "text": "Jeder Plan zum Erfolg beruht auf einer klaren Geschichte."
+    },
+    {
+      "sentenceId": "b-c46fb47b11b3e2cf-s2",
+      "blockIds": [
+        "b-c46fb47b11b3e2cf"
+      ],
+      "start": 545.7199999999996,
+      "end": 549.1599999999996,
+      "startOffset": 58,
+      "endOffset": 111,
+      "text": "Ein Narrativ des Engagements beantwortet vier Fragen:"
+    },
+    {
+      "sentenceId": "b-0e8fc81fbd9f26e9-s1",
+      "blockIds": [
+        "b-0e8fc81fbd9f26e9"
+      ],
+      "start": 549.1599999999996,
+      "end": 551.0799999999996,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Wofür setzen wir uns ein?"
+    },
+    {
+      "sentenceId": "b-d24139a904784fad-s1",
+      "blockIds": [
+        "b-d24139a904784fad"
+      ],
+      "start": 551.0799999999996,
+      "end": 554.1999999999996,
+      "startOffset": 0,
+      "endOffset": 45,
+      "text": "Warum ist gerade jetzt ein gutes Zeitfenster?"
+    },
+    {
+      "sentenceId": "b-b8ed4a22d44a25a8-s1",
+      "blockIds": [
+        "b-b8ed4a22d44a25a8"
+      ],
+      "start": 554.1999999999996,
+      "end": 556.3599999999996,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Wer kann mit uns Macht aufbauen?"
+    },
+    {
+      "sentenceId": "b-c9bfe13ee0349a74-s1",
+      "blockIds": [
+        "b-c9bfe13ee0349a74"
+      ],
+      "start": 556.3599999999996,
+      "end": 559.4799999999996,
+      "startOffset": 0,
+      "endOffset": 49,
+      "text": "Welche Veränderung soll aus unserem Druck folgen?"
+    },
+    {
+      "sentenceId": "b-9ff8e086898e5042-s1",
+      "blockIds": [
+        "b-9ff8e086898e5042"
+      ],
+      "start": 559.4799999999996,
+      "end": 572.6799999999996,
+      "startOffset": 0,
+      "endOffset": 199,
+      "text": "Wir machen Wien beschreibt als Beispiel die Kampagne Platz für Wien: Viele Unterschriften, starkes Medienecho und die Wienwahl 2020 sollten politischen Druck für eine andere Verkehrspolitik erzeugen."
+    },
+    {
+      "sentenceId": "b-9ff8e086898e5042-s2",
+      "blockIds": [
+        "b-9ff8e086898e5042"
+      ],
+      "start": 572.9199999999996,
+      "end": 578.0399999999995,
+      "startOffset": 200,
+      "endOffset": 277,
+      "text": "Eine lokale Initiative kann kleiner beginnen, braucht aber dieselbe Klarheit."
+    },
+    {
+      "sentenceId": "b-8f7ffcb2ca4e65cf-s1",
+      "blockIds": [
+        "b-8f7ffcb2ca4e65cf"
+      ],
+      "start": 578.0399999999995,
+      "end": 584.0399999999995,
+      "startOffset": 0,
+      "endOffset": 87,
+      "text": "Theories of Change sind Annahmen darüber, wie sozialer und politischer Wandel entsteht."
+    },
+    {
+      "sentenceId": "b-8f7ffcb2ca4e65cf-s2",
+      "blockIds": [
+        "b-8f7ffcb2ca4e65cf"
+      ],
+      "start": 584.2799999999995,
+      "end": 589.1999999999995,
+      "startOffset": 88,
+      "endOffset": 166,
+      "text": "Sie helfen, Taktiken bewusst zu wählen, statt alles gleichzeitig zu versuchen."
+    },
+    {
+      "sentenceId": "b-8f7ffcb2ca4e65cf-s3",
+      "blockIds": [
+        "b-8f7ffcb2ca4e65cf"
+      ],
+      "start": 589.4799999999996,
+      "end": 615.7999999999995,
+      "startOffset": 167,
+      "endOffset": 546,
+      "text": "Für lokale Initiativen sind drei Sichtweisen besonders nützlich: große Sprünge (wesentliche Fortschritte werden möglich, wenn ein Problem neu definiert wird, neue Akteur:innen auftreten oder sich ein Zeitfenster öffnet), Grassroots (Menschen bauen durch gemeinsames Handeln Macht auf) und Gruppenbildung (gemeinsame Werte, Identität und Normen halten eine Gruppe handlungsfähig)."
+    },
+    {
+      "sentenceId": "b-6f87b2d837dcb822-s1",
+      "blockIds": [
+        "b-6f87b2d837dcb822"
+      ],
+      "start": 615.7999999999995,
+      "end": 618.2799999999995,
+      "startOffset": 0,
+      "endOffset": 38,
+      "text": "Nicht alles passt zu jeder Initiative."
+    },
+    {
+      "sentenceId": "b-6f87b2d837dcb822-s2",
+      "blockIds": [
+        "b-6f87b2d837dcb822"
+      ],
+      "start": 618.6799999999995,
+      "end": 625.6399999999995,
+      "startOffset": 39,
+      "endOffset": 143,
+      "text": "Eine kleine Gruppe sollte lieber zwei oder drei passende Hebel konsequent einsetzen als zehn halbherzig."
+    },
+    {
+      "sentenceId": "b-699298ddb889ce61-s1",
+      "blockIds": [
+        "b-699298ddb889ce61"
+      ],
+      "start": 625.6399999999995,
+      "end": 630.1999999999995,
+      "startOffset": 0,
+      "endOffset": 79,
+      "text": "Die folgende Tabelle zeigt praktische Ansätze für unterschiedliche Bedürfnisse."
+    },
+    {
+      "sentenceId": "b-699298ddb889ce61-s2",
+      "blockIds": [
+        "b-699298ddb889ce61"
+      ],
+      "start": 630.7599999999995,
+      "end": 638.9199999999995,
+      "startOffset": 80,
+      "endOffset": 204,
+      "text": "Agenda Setting bedeutet, ein Thema öffentlich sichtbar zu machen; das ist nicht dasselbe wie große Fortschritte zu erzielen."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s1",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 638.9199999999995,
+      "end": 641.7599999999995,
+      "startOffset": 0,
+      "endOffset": 47,
+      "text": "Wenn ihr vor allem ...: Aufmerksamkeit braucht."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s2",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 641.9599999999995,
+      "end": 644.3599999999996,
+      "startOffset": 48,
+      "endOffset": 84,
+      "text": "Dann passt eher ...: Agenda Setting."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s3",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 644.7599999999995,
+      "end": 649.1999999999995,
+      "startOffset": 85,
+      "endOffset": 134,
+      "text": "Beispiel: Medienbild, Petition, sichtbare Aktion."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s4",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 649.4799999999994,
+      "end": 652.6399999999995,
+      "startOffset": 136,
+      "endOffset": 188,
+      "text": "Wenn ihr vor allem ...: lokale Macht aufbauen wollt."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s5",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 652.8399999999995,
+      "end": 655.3999999999995,
+      "startOffset": 189,
+      "endOffset": 232,
+      "text": "Dann passt eher ...: Grassroots-Organising."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s6",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 655.7999999999995,
+      "end": 661.0399999999995,
+      "startOffset": 233,
+      "endOffset": 303,
+      "text": "Beispiel: Einzelgespräche, Spektrum der Verbündeten, Rollen verteilen."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s7",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 661.3199999999995,
+      "end": 664.2799999999995,
+      "startOffset": 305,
+      "endOffset": 361,
+      "text": "Wenn ihr vor allem ...: eine Gruppe stabilisieren müsst."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s8",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 664.5199999999995,
+      "end": 666.5999999999995,
+      "startOffset": 362,
+      "endOffset": 398,
+      "text": "Dann passt eher ...: Gruppenbildung."
+    },
+    {
+      "sentenceId": "b-213fea1b1bb74f00-s9",
+      "blockIds": [
+        "b-213fea1b1bb74f00"
+      ],
+      "start": 666.9999999999995,
+      "end": 671.3199999999995,
+      "startOffset": 399,
+      "endOffset": 451,
+      "text": "Beispiel: Werte klären, Rituale, gemeinsame Sprache."
+    },
+    {
+      "sentenceId": "b-e82d1fc921d56b0c-s1",
+      "blockIds": [
+        "b-e82d1fc921d56b0c"
+      ],
+      "start": 671.3199999999995,
+      "end": 673.0799999999995,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Kampagnenstruktur"
+    },
+    {
+      "sentenceId": "b-f2473c822dc75bf4-s1",
+      "blockIds": [
+        "b-f2473c822dc75bf4"
+      ],
+      "start": 673.0799999999995,
+      "end": 676.3599999999994,
+      "startOffset": 0,
+      "endOffset": 54,
+      "text": "Eine einfache Kampagnenstruktur reicht für den Anfang:"
+    },
+    {
+      "sentenceId": "b-d0aee2f45c504cb7-s1",
+      "blockIds": [
+        "b-d0aee2f45c504cb7"
+      ],
+      "start": 676.3599999999994,
+      "end": 677.0799999999995,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Erstens."
+    },
+    {
+      "sentenceId": "b-d0aee2f45c504cb7-s2",
+      "blockIds": [
+        "b-d0aee2f45c504cb7"
+      ],
+      "start": 677.4799999999994,
+      "end": 680.4399999999995,
+      "startOffset": 9,
+      "endOffset": 45,
+      "text": "Ziel: Was soll bis wann anders sein?"
+    },
+    {
+      "sentenceId": "b-556c1235586788b2-s1",
+      "blockIds": [
+        "b-556c1235586788b2"
+      ],
+      "start": 680.4399999999995,
+      "end": 681.1599999999995,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Zweitens."
+    },
+    {
+      "sentenceId": "b-556c1235586788b2-s2",
+      "blockIds": [
+        "b-556c1235586788b2"
+      ],
+      "start": 681.4799999999994,
+      "end": 685.4799999999994,
+      "startOffset": 10,
+      "endOffset": 71,
+      "text": "Entscheidungspunkt: Wer kann das beschließen oder verhindern?"
+    },
+    {
+      "sentenceId": "b-18c05293f94054dc-s1",
+      "blockIds": [
+        "b-18c05293f94054dc"
+      ],
+      "start": 685.4799999999994,
+      "end": 686.3199999999995,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Drittens."
+    },
+    {
+      "sentenceId": "b-18c05293f94054dc-s2",
+      "blockIds": [
+        "b-18c05293f94054dc"
+      ],
+      "start": 686.5199999999994,
+      "end": 691.3999999999994,
+      "startOffset": 10,
+      "endOffset": 85,
+      "text": "Zielgruppen: Wen müssen wir aktivieren, überzeugen oder unter Druck setzen?"
+    },
+    {
+      "sentenceId": "b-18c05293f94054dc-s3",
+      "blockIds": [
+        "b-18c05293f94054dc"
+      ],
+      "start": 691.8799999999994,
+      "end": 694.0399999999994,
+      "startOffset": 86,
+      "endOffset": 121,
+      "text": "Nutzt das Spektrum der Verbündeten!"
+    },
+    {
+      "sentenceId": "b-c91fa82a62da45fd-s1",
+      "blockIds": [
+        "b-c91fa82a62da45fd"
+      ],
+      "start": 694.0399999999994,
+      "end": 694.7599999999994,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Viertens."
+    },
+    {
+      "sentenceId": "b-c91fa82a62da45fd-s2",
+      "blockIds": [
+        "b-c91fa82a62da45fd"
+      ],
+      "start": 695.1599999999994,
+      "end": 699.7999999999994,
+      "startOffset": 10,
+      "endOffset": 75,
+      "text": "Meilensteine: Welche sichtbaren Zwischenziele zeigen Fortschritt?"
+    },
+    {
+      "sentenceId": "b-e3ab0644eb7634ec-s1",
+      "blockIds": [
+        "b-e3ab0644eb7634ec"
+      ],
+      "start": 699.7999999999994,
+      "end": 700.7199999999993,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Fünftens."
+    },
+    {
+      "sentenceId": "b-e3ab0644eb7634ec-s2",
+      "blockIds": [
+        "b-e3ab0644eb7634ec"
+      ],
+      "start": 700.9199999999994,
+      "end": 708.8399999999993,
+      "startOffset": 10,
+      "endOffset": 108,
+      "text": "Aufgaben: Wer übernimmt Recherche, Outreach, Aktionen, Dokumentation, Medien und Politikgespräche?"
+    },
+    {
+      "sentenceId": "b-acc76339a50fcb8d-s1",
+      "blockIds": [
+        "b-acc76339a50fcb8d"
+      ],
+      "start": 708.8399999999993,
+      "end": 709.6399999999993,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Sechstens."
+    },
+    {
+      "sentenceId": "b-acc76339a50fcb8d-s2",
+      "blockIds": [
+        "b-acc76339a50fcb8d"
+      ],
+      "start": 710.0399999999994,
+      "end": 716.4399999999994,
+      "startOffset": 11,
+      "endOffset": 105,
+      "text": "Rhythmus: Wann trifft sich die Gruppe, wann wird öffentlich kommuniziert, wann wird evaluiert?"
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s1",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 716.4399999999994,
+      "end": 718.2399999999993,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Frage zum Nachdenken."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s2",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 718.5199999999994,
+      "end": 721.4399999999994,
+      "startOffset": 22,
+      "endOffset": 70,
+      "text": "Welche Schritte gehören zu einem Einzelgespräch?"
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s3",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 721.7199999999993,
+      "end": 724.0399999999994,
+      "startOffset": 71,
+      "endOffset": 107,
+      "text": "Herausfinden, was die Person bewegt."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s4",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 724.4399999999994,
+      "end": 726.7599999999994,
+      "startOffset": 108,
+      "endOffset": 141,
+      "text": "Euren Plan zum Erfolg vorstellen."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s5",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 726.9999999999993,
+      "end": 729.3199999999994,
+      "startOffset": 142,
+      "endOffset": 182,
+      "text": "Selbst den Großteil des Gesprächs reden."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s6",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 729.7199999999993,
+      "end": 732.2799999999994,
+      "startOffset": 183,
+      "endOffset": 228,
+      "text": "Einen konkreten nächsten Schritt vereinbaren."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s7",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 732.7599999999994,
+      "end": 734.5199999999994,
+      "startOffset": 229,
+      "endOffset": 256,
+      "text": "Nimm dir einen Moment Zeit."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s8",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 737.8399999999993,
+      "end": 741.3199999999994,
+      "startOffset": 257,
+      "endOffset": 302,
+      "text": "Antwort: Herausfinden, was die Person bewegt."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s9",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 741.5199999999994,
+      "end": 743.7999999999994,
+      "startOffset": 303,
+      "endOffset": 336,
+      "text": "Euren Plan zum Erfolg vorstellen."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s10",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 743.9999999999993,
+      "end": 746.5599999999994,
+      "startOffset": 337,
+      "endOffset": 382,
+      "text": "Einen konkreten nächsten Schritt vereinbaren."
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s11",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 747.0399999999994,
+      "end": 747.6799999999994,
+      "startOffset": 383,
+      "endOffset": 391,
+      "text": "Richtig!"
+    },
+    {
+      "sentenceId": "b-9733cdff1dd43f24-s12",
+      "blockIds": [
+        "b-9733cdff1dd43f24"
+      ],
+      "start": 748.0799999999994,
+      "end": 755.1999999999994,
+      "startOffset": 392,
+      "endOffset": 499,
+      "text": "Erst zuhören, dann euren Plan zum Erfolg vorstellen und immer einen konkreten nächsten Schritt vereinbaren."
+    }
+  ]
+}

@@ -1,0 +1,1867 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "sl/05",
+  "cues": [
+    {
+      "start": 0,
+      "end": 4.24,
+      "blockIds": [
+        "b-490b3902fff5fb6e"
+      ]
+    },
+    {
+      "start": 4.24,
+      "end": 27.36,
+      "blockIds": [
+        "b-9a6f49620364106c"
+      ]
+    },
+    {
+      "start": 27.36,
+      "end": 30.64,
+      "blockIds": [
+        "b-eeb702c5347a2690"
+      ]
+    },
+    {
+      "start": 30.64,
+      "end": 33.6,
+      "blockIds": [
+        "b-1721f9776a484faa"
+      ]
+    },
+    {
+      "start": 33.6,
+      "end": 36.160000000000004,
+      "blockIds": [
+        "b-ce4386153ef9667d"
+      ]
+    },
+    {
+      "start": 36.160000000000004,
+      "end": 43.28,
+      "blockIds": [
+        "b-d8ff1b678d2a5eb4"
+      ]
+    },
+    {
+      "start": 43.28,
+      "end": 44.88,
+      "blockIds": [
+        "b-34ce45a0d8ddaa22"
+      ]
+    },
+    {
+      "start": 44.88,
+      "end": 64.88,
+      "blockIds": [
+        "b-926640d7c797a6c9"
+      ]
+    },
+    {
+      "start": 64.88,
+      "end": 66.47999999999999,
+      "blockIds": [
+        "b-88984809b6dfc917"
+      ]
+    },
+    {
+      "start": 66.47999999999999,
+      "end": 89.99999999999999,
+      "blockIds": [
+        "b-2906ca8f32d725c4"
+      ]
+    },
+    {
+      "start": 89.99999999999999,
+      "end": 93.03999999999999,
+      "blockIds": [
+        "b-b53f9677e664d436"
+      ]
+    },
+    {
+      "start": 93.03999999999999,
+      "end": 103.83999999999999,
+      "blockIds": [
+        "b-929c729eeb28502e"
+      ]
+    },
+    {
+      "start": 103.83999999999999,
+      "end": 107.83999999999999,
+      "blockIds": [
+        "b-7501bbe7320ce287"
+      ]
+    },
+    {
+      "start": 107.83999999999999,
+      "end": 120.32,
+      "blockIds": [
+        "b-9148297c5df70c6f"
+      ]
+    },
+    {
+      "start": 120.32,
+      "end": 122.72,
+      "blockIds": [
+        "b-869a8d93871c7a3a"
+      ]
+    },
+    {
+      "start": 122.72,
+      "end": 129.52,
+      "blockIds": [
+        "b-5faec76a5d3b62cd"
+      ]
+    },
+    {
+      "start": 129.52,
+      "end": 131.12,
+      "blockIds": [
+        "b-5988dad789c72a27"
+      ]
+    },
+    {
+      "start": 131.12,
+      "end": 146.24,
+      "blockIds": [
+        "b-4601d6e576e31b06"
+      ]
+    },
+    {
+      "start": 146.24,
+      "end": 147.36,
+      "blockIds": [
+        "b-a8587d7d94d0dae8"
+      ]
+    },
+    {
+      "start": 147.36,
+      "end": 171.28000000000003,
+      "blockIds": [
+        "b-428e41b17409970f"
+      ]
+    },
+    {
+      "start": 171.28000000000003,
+      "end": 173.36000000000004,
+      "blockIds": [
+        "b-88284c5de74204e4"
+      ]
+    },
+    {
+      "start": 173.36000000000004,
+      "end": 202.24000000000004,
+      "blockIds": [
+        "b-8b34559d118f2033"
+      ]
+    },
+    {
+      "start": 202.24000000000004,
+      "end": 203.76000000000005,
+      "blockIds": [
+        "b-09231c6fd23917c0"
+      ]
+    },
+    {
+      "start": 203.76000000000005,
+      "end": 210.16000000000005,
+      "blockIds": [
+        "b-7c089f22e97508b9"
+      ]
+    },
+    {
+      "start": 210.16000000000005,
+      "end": 216.00000000000006,
+      "blockIds": [
+        "b-470926f342415145"
+      ]
+    },
+    {
+      "start": 216.00000000000006,
+      "end": 222.00000000000006,
+      "blockIds": [
+        "b-2b465e281b1d8474"
+      ]
+    },
+    {
+      "start": 222.00000000000006,
+      "end": 229.20000000000005,
+      "blockIds": [
+        "b-ec98a4113cf90e35"
+      ]
+    },
+    {
+      "start": 229.20000000000005,
+      "end": 233.76000000000005,
+      "blockIds": [
+        "b-e350b8f8c55973de"
+      ]
+    },
+    {
+      "start": 233.76000000000005,
+      "end": 242.08000000000004,
+      "blockIds": [
+        "b-b53c02b70a97f4ec"
+      ]
+    },
+    {
+      "start": 242.08000000000004,
+      "end": 248.96000000000004,
+      "blockIds": [
+        "b-9910b4bc4af54da1"
+      ]
+    },
+    {
+      "start": 248.96000000000004,
+      "end": 256.00000000000006,
+      "blockIds": [
+        "b-ec137b90a32b2b0a"
+      ]
+    },
+    {
+      "start": 256.00000000000006,
+      "end": 366.24000000000007,
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ]
+    },
+    {
+      "start": 366.24000000000007,
+      "end": 368.32000000000005,
+      "blockIds": [
+        "b-dd482276613ecafe"
+      ]
+    },
+    {
+      "start": 368.32000000000005,
+      "end": 403.52000000000004,
+      "blockIds": [
+        "b-11ade2cfc7656544"
+      ]
+    },
+    {
+      "start": 403.52000000000004,
+      "end": 405.68000000000006,
+      "blockIds": [
+        "b-ecdad7c29d12eba7"
+      ]
+    },
+    {
+      "start": 405.68000000000006,
+      "end": 415.2800000000001,
+      "blockIds": [
+        "b-c201b7fd75bee196"
+      ]
+    },
+    {
+      "start": 415.2800000000001,
+      "end": 426.4000000000001,
+      "blockIds": [
+        "b-6d74beceab15f9d1"
+      ]
+    },
+    {
+      "start": 426.4000000000001,
+      "end": 436.24000000000007,
+      "blockIds": [
+        "b-6e690c4efd6b4cab"
+      ]
+    },
+    {
+      "start": 436.24000000000007,
+      "end": 445.8400000000001,
+      "blockIds": [
+        "b-d8669b8665e142ce"
+      ]
+    },
+    {
+      "start": 445.8400000000001,
+      "end": 448.0800000000001,
+      "blockIds": [
+        "b-62763ce3d55dde95"
+      ]
+    },
+    {
+      "start": 448.0800000000001,
+      "end": 456.4800000000001,
+      "blockIds": [
+        "b-b64a30824f0f666e"
+      ]
+    },
+    {
+      "start": 456.4800000000001,
+      "end": 465.2800000000001,
+      "blockIds": [
+        "b-9b51626de0a07527"
+      ]
+    },
+    {
+      "start": 465.2800000000001,
+      "end": 477.12000000000006,
+      "blockIds": [
+        "b-5629f54eac4a1af3"
+      ]
+    },
+    {
+      "start": 477.12000000000006,
+      "end": 485.12000000000006,
+      "blockIds": [
+        "b-d3b3d089d16f99c9"
+      ]
+    },
+    {
+      "start": 485.12000000000006,
+      "end": 494.40000000000003,
+      "blockIds": [
+        "b-8ef80560988b2494"
+      ]
+    },
+    {
+      "start": 494.40000000000003,
+      "end": 504.88000000000005,
+      "blockIds": [
+        "b-515edcc3453c8935"
+      ]
+    },
+    {
+      "start": 504.88000000000005,
+      "end": 512.4000000000001,
+      "blockIds": [
+        "b-ed794abdee989017"
+      ]
+    },
+    {
+      "start": 512.4000000000001,
+      "end": 513.9200000000001,
+      "blockIds": [
+        "b-d87709538d563847"
+      ]
+    },
+    {
+      "start": 513.9200000000001,
+      "end": 525.2800000000001,
+      "blockIds": [
+        "b-a274429e16ed413f"
+      ]
+    },
+    {
+      "start": 525.2800000000001,
+      "end": 527.7600000000001,
+      "blockIds": [
+        "b-0062e85fdad8f442"
+      ]
+    },
+    {
+      "start": 527.7600000000001,
+      "end": 548.8800000000001,
+      "blockIds": [
+        "b-6a75b82ea2e7840d"
+      ]
+    },
+    {
+      "start": 548.8800000000001,
+      "end": 573.4000000000001,
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ]
+    },
+    {
+      "start": 573.4000000000001,
+      "end": 575.5600000000001,
+      "blockIds": [
+        "b-35343e384ec29b44"
+      ]
+    },
+    {
+      "start": 575.5600000000001,
+      "end": 579.96,
+      "blockIds": [
+        "b-bf9678b741e0edf1"
+      ]
+    },
+    {
+      "start": 579.96,
+      "end": 584.44,
+      "blockIds": [
+        "b-a0cc162ce6bd9fc3"
+      ]
+    },
+    {
+      "start": 584.44,
+      "end": 588.6800000000001,
+      "blockIds": [
+        "b-45c48999aa36a720"
+      ]
+    },
+    {
+      "start": 588.6800000000001,
+      "end": 591.96,
+      "blockIds": [
+        "b-c8a5a02146023503"
+      ]
+    },
+    {
+      "start": 591.96,
+      "end": 595.8000000000001,
+      "blockIds": [
+        "b-f38a64392dc61329"
+      ]
+    },
+    {
+      "start": 595.8000000000001,
+      "end": 599.48,
+      "blockIds": [
+        "b-298a5c5da5fb9c73"
+      ]
+    },
+    {
+      "start": 599.48,
+      "end": 605,
+      "blockIds": [
+        "b-55ac1838524b2ab4"
+      ]
+    },
+    {
+      "start": 605,
+      "end": 610.12,
+      "blockIds": [
+        "b-5511f0c4d56f23a8"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-490b3902fff5fb6e-s1",
+      "blockIds": [
+        "b-490b3902fff5fb6e"
+      ],
+      "start": 0,
+      "end": 4.24,
+      "startOffset": 0,
+      "endOffset": 40,
+      "text": "Poglavje 5: Spremljanje: pokažimo učinek"
+    },
+    {
+      "sentenceId": "b-9a6f49620364106c-s1",
+      "blockIds": [
+        "b-9a6f49620364106c"
+      ],
+      "start": 4.24,
+      "end": 12.68,
+      "startOffset": 0,
+      "endOffset": 115,
+      "text": "Spremljanje pomeni dokumentiranje napredka in učinkov, da se lahko pobuda uči, komunicira in politično argumentira."
+    },
+    {
+      "sentenceId": "b-9a6f49620364106c-s2",
+      "blockIds": [
+        "b-9a6f49620364106c"
+      ],
+      "start": 12.96,
+      "end": 17.16,
+      "startOffset": 116,
+      "endOffset": 180,
+      "text": "Ni nujno zapleteno – in ni ga treba prepustiti le strokovnjakom."
+    },
+    {
+      "sentenceId": "b-9a6f49620364106c-s3",
+      "blockIds": [
+        "b-9a6f49620364106c"
+      ],
+      "start": 17.439999999999998,
+      "end": 27.36,
+      "startOffset": 181,
+      "endOffset": 318,
+      "text": "Samoiniciativno raziskovanje ima svojo vrednost: odločevalcem pokaže, kam naj pogledajo, in jim omogoči, da ulico vidijo v drugačni luči."
+    },
+    {
+      "sentenceId": "b-eeb702c5347a2690-s1",
+      "blockIds": [
+        "b-eeb702c5347a2690"
+      ],
+      "start": 27.36,
+      "end": 30.64,
+      "startOffset": 0,
+      "endOffset": 41,
+      "text": "Povežite podatke in pripovedovanje zgodb."
+    },
+    {
+      "sentenceId": "b-1721f9776a484faa-s1",
+      "blockIds": [
+        "b-1721f9776a484faa"
+      ],
+      "start": 30.64,
+      "end": 33.6,
+      "startOffset": 0,
+      "endOffset": 37,
+      "text": "pravi Zala iz organizacije Prostorož."
+    },
+    {
+      "sentenceId": "b-ce4386153ef9667d-s1",
+      "blockIds": [
+        "b-ce4386153ef9667d"
+      ],
+      "start": 33.6,
+      "end": 36.160000000000004,
+      "startOffset": 0,
+      "endOffset": 31,
+      "text": "Štirje načini zbiranja podatkov"
+    },
+    {
+      "sentenceId": "b-d8ff1b678d2a5eb4-s1",
+      "blockIds": [
+        "b-d8ff1b678d2a5eb4"
+      ],
+      "start": 36.160000000000004,
+      "end": 43.28,
+      "startOffset": 0,
+      "endOffset": 106,
+      "text": "Prostorož v Ljubljani združuje različne metode glede na vprašanje – in glede na ljudi, ki jih želi doseči."
+    },
+    {
+      "sentenceId": "b-34ce45a0d8ddaa22-s1",
+      "blockIds": [
+        "b-34ce45a0d8ddaa22"
+      ],
+      "start": 43.28,
+      "end": 43.68,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "1."
+    },
+    {
+      "sentenceId": "b-34ce45a0d8ddaa22-s2",
+      "blockIds": [
+        "b-34ce45a0d8ddaa22"
+      ],
+      "start": 43.76,
+      "end": 44.88,
+      "startOffset": 3,
+      "endOffset": 14,
+      "text": "Anketiranje"
+    },
+    {
+      "sentenceId": "b-926640d7c797a6c9-s1",
+      "blockIds": [
+        "b-926640d7c797a6c9"
+      ],
+      "start": 44.88,
+      "end": 48.760000000000005,
+      "startOffset": 0,
+      "endOffset": 50,
+      "text": "Ljudi neposredno vprašajte, kako uporabljajo kraj."
+    },
+    {
+      "sentenceId": "b-926640d7c797a6c9-s2",
+      "blockIds": [
+        "b-926640d7c797a6c9"
+      ],
+      "start": 49.040000000000006,
+      "end": 64.88,
+      "startOffset": 51,
+      "endOffset": 265,
+      "text": "Ko je Prostorož obiskovalce Univerzitetnega kliničnega centra Ljubljana vprašal, kako so prišli tja, je bil odgovor jasen: 64 % jih je prišlo z avtomobilom – močno izhodišče za razpravo o dostopnosti in mobilnosti."
+    },
+    {
+      "sentenceId": "b-88984809b6dfc917-s1",
+      "blockIds": [
+        "b-88984809b6dfc917"
+      ],
+      "start": 64.88,
+      "end": 65.28,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "2."
+    },
+    {
+      "sentenceId": "b-88984809b6dfc917-s2",
+      "blockIds": [
+        "b-88984809b6dfc917"
+      ],
+      "start": 65.36,
+      "end": 66.47999999999999,
+      "startOffset": 3,
+      "endOffset": 13,
+      "text": "Kartiranje"
+    },
+    {
+      "sentenceId": "b-2906ca8f32d725c4-s1",
+      "blockIds": [
+        "b-2906ca8f32d725c4"
+      ],
+      "start": 66.47999999999999,
+      "end": 74.71999999999998,
+      "startOffset": 0,
+      "endOffset": 116,
+      "text": "Ljudje naj na zemljevidu označijo kraje, kjer je prevroče, prenevarno ali preglasno – ali kjer radi preživljajo čas."
+    },
+    {
+      "sentenceId": "b-2906ca8f32d725c4-s2",
+      "blockIds": [
+        "b-2906ca8f32d725c4"
+      ],
+      "start": 75.03999999999999,
+      "end": 80.24,
+      "startOffset": 117,
+      "endOffset": 191,
+      "text": "Brezplačni aplikaciji Canvis in Mapperoni olajšata kartiranje vročih točk."
+    },
+    {
+      "sentenceId": "b-2906ca8f32d725c4-s3",
+      "blockIds": [
+        "b-2906ca8f32d725c4"
+      ],
+      "start": 80.79999999999998,
+      "end": 89.99999999999999,
+      "startOffset": 192,
+      "endOffset": 306,
+      "text": "Čas je pomemben: če kartirate mestno vročino, anketo začnite v dneh nad 30 °C, ko ljudje problem najbolj občutijo."
+    },
+    {
+      "sentenceId": "b-b53f9677e664d436-s1",
+      "blockIds": [
+        "b-b53f9677e664d436"
+      ],
+      "start": 89.99999999999999,
+      "end": 90.79999999999998,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "3."
+    },
+    {
+      "sentenceId": "b-b53f9677e664d436-s2",
+      "blockIds": [
+        "b-b53f9677e664d436"
+      ],
+      "start": 91.03999999999999,
+      "end": 93.03999999999999,
+      "startOffset": 3,
+      "endOffset": 24,
+      "text": "Skupni miselni vzorci"
+    },
+    {
+      "sentenceId": "b-929c729eeb28502e-s1",
+      "blockIds": [
+        "b-929c729eeb28502e"
+      ],
+      "start": 93.03999999999999,
+      "end": 98.72,
+      "startOffset": 0,
+      "endOffset": 82,
+      "text": "Skupno zbiranje zamisli na velikem listu je zabavno in razkrije raznolike poglede."
+    },
+    {
+      "sentenceId": "b-929c729eeb28502e-s2",
+      "blockIds": [
+        "b-929c729eeb28502e"
+      ],
+      "start": 99.19999999999999,
+      "end": 103.83999999999999,
+      "startOffset": 83,
+      "endOffset": 148,
+      "text": "Upoštevajte, da je rezultate težje pretvoriti v formalne podatke."
+    },
+    {
+      "sentenceId": "b-7501bbe7320ce287-s1",
+      "blockIds": [
+        "b-7501bbe7320ce287"
+      ],
+      "start": 103.83999999999999,
+      "end": 104.47999999999999,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "4."
+    },
+    {
+      "sentenceId": "b-7501bbe7320ce287-s2",
+      "blockIds": [
+        "b-7501bbe7320ce287"
+      ],
+      "start": 104.88,
+      "end": 107.83999999999999,
+      "startOffset": 3,
+      "endOffset": 39,
+      "text": "Povezovanje fizičnega in digitalnega"
+    },
+    {
+      "sentenceId": "b-9148297c5df70c6f-s1",
+      "blockIds": [
+        "b-9148297c5df70c6f"
+      ],
+      "start": 107.83999999999999,
+      "end": 111.71999999999998,
+      "startOffset": 0,
+      "endOffset": 52,
+      "text": "Nekaj postavite na ulico in hkrati prosite za odziv."
+    },
+    {
+      "sentenceId": "b-9148297c5df70c6f-s2",
+      "blockIds": [
+        "b-9148297c5df70c6f"
+      ],
+      "start": 111.99999999999999,
+      "end": 120.32,
+      "startOffset": 53,
+      "endOffset": 173,
+      "text": "V Ljubljani so postavili testne klopi, mimoidoči pa so lahko oddali mnenje o njih – intervencija je sama postala anketa."
+    },
+    {
+      "sentenceId": "b-869a8d93871c7a3a-s1",
+      "blockIds": [
+        "b-869a8d93871c7a3a"
+      ],
+      "start": 120.32,
+      "end": 122.72,
+      "startOffset": 0,
+      "endOffset": 29,
+      "text": "Opazovanje življenja na ulici"
+    },
+    {
+      "sentenceId": "b-5faec76a5d3b62cd-s1",
+      "blockIds": [
+        "b-5faec76a5d3b62cd"
+      ],
+      "start": 122.72,
+      "end": 129.52,
+      "startOffset": 0,
+      "endOffset": 90,
+      "text": "Štetje in opazovanje pokažeta, kaj se na ulici dejansko dogaja – ne le, kaj ljudje povedo."
+    },
+    {
+      "sentenceId": "b-5988dad789c72a27-s1",
+      "blockIds": [
+        "b-5988dad789c72a27"
+      ],
+      "start": 129.52,
+      "end": 131.12,
+      "startOffset": 0,
+      "endOffset": 13,
+      "text": "Tokovi pešcev"
+    },
+    {
+      "sentenceId": "b-4601d6e576e31b06-s1",
+      "blockIds": [
+        "b-4601d6e576e31b06"
+      ],
+      "start": 131.12,
+      "end": 138.4,
+      "startOffset": 0,
+      "endOffset": 105,
+      "text": "Na prometni ljubljanski ulici so prostovoljci šteli pešce v 15-minutnih intervalih in beležili smer hoje."
+    },
+    {
+      "sentenceId": "b-4601d6e576e31b06-s2",
+      "blockIds": [
+        "b-4601d6e576e31b06"
+      ],
+      "start": 138.88,
+      "end": 146.24,
+      "startOffset": 106,
+      "endOffset": 211,
+      "text": "Kartirali so tudi, kje se ljudje zadržujejo – in ugotovili, da so lahko le stali, ker ni bilo kje sedeti."
+    },
+    {
+      "sentenceId": "b-a8587d7d94d0dae8-s1",
+      "blockIds": [
+        "b-a8587d7d94d0dae8"
+      ],
+      "start": 146.24,
+      "end": 147.36,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Park Beat"
+    },
+    {
+      "sentenceId": "b-428e41b17409970f-s1",
+      "blockIds": [
+        "b-428e41b17409970f"
+      ],
+      "start": 147.36,
+      "end": 151.52,
+      "startOffset": 0,
+      "endOffset": 63,
+      "text": "Katera parkirišča okoli mestnega središča so dejansko zasedena?"
+    },
+    {
+      "sentenceId": "b-428e41b17409970f-s2",
+      "blockIds": [
+        "b-428e41b17409970f"
+      ],
+      "start": 152,
+      "end": 162.08,
+      "startOffset": 64,
+      "endOffset": 212,
+      "text": "Opazovanja so pokazala, da so bila so imela nekatera ob konicah več avtomobilov kot označenih parkirnih mest, druga pa so imela proste zmogljivosti."
+    },
+    {
+      "sentenceId": "b-428e41b17409970f-s3",
+      "blockIds": [
+        "b-428e41b17409970f"
+      ],
+      "start": 162.4,
+      "end": 171.28000000000003,
+      "startOffset": 213,
+      "endOffset": 345,
+      "text": "Primerjava z gospodarsko dejavnostjo bližnjih trgovin pomaga preveriti predpostavko, da je vsako parkirno mesto nujno za poslovanje."
+    },
+    {
+      "sentenceId": "b-88284c5de74204e4-s1",
+      "blockIds": [
+        "b-88284c5de74204e4"
+      ],
+      "start": 171.28000000000003,
+      "end": 173.36000000000004,
+      "startOffset": 0,
+      "endOffset": 22,
+      "text": "Aplikacija Public Life"
+    },
+    {
+      "sentenceId": "b-8b34559d118f2033-s1",
+      "blockIds": [
+        "b-8b34559d118f2033"
+      ],
+      "start": 173.36000000000004,
+      "end": 183.40000000000003,
+      "startOffset": 0,
+      "endOffset": 127,
+      "text": "Brezplačna aplikacija Urban95 Public Life, ki sta jo razvila Gehl in Van Leer Foundation, temelji na Public Life Data Protocol."
+    },
+    {
+      "sentenceId": "b-8b34559d118f2033-s2",
+      "blockIds": [
+        "b-8b34559d118f2033"
+      ],
+      "start": 183.68000000000004,
+      "end": 188.40000000000003,
+      "startOffset": 128,
+      "endOffset": 179,
+      "text": "Več preberite v Urban95 Public Life Data Framework."
+    },
+    {
+      "sentenceId": "b-8b34559d118f2033-s3",
+      "blockIds": [
+        "b-8b34559d118f2033"
+      ],
+      "start": 188.72000000000003,
+      "end": 196.72000000000003,
+      "startOffset": 180,
+      "endOffset": 289,
+      "text": "Načrtujte pet do šest prostovoljcev na ulico in opazovalno obdobje od zgodnjega jutra (ob 5. uri) do polnoči."
+    },
+    {
+      "sentenceId": "b-8b34559d118f2033-s4",
+      "blockIds": [
+        "b-8b34559d118f2033"
+      ],
+      "start": 196.96000000000004,
+      "end": 202.24000000000004,
+      "startOffset": 290,
+      "endOffset": 372,
+      "text": "Ne potrebujete veliko dni, za analizo rezultatov pa boste potrebovali preglednice."
+    },
+    {
+      "sentenceId": "b-09231c6fd23917c0-s1",
+      "blockIds": [
+        "b-09231c6fd23917c0"
+      ],
+      "start": 202.24000000000004,
+      "end": 203.76000000000005,
+      "startOffset": 0,
+      "endOffset": 16,
+      "text": "Kaj lahko merimo"
+    },
+    {
+      "sentenceId": "b-7c089f22e97508b9-s1",
+      "blockIds": [
+        "b-7c089f22e97508b9"
+      ],
+      "start": 203.76000000000005,
+      "end": 210.16000000000005,
+      "startOffset": 0,
+      "endOffset": 86,
+      "text": "Za superbloke, taktični urbanizem in oblikovanje ulic so primerni preprosti kazalniki:"
+    },
+    {
+      "sentenceId": "b-470926f342415145-s1",
+      "blockIds": [
+        "b-470926f342415145"
+      ],
+      "start": 210.16000000000005,
+      "end": 216.00000000000006,
+      "startOffset": 0,
+      "endOffset": 67,
+      "text": "Obseg prometa: Koliko avtomobilov, koles in pešcev uporablja odsek?"
+    },
+    {
+      "sentenceId": "b-2b465e281b1d8474-s1",
+      "blockIds": [
+        "b-2b465e281b1d8474"
+      ],
+      "start": 216.00000000000006,
+      "end": 222.00000000000006,
+      "startOffset": 0,
+      "endOffset": 78,
+      "text": "Hitrost in konflikti: Kje se vozi prehitro in kje nastajajo nevarne situacije?"
+    },
+    {
+      "sentenceId": "b-ec98a4113cf90e35-s1",
+      "blockIds": [
+        "b-ec98a4113cf90e35"
+      ],
+      "start": 222.00000000000006,
+      "end": 229.20000000000005,
+      "startOffset": 0,
+      "endOffset": 84,
+      "text": "Zadrževanje: Ali se ljudje ustavljajo, sedijo, se otroci igrajo, nastajajo pogovori?"
+    },
+    {
+      "sentenceId": "b-e350b8f8c55973de-s1",
+      "blockIds": [
+        "b-e350b8f8c55973de"
+      ],
+      "start": 229.20000000000005,
+      "end": 233.76000000000005,
+      "startOffset": 0,
+      "endOffset": 54,
+      "text": "Parkiranje: Katera mesta so dejansko zasedena in kdaj?"
+    },
+    {
+      "sentenceId": "b-b53c02b70a97f4ec-s1",
+      "blockIds": [
+        "b-b53c02b70a97f4ec"
+      ],
+      "start": 233.76000000000005,
+      "end": 242.08000000000004,
+      "startOffset": 0,
+      "endOffset": 99,
+      "text": "Podnebje in udobje: Ali so prisotni senca, toplotni otoki, zelenje, pitna voda in zmanjšanje hrupa?"
+    },
+    {
+      "sentenceId": "b-9910b4bc4af54da1-s1",
+      "blockIds": [
+        "b-9910b4bc4af54da1"
+      ],
+      "start": 242.08000000000004,
+      "end": 248.96000000000004,
+      "startOffset": 0,
+      "endOffset": 83,
+      "text": "Podpora: Koliko ljudi se podpiše, pride na srečanja, deli vsebine ali ponudi pomoč?"
+    },
+    {
+      "sentenceId": "b-ec137b90a32b2b0a-s1",
+      "blockIds": [
+        "b-ec137b90a32b2b0a"
+      ],
+      "start": 248.96000000000004,
+      "end": 256.00000000000006,
+      "startOffset": 0,
+      "endOffset": 87,
+      "text": "Politični napredek: Kateri predlogi, pogovori, zaveze ali upravna preverjanja potekajo?"
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s1",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 256.00000000000006,
+      "end": 258.1600000000001,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Kazalnik: Tranzitni promet."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s2",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 258.32000000000005,
+      "end": 262.7200000000001,
+      "startOffset": 28,
+      "endOffset": 83,
+      "text": "Preprosta metoda: Štetje v dveh stalnih časovnih oknih."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s3",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 262.96000000000004,
+      "end": 267.32000000000005,
+      "startOffset": 84,
+      "endOffset": 141,
+      "text": "Dobra oblika rezultata: Številka, fotografija, zemljevid."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s4",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 267.52000000000004,
+      "end": 269.76000000000005,
+      "startOffset": 143,
+      "endOffset": 167,
+      "text": "Kazalnik: Tokovi pešcev."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s5",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 269.9200000000001,
+      "end": 275.2800000000001,
+      "startOffset": 168,
+      "endOffset": 242,
+      "text": "Preprosta metoda: Štetje v 15-minutnih intervalih, vključno s smerjo hoje."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s6",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 275.68000000000006,
+      "end": 278.64000000000004,
+      "startOffset": 243,
+      "endOffset": 283,
+      "text": "Dobra oblika rezultata: Zemljevid tokov."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s7",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 278.80000000000007,
+      "end": 281.44000000000005,
+      "startOffset": 285,
+      "endOffset": 316,
+      "text": "Kazalnik: Hitrost in konflikti."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s8",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 281.6000000000001,
+      "end": 291.76000000000005,
+      "startOffset": 317,
+      "endOffset": 466,
+      "text": "Preprosta metoda: Opazovanje in analiza fotografij na stalnih točkah; kjer je mogoče, podatki prikazovalnikov hitrosti in policijske evidence nesreč."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s9",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 292.00000000000006,
+      "end": 299.84000000000003,
+      "startOffset": 467,
+      "endOffset": 582,
+      "text": "Dobra oblika rezultata: Zemljevid konfliktov z mesti prehitre vožnje in nesreč, ključnimi podatki in fotografijami."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s10",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 299.89300000000003,
+      "end": 302.56000000000006,
+      "startOffset": 584,
+      "endOffset": 615,
+      "text": "Kazalnik: Kakovost zadrževanja."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s11",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 302.72,
+      "end": 307.84000000000003,
+      "startOffset": 616,
+      "endOffset": 686,
+      "text": "Preprosta metoda: Opazovanje na terenu in kartiranje mest zadrževanja."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s12",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 307.88000000000005,
+      "end": 312.40000000000003,
+      "startOffset": 687,
+      "endOffset": 744,
+      "text": "Dobra oblika rezultata: Kratke opombe, izjave, zemljevid."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s13",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 312.4530000000001,
+      "end": 314.24000000000007,
+      "startOffset": 746,
+      "endOffset": 767,
+      "text": "Kazalnik: Parkiranje."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s14",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 314.40000000000003,
+      "end": 318.44000000000005,
+      "startOffset": 768,
+      "endOffset": 823,
+      "text": "Preprosta metoda: Štetje zasedenosti ob različnih urah."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s15",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 318.64000000000004,
+      "end": 321.76000000000005,
+      "startOffset": 824,
+      "endOffset": 865,
+      "text": "Dobra oblika rezultata: Graf zasedenosti."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s16",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 321.9200000000001,
+      "end": 324.4000000000001,
+      "startOffset": 867,
+      "endOffset": 895,
+      "text": "Kazalnik: Vročina in udobje."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s17",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 324.56000000000006,
+      "end": 330.0400000000001,
+      "startOffset": 896,
+      "endOffset": 968,
+      "text": "Preprosta metoda: Kartiranje vročih točk, karta senc, fotografske točke."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s18",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 330.24000000000007,
+      "end": 336.00000000000006,
+      "startOffset": 969,
+      "endOffset": 1052,
+      "text": "Dobra oblika rezultata: Toplotni zemljevid, par fotografij pred posegom in po njem."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s19",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 336.1600000000001,
+      "end": 337.76000000000005,
+      "startOffset": 1054,
+      "endOffset": 1072,
+      "text": "Kazalnik: Podpora."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s20",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 338.00000000000006,
+      "end": 342.00000000000006,
+      "startOffset": 1073,
+      "endOffset": 1119,
+      "text": "Preprosta metoda: Pogovori, podpisi, srečanja."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s21",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 342.08000000000004,
+      "end": 345.6,
+      "startOffset": 1120,
+      "endOffset": 1170,
+      "text": "Dobra oblika rezultata: Seznam z vlogami in stiki."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s22",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 345.84000000000003,
+      "end": 348.24000000000007,
+      "startOffset": 1172,
+      "endOffset": 1201,
+      "text": "Kazalnik: Politični napredek."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s23",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 348.4000000000001,
+      "end": 358.80000000000007,
+      "startOffset": 1202,
+      "endOffset": 1352,
+      "text": "Preprosta metoda: Spremljanje dnevnih redov in zapisnikov, predlogov, odgovorov in zavez; beleženje datumov, pristojnih organov in naslednjih korakov."
+    },
+    {
+      "sentenceId": "b-c3defb4319448f44-s24",
+      "blockIds": [
+        "b-c3defb4319448f44"
+      ],
+      "start": 358.84000000000003,
+      "end": 366.24000000000007,
+      "startOffset": 1353,
+      "endOffset": 1463,
+      "text": "Dobra oblika rezultata: Časovnica ali sledilna tabela z datumi, stanjem in povezavami do ustreznih dokumentov."
+    },
+    {
+      "sentenceId": "b-dd482276613ecafe-s1",
+      "blockIds": [
+        "b-dd482276613ecafe"
+      ],
+      "start": 366.24000000000007,
+      "end": 368.32000000000005,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Od podatkov do sprememb"
+    },
+    {
+      "sentenceId": "b-11ade2cfc7656544-s1",
+      "blockIds": [
+        "b-11ade2cfc7656544"
+      ],
+      "start": 368.32000000000005,
+      "end": 371.0400000000001,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Sami podatki redko koga prepričajo."
+    },
+    {
+      "sentenceId": "b-11ade2cfc7656544-s2",
+      "blockIds": [
+        "b-11ade2cfc7656544"
+      ],
+      "start": 371.52000000000004,
+      "end": 377.76000000000005,
+      "startOffset": 36,
+      "endOffset": 116,
+      "text": "Prostorož povezuje tri korake: aktiviranje, oblikovanje vizije in zagovorništvo."
+    },
+    {
+      "sentenceId": "b-11ade2cfc7656544-s3",
+      "blockIds": [
+        "b-11ade2cfc7656544"
+      ],
+      "start": 378.00000000000006,
+      "end": 382.80000000000007,
+      "startOffset": 117,
+      "endOffset": 191,
+      "text": "Ugotovitve postanejo prepričljive, ko jih ljudje lahko vidijo in doživijo."
+    },
+    {
+      "sentenceId": "b-11ade2cfc7656544-s4",
+      "blockIds": [
+        "b-11ade2cfc7656544"
+      ],
+      "start": 383.0400000000001,
+      "end": 403.52000000000004,
+      "startOffset": 192,
+      "endOffset": 482,
+      "text": "Vizualizacije, ki se neposredno odzivajo na raziskovalne ugotovitve, povedo več kot tabela številk, začasna akcija pa rezultate naredi oprijemljive: pri eni akciji so stojala za kajake, rdeča streha iz blaga in nekaj zložljivih stolov pet parkirnih mest spremenili v prostor za zadrževanje."
+    },
+    {
+      "sentenceId": "b-ecdad7c29d12eba7-s1",
+      "blockIds": [
+        "b-ecdad7c29d12eba7"
+      ],
+      "start": 403.52000000000004,
+      "end": 405.68000000000006,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Štirje nauki iz Ljubljane"
+    },
+    {
+      "sentenceId": "b-c201b7fd75bee196-s1",
+      "blockIds": [
+        "b-c201b7fd75bee196"
+      ],
+      "start": 405.68000000000006,
+      "end": 406.24000000000007,
+      "startOffset": 0,
+      "endOffset": 6,
+      "text": "Prvič."
+    },
+    {
+      "sentenceId": "b-c201b7fd75bee196-s2",
+      "blockIds": [
+        "b-c201b7fd75bee196"
+      ],
+      "start": 406.4800000000001,
+      "end": 409.80000000000007,
+      "startOffset": 7,
+      "endOffset": 48,
+      "text": "Povežite podatke in pripovedovanje zgodb."
+    },
+    {
+      "sentenceId": "b-c201b7fd75bee196-s3",
+      "blockIds": [
+        "b-c201b7fd75bee196"
+      ],
+      "start": 410.00000000000006,
+      "end": 415.2800000000001,
+      "startOffset": 49,
+      "endOffset": 123,
+      "text": "Številke postanejo močne, ko so del zgodbe, v kateri se ljudje prepoznajo."
+    },
+    {
+      "sentenceId": "b-6d74beceab15f9d1-s1",
+      "blockIds": [
+        "b-6d74beceab15f9d1"
+      ],
+      "start": 415.2800000000001,
+      "end": 416.0800000000001,
+      "startOffset": 0,
+      "endOffset": 7,
+      "text": "Drugič."
+    },
+    {
+      "sentenceId": "b-6d74beceab15f9d1-s2",
+      "blockIds": [
+        "b-6d74beceab15f9d1"
+      ],
+      "start": 416.3200000000001,
+      "end": 420.2800000000001,
+      "startOffset": 8,
+      "endOffset": 62,
+      "text": "Povežite fizične intervencije z dolgoročnimi vizijami."
+    },
+    {
+      "sentenceId": "b-6d74beceab15f9d1-s3",
+      "blockIds": [
+        "b-6d74beceab15f9d1"
+      ],
+      "start": 420.56000000000006,
+      "end": 426.4000000000001,
+      "startOffset": 63,
+      "endOffset": 129,
+      "text": "Začasna akcija pokaže, kaj je mogoče; vizija pojasni, kam to vodi."
+    },
+    {
+      "sentenceId": "b-6e690c4efd6b4cab-s1",
+      "blockIds": [
+        "b-6e690c4efd6b4cab"
+      ],
+      "start": 426.4000000000001,
+      "end": 427.2800000000001,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Tretjič."
+    },
+    {
+      "sentenceId": "b-6e690c4efd6b4cab-s2",
+      "blockIds": [
+        "b-6e690c4efd6b4cab"
+      ],
+      "start": 427.5200000000001,
+      "end": 429.7600000000001,
+      "startOffset": 9,
+      "endOffset": 40,
+      "text": "Učite se od »nasprotne strani«."
+    },
+    {
+      "sentenceId": "b-6e690c4efd6b4cab-s3",
+      "blockIds": [
+        "b-6e690c4efd6b4cab"
+      ],
+      "start": 430.1600000000001,
+      "end": 436.24000000000007,
+      "startOffset": 41,
+      "endOffset": 121,
+      "text": "Uporabite marketinška orodja: močne podobe, preprosta sporočila, pravi trenutek."
+    },
+    {
+      "sentenceId": "b-d8669b8665e142ce-s1",
+      "blockIds": [
+        "b-d8669b8665e142ce"
+      ],
+      "start": 436.24000000000007,
+      "end": 437.0400000000001,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Četrtič."
+    },
+    {
+      "sentenceId": "b-d8669b8665e142ce-s2",
+      "blockIds": [
+        "b-d8669b8665e142ce"
+      ],
+      "start": 437.52000000000004,
+      "end": 439.0400000000001,
+      "startOffset": 9,
+      "endOffset": 31,
+      "text": "Veliko fotografirajte."
+    },
+    {
+      "sentenceId": "b-d8669b8665e142ce-s3",
+      "blockIds": [
+        "b-d8669b8665e142ce"
+      ],
+      "start": 439.52000000000004,
+      "end": 445.8400000000001,
+      "startOffset": 32,
+      "endOffset": 122,
+      "text": "Fotografije boste potrebovali za poročila, družbena omrežja, medije in politične pogovore."
+    },
+    {
+      "sentenceId": "b-62763ce3d55dde95-s1",
+      "blockIds": [
+        "b-62763ce3d55dde95"
+      ],
+      "start": 445.8400000000001,
+      "end": 448.0800000000001,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Minimalni načrt spremljanja"
+    },
+    {
+      "sentenceId": "b-b64a30824f0f666e-s1",
+      "blockIds": [
+        "b-b64a30824f0f666e"
+      ],
+      "start": 448.0800000000001,
+      "end": 448.8800000000001,
+      "startOffset": 0,
+      "endOffset": 6,
+      "text": "Prvič."
+    },
+    {
+      "sentenceId": "b-b64a30824f0f666e-s2",
+      "blockIds": [
+        "b-b64a30824f0f666e"
+      ],
+      "start": 449.1200000000001,
+      "end": 456.4800000000001,
+      "startOffset": 7,
+      "endOffset": 101,
+      "text": "Dokumentirajte izhodiščno stanje: fotografije, zemljevid, kratek opis problema in prvo štetje."
+    },
+    {
+      "sentenceId": "b-9b51626de0a07527-s1",
+      "blockIds": [
+        "b-9b51626de0a07527"
+      ],
+      "start": 456.4800000000001,
+      "end": 457.2800000000001,
+      "startOffset": 0,
+      "endOffset": 7,
+      "text": "Drugič."
+    },
+    {
+      "sentenceId": "b-9b51626de0a07527-s2",
+      "blockIds": [
+        "b-9b51626de0a07527"
+      ],
+      "start": 457.5200000000001,
+      "end": 465.2800000000001,
+      "startOffset": 8,
+      "endOffset": 110,
+      "text": "Določite ciljno vrednost: na primer manj tranzitnega prometa, več varnih prehodov ali več podpornikov."
+    },
+    {
+      "sentenceId": "b-5629f54eac4a1af3-s1",
+      "blockIds": [
+        "b-5629f54eac4a1af3"
+      ],
+      "start": 465.2800000000001,
+      "end": 466.12000000000006,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Tretjič."
+    },
+    {
+      "sentenceId": "b-5629f54eac4a1af3-s2",
+      "blockIds": [
+        "b-5629f54eac4a1af3"
+      ],
+      "start": 466.3200000000001,
+      "end": 477.12000000000006,
+      "startOffset": 9,
+      "endOffset": 138,
+      "text": "Izberite metodo: anketa, kartiranje, štetje prometa ali pešcev, opazovanje, ulični radar ali fotografije pred posegom in po njem."
+    },
+    {
+      "sentenceId": "b-d3b3d089d16f99c9-s1",
+      "blockIds": [
+        "b-d3b3d089d16f99c9"
+      ],
+      "start": 477.12000000000006,
+      "end": 477.8400000000001,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Četrtič."
+    },
+    {
+      "sentenceId": "b-d3b3d089d16f99c9-s2",
+      "blockIds": [
+        "b-d3b3d089d16f99c9"
+      ],
+      "start": 477.9200000000001,
+      "end": 485.12000000000006,
+      "startOffset": 9,
+      "endOffset": 89,
+      "text": "Izberite pravi trenutek: vročino v vročih dneh, promet ob konici, igro po pouku."
+    },
+    {
+      "sentenceId": "b-8ef80560988b2494-s1",
+      "blockIds": [
+        "b-8ef80560988b2494"
+      ],
+      "start": 485.12000000000006,
+      "end": 485.9200000000001,
+      "startOffset": 0,
+      "endOffset": 6,
+      "text": "Petič."
+    },
+    {
+      "sentenceId": "b-8ef80560988b2494-s2",
+      "blockIds": [
+        "b-8ef80560988b2494"
+      ],
+      "start": 486.1600000000001,
+      "end": 494.40000000000003,
+      "startOffset": 7,
+      "endOffset": 98,
+      "text": "Določite odgovorne: ena oseba usklajuje podatke, druga fotografije, tretja izjave in stike."
+    },
+    {
+      "sentenceId": "b-515edcc3453c8935-s1",
+      "blockIds": [
+        "b-515edcc3453c8935"
+      ],
+      "start": 494.40000000000003,
+      "end": 495.32000000000005,
+      "startOffset": 0,
+      "endOffset": 7,
+      "text": "Šestič."
+    },
+    {
+      "sentenceId": "b-515edcc3453c8935-s2",
+      "blockIds": [
+        "b-515edcc3453c8935"
+      ],
+      "start": 495.52000000000004,
+      "end": 504.88000000000005,
+      "startOffset": 8,
+      "endOffset": 122,
+      "text": "Pripravite rezultate: Pogosto zadošča ena stran: problem, metoda, najpomembnejše številke, fotografije in zahteva."
+    },
+    {
+      "sentenceId": "b-ed794abdee989017-s1",
+      "blockIds": [
+        "b-ed794abdee989017"
+      ],
+      "start": 504.88000000000005,
+      "end": 505.84000000000003,
+      "startOffset": 0,
+      "endOffset": 7,
+      "text": "Sedmič."
+    },
+    {
+      "sentenceId": "b-ed794abdee989017-s2",
+      "blockIds": [
+        "b-ed794abdee989017"
+      ],
+      "start": 506.08000000000004,
+      "end": 512.4000000000001,
+      "startOffset": 8,
+      "endOffset": 87,
+      "text": "Učite se: Kaj je treba prilagoditi pri zahtevi, akciji ali gradnji zavezništev?"
+    },
+    {
+      "sentenceId": "b-d87709538d563847-s1",
+      "blockIds": [
+        "b-d87709538d563847"
+      ],
+      "start": 512.4000000000001,
+      "end": 513.9200000000001,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Začnite z malim"
+    },
+    {
+      "sentenceId": "b-a274429e16ed413f-s1",
+      "blockIds": [
+        "b-a274429e16ed413f"
+      ],
+      "start": 513.9200000000001,
+      "end": 517.44,
+      "startOffset": 0,
+      "endOffset": 51,
+      "text": "Zanesljivo spremljanje ni nujno znanstveno popolno."
+    },
+    {
+      "sentenceId": "b-a274429e16ed413f-s2",
+      "blockIds": [
+        "b-a274429e16ed413f"
+      ],
+      "start": 517.9200000000001,
+      "end": 525.2800000000001,
+      "startOffset": 52,
+      "endOffset": 145,
+      "text": "Za začetek pogosto zadošča ponovljiva metoda: isti kraj, isti čas, isto opazovalno vprašanje."
+    },
+    {
+      "sentenceId": "b-0062e85fdad8f442-s1",
+      "blockIds": [
+        "b-0062e85fdad8f442"
+      ],
+      "start": 525.2800000000001,
+      "end": 527.7600000000001,
+      "startOffset": 0,
+      "endOffset": 28,
+      "text": "Spremljanje kot mobilizacija"
+    },
+    {
+      "sentenceId": "b-6a75b82ea2e7840d-s1",
+      "blockIds": [
+        "b-6a75b82ea2e7840d"
+      ],
+      "start": 527.7600000000001,
+      "end": 530.5600000000001,
+      "startOffset": 0,
+      "endOffset": 41,
+      "text": "Spremljanje je lahko samo po sebi akcija."
+    },
+    {
+      "sentenceId": "b-6a75b82ea2e7840d-s2",
+      "blockIds": [
+        "b-6a75b82ea2e7840d"
+      ],
+      "start": 531.0400000000001,
+      "end": 534.0000000000001,
+      "startOffset": 42,
+      "endOffset": 83,
+      "text": "Štetje prometa na ulici spodbuja pogovor."
+    },
+    {
+      "sentenceId": "b-6a75b82ea2e7840d-s3",
+      "blockIds": [
+        "b-6a75b82ea2e7840d"
+      ],
+      "start": 534.2400000000001,
+      "end": 539.4000000000001,
+      "startOffset": 84,
+      "endOffset": 158,
+      "text": "Testne klopi z obrazcem za odziv vabijo mimoidoče, da povedo svoje mnenje."
+    },
+    {
+      "sentenceId": "b-6a75b82ea2e7840d-s4",
+      "blockIds": [
+        "b-6a75b82ea2e7840d"
+      ],
+      "start": 539.6800000000001,
+      "end": 548.8800000000001,
+      "startOffset": 159,
+      "endOffset": 290,
+      "text": "Zemljevid vročih ali nevarnih mest lahko pritegne nove podpornike – in vsak, ki sodeluje pri štetju, je lahko nov dejavni zaveznik."
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s1",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 548.8800000000001,
+      "end": 550.7600000000001,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Vprašanje za razmislek."
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s2",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 551.0400000000001,
+      "end": 554.3200000000002,
+      "startOffset": 24,
+      "endOffset": 72,
+      "text": "V svoji soseski želite kartirati mestno vročino."
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s3",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 554.8000000000001,
+      "end": 556.3200000000002,
+      "startOffset": 73,
+      "endOffset": 97,
+      "text": "Kdaj naj začnete anketo?"
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s4",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 556.8000000000001,
+      "end": 559.0400000000001,
+      "startOffset": 98,
+      "endOffset": 128,
+      "text": "Spomladi, ko imajo ljudje čas."
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s5",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 559.44,
+      "end": 561.8400000000001,
+      "startOffset": 129,
+      "endOffset": 146,
+      "text": "V dneh nad 30 °C."
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s6",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 562.4000000000001,
+      "end": 563.8000000000001,
+      "startOffset": 147,
+      "endOffset": 163,
+      "text": "Čas ni pomemben."
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s7",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 564.0800000000002,
+      "end": 566.0800000000002,
+      "startOffset": 164,
+      "endOffset": 197,
+      "text": "Vzemite si trenutek za razmislek."
+    },
+    {
+      "sentenceId": "b-4de1b1cfcdd69426-s8",
+      "blockIds": [
+        "b-4de1b1cfcdd69426"
+      ],
+      "start": 569.6400000000001,
+      "end": 573.4000000000001,
+      "startOffset": 198,
+      "endOffset": 224,
+      "text": "Odgovor: V dneh nad 30 °C."
+    },
+    {
+      "sentenceId": "b-35343e384ec29b44-s1",
+      "blockIds": [
+        "b-35343e384ec29b44"
+      ],
+      "start": 573.4000000000001,
+      "end": 575.5600000000001,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Orodja iz serije delavnic"
+    },
+    {
+      "sentenceId": "b-bf9678b741e0edf1-s1",
+      "blockIds": [
+        "b-bf9678b741e0edf1"
+      ],
+      "start": 575.5600000000001,
+      "end": 579.96,
+      "startOffset": 0,
+      "endOffset": 55,
+      "text": "Ankete in kartiranje vročih točk po pristopu Prostoroža"
+    },
+    {
+      "sentenceId": "b-a0cc162ce6bd9fc3-s1",
+      "blockIds": [
+        "b-a0cc162ce6bd9fc3"
+      ],
+      "start": 579.96,
+      "end": 584.44,
+      "startOffset": 0,
+      "endOffset": 55,
+      "text": "Štetje tokov pešcev in opazovanje zasedenosti parkirišč"
+    },
+    {
+      "sentenceId": "b-45c48999aa36a720-s1",
+      "blockIds": [
+        "b-45c48999aa36a720"
+      ],
+      "start": 584.44,
+      "end": 588.6800000000001,
+      "startOffset": 0,
+      "endOffset": 55,
+      "text": "Aplikacija Public Life za opazovanje življenja na ulici"
+    },
+    {
+      "sentenceId": "b-c8a5a02146023503-s1",
+      "blockIds": [
+        "b-c8a5a02146023503"
+      ],
+      "start": 588.6800000000001,
+      "end": 591.96,
+      "startOffset": 0,
+      "endOffset": 39,
+      "text": "Štetje prometa po vzoru Changing Cities"
+    },
+    {
+      "sentenceId": "b-f38a64392dc61329-s1",
+      "blockIds": [
+        "b-f38a64392dc61329"
+      ],
+      "start": 591.96,
+      "end": 595.8000000000001,
+      "startOffset": 0,
+      "endOffset": 53,
+      "text": "Vodniki za pogovore s podjetniki in lokalnimi akterji"
+    },
+    {
+      "sentenceId": "b-298a5c5da5fb9c73-s1",
+      "blockIds": [
+        "b-298a5c5da5fb9c73"
+      ],
+      "start": 595.8000000000001,
+      "end": 599.48,
+      "startOffset": 0,
+      "endOffset": 47,
+      "text": "Leiwande Straßen Radar za hitro oceno na terenu"
+    },
+    {
+      "sentenceId": "b-55ac1838524b2ab4-s1",
+      "blockIds": [
+        "b-55ac1838524b2ab4"
+      ],
+      "start": 599.48,
+      "end": 605,
+      "startOffset": 0,
+      "endOffset": 69,
+      "text": "Osnovni zemljevid za superbloke in orodje LTN za prostorske scenarije"
+    },
+    {
+      "sentenceId": "b-5511f0c4d56f23a8-s1",
+      "blockIds": [
+        "b-5511f0c4d56f23a8"
+      ],
+      "start": 605,
+      "end": 610.12,
+      "startOffset": 0,
+      "endOffset": 67,
+      "text": "Dokumentiranje stanja pred akcijami taktičnega urbanizma in po njih"
+    }
+  ]
+}

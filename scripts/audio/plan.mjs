@@ -111,7 +111,7 @@ export function makePlan() {
   if (timing.corrections.some(c => !chapters.some(ch => ch.id === c.chapterId))) throw new Error('Sentence timing correction refers to a missing chapter');
   const planHash = hash({ config, policy: overrides.policy, chapters: chapters.map(c => ({ id: c.id, sourceHash: c.sourceHash, scriptHash: c.scriptHash, assemblyHash: c.assemblyHash })) });
   return { schemaVersion: 1, planHash, config, chapters,
-    characters: chapters.reduce((n, c) => n + c.characters, 0), requiredOutputs: { mp3: chapters.length, cues: chapters.length, transcripts: chapters.length, m4b: languages.length } };
+    characters: chapters.reduce((n, c) => n + c.characters, 0), requiredOutputs: { mp3: chapters.length, cues: chapters.length, m4b: languages.length } };
 }
 export function writePlan(plan) {
   write('.cache/audio/plan.json', plan);

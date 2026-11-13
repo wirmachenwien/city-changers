@@ -13,7 +13,7 @@ const commands = {
   proofread: { usage: '', description: 'Write .cache/audio/proofread/index.html for text comparison.', values: [] },
   preflight: { usage: '', description: 'Check allowance and voice access; no speech generation.', values: [] },
   generate: { usage: '--budget N [--chapter ID | --units ID,ID] [--plan HASH] [--yes]', description: 'Generate missing narration only, within an explicit character budget.', values: ['budget', 'chapter', 'units', 'plan'] },
-  prepare: { usage: '[--chapter ID | --language en|de|sl]', description: 'Assemble retained narration and a release inventory; mirror cues/transcripts to public/audio/ and prune stale folders. No selection prepares everything; no paid calls or uploads.', values: ['chapter', 'language'] },
+  prepare: { usage: '[--chapter ID | --language en|de|sl]', description: 'Assemble retained narration, cues and a release inventory in public/audio/; prune stale folders. No selection prepares everything; no paid calls or uploads.', values: ['chapter', 'language'] },
 };
 function validateArguments() {
   const spec = commands[command];

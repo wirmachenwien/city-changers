@@ -49,7 +49,7 @@ test('player defers loading and the timeline until play; no native volume or rem
   assert.equal(p.audio.hasAttribute('controls'), false);
   assert.equal(p.audio.volume, 1);
   assert.equal(p.audio.muted, false);
-  assert.equal(p.document.querySelector('[data-seek], [data-audio-transcript], a[download]'), null);
+  assert.equal(p.document.querySelector('[data-seek], a[download]'), null);
 });
 test('pebble toggles playback and exposes the keyboard-accessible timeline only on first click', async () => {
   const p = player();

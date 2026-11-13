@@ -1,0 +1,1504 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "en/06",
+  "cues": [
+    {
+      "start": 0,
+      "end": 3.28,
+      "blockIds": [
+        "b-6be3fdd1a00666f5"
+      ]
+    },
+    {
+      "start": 3.28,
+      "end": 11.6,
+      "blockIds": [
+        "b-2250685c99a0f302"
+      ]
+    },
+    {
+      "start": 11.6,
+      "end": 13.52,
+      "blockIds": [
+        "b-63ff875b1c06fdf3"
+      ]
+    },
+    {
+      "start": 13.52,
+      "end": 31.68,
+      "blockIds": [
+        "b-389cc16a77aa5bcb"
+      ]
+    },
+    {
+      "start": 31.68,
+      "end": 34.48,
+      "blockIds": [
+        "b-cfaca502d623fd13"
+      ]
+    },
+    {
+      "start": 34.48,
+      "end": 45.28,
+      "blockIds": [
+        "b-1974532f4abe3a7f"
+      ]
+    },
+    {
+      "start": 45.28,
+      "end": 69.92,
+      "blockIds": [
+        "b-a6b8f66cc1e5dac0"
+      ]
+    },
+    {
+      "start": 69.92,
+      "end": 79.44,
+      "blockIds": [
+        "b-75d3f32103451e01"
+      ]
+    },
+    {
+      "start": 79.44,
+      "end": 88.64,
+      "blockIds": [
+        "b-39da820dff4ca624"
+      ]
+    },
+    {
+      "start": 88.64,
+      "end": 96.4,
+      "blockIds": [
+        "b-28d6925325fa5b03"
+      ]
+    },
+    {
+      "start": 96.4,
+      "end": 100.08000000000001,
+      "blockIds": [
+        "b-7e73c3231709f17e"
+      ]
+    },
+    {
+      "start": 100.08000000000001,
+      "end": 113.20000000000002,
+      "blockIds": [
+        "b-90523cb3205fcbf6"
+      ]
+    },
+    {
+      "start": 113.20000000000002,
+      "end": 135.36,
+      "blockIds": [
+        "b-133dade65800737c"
+      ]
+    },
+    {
+      "start": 135.36,
+      "end": 144.64000000000001,
+      "blockIds": [
+        "b-bbf65ed2d4edcd45"
+      ]
+    },
+    {
+      "start": 144.64000000000001,
+      "end": 158.48000000000002,
+      "blockIds": [
+        "b-5ac17f6b2af57c06"
+      ]
+    },
+    {
+      "start": 158.48000000000002,
+      "end": 164.56000000000003,
+      "blockIds": [
+        "b-80b1b6993ef56c8b"
+      ]
+    },
+    {
+      "start": 164.56000000000003,
+      "end": 171.52000000000004,
+      "blockIds": [
+        "b-d8743468fe1fcd9a"
+      ]
+    },
+    {
+      "start": 171.52000000000004,
+      "end": 176.00000000000003,
+      "blockIds": [
+        "b-6a6453266be90e7d"
+      ]
+    },
+    {
+      "start": 176.00000000000003,
+      "end": 188.16000000000003,
+      "blockIds": [
+        "b-db987c97a4422593"
+      ]
+    },
+    {
+      "start": 188.16000000000003,
+      "end": 198.72000000000003,
+      "blockIds": [
+        "b-4637d0fd74a57ed0"
+      ]
+    },
+    {
+      "start": 198.72000000000003,
+      "end": 226.16000000000003,
+      "blockIds": [
+        "b-a01dad92ebebf65f"
+      ]
+    },
+    {
+      "start": 226.16000000000003,
+      "end": 235.60000000000002,
+      "blockIds": [
+        "b-815dfb41e5ec48cc"
+      ]
+    },
+    {
+      "start": 235.60000000000002,
+      "end": 245.76000000000002,
+      "blockIds": [
+        "b-6540a82c3d2c4c5c"
+      ]
+    },
+    {
+      "start": 245.76000000000002,
+      "end": 252.4,
+      "blockIds": [
+        "b-6944e4cbf58de10c"
+      ]
+    },
+    {
+      "start": 252.4,
+      "end": 256.56,
+      "blockIds": [
+        "b-1aadb034750ea65c"
+      ]
+    },
+    {
+      "start": 256.56,
+      "end": 268.64,
+      "blockIds": [
+        "b-663c69aab78acc6e"
+      ]
+    },
+    {
+      "start": 268.64,
+      "end": 279.76,
+      "blockIds": [
+        "b-655e0f0df8ef95db"
+      ]
+    },
+    {
+      "start": 279.76,
+      "end": 289.52,
+      "blockIds": [
+        "b-51cae1f2fb08d3ce"
+      ]
+    },
+    {
+      "start": 289.52,
+      "end": 303.84,
+      "blockIds": [
+        "b-f6eb1314aa675a38"
+      ]
+    },
+    {
+      "start": 303.84,
+      "end": 314.08,
+      "blockIds": [
+        "b-04df5278a08b1c9c"
+      ]
+    },
+    {
+      "start": 314.08,
+      "end": 320.8,
+      "blockIds": [
+        "b-cc87c2035b6932fd"
+      ]
+    },
+    {
+      "start": 320.8,
+      "end": 328.8,
+      "blockIds": [
+        "b-90ebd3ca35b72943"
+      ]
+    },
+    {
+      "start": 328.8,
+      "end": 329.92,
+      "blockIds": [
+        "b-eeacd5b2ea6dc728"
+      ]
+    },
+    {
+      "start": 330.08,
+      "end": 344.15999999999997,
+      "blockIds": [
+        "b-a47f9db96b855e8f"
+      ]
+    },
+    {
+      "start": 344.15999999999997,
+      "end": 345.76,
+      "blockIds": [
+        "b-5659fe724e022ea7"
+      ]
+    },
+    {
+      "start": 345.76,
+      "end": 357.12,
+      "blockIds": [
+        "b-dd00a0f2a86af79a"
+      ]
+    },
+    {
+      "start": 357.12,
+      "end": 359.52,
+      "blockIds": [
+        "b-479232c7971e4eec"
+      ]
+    },
+    {
+      "start": 359.52,
+      "end": 371.59999999999997,
+      "blockIds": [
+        "b-c2cafe6a13b0d825"
+      ]
+    },
+    {
+      "start": 371.59999999999997,
+      "end": 417.08,
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ]
+    },
+    {
+      "start": 417.08,
+      "end": 418.52,
+      "blockIds": [
+        "b-50ffc5be3474a080"
+      ]
+    },
+    {
+      "start": 418.52,
+      "end": 421.96,
+      "blockIds": [
+        "b-bef046621bcc6faa"
+      ]
+    },
+    {
+      "start": 421.96,
+      "end": 424.52,
+      "blockIds": [
+        "b-a70dd32dd9279f65"
+      ]
+    },
+    {
+      "start": 424.52,
+      "end": 427.56,
+      "blockIds": [
+        "b-19b1d2016972c7b7"
+      ]
+    },
+    {
+      "start": 427.56,
+      "end": 430.28000000000003,
+      "blockIds": [
+        "b-43bbc30d0a8b998b"
+      ]
+    },
+    {
+      "start": 430.28000000000003,
+      "end": 433.48,
+      "blockIds": [
+        "b-d47cb23796a92dd7"
+      ]
+    },
+    {
+      "start": 433.48,
+      "end": 435,
+      "blockIds": [
+        "b-7152c20bc2be2355"
+      ]
+    },
+    {
+      "start": 435,
+      "end": 436.12,
+      "blockIds": [
+        "b-da41c15927e592f7"
+      ]
+    },
+    {
+      "start": 436.12,
+      "end": 437.24,
+      "blockIds": [
+        "b-6424c6329b649784"
+      ]
+    },
+    {
+      "start": 437.4,
+      "end": 439.4,
+      "blockIds": [
+        "b-571798bec3435326"
+      ]
+    },
+    {
+      "start": 439.4,
+      "end": 442.76,
+      "blockIds": [
+        "b-786059e9dba48a2d"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-6be3fdd1a00666f5-s1",
+      "blockIds": [
+        "b-6be3fdd1a00666f5"
+      ],
+      "start": 0,
+      "end": 3.28,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Chapter 6: Work plan and sources"
+    },
+    {
+      "sentenceId": "b-2250685c99a0f302-s1",
+      "blockIds": [
+        "b-2250685c99a0f302"
+      ],
+      "start": 3.28,
+      "end": 11.6,
+      "startOffset": 0,
+      "endOffset": 128,
+      "text": "This chapter brings together the tools from chapters 2–5 as a flexible work plan for a new or existing neighbourhood initiative."
+    },
+    {
+      "sentenceId": "b-63ff875b1c06fdf3-s1",
+      "blockIds": [
+        "b-63ff875b1c06fdf3"
+      ],
+      "start": 11.6,
+      "end": 13.52,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "A four-week start-up plan"
+    },
+    {
+      "sentenceId": "b-389cc16a77aa5bcb-s1",
+      "blockIds": [
+        "b-389cc16a77aa5bcb"
+      ],
+      "start": 13.52,
+      "end": 16.88,
+      "startOffset": 0,
+      "endOffset": 53,
+      "text": "You don’t need a finished master plan to get started."
+    },
+    {
+      "sentenceId": "b-389cc16a77aa5bcb-s2",
+      "blockIds": [
+        "b-389cc16a77aa5bcb"
+      ],
+      "start": 16.96,
+      "end": 23.68,
+      "startOffset": 54,
+      "endOffset": 169,
+      "text": "Use these four weeks to understand your neighbourhood, bring people together, and take a first step towards change."
+    },
+    {
+      "sentenceId": "b-389cc16a77aa5bcb-s3",
+      "blockIds": [
+        "b-389cc16a77aa5bcb"
+      ],
+      "start": 23.92,
+      "end": 31.68,
+      "startOffset": 170,
+      "endOffset": 297,
+      "text": "Adjust the pace to your group and local circumstances: building relationships and winning lasting improvements can take longer."
+    },
+    {
+      "sentenceId": "b-cfaca502d623fd13-s1",
+      "blockIds": [
+        "b-cfaca502d623fd13"
+      ],
+      "start": 31.68,
+      "end": 34.48,
+      "startOffset": 0,
+      "endOffset": 38,
+      "text": "Week 1: Get to know your neighbourhood"
+    },
+    {
+      "sentenceId": "b-1974532f4abe3a7f-s1",
+      "blockIds": [
+        "b-1974532f4abe3a7f"
+      ],
+      "start": 34.48,
+      "end": 35.839999999999996,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Choose your area."
+    },
+    {
+      "sentenceId": "b-1974532f4abe3a7f-s2",
+      "blockIds": [
+        "b-1974532f4abe3a7f"
+      ],
+      "start": 36.08,
+      "end": 39.199999999999996,
+      "startOffset": 18,
+      "endOffset": 69,
+      "text": "Mark a street, junction, or neighbourhood on a map."
+    },
+    {
+      "sentenceId": "b-1974532f4abe3a7f-s3",
+      "blockIds": [
+        "b-1974532f4abe3a7f"
+      ],
+      "start": 39.599999999999994,
+      "end": 45.28,
+      "startOffset": 70,
+      "endOffset": 169,
+      "text": "If you’re considering a superblock, look at the wider area and how through traffic moves across it."
+    },
+    {
+      "sentenceId": "b-a6b8f66cc1e5dac0-s1",
+      "blockIds": [
+        "b-a6b8f66cc1e5dac0"
+      ],
+      "start": 45.28,
+      "end": 46.800000000000004,
+      "startOffset": 0,
+      "endOffset": 19,
+      "text": "Listen and observe."
+    },
+    {
+      "sentenceId": "b-a6b8f66cc1e5dac0-s2",
+      "blockIds": [
+        "b-a6b8f66cc1e5dac0"
+      ],
+      "start": 47.28,
+      "end": 52.160000000000004,
+      "startOffset": 20,
+      "endOffset": 97,
+      "text": "Walk through the area and talk to people who live, work, or spend time there."
+    },
+    {
+      "sentenceId": "b-a6b8f66cc1e5dac0-s3",
+      "blockIds": [
+        "b-a6b8f66cc1e5dac0"
+      ],
+      "start": 52.28,
+      "end": 55.84,
+      "startOffset": 98,
+      "endOffset": 143,
+      "text": "What feels unsafe, uncomfortable, or missing?"
+    },
+    {
+      "sentenceId": "b-a6b8f66cc1e5dac0-s4",
+      "blockIds": [
+        "b-a6b8f66cc1e5dac0"
+      ],
+      "start": 55.92,
+      "end": 57.6,
+      "startOffset": 144,
+      "endOffset": 165,
+      "text": "What do people value?"
+    },
+    {
+      "sentenceId": "b-a6b8f66cc1e5dac0-s5",
+      "blockIds": [
+        "b-a6b8f66cc1e5dac0"
+      ],
+      "start": 57.68,
+      "end": 59.68,
+      "startOffset": 166,
+      "endOffset": 192,
+      "text": "Document a starting point."
+    },
+    {
+      "sentenceId": "b-a6b8f66cc1e5dac0-s6",
+      "blockIds": [
+        "b-a6b8f66cc1e5dac0"
+      ],
+      "start": 59.8,
+      "end": 69.92,
+      "startOffset": 193,
+      "endOffset": 348,
+      "text": "Take photos, mark problem spots on a map, and choose one or two things to observe or count, such as traffic, pedestrian movements, or how many people stop."
+    },
+    {
+      "sentenceId": "b-75d3f32103451e01-s1",
+      "blockIds": [
+        "b-75d3f32103451e01"
+      ],
+      "start": 69.92,
+      "end": 71.44,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Bring a core team together."
+    },
+    {
+      "sentenceId": "b-75d3f32103451e01-s2",
+      "blockIds": [
+        "b-75d3f32103451e01"
+      ],
+      "start": 71.84,
+      "end": 73.76,
+      "startOffset": 28,
+      "endOffset": 67,
+      "text": "Find a few neighbours who want to help."
+    },
+    {
+      "sentenceId": "b-75d3f32103451e01-s3",
+      "blockIds": [
+        "b-75d3f32103451e01"
+      ],
+      "start": 74.24000000000001,
+      "end": 79.44,
+      "startOffset": 68,
+      "endOffset": 152,
+      "text": "Share initial roles, set up a communication channel, and agree on your next meeting."
+    },
+    {
+      "sentenceId": "b-39da820dff4ca624-s1",
+      "blockIds": [
+        "b-39da820dff4ca624"
+      ],
+      "start": 79.44,
+      "end": 84.56,
+      "startOffset": 0,
+      "endOffset": 70,
+      "text": "Try: Use Street Shit Bingo or the Leiwande Straßen Radar on your walk."
+    },
+    {
+      "sentenceId": "b-39da820dff4ca624-s2",
+      "blockIds": [
+        "b-39da820dff4ca624"
+      ],
+      "start": 84.8,
+      "end": 88.64,
+      "startOffset": 71,
+      "endOffset": 131,
+      "text": "For more ideas, see the power of superblocks and monitoring."
+    },
+    {
+      "sentenceId": "b-28d6925325fa5b03-s1",
+      "blockIds": [
+        "b-28d6925325fa5b03"
+      ],
+      "start": 88.64,
+      "end": 96.4,
+      "startOffset": 0,
+      "endOffset": 121,
+      "text": "By the end of the week: You have a defined area, an initial picture of the problems, and a small group ready to continue."
+    },
+    {
+      "sentenceId": "b-7e73c3231709f17e-s1",
+      "blockIds": [
+        "b-7e73c3231709f17e"
+      ],
+      "start": 96.4,
+      "end": 100.08000000000001,
+      "startOffset": 0,
+      "endOffset": 42,
+      "text": "Week 2: Build a shared vision and strategy"
+    },
+    {
+      "sentenceId": "b-90523cb3205fcbf6-s1",
+      "blockIds": [
+        "b-90523cb3205fcbf6"
+      ],
+      "start": 100.08000000000001,
+      "end": 102.16000000000001,
+      "startOffset": 0,
+      "endOffset": 29,
+      "text": "Create alternatives together."
+    },
+    {
+      "sentenceId": "b-90523cb3205fcbf6-s2",
+      "blockIds": [
+        "b-90523cb3205fcbf6"
+      ],
+      "start": 102.4,
+      "end": 109.36000000000001,
+      "startOffset": 30,
+      "endOffset": 144,
+      "text": "Use a street plan, the Street Design Table, or a simple sketch to explore how the space could be used differently."
+    },
+    {
+      "sentenceId": "b-90523cb3205fcbf6-s3",
+      "blockIds": [
+        "b-90523cb3205fcbf6"
+      ],
+      "start": 109.60000000000001,
+      "end": 113.20000000000002,
+      "startOffset": 145,
+      "endOffset": 203,
+      "text": "Think about small changes as well as a longer-term vision."
+    },
+    {
+      "sentenceId": "b-133dade65800737c-s1",
+      "blockIds": [
+        "b-133dade65800737c"
+      ],
+      "start": 113.20000000000002,
+      "end": 114.64000000000001,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Set a clear goal."
+    },
+    {
+      "sentenceId": "b-133dade65800737c-s2",
+      "blockIds": [
+        "b-133dade65800737c"
+      ],
+      "start": 114.72000000000001,
+      "end": 117.84000000000002,
+      "startOffset": 18,
+      "endOffset": 57,
+      "text": "What should change, where, and by when?"
+    },
+    {
+      "sentenceId": "b-133dade65800737c-s3",
+      "blockIds": [
+        "b-133dade65800737c"
+      ],
+      "start": 118.24000000000002,
+      "end": 121.28000000000002,
+      "startOffset": 58,
+      "endOffset": 104,
+      "text": "Turn your vision into a concrete first demand."
+    },
+    {
+      "sentenceId": "b-133dade65800737c-s4",
+      "blockIds": [
+        "b-133dade65800737c"
+      ],
+      "start": 121.84000000000002,
+      "end": 123.04000000000002,
+      "startOffset": 105,
+      "endOffset": 121,
+      "text": "Map your allies."
+    },
+    {
+      "sentenceId": "b-133dade65800737c-s5",
+      "blockIds": [
+        "b-133dade65800737c"
+      ],
+      "start": 123.44000000000001,
+      "end": 132.08,
+      "startOffset": 122,
+      "endOffset": 265,
+      "text": "Use the spectrum of allies to identify people and groups already on your side, those who might support you, and those you have not yet reached."
+    },
+    {
+      "sentenceId": "b-133dade65800737c-s6",
+      "blockIds": [
+        "b-133dade65800737c"
+      ],
+      "start": 132.24,
+      "end": 135.36,
+      "startOffset": 266,
+      "endOffset": 321,
+      "text": "Choose one group you could move one step closer to you."
+    },
+    {
+      "sentenceId": "b-bbf65ed2d4edcd45-s1",
+      "blockIds": [
+        "b-bbf65ed2d4edcd45"
+      ],
+      "start": 135.36,
+      "end": 137.04000000000002,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "Find the decision point."
+    },
+    {
+      "sentenceId": "b-bbf65ed2d4edcd45-s2",
+      "blockIds": [
+        "b-bbf65ed2d4edcd45"
+      ],
+      "start": 137.28,
+      "end": 140.72000000000003,
+      "startOffset": 25,
+      "endOffset": 78,
+      "text": "Who can approve, implement, or influence your demand?"
+    },
+    {
+      "sentenceId": "b-bbf65ed2d4edcd45-s3",
+      "blockIds": [
+        "b-bbf65ed2d4edcd45"
+      ],
+      "start": 141.20000000000002,
+      "end": 144.64000000000001,
+      "startOffset": 79,
+      "endOffset": 135,
+      "text": "Note any upcoming meetings or opportunities to raise it."
+    },
+    {
+      "sentenceId": "b-5ac17f6b2af57c06-s1",
+      "blockIds": [
+        "b-5ac17f6b2af57c06"
+      ],
+      "start": 144.64000000000001,
+      "end": 145.84,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Plan to win."
+    },
+    {
+      "sentenceId": "b-5ac17f6b2af57c06-s2",
+      "blockIds": [
+        "b-5ac17f6b2af57c06"
+      ],
+      "start": 146.32000000000002,
+      "end": 158.48000000000002,
+      "startOffset": 13,
+      "endOffset": 200,
+      "text": "Decide which two or three activities best fit your goal: for example, personal conversations to build local support, a visible action to attract attention, or a meeting with the district."
+    },
+    {
+      "sentenceId": "b-80b1b6993ef56c8b-s1",
+      "blockIds": [
+        "b-80b1b6993ef56c8b"
+      ],
+      "start": 158.48000000000002,
+      "end": 164.56000000000003,
+      "startOffset": 0,
+      "endOffset": 85,
+      "text": "Try: Use the street design process and the spectrum of allies and campaign structure."
+    },
+    {
+      "sentenceId": "b-d8743468fe1fcd9a-s1",
+      "blockIds": [
+        "b-d8743468fe1fcd9a"
+      ],
+      "start": 164.56000000000003,
+      "end": 171.52000000000004,
+      "startOffset": 0,
+      "endOffset": 109,
+      "text": "By the end of the week: You have a shared vision, a first demand, and a simple strategy for building support."
+    },
+    {
+      "sentenceId": "b-6a6453266be90e7d-s1",
+      "blockIds": [
+        "b-6a6453266be90e7d"
+      ],
+      "start": 171.52000000000004,
+      "end": 176.00000000000003,
+      "startOffset": 0,
+      "endOffset": 52,
+      "text": "Week 3: Invite people in and make the vision visible"
+    },
+    {
+      "sentenceId": "b-db987c97a4422593-s1",
+      "blockIds": [
+        "b-db987c97a4422593"
+      ],
+      "start": 176.00000000000003,
+      "end": 178.16000000000003,
+      "startOffset": 0,
+      "endOffset": 30,
+      "text": "Have one-on-one conversations."
+    },
+    {
+      "sentenceId": "b-db987c97a4422593-s2",
+      "blockIds": [
+        "b-db987c97a4422593"
+      ],
+      "start": 178.40000000000003,
+      "end": 188.16000000000003,
+      "startOffset": 31,
+      "endOffset": 179,
+      "text": "Ask people what matters to them, listen to their experiences, and make a concrete invitation: join a meeting, help with an action, or share an idea."
+    },
+    {
+      "sentenceId": "b-4637d0fd74a57ed0-s1",
+      "blockIds": [
+        "b-4637d0fd74a57ed0"
+      ],
+      "start": 188.16000000000003,
+      "end": 190.00000000000003,
+      "startOffset": 0,
+      "endOffset": 29,
+      "text": "Plan a small public activity."
+    },
+    {
+      "sentenceId": "b-4637d0fd74a57ed0-s2",
+      "blockIds": [
+        "b-4637d0fd74a57ed0"
+      ],
+      "start": 190.40000000000003,
+      "end": 198.72000000000003,
+      "startOffset": 30,
+      "endOffset": 157,
+      "text": "A street walk, design workshop, count, or playful intervention can make the issue visible and give people a way to participate."
+    },
+    {
+      "sentenceId": "b-a01dad92ebebf65f-s1",
+      "blockIds": [
+        "b-a01dad92ebebf65f"
+      ],
+      "start": 198.72000000000003,
+      "end": 200.88000000000002,
+      "startOffset": 0,
+      "endOffset": 34,
+      "text": "Connect the action to your demand."
+    },
+    {
+      "sentenceId": "b-a01dad92ebebf65f-s2",
+      "blockIds": [
+        "b-a01dad92ebebf65f"
+      ],
+      "start": 201.28000000000003,
+      "end": 204.40000000000003,
+      "startOffset": 35,
+      "endOffset": 84,
+      "text": "Show both the problem and a possible alternative."
+    },
+    {
+      "sentenceId": "b-a01dad92ebebf65f-s3",
+      "blockIds": [
+        "b-a01dad92ebebf65f"
+      ],
+      "start": 204.80000000000004,
+      "end": 211.12000000000003,
+      "startOffset": 85,
+      "endOffset": 186,
+      "text": "For example, use a Street Banner or temporary seating to invite people to imagine a different street."
+    },
+    {
+      "sentenceId": "b-a01dad92ebebf65f-s4",
+      "blockIds": [
+        "b-a01dad92ebebf65f"
+      ],
+      "start": 211.60000000000002,
+      "end": 212.80000000000004,
+      "startOffset": 187,
+      "endOffset": 208,
+      "text": "Check what is needed."
+    },
+    {
+      "sentenceId": "b-a01dad92ebebf65f-s5",
+      "blockIds": [
+        "b-a01dad92ebebf65f"
+      ],
+      "start": 213.20000000000002,
+      "end": 219.64000000000004,
+      "startOffset": 209,
+      "endOffset": 304,
+      "text": "Clarify permissions, access for disabled people, materials, and responsibilities before acting."
+    },
+    {
+      "sentenceId": "b-a01dad92ebebf65f-s6",
+      "blockIds": [
+        "b-a01dad92ebebf65f"
+      ],
+      "start": 219.84000000000003,
+      "end": 226.16000000000003,
+      "startOffset": 305,
+      "endOffset": 409,
+      "text": "Ask allies to take on specific tasks, and pair new volunteers with more experienced people where useful."
+    },
+    {
+      "sentenceId": "b-815dfb41e5ec48cc-s1",
+      "blockIds": [
+        "b-815dfb41e5ec48cc"
+      ],
+      "start": 226.16000000000003,
+      "end": 227.28000000000003,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Collect feedback."
+    },
+    {
+      "sentenceId": "b-815dfb41e5ec48cc-s2",
+      "blockIds": [
+        "b-815dfb41e5ec48cc"
+      ],
+      "start": 227.68000000000004,
+      "end": 231.28000000000003,
+      "startOffset": 18,
+      "endOffset": 74,
+      "text": "Invite participants and passers-by to share their views."
+    },
+    {
+      "sentenceId": "b-815dfb41e5ec48cc-s3",
+      "blockIds": [
+        "b-815dfb41e5ec48cc"
+      ],
+      "start": 231.52000000000004,
+      "end": 235.60000000000002,
+      "startOffset": 75,
+      "endOffset": 141,
+      "text": "Make clear what can still change and how you will use their input."
+    },
+    {
+      "sentenceId": "b-6540a82c3d2c4c5c-s1",
+      "blockIds": [
+        "b-6540a82c3d2c4c5c"
+      ],
+      "start": 235.60000000000002,
+      "end": 245.76000000000002,
+      "startOffset": 0,
+      "endOffset": 137,
+      "text": "Try: Combine tactical urbanism with the head, heart, hand approach: connect what moves people to a clear plan and a concrete way to help."
+    },
+    {
+      "sentenceId": "b-6944e4cbf58de10c-s1",
+      "blockIds": [
+        "b-6944e4cbf58de10c"
+      ],
+      "start": 245.76000000000002,
+      "end": 252.4,
+      "startOffset": 0,
+      "endOffset": 108,
+      "text": "By the end of the week: More people know about your initiative and have had a chance to shape or support it."
+    },
+    {
+      "sentenceId": "b-1aadb034750ea65c-s1",
+      "blockIds": [
+        "b-1aadb034750ea65c"
+      ],
+      "start": 252.4,
+      "end": 256.56,
+      "startOffset": 0,
+      "endOffset": 53,
+      "text": "Week 4: Share what you learned and plan the next step"
+    },
+    {
+      "sentenceId": "b-663c69aab78acc6e-s1",
+      "blockIds": [
+        "b-663c69aab78acc6e"
+      ],
+      "start": 256.56,
+      "end": 258.16,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Review your evidence."
+    },
+    {
+      "sentenceId": "b-663c69aab78acc6e-s2",
+      "blockIds": [
+        "b-663c69aab78acc6e"
+      ],
+      "start": 258.4,
+      "end": 262.6,
+      "startOffset": 22,
+      "endOffset": 80,
+      "text": "Bring together observations, counts, photos, and feedback."
+    },
+    {
+      "sentenceId": "b-663c69aab78acc6e-s3",
+      "blockIds": [
+        "b-663c69aab78acc6e"
+      ],
+      "start": 262.88,
+      "end": 268.64,
+      "startOffset": 81,
+      "endOffset": 185,
+      "text": "If you tested an intervention, compare it with your starting point using the same method where possible."
+    },
+    {
+      "sentenceId": "b-655e0f0df8ef95db-s1",
+      "blockIds": [
+        "b-655e0f0df8ef95db"
+      ],
+      "start": 268.64,
+      "end": 269.68,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Tell the story."
+    },
+    {
+      "sentenceId": "b-655e0f0df8ef95db-s2",
+      "blockIds": [
+        "b-655e0f0df8ef95db"
+      ],
+      "start": 270.15999999999997,
+      "end": 274.64,
+      "startOffset": 16,
+      "endOffset": 91,
+      "text": "Summarise the problem, your proposed solution, and what people experienced."
+    },
+    {
+      "sentenceId": "b-655e0f0df8ef95db-s3",
+      "blockIds": [
+        "b-655e0f0df8ef95db"
+      ],
+      "start": 275.03999999999996,
+      "end": 279.76,
+      "startOffset": 92,
+      "endOffset": 165,
+      "text": "A short page with a map, a few figures, photos, and quotes can be enough."
+    },
+    {
+      "sentenceId": "b-51cae1f2fb08d3ce-s1",
+      "blockIds": [
+        "b-51cae1f2fb08d3ce"
+      ],
+      "start": 279.76,
+      "end": 281.44,
+      "startOffset": 0,
+      "endOffset": 28,
+      "text": "Follow up with participants."
+    },
+    {
+      "sentenceId": "b-51cae1f2fb08d3ce-s2",
+      "blockIds": [
+        "b-51cae1f2fb08d3ce"
+      ],
+      "start": 281.84,
+      "end": 285.59999999999997,
+      "startOffset": 29,
+      "endOffset": 95,
+      "text": "Share what you heard, what you will change, and what happens next."
+    },
+    {
+      "sentenceId": "b-51cae1f2fb08d3ce-s3",
+      "blockIds": [
+        "b-51cae1f2fb08d3ce"
+      ],
+      "start": 286,
+      "end": 289.52,
+      "startOffset": 96,
+      "endOffset": 154,
+      "text": "Invite people to take on a role that fits their interests."
+    },
+    {
+      "sentenceId": "b-f6eb1314aa675a38-s1",
+      "blockIds": [
+        "b-f6eb1314aa675a38"
+      ],
+      "start": 289.52,
+      "end": 291.68,
+      "startOffset": 0,
+      "endOffset": 36,
+      "text": "Take your demand to decision-makers."
+    },
+    {
+      "sentenceId": "b-f6eb1314aa675a38-s2",
+      "blockIds": [
+        "b-f6eb1314aa675a38"
+      ],
+      "start": 292.08,
+      "end": 299.64,
+      "startOffset": 37,
+      "endOffset": 141,
+      "text": "Choose a suitable next move: a meeting, an open letter, a petition, a district motion, or a media story."
+    },
+    {
+      "sentenceId": "b-f6eb1314aa675a38-s3",
+      "blockIds": [
+        "b-f6eb1314aa675a38"
+      ],
+      "start": 299.84,
+      "end": 303.84,
+      "startOffset": 142,
+      "endOffset": 209,
+      "text": "Be clear about who needs to act and what you are asking them to do."
+    },
+    {
+      "sentenceId": "b-04df5278a08b1c9c-s1",
+      "blockIds": [
+        "b-04df5278a08b1c9c"
+      ],
+      "start": 303.84,
+      "end": 305.35999999999996,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Set the next milestone."
+    },
+    {
+      "sentenceId": "b-04df5278a08b1c9c-s2",
+      "blockIds": [
+        "b-04df5278a08b1c9c"
+      ],
+      "start": 305.67999999999995,
+      "end": 314.08,
+      "startOffset": 24,
+      "endOffset": 152,
+      "text": "Agree on a date, assign responsibilities, and decide how you will track progress, including political responses and commitments."
+    },
+    {
+      "sentenceId": "b-cc87c2035b6932fd-s1",
+      "blockIds": [
+        "b-cc87c2035b6932fd"
+      ],
+      "start": 314.08,
+      "end": 320.8,
+      "startOffset": 0,
+      "endOffset": 98,
+      "text": "Try: Use the minimal monitoring plan to connect evidence with your story and learn what to adjust."
+    },
+    {
+      "sentenceId": "b-90ebd3ca35b72943-s1",
+      "blockIds": [
+        "b-90ebd3ca35b72943"
+      ],
+      "start": 320.8,
+      "end": 328.8,
+      "startOffset": 0,
+      "endOffset": 129,
+      "text": "By the end of the week: You have a clearer demand, evidence to support it, and a next step that people can work towards together."
+    },
+    {
+      "sentenceId": "b-eeacd5b2ea6dc728-s1",
+      "blockIds": [
+        "b-eeacd5b2ea6dc728"
+      ],
+      "start": 328.8,
+      "end": 329.92,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Keep going"
+    },
+    {
+      "sentenceId": "b-a47f9db96b855e8f-s1",
+      "blockIds": [
+        "b-a47f9db96b855e8f"
+      ],
+      "start": 330.08,
+      "end": 332.47999999999996,
+      "startOffset": 0,
+      "endOffset": 38,
+      "text": "Change rarely follows a straight line."
+    },
+    {
+      "sentenceId": "b-a47f9db96b855e8f-s2",
+      "blockIds": [
+        "b-a47f9db96b855e8f"
+      ],
+      "start": 332.96,
+      "end": 336.47999999999996,
+      "startOffset": 39,
+      "endOffset": 90,
+      "text": "Keep listening, testing and building relationships."
+    },
+    {
+      "sentenceId": "b-a47f9db96b855e8f-s3",
+      "blockIds": [
+        "b-a47f9db96b855e8f"
+      ],
+      "start": 336.71999999999997,
+      "end": 340.32,
+      "startOffset": 91,
+      "endOffset": 141,
+      "text": "Return to your plan as you learn: What is working?"
+    },
+    {
+      "sentenceId": "b-a47f9db96b855e8f-s4",
+      "blockIds": [
+        "b-a47f9db96b855e8f"
+      ],
+      "start": 340.4,
+      "end": 342.24,
+      "startOffset": 142,
+      "endOffset": 172,
+      "text": "Who else needs to be involved?"
+    },
+    {
+      "sentenceId": "b-a47f9db96b855e8f-s5",
+      "blockIds": [
+        "b-a47f9db96b855e8f"
+      ],
+      "start": 342.32,
+      "end": 344.15999999999997,
+      "startOffset": 173,
+      "endOffset": 202,
+      "text": "What is the next useful step?"
+    },
+    {
+      "sentenceId": "b-5659fe724e022ea7-s1",
+      "blockIds": [
+        "b-5659fe724e022ea7"
+      ],
+      "start": 344.15999999999997,
+      "end": 345.76,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Guiding principle"
+    },
+    {
+      "sentenceId": "b-dd00a0f2a86af79a-s1",
+      "blockIds": [
+        "b-dd00a0f2a86af79a"
+      ],
+      "start": 345.76,
+      "end": 357.12,
+      "startOffset": 0,
+      "endOffset": 154,
+      "text": "Good initiatives combine four things: a clear demand, a visible local group, a viable spatial solution, and evidence that change is needed and achievable."
+    },
+    {
+      "sentenceId": "b-479232c7971e4eec-s1",
+      "blockIds": [
+        "b-479232c7971e4eec"
+      ],
+      "start": 357.12,
+      "end": 359.52,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Final check before the next step"
+    },
+    {
+      "sentenceId": "b-c2cafe6a13b0d825-s1",
+      "blockIds": [
+        "b-c2cafe6a13b0d825"
+      ],
+      "start": 359.52,
+      "end": 366.79999999999995,
+      "startOffset": 0,
+      "endOffset": 97,
+      "text": "Phrase your next message so it contains all four elements: demand, group, solution, and evidence."
+    },
+    {
+      "sentenceId": "b-c2cafe6a13b0d825-s2",
+      "blockIds": [
+        "b-c2cafe6a13b0d825"
+      ],
+      "start": 367.28,
+      "end": 371.59999999999997,
+      "startOffset": 98,
+      "endOffset": 168,
+      "text": "If one is missing, outsiders will find the story harder to understand."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s1",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 371.59999999999997,
+      "end": 372.79999999999995,
+      "startOffset": 0,
+      "endOffset": 20,
+      "text": "Reflection question."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s2",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 373.43999999999994,
+      "end": 375.2,
+      "startOffset": 21,
+      "endOffset": 50,
+      "text": "What makes a good initiative?"
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s3",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 375.84,
+      "end": 379.03999999999996,
+      "startOffset": 51,
+      "endOffset": 102,
+      "text": "A striking action that attracts a lot of attention."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s4",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 379.52,
+      "end": 388.11999999999995,
+      "startOffset": 103,
+      "endOffset": 233,
+      "text": "A clear demand carried by a visible local group, with a viable spatial solution and evidence that change is needed and achievable."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s5",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 388.4,
+      "end": 391.59999999999997,
+      "startOffset": 234,
+      "endOffset": 288,
+      "text": "A detailed master plan approved by the administration."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s6",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 392.08,
+      "end": 395.2,
+      "startOffset": 289,
+      "endOffset": 340,
+      "text": "A large budget for professional campaign materials."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s7",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 395.84,
+      "end": 396.71999999999997,
+      "startOffset": 341,
+      "endOffset": 356,
+      "text": "Pause to think."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s8",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 400.43999999999994,
+      "end": 410.03999999999996,
+      "startOffset": 357,
+      "endOffset": 495,
+      "text": "Answer: A clear demand carried by a visible local group, with a viable spatial solution and evidence that change is needed and achievable."
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s9",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 410.28,
+      "end": 410.91999999999996,
+      "startOffset": 496,
+      "endOffset": 504,
+      "text": "Correct!"
+    },
+    {
+      "sentenceId": "b-9b192e6ff5b62536-s10",
+      "blockIds": [
+        "b-9b192e6ff5b62536"
+      ],
+      "start": 411.4,
+      "end": 417.08,
+      "startOffset": 505,
+      "endOffset": 578,
+      "text": "Demand, group, solution, and evidence together make the story convincing."
+    },
+    {
+      "sentenceId": "b-50ffc5be3474a080-s1",
+      "blockIds": [
+        "b-50ffc5be3474a080"
+      ],
+      "start": 417.08,
+      "end": 418.52,
+      "startOffset": 0,
+      "endOffset": 11,
+      "text": "Key sources"
+    },
+    {
+      "sentenceId": "b-bef046621bcc6faa-s1",
+      "blockIds": [
+        "b-bef046621bcc6faa"
+      ],
+      "start": 418.52,
+      "end": 421.96,
+      "startOffset": 0,
+      "endOffset": 42,
+      "text": "Toolbox for City Changers: three workshops"
+    },
+    {
+      "sentenceId": "b-a70dd32dd9279f65-s1",
+      "blockIds": [
+        "b-a70dd32dd9279f65"
+      ],
+      "start": 421.96,
+      "end": 424.52,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "How to start superblock initiatives"
+    },
+    {
+      "sentenceId": "b-19b1d2016972c7b7-s1",
+      "blockIds": [
+        "b-19b1d2016972c7b7"
+      ],
+      "start": 424.52,
+      "end": 427.56,
+      "startOffset": 0,
+      "endOffset": 38,
+      "text": "How to use tactical urbanism in Vienna"
+    },
+    {
+      "sentenceId": "b-43bbc30d0a8b998b-s1",
+      "blockIds": [
+        "b-43bbc30d0a8b998b"
+      ],
+      "start": 427.56,
+      "end": 430.28000000000003,
+      "startOffset": 0,
+      "endOffset": 36,
+      "text": "How to work on strategies for change"
+    },
+    {
+      "sentenceId": "b-d47cb23796a92dd7-s1",
+      "blockIds": [
+        "b-d47cb23796a92dd7"
+      ],
+      "start": 430.28000000000003,
+      "end": 433.48,
+      "startOffset": 0,
+      "endOffset": 47,
+      "text": "The street design workshop with Wir machen Wien"
+    },
+    {
+      "sentenceId": "b-7152c20bc2be2355-s1",
+      "blockIds": [
+        "b-7152c20bc2be2355"
+      ],
+      "start": 433.48,
+      "end": 435,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Changing Cities"
+    },
+    {
+      "sentenceId": "b-da41c15927e592f7-s1",
+      "blockIds": [
+        "b-da41c15927e592f7"
+      ],
+      "start": 435,
+      "end": 436.12,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Kiezblocks"
+    },
+    {
+      "sentenceId": "b-6424c6329b649784-s1",
+      "blockIds": [
+        "b-6424c6329b649784"
+      ],
+      "start": 436.12,
+      "end": 437.24,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Prostorož"
+    },
+    {
+      "sentenceId": "b-571798bec3435326-s1",
+      "blockIds": [
+        "b-571798bec3435326"
+      ],
+      "start": 437.4,
+      "end": 439.4,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Tactical Urbanism Guide"
+    },
+    {
+      "sentenceId": "b-786059e9dba48a2d-s1",
+      "blockIds": [
+        "b-786059e9dba48a2d"
+      ],
+      "start": 439.4,
+      "end": 442.76,
+      "startOffset": 0,
+      "endOffset": 39,
+      "text": "LTN tool for low-traffic neighbourhoods"
+    }
+  ]
+}

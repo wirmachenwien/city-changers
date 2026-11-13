@@ -1,0 +1,1878 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "de/05",
+  "cues": [
+    {
+      "start": 0,
+      "end": 4.4,
+      "blockIds": [
+        "b-cd7332682587b4e8"
+      ]
+    },
+    {
+      "start": 4.4,
+      "end": 31.6,
+      "blockIds": [
+        "b-a12ac873a2ad2be3"
+      ]
+    },
+    {
+      "start": 31.6,
+      "end": 34,
+      "blockIds": [
+        "b-37cbfa03c08daca1"
+      ]
+    },
+    {
+      "start": 34,
+      "end": 36.24,
+      "blockIds": [
+        "b-1721f9776a484faa"
+      ]
+    },
+    {
+      "start": 36.24,
+      "end": 38.56,
+      "blockIds": [
+        "b-75e108fde43e75ec"
+      ]
+    },
+    {
+      "start": 38.56,
+      "end": 45.84,
+      "blockIds": [
+        "b-d16a4e7fae82755f"
+      ]
+    },
+    {
+      "start": 45.84,
+      "end": 47.28,
+      "blockIds": [
+        "b-52182d27b655c22b"
+      ]
+    },
+    {
+      "start": 47.28,
+      "end": 65.52,
+      "blockIds": [
+        "b-417bf01ee93c981c"
+      ]
+    },
+    {
+      "start": 65.52,
+      "end": 67.03999999999999,
+      "blockIds": [
+        "b-e314b149747b4846"
+      ]
+    },
+    {
+      "start": 67.03999999999999,
+      "end": 90.16,
+      "blockIds": [
+        "b-1990d7e99538256f"
+      ]
+    },
+    {
+      "start": 90.16,
+      "end": 92.64,
+      "blockIds": [
+        "b-23bfca54b89ca8ab"
+      ]
+    },
+    {
+      "start": 92.64,
+      "end": 104.08,
+      "blockIds": [
+        "b-b46c77607e5f5d44"
+      ]
+    },
+    {
+      "start": 104.08,
+      "end": 107.84,
+      "blockIds": [
+        "b-798b153ac32a84a9"
+      ]
+    },
+    {
+      "start": 107.84,
+      "end": 120.88,
+      "blockIds": [
+        "b-aedd91d1942b00b6"
+      ]
+    },
+    {
+      "start": 120.88,
+      "end": 123.44,
+      "blockIds": [
+        "b-f796d03aad89e314"
+      ]
+    },
+    {
+      "start": 123.44,
+      "end": 130.16,
+      "blockIds": [
+        "b-3585b94f649d3562"
+      ]
+    },
+    {
+      "start": 130.16,
+      "end": 132,
+      "blockIds": [
+        "b-6cf513e571a40ee7"
+      ]
+    },
+    {
+      "start": 132,
+      "end": 149.52,
+      "blockIds": [
+        "b-30310d567b2200a1"
+      ]
+    },
+    {
+      "start": 149.52,
+      "end": 150.64000000000001,
+      "blockIds": [
+        "b-a8587d7d94d0dae8"
+      ]
+    },
+    {
+      "start": 150.64000000000001,
+      "end": 173.92000000000002,
+      "blockIds": [
+        "b-47895dbf68d9b124"
+      ]
+    },
+    {
+      "start": 173.92000000000002,
+      "end": 175.28000000000003,
+      "blockIds": [
+        "b-6e9ebf79fe8d503a"
+      ]
+    },
+    {
+      "start": 175.28000000000003,
+      "end": 201.52000000000004,
+      "blockIds": [
+        "b-dddaf4e6dafc56cc"
+      ]
+    },
+    {
+      "start": 201.52000000000004,
+      "end": 203.20000000000005,
+      "blockIds": [
+        "b-11b62f24aa38b02b"
+      ]
+    },
+    {
+      "start": 203.20000000000005,
+      "end": 208.96000000000004,
+      "blockIds": [
+        "b-a9d11165ba77363e"
+      ]
+    },
+    {
+      "start": 208.96000000000004,
+      "end": 214.88000000000002,
+      "blockIds": [
+        "b-2261a2d6c01c274e"
+      ]
+    },
+    {
+      "start": 214.88000000000002,
+      "end": 221.20000000000002,
+      "blockIds": [
+        "b-fdd9e47f0c4f2d81"
+      ]
+    },
+    {
+      "start": 221.20000000000002,
+      "end": 228.08,
+      "blockIds": [
+        "b-414fd7179d9eaab0"
+      ]
+    },
+    {
+      "start": 228.08,
+      "end": 232.48000000000002,
+      "blockIds": [
+        "b-50146f5724f25ac6"
+      ]
+    },
+    {
+      "start": 232.48000000000002,
+      "end": 239.36,
+      "blockIds": [
+        "b-b68c02614468464d"
+      ]
+    },
+    {
+      "start": 239.36,
+      "end": 246.72000000000003,
+      "blockIds": [
+        "b-707d1c56736ba41c"
+      ]
+    },
+    {
+      "start": 246.72000000000003,
+      "end": 253.92000000000002,
+      "blockIds": [
+        "b-67e0ece21569e2e7"
+      ]
+    },
+    {
+      "start": 253.92000000000002,
+      "end": 360,
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ]
+    },
+    {
+      "start": 360,
+      "end": 362.16,
+      "blockIds": [
+        "b-0a57259c850e2bbc"
+      ]
+    },
+    {
+      "start": 362.16,
+      "end": 394.16,
+      "blockIds": [
+        "b-8232b36fcd59d4e2"
+      ]
+    },
+    {
+      "start": 394.16,
+      "end": 396.56,
+      "blockIds": [
+        "b-c0a80a0a6545a214"
+      ]
+    },
+    {
+      "start": 396.56,
+      "end": 405.2,
+      "blockIds": [
+        "b-723c36f194b7bbfb"
+      ]
+    },
+    {
+      "start": 405.2,
+      "end": 416.56,
+      "blockIds": [
+        "b-2717885c611c5462"
+      ]
+    },
+    {
+      "start": 416.56,
+      "end": 425.92,
+      "blockIds": [
+        "b-a51788d263c45a52"
+      ]
+    },
+    {
+      "start": 425.92,
+      "end": 434,
+      "blockIds": [
+        "b-44a12816d7b35104"
+      ]
+    },
+    {
+      "start": 434,
+      "end": 436.16,
+      "blockIds": [
+        "b-60fdb0b9935339c4"
+      ]
+    },
+    {
+      "start": 436.16,
+      "end": 443.6,
+      "blockIds": [
+        "b-e297c0eaf28823c1"
+      ]
+    },
+    {
+      "start": 443.6,
+      "end": 452.40000000000003,
+      "blockIds": [
+        "b-80756f1b7a003b1e"
+      ]
+    },
+    {
+      "start": 452.40000000000003,
+      "end": 463.6,
+      "blockIds": [
+        "b-0492b83713b177f1"
+      ]
+    },
+    {
+      "start": 463.6,
+      "end": 472.08000000000004,
+      "blockIds": [
+        "b-4657bd57240b9693"
+      ]
+    },
+    {
+      "start": 472.08000000000004,
+      "end": 481.52000000000004,
+      "blockIds": [
+        "b-714baa45f5f3b1db"
+      ]
+    },
+    {
+      "start": 481.52000000000004,
+      "end": 490.8,
+      "blockIds": [
+        "b-c37c0283010c34e3"
+      ]
+    },
+    {
+      "start": 490.8,
+      "end": 497.92,
+      "blockIds": [
+        "b-17ded7400cbf081d"
+      ]
+    },
+    {
+      "start": 497.92,
+      "end": 499.44,
+      "blockIds": [
+        "b-2303d98ffe41b8bd"
+      ]
+    },
+    {
+      "start": 499.44,
+      "end": 510.71999999999997,
+      "blockIds": [
+        "b-d142928a806d3ed3"
+      ]
+    },
+    {
+      "start": 510.71999999999997,
+      "end": 513.04,
+      "blockIds": [
+        "b-001cca9830128667"
+      ]
+    },
+    {
+      "start": 513.04,
+      "end": 535.28,
+      "blockIds": [
+        "b-f9fb6bb52d384810"
+      ]
+    },
+    {
+      "start": 535.28,
+      "end": 559.0799999999999,
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ]
+    },
+    {
+      "start": 559.0799999999999,
+      "end": 561.4799999999999,
+      "blockIds": [
+        "b-8cfb7ba55a7a0d75"
+      ]
+    },
+    {
+      "start": 561.4799999999999,
+      "end": 565.7199999999999,
+      "blockIds": [
+        "b-1d5957dc5649b1e6"
+      ]
+    },
+    {
+      "start": 565.7199999999999,
+      "end": 570.2799999999999,
+      "blockIds": [
+        "b-b66b1ed1e79a4619"
+      ]
+    },
+    {
+      "start": 570.2799999999999,
+      "end": 573.7999999999998,
+      "blockIds": [
+        "b-7b67538e17f6f42f"
+      ]
+    },
+    {
+      "start": 573.7999999999998,
+      "end": 577.3999999999999,
+      "blockIds": [
+        "b-a479575095f421b5"
+      ]
+    },
+    {
+      "start": 577.3999999999999,
+      "end": 581.7999999999998,
+      "blockIds": [
+        "b-ecd04678336363ab"
+      ]
+    },
+    {
+      "start": 581.7999999999998,
+      "end": 585.8799999999999,
+      "blockIds": [
+        "b-3f0c97fddc9f020e"
+      ]
+    },
+    {
+      "start": 585.8799999999999,
+      "end": 590.8399999999999,
+      "blockIds": [
+        "b-a1fb2be009ad727c"
+      ]
+    },
+    {
+      "start": 590.8399999999999,
+      "end": 595.2399999999999,
+      "blockIds": [
+        "b-633fdfc9766f399c"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-cd7332682587b4e8-s1",
+      "blockIds": [
+        "b-cd7332682587b4e8"
+      ],
+      "start": 0,
+      "end": 4.4,
+      "startOffset": 0,
+      "endOffset": 46,
+      "text": "Kapitel 5: Monitoring: Wirkung sichtbar machen"
+    },
+    {
+      "sentenceId": "b-a12ac873a2ad2be3-s1",
+      "blockIds": [
+        "b-a12ac873a2ad2be3"
+      ],
+      "start": 4.4,
+      "end": 13.92,
+      "startOffset": 0,
+      "endOffset": 142,
+      "text": "Monitoring bedeutet, Fortschritt und Wirkung so zu dokumentieren, dass eine Initiative lernen, kommunizieren und politisch argumentieren kann."
+    },
+    {
+      "sentenceId": "b-a12ac873a2ad2be3-s2",
+      "blockIds": [
+        "b-a12ac873a2ad2be3"
+      ],
+      "start": 14.4,
+      "end": 19.72,
+      "startOffset": 143,
+      "endOffset": 224,
+      "text": "Es muss nicht kompliziert sein – und nicht allein Expert:innen überlassen werden."
+    },
+    {
+      "sentenceId": "b-a12ac873a2ad2be3-s3",
+      "blockIds": [
+        "b-a12ac873a2ad2be3"
+      ],
+      "start": 20,
+      "end": 31.6,
+      "startOffset": 225,
+      "endOffset": 404,
+      "text": "Selbst angestoßene Forschung hat ihren eigenen Wert: Sie zeigt Entscheidungsträger:innen, wo sie hinschauen sollten, und lässt sie eine Straße aus einer anderen Perspektive sehen."
+    },
+    {
+      "sentenceId": "b-37cbfa03c08daca1-s1",
+      "blockIds": [
+        "b-37cbfa03c08daca1"
+      ],
+      "start": 31.6,
+      "end": 34,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Verbindet Daten mit Geschichten."
+    },
+    {
+      "sentenceId": "b-1721f9776a484faa-s1",
+      "blockIds": [
+        "b-1721f9776a484faa"
+      ],
+      "start": 34,
+      "end": 36.24,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "sagt Zala von Prostorož."
+    },
+    {
+      "sentenceId": "b-75e108fde43e75ec-s1",
+      "blockIds": [
+        "b-75e108fde43e75ec"
+      ],
+      "start": 36.24,
+      "end": 38.56,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "Vier Wege, Daten zu sammeln"
+    },
+    {
+      "sentenceId": "b-d16a4e7fae82755f-s1",
+      "blockIds": [
+        "b-d16a4e7fae82755f"
+      ],
+      "start": 38.56,
+      "end": 45.84,
+      "startOffset": 0,
+      "endOffset": 125,
+      "text": "Prostorož in Ljubljana kombiniert verschiedene Methoden – je nach Fragestellung und den Menschen, die erreicht werden sollen."
+    },
+    {
+      "sentenceId": "b-52182d27b655c22b-s1",
+      "blockIds": [
+        "b-52182d27b655c22b"
+      ],
+      "start": 45.84,
+      "end": 46.24,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "1."
+    },
+    {
+      "sentenceId": "b-52182d27b655c22b-s2",
+      "blockIds": [
+        "b-52182d27b655c22b"
+      ],
+      "start": 46.28,
+      "end": 47.28,
+      "startOffset": 3,
+      "endOffset": 14,
+      "text": "Befragungen"
+    },
+    {
+      "sentenceId": "b-417bf01ee93c981c-s1",
+      "blockIds": [
+        "b-417bf01ee93c981c"
+      ],
+      "start": 47.28,
+      "end": 50.24,
+      "startOffset": 0,
+      "endOffset": 48,
+      "text": "Fragt Menschen direkt, wie sie einen Ort nutzen."
+    },
+    {
+      "sentenceId": "b-417bf01ee93c981c-s2",
+      "blockIds": [
+        "b-417bf01ee93c981c"
+      ],
+      "start": 50.480000000000004,
+      "end": 65.52,
+      "startOffset": 49,
+      "endOffset": 274,
+      "text": "Als Prostorož Besucher:innen des Universitätsklinikums Ljubljana nach ihrer Anreise fragte, war die Antwort eindeutig: 64 % kamen mit dem Auto – ein starker Ausgangspunkt für eine Diskussion über Erreichbarkeit und Mobilität."
+    },
+    {
+      "sentenceId": "b-e314b149747b4846-s1",
+      "blockIds": [
+        "b-e314b149747b4846"
+      ],
+      "start": 65.52,
+      "end": 66,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "2."
+    },
+    {
+      "sentenceId": "b-e314b149747b4846-s2",
+      "blockIds": [
+        "b-e314b149747b4846"
+      ],
+      "start": 66.08,
+      "end": 67.03999999999999,
+      "startOffset": 3,
+      "endOffset": 12,
+      "text": "Kartieren"
+    },
+    {
+      "sentenceId": "b-1990d7e99538256f-s1",
+      "blockIds": [
+        "b-1990d7e99538256f"
+      ],
+      "start": 67.03999999999999,
+      "end": 75.11999999999999,
+      "startOffset": 0,
+      "endOffset": 123,
+      "text": "Lasst Menschen Orte auf einer Karte markieren: wo es zu heiß, gefährlich oder laut ist – oder wo sie gerne Zeit verbringen."
+    },
+    {
+      "sentenceId": "b-1990d7e99538256f-s2",
+      "blockIds": [
+        "b-1990d7e99538256f"
+      ],
+      "start": 75.35999999999999,
+      "end": 80.07999999999998,
+      "startOffset": 124,
+      "endOffset": 197,
+      "text": "Kostenlose Apps wie Canvis oder Mapperoni machen Hotspot-Mapping einfach."
+    },
+    {
+      "sentenceId": "b-1990d7e99538256f-s3",
+      "blockIds": [
+        "b-1990d7e99538256f"
+      ],
+      "start": 80.47999999999999,
+      "end": 90.16,
+      "startOffset": 198,
+      "endOffset": 345,
+      "text": "Der Zeitpunkt zählt: Wenn ihr städtische Hitze kartiert, startet die Befragung an Tagen über 30 °C, wenn die Menschen das Problem besonders spüren."
+    },
+    {
+      "sentenceId": "b-23bfca54b89ca8ab-s1",
+      "blockIds": [
+        "b-23bfca54b89ca8ab"
+      ],
+      "start": 90.16,
+      "end": 90.56,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "3."
+    },
+    {
+      "sentenceId": "b-23bfca54b89ca8ab-s2",
+      "blockIds": [
+        "b-23bfca54b89ca8ab"
+      ],
+      "start": 90.96,
+      "end": 92.64,
+      "startOffset": 3,
+      "endOffset": 22,
+      "text": "Gemeinsame Mindmaps"
+    },
+    {
+      "sentenceId": "b-b46c77607e5f5d44-s1",
+      "blockIds": [
+        "b-b46c77607e5f5d44"
+      ],
+      "start": 92.64,
+      "end": 98.8,
+      "startOffset": 0,
+      "endOffset": 103,
+      "text": "Gemeinsam auf einem großen Blatt Ideen zu sammeln macht Spaß und bringt vielfältige Sichtweisen hervor."
+    },
+    {
+      "sentenceId": "b-b46c77607e5f5d44-s2",
+      "blockIds": [
+        "b-b46c77607e5f5d44"
+      ],
+      "start": 99.36,
+      "end": 104.08,
+      "startOffset": 104,
+      "endOffset": 182,
+      "text": "Bedenkt, dass sich die Ergebnisse schwerer in formale Daten übersetzen lassen."
+    },
+    {
+      "sentenceId": "b-798b153ac32a84a9-s1",
+      "blockIds": [
+        "b-798b153ac32a84a9"
+      ],
+      "start": 104.08,
+      "end": 104.72,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "4."
+    },
+    {
+      "sentenceId": "b-798b153ac32a84a9-s2",
+      "blockIds": [
+        "b-798b153ac32a84a9"
+      ],
+      "start": 105.12,
+      "end": 107.84,
+      "startOffset": 3,
+      "endOffset": 35,
+      "text": "Analoges und Digitales verbinden"
+    },
+    {
+      "sentenceId": "b-aedd91d1942b00b6-s1",
+      "blockIds": [
+        "b-aedd91d1942b00b6"
+      ],
+      "start": 107.84,
+      "end": 112.24000000000001,
+      "startOffset": 0,
+      "endOffset": 73,
+      "text": "Stellt etwas in den Straßenraum und bittet gleichzeitig um Rückmeldungen."
+    },
+    {
+      "sentenceId": "b-aedd91d1942b00b6-s2",
+      "blockIds": [
+        "b-aedd91d1942b00b6"
+      ],
+      "start": 112.48,
+      "end": 120.88,
+      "startOffset": 74,
+      "endOffset": 211,
+      "text": "In Ljubljana wurden Testbänke aufgestellt, zu denen Passant:innen Feedback abgeben konnten – die Intervention selbst wurde zur Befragung."
+    },
+    {
+      "sentenceId": "b-f796d03aad89e314-s1",
+      "blockIds": [
+        "b-f796d03aad89e314"
+      ],
+      "start": 120.88,
+      "end": 123.44,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Das Leben auf der Straße beobachten"
+    },
+    {
+      "sentenceId": "b-3585b94f649d3562-s1",
+      "blockIds": [
+        "b-3585b94f649d3562"
+      ],
+      "start": 123.44,
+      "end": 130.16,
+      "startOffset": 0,
+      "endOffset": 104,
+      "text": "Zählen und Beobachten zeigen, was auf einer Straße tatsächlich passiert – nicht nur, was Menschen sagen."
+    },
+    {
+      "sentenceId": "b-6cf513e571a40ee7-s1",
+      "blockIds": [
+        "b-6cf513e571a40ee7"
+      ],
+      "start": 130.16,
+      "end": 132,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Fußgänger:innenströme"
+    },
+    {
+      "sentenceId": "b-30310d567b2200a1-s1",
+      "blockIds": [
+        "b-30310d567b2200a1"
+      ],
+      "start": 132,
+      "end": 141.6,
+      "startOffset": 0,
+      "endOffset": 132,
+      "text": "Auf einer belebten Straße in Ljubljana zählten Freiwillige Fußgänger:innen in 15-Minuten-Intervallen und notierten ihre Gehrichtung."
+    },
+    {
+      "sentenceId": "b-30310d567b2200a1-s2",
+      "blockIds": [
+        "b-30310d567b2200a1"
+      ],
+      "start": 141.68,
+      "end": 149.52,
+      "startOffset": 133,
+      "endOffset": 265,
+      "text": "Sie kartierten auch, wo Menschen verweilten – und stellten fest, dass diese nur stehen konnten, weil es keine Sitzgelegenheiten gab."
+    },
+    {
+      "sentenceId": "b-a8587d7d94d0dae8-s1",
+      "blockIds": [
+        "b-a8587d7d94d0dae8"
+      ],
+      "start": 149.52,
+      "end": 150.64000000000001,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Park Beat"
+    },
+    {
+      "sentenceId": "b-47895dbf68d9b124-s1",
+      "blockIds": [
+        "b-47895dbf68d9b124"
+      ],
+      "start": 150.64000000000001,
+      "end": 154.8,
+      "startOffset": 0,
+      "endOffset": 70,
+      "text": "Welche Parkplätze rund um das Stadtzentrum werden tatsächlich genutzt?"
+    },
+    {
+      "sentenceId": "b-47895dbf68d9b124-s2",
+      "blockIds": [
+        "b-47895dbf68d9b124"
+      ],
+      "start": 155.04000000000002,
+      "end": 164.12,
+      "startOffset": 71,
+      "endOffset": 208,
+      "text": "Beobachtungen zeigten, dass manche zu Spitzenzeiten mehr Autos als markierte Stellplätze hatten, während andere freie Kapazitäten hatten."
+    },
+    {
+      "sentenceId": "b-47895dbf68d9b124-s3",
+      "blockIds": [
+        "b-47895dbf68d9b124"
+      ],
+      "start": 164.4,
+      "end": 173.92000000000002,
+      "startOffset": 209,
+      "endOffset": 371,
+      "text": "Der Vergleich mit der wirtschaftlichen Aktivität benachbarter Geschäfte hilft, die Annahme zu hinterfragen, dass jeder Parkplatz für den Handel unverzichtbar ist."
+    },
+    {
+      "sentenceId": "b-6e9ebf79fe8d503a-s1",
+      "blockIds": [
+        "b-6e9ebf79fe8d503a"
+      ],
+      "start": 173.92000000000002,
+      "end": 175.28000000000003,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Public Life App"
+    },
+    {
+      "sentenceId": "b-dddaf4e6dafc56cc-s1",
+      "blockIds": [
+        "b-dddaf4e6dafc56cc"
+      ],
+      "start": 175.28000000000003,
+      "end": 184.32000000000002,
+      "startOffset": 0,
+      "endOffset": 131,
+      "text": "Die kostenlose Urban95 Public Life App, entwickelt von Gehl und der Van Leer Foundation, basiert auf dem Public Life Data Protocol."
+    },
+    {
+      "sentenceId": "b-dddaf4e6dafc56cc-s2",
+      "blockIds": [
+        "b-dddaf4e6dafc56cc"
+      ],
+      "start": 184.80000000000004,
+      "end": 188.92000000000002,
+      "startOffset": 132,
+      "endOffset": 180,
+      "text": "Mehr dazu im Urban95 Public Life Data Framework."
+    },
+    {
+      "sentenceId": "b-dddaf4e6dafc56cc-s3",
+      "blockIds": [
+        "b-dddaf4e6dafc56cc"
+      ],
+      "start": 189.20000000000002,
+      "end": 196.72000000000003,
+      "startOffset": 181,
+      "endOffset": 299,
+      "text": "Plant fünf bis sechs Freiwillige pro Straße und ein Beobachtungsfenster vom frühen Morgen (5 Uhr) bis Mitternacht ein."
+    },
+    {
+      "sentenceId": "b-dddaf4e6dafc56cc-s4",
+      "blockIds": [
+        "b-dddaf4e6dafc56cc"
+      ],
+      "start": 197.12000000000003,
+      "end": 201.52000000000004,
+      "startOffset": 300,
+      "endOffset": 374,
+      "text": "Ihr braucht nicht viele Tage, aber Tabellen zur Auswertung der Ergebnisse."
+    },
+    {
+      "sentenceId": "b-11b62f24aa38b02b-s1",
+      "blockIds": [
+        "b-11b62f24aa38b02b"
+      ],
+      "start": 201.52000000000004,
+      "end": 203.20000000000005,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "Was gemessen werden kann"
+    },
+    {
+      "sentenceId": "b-a9d11165ba77363e-s1",
+      "blockIds": [
+        "b-a9d11165ba77363e"
+      ],
+      "start": 203.20000000000005,
+      "end": 208.96000000000004,
+      "startOffset": 0,
+      "endOffset": 86,
+      "text": "Für Superblocks, Tactical Urbanism und Street Design eignen sich einfache Indikatoren:"
+    },
+    {
+      "sentenceId": "b-2261a2d6c01c274e-s1",
+      "blockIds": [
+        "b-2261a2d6c01c274e"
+      ],
+      "start": 208.96000000000004,
+      "end": 214.88000000000002,
+      "startOffset": 0,
+      "endOffset": 82,
+      "text": "Verkehrsmengen: Wie viele Autos, Räder und Fußgänger:innen nutzen einen Abschnitt?"
+    },
+    {
+      "sentenceId": "b-fdd9e47f0c4f2d81-s1",
+      "blockIds": [
+        "b-fdd9e47f0c4f2d81"
+      ],
+      "start": 214.88000000000002,
+      "end": 221.20000000000002,
+      "startOffset": 0,
+      "endOffset": 97,
+      "text": "Geschwindigkeit und Konflikte: Wo wird zu schnell gefahren, wo entstehen gefährliche Situationen?"
+    },
+    {
+      "sentenceId": "b-414fd7179d9eaab0-s1",
+      "blockIds": [
+        "b-414fd7179d9eaab0"
+      ],
+      "start": 221.20000000000002,
+      "end": 228.08,
+      "startOffset": 0,
+      "endOffset": 93,
+      "text": "Aufenthaltsnutzung: Bleiben Menschen stehen, sitzen sie, spielen Kinder, entstehen Gespräche?"
+    },
+    {
+      "sentenceId": "b-50146f5724f25ac6-s1",
+      "blockIds": [
+        "b-50146f5724f25ac6"
+      ],
+      "start": 228.08,
+      "end": 232.48000000000002,
+      "startOffset": 0,
+      "endOffset": 59,
+      "text": "Parken: Welche Plätze werden tatsächlich genutzt, und wann?"
+    },
+    {
+      "sentenceId": "b-b68c02614468464d-s1",
+      "blockIds": [
+        "b-b68c02614468464d"
+      ],
+      "start": 232.48000000000002,
+      "end": 239.36,
+      "startOffset": 0,
+      "endOffset": 83,
+      "text": "Klima und Komfort: Gibt es Schatten, Hitzeinseln, Grün, Trinkwasser, Lärmreduktion?"
+    },
+    {
+      "sentenceId": "b-707d1c56736ba41c-s1",
+      "blockIds": [
+        "b-707d1c56736ba41c"
+      ],
+      "start": 239.36,
+      "end": 246.72000000000003,
+      "startOffset": 0,
+      "endOffset": 105,
+      "text": "Unterstützung: Wie viele Menschen unterschreiben, kommen zu Treffen, teilen Inhalte oder bieten Hilfe an?"
+    },
+    {
+      "sentenceId": "b-67e0ece21569e2e7-s1",
+      "blockIds": [
+        "b-67e0ece21569e2e7"
+      ],
+      "start": 246.72000000000003,
+      "end": 253.92000000000002,
+      "startOffset": 0,
+      "endOffset": 94,
+      "text": "Politischer Fortschritt: Welche Anträge, Gespräche, Zusagen oder Verwaltungsprüfungen gibt es?"
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s1",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 253.92000000000002,
+      "end": 256.40000000000003,
+      "startOffset": 0,
+      "endOffset": 28,
+      "text": "Indikator: Durchzugsverkehr."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s2",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 256.64000000000004,
+      "end": 260.6,
+      "startOffset": 29,
+      "endOffset": 83,
+      "text": "Einfache Methode: Zählung zu zwei festen Zeitfenstern."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s3",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 260.8,
+      "end": 264.08000000000004,
+      "startOffset": 84,
+      "endOffset": 124,
+      "text": "Gutes Ergebnisformat: Zahl, Foto, Karte."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s4",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 264.56,
+      "end": 267.16,
+      "startOffset": 126,
+      "endOffset": 159,
+      "text": "Indikator: Fußgänger:innenströme."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s5",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 267.36,
+      "end": 272,
+      "startOffset": 160,
+      "endOffset": 230,
+      "text": "Einfache Methode: Zählungen in 15-Minuten-Intervallen mit Gehrichtung."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s6",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 272.32,
+      "end": 275.72,
+      "startOffset": 231,
+      "endOffset": 279,
+      "text": "Gutes Ergebnisformat: Karte der Bewegungsströme."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s7",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 276,
+      "end": 279,
+      "startOffset": 281,
+      "endOffset": 322,
+      "text": "Indikator: Geschwindigkeit und Konflikte."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s8",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 279.20000000000005,
+      "end": 289.24,
+      "startOffset": 323,
+      "endOffset": 479,
+      "text": "Einfache Methode: Beobachten und Fotos an festen Punkten auswerten; nach Möglichkeit Daten von Geschwindigkeitsanzeigen und polizeiliche Unfalldaten nutzen."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s9",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 289.44,
+      "end": 297.6,
+      "startOffset": 480,
+      "endOffset": 607,
+      "text": "Gutes Ergebnisformat: Konfliktkarte mit Stellen, an denen zu schnell gefahren wird, und Unfallorten, dazu Kennzahlen und Fotos."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s10",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 298,
+      "end": 300.56,
+      "startOffset": 609,
+      "endOffset": 640,
+      "text": "Indikator: Aufenthaltsqualität."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s11",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 300.72,
+      "end": 305.36,
+      "startOffset": 641,
+      "endOffset": 714,
+      "text": "Einfache Methode: Vor-Ort-Beobachtung und Kartierung der Aufenthaltsorte."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s12",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 305.68,
+      "end": 309.84000000000003,
+      "startOffset": 715,
+      "endOffset": 766,
+      "text": "Gutes Ergebnisformat: Kurze Notizen, Zitate, Karte."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s13",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 310.24,
+      "end": 311.96000000000004,
+      "startOffset": 768,
+      "endOffset": 786,
+      "text": "Indikator: Parken."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s14",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 312.16,
+      "end": 316,
+      "startOffset": 787,
+      "endOffset": 847,
+      "text": "Einfache Methode: Auslastung zu verschiedenen Zeiten zählen."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s15",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 316.16,
+      "end": 318.96000000000004,
+      "startOffset": 848,
+      "endOffset": 890,
+      "text": "Gutes Ergebnisformat: Auslastungsdiagramm."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s16",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 319.36,
+      "end": 321.8,
+      "startOffset": 892,
+      "endOffset": 921,
+      "text": "Indikator: Hitze und Komfort."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s17",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 322,
+      "end": 326.32000000000005,
+      "startOffset": 922,
+      "endOffset": 983,
+      "text": "Einfache Methode: Hotspot-Mapping, Schattenkarte, Fotopunkte."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s18",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 326.64,
+      "end": 330.92,
+      "startOffset": 984,
+      "endOffset": 1042,
+      "text": "Gutes Ergebnisformat: Hitzekarte, Vorher-Nachher-Bildpaar."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s19",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 331.12,
+      "end": 333.08000000000004,
+      "startOffset": 1044,
+      "endOffset": 1069,
+      "text": "Indikator: Unterstützung."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s20",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 333.28000000000003,
+      "end": 337.04,
+      "startOffset": 1070,
+      "endOffset": 1123,
+      "text": "Einfache Methode: Gespräche, Unterschriften, Treffen."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s21",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 337.20000000000005,
+      "end": 340.84000000000003,
+      "startOffset": 1124,
+      "endOffset": 1177,
+      "text": "Gutes Ergebnisformat: Liste mit Rollen und Kontakten."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s22",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 341.04,
+      "end": 343.20000000000005,
+      "startOffset": 1179,
+      "endOffset": 1214,
+      "text": "Indikator: Politischer Fortschritt."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s23",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 343.52,
+      "end": 353.04,
+      "startOffset": 1215,
+      "endOffset": 1359,
+      "text": "Einfache Methode: Tagesordnungen und Protokolle, Anträge, Antworten und Zusagen verfolgen; Daten, Zuständigkeiten und nächste Schritte notieren."
+    },
+    {
+      "sentenceId": "b-3810fa2675fb0aa6-s24",
+      "blockIds": [
+        "b-3810fa2675fb0aa6"
+      ],
+      "start": 353.36,
+      "end": 360,
+      "startOffset": 1360,
+      "endOffset": 1459,
+      "text": "Gutes Ergebnisformat: Zeitstrahl oder Tabelle mit Datum, Status und Links zu relevanten Dokumenten."
+    },
+    {
+      "sentenceId": "b-0a57259c850e2bbc-s1",
+      "blockIds": [
+        "b-0a57259c850e2bbc"
+      ],
+      "start": 360,
+      "end": 362.16,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "Von Daten zu Veränderung"
+    },
+    {
+      "sentenceId": "b-8232b36fcd59d4e2-s1",
+      "blockIds": [
+        "b-8232b36fcd59d4e2"
+      ],
+      "start": 362.16,
+      "end": 364.40000000000003,
+      "startOffset": 0,
+      "endOffset": 31,
+      "text": "Daten allein überzeugen selten."
+    },
+    {
+      "sentenceId": "b-8232b36fcd59d4e2-s2",
+      "blockIds": [
+        "b-8232b36fcd59d4e2"
+      ],
+      "start": 364.8,
+      "end": 371.12,
+      "startOffset": 32,
+      "endOffset": 126,
+      "text": "Prostorož verbindet drei Schritte: aktivieren, Visionen entwickeln und sich für sie einsetzen."
+    },
+    {
+      "sentenceId": "b-8232b36fcd59d4e2-s3",
+      "blockIds": [
+        "b-8232b36fcd59d4e2"
+      ],
+      "start": 371.44,
+      "end": 375.28000000000003,
+      "startOffset": 127,
+      "endOffset": 195,
+      "text": "Erkenntnisse überzeugen, wenn Menschen sie sehen und erleben können."
+    },
+    {
+      "sentenceId": "b-8232b36fcd59d4e2-s4",
+      "blockIds": [
+        "b-8232b36fcd59d4e2"
+      ],
+      "start": 375.68,
+      "end": 381.92,
+      "startOffset": 196,
+      "endOffset": 305,
+      "text": "Visualisierungen, die direkt auf Forschungsergebnisse reagieren, argumentieren besser als eine Zahlentabelle."
+    },
+    {
+      "sentenceId": "b-8232b36fcd59d4e2-s5",
+      "blockIds": [
+        "b-8232b36fcd59d4e2"
+      ],
+      "start": 382.32000000000005,
+      "end": 394.16,
+      "startOffset": 306,
+      "endOffset": 490,
+      "text": "Eine temporäre Aktion kann Ergebnisse greifbar machen: Bei einer Aktion verwandelten Kajakständer, ein rotes Stoffdach und ein paar Klappstühle fünf Parkplätze in einen Aufenthaltsort."
+    },
+    {
+      "sentenceId": "b-c0a80a0a6545a214-s1",
+      "blockIds": [
+        "b-c0a80a0a6545a214"
+      ],
+      "start": 394.16,
+      "end": 396.56,
+      "startOffset": 0,
+      "endOffset": 31,
+      "text": "Vier Erkenntnisse aus Ljubljana"
+    },
+    {
+      "sentenceId": "b-723c36f194b7bbfb-s1",
+      "blockIds": [
+        "b-723c36f194b7bbfb"
+      ],
+      "start": 396.56,
+      "end": 397.4,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Erstens."
+    },
+    {
+      "sentenceId": "b-723c36f194b7bbfb-s2",
+      "blockIds": [
+        "b-723c36f194b7bbfb"
+      ],
+      "start": 397.6,
+      "end": 399.8,
+      "startOffset": 9,
+      "endOffset": 41,
+      "text": "Verbindet Daten mit Geschichten."
+    },
+    {
+      "sentenceId": "b-723c36f194b7bbfb-s3",
+      "blockIds": [
+        "b-723c36f194b7bbfb"
+      ],
+      "start": 400.08,
+      "end": 405.2,
+      "startOffset": 42,
+      "endOffset": 134,
+      "text": "Zahlen werden stark, wenn sie Teil einer Geschichte sind, in der Menschen sich wiederfinden."
+    },
+    {
+      "sentenceId": "b-2717885c611c5462-s1",
+      "blockIds": [
+        "b-2717885c611c5462"
+      ],
+      "start": 405.2,
+      "end": 406.12,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Zweitens."
+    },
+    {
+      "sentenceId": "b-2717885c611c5462-s2",
+      "blockIds": [
+        "b-2717885c611c5462"
+      ],
+      "start": 406.32,
+      "end": 410.4,
+      "startOffset": 10,
+      "endOffset": 72,
+      "text": "Verbindet räumliche Interventionen mit langfristigen Visionen."
+    },
+    {
+      "sentenceId": "b-2717885c611c5462-s3",
+      "blockIds": [
+        "b-2717885c611c5462"
+      ],
+      "start": 410.64,
+      "end": 416.56,
+      "startOffset": 73,
+      "endOffset": 155,
+      "text": "Eine temporäre Aktion zeigt, was möglich ist; die Vision erklärt, wohin sie führt."
+    },
+    {
+      "sentenceId": "b-a51788d263c45a52-s1",
+      "blockIds": [
+        "b-a51788d263c45a52"
+      ],
+      "start": 416.56,
+      "end": 417.36,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Drittens."
+    },
+    {
+      "sentenceId": "b-a51788d263c45a52-s2",
+      "blockIds": [
+        "b-a51788d263c45a52"
+      ],
+      "start": 417.6,
+      "end": 419.68,
+      "startOffset": 10,
+      "endOffset": 40,
+      "text": "Lernt von der »anderen Seite«."
+    },
+    {
+      "sentenceId": "b-a51788d263c45a52-s3",
+      "blockIds": [
+        "b-a51788d263c45a52"
+      ],
+      "start": 420.16,
+      "end": 425.92,
+      "startOffset": 41,
+      "endOffset": 118,
+      "text": "Nutzt Marketing-Werkzeuge: starke Bilder, einfache Botschaften, gutes Timing."
+    },
+    {
+      "sentenceId": "b-44a12816d7b35104-s1",
+      "blockIds": [
+        "b-44a12816d7b35104"
+      ],
+      "start": 425.92,
+      "end": 426.76,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Viertens."
+    },
+    {
+      "sentenceId": "b-44a12816d7b35104-s2",
+      "blockIds": [
+        "b-44a12816d7b35104"
+      ],
+      "start": 426.96000000000004,
+      "end": 428.40000000000003,
+      "startOffset": 10,
+      "endOffset": 28,
+      "text": "Macht viele Fotos."
+    },
+    {
+      "sentenceId": "b-44a12816d7b35104-s3",
+      "blockIds": [
+        "b-44a12816d7b35104"
+      ],
+      "start": 428.56,
+      "end": 434,
+      "startOffset": 29,
+      "endOffset": 107,
+      "text": "Ihr braucht sie – für Berichte, Social Media, Presse und politische Gespräche."
+    },
+    {
+      "sentenceId": "b-60fdb0b9935339c4-s1",
+      "blockIds": [
+        "b-60fdb0b9935339c4"
+      ],
+      "start": 434,
+      "end": 436.16,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Minimaler Monitoring-Plan"
+    },
+    {
+      "sentenceId": "b-e297c0eaf28823c1-s1",
+      "blockIds": [
+        "b-e297c0eaf28823c1"
+      ],
+      "start": 436.16,
+      "end": 436.88000000000005,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Erstens."
+    },
+    {
+      "sentenceId": "b-e297c0eaf28823c1-s2",
+      "blockIds": [
+        "b-e297c0eaf28823c1"
+      ],
+      "start": 437.28000000000003,
+      "end": 443.6,
+      "startOffset": 9,
+      "endOffset": 85,
+      "text": "Ausgangslage dokumentieren: Fotos, Karte, kurze Problemnotiz, erste Zählung."
+    },
+    {
+      "sentenceId": "b-80756f1b7a003b1e-s1",
+      "blockIds": [
+        "b-80756f1b7a003b1e"
+      ],
+      "start": 443.6,
+      "end": 444.32000000000005,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Zweitens."
+    },
+    {
+      "sentenceId": "b-80756f1b7a003b1e-s2",
+      "blockIds": [
+        "b-80756f1b7a003b1e"
+      ],
+      "start": 444.40000000000003,
+      "end": 452.40000000000003,
+      "startOffset": 10,
+      "endOffset": 122,
+      "text": "Zielwert definieren: Zum Beispiel weniger Durchzugsverkehr, mehr sichere Querungen oder mehr Unterstützer:innen."
+    },
+    {
+      "sentenceId": "b-0492b83713b177f1-s1",
+      "blockIds": [
+        "b-0492b83713b177f1"
+      ],
+      "start": 452.40000000000003,
+      "end": 453.24,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Drittens."
+    },
+    {
+      "sentenceId": "b-0492b83713b177f1-s2",
+      "blockIds": [
+        "b-0492b83713b177f1"
+      ],
+      "start": 453.44000000000005,
+      "end": 463.6,
+      "startOffset": 10,
+      "endOffset": 143,
+      "text": "Methode festlegen: Befragung, Kartierung, Verkehrs- oder Fußgänger:innenzählung, Beobachtung, Straßenradar oder Vorher-Nachher-Fotos."
+    },
+    {
+      "sentenceId": "b-4657bd57240b9693-s1",
+      "blockIds": [
+        "b-4657bd57240b9693"
+      ],
+      "start": 463.6,
+      "end": 464.44,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Viertens."
+    },
+    {
+      "sentenceId": "b-4657bd57240b9693-s2",
+      "blockIds": [
+        "b-4657bd57240b9693"
+      ],
+      "start": 464.64000000000004,
+      "end": 472.08000000000004,
+      "startOffset": 10,
+      "endOffset": 111,
+      "text": "Den richtigen Zeitpunkt wählen: Hitze an heißen Tagen, Verkehr zur Stoßzeit, Spielen nach der Schule."
+    },
+    {
+      "sentenceId": "b-714baa45f5f3b1db-s1",
+      "blockIds": [
+        "b-714baa45f5f3b1db"
+      ],
+      "start": 472.08000000000004,
+      "end": 473.00000000000006,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Fünftens."
+    },
+    {
+      "sentenceId": "b-714baa45f5f3b1db-s2",
+      "blockIds": [
+        "b-714baa45f5f3b1db"
+      ],
+      "start": 473.20000000000005,
+      "end": 481.52000000000004,
+      "startOffset": 10,
+      "endOffset": 128,
+      "text": "Verantwortliche bestimmen: Eine Person koordiniert die Daten, eine fotografiert, und eine sammelt Zitate und Kontakte."
+    },
+    {
+      "sentenceId": "b-c37c0283010c34e3-s1",
+      "blockIds": [
+        "b-c37c0283010c34e3"
+      ],
+      "start": 481.52000000000004,
+      "end": 482.24000000000007,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Sechstens."
+    },
+    {
+      "sentenceId": "b-c37c0283010c34e3-s2",
+      "blockIds": [
+        "b-c37c0283010c34e3"
+      ],
+      "start": 482.44000000000005,
+      "end": 490.8,
+      "startOffset": 11,
+      "endOffset": 112,
+      "text": "Ergebnisse aufbereiten: Eine Seite reicht oft: Problem, Methode, wichtigste Zahlen, Fotos, Forderung."
+    },
+    {
+      "sentenceId": "b-17ded7400cbf081d-s1",
+      "blockIds": [
+        "b-17ded7400cbf081d"
+      ],
+      "start": 490.8,
+      "end": 491.6,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Siebtens."
+    },
+    {
+      "sentenceId": "b-17ded7400cbf081d-s2",
+      "blockIds": [
+        "b-17ded7400cbf081d"
+      ],
+      "start": 492,
+      "end": 497.92,
+      "startOffset": 10,
+      "endOffset": 84,
+      "text": "Lernen: Was muss an Forderung, Aktion oder Bündnisarbeit angepasst werden?"
+    },
+    {
+      "sentenceId": "b-2303d98ffe41b8bd-s1",
+      "blockIds": [
+        "b-2303d98ffe41b8bd"
+      ],
+      "start": 497.92,
+      "end": 499.44,
+      "startOffset": 0,
+      "endOffset": 14,
+      "text": "Klein anfangen"
+    },
+    {
+      "sentenceId": "b-d142928a806d3ed3-s1",
+      "blockIds": [
+        "b-d142928a806d3ed3"
+      ],
+      "start": 499.44,
+      "end": 503.76,
+      "startOffset": 0,
+      "endOffset": 68,
+      "text": "Ein belastbares Monitoring muss nicht wissenschaftlich perfekt sein."
+    },
+    {
+      "sentenceId": "b-d142928a806d3ed3-s2",
+      "blockIds": [
+        "b-d142928a806d3ed3"
+      ],
+      "start": 503.84,
+      "end": 510.71999999999997,
+      "startOffset": 69,
+      "endOffset": 179,
+      "text": "Für den Start reicht oft eine wiederholbare Methode: gleicher Ort, gleiche Uhrzeit, gleiche Beobachtungsfrage."
+    },
+    {
+      "sentenceId": "b-001cca9830128667-s1",
+      "blockIds": [
+        "b-001cca9830128667"
+      ],
+      "start": 510.71999999999997,
+      "end": 513.04,
+      "startOffset": 0,
+      "endOffset": 28,
+      "text": "Monitoring als Mobilisierung"
+    },
+    {
+      "sentenceId": "b-f9fb6bb52d384810-s1",
+      "blockIds": [
+        "b-f9fb6bb52d384810"
+      ],
+      "start": 513.04,
+      "end": 515.68,
+      "startOffset": 0,
+      "endOffset": 40,
+      "text": "Monitoring kann selbst eine Aktion sein."
+    },
+    {
+      "sentenceId": "b-f9fb6bb52d384810-s2",
+      "blockIds": [
+        "b-f9fb6bb52d384810"
+      ],
+      "start": 515.92,
+      "end": 519.4399999999999,
+      "startOffset": 41,
+      "endOffset": 106,
+      "text": "Eine Verkehrszählung auf der Straße bringt Menschen ins Gespräch."
+    },
+    {
+      "sentenceId": "b-f9fb6bb52d384810-s3",
+      "blockIds": [
+        "b-f9fb6bb52d384810"
+      ],
+      "start": 519.68,
+      "end": 524.36,
+      "startOffset": 107,
+      "endOffset": 185,
+      "text": "Testbänke mit Feedbackformular laden Passant:innen ein, ihre Meinung zu sagen."
+    },
+    {
+      "sentenceId": "b-f9fb6bb52d384810-s4",
+      "blockIds": [
+        "b-f9fb6bb52d384810"
+      ],
+      "start": 524.56,
+      "end": 535.28,
+      "startOffset": 186,
+      "endOffset": 362,
+      "text": "Eine Karte mit heißen oder gefährlichen Orten kann neue Unterstützer:innen gewinnen – und jede Person, die bei einer Zählung mitmacht, ist eine mögliche neue aktive Verbündete."
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s1",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 535.28,
+      "end": 537.0799999999999,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Frage zum Nachdenken."
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s2",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 537.36,
+      "end": 540.16,
+      "startOffset": 22,
+      "endOffset": 69,
+      "text": "Ihr wollt städtische Hitze im Grätzl kartieren."
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s3",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 540.4,
+      "end": 542.56,
+      "startOffset": 70,
+      "endOffset": 109,
+      "text": "Wann solltet ihr die Befragung starten?"
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s4",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 542.8,
+      "end": 545.1999999999999,
+      "startOffset": 110,
+      "endOffset": 152,
+      "text": "Im Frühling, wenn die Menschen Zeit haben."
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s5",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 545.4399999999999,
+      "end": 548.04,
+      "startOffset": 153,
+      "endOffset": 173,
+      "text": "An Tagen über 30 °C."
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s6",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 548.24,
+      "end": 550.3199999999999,
+      "startOffset": 174,
+      "endOffset": 207,
+      "text": "Der Zeitpunkt spielt keine Rolle."
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s7",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 550.36,
+      "end": 552,
+      "startOffset": 208,
+      "endOffset": 235,
+      "text": "Nimm dir einen Moment Zeit."
+    },
+    {
+      "sentenceId": "b-9dbc1e939c4ba4c5-s8",
+      "blockIds": [
+        "b-9dbc1e939c4ba4c5"
+      ],
+      "start": 555.3199999999999,
+      "end": 559.0799999999999,
+      "startOffset": 236,
+      "endOffset": 265,
+      "text": "Antwort: An Tagen über 30 °C."
+    },
+    {
+      "sentenceId": "b-8cfb7ba55a7a0d75-s1",
+      "blockIds": [
+        "b-8cfb7ba55a7a0d75"
+      ],
+      "start": 559.0799999999999,
+      "end": 561.4799999999999,
+      "startOffset": 0,
+      "endOffset": 31,
+      "text": "Werkzeuge aus der Workshopreihe"
+    },
+    {
+      "sentenceId": "b-1d5957dc5649b1e6-s1",
+      "blockIds": [
+        "b-1d5957dc5649b1e6"
+      ],
+      "start": 561.4799999999999,
+      "end": 565.7199999999999,
+      "startOffset": 0,
+      "endOffset": 61,
+      "text": "Befragungen und Hotspot-Mapping nach dem Ansatz von Prostorož"
+    },
+    {
+      "sentenceId": "b-b66b1ed1e79a4619-s1",
+      "blockIds": [
+        "b-b66b1ed1e79a4619"
+      ],
+      "start": 565.7199999999999,
+      "end": 570.2799999999999,
+      "startOffset": 0,
+      "endOffset": 64,
+      "text": "Fußgänger:innenzählungen und Beobachtung der Parkplatzauslastung"
+    },
+    {
+      "sentenceId": "b-7b67538e17f6f42f-s1",
+      "blockIds": [
+        "b-7b67538e17f6f42f"
+      ],
+      "start": 570.2799999999999,
+      "end": 573.7999999999998,
+      "startOffset": 0,
+      "endOffset": 49,
+      "text": "Public Life App zur Beobachtung des Straßenlebens"
+    },
+    {
+      "sentenceId": "b-a479575095f421b5-s1",
+      "blockIds": [
+        "b-a479575095f421b5"
+      ],
+      "start": 573.7999999999998,
+      "end": 577.3999999999999,
+      "startOffset": 0,
+      "endOffset": 50,
+      "text": "Verkehrszählungen nach Vorbild von Changing Cities"
+    },
+    {
+      "sentenceId": "b-ecd04678336363ab-s1",
+      "blockIds": [
+        "b-ecd04678336363ab"
+      ],
+      "start": 577.3999999999999,
+      "end": 581.7999999999998,
+      "startOffset": 0,
+      "endOffset": 63,
+      "text": "Gesprächsleitfäden für Gewerbetreibende und lokale Akteur:innen"
+    },
+    {
+      "sentenceId": "b-3f0c97fddc9f020e-s1",
+      "blockIds": [
+        "b-3f0c97fddc9f020e"
+      ],
+      "start": 581.7999999999998,
+      "end": 585.8799999999999,
+      "startOffset": 0,
+      "endOffset": 53,
+      "text": "Leiwande Straßen Radar für schnelle Vor-Ort-Bewertung"
+    },
+    {
+      "sentenceId": "b-a1fb2be009ad727c-s1",
+      "blockIds": [
+        "b-a1fb2be009ad727c"
+      ],
+      "start": 585.8799999999999,
+      "end": 590.8399999999999,
+      "startOffset": 0,
+      "endOffset": 58,
+      "text": "Superblock-Grundkarte und LTN-Tool für räumliche Szenarien"
+    },
+    {
+      "sentenceId": "b-633fdfc9766f399c-s1",
+      "blockIds": [
+        "b-633fdfc9766f399c"
+      ],
+      "start": 590.8399999999999,
+      "end": 595.2399999999999,
+      "startOffset": 0,
+      "endOffset": 59,
+      "text": "Vorher-Nachher-Dokumentation für Tactical-Urbanism-Aktionen"
+    }
+  ]
+}

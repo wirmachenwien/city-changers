@@ -23,7 +23,7 @@ export function checkAudioRelease({ allowMissing = false } = {}) {
     const track = publication.chapters.find(c => c.id === chapter.id);
     if (!track || track.cueSchemaVersion !== 2 || track.sourceHash !== chapter.sourceHash || track.scriptHash !== chapter.scriptHash || track.assemblyHash !== chapter.assemblyHash ||
         track.pageUrl !== chapter.pageUrl || !Number.isFinite(track.duration) || track.duration <= 0) throw new Error(`${chapter.id}: stale/incomplete audio release`);
-    for (const item of [track.cues, track.transcript]) {
+    for (const item of [track.cues]) {
       const data = readFileSync(path(`public/audio/${item.file}`));
       if (data.length !== item.bytes || hash(data) !== item.sha256 || item.url !== `/audio/${item.file}`) throw new Error(`${chapter.id}: invalid website artifact ${item.file}`);
     }

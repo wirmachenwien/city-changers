@@ -178,7 +178,7 @@ test('rendered chapter hooks cover every narration block (build first)', { skip:
       assert.ok(player.querySelector('input[type="range"][data-position]'));
       assert.ok(player.querySelector('[data-speed]'));
       assert.ok(player.querySelector('[data-highlight]'));
-      assert.equal(player.querySelector('[data-seek], [data-audio-transcript], details, a'), null, 'No old seek, download or transcript controls');
+      assert.equal(player.querySelector('[data-seek], details, a'), null, 'No old seek or download controls');
     }
   }
 });

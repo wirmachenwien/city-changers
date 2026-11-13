@@ -39,7 +39,7 @@ plan; the example is not permission to spend.
 ### 3. Prepare a local edition
 
 ```sh
-npm run audio:prepare -- --chapter en/01  # One chapter: MP3, cues, transcript
+npm run audio:prepare -- --chapter en/01  # One chapter: MP3 and cues
 npm run audio:prepare -- --language en    # All English chapters + English M4B
 npm run audio:prepare                    # Everything: 21 chapters + three M4Bs
 ```
@@ -52,7 +52,7 @@ inventory, separate from the lightweight website payload:
 | --- | --- | --- |
 | `.cache/audio/units/` | Private recordings, original alignments, requests and journals | **Never**; back up privately |
 | `.cache/audio/release/` | Assembly intermediates and private provenance | No |
-| `public/audio/<revision>/` | Complete local edition: MP3s, M4Bs, cues and transcripts | Commit only cues/transcripts (about 1 MB); media is ignored |
+| `public/audio/<revision>/` | Complete local edition: MP3s, M4Bs and cues | Commit only cue JSON (about 0.7 MB); media is ignored |
 | `audio/published.json` | Public frontend catalogue; media URLs point to the immutable GitHub Release | Yes, with the edition |
 | `audio/release.json` | Complete public attachment inventory and checksums | Yes, with the edition |
 
@@ -82,7 +82,7 @@ instead (which only works after publication).
 
 MP3s/M4Bs are ignored by Git. The `audio-site` integration gives **production
 builds only** a filtered public-directory mirror, excluding `audio/**/*.mp3`
-and `audio/**/*.m4b` before Vite copies any public assets. Cues, transcripts,
+and `audio/**/*.m4b` before Vite copies any public assets. Cues,
 brand previews and other public files still ship normally. The real local
 `public/audio/` handoff remains untouched and is the release uploader's source.
 
@@ -105,7 +105,7 @@ as “book”, remove that library entry and import the corrected download again
 its cached title is not updated by publishing a replacement edition.
 
 Commit the reviewed `audio/` inputs, `audio/release.json`, `audio/published.json`
-and the matching `public/audio/` cues/transcripts on a review branch. Push that
+and the matching `public/audio/` cue JSON on a review branch. Push that
 branch so the target commit exists on GitHub, then explicitly publish:
 
 ```sh
@@ -116,8 +116,8 @@ npm run audio:release -- --verify   # Existing public release + MP3 ranges; no u
 The publisher follows the brand-kit release convention: `audio-<sha256>` tags,
 flat attachment names, paginated lookup, SHA-256/size verification, resumable
 draft uploads, no overwrite of published releases, and `--latest=false`.
-All MP3s, M4Bs, cues, transcripts and `audio-release.json` are archived in the
-release. Only MP3s/M4Bs are loaded from GitHub by the website; cues/transcripts
+All MP3s, M4Bs, cues and `audio-release.json` are archived in the
+release. Only MP3s/M4Bs are loaded from GitHub by the website; cues
 remain same-origin. Always use the stable release download URLs, not their
 temporary signed redirect targets. No ZIP is needed for the initial edition.
 

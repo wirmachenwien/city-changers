@@ -2,11 +2,11 @@ import { hash } from './content.mjs';
 
 export const repository = 'wirmachenwien/city-changers';
 export const releaseMetadata = 'audio-release.json';
-export const artifactPattern = /^[a-f0-9]{20}\/(en|de|sl)\/[a-z0-9-]+\.(mp3|m4b|cues\.json|transcript\.html)$/;
+export const artifactPattern = /^[a-f0-9]{20}\/(en|de|sl)\/[a-z0-9-]+\.(mp3|m4b|cues\.json)$/;
 
 export function publicationArtifacts(publication) {
   return publication.chapters.flatMap(c => [
-    { ...c.track, kind: 'mp3' }, { ...c.cues, kind: 'cues' }, { ...c.transcript, kind: 'transcript' },
+    { ...c.track, kind: 'mp3' }, { ...c.cues, kind: 'cues' },
   ]).concat(publication.audiobooks.map(b => ({ file: b.file, bytes: b.bytes, sha256: b.sha256, url: b.url, kind: 'm4b' })));
 }
 
@@ -16,7 +16,8 @@ export function releaseInventory(publication) {
   const normalized = structuredClone(publication);
   delete normalized.release;
   for (const chapter of normalized.chapters) {
-    for (const item of [chapter.track, chapter.cues, chapter.transcript]) item.url = `/audio/${item.file}`;
+    delete chapter.transcript; // Migrate chapters retained by partial preparation.
+    for (const item of [chapter.track, chapter.cues]) item.url = `/audio/${item.file}`;
   }
   for (const book of normalized.audiobooks) book.url = `/audio/${book.file}`;
   const assets = publicationArtifacts(normalized).map(({ file, bytes, sha256, kind }) => {

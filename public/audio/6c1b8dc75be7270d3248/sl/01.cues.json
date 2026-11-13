@@ -1,0 +1,487 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "sl/01",
+  "cues": [
+    {
+      "start": 0,
+      "end": 3.6,
+      "blockIds": [
+        "b-cd52bbb50e3520f1"
+      ]
+    },
+    {
+      "start": 3.6,
+      "end": 52.64,
+      "blockIds": [
+        "b-816c0b4943202c9d"
+      ]
+    },
+    {
+      "start": 52.64,
+      "end": 55.76,
+      "blockIds": [
+        "b-53b5285ca7791806"
+      ]
+    },
+    {
+      "start": 55.76,
+      "end": 59.76,
+      "blockIds": [
+        "b-df720dbbb92ef8fc"
+      ]
+    },
+    {
+      "start": 59.76,
+      "end": 74.8,
+      "blockIds": [
+        "b-24328caa803f4801"
+      ]
+    },
+    {
+      "start": 74.8,
+      "end": 77.2,
+      "blockIds": [
+        "b-d33fc38b00a75aca"
+      ]
+    },
+    {
+      "start": 77.2,
+      "end": 91.84,
+      "blockIds": [
+        "b-1b06e67a6f334fed"
+      ]
+    },
+    {
+      "start": 91.84,
+      "end": 93.84,
+      "blockIds": [
+        "b-74664cb98e8b56f8"
+      ]
+    },
+    {
+      "start": 94,
+      "end": 99.12,
+      "blockIds": [
+        "b-c4241925dd0a77db"
+      ]
+    },
+    {
+      "start": 99.12,
+      "end": 108.32000000000001,
+      "blockIds": [
+        "b-c156670fcb566de4"
+      ]
+    },
+    {
+      "start": 108.32000000000001,
+      "end": 114.32000000000001,
+      "blockIds": [
+        "b-bea2114b718f9401"
+      ]
+    },
+    {
+      "start": 114.32000000000001,
+      "end": 122.80000000000001,
+      "blockIds": [
+        "b-86ce3b83f786a48c"
+      ]
+    },
+    {
+      "start": 122.80000000000001,
+      "end": 131.44,
+      "blockIds": [
+        "b-1f05436a7e1a67ab"
+      ]
+    },
+    {
+      "start": 131.44,
+      "end": 138.56,
+      "blockIds": [
+        "b-0c1db29171eda810"
+      ]
+    },
+    {
+      "start": 138.56,
+      "end": 149.44,
+      "blockIds": [
+        "b-f14d4ed36193a905"
+      ]
+    },
+    {
+      "start": 149.44,
+      "end": 151.92,
+      "blockIds": [
+        "b-daab70fd8983987e"
+      ]
+    },
+    {
+      "start": 151.92,
+      "end": 190.95999999999998,
+      "blockIds": [
+        "b-5eef76896a95a5f9"
+      ]
+    },
+    {
+      "start": 190.95999999999998,
+      "end": 192.48,
+      "blockIds": [
+        "b-41978e4d1cff8a00"
+      ]
+    },
+    {
+      "start": 192.48,
+      "end": 206.07999999999998,
+      "blockIds": [
+        "b-c18ae047d90c235a"
+      ]
+    },
+    {
+      "start": 206.07999999999998,
+      "end": 223.44,
+      "blockIds": [
+        "b-a5f3bf75a3cfde90"
+      ]
+    },
+    {
+      "start": 223.44,
+      "end": 239.04,
+      "blockIds": [
+        "b-164e59a462b5de03"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-cd52bbb50e3520f1-s1",
+      "blockIds": [
+        "b-cd52bbb50e3520f1"
+      ],
+      "start": 0,
+      "end": 3.6,
+      "startOffset": 0,
+      "endOffset": 35,
+      "text": "Poglavje 1: Zakaj ta zbirka orodij?"
+    },
+    {
+      "sentenceId": "b-816c0b4943202c9d-s1",
+      "blockIds": [
+        "b-816c0b4943202c9d"
+      ],
+      "start": 3.6,
+      "end": 17.6,
+      "startOffset": 0,
+      "endOffset": 201,
+      "text": "»Zbirka orodij za spreminjanje mest« je namenjena ljudem, ki želijo svojo sosesko narediti varnejšo, bolj zeleno, vključujočo in odpornejšo na podnebne spremembe ter za to potrebujejo konkretna orodja."
+    },
+    {
+      "sentenceId": "b-816c0b4943202c9d-s2",
+      "blockIds": [
+        "b-816c0b4943202c9d"
+      ],
+      "start": 18.16,
+      "end": 22.080000000000002,
+      "startOffset": 202,
+      "endOffset": 257,
+      "text": "Združuje izkušnje iz Berlina, z Dunaja in iz Ljubljane."
+    },
+    {
+      "sentenceId": "b-816c0b4943202c9d-s3",
+      "blockIds": [
+        "b-816c0b4943202c9d"
+      ],
+      "start": 22.400000000000002,
+      "end": 32.64,
+      "startOffset": 258,
+      "endOffset": 402,
+      "text": "Berlinska organizacija Changing Cities podpira več kot 70 pobud, ki zahtevajo superbloke v svojih soseskah – za mesto, prijaznejše za življenje."
+    },
+    {
+      "sentenceId": "b-816c0b4943202c9d-s4",
+      "blockIds": [
+        "b-816c0b4943202c9d"
+      ],
+      "start": 32.96,
+      "end": 45,
+      "startOffset": 403,
+      "endOffset": 566,
+      "text": "Dunajska organizacija Wir machen Wien je nastala iz Platz für Wien, doslej največje mestne kampanje za boljše javne prostore, ki je zbrala več kot 57.000 podpisov."
+    },
+    {
+      "sentenceId": "b-816c0b4943202c9d-s5",
+      "blockIds": [
+        "b-816c0b4943202c9d"
+      ],
+      "start": 45.28,
+      "end": 52.64,
+      "startOffset": 567,
+      "endOffset": 674,
+      "text": "Prostorož pa je slovenski neprofitni urbanistični studio, ki utira pot ustvarjanju prostorov po meri ljudi."
+    },
+    {
+      "sentenceId": "b-53b5285ca7791806-s1",
+      "blockIds": [
+        "b-53b5285ca7791806"
+      ],
+      "start": 52.64,
+      "end": 55.76,
+      "startOffset": 0,
+      "endOffset": 41,
+      "text": "Ta priročnik je za vse, ki se sprašujete:"
+    },
+    {
+      "sentenceId": "b-df720dbbb92ef8fc-s1",
+      "blockIds": [
+        "b-df720dbbb92ef8fc"
+      ],
+      "start": 55.76,
+      "end": 59.76,
+      "startOffset": 0,
+      "endOffset": 58,
+      "text": "Kako lahko naše mesto naredimo bolj prijazno za življenje?"
+    },
+    {
+      "sentenceId": "b-24328caa803f4801-s1",
+      "blockIds": [
+        "b-24328caa803f4801"
+      ],
+      "start": 59.76,
+      "end": 64.92,
+      "startOffset": 0,
+      "endOffset": 76,
+      "text": "Vsa naslednja poglavja pomagajo korak za korakom odgovoriti na to vprašanje."
+    },
+    {
+      "sentenceId": "b-24328caa803f4801-s2",
+      "blockIds": [
+        "b-24328caa803f4801"
+      ],
+      "start": 65.2,
+      "end": 72.24,
+      "startOffset": 77,
+      "endOffset": 176,
+      "text": "Verjamemo, da je treba mesta oblikovati za ljudi in da ima vsakdo pravico do lepe in varne soseske."
+    },
+    {
+      "sentenceId": "b-24328caa803f4801-s3",
+      "blockIds": [
+        "b-24328caa803f4801"
+      ],
+      "start": 72.48,
+      "end": 74.8,
+      "startOffset": 177,
+      "endOffset": 208,
+      "text": "Če se strinjate, berite naprej."
+    },
+    {
+      "sentenceId": "b-d33fc38b00a75aca-s1",
+      "blockIds": [
+        "b-d33fc38b00a75aca"
+      ],
+      "start": 74.8,
+      "end": 77.2,
+      "startOffset": 0,
+      "endOffset": 29,
+      "text": "Kako uporabljati ta priročnik"
+    },
+    {
+      "sentenceId": "b-1b06e67a6f334fed-s1",
+      "blockIds": [
+        "b-1b06e67a6f334fed"
+      ],
+      "start": 77.2,
+      "end": 80.72,
+      "startOffset": 0,
+      "endOffset": 49,
+      "text": "Če ste že sredi pobude, ne berite vsega po vrsti."
+    },
+    {
+      "sentenceId": "b-1b06e67a6f334fed-s2",
+      "blockIds": [
+        "b-1b06e67a6f334fed"
+      ],
+      "start": 80.96000000000001,
+      "end": 91.84,
+      "startOffset": 50,
+      "endOffset": 204,
+      "text": "Začnite s poglavjem, ki ustreza vaši naslednji odločitvi: oblikovanje vizije, načrtovanje prve akcije, pridobivanje zaveznikov ali dokumentiranje učinkov."
+    },
+    {
+      "sentenceId": "b-74664cb98e8b56f8-s1",
+      "blockIds": [
+        "b-74664cb98e8b56f8"
+      ],
+      "start": 91.84,
+      "end": 93.84,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Kaj ponuja ta priročnik"
+    },
+    {
+      "sentenceId": "b-c4241925dd0a77db-s1",
+      "blockIds": [
+        "b-c4241925dd0a77db"
+      ],
+      "start": 94,
+      "end": 99.12,
+      "startOffset": 0,
+      "endOffset": 70,
+      "text": "Kot bistveni del zbirke orodij za spreminjanje mest priročnik povzema:"
+    },
+    {
+      "sentenceId": "b-c156670fcb566de4-s1",
+      "blockIds": [
+        "b-c156670fcb566de4"
+      ],
+      "start": 99.12,
+      "end": 108.32000000000001,
+      "startOffset": 0,
+      "endOffset": 118,
+      "text": "Kako superbloki delujejo kot načrtovalski koncept za varnejšo, bolj zeleno in ljudem prijaznejšo sosesko (2. poglavje)"
+    },
+    {
+      "sentenceId": "b-bea2114b718f9401-s1",
+      "blockIds": [
+        "b-bea2114b718f9401"
+      ],
+      "start": 108.32000000000001,
+      "end": 114.32000000000001,
+      "startOffset": 0,
+      "endOffset": 80,
+      "text": "Kako lahko s taktičnim urbanizmom te zamisli uresničimo z malo truda in stroškov"
+    },
+    {
+      "sentenceId": "b-86ce3b83f786a48c-s1",
+      "blockIds": [
+        "b-86ce3b83f786a48c"
+      ],
+      "start": 114.32000000000001,
+      "end": 122.80000000000001,
+      "startOffset": 0,
+      "endOffset": 106,
+      "text": "Kako lahko orodja za oblikovanje ulic in intervencije pokažejo boljši javni prostor v praksi (3. poglavje)"
+    },
+    {
+      "sentenceId": "b-1f05436a7e1a67ab-s1",
+      "blockIds": [
+        "b-1f05436a7e1a67ab"
+      ],
+      "start": 122.80000000000001,
+      "end": 131.44,
+      "startOffset": 0,
+      "endOffset": 113,
+      "text": "Kaj je potrebno, da za svojo pobudo navdušiš čim več ljudi in jih spodbudiš k dejavnemu sodelovanju (4. poglavje)"
+    },
+    {
+      "sentenceId": "b-0c1db29171eda810-s1",
+      "blockIds": [
+        "b-0c1db29171eda810"
+      ],
+      "start": 131.44,
+      "end": 138.56,
+      "startOffset": 0,
+      "endOffset": 96,
+      "text": "Kako različna orodja za spremljanje zagotavljajo merljive argumente za preureditev (5. poglavje)"
+    },
+    {
+      "sentenceId": "b-f14d4ed36193a905-s1",
+      "blockIds": [
+        "b-f14d4ed36193a905"
+      ],
+      "start": 138.56,
+      "end": 149.44,
+      "startOffset": 0,
+      "endOffset": 143,
+      "text": "In nazadnje vodnik po korakih, s katerim zamisel pretvoriš v vizijo in nato v spremembo (6. poglavje); glosar ključnih izrazov sledi poglavjem."
+    },
+    {
+      "sentenceId": "b-daab70fd8983987e-s1",
+      "blockIds": [
+        "b-daab70fd8983987e"
+      ],
+      "start": 149.44,
+      "end": 151.92,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Kako je nastala ta zbirka orodij"
+    },
+    {
+      "sentenceId": "b-5eef76896a95a5f9-s1",
+      "blockIds": [
+        "b-5eef76896a95a5f9"
+      ],
+      "start": 151.92,
+      "end": 165.44,
+      "startOffset": 0,
+      "endOffset": 186,
+      "text": "Zbirka orodij za spreminjanje mest je projekt, financiran iz programa Erasmus+, ki želi ljudem dati znanje, praktične spretnosti in samozavest za oblikovanje sprememb v lastnih soseskah."
+    },
+    {
+      "sentenceId": "b-5eef76896a95a5f9-s2",
+      "blockIds": [
+        "b-5eef76896a95a5f9"
+      ],
+      "start": 165.76,
+      "end": 181.76,
+      "startOffset": 187,
+      "endOffset": 426,
+      "text": "Tri delavnice so povezale prebivalce, lokalne pobude in ljudi s praktičnimi izkušnjami, ki so si izmenjali izkušnje ter raziskovali, kako zgraditi sosedsko pobudo, preizkusiti zamisli v javnem prostoru in sodelovati pri lokalnem odločanju."
+    },
+    {
+      "sentenceId": "b-5eef76896a95a5f9-s3",
+      "blockIds": [
+        "b-5eef76896a95a5f9"
+      ],
+      "start": 182.32,
+      "end": 190.95999999999998,
+      "startOffset": 427,
+      "endOffset": 557,
+      "text": "Ta priročnik omogoča dostop do orodij in pristopov tudi zunaj delavnic, da jih lahko več ljudi prilagodi svojemu lokalnemu okolju."
+    },
+    {
+      "sentenceId": "b-41978e4d1cff8a00-s1",
+      "blockIds": [
+        "b-41978e4d1cff8a00"
+      ],
+      "start": 190.95999999999998,
+      "end": 192.48,
+      "startOffset": 0,
+      "endOffset": 13,
+      "text": "Tri delavnice"
+    },
+    {
+      "sentenceId": "b-c18ae047d90c235a-s1",
+      "blockIds": [
+        "b-c18ae047d90c235a"
+      ],
+      "start": 192.48,
+      "end": 206.07999999999998,
+      "startOffset": 0,
+      "endOffset": 161,
+      "text": "Superbloki in igrive intervencije, 5. marca 2026 v Ljubljani: Kako nastajajo lokalne pobude, kako delujejo superbloki in kako igrive akcije pritegnejo pozornost."
+    },
+    {
+      "sentenceId": "b-a5f3bf75a3cfde90-s1",
+      "blockIds": [
+        "b-a5f3bf75a3cfde90"
+      ],
+      "start": 206.07999999999998,
+      "end": 223.44,
+      "startOffset": 0,
+      "endOffset": 202,
+      "text": "Taktični urbanizem in oblikovanje ulic, 24. aprila 2026 v Berlinu: Kako začasni, poceni posegi pokažejo drugačne možnosti uporabe uličnega prostora in kako skupine skupaj razvijajo vizije ureditve ulic."
+    },
+    {
+      "sentenceId": "b-164e59a462b5de03-s1",
+      "blockIds": [
+        "b-164e59a462b5de03"
+      ],
+      "start": 223.44,
+      "end": 239.04,
+      "startOffset": 0,
+      "endOffset": 193,
+      "text": "Organiziranje in orodja za spremljanje, 30. maja 2026 prek spleta: Kako pobude pridobivajo podpornike, spremljajo napredek in svoje kampanje strukturirajo s cilji, mejniki in skupnimi nalogami."
+    }
+  ]
+}

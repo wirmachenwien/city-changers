@@ -1,0 +1,869 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "en/glossary",
+  "cues": [
+    {
+      "start": 0,
+      "end": 2.32,
+      "blockIds": [
+        "b-7a21d60d1b062b38"
+      ]
+    },
+    {
+      "start": 2.32,
+      "end": 10.56,
+      "blockIds": [
+        "b-dde27fb3922e0977"
+      ]
+    },
+    {
+      "start": 10.56,
+      "end": 20.32,
+      "blockIds": [
+        "b-807ca343e8f75ba1"
+      ]
+    },
+    {
+      "start": 20.32,
+      "end": 27.2,
+      "blockIds": [
+        "b-b250c45563acf62d"
+      ]
+    },
+    {
+      "start": 27.2,
+      "end": 33.519999999999996,
+      "blockIds": [
+        "b-3edec84b1e2a7eb6"
+      ]
+    },
+    {
+      "start": 33.519999999999996,
+      "end": 42.959999999999994,
+      "blockIds": [
+        "b-1a99282bd754b55c"
+      ]
+    },
+    {
+      "start": 42.959999999999994,
+      "end": 49.839999999999996,
+      "blockIds": [
+        "b-d67bcad96072015f"
+      ]
+    },
+    {
+      "start": 49.839999999999996,
+      "end": 57.199999999999996,
+      "blockIds": [
+        "b-ff3836e875132ccb"
+      ]
+    },
+    {
+      "start": 57.199999999999996,
+      "end": 67.19999999999999,
+      "blockIds": [
+        "b-7525cd6f86f9ddb8"
+      ]
+    },
+    {
+      "start": 67.19999999999999,
+      "end": 75.03999999999999,
+      "blockIds": [
+        "b-48c531b7b099829d"
+      ]
+    },
+    {
+      "start": 75.03999999999999,
+      "end": 83.19999999999999,
+      "blockIds": [
+        "b-77727a64ffb2d708"
+      ]
+    },
+    {
+      "start": 83.19999999999999,
+      "end": 91.19999999999999,
+      "blockIds": [
+        "b-412981b2c7126090"
+      ]
+    },
+    {
+      "start": 91.19999999999999,
+      "end": 100.88,
+      "blockIds": [
+        "b-2575cf1d9210612f"
+      ]
+    },
+    {
+      "start": 100.88,
+      "end": 108.64,
+      "blockIds": [
+        "b-6869e345de0975e4"
+      ]
+    },
+    {
+      "start": 108.64,
+      "end": 116.96000000000001,
+      "blockIds": [
+        "b-c78ae4a341b47c7e"
+      ]
+    },
+    {
+      "start": 116.96000000000001,
+      "end": 123.52000000000001,
+      "blockIds": [
+        "b-7112f3d0c52564f2"
+      ]
+    },
+    {
+      "start": 123.52000000000001,
+      "end": 132,
+      "blockIds": [
+        "b-c153b74ca2645ebe"
+      ]
+    },
+    {
+      "start": 132,
+      "end": 139.12,
+      "blockIds": [
+        "b-00b69b99edde2036"
+      ]
+    },
+    {
+      "start": 139.12,
+      "end": 148.24,
+      "blockIds": [
+        "b-13f3f983fcedd8d1"
+      ]
+    },
+    {
+      "start": 148.24,
+      "end": 156.88,
+      "blockIds": [
+        "b-02c153740bfa9106"
+      ]
+    },
+    {
+      "start": 156.88,
+      "end": 162.96,
+      "blockIds": [
+        "b-201fa4e92cd1eff7"
+      ]
+    },
+    {
+      "start": 162.96,
+      "end": 168.88,
+      "blockIds": [
+        "b-1d27c6dcdde584c1"
+      ]
+    },
+    {
+      "start": 168.88,
+      "end": 174.07999999999998,
+      "blockIds": [
+        "b-001e5be108e16997"
+      ]
+    },
+    {
+      "start": 174.07999999999998,
+      "end": 181.92,
+      "blockIds": [
+        "b-7fca6fe628d62c7e"
+      ]
+    },
+    {
+      "start": 181.92,
+      "end": 189.76,
+      "blockIds": [
+        "b-97b3d4587216000a"
+      ]
+    },
+    {
+      "start": 189.76,
+      "end": 196.72,
+      "blockIds": [
+        "b-2bc84d48f806fe83"
+      ]
+    },
+    {
+      "start": 196.72,
+      "end": 203.84,
+      "blockIds": [
+        "b-ad3ef21d04096ecd"
+      ]
+    },
+    {
+      "start": 203.84,
+      "end": 212.4,
+      "blockIds": [
+        "b-b2634893df58bbc1"
+      ]
+    },
+    {
+      "start": 212.4,
+      "end": 223.28,
+      "blockIds": [
+        "b-c58b51cdb1c7b9aa"
+      ]
+    },
+    {
+      "start": 223.28,
+      "end": 233.68,
+      "blockIds": [
+        "b-5013a4091bca4b17"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-7a21d60d1b062b38-s1",
+      "blockIds": [
+        "b-7a21d60d1b062b38"
+      ],
+      "start": 0,
+      "end": 2.32,
+      "startOffset": 0,
+      "endOffset": 19,
+      "text": "Chapter 7: Glossary"
+    },
+    {
+      "sentenceId": "b-dde27fb3922e0977-s1",
+      "blockIds": [
+        "b-dde27fb3922e0977"
+      ],
+      "start": 2.32,
+      "end": 6.48,
+      "startOffset": 0,
+      "endOffset": 63,
+      "text": "This glossary explains key Toolbox terms in alphabetical order."
+    },
+    {
+      "sentenceId": "b-dde27fb3922e0977-s2",
+      "blockIds": [
+        "b-dde27fb3922e0977"
+      ],
+      "start": 6.959999999999999,
+      "end": 10.56,
+      "startOffset": 64,
+      "endOffset": 119,
+      "text": "It helps you read chapters 1–6 without prior knowledge."
+    },
+    {
+      "sentenceId": "b-807ca343e8f75ba1-s1",
+      "blockIds": [
+        "b-807ca343e8f75ba1"
+      ],
+      "start": 10.56,
+      "end": 11.84,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Agenda setting."
+    },
+    {
+      "sentenceId": "b-807ca343e8f75ba1-s2",
+      "blockIds": [
+        "b-807ca343e8f75ba1"
+      ],
+      "start": 12.08,
+      "end": 20.32,
+      "startOffset": 16,
+      "endOffset": 140,
+      "text": "A tactic for making an issue publicly visible, for example through an action, a petition, or a striking image for the media."
+    },
+    {
+      "sentenceId": "b-b250c45563acf62d-s1",
+      "blockIds": [
+        "b-b250c45563acf62d"
+      ],
+      "start": 20.32,
+      "end": 21.36,
+      "startOffset": 0,
+      "endOffset": 8,
+      "text": "Framing."
+    },
+    {
+      "sentenceId": "b-b250c45563acf62d-s2",
+      "blockIds": [
+        "b-b250c45563acf62d"
+      ],
+      "start": 21.68,
+      "end": 27.2,
+      "startOffset": 9,
+      "endOffset": 96,
+      "text": "Naming and telling a problem and its solution so that they are understood in a new way."
+    },
+    {
+      "sentenceId": "b-3edec84b1e2a7eb6-s1",
+      "blockIds": [
+        "b-3edec84b1e2a7eb6"
+      ],
+      "start": 27.2,
+      "end": 28,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Kiezblock."
+    },
+    {
+      "sentenceId": "b-3edec84b1e2a7eb6-s2",
+      "blockIds": [
+        "b-3edec84b1e2a7eb6"
+      ],
+      "start": 28.48,
+      "end": 33.519999999999996,
+      "startOffset": 11,
+      "endOffset": 86,
+      "text": "The Berlin variant of the superblock, strongly driven by local initiatives."
+    },
+    {
+      "sentenceId": "b-1a99282bd754b55c-s1",
+      "blockIds": [
+        "b-1a99282bd754b55c"
+      ],
+      "start": 33.519999999999996,
+      "end": 35.239999999999995,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Low-traffic neighbourhood."
+    },
+    {
+      "sentenceId": "b-1a99282bd754b55c-s2",
+      "blockIds": [
+        "b-1a99282bd754b55c"
+      ],
+      "start": 35.44,
+      "end": 42.959999999999994,
+      "startOffset": 27,
+      "endOffset": 141,
+      "text": "A form of traffic calming that reduces through traffic, discussed as a Viennese variant called Low-Traffic-Grätzl."
+    },
+    {
+      "sentenceId": "b-d67bcad96072015f-s1",
+      "blockIds": [
+        "b-d67bcad96072015f"
+      ],
+      "start": 42.959999999999994,
+      "end": 43.839999999999996,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Milestone."
+    },
+    {
+      "sentenceId": "b-d67bcad96072015f-s2",
+      "blockIds": [
+        "b-d67bcad96072015f"
+      ],
+      "start": 44.239999999999995,
+      "end": 49.839999999999996,
+      "startOffset": 11,
+      "endOffset": 102,
+      "text": "A visible intermediate goal that shows a campaign is making progress and keeps it on track."
+    },
+    {
+      "sentenceId": "b-ff3836e875132ccb-s1",
+      "blockIds": [
+        "b-ff3836e875132ccb"
+      ],
+      "start": 49.839999999999996,
+      "end": 50.959999999999994,
+      "startOffset": 0,
+      "endOffset": 13,
+      "text": "Mobilisation."
+    },
+    {
+      "sentenceId": "b-ff3836e875132ccb-s2",
+      "blockIds": [
+        "b-ff3836e875132ccb"
+      ],
+      "start": 51.44,
+      "end": 57.199999999999996,
+      "startOffset": 14,
+      "endOffset": 105,
+      "text": "Work through which people understand why they participate and become ready to act together."
+    },
+    {
+      "sentenceId": "b-7525cd6f86f9ddb8-s1",
+      "blockIds": [
+        "b-7525cd6f86f9ddb8"
+      ],
+      "start": 57.199999999999996,
+      "end": 58.16,
+      "startOffset": 0,
+      "endOffset": 13,
+      "text": "Modal filter."
+    },
+    {
+      "sentenceId": "b-7525cd6f86f9ddb8-s2",
+      "blockIds": [
+        "b-7525cd6f86f9ddb8"
+      ],
+      "start": 58.63999999999999,
+      "end": 67.19999999999999,
+      "startOffset": 14,
+      "endOffset": 145,
+      "text": "A barrier such as a bollard, planter ring or concrete element that stops through traffic but lets access and delivery traffic pass."
+    },
+    {
+      "sentenceId": "b-48c531b7b099829d-s1",
+      "blockIds": [
+        "b-48c531b7b099829d"
+      ],
+      "start": 67.19999999999999,
+      "end": 67.99999999999999,
+      "startOffset": 0,
+      "endOffset": 11,
+      "text": "Monitoring."
+    },
+    {
+      "sentenceId": "b-48c531b7b099829d-s2",
+      "blockIds": [
+        "b-48c531b7b099829d"
+      ],
+      "start": 68.47999999999999,
+      "end": 75.03999999999999,
+      "startOffset": 12,
+      "endOffset": 101,
+      "text": "Systematic observation and documentation of traffic, use, support and political progress."
+    },
+    {
+      "sentenceId": "b-77727a64ffb2d708-s1",
+      "blockIds": [
+        "b-77727a64ffb2d708"
+      ],
+      "start": 75.03999999999999,
+      "end": 75.83999999999999,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Narrative."
+    },
+    {
+      "sentenceId": "b-77727a64ffb2d708-s2",
+      "blockIds": [
+        "b-77727a64ffb2d708"
+      ],
+      "start": 76.24,
+      "end": 83.19999999999999,
+      "startOffset": 11,
+      "endOffset": 111,
+      "text": "The story an initiative tells about its goal, window of opportunity, alliances, and intended change."
+    },
+    {
+      "sentenceId": "b-412981b2c7126090-s1",
+      "blockIds": [
+        "b-412981b2c7126090"
+      ],
+      "start": 83.19999999999999,
+      "end": 84.15999999999998,
+      "startOffset": 0,
+      "endOffset": 14,
+      "text": "Street design."
+    },
+    {
+      "sentenceId": "b-412981b2c7126090-s2",
+      "blockIds": [
+        "b-412981b2c7126090"
+      ],
+      "start": 84.63999999999999,
+      "end": 91.19999999999999,
+      "startOffset": 15,
+      "endOffset": 112,
+      "text": "Jointly designing streets with simple tools such as a street plan, banner, or tree visualisation."
+    },
+    {
+      "sentenceId": "b-2575cf1d9210612f-s1",
+      "blockIds": [
+        "b-2575cf1d9210612f"
+      ],
+      "start": 91.19999999999999,
+      "end": 92.07999999999998,
+      "startOffset": 0,
+      "endOffset": 11,
+      "text": "Superblock."
+    },
+    {
+      "sentenceId": "b-2575cf1d9210612f-s2",
+      "blockIds": [
+        "b-2575cf1d9210612f"
+      ],
+      "start": 92.47999999999999,
+      "end": 100.88,
+      "startOffset": 12,
+      "endOffset": 139,
+      "text": "An area where through traffic is systematically interrupted so streets inside can be used more safely and in more diverse ways."
+    },
+    {
+      "sentenceId": "b-6869e345de0975e4-s1",
+      "blockIds": [
+        "b-6869e345de0975e4"
+      ],
+      "start": 100.88,
+      "end": 102.47999999999999,
+      "startOffset": 0,
+      "endOffset": 18,
+      "text": "Tactical urbanism."
+    },
+    {
+      "sentenceId": "b-6869e345de0975e4-s2",
+      "blockIds": [
+        "b-6869e345de0975e4"
+      ],
+      "start": 102.72,
+      "end": 108.64,
+      "startOffset": 19,
+      "endOffset": 108,
+      "text": "Temporary, low-cost interventions in urban space that test changes and make them visible."
+    },
+    {
+      "sentenceId": "b-c78ae4a341b47c7e-s1",
+      "blockIds": [
+        "b-c78ae4a341b47c7e"
+      ],
+      "start": 108.64,
+      "end": 110,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Theory of change."
+    },
+    {
+      "sentenceId": "b-c78ae4a341b47c7e-s2",
+      "blockIds": [
+        "b-c78ae4a341b47c7e"
+      ],
+      "start": 110.48,
+      "end": 116.96000000000001,
+      "startOffset": 18,
+      "endOffset": 119,
+      "text": "An assumption about how social and political change happens, helping you choose tactics deliberately."
+    },
+    {
+      "sentenceId": "b-7112f3d0c52564f2-s1",
+      "blockIds": [
+        "b-7112f3d0c52564f2"
+      ],
+      "start": 116.96000000000001,
+      "end": 118.00000000000001,
+      "startOffset": 0,
+      "endOffset": 16,
+      "text": "Through traffic."
+    },
+    {
+      "sentenceId": "b-7112f3d0c52564f2-s2",
+      "blockIds": [
+        "b-7112f3d0c52564f2"
+      ],
+      "start": 118.48,
+      "end": 123.52000000000001,
+      "startOffset": 17,
+      "endOffset": 96,
+      "text": "Traffic that only crosses an area without having a destination or origin there."
+    },
+    {
+      "sentenceId": "b-c153b74ca2645ebe-s1",
+      "blockIds": [
+        "b-c153b74ca2645ebe"
+      ],
+      "start": 123.52000000000001,
+      "end": 125.20000000000002,
+      "startOffset": 0,
+      "endOffset": 22,
+      "text": "Window of opportunity."
+    },
+    {
+      "sentenceId": "b-c153b74ca2645ebe-s2",
+      "blockIds": [
+        "b-c153b74ca2645ebe"
+      ],
+      "start": 125.68,
+      "end": 132,
+      "startOffset": 23,
+      "endOffset": 116,
+      "text": "A favourable moment for change, such as an election, media attention or a political decision."
+    },
+    {
+      "sentenceId": "b-00b69b99edde2036-s1",
+      "blockIds": [
+        "b-00b69b99edde2036"
+      ],
+      "start": 132,
+      "end": 133.8,
+      "startOffset": 0,
+      "endOffset": 23,
+      "text": "Leiwande Straßen Radar."
+    },
+    {
+      "sentenceId": "b-00b69b99edde2036-s2",
+      "blockIds": [
+        "b-00b69b99edde2036"
+      ],
+      "start": 134,
+      "end": 139.12,
+      "startOffset": 24,
+      "endOffset": 97,
+      "text": "A tool for assessing quality of life, safety, and where action is needed."
+    },
+    {
+      "sentenceId": "b-13f3f983fcedd8d1-s1",
+      "blockIds": [
+        "b-13f3f983fcedd8d1"
+      ],
+      "start": 139.12,
+      "end": 140.56,
+      "startOffset": 0,
+      "endOffset": 18,
+      "text": "Street Shit Bingo."
+    },
+    {
+      "sentenceId": "b-13f3f983fcedd8d1-s2",
+      "blockIds": [
+        "b-13f3f983fcedd8d1"
+      ],
+      "start": 140.96,
+      "end": 148.24,
+      "startOffset": 19,
+      "endOffset": 129,
+      "text": "A tool for a guided walk that helps participants spot obstacles, hazards, and surprising uses of street space."
+    },
+    {
+      "sentenceId": "b-02c153740bfa9106-s1",
+      "blockIds": [
+        "b-02c153740bfa9106"
+      ],
+      "start": 148.24,
+      "end": 149.68,
+      "startOffset": 0,
+      "endOffset": 20,
+      "text": "Street Design Table."
+    },
+    {
+      "sentenceId": "b-02c153740bfa9106-s2",
+      "blockIds": [
+        "b-02c153740bfa9106"
+      ],
+      "start": 150.08,
+      "end": 156.88,
+      "startOffset": 21,
+      "endOffset": 124,
+      "text": "A design tool for adapting a street plan with paper pieces to explore alternative uses of street space."
+    },
+    {
+      "sentenceId": "b-201fa4e92cd1eff7-s1",
+      "blockIds": [
+        "b-201fa4e92cd1eff7"
+      ],
+      "start": 156.88,
+      "end": 157.92,
+      "startOffset": 0,
+      "endOffset": 14,
+      "text": "Tree Love Set."
+    },
+    {
+      "sentenceId": "b-201fa4e92cd1eff7-s2",
+      "blockIds": [
+        "b-201fa4e92cd1eff7"
+      ],
+      "start": 158.32,
+      "end": 162.96,
+      "startOffset": 15,
+      "endOffset": 89,
+      "text": "A set of tree-shaped costumes to show where shade and greenery are needed."
+    },
+    {
+      "sentenceId": "b-1d27c6dcdde584c1-s1",
+      "blockIds": [
+        "b-1d27c6dcdde584c1"
+      ],
+      "start": 162.96,
+      "end": 164.16,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Supergrätzl."
+    },
+    {
+      "sentenceId": "b-1d27c6dcdde584c1-s2",
+      "blockIds": [
+        "b-1d27c6dcdde584c1"
+      ],
+      "start": 164.4,
+      "end": 168.88,
+      "startOffset": 13,
+      "endOffset": 79,
+      "text": "Viennese term for a superblock, literally a 'super neighbourhood'."
+    },
+    {
+      "sentenceId": "b-001e5be108e16997-s1",
+      "blockIds": [
+        "b-001e5be108e16997"
+      ],
+      "start": 168.88,
+      "end": 169.96,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Play street."
+    },
+    {
+      "sentenceId": "b-001e5be108e16997-s2",
+      "blockIds": [
+        "b-001e5be108e16997"
+      ],
+      "start": 170.16,
+      "end": 174.07999999999998,
+      "startOffset": 13,
+      "endOffset": 73,
+      "text": "A street temporarily closed to traffic so children can play."
+    },
+    {
+      "sentenceId": "b-7fca6fe628d62c7e-s1",
+      "blockIds": [
+        "b-7fca6fe628d62c7e"
+      ],
+      "start": 174.07999999999998,
+      "end": 175.55999999999997,
+      "startOffset": 0,
+      "endOffset": 16,
+      "text": "Quality of stay."
+    },
+    {
+      "sentenceId": "b-7fca6fe628d62c7e-s2",
+      "blockIds": [
+        "b-7fca6fe628d62c7e"
+      ],
+      "start": 175.83999999999997,
+      "end": 181.92,
+      "startOffset": 17,
+      "endOffset": 117,
+      "text": "An indicator describing how comfortable and usable a public space is for people spending time there."
+    },
+    {
+      "sentenceId": "b-97b3d4587216000a-s1",
+      "blockIds": [
+        "b-97b3d4587216000a"
+      ],
+      "start": 181.92,
+      "end": 183.67999999999998,
+      "startOffset": 0,
+      "endOffset": 21,
+      "text": "Places to spend time."
+    },
+    {
+      "sentenceId": "b-97b3d4587216000a-s2",
+      "blockIds": [
+        "b-97b3d4587216000a"
+      ],
+      "start": 183.92,
+      "end": 189.76,
+      "startOffset": 22,
+      "endOffset": 98,
+      "text": "Public spaces where people can pause, sit, meet, or take part in activities."
+    },
+    {
+      "sentenceId": "b-2bc84d48f806fe83-s1",
+      "blockIds": [
+        "b-2bc84d48f806fe83"
+      ],
+      "start": 189.76,
+      "end": 191.12,
+      "startOffset": 0,
+      "endOffset": 12,
+      "text": "Plan to win."
+    },
+    {
+      "sentenceId": "b-2bc84d48f806fe83-s2",
+      "blockIds": [
+        "b-2bc84d48f806fe83"
+      ],
+      "start": 191.35999999999999,
+      "end": 196.72,
+      "startOffset": 13,
+      "endOffset": 99,
+      "text": "An initiative's idea of how change will happen and which actions will help achieve it."
+    },
+    {
+      "sentenceId": "b-ad3ef21d04096ecd-s1",
+      "blockIds": [
+        "b-ad3ef21d04096ecd"
+      ],
+      "start": 196.72,
+      "end": 197.84,
+      "startOffset": 0,
+      "endOffset": 4,
+      "text": "LTN."
+    },
+    {
+      "sentenceId": "b-ad3ef21d04096ecd-s2",
+      "blockIds": [
+        "b-ad3ef21d04096ecd"
+      ],
+      "start": 198.24,
+      "end": 203.84,
+      "startOffset": 5,
+      "endOffset": 92,
+      "text": "Abbreviation for low-traffic neighbourhood, a neighbourhood traffic-filtering approach."
+    },
+    {
+      "sentenceId": "b-b2634893df58bbc1-s1",
+      "blockIds": [
+        "b-b2634893df58bbc1"
+      ],
+      "start": 203.84,
+      "end": 205.28,
+      "startOffset": 0,
+      "endOffset": 20,
+      "text": "Traffic evaporation."
+    },
+    {
+      "sentenceId": "b-b2634893df58bbc1-s2",
+      "blockIds": [
+        "b-b2634893df58bbc1"
+      ],
+      "start": 205.76,
+      "end": 212.4,
+      "startOffset": 21,
+      "endOffset": 125,
+      "text": "When road space for cars is reduced, overall traffic often decreases instead of simply moving elsewhere."
+    },
+    {
+      "sentenceId": "b-c58b51cdb1c7b9aa-s1",
+      "blockIds": [
+        "b-c58b51cdb1c7b9aa"
+      ],
+      "start": 212.4,
+      "end": 213.52,
+      "startOffset": 0,
+      "endOffset": 17,
+      "text": "Hot spot mapping."
+    },
+    {
+      "sentenceId": "b-c58b51cdb1c7b9aa-s2",
+      "blockIds": [
+        "b-c58b51cdb1c7b9aa"
+      ],
+      "start": 214,
+      "end": 223.28,
+      "startOffset": 18,
+      "endOffset": 153,
+      "text": "Collecting people's experiences of specific places on a shared map to reveal patterns, for example heat islands or dangerous crossings."
+    },
+    {
+      "sentenceId": "b-5013a4091bca4b17-s1",
+      "blockIds": [
+        "b-5013a4091bca4b17"
+      ],
+      "start": 223.28,
+      "end": 225.12,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Public Life Data Protocol."
+    },
+    {
+      "sentenceId": "b-5013a4091bca4b17-s2",
+      "blockIds": [
+        "b-5013a4091bca4b17"
+      ],
+      "start": 225.6,
+      "end": 233.68,
+      "startOffset": 27,
+      "endOffset": 150,
+      "text": "An open standard by the Gehl Institute for collecting comparable data on how people move through and stay in public spaces."
+    }
+  ]
+}

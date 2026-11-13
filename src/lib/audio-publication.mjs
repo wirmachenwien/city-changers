@@ -28,7 +28,7 @@ export function audioPublication() {
     const chapter = plan.chapters.find(c => c.id === track.id);
     return chapter && track.cueSchemaVersion === 2 && chapter.sourceHash === track.sourceHash && chapter.scriptHash === track.scriptHash && chapter.assemblyHash === track.assemblyHash &&
       Number.isFinite(track.duration) && track.duration > 0 &&
-      [track.track, track.cues, track.transcript].every(localArtifactValid);
+      [track.track, track.cues].every(localArtifactValid);
   });
   if (chapters.length !== plan.chapters.length) console.warn(`[audio] ${plan.chapters.length - chapters.length}/${plan.chapters.length} missing or stale tracks hidden. Run npm run audio:prepare to prepare retained narration.`);
   const localMedia = item => {

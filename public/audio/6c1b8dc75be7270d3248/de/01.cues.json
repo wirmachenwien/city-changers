@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "6c1b8dc75be7270d3248",
+  "chapterId": "de/01",
+  "cues": [
+    {
+      "start": 0,
+      "end": 3.36,
+      "blockIds": [
+        "b-9fd2624c44000802"
+      ]
+    },
+    {
+      "start": 3.36,
+      "end": 46.24,
+      "blockIds": [
+        "b-3caab5294bfcd7bc"
+      ]
+    },
+    {
+      "start": 46.24,
+      "end": 49.440000000000005,
+      "blockIds": [
+        "b-bdd760a5d504711b"
+      ]
+    },
+    {
+      "start": 49.440000000000005,
+      "end": 52.32000000000001,
+      "blockIds": [
+        "b-cf7e2f499dc63e56"
+      ]
+    },
+    {
+      "start": 52.32000000000001,
+      "end": 67.92,
+      "blockIds": [
+        "b-3b4a21091612f67c"
+      ]
+    },
+    {
+      "start": 67.92,
+      "end": 69.76,
+      "blockIds": [
+        "b-5dce1567ed3e6d68"
+      ]
+    },
+    {
+      "start": 69.76,
+      "end": 84.72,
+      "blockIds": [
+        "b-cf6239e5eb55923d"
+      ]
+    },
+    {
+      "start": 84.72,
+      "end": 86.8,
+      "blockIds": [
+        "b-850cbd4a58350dcc"
+      ]
+    },
+    {
+      "start": 86.8,
+      "end": 91.75999999999999,
+      "blockIds": [
+        "b-276f1bc3345eee61"
+      ]
+    },
+    {
+      "start": 91.75999999999999,
+      "end": 99.52,
+      "blockIds": [
+        "b-507133df30efae35"
+      ]
+    },
+    {
+      "start": 99.67999999999999,
+      "end": 106.08,
+      "blockIds": [
+        "b-a1c64f4159af0b72"
+      ]
+    },
+    {
+      "start": 106.08,
+      "end": 113.03999999999999,
+      "blockIds": [
+        "b-6fbd2ebd7c701f78"
+      ]
+    },
+    {
+      "start": 113.03999999999999,
+      "end": 120.72,
+      "blockIds": [
+        "b-3d81864084833a9c"
+      ]
+    },
+    {
+      "start": 120.72,
+      "end": 127.67999999999999,
+      "blockIds": [
+        "b-beda986519ade681"
+      ]
+    },
+    {
+      "start": 127.67999999999999,
+      "end": 139.35999999999999,
+      "blockIds": [
+        "b-3a83091f9220dd6b"
+      ]
+    },
+    {
+      "start": 139.35999999999999,
+      "end": 141.83999999999997,
+      "blockIds": [
+        "b-acfc612b8e9871b6"
+      ]
+    },
+    {
+      "start": 141.83999999999997,
+      "end": 181.35999999999999,
+      "blockIds": [
+        "b-ed5ed45820906a61"
+      ]
+    },
+    {
+      "start": 181.35999999999999,
+      "end": 182.88,
+      "blockIds": [
+        "b-8b4cf82b4e59a940"
+      ]
+    },
+    {
+      "start": 182.88,
+      "end": 197.2,
+      "blockIds": [
+        "b-364b2bf53ff204cf"
+      ]
+    },
+    {
+      "start": 197.2,
+      "end": 213.2,
+      "blockIds": [
+        "b-b8e7bda40aa1125d"
+      ]
+    },
+    {
+      "start": 213.2,
+      "end": 229.6,
+      "blockIds": [
+        "b-df136a639beb16b6"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-9fd2624c44000802-s1",
+      "blockIds": [
+        "b-9fd2624c44000802"
+      ],
+      "start": 0,
+      "end": 3.36,
+      "startOffset": 0,
+      "endOffset": 30,
+      "text": "Kapitel 1: Wozu diese Toolbox?"
+    },
+    {
+      "sentenceId": "b-3caab5294bfcd7bc-s1",
+      "blockIds": [
+        "b-3caab5294bfcd7bc"
+      ],
+      "start": 3.36,
+      "end": 14.559999999999999,
+      "startOffset": 0,
+      "endOffset": 172,
+      "text": "Die \"Toolbox für City Changer\" richtet sich an Menschen, die ihr Grätzl sicherer, grüner, inklusiver und klimagerechter machen wollen und dafür konkrete Werkzeuge brauchen."
+    },
+    {
+      "sentenceId": "b-3caab5294bfcd7bc-s2",
+      "blockIds": [
+        "b-3caab5294bfcd7bc"
+      ],
+      "start": 14.6,
+      "end": 18.36,
+      "startOffset": 173,
+      "endOffset": 230,
+      "text": "Sie verbindet Erfahrungen aus Berlin, Wien und Ljubljana."
+    },
+    {
+      "sentenceId": "b-3caab5294bfcd7bc-s3",
+      "blockIds": [
+        "b-3caab5294bfcd7bc"
+      ],
+      "start": 18.64,
+      "end": 27.2,
+      "startOffset": 231,
+      "endOffset": 373,
+      "text": "Changing Cities aus Berlin unterstützt mehr als 70 Initiativen, die Superblocks für ihre Nachbarschaft fordern – für eine lebenswertere Stadt."
+    },
+    {
+      "sentenceId": "b-3caab5294bfcd7bc-s4",
+      "blockIds": [
+        "b-3caab5294bfcd7bc"
+      ],
+      "start": 27.439999999999998,
+      "end": 37.92,
+      "startOffset": 374,
+      "endOffset": 532,
+      "text": "Wir machen Wien entstand aus Platz für Wien, der bisher größten Kampagne der Stadt für bessere öffentliche Räume, die mehr als 57.000 Unterschriften sammelte."
+    },
+    {
+      "sentenceId": "b-3caab5294bfcd7bc-s5",
+      "blockIds": [
+        "b-3caab5294bfcd7bc"
+      ],
+      "start": 38.16,
+      "end": 46.24,
+      "startOffset": 533,
+      "endOffset": 665,
+      "text": "Prostorož ist ein gemeinnütziges slowenisches Stadtgestaltungsbüro, das mit gutem Beispiel vorangeht und Räume für Menschen schafft."
+    },
+    {
+      "sentenceId": "b-bdd760a5d504711b-s1",
+      "blockIds": [
+        "b-bdd760a5d504711b"
+      ],
+      "start": 46.24,
+      "end": 49.440000000000005,
+      "startOffset": 0,
+      "endOffset": 46,
+      "text": "Dieses Handbuch ist für alle, die sich fragen:"
+    },
+    {
+      "sentenceId": "b-cf7e2f499dc63e56-s1",
+      "blockIds": [
+        "b-cf7e2f499dc63e56"
+      ],
+      "start": 49.440000000000005,
+      "end": 52.32000000000001,
+      "startOffset": 0,
+      "endOffset": 48,
+      "text": "Wie können wir unsere Stadt lebenswerter machen?"
+    },
+    {
+      "sentenceId": "b-3b4a21091612f67c-s1",
+      "blockIds": [
+        "b-3b4a21091612f67c"
+      ],
+      "start": 52.32000000000001,
+      "end": 56.88000000000001,
+      "startOffset": 0,
+      "endOffset": 78,
+      "text": "Alle folgenden Kapitel helfen, diese Frage Schritt für Schritt zu beantworten."
+    },
+    {
+      "sentenceId": "b-3b4a21091612f67c-s2",
+      "blockIds": [
+        "b-3b4a21091612f67c"
+      ],
+      "start": 57.36000000000001,
+      "end": 65.12,
+      "startOffset": 79,
+      "endOffset": 216,
+      "text": "Wir sind überzeugt, dass Städte für Menschen gestaltet werden sollten und alle das Recht auf eine schöne und sichere Nachbarschaft haben."
+    },
+    {
+      "sentenceId": "b-3b4a21091612f67c-s3",
+      "blockIds": [
+        "b-3b4a21091612f67c"
+      ],
+      "start": 65.60000000000001,
+      "end": 67.92,
+      "startOffset": 217,
+      "endOffset": 257,
+      "text": "Wenn du das auch so siehst, lies weiter."
+    },
+    {
+      "sentenceId": "b-5dce1567ed3e6d68-s1",
+      "blockIds": [
+        "b-5dce1567ed3e6d68"
+      ],
+      "start": 67.92,
+      "end": 69.76,
+      "startOffset": 0,
+      "endOffset": 27,
+      "text": "So nutzt du dieses Handbuch"
+    },
+    {
+      "sentenceId": "b-cf6239e5eb55923d-s1",
+      "blockIds": [
+        "b-cf6239e5eb55923d"
+      ],
+      "start": 69.76,
+      "end": 74.56,
+      "startOffset": 0,
+      "endOffset": 93,
+      "text": "Wenn ihr schon mitten in einer Initiative steckt, müsst ihr nicht alles der Reihe nach lesen."
+    },
+    {
+      "sentenceId": "b-cf6239e5eb55923d-s2",
+      "blockIds": [
+        "b-cf6239e5eb55923d"
+      ],
+      "start": 74.96000000000001,
+      "end": 84.72,
+      "startOffset": 94,
+      "endOffset": 259,
+      "text": "Beginnt mit dem Kapitel, das zu eurer nächsten Entscheidung passt: eine Vision entwickeln, eine erste Aktion planen, Mitstreiter:innen gewinnen oder Wirkung belegen."
+    },
+    {
+      "sentenceId": "b-850cbd4a58350dcc-s1",
+      "blockIds": [
+        "b-850cbd4a58350dcc"
+      ],
+      "start": 84.72,
+      "end": 86.8,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Was dieses Handbuch bietet"
+    },
+    {
+      "sentenceId": "b-276f1bc3345eee61-s1",
+      "blockIds": [
+        "b-276f1bc3345eee61"
+      ],
+      "start": 86.8,
+      "end": 91.75999999999999,
+      "startOffset": 0,
+      "endOffset": 80,
+      "text": "Als essenzieller Teil der Toolbox für City Changers fasst das Handbuch zusammen:"
+    },
+    {
+      "sentenceId": "b-507133df30efae35-s1",
+      "blockIds": [
+        "b-507133df30efae35"
+      ],
+      "start": 91.75999999999999,
+      "end": 99.52,
+      "startOffset": 0,
+      "endOffset": 116,
+      "text": "Wie Superblocks als Planungskonzept deine Nachbarschaft sicherer, grüner und menschenfreundlicher machen (Kapitel 2)"
+    },
+    {
+      "sentenceId": "b-a1c64f4159af0b72-s1",
+      "blockIds": [
+        "b-a1c64f4159af0b72"
+      ],
+      "start": 99.67999999999999,
+      "end": 106.08,
+      "startOffset": 0,
+      "endOffset": 93,
+      "text": "Wie Tactical Urbanism diese Ideen mit wenig Aufwand und geringen Kosten Realität werden lässt"
+    },
+    {
+      "sentenceId": "b-6fbd2ebd7c701f78-s1",
+      "blockIds": [
+        "b-6fbd2ebd7c701f78"
+      ],
+      "start": 106.08,
+      "end": 113.03999999999999,
+      "startOffset": 0,
+      "endOffset": 97,
+      "text": "Wie Street-Design-Tools und Interventionen besseren öffentlichen Raum erlebbar machen (Kapitel 3)"
+    },
+    {
+      "sentenceId": "b-3d81864084833a9c-s1",
+      "blockIds": [
+        "b-3d81864084833a9c"
+      ],
+      "start": 113.03999999999999,
+      "end": 120.72,
+      "startOffset": 0,
+      "endOffset": 116,
+      "text": "Was es braucht, um möglichst viele Menschen für dein Anliegen zu begeistern und zum Mitmachen zu bewegen (Kapitel 4)"
+    },
+    {
+      "sentenceId": "b-beda986519ade681-s1",
+      "blockIds": [
+        "b-beda986519ade681"
+      ],
+      "start": 120.72,
+      "end": 127.67999999999999,
+      "startOffset": 0,
+      "endOffset": 98,
+      "text": "Wie verschiedene Monitoring-Werkzeuge messbare Argumente für eine Umgestaltung liefern (Kapitel 5)"
+    },
+    {
+      "sentenceId": "b-3a83091f9220dd6b-s1",
+      "blockIds": [
+        "b-3a83091f9220dd6b"
+      ],
+      "start": 127.67999999999999,
+      "end": 139.35999999999999,
+      "startOffset": 0,
+      "endOffset": 183,
+      "text": "Und schließlich einen Schritt-für-Schritt-Plan, um aus deiner Idee eine Vision und daraus Veränderung zu machen (Kapitel 6); ein Glossar mit wichtigen Begriffen folgt auf die Kapitel."
+    },
+    {
+      "sentenceId": "b-acfc612b8e9871b6-s1",
+      "blockIds": [
+        "b-acfc612b8e9871b6"
+      ],
+      "start": 139.35999999999999,
+      "end": 141.83999999999997,
+      "startOffset": 0,
+      "endOffset": 32,
+      "text": "Wie diese Toolbox entstanden ist"
+    },
+    {
+      "sentenceId": "b-ed5ed45820906a61-s1",
+      "blockIds": [
+        "b-ed5ed45820906a61"
+      ],
+      "start": 141.83999999999997,
+      "end": 154.23999999999998,
+      "startOffset": 0,
+      "endOffset": 204,
+      "text": "Die Toolbox für City Changer ist ein Erasmus+-gefördertes Projekt, das Menschen Wissen, praktische Fähigkeiten und das Vertrauen vermitteln will, Veränderungen in ihrer eigenen Nachbarschaft zu gestalten."
+    },
+    {
+      "sentenceId": "b-ed5ed45820906a61-s2",
+      "blockIds": [
+        "b-ed5ed45820906a61"
+      ],
+      "start": 154.79999999999998,
+      "end": 160.51999999999998,
+      "startOffset": 205,
+      "endOffset": 297,
+      "text": "Die drei Workshops brachten Bewohner:innen, lokale Initiativen und Praktiker:innen zusammen."
+    },
+    {
+      "sentenceId": "b-ed5ed45820906a61-s3",
+      "blockIds": [
+        "b-ed5ed45820906a61"
+      ],
+      "start": 160.79999999999998,
+      "end": 171.59999999999997,
+      "startOffset": 298,
+      "endOffset": 480,
+      "text": "Gemeinsam tauschten sie Erfahrungen aus und erkundeten, wie man eine Nachbarschaftsinitiative aufbaut, Ideen im öffentlichen Raum testet und sich an lokalen Entscheidungen beteiligt."
+    },
+    {
+      "sentenceId": "b-ed5ed45820906a61-s4",
+      "blockIds": [
+        "b-ed5ed45820906a61"
+      ],
+      "start": 172.07999999999998,
+      "end": 181.35999999999999,
+      "startOffset": 481,
+      "endOffset": 640,
+      "text": "Dieses Handbuch macht die Werkzeuge und Ansätze über die Workshops hinaus zugänglich, damit mehr Menschen sie an ihren eigenen lokalen Kontext anpassen können."
+    },
+    {
+      "sentenceId": "b-8b4cf82b4e59a940-s1",
+      "blockIds": [
+        "b-8b4cf82b4e59a940"
+      ],
+      "start": 181.35999999999999,
+      "end": 182.88,
+      "startOffset": 0,
+      "endOffset": 18,
+      "text": "Die drei Workshops"
+    },
+    {
+      "sentenceId": "b-364b2bf53ff204cf-s1",
+      "blockIds": [
+        "b-364b2bf53ff204cf"
+      ],
+      "start": 182.88,
+      "end": 186.32,
+      "startOffset": 0,
+      "endOffset": 45,
+      "text": "Superblocks & spielerische Interventionen, 5."
+    },
+    {
+      "sentenceId": "b-364b2bf53ff204cf-s2",
+      "blockIds": [
+        "b-364b2bf53ff204cf"
+      ],
+      "start": 186.4,
+      "end": 197.2,
+      "startOffset": 46,
+      "endOffset": 188,
+      "text": "März 2026 in Ljubljana: Wie lokale Initiativen entstehen, wie Superblocks funktionieren und wie spielerische Aktionen Aufmerksamkeit schaffen."
+    },
+    {
+      "sentenceId": "b-b8e7bda40aa1125d-s1",
+      "blockIds": [
+        "b-b8e7bda40aa1125d"
+      ],
+      "start": 197.2,
+      "end": 200.64,
+      "startOffset": 0,
+      "endOffset": 38,
+      "text": "Tactical Urbanism & Street Design, 24."
+    },
+    {
+      "sentenceId": "b-b8e7bda40aa1125d-s2",
+      "blockIds": [
+        "b-b8e7bda40aa1125d"
+      ],
+      "start": 200.72,
+      "end": 213.2,
+      "startOffset": 39,
+      "endOffset": 217,
+      "text": "April 2026 in Berlin: Wie temporäre, kostengünstige Eingriffe Straßenräume sichtbar anders nutzbar machen und wie Gruppen gemeinsam Visionen für die Straßengestaltung entwickeln."
+    },
+    {
+      "sentenceId": "b-df136a639beb16b6-s1",
+      "blockIds": [
+        "b-df136a639beb16b6"
+      ],
+      "start": 213.2,
+      "end": 216.16,
+      "startOffset": 0,
+      "endOffset": 34,
+      "text": "Organising & Monitoring-Tools, 30."
+    },
+    {
+      "sentenceId": "b-df136a639beb16b6-s2",
+      "blockIds": [
+        "b-df136a639beb16b6"
+      ],
+      "start": 216.23999999999998,
+      "end": 229.6,
+      "startOffset": 35,
+      "endOffset": 204,
+      "text": "Mai 2026 online: Wie Initiativen Unterstützer:innen gewinnen, Fortschritt beobachten und ihre Kampagnen mit Zielen, Meilensteinen und gemeinsamen Aufgaben strukturieren."
+    }
+  ]
+}
