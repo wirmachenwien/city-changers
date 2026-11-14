@@ -105,9 +105,9 @@ bytes are copied unchanged and streamed, not loaded as one archive in memory.
 The shared asset inventory, kit builder and release metadata writer use this
 same contract. Targeted `.gitattributes` rules keep byte-fingerprinted text inputs
 and packaged text stable in CRLF checkouts without converting binary assets.
-A small stdlib-only CI job compares the complete fixture ZIP checksum and release
-inventory fingerprint on Windows and Linux, in addition to testing path ordering,
-newline conversion and Git checkout behavior. It never renders production assets.
+Local stdlib-only regression tests cover complete fixture ZIP checksums and release
+inventory fingerprints, path ordering, newline conversion and Git checkout behavior.
+They never render production assets.
 
 Format changes require a new reviewed brand edition before publication. Never
 replace a published ZIP merely to adopt the new format; existing immutable

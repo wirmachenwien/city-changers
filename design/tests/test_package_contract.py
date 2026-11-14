@@ -1,5 +1,4 @@
 """Small, stdlib-only portability contract; never builds production artwork."""
-import argparse
 import hashlib
 import json
 from pathlib import Path, PurePosixPath, PureWindowsPath
@@ -108,11 +107,4 @@ class PackageContractTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--write-result", type=Path)
-    args, remaining = parser.parse_known_args()
-    if args.write_result:
-        args.write_result.parent.mkdir(parents=True, exist_ok=True)
-        args.write_result.write_bytes(json_bytes(portability_result()))
-    else:
-        unittest.main(argv=[sys.argv[0], *remaining])
+    unittest.main()
