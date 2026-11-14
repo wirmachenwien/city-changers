@@ -147,8 +147,40 @@ test('saved playback can be seeked before loading, without autoplay or losing th
   p.play.click(); await settle();
   assert.equal(p.audio.currentTime, 7);
 });
+test('explicit queued seeks into the final second are clamped, not treated as completed resumes', async () => {
+  for (const duration of [20, 19.25]) {
+    for (const target of [19, 19.5, 20]) {
+      const p = player({ saved: { 'chapter-audio:en/01:new': '{"position":12}' }, delayedMetadata: true, highlighted: false });
+      p.position.value = String(target);
+      p.position.dispatchEvent(new p.Event('input'));
+      assert.equal(p.audio.currentTime, 0);
+      p.play.click(); await settle();
+      p.audio.duration = duration;
+      p.metadata();
+      assert.equal(p.audio.currentTime, Math.min(target, duration));
+      p.window.dispatchEvent(new p.Event('pagehide'));
+      assert.equal(JSON.parse(p.storage.get('chapter-audio:en/01:new')).position, Math.min(target, duration));
+    }
+  }
+});
+test('stored completed resumes still reset against loaded duration', async () => {
+  const p = player({ saved: { 'chapter-audio:en/01:new': '{"position":18}' }, delayedMetadata: true, highlighted: false });
+  p.play.click(); await settle();
+  p.audio.duration = 18.5;
+  p.metadata();
+  assert.equal(p.audio.currentTime, 0);
+});
+test('media-error recovery preserves a cursor inside the final second', async () => {
+  const p = player({ saved: { 'chapter-audio:en/01:new': '{"position":12}' }, delayedMetadata: true, highlighted: false });
+  p.play.click(); await settle(); p.metadata(); p.play.click();
+  p.audio.currentTime = 19.5;
+  p.audio.error = { code: 2 };
+  p.audio.dispatchEvent(new p.Event('error'));
+  p.play.click(); await settle(); p.metadata();
+  assert.equal(p.audio.currentTime, 19.5);
+});
 test('empty, completed, invalid and other-revision positions do not expand the timeline', () => {
-  for (const position of [0, -1, 20, 999, 'bad']) {
+  for (const position of [0, -1, 19, 19.5, 20, 999, 'bad']) {
     const p = player({ saved: { 'chapter-audio:en/01:new': JSON.stringify({ position }) } });
     assert.equal(p.document.querySelector('[data-timeline]').hidden, true);
     assert.equal(p.document.querySelector('[data-elapsed]').textContent, '0:00');

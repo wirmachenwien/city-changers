@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, readdirSync, renameSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, readdirSync, renameSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -253,7 +253,7 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
   }
 });
 
-for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-under-lock', 'missing-alignment', 'invalid-alignment', 'legacy-incomplete', 'uncertain-complete']) {
+for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-under-lock', 'missing-alignment', 'invalid-alignment', 'legacy-incomplete', 'uncertain-complete', 'malformed-preflight-json', 'malformed-generation-json']) {
   test(`generation safety: ${scenario}`, () => {
     const directory = join(tmpdir(), 'opencode');
     mkdirSync(directory, { recursive: true });
@@ -287,6 +287,7 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-u
         let data;
         if(options.method==='POST'){
           posts++;
+          if(scenario==='malformed-generation-json')return new Response('private-response-fixture',{status:200});
           data={audio_base64:audio.toString('base64')};
           if(scenario==='preflight-partial-race'){
             const text=JSON.parse(options.body).inputs[0].text;
@@ -294,6 +295,7 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-u
           }
           if(scenario==='invalid-alignment')data.alignment={...alignment,character_end_times_seconds:[]};
         }else if(url.endsWith('/v1/user/subscription')){
+          if(scenario==='malformed-preflight-json')return new Response('private-response-fixture',{status:200});
           if(!existsSync('.cache/audio/generation.lock'))throw Error('Allowance read without generation lock');
           if(scenario.startsWith('preflight-')){retain();write('.cache/audio/journals/other-budget.json',{requests:[{state:'complete'}]});}
           data={character_limit:100000,character_count:scenario==='allowance-under-lock'?100000:0,tier:'fixture'};
@@ -301,7 +303,7 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-u
         else data={voice_id:'mock-voice'};
         return {ok:true,headers:new Headers(),json:async()=>data};
       };
-      process.argv=['node','cli','generate','--budget','10000','--units',scenario==='preflight-partial-race'?unit.id+','+units[1].id:unit.id,'--yes'];
+      process.argv=scenario==='malformed-preflight-json'?['node','cli','preflight']:['node','cli','generate','--budget','10000','--units',scenario==='preflight-partial-race'?unit.id+','+units[1].id:unit.id,'--yes'];
       await import(${JSON.stringify(cli)});
       console.log(JSON.stringify({posts,reusable:assets().length,result:existsSync(dir+'/result.json'),incomplete:existsSync(dir+'/incomplete.json')}));
     `;
@@ -317,7 +319,7 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-u
     } else {
       assert.notEqual(result.status, 0);
       if (scenario === 'allowance-under-lock') assert.match(result.stderr, /remaining account allowance/);
-      assert.equal(state.posts, ['missing-alignment', 'invalid-alignment'].includes(scenario) ? 1 : 0);
+      assert.equal(state.posts, ['missing-alignment', 'invalid-alignment', 'malformed-generation-json'].includes(scenario) ? 1 : 0);
       if (scenario !== 'uncertain-complete') assert.equal(state.reusable, 0);
       if (scenario.endsWith('-alignment')) {
         assert.equal(state.result, false);
@@ -325,6 +327,24 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-u
         const resumed = run();
         assert.notEqual(resumed.status, 0);
         assert.equal(JSON.parse(resumed.stdout.trim().split('\n').at(-1)).posts, 0);
+      }
+      if (scenario.startsWith('malformed-')) {
+        assert.doesNotMatch(result.stdout + result.stderr, /private-response-fixture/);
+        assert.equal(result.stderr.trim(), scenario === 'malformed-preflight-json'
+          ? 'Audio: Provider preflight response could not be decoded as JSON. Response content was not logged.'
+          : 'Audio: Generation response could not be decoded as JSON. Reserved usage retained; reconcile the request manually; no automatic retry.');
+        assert.equal(existsSync(join(temp, '.cache/audio/generation.lock')), false);
+        if (scenario === 'malformed-generation-json') {
+          const journalFiles = readdirSync(join(temp, '.cache/audio/journals'));
+          assert.equal(journalFiles.length, 1);
+          const journal = JSON.parse(readFileSync(join(temp, '.cache/audio/journals', journalFiles[0]), 'utf8'));
+          assert.equal(journal.reservedCharacters, journal.requests[0].characters);
+          assert.deepEqual(journal.requests.map(r => r.state), ['uncertain']);
+          const resumed = run();
+          assert.notEqual(resumed.status, 0);
+          assert.equal(JSON.parse(resumed.stdout.trim().split('\n').at(-1)).posts, 0);
+          assert.match(resumed.stderr, /manual reconciliation/);
+        } else assert.equal(existsSync(join(temp, '.cache/audio/journals')), false);
       }
     }
   });

@@ -77,6 +77,15 @@ test('wrapper inline expressions are retained as literals or rejected without ev
   assert.deepEqual(blocks.map(b => b.narration ?? b.text), ['Before', 'Details', 'Hello world.', 'after.']);
   assert.throws(() => extract('Before <Accordion title="Details">Hello {getWord()}.</Accordion> after.'), /Dynamic MDX expression/);
 });
+test('wrapper reference links and strikethrough retain the same narration as ordinary paragraphs', () => {
+  for (const inline of ['Read [this guide][guide].', 'Keep ~~this text~~ and **that**.', 'Read [this *guide*][guide] and ~~these notes~~.']) {
+    const definitions = '\n\n[guide]: https://example.com';
+    const ordinary = extract(inline + definitions)[0];
+    const wrapped = extract(`Before <Accordion title="Details">${inline}</Accordion> after.${definitions}`);
+    assert.deepEqual(wrapped.map(b => b.narration ?? b.text), ['Before', 'Details', ordinary.narration ?? ordinary.text, 'after.']);
+    assert.equal(wrapped[2].fingerprint, ordinary.fingerprint);
+  }
+});
 test('glossary component and extractor retain matching IDs after whitespace edits', () => {
   const component = readFileSync('src/components/Glossary.astro', 'utf8');
   const expression = component.match(/const audioEntries = ([\s\S]*? : \[\]);/)[1];

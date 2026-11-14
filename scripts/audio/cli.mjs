@@ -50,10 +50,14 @@ function credentials(config, lang) {
   if (/[\r\n]/u.test(key)) throw new Error('The API key contains a line break. Correct it locally; do not share its value.');
   return { key, voice };
 }
+async function providerJson(response, diagnostic) {
+  try { return await response.json(); }
+  catch { throw new Error(diagnostic); } // JSON parser errors can quote private response content.
+}
 async function get(endpoint, key, check) {
   const response = await fetch(`https://api.elevenlabs.io${endpoint}`, { headers: { 'xi-api-key': key }, signal: AbortSignal.timeout(30000) });
   if (!response.ok) throw await preflightFailure(response, check);
-  return response.json();
+  return providerJson(response, 'Provider preflight response could not be decoded as JSON. Response content was not logged.');
 }
 async function preflight(config, langs) {
   const { key } = credentials(config, langs[0]);
@@ -175,7 +179,7 @@ async function generate(plan) {
         body: JSON.stringify(request), signal: AbortSignal.timeout(180000),
       });
       if (!response.ok) throw new Error(`Generation stopped (HTTP ${response.status}). Reserved usage retained; no automatic retry.`);
-      const result = await response.json();
+      const result = await providerJson(response, 'Generation response could not be decoded as JSON. Reserved usage retained; reconcile the request manually; no automatic retry.');
       const dir = `.cache/audio/units/${unit.assetKey}`;
       mkdirSync(path(dir), { recursive: true, mode: 0o700 });
       const { audio_base64, ...timings } = result;

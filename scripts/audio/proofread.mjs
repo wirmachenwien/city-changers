@@ -64,8 +64,10 @@ export function proofreadChapter(chapter, glossary, retained = assets()) {
     const snippet = entry ? JSON.stringify({ term: entry.term, definition: entry.definition }, null, 2) : source.slice(raw.node.position.start.offset, raw.node.position.end.offset);
     const units = chapter.units.filter(u => u.blockIds.includes(block.id));
     const keys = new Set(units.map(u => u.cacheKey));
-    const previousText = retained.filter(a => a.unit.id.startsWith(`${chapter.id}/${block.id}/`) && !keys.has(a.unit.cacheKey))
-      .map(a => a.unit.originalText).join(' ');
+    // Split units retain the entire original block wording. Show each distinct
+    // previous script once, not once per split or generation of the same wording.
+    const previousText = [...new Set(retained.filter(a => a.unit.id.startsWith(`${chapter.id}/${block.id}/`) && !keys.has(a.unit.cacheKey))
+      .map(a => a.unit.originalText).filter(Boolean))].join(' ');
     return { ...block, chapterId: chapter.id, sourceFile: entry ? 'src/data/glossary.json' : sourceFile, sourceReference: entry ? `${chapter.lang}: ${entry.term}` : `line ${block.line}`,
       snippet, componentNames: names, categories: categories(block.kind, names),
       originalHtml: original(raw.node, block), units, previousText,

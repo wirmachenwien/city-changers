@@ -87,7 +87,7 @@ function normalizeBlocks(parent) {
       inline = [];
     };
     for (const child of parent.children) {
-      if (['text', 'strong', 'emphasis', 'link', 'inlineCode', 'mdxJsxTextElement', 'mdxTextExpression'].includes(child.type)) inline.push(child);
+      if (['text', 'strong', 'emphasis', 'delete', 'link', 'linkReference', 'image', 'inlineCode', 'break', 'mdxJsxTextElement', 'mdxTextExpression'].includes(child.type)) inline.push(child);
       else { flush(); result.push(child); }
     }
     flush();

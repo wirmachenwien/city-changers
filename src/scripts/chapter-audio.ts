@@ -15,6 +15,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
   const key = `chapter-audio:${root.dataset.id}:${root.dataset.revision}`;
   const rates = [0.75, 1, 1.25, 1.5, 1.75, 2];
   let savedPosition = 0;
+  let queuedSeek = false;
   let playRequested = false;
   let playbackAttempt = 0;
   let playbackFailed = false;
@@ -74,8 +75,15 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     play.setAttribute('aria-label', (!activated ? root.getAttribute('aria-label') : playing ? root.dataset.pause : root.dataset.play) ?? root.dataset.play!);
   }
   audio.addEventListener('loadedmetadata', () => {
-    if (savedPosition < audio.duration - 1) audio.currentTime = savedPosition;
+    const seconds = audio.duration;
+    if (Number.isFinite(seconds) && seconds > 0) {
+      const time = Math.max(0, Math.min(savedPosition, seconds));
+      // Completed stored resumes restart, but explicit seeks and error recovery
+      // must retain their cursor even inside the last second of the recording.
+      audio.currentTime = !queuedSeek && time >= seconds - 1 ? 0 : time;
+    }
     savedPosition = 0;
+    queuedSeek = false;
     updatePosition();
     updateHighlight();
   });
@@ -104,6 +112,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     try {
       if (audio.error) {
         savedPosition = playbackPosition();
+        queuedSeek = true;
         const rate = audio.playbackRate;
         audio.load();
         audio.playbackRate = rate;
@@ -121,7 +130,7 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-chapter-audio]'
     const value = Number(position.value);
     if (!Number.isFinite(value)) return;
     const time = Math.max(0, Math.min(value, duration()));
-    if (audio.readyState === 0) savedPosition = time;
+    if (audio.readyState === 0) { savedPosition = time; queuedSeek = true; }
     else { savedPosition = 0; audio.currentTime = time; }
     updatePosition();
     updateHighlight();
