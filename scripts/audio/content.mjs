@@ -36,8 +36,8 @@ export function text(node) {
 const wrappers = new Set(['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox', 'TableWrap', 'Slideshow']);
 const blockComponents = new Set([...wrappers, 'Figure', 'Question', 'Glossary', 'Bibliography']);
 const containsFootnote = node => node.name === 'Footnote' || (node.children ?? []).some(containsFootnote);
-const containsQuestion = node => node.name === 'Question' || (node.children ?? []).some(containsQuestion);
-const containsWrapper = node => wrappers.has(node.name) || (node.children ?? []).some(containsWrapper);
+const unsupportedListComponent = node => ['Question', 'Glossary'].includes(node.name) || wrappers.has(node.name)
+  ? node.name : (node.children ?? []).map(unsupportedListComponent).find(Boolean);
 const hasInlineContent = nodes => clean(nodes.map(text).join('')) || nodes.some(containsFootnote);
 
 // Lists are prose, not containers for standalone quizzes or block components.
@@ -45,8 +45,8 @@ const hasInlineContent = nodes => clean(nodes.map(text).join('')) || nodes.some(
 function validateListItems(node) {
   if (node.type === 'listItem') {
     const line = node.position.start.line;
-    if (containsQuestion(node)) throw new Error(`Question inside a list item at line ${line} requires editorial handling`);
-    if (containsWrapper(node)) throw new Error(`Block component inside a list item at line ${line} requires editorial handling`);
+    const component = unsupportedListComponent(node);
+    if (component) throw new Error(`${wrappers.has(component) ? 'Block component' : component} inside a list item at line ${line} requires editorial handling`);
     if (containsFootnote(node) && !clean(text(node))) throw new Error(`Footnote-only list item at line ${line} requires editorial handling`);
   }
   for (const child of node.children ?? []) validateListItems(child);

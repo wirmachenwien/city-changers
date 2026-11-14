@@ -6,7 +6,7 @@ import { unitSentenceCues, correctSentenceCues, validateSentenceCues } from './s
 import { resolveUnitPauses, retimeSentence, insertPcmPauses } from './pauses.mjs';
 import { releaseInventory } from './release.mjs';
 import { prunePublicAudio } from './prune.mjs';
-import { audiobookMetadata, audiobookMetadataHash } from './audiobook-metadata.mjs';
+import { audiobookMetadata, audiobookMetadataHash, hasAudiobookMetadata } from './audiobook-metadata.mjs';
 
 const staging = '.cache/audio/release';
 const ffescape = value => value.replace(/([\\=;#\n])/g, '\\$1');
@@ -316,7 +316,7 @@ export function prepare(plan, { chapter: chapterId, language } = {}) {
   // Public manifest deliberately excludes private requests, assets and alignment.
   const publicManifest = { schemaVersion: 1, planHash: manifest.planHash, revision: manifest.revision,
     chapters: plan.chapters.map(c => ready.get(c.id)).filter(Boolean),
-    audiobooks: [...previous.audiobooks.filter(b => !affectedLanguages.has(b.lang) && b.metadataHash === audiobookMetadataHash(plan, b.lang)), ...manifest.audiobooks] };
+    audiobooks: [...previous.audiobooks.filter(b => !affectedLanguages.has(b.lang) && hasAudiobookMetadata(plan, b.lang) && b.metadataHash === audiobookMetadataHash(plan, b.lang)), ...manifest.audiobooks] };
   const release = releaseInventory(publicManifest);
   // Write the live manifest last; failed preparation never triggers pruning.
   write('audio/release.json', release);

@@ -104,8 +104,13 @@ async function generate(plan) {
   // cannot accidentally reuse another narrator's assets.
   const resolved = selected.map(u => ({ ...u, assetKey: hash({ cacheKey: u.cacheKey, voice: voices[u.lang] }) }));
   const refreshPending = () => {
-    const retainedKeys = new Set(assets().map(asset => asset.key));
-    const broken = resolved.find(u => !retainedKeys.has(u.assetKey) && ['result.json', 'incomplete.json'].some(file => existsSync(path(`.cache/audio/units/${u.assetKey}/${file}`))));
+    const inventory = assets({ includeInvalid: true });
+    const resolvedKey = asset => asset.request?.inputs?.[0]?.voice_id
+      ? hash({ cacheKey: asset.unit.cacheKey, voice: asset.request.inputs[0].voice_id }) : asset.key;
+    const retainedKeys = new Set(inventory.filter(asset => asset.reusable).map(resolvedKey));
+    const broken = resolved.find(u => !retainedKeys.has(u.assetKey) &&
+      (inventory.some(asset => !asset.reusable && resolvedKey(asset) === u.assetKey) ||
+        ['result.json', 'incomplete.json'].some(file => existsSync(path(`.cache/audio/units/${u.assetKey}/${file}`)))));
     if (broken) throw new Error(`Retained audio for ${broken.id} is incomplete or corrupt; reconcile its private asset and journal instead of overwriting it`);
     const pending = [...new Map(resolved.filter(u => !retainedKeys.has(u.assetKey)).map(u => [u.assetKey, u])).values()];
     return { pending, cost: pending.reduce((sum, u) => sum + u.text.length, 0) };

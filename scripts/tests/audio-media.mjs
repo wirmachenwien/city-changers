@@ -6,6 +6,54 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { hash } from '../audio/content.mjs';
+import { releaseInventory } from '../audio/release.mjs';
+import { narrationKey, legacyNarrationKey } from '../audio/narration-key.mjs';
+
+test('bitrate-only re-encoding reuses verified legacy narration without rewriting its source', { skip: spawnSync('ffmpeg', ['-version']).status !== 0 }, () => {
+  const parent = join(tmpdir(), 'opencode');
+  mkdirSync(parent, { recursive: true });
+  const temp = mkdtempSync(join(parent, 'audio-bitrate-'));
+  const write = (file, data) => {
+    mkdirSync(join(temp, file, '..'), { recursive: true });
+    writeFileSync(join(temp, file), Buffer.isBuffer(data) ? data : JSON.stringify(data));
+  };
+  const run = (bin, args) => {
+    const result = spawnSync(bin, args, { cwd: temp, encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+  };
+  run('ffmpeg', ['-v', 'error', '-f', 'lavfi', '-i', 'sine=frequency=440:duration=0.7', '-c:a', 'libmp3lame', 'tone.mp3']);
+  write('cover.png', Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aF1sAAAAASUVORK5CYII=', 'base64'));
+  const config = JSON.parse(readFileSync('audio/config.json', 'utf8'));
+  config.voiceHashes.en = hash('mock-voice');
+  config.metadata = { author: 'Fixture', narrator: 'Fixture', rights: 'Test only', cover: 'cover.png' };
+  write('src/data/works.json', { en: { title: 'Test' } });
+  const unit = { id: 'en/01/b/0', lang: 'en', text: 'Test.', blockIds: ['b'], cacheKey: narrationKey(config, 'Test.', 'en') };
+  const legacyUnit = { ...unit, cacheKey: legacyNarrationKey(config, 'Test.', 'en') };
+  const key = hash({ cacheKey: legacyUnit.cacheKey, voice: 'mock-voice' });
+  const source = readFileSync(join(temp, 'tone.mp3'));
+  const record = { unit: legacyUnit, config: structuredClone(config), request: { language_code: 'en', inputs: [{ text: 'Test.', voice_id: 'mock-voice' }] }, sourceAudioHash: hash(source),
+    timings: { alignment: { characters: [...'Test.'], character_start_times_seconds: [0, .1, .2, .3, .4], character_end_times_seconds: [.1, .2, .3, .4, .5] } } };
+  write(`.cache/audio/units/${key}/source.mp3`, source);
+  write(`.cache/audio/units/${key}/result.json`, record);
+  const chapter = { id: 'en/01', lang: 'en', file: '01', title: 'Test', sourceHash: hash('source'), scriptHash: hash('script'),
+    blocks: [{ id: 'b', text: 'Test.', spoken: 'Test.', submitted: 'Test.' }], units: [unit] };
+  const plan = { planHash: hash('first'), config, chapters: [chapter] };
+  const script = `import {assemble} from ${JSON.stringify(new URL('../audio/media.mjs', import.meta.url).href)};import{readFileSync}from'node:fs';globalThis.fetch=()=>{throw Error('No network allowed')};assemble(JSON.parse(readFileSync('plan.json','utf8')));`;
+  write('plan.json', plan);
+  run(process.execPath, ['--input-type=module', '-e', script]);
+  const first = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  plan.config.processing.chapterMp3Bitrate = '64k';
+  plan.config.processing.audiobookAacBitrate = '48k';
+  plan.planHash = hash('second');
+  write('plan.json', plan);
+  run(process.execPath, ['--input-type=module', '-e', script]);
+  const second = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  assert.notEqual(second.chapters[0].recipeHash, first.chapters[0].recipeHash);
+  assert.notEqual(second.audiobooks[0].mediaRecipeHash, first.audiobooks[0].mediaRecipeHash);
+  assert.equal(second.chapters[0].assembly[0].audioHash, hash(source));
+  assert.deepEqual(readFileSync(join(temp, `.cache/audio/units/${key}/source.mp3`)), source);
+  assert.deepEqual(JSON.parse(readFileSync(join(temp, `.cache/audio/units/${key}/result.json`), 'utf8')), record);
+});
 
 const ffmpeg = spawnSync('ffmpeg', ['-version']).status === 0;
 test('synthetic 21-track assembly, three M4Bs and partial edit repackage without TTS', { skip: !ffmpeg }, () => {
@@ -116,10 +164,41 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   const published = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
   assert.equal(published.chapters.length, 21);
   assert.equal(published.audiobooks.length, 3);
+  const publicationFile = readFileSync(join(temp, 'audio/published.json'));
+  const releaseFile = readFileSync(join(temp, 'audio/release.json'));
+  const assemblyFile = readFileSync(join(temp, '.cache/audio/release/manifest.json'));
+  // Missing metadata invalidates preserved books rather than blocking a
+  // chapter-only workflow; supplied-but-broken artwork must still fail.
+  for (const metadata of [undefined, {}, { ...config.metadata, narrator: { en: config.metadata.narrator } }]) {
+    write('audio/published.json', publicationFile);
+    write('fixture-plan.json', { ...plan, config: { ...config, metadata } });
+    run(process.execPath, ['--input-type=module', '-e', prepare({ chapter: 'en/01' })]);
+    const partial = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
+    assert.equal(partial.chapters.length, 21);
+    assert.deepEqual(partial.audiobooks, []);
+  }
+  write('audio/published.json', publicationFile);
+  write('audio/release.json', releaseFile);
+  write('fixture-plan.json', { ...plan, config: { ...config, metadata: { ...config.metadata, cover: 'missing.png' } } });
+  const invalidCover = spawnSync(process.execPath, ['--input-type=module', '-e', prepare({ chapter: 'en/01' })], { cwd: temp, encoding: 'utf8' });
+  assert.notEqual(invalidCover.status, 0);
+  assert.match(invalidCover.stderr, /missing\.png/);
+  assert.deepEqual(readFileSync(join(temp, 'audio/published.json')), publicationFile);
+  assert.deepEqual(readFileSync(join(temp, 'audio/release.json')), releaseFile);
+  write('fixture-plan.json', plan);
+  write('.cache/audio/release/manifest.json', assemblyFile);
   assert.ok(published.chapters.every(chapter => !('assembly' in chapter)));
   assert.equal(hash(readFileSync(join(temp, `public/audio/${published.chapters[0].track.file}`))), published.chapters[0].track.sha256, 'Complete local handoff in public/audio');
   assert.equal(hash(readFileSync(join(temp, `public/audio/${published.chapters[0].cues.file}`))), published.chapters[0].cues.sha256);
-  assert.match(published.chapters[0].track.url, /github.com\/wirmachenwien\/city-changers\/releases\/download\/audiobook-/);
+  const release = JSON.parse(releaseFile);
+  assert.equal(published.chapters[0].track.url,
+    `https://github.com/wirmachenwien/city-changers/releases/download/${release.tag}/${published.chapters[0].track.file.replaceAll('/', '--')}`);
+  for (const edition of [{ name: 'legacy-fixture', title: 'Legacy fixture' }, { date: '2026-11-14', revision: 0 }, { date: '2026-11-14', revision: 1 }]) {
+    const inventory = releaseInventory(published, edition);
+    assert.equal(inventory.publication.chapters[0].track.url,
+      `https://github.com/wirmachenwien/city-changers/releases/download/${inventory.tag}/${published.chapters[0].track.file.replaceAll('/', '--')}`);
+    if (edition.date) assert.match(inventory.tag, /^audio-2026-11-14[a-z]*$/);
+  }
   assert.equal(JSON.parse(readFileSync(join(temp, 'audio/release.json'), 'utf8')).assets.length, 45);
   assert.equal(published.chapters.some(c => 'transcript' in c), false);
   assert.equal(readdirSync(join(temp, '.cache/audio/release'), { recursive: true }).some(file => file.endsWith('.transcript.html')), false, 'Assembly never generates transcript HTML');

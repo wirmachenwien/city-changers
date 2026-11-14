@@ -190,6 +190,11 @@ test('block components inside lists are rejected rather than adapted for narrati
   }
   assert.throws(() => extract('1. Parent\n   - <Accordion>Body.</Accordion>'), /Block component inside a list item at line 5 requires editorial handling/);
 });
+test('standalone glossary components are rejected inside lists', () => {
+  for (const body of ['- <Glossary lang="en" />', '1. Prose <Glossary lang="en" />', '- Parent\n  - <Glossary lang="en" />']) {
+    assert.throws(() => extract(body), /Glossary inside a list item at line 5 requires editorial handling/);
+  }
+});
 test('ordinary list prose retains inline footnotes and existing identities', () => {
   for (const marker of ['-', '1.']) {
     const body = `${marker} Prose.<Footnote text="A note." />`;

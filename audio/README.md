@@ -37,6 +37,7 @@ List items must contain ordinary prose: standalone questions, block wrappers
 (such as accordions and pullquotes), and footnote-only items are rejected with
 a source-line diagnostic, including in nested lists. Inline footnotes attached
 to list prose remain supported. Move standalone components outside the list.
+This also applies to standalone `Glossary` components.
 
 - Omit `--chapter` to select the whole book, or use `--units ID,ID` for exact units.
 - Add `--plan HASH` to reject unexpected plan changes.
@@ -70,6 +71,15 @@ whose metadata no longer matches, without discarding their chapter tracks.
 Releases require the complete catalogue and three audiobooks, not a partial
 preparation. Unchanged inputs reuse the same revision and release identity.
 Changing a title or replacing cover contents creates a new immutable revision.
+Chapter-only preparation needs no audiobook metadata. If shared metadata is
+missing, preserved audiobook downloads are invalidated rather than blocking it;
+supplied metadata and cover files still undergo normal validation.
+
+Offline encoder settings are not part of narration cache keys. Bitrate changes
+re-encode outputs without requesting speech again. Verified older recordings
+are matched read-only using their retained generation configuration and voice;
+private recordings and journals are not migrated or rewritten. Published script
+fingerprints retain their historical schema independently of encoder settings.
 
 After a successful manifest update, preparation **automatically deletes stale
 managed subfolders** of `public/audio/`. Every revision still referenced by the

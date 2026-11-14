@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { hash, parseSource, identify, splitText } from './content.mjs';
 import { chapterUrlSlug } from '../../src/lib/chapter-slug.ts';
 import { base, defaultLang, languages } from '../../handbook.config.ts';
+import { narrationKey, publicationNarrationKey, retainedNarrationKey } from './narration-key.mjs';
 
 // Commands run from the repository root; Astro's bundled prerender chunks
 // relocate import.meta.url, so it must not determine source paths at runtime.
@@ -27,16 +28,19 @@ export function reusableAlignment(alignment, text) {
     Array.isArray(starts) && Array.isArray(ends) && starts.length === characters.length && ends.length === characters.length &&
     starts.every((start, i) => Number.isFinite(start) && start >= 0 && (i === 0 || start >= starts[i - 1] - .001) && Number.isFinite(ends[i]) && ends[i] >= start);
 }
-export function assets() {
+export function assets({ includeInvalid = false } = {}) {
   const directory = path('.cache/audio/units');
   return existsSync(directory) ? readdirSync(directory).filter(name => /^[a-f0-9]{64}$/.test(name)).flatMap(key => {
     const file = `.cache/audio/units/${key}/result.json`;
+    const incomplete = `.cache/audio/units/${key}/incomplete.json`;
     const source = `.cache/audio/units/${key}/source.mp3`;
-    if (!existsSync(path(file)) || !existsSync(path(source))) return [];
-    const result = read(file);
+    if (!existsSync(path(file)) && (!includeInvalid || !existsSync(path(incomplete)))) return [];
+    const result = read(existsSync(path(file)) ? file : incomplete);
+    const cacheKey = retainedNarrationKey(result);
     // A result without a verified source is not reusable. This keeps plan,
     // generation and assembly aligned; incomplete responses stay journal-blocked.
-    return reusableAlignment(result.timings?.alignment, result.unit?.text) && result.sourceAudioHash && hash(readFileSync(path(source))) === result.sourceAudioHash ? [{ key, ...result }] : [];
+    const reusable = Boolean(cacheKey && existsSync(path(file)) && existsSync(path(source)) && reusableAlignment(result.timings?.alignment, result.unit?.text) && result.sourceAudioHash && hash(readFileSync(path(source))) === result.sourceAudioHash);
+    return reusable || includeInvalid ? [{ ...result, key, unit: { ...result.unit, cacheKey: cacheKey ?? result.unit?.cacheKey }, reusable }] : [];
   }) : [];
 }
 export function movedIds(previous, current) {
@@ -93,10 +97,7 @@ export function makePlan() {
       }
       for (const [part, submitted] of splitText(block.submitted, lang, config.maxCharacters).entries()) {
         const unitId = `${id}/${block.id}/${part}`;
-        const cacheKey = hash({ submitted, model: config.modelId, endpoint: config.endpoint, outputFormat: config.outputFormat,
-          settings: config.settings, seed: config.seed, normalization: config.normalization, processing: config.processing,
-          pronunciationVersion: config.pronunciation.version, dictionaries: config.pronunciation.dictionaries,
-          lang, voice: config.voices[lang], voiceHash: config.voiceHashes[lang], continuity: [] });
+        const cacheKey = narrationKey(config, submitted, lang);
         const old = previous.find(p => p.id === block.id);
         const generated = retained.has(cacheKey);
         units.push({ id: unitId, blockIds: [block.id], text: submitted, originalText: block.spoken, cacheKey,
@@ -105,7 +106,7 @@ export function makePlan() {
       }
     }
     const sourceHash = hash({ source, glossary: chapter.file === 'glossary' ? glossary[lang] : null });
-    const scriptHash = hash(units.map(u => ({ id: u.id, cacheKey: u.cacheKey })));
+    const scriptHash = hash(units.map(u => ({ id: u.id, cacheKey: publicationNarrationKey(config, u.text, lang) })));
     const sentenceTimingCorrections = timing.corrections.filter(c => c.chapterId === id);
     if (sentenceTimingCorrections.some(c => !units.some(u => u.id === c.unitId))) throw new Error(`${id}: sentence timing correction refers to a missing unit`);
     const assemblyHash = hash({ version: config.assembly?.version ?? 1, pauses: blocks.filter(b => b.pause).map(b => ({ id: b.id, pause: b.pause })),

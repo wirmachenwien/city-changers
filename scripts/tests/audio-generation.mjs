@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, readdirSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, readdirSync, renameSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -8,6 +8,33 @@ import { spawnSync } from 'node:child_process';
 import { makePlan } from '../audio/plan.mjs';
 import { hash } from '../audio/content.mjs';
 import { preflightFailure } from '../audio/api-errors.mjs';
+import { narrationKey, legacyNarrationKey, publicationNarrationKey, retainedNarrationKey } from '../audio/narration-key.mjs';
+
+test('speech keys ignore offline processing but pin generation inputs and preserve published fingerprints', () => {
+  const config = JSON.parse(readFileSync('audio/config.json', 'utf8'));
+  const key = narrationKey(config, 'Test.', 'en');
+  assert.equal(publicationNarrationKey(config, 'Test.', 'en'), legacyNarrationKey(config, 'Test.', 'en'));
+  const encoded = structuredClone(config);
+  encoded.processing.chapterMp3Bitrate = '64k';
+  encoded.processing.audiobookAacBitrate = '48k';
+  assert.equal(narrationKey(encoded, 'Test.', 'en'), key);
+  assert.equal(publicationNarrationKey(encoded, 'Test.', 'en'), publicationNarrationKey(config, 'Test.', 'en'));
+  for (const field of ['modelId', 'endpoint', 'outputFormat', 'settings', 'seed', 'normalization', 'pronunciation', 'voices', 'voiceHashes']) {
+    const changed = structuredClone(config);
+    if (field === 'pronunciation') changed.pronunciation.version++;
+    else if (field === 'settings') changed.settings.stability = .25;
+    else if (field === 'voices' || field === 'voiceHashes') changed[field].en = 'changed';
+    else changed[field] = 'changed';
+    assert.notEqual(narrationKey(changed, 'Test.', 'en'), key, field);
+  }
+  assert.notEqual(narrationKey(config, 'Edited.', 'en'), key);
+  assert.notEqual(narrationKey(config, 'Test.', 'de'), key);
+  const retainedConfig = { ...config, voiceHashes: { ...config.voiceHashes, en: hash('fixture-voice') } };
+  const record = { config: retainedConfig, unit: { lang: 'en', text: 'Test.', cacheKey: legacyNarrationKey(retainedConfig, 'Test.', 'en') },
+    request: { inputs: [{ voice_id: 'fixture-voice' }] } };
+  assert.equal(retainedNarrationKey(record), narrationKey(retainedConfig, 'Test.', 'en'));
+  assert.equal(retainedNarrationKey({ ...record, request: { inputs: [{ voice_id: 'another-voice' }] } }), null);
+});
 
 test('npm network commands optionally load .env and preserve exported values (temporary fixtures only)', () => {
   const scripts = JSON.parse(readFileSync('package.json', 'utf8')).scripts;
@@ -125,9 +152,9 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
     console.log('MOCK_POSTS='+posts);
     console.log('MOCK_FETCHES='+fetches);
   `;
-  const run = (budget, fail = false, units = unit.id, key = 'mock-key-not-a-real-key') => spawnSync(process.execPath, ['--input-type=module', '-e', bootstrap], {
+  const run = (budget, fail = false, units = unit.id, key = 'mock-key-not-a-real-key', expectedPlan = planHash) => spawnSync(process.execPath, ['--input-type=module', '-e', bootstrap], {
     cwd: temp, encoding: 'utf8', env: { PATH: process.env.PATH, ELEVENLABS_API_KEY: key, ELEVENLABS_VOICE_ID: 'mock-voice',
-      MOCK_BUDGET: String(budget), MOCK_UNITS: units, MOCK_PLAN: planHash, MOCK_FAILURE: fail ? 'yes' : 'no' },
+      MOCK_BUDGET: String(budget), MOCK_UNITS: units, MOCK_PLAN: expectedPlan, MOCK_FAILURE: fail ? 'yes' : 'no' },
   });
   for (const separator of ['\r', '\n', '\r\n']) {
     const invalid = run(unit.text.length, false, unit.id, `private-fixture-key${separator}private-fixture-suffix`);
@@ -145,6 +172,35 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
   const first = run(unit.text.length);
   assert.equal(first.status, 0, first.stderr);
   assert.match(first.stdout, /MOCK_POSTS=1/);
+  // Model an actual legacy recording under its original processing-inclusive
+  // directory. Reading it must not rewrite private records or duplicate speech.
+  const originalKey = readdirSync(join(temp, '.cache/audio/units'))[0];
+  const originalDirectory = join(temp, '.cache/audio/units', originalKey);
+  const legacyResult = JSON.parse(readFileSync(join(originalDirectory, 'result.json'), 'utf8'));
+  legacyResult.unit.cacheKey = legacyNarrationKey(legacyResult.config, legacyResult.unit.text, 'en');
+  writeFileSync(join(originalDirectory, 'result.json'), JSON.stringify(legacyResult));
+  const legacyKey = hash({ cacheKey: legacyResult.unit.cacheKey, voice: 'mock-voice' });
+  const legacyDirectory = join(temp, '.cache/audio/units', legacyKey);
+  renameSync(originalDirectory, legacyDirectory);
+  const retainedRecord = readFileSync(join(legacyDirectory, 'result.json'));
+  write('audio/config.json', { ...config, processing: { ...config.processing, chapterMp3Bitrate: '64k', audiobookAacBitrate: '48k' } });
+  const changedPlan = spawnSync(process.execPath, ['--input-type=module', '-e', `import{makePlan}from${JSON.stringify(planModule)};console.log(makePlan().planHash);`], { cwd: temp, encoding: 'utf8' });
+  assert.equal(changedPlan.status, 0, changedPlan.stderr);
+  const reencoded = run(unit.text.length, false, unit.id, 'mock-key-not-a-real-key', changedPlan.stdout.trim());
+  assert.equal(reencoded.status, 0, reencoded.stderr);
+  assert.match(reencoded.stdout, /MOCK_FETCHES=0/);
+  assert.deepEqual(readFileSync(join(legacyDirectory, 'result.json')), retainedRecord);
+  assert.deepEqual(readdirSync(join(temp, '.cache/audio/units')), [legacyKey]);
+  // Corrupt legacy recordings still fail closed instead of triggering a paid replacement.
+  const sourceFile = join(legacyDirectory, 'source.mp3');
+  const sourceBytes = readFileSync(sourceFile);
+  writeFileSync(sourceFile, 'corrupt');
+  const corrupt = run(unit.text.length, false, unit.id, 'mock-key-not-a-real-key', changedPlan.stdout.trim());
+  assert.notEqual(corrupt.status, 0);
+  assert.match(corrupt.stderr, /incomplete or corrupt/);
+  assert.match(corrupt.stdout, /MOCK_FETCHES=0/);
+  writeFileSync(sourceFile, sourceBytes);
+  write('audio/config.json', config);
   const resumed = run(unit.text.length);
   assert.equal(resumed.status, 0, resumed.stderr);
   assert.match(resumed.stdout, /MOCK_POSTS=0/);

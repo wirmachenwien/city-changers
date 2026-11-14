@@ -2,6 +2,12 @@ import { readFileSync } from 'node:fs';
 import { hash } from './content.mjs';
 import { path, read } from './plan.mjs';
 
+export function hasAudiobookMetadata(plan, lang) {
+  const metadata = plan.config.metadata;
+  const narrator = typeof metadata?.narrator === 'string' ? metadata.narrator : metadata?.narrator?.[lang];
+  return Boolean(narrator && metadata?.author && metadata?.rights && metadata?.cover);
+}
+
 export function audiobookMetadata(plan, lang) {
   const metadata = plan.config.metadata;
   const narrator = typeof metadata?.narrator === 'string' ? metadata.narrator : metadata?.narrator?.[lang];
