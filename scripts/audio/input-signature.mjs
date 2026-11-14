@@ -1,4 +1,5 @@
-import { lstatSync, readdirSync, readFileSync } from 'node:fs';
+import { lstatSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
+import { isAbsolute, relative, sep } from 'node:path';
 
 // Stat unchanged inputs rather than repeatedly reading/hashing large media.
 // Missing files and directory membership are part of the key as well.
@@ -11,6 +12,8 @@ export function audioInputSignature(resolvePath) {
     if (cover) inputs.push(cover);
   } catch (error) { if (error.code !== 'ENOENT') throw error; }
   const entries = [];
+  const root = realpathSync(resolvePath('.'));
+  const metadata = stat => [String(stat.ino), String(stat.size), String(stat.mtimeNs), String(stat.ctimeNs)];
   function visit(file) {
     let stat;
     try { stat = lstatSync(resolvePath(file), { bigint: true }); }
@@ -19,7 +22,20 @@ export function audioInputSignature(resolvePath) {
       entries.push([file, 'missing']);
       return;
     }
-    entries.push([file, String(stat.ino), String(stat.size), String(stat.mtimeNs), String(stat.ctimeNs)]);
+    entries.push([file, ...metadata(stat)]);
+    if (stat.isSymbolicLink()) {
+      try {
+        const target = realpathSync(resolvePath(file));
+        const targetPath = relative(root, target);
+        if (!isAbsolute(targetPath) && targetPath !== '..' && !targetPath.startsWith(`..${sep}`)) {
+          entries.push([file, 'target', targetPath, ...metadata(statSync(target, { bigint: true }))]);
+        }
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+        entries.push([file, 'target', 'missing']);
+      }
+      // Record target metadata without traversing directory symlinks.
+    }
     if (stat.isDirectory()) for (const name of readdirSync(resolvePath(file)).sort()) visit(`${file}/${name}`);
   }
   for (const file of inputs) visit(file);

@@ -1,8 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, unlinkSync, readFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, unlinkSync, readFileSync, symlinkSync, lstatSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { audioInputSignature } from '../audio/input-signature.mjs';
 import { createAudioPublication } from '../../src/lib/audio-publication.mjs';
 import { hash } from '../audio/content.mjs';
 import { outputProcessingHash } from '../audio/output-identity.mjs';
@@ -181,4 +182,36 @@ test('encoder changes hide stale outputs while legacy-free unknown identities fa
   delete unknown.chapter.processingHash;
   unknown.write('audio/published.json', unknown.manifest);
   assert.equal(unknown.audioPublication().chapters.length, 0);
+});
+
+test('symlink targets invalidate cached publications while retaining link metadata', () => {
+  const f = fixture();
+  f.write('cover-target.png', 'cover');
+  unlinkSync(f.path('cover.png'));
+  symlinkSync('cover-target.png', f.path('cover.png'));
+  const link = lstatSync(f.path('cover.png'), { bigint: true });
+  let previous = f.audioPublication();
+  for (const update of [
+    () => f.write('cover-target.png', 'changed cover'),
+    () => unlinkSync(f.path('cover-target.png')),
+    () => f.write('cover-target.png', 'restored cover'),
+  ]) {
+    update();
+    const next = f.audioPublication();
+    assert.notEqual(next, previous);
+    assert.equal(f.audioPublication(), next);
+    previous = next;
+  }
+  const entries = JSON.parse(audioInputSignature(f.path));
+  assert.deepEqual(entries.find(entry => entry[0] === 'cover.png'),
+    ['cover.png', ...['ino', 'size', 'mtimeNs', 'ctimeNs'].map(key => String(link[key]))]);
+});
+
+test('directory symlinks record targets without recursive traversal', () => {
+  const f = fixture();
+  mkdirSync(f.path('src/content/book'), { recursive: true });
+  symlinkSync(f.path('.'), f.path('src/content/book/loop'));
+  const entries = JSON.parse(audioInputSignature(f.path));
+  assert.ok(entries.some(entry => entry[0] === 'src/content/book/loop' && entry[1] === 'target'));
+  assert.equal(entries.some(entry => entry[0].startsWith('src/content/book/loop/')), false);
 });
