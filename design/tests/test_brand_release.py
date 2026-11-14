@@ -52,6 +52,38 @@ class BrandReleaseTest(unittest.TestCase):
                     self.assertEqual(member.external_attr >> 16, 0o100644)
                 self.assertEqual(archive.read("city-changers-brand-kit/START-HERE.txt"), source.read_bytes())
 
+    def test_generated_documents_keep_lf_under_platform_newline_translation(self):
+        open_path = Path.open
+
+        def windows_open(path, mode="r", buffering=-1, encoding=None, errors=None, newline=None):
+            if "w" in mode and "b" not in mode and newline is None:
+                newline = "\r\n"
+            return open_path(path, mode, buffering, encoding, errors, newline)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source.txt"
+            source.write_bytes("Grüße from the brand kit.\nSecond line.\n".encode("utf-8"))
+            with patch.object(PACKAGE, "ROOT", root), \
+                 patch.object(PACKAGE, "asset_map", return_value={"START-HERE.txt": source}), \
+                 patch.object(PACKAGE, "load_colors", return_value={"themes": {"light": {"ink": "black", "paper": "white"}}}):
+                PACKAGE.build(root / "lf")
+                with patch.object(Path, "open", windows_open):
+                    # Confirm the simulated platform translates default text writes.
+                    probe = root / "probe.txt"
+                    probe.write_text("line\n", encoding="utf-8")
+                    self.assertEqual(probe.read_bytes(), b"line\r\n")
+                    PACKAGE.build(root / "windows")
+            with zipfile.ZipFile(root / "windows" / BRAND.KIT_NAME) as archive:
+                for name in ("START-HERE.html", "inventory.json"):
+                    with self.subTest(name=name):
+                        relative = Path("city-changers-brand-kit") / name
+                        content = (root / "windows" / relative).read_bytes()
+                        self.assertIn(b"\n", content)
+                        self.assertNotIn(b"\r", content)
+                        self.assertEqual(content, (root / "lf" / relative).read_bytes())
+                        self.assertEqual(content, archive.read(relative.as_posix()))
+
     def test_draft_with_previously_staged_zip_resumes_without_replacing_it(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

@@ -1,5 +1,6 @@
 ---
 import { audioPublication } from '../lib/audio-publication.mjs';
+import { withBase } from '../lib/site';
 import Icon from './Icon.astro';
 import DrawnSelect from './DrawnSelect.astro';
 import type { Language } from '../data/locales';
@@ -14,7 +15,7 @@ const track = audioPublication().chapters.find((c: any) => c.id === `${lang}/${f
 const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 ---
 {track && <>
-  <section class="chapter-audio" aria-label={labels.listen} data-chapter-audio data-id={track.id} data-revision={track.revision} data-cues={track.cues.url} data-duration={track.duration} data-play={labels.play} data-pause={labels.pause} data-failed={labels.failed} data-playback-failed={labels.playbackFailed} data-pagefind-ignore hidden>
+  <section class="chapter-audio" aria-label={labels.listen} data-chapter-audio data-id={track.id} data-revision={track.revision} data-cues={track.cues.url.startsWith('/') && !track.cues.url.startsWith('//') ? withBase(track.cues.url) : track.cues.url} data-duration={track.duration} data-play={labels.play} data-pause={labels.pause} data-failed={labels.failed} data-playback-failed={labels.playbackFailed} data-pagefind-ignore hidden>
     <audio preload="none" src={track.track.url} hidden />
     <div class="audio-shell">
       <button class="audio-play" type="button" data-play-toggle aria-label={labels.listen}>

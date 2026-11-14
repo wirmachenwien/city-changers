@@ -55,8 +55,8 @@ def build(output):
             '<style>body{max-width:72ch;margin:3rem auto;padding:0 1rem;'
             f'font:18px/1.6 system-ui;color:{colors["ink"]};background:{colors["paper"]}}}'
             'pre{white-space:pre-wrap;font:inherit}</style><main><h1>City Changers brand kit</h1><pre>'
-            + html.escape(text) + '</pre></main></html>', encoding="utf-8")
-        (kit / "inventory.json").write_text(json.dumps({"assets": inventory}, indent=2) + "\n", encoding="utf-8")
+            + html.escape(text) + '</pre></main></html>', encoding="utf-8", newline="\n")
+        (kit / "inventory.json").write_text(json.dumps({"assets": inventory}, indent=2) + "\n", encoding="utf-8", newline="\n")
         zip_path = Path(temporary) / archive.name
         with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zipped:
             for path in sorted(kit.rglob("*")):
