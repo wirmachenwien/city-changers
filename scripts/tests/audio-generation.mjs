@@ -4,7 +4,8 @@ import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, read
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
+import { once } from 'node:events';
 import { makePlan } from '../audio/plan.mjs';
 import { hash } from '../audio/content.mjs';
 import { preflightFailure } from '../audio/api-errors.mjs';
@@ -34,6 +35,37 @@ test('speech keys ignore offline processing but pin generation inputs and preser
     request: { inputs: [{ voice_id: 'fixture-voice' }] } };
   assert.equal(retainedNarrationKey(record), narrationKey(retainedConfig, 'Test.', 'en'));
   assert.equal(retainedNarrationKey({ ...record, request: { inputs: [{ voice_id: 'another-voice' }] } }), null);
+});
+
+test('preparation shares the generation lock and releases it after failure', async () => {
+  const parent = join(tmpdir(), 'opencode');
+  mkdirSync(parent, { recursive: true });
+  const temp = mkdtempSync(join(parent, 'audio-lock-'));
+  const lockUrl = new URL('../audio/lock.mjs', import.meta.url).href;
+  const mediaUrl = new URL('../audio/media.mjs', import.meta.url).href;
+  const holder = spawn(process.execPath, ['--input-type=module', '-e', `
+    import {acquireAudioLock} from ${JSON.stringify(lockUrl)};
+    const release=acquireAudioLock();process.send('locked');
+    process.once('message',()=>{release();process.disconnect();});
+  `], { cwd: temp, stdio: ['ignore', 'ignore', 'inherit', 'ipc'] });
+  try {
+    await once(holder, 'message');
+    const blocked = spawnSync(process.execPath, ['--input-type=module', '-e', `import{prepare}from${JSON.stringify(mediaUrl)};prepare({});`], { cwd: temp, encoding: 'utf8' });
+    assert.notEqual(blocked.status, 0);
+    assert.match(blocked.stderr, /Another audio generate\/prepare run holds the lock/);
+    assert.deepEqual(readdirSync(join(temp, '.cache/audio')), ['generation.lock']);
+  } finally {
+    const exited = once(holder, 'exit');
+    holder.send('release');
+    await exited;
+  }
+  const failed = spawnSync(process.execPath, ['--input-type=module', '-e', `
+    import{prepare}from${JSON.stringify(mediaUrl)};import{existsSync}from'node:fs';
+    try{prepare({get chapters(){if(!existsSync('.cache/audio/generation.lock'))throw Error('Lock missing');throw Error('Fixture failure');}});}
+    catch(error){if(error.message!=='Fixture failure')throw error;}
+    if(existsSync('.cache/audio/generation.lock'))throw Error('Lock leaked');
+  `], { cwd: temp, encoding: 'utf8' });
+  assert.equal(failed.status, 0, failed.stderr);
 });
 
 test('npm network commands optionally load .env and preserve exported values (temporary fixtures only)', () => {

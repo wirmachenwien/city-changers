@@ -1,10 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, unlinkSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, unlinkSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { createAudioPublication } from '../../src/lib/audio-publication.mjs';
 import { hash } from '../audio/content.mjs';
+import { outputProcessingHash } from '../audio/output-identity.mjs';
+import { hasAudiobookMetadata } from '../audio/audiobook-metadata.mjs';
 
 function fixture(dev = true) {
   const directory = join(tmpdir(), 'opencode');
@@ -16,25 +18,30 @@ function fixture(dev = true) {
     writeFileSync(path(file), typeof value === 'string' ? value : JSON.stringify(value));
   };
   const revision = 'a'.repeat(20);
+  const config = JSON.parse(readFileSync('audio/config.json', 'utf8'));
+  config.metadata = { narrator: 'Fixture narrator', author: 'Fixture', rights: 'Test', cover: 'cover.png' };
   const artifact = name => {
     const file = `${revision}/en/${name}`;
     write(`public/audio/${file}`, 'fixture');
     return { file, url: `/audio/${file}`, bytes: 7, sha256: hash('fixture') };
   };
   const chapter = { id: 'en/01', lang: 'en', revision, cueSchemaVersion: 2, sourceHash: 'source', scriptHash: 'script', assemblyHash: 'assembly', duration: 20,
-    track: artifact('01.mp3'), cues: artifact('01.cues.json') };
-  const book = { lang: 'en', revision, metadataHash: 'metadata', ...artifact('book.m4b') };
+    processingHash: outputProcessingHash(config.processing), track: artifact('01.mp3'), cues: artifact('01.cues.json') };
+  const book = { lang: 'en', revision, processingHash: outputProcessingHash(config.processing), chapterIds: ['en/01'], metadataHash: 'metadata', ...artifact('book.m4b') };
   if (!dev) {
     chapter.track.url = `https://example.com/releases/${chapter.track.file}`;
     book.url = `https://example.com/releases/${book.file}`;
   }
   const manifest = { chapters: [chapter], audiobooks: [book] };
-  const plan = { chapters: [{ ...chapter }] };
-  write('audio/config.json', { metadata: { cover: 'cover.png' } });
+  const plan = { config, chapters: [{ ...chapter }] };
+  write('audio/config.json', config);
   write('cover.png', 'cover');
   write('audio/published.json', manifest);
   let plans = 0;
-  const loader = createAudioPublication({ dev, resolvePath: path, loadPlan: () => { plans++; return structuredClone(plan); }, metadataHash: () => 'metadata' });
+  const loader = createAudioPublication({ dev, resolvePath: path, loadPlan: () => { plans++; return structuredClone(plan); }, metadataHash: (plan, lang) => {
+    if (!hasAudiobookMetadata(plan, lang)) throw new Error('Unavailable metadata must not be hashed');
+    return 'metadata';
+  } });
   return { ...loader, path, write, manifest, plan, chapter, book, plans: () => plans };
 }
 
@@ -131,4 +138,47 @@ test('production keeps its per-build cache despite filesystem changes', () => {
   f.write('audio/published.json', { chapters: [], audiobooks: [] });
   assert.equal(f.audioPublication(), first);
   assert.equal(f.plans(), 1);
+});
+
+test('audiobooks require the exact recorded chapter order, including after catalogue merges', () => {
+  for (const change of ['reorder', 'remove', 'merged-order', 'extra-book-chapter']) {
+    const f = fixture();
+    const second = { ...f.chapter, id: 'en/02' };
+    f.manifest.chapters.push(second);
+    f.plan.chapters.push({ ...second });
+    f.book.chapterIds.push('en/02');
+    if (change === 'reorder') f.plan.chapters.reverse();
+    if (change === 'remove') f.plan.chapters.pop();
+    if (change === 'merged-order') { f.plan.chapters.reverse(); f.manifest.chapters.reverse(); }
+    if (change === 'extra-book-chapter') f.book.chapterIds.push('en/03');
+    f.write('audio/published.json', f.manifest);
+    assert.equal(f.audioPublication().audiobooks.length, 0, change);
+    assert.equal(f.audioPublication().chapters.length, f.plan.chapters.length, change);
+  }
+});
+
+test('unavailable audiobook metadata hides only affected books and preserves chapter playback', () => {
+  const f = fixture();
+  const chapter = { ...f.chapter, id: 'de/01', lang: 'de' };
+  f.manifest.chapters.push(chapter);
+  f.plan.chapters.push({ ...chapter });
+  f.manifest.audiobooks.push({ ...f.book, lang: 'de', chapterIds: ['de/01'] });
+  f.plan.config.metadata.narrator = { de: 'German narrator' };
+  f.write('audio/published.json', f.manifest);
+  assert.equal(f.audioPublication().chapters.length, 2);
+  assert.deepEqual(f.audioPublication().audiobooks.map(b => b.lang), ['de']);
+  unlinkSync(f.path('cover.png'));
+  assert.equal(f.audioPublication().chapters.length, 2);
+  assert.deepEqual(f.audioPublication().audiobooks, []);
+});
+
+test('encoder changes hide stale outputs while legacy-free unknown identities fail closed', () => {
+  const f = fixture();
+  f.plan.config.processing.chapterMp3Bitrate = '64k';
+  assert.equal(f.audioPublication().chapters.length, 0);
+  assert.equal(f.audioPublication().audiobooks.length, 0);
+  const unknown = fixture();
+  delete unknown.chapter.processingHash;
+  unknown.write('audio/published.json', unknown.manifest);
+  assert.equal(unknown.audioPublication().chapters.length, 0);
 });

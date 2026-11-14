@@ -3,8 +3,9 @@ import { readFileSync, existsSync, statSync } from 'node:fs';
 import { hash } from '../../scripts/audio/content.mjs';
 import { artifactPattern } from '../../scripts/audio/release.mjs';
 import { base as siteBase } from '../../handbook.config.ts';
-import { audiobookMetadataHash } from '../../scripts/audio/audiobook-metadata.mjs';
+import { audiobookMetadataHash, hasAudiobookMetadata } from '../../scripts/audio/audiobook-metadata.mjs';
 import { audioInputSignature } from '../../scripts/audio/input-signature.mjs';
+import { outputProcessingValid, audiobookSequenceMatches } from '../../scripts/audio/output-identity.mjs';
 
 // Cached per build, and between development renders until any input changes.
 export function createAudioPublication({ dev = false, loadPlan = makePlan, resolvePath = path,
@@ -41,6 +42,7 @@ export function createAudioPublication({ dev = false, loadPlan = makePlan, resol
       const chapter = plan.chapters.find(c => c.id === track.id);
       return chapter && track.cueSchemaVersion === 2 && chapter.sourceHash === track.sourceHash && chapter.scriptHash === track.scriptHash && chapter.assemblyHash === track.assemblyHash &&
         Number.isFinite(track.duration) && track.duration > 0 &&
+        outputProcessingValid(track, plan.config.processing) &&
         (dev || track.track?.url?.startsWith('https://')) &&
         [track.track, track.cues].every(localArtifactValid);
     });
@@ -53,7 +55,11 @@ export function createAudioPublication({ dev = false, loadPlan = makePlan, resol
     };
     current = { ...manifest, chapters: chapters.map(c => ({ ...c, track: localMedia(c.track) })), audiobooks: manifest.audiobooks.filter(book => {
       const expected = plan.chapters.filter(c => c.lang === book.lang);
-      return expected.length > 0 && book.metadataHash === metadataHash(plan, book.lang) && (dev || book.url?.startsWith('https://')) && localArtifactValid(book) && expected.every(c => chapters.some(t => t.id === c.id && t.revision === book.revision));
+      const ordered = expected.map(c => chapters.find(t => t.id === c.id));
+      return expected.length > 0 && ordered.every(Boolean) && hasAudiobookMetadata(plan, book.lang) &&
+        existsSync(path(plan.config.metadata.cover)) && book.metadataHash === metadataHash(plan, book.lang) &&
+        outputProcessingValid(book, plan.config.processing) && audiobookSequenceMatches(book, ordered) &&
+        (dev || book.url?.startsWith('https://')) && localArtifactValid(book);
     }).map(localMedia) };
     return current;
   }

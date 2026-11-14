@@ -96,17 +96,17 @@ def validate_assets(remote, expected):
             raise ValueError(f"Release checksum/size mismatch: {name}")
 
 
-def publish_release(*, repository, tag, target, title, notes, marker, lookup, validate, stage, command=gh):
+def publish_release(*, repository, tag, target, title, notes, marker, lookup, validate, stage, command=gh, verify_staged=False):
     with publication_lock(repository, tag):
         return _publish_release(repository=repository, tag=tag, target=target, title=title, notes=notes,
-                                marker=marker, lookup=lookup, validate=validate, stage=stage, command=command)
+                                marker=marker, lookup=lookup, validate=validate, stage=stage, command=command, verify_staged=verify_staged)
 
 
-def _publish_release(*, repository, tag, target, title, notes, marker, lookup, validate, stage, command):
+def _publish_release(*, repository, tag, target, title, notes, marker, lookup, validate, stage, command, verify_staged=False):
     remote = lookup(tag)
     if remote and marker not in (remote.get("body") or ""):
         raise ValueError("Existing release is not managed by this publisher")
-    if remote and not remote["draft"]:
+    if remote and not remote["draft"] and not verify_staged:
         validate(remote)
         return False
     # Validate/stage local attachments before creating a remote draft.
@@ -125,6 +125,8 @@ def _publish_release(*, repository, tag, target, title, notes, marker, lookup, v
         if remote and marker not in (remote.get("body") or ""):
             raise ValueError("Existing release is not managed by this publisher")
         if remote and not remote["draft"]:
+            if verify_staged:
+                validate_assets(remote, expected)
             validate(remote)
             return False
         if not remote:
@@ -144,10 +146,14 @@ def _publish_release(*, repository, tag, target, title, notes, marker, lookup, v
             # Reuse only its exact complete publication; otherwise fail closed.
             latest = lookup(tag)
             if latest and not latest["draft"] and marker in (latest.get("body") or ""):
+                if verify_staged:
+                    validate_assets(latest, expected)
                 validate(latest)
                 return False
             raise
         verified = lookup(tag)
+        if verify_staged:
+            validate_assets(verified, expected)
         validate(verified)
         if not verified["draft"]:
             return False

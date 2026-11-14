@@ -11,7 +11,7 @@ import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
 import audioBlocks from '../../audio/blocks.json';
 import audioOverrides from '../../audio/overrides.json';
-import { hash, identify } from '../../scripts/audio/content.mjs';
+import { clean, hash, identify } from '../../scripts/audio/content.mjs';
 
 export interface GlossaryEntry {
   term: string;
@@ -44,7 +44,7 @@ const chapterId = `${lang}/glossary`;
 const registry = audioBlocks.chapters as Record<string, any[]>;
 const bindings = audioOverrides.bindings as Record<string, Record<string, string>>;
 const audioEntries = !explicit && lang ? identify(entries.map((entry, index) => ({
-  kind: 'glossary', fingerprint: hash({ kind: 'glossary', spoken: `${entry.term}. ${entry.definition}` }), line: index,
+  kind: 'glossary', fingerprint: hash({ kind: 'glossary', spoken: clean(`${entry.term}. ${entry.definition}`) }), line: index,
 })), registry[chapterId], bindings[chapterId]) : [];
 ---
 <dl class="glossary">

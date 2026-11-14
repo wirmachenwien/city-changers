@@ -7,6 +7,7 @@ import { validateReleaseInventory } from './release.mjs';
 import { validateSentenceCues } from './sentence-cues.mjs';
 import { validateCues } from './media.mjs';
 import { audiobookMetadataHash } from './audiobook-metadata.mjs';
+import { outputProcessingValid, audiobookSequenceMatches } from './output-identity.mjs';
 
 export function checkAudioRelease({ allowMissing = false } = {}) {
   if (!existsSync(path('audio/release.json'))) {
@@ -23,7 +24,7 @@ export function checkAudioRelease({ allowMissing = false } = {}) {
   for (const chapter of plan.chapters) {
     const track = publication.chapters.find(c => c.id === chapter.id);
     if (!track || track.cueSchemaVersion !== 2 || track.sourceHash !== chapter.sourceHash || track.scriptHash !== chapter.scriptHash || track.assemblyHash !== chapter.assemblyHash ||
-        track.pageUrl !== chapter.pageUrl || !Number.isFinite(track.duration) || track.duration <= 0) throw new Error(`${chapter.id}: stale/incomplete audio release`);
+        !outputProcessingValid(track, plan.config.processing) || track.pageUrl !== chapter.pageUrl || !Number.isFinite(track.duration) || track.duration <= 0) throw new Error(`${chapter.id}: stale/incomplete audio release`);
     for (const item of [track.cues]) {
       const data = readFileSync(path(`public/audio/${item.file}`));
       if (data.length !== item.bytes || hash(data) !== item.sha256 || item.url !== `/audio/${item.file}`) throw new Error(`${chapter.id}: invalid website artifact ${item.file}`);
@@ -35,7 +36,10 @@ export function checkAudioRelease({ allowMissing = false } = {}) {
   }
   for (const lang of new Set(plan.chapters.map(c => c.lang))) {
     const book = publication.audiobooks.find(b => b.lang === lang);
-    if (!book || book.metadataVersion !== 2 || book.metadataHash !== audiobookMetadataHash(plan, lang) || !Number.isFinite(book.duration) || book.duration <= 0 || publication.chapters.some(c => c.lang === lang && c.revision !== book.revision)) throw new Error(`${lang}: stale/incomplete audiobook`);
+    const expected = plan.chapters.filter(c => c.lang === lang).map(c => publication.chapters.find(p => p.id === c.id));
+    if (!book || book.metadataVersion !== 2 || book.metadataHash !== audiobookMetadataHash(plan, lang) ||
+        !outputProcessingValid(book, plan.config.processing) || !audiobookSequenceMatches(book, expected) ||
+        !Number.isFinite(book.duration) || book.duration <= 0) throw new Error(`${lang}: stale/incomplete audiobook`);
   }
   return release;
 }

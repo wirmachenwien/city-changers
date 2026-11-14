@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { parseHTML } from 'linkedom';
-import { hash, parseSource, identify, splitText, spokenCounter } from '../audio/content.mjs';
+import { clean, hash, parseSource, identify, splitText, spokenCounter } from '../audio/content.mjs';
 import { makePlan, movedIds, path, registryFor } from '../audio/plan.mjs';
 import { audioPublication } from '../../src/lib/audio-publication.mjs';
 import { validateCues, validateAlignment } from '../audio/media.mjs';
@@ -71,6 +71,26 @@ test('adjacent inline MDX components preserve titles and include only the approv
   const blocks = extract('<Accordion title="First">One.</Accordion>\n<Accordion title="Second">Two.</Accordion>\n\n<Slideshow>\n<Figure alt="Excluded visual." src="x.jpg">Photo: Person.</Figure>\n<Figure alt="Allowed semicircle." src="spectrum-of-allies.png">Photo: Other.</Figure>\n</Slideshow>');
   assert.deepEqual(blocks.map(b => b.text), ['First', 'One.', 'Second', 'Two.', 'Allowed semicircle.']);
   assert.deepEqual(extract('![Excluded Markdown figure](image.jpg)'), []);
+});
+test('wrapper inline expressions are retained as literals or rejected without evaluation', () => {
+  const blocks = extract("Before <Accordion title=\"Details\">Hello {'world'}.</Accordion> after.");
+  assert.deepEqual(blocks.map(b => b.narration ?? b.text), ['Before', 'Details', 'Hello world.', 'after.']);
+  assert.throws(() => extract('Before <Accordion title="Details">Hello {getWord()}.</Accordion> after.'), /Dynamic MDX expression/);
+});
+test('glossary component and extractor retain matching IDs after whitespace edits', () => {
+  const component = readFileSync('src/components/Glossary.astro', 'utf8');
+  const expression = component.match(/const audioEntries = ([\s\S]*? : \[\]);/)[1];
+  const renderEntries = new Function('entries', 'lang', 'explicit', 'registry', 'bindings', 'clean', 'hash', 'identify', 'chapterId', `return ${expression}`);
+  const glossary = JSON.parse(readFileSync('src/data/glossary.json', 'utf8'));
+  const registry = JSON.parse(readFileSync('audio/blocks.json', 'utf8')).chapters;
+  const bindings = JSON.parse(readFileSync('audio/overrides.json', 'utf8')).bindings;
+  for (const lang of ['en', 'de', 'sl']) {
+    const entries = structuredClone(glossary[lang]);
+    entries[0].definition = ` ${entries[0].definition.replace(' ', '  ')} `;
+    const rendered = renderEntries(entries, lang, false, registry, bindings, clean, hash, identify, `${lang}/glossary`);
+    const extracted = identify(parseSource(source(`<Glossary lang="${lang}" />`), lang, { ...glossary, [lang]: entries }).blocks, registry[`${lang}/glossary`], bindings[`${lang}/glossary`]);
+    assert.deepEqual(rendered.map(e => e.id), extracted.map(e => e.id), lang);
+  }
 });
 test('ordered lists speak localized counters including starts/nesting without changing source identity', () => {
   for (const [lang, first, second] of [['en', 'First', 'Second'], ['de', 'Erstens', 'Zweitens'], ['sl', 'Prvič', 'Drugič']]) {

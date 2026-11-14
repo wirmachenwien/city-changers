@@ -3,6 +3,7 @@ import copy
 import hashlib
 import json
 import os
+import shutil
 from pathlib import Path
 import sys
 import tempfile
@@ -22,8 +23,8 @@ def remote_release(release, draft=False):
     assets = [{"name": record["releaseAsset"], "size": record["bytes"],
                "digest": f"sha256:{record['sha256']}"} for record in release["assets"]]
     metadata = (json.dumps(release, indent=2) + "\n").encode()
-    assets += [{"name": "brand-release.json", "digest": "sha256:" + hashlib.sha256(metadata).hexdigest()},
-               {"name": BRAND.KIT_NAME, "size": 100}]
+    assets += [{"name": "brand-release.json", "size": len(metadata), "digest": "sha256:" + hashlib.sha256(metadata).hexdigest()},
+               {"name": BRAND.KIT_NAME, "size": len(b"test ZIP"), "digest": "sha256:" + hashlib.sha256(b"test ZIP").hexdigest()}]
     return {"draft": draft, "body": f"Brand inventory SHA-256: {release['fingerprint']}", "assets": assets}
 
 
@@ -100,6 +101,23 @@ class BrandReleaseTest(unittest.TestCase):
             self.assertEqual(original["tag"], changed["tag"], "Dates/revisions are explicit; the publisher refuses reuse for a different fingerprint")
         self.assertFalse(any("preview" in record for record in original["assets"]))
 
+    def test_start_here_and_rendered_colors_already_invalidate_the_inventory(self):
+        records = [{"file": "START-HERE.txt", "source": "design/docs/handoff/START-HERE.txt", "title": "Start here", "bytes": 1, "sha256": "original"}]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for file in ["design/edition.json", "design/manifest.json", "design/scripts/package-brand-kit.py",
+                         "design/scripts/asset_library.py", "design/scripts/brand_release.py", "scripts/color_registry.py", "src/data/colors.generated.json"]:
+                (root / file).parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(BRAND.ROOT / file, root / file)
+            with patch.object(BRAND, "ROOT", root), patch.object(BRAND, "DESIGN", root / "design"), \
+                 patch.object(BRAND, "asset_records", side_effect=lambda: copy.deepcopy(records)):
+                original = BRAND.inventory()
+                records[0]["sha256"] = "changed-text"
+                self.assertNotEqual(BRAND.inventory()["fingerprint"], original["fingerprint"])
+                records[0]["sha256"] = "original"
+                (root / "src/data/colors.generated.json").write_text("fixture color change", encoding="utf-8")
+                self.assertNotEqual(BRAND.inventory()["fingerprint"], original["fingerprint"])
+
     def test_website_contains_small_previews_not_originals_or_zip(self):
         from PIL import Image
         with tempfile.TemporaryDirectory() as temporary:
@@ -132,14 +150,38 @@ class BrandReleaseTest(unittest.TestCase):
                 self.assertLess(preview.stat().st_size, 200_000)
             self.assertEqual((root / "original.mov").read_bytes(), b"approved video")
 
-    def test_existing_release_skips_packaging_and_uploads(self):
+    def test_existing_release_validates_staged_kit_and_skips_uploads(self):
         release = BRAND.inventory()
+        def package(output):
+            output.mkdir()
+            (output / BRAND.KIT_NAME).write_bytes(b"test ZIP")
         with patch.object(PUBLISH, "check_artwork"), patch.object(PUBLISH, "inventory", return_value=release), \
-             patch.object(PUBLISH, "find_release", return_value=remote_release(release)), \
-             patch.object(PUBLISH, "load_script") as package, patch.object(PUBLISH, "gh") as gh:
+              patch.object(PUBLISH, "find_release", return_value=remote_release(release)), \
+              patch.object(PUBLISH, "load_script", return_value=Mock(build=package)) as loader, patch.object(PUBLISH, "gh") as gh:
             PUBLISH.publish()
-            package.assert_not_called()
+            loader.assert_called_once_with("package-brand-kit")
             gh.assert_not_called()
+
+    def test_existing_release_rejects_wrong_zip_digest_size_or_missing_digest_without_uploading(self):
+        release = {"tag": "brand-test", "fingerprint": "fixture", "url": "https://example.com/brand", "assets": []}
+        def package(output):
+            output.mkdir()
+            (output / BRAND.KIT_NAME).write_bytes(b"test ZIP")
+        for mutation in ("digest", "size", "missing-digest"):
+            remote = remote_release(release)
+            kit = remote["assets"][-1]
+            if mutation == "digest":
+                kit["digest"] = "sha256:wrong"
+            elif mutation == "size":
+                kit["size"] += 1
+            else:
+                kit.pop("digest")
+            with self.subTest(mutation=mutation), patch.object(PUBLISH, "check_artwork"), \
+                 patch.object(PUBLISH, "inventory", return_value=release), patch.object(PUBLISH, "find_release", return_value=remote), \
+                 patch.object(PUBLISH, "load_script", return_value=Mock(build=package)), patch.object(PUBLISH, "gh") as gh:
+                with self.assertRaisesRegex(ValueError, "checksum/size mismatch"):
+                    PUBLISH.publish()
+                gh.assert_not_called()
 
     def test_published_release_checksums_and_missing_attachments_block_deployment(self):
         release = BRAND.inventory()
@@ -154,7 +196,7 @@ class BrandReleaseTest(unittest.TestCase):
             else:
                 remote["assets"][-1]["size"] = 0
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                PUBLISH.validate_release(remote, release)
+                PUBLISH.validate_release(remote, release, {"bytes": len(b"test ZIP"), "sha256": hashlib.sha256(b"test ZIP").hexdigest()})
 
     def test_release_attachments_are_paginated(self):
         response = Mock(returncode=0, stdout=json.dumps({"id": 42}), stderr="")

@@ -306,4 +306,21 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   assert.notEqual(recovered.revision, retitled.revision, 'Cover changes in place get a new immutable revision');
   assert.notEqual(recovered.audiobooks[0].metadataHash, retitled.audiobooks[0].metadataHash);
   assert.equal(recovered.planHash, oldPlanHash);
+  // A new global hash cannot bless unprepared languages encoded with old settings.
+  config.processing.chapterMp3Bitrate = '64k';
+  config.processing.audiobookAacBitrate = '48k';
+  plan.planHash = hash('new-encoder-settings');
+  write('fixture-plan.json', plan);
+  run(process.execPath, ['--input-type=module', '-e', prepare({ language: 'en' })]);
+  const reencoded = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
+  assert.deepEqual(reencoded.chapters.map(c => c.lang), Array(7).fill('en'));
+  assert.deepEqual(reencoded.audiobooks.map(b => b.lang), ['en']);
+  assert.equal(existsSync(join(temp, '.cache/audio/generation.lock')), false);
+  write('old-publication.json', { ...recovered, planHash: plan.planHash });
+  run(process.execPath, ['--input-type=module', '-e', `
+    import{checkRelease}from${JSON.stringify(mediaUrl)};import{readFileSync}from'node:fs';import assert from'node:assert/strict';
+    const issues=checkRelease(JSON.parse(readFileSync('fixture-plan.json')),{manifest:JSON.parse(readFileSync('old-publication.json'))});
+    assert.ok(issues.includes('de/01: encoder settings stale (hidden)'));
+    assert.ok(issues.includes('en: M4B encoder settings stale'));
+  `]);
 });

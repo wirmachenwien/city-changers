@@ -80,6 +80,17 @@ re-encode outputs without requesting speech again. Verified older recordings
 are matched read-only using their retained generation configuration and voice;
 private recordings and journals are not migrated or rewritten. Published script
 fingerprints retain their historical schema independently of encoder settings.
+Every newly prepared chapter and audiobook records its encoder-settings hash;
+books also record their exact ordered chapter IDs. Partial preparation discards
+preserved outputs with obsolete settings or book sequences. The existing edition
+is supported through the checksum-pinned provenance in `audio/legacy-output.json`,
+not by assuming unknown legacy outputs match current settings. No media needs
+regenerating solely to add these validation rules.
+Generation and preparation share an exclusive lock for the entire operation,
+including manifest merges and pruning; a concurrent run fails before changing
+release state. A supplied but missing cover remains an editorial error during
+preparation. Frontend rendering hides unavailable audiobooks without suppressing
+otherwise valid chapter playback.
 
 After a successful manifest update, preparation **automatically deletes stale
 managed subfolders** of `public/audio/`. Every revision still referenced by the

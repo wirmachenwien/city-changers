@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, existsSync, readFileSync, symlinkSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, readFileSync, symlinkSync, copyFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { pathToFileURL, fileURLToPath } from 'node:url';
@@ -10,6 +10,10 @@ import { prunePublicAudio } from '../audio/prune.mjs';
 import audioSite, { copySitePublic } from '../lib/audio-site.mjs';
 import { navigationOptionLinks } from '../lib/site-links.mjs';
 import { datedReleaseTag } from '../lib/release-tag.mjs';
+import { outputProcessingHash, outputProcessingValid, audiobookSequenceMatches } from '../audio/output-identity.mjs';
+import legacy from '../../audio/legacy-output.json' with { type: 'json' };
+import { makePlan } from '../audio/plan.mjs';
+import { spawnSync } from 'node:child_process';
 
 const revision = 'a'.repeat(20);
 const artifact = extension => ({ file: `${revision}/en/01.${extension}`, bytes: 10, sha256: hash(extension), url: `/audio/${revision}/en/01.${extension}` });
@@ -17,6 +21,50 @@ const publication = () => ({ schemaVersion: 1, revision, planHash: hash('plan'),
   chapters: [{ id: 'en/01', revision, track: artifact('mp3'), cues: artifact('cues.json') }], audiobooks: [] });
 const temporary = () => { const root = join(tmpdir(), 'opencode'); mkdirSync(root, { recursive: true }); return mkdtempSync(join(root, 'audio-release-')); };
 const write = (root, file, content) => { const target = join(root, file); mkdirSync(join(target, '..'), { recursive: true }); writeFileSync(target, content); };
+
+test('only pinned legacy outputs inherit known processing and book chapter order', () => {
+  const processing = legacy.processing;
+  const track = { id: 'en/01', revision: legacy.revision, track: { sha256: legacy.chapters['en/01'] } };
+  assert.equal(outputProcessingValid(track, processing), true);
+  assert.equal(outputProcessingValid({ ...track, track: { sha256: hash('unknown bytes') } }, processing), false);
+  assert.equal(outputProcessingValid({ ...track, revision: 'unknown' }, processing), false);
+  assert.equal(outputProcessingValid({ id: 'unknown', revision: legacy.revision, track: {} }, processing), false);
+  assert.equal(outputProcessingValid(track, { ...processing, chapterMp3Bitrate: '64k' }), false);
+  assert.equal(outputProcessingValid({ ...track, processingHash: hash('stale') }, processing), false);
+  assert.equal(outputProcessingValid({ ...track, processingHash: outputProcessingHash(processing) }, processing), true);
+  const book = { lang: 'en', revision: legacy.revision, sha256: legacy.audiobooks.en.sha256 };
+  const chapters = legacy.audiobooks.en.chapterIds.map(id => ({ id, revision: legacy.revision }));
+  assert.equal(audiobookSequenceMatches(book, chapters), true);
+  assert.equal(audiobookSequenceMatches(book, [...chapters].reverse()), false);
+  assert.equal(audiobookSequenceMatches({ ...book, sha256: hash('unknown book') }, chapters), false);
+});
+
+test('release gate rejects stale encoders even after a global plan-hash update', () => {
+  const plan = makePlan();
+  const published = JSON.parse(readFileSync('audio/published.json', 'utf8'));
+  const root = temporary();
+  for (const file of ['audio/config.json', 'audio/blocks.json', 'audio/overrides.json', 'audio/sentence-timing-corrections.json',
+    'src/data/works.json', 'src/data/glossary.json', plan.config.metadata.cover,
+    ...plan.chapters.map(c => `src/content/book/${c.id}.mdx`), ...published.chapters.map(c => `public/audio/${c.cues.file}`)]) {
+    mkdirSync(join(root, file, '..'), { recursive: true });
+    copyFileSync(file, join(root, file));
+  }
+  const config = structuredClone(plan.config);
+  config.processing.chapterMp3Bitrate = config.processing.chapterMp3Bitrate === '64k' ? '96k' : '64k';
+  write(root, 'audio/config.json', JSON.stringify(config));
+  write(root, 'audio/published.json', JSON.stringify(published));
+  const script = `
+    import{makePlan,read,write}from${JSON.stringify(new URL('../audio/plan.mjs', import.meta.url).href)};
+    import{releaseInventory}from${JSON.stringify(new URL('../audio/release.mjs', import.meta.url).href)};
+    import{checkAudioRelease}from${JSON.stringify(new URL('../audio/check-release.mjs', import.meta.url).href)};
+    import assert from'node:assert/strict';
+    const pub=read('audio/published.json');pub.planHash=makePlan().planHash;
+    const release=releaseInventory(pub);write('audio/release.json',release);write('audio/published.json',release.publication);
+    assert.throws(()=>checkAudioRelease(),/stale.incomplete audio release/);
+  `;
+  const result = spawnSync(process.execPath, ['--input-type=module', '-e', script], { cwd: root, encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+});
 
 test('site checker validates navigation options, not audio playback speed values', () => {
   assert.deepEqual(navigationOptionLinks('<div data-select-list><select data-select><option value="/book.html">Book</option></select></div><select data-select data-speed><option value="1.5">1.5×</option></select>'), ['/book.html']);

@@ -7,6 +7,8 @@ import { resolveUnitPauses, retimeSentence, insertPcmPauses } from './pauses.mjs
 import { releaseInventory } from './release.mjs';
 import { prunePublicAudio } from './prune.mjs';
 import { audiobookMetadata, audiobookMetadataHash, hasAudiobookMetadata } from './audiobook-metadata.mjs';
+import { outputProcessingHash, outputProcessingValid, audiobookSequenceMatches } from './output-identity.mjs';
+import { acquireAudioLock } from './lock.mjs';
 
 const staging = '.cache/audio/release';
 const ffescape = value => value.replace(/([\\=;#\n])/g, '\\$1');
@@ -70,7 +72,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
   if (processing.sampleRate !== 44100 || processing.channels !== 1 || processing.gainDb !== 0) throw new Error('Processing changes require implementation and timing review');
   // Publication/cue revisions change independently of narration cache keys.
   const bookMetadata = Object.fromEntries((audiobooks ? [...new Set(plan.chapters.map(c => c.lang))] : []).map(lang => [lang, audiobookMetadata(plan, lang)]));
-  const revision = hash({ planHash: plan.planHash, publicationVersion: 2, cueSchemaVersion: 2, audiobookMetadataVersion: 2,
+  const revision = hash({ planHash: plan.planHash, publicationVersion: 3, cueSchemaVersion: 2, audiobookMetadataVersion: 2,
     bookMetadata, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
   const prefix = `${staging}/${revision}`;
   mkdirSync(path(prefix), { recursive: true });
@@ -140,7 +142,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
     write(cueFile, { schemaVersion: 2, granularity: 'sentence', revision, chapterId: chapter.id, cues, sentenceCues });
     const url = `${mediaBase}/${revision}/${chapter.lang}/${chapter.file}`;
     manifest.chapters.push({ id: chapter.id, lang: chapter.lang, file: chapter.file, title: chapter.title, pageUrl: chapter.pageUrl,
-      revision, cueSchemaVersion: 2, recipeHash, sourceHash: chapter.sourceHash, scriptHash: chapter.scriptHash, assemblyHash: chapter.assemblyHash, duration: measured, pcmDuration: offset,
+      revision, processingHash: outputProcessingHash(processing), cueSchemaVersion: 2, recipeHash, sourceHash: chapter.sourceHash, scriptHash: chapter.scriptHash, assemblyHash: chapter.assemblyHash, duration: measured, pcmDuration: offset,
       track: artifact(mp3, `${url}.mp3`), cues: artifact(cueFile, `${url}.cues.json`),
       blockIds: chapter.blocks.map(b => b.id), assembly: offsets });
   }
@@ -191,7 +193,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
         '-c:v', 'mjpeg', '-disposition:v', 'attached_pic', '-metadata:s:a:0', `language=${{ en: 'eng', de: 'deu', sl: 'slv' }[lang]}`,
         '-video_track_timescale', '1000', '-movie_timescale', '1000', '-movflags', '+faststart', '-f', 'mp4', path(m4b)]);
     }
-    manifest.audiobooks.push({ lang, revision, title, recipeHash, mediaRecipeHash, metadataVersion: 2, metadataHash: hash(bookMetadata[lang]), duration: duration(m4b), ...artifact(m4b, `${mediaBase}/${revision}/${lang}/${filename}`) });
+    manifest.audiobooks.push({ lang, revision, processingHash: outputProcessingHash(processing), chapterIds: chapters.map(c => c.id), title, recipeHash, mediaRecipeHash, metadataVersion: 2, metadataHash: hash(bookMetadata[lang]), duration: duration(m4b), ...artifact(m4b, `${mediaBase}/${revision}/${lang}/${filename}`) });
   }
   checkRelease(plan, { candidate: true, strict: true, audiobooks, manifest });
   write(`${staging}/manifest.json`, manifest);
@@ -227,6 +229,7 @@ export function checkRelease(plan, { strict = false, candidate = false, audioboo
     if (track.cueSchemaVersion !== 2) issues.push(`${chapter.id}: sentence cue upgrade required (hidden)`);
     if (track.sourceHash !== chapter.sourceHash || track.scriptHash !== chapter.scriptHash) issues.push(`${chapter.id}: stale (hidden)`);
     if (track.assemblyHash !== chapter.assemblyHash) issues.push(`${chapter.id}: assembly/pause settings stale (hidden)`);
+    if (!outputProcessingValid(track, plan.config.processing)) issues.push(`${chapter.id}: encoder settings stale (hidden)`);
     const artifacts = [track.track, track.cues];
     for (const item of artifacts) {
       const local = candidate ? `${staging}/${item.file}` : `public/audio/${item.file}`;
@@ -265,6 +268,8 @@ export function checkRelease(plan, { strict = false, candidate = false, audioboo
     const book = manifest.audiobooks.find(b => b.lang === lang);
     if (!book) { issues.push(`${lang}: M4B missing`); continue; }
     if (book.metadataHash !== audiobookMetadataHash(plan, lang)) issues.push(`${lang}: M4B metadata stale`);
+    if (!outputProcessingValid(book, plan.config.processing)) issues.push(`${lang}: M4B encoder settings stale`);
+    if (!audiobookSequenceMatches(book, manifest.chapters.filter(c => c.lang === lang))) issues.push(`${lang}: M4B chapter sequence stale`);
     const local = candidate ? `${staging}/${book.file}` : `public/audio/${book.file}`;
     if (candidate || !book.url.startsWith('https://')) {
       if (!existsSync(path(local)) || digest(local) !== book.sha256) { issues.push(`${lang}: M4B missing/corrupt`); continue; }
@@ -291,7 +296,13 @@ export function checkRelease(plan, { strict = false, candidate = false, audioboo
   return issues;
 }
 
-export function prepare(plan, { chapter: chapterId, language } = {}) {
+export function prepare(plan, options = {}) {
+  const releaseLock = acquireAudioLock();
+  try { return prepareUnlocked(plan, options); }
+  finally { releaseLock(); }
+}
+
+function prepareUnlocked(plan, { chapter: chapterId, language } = {}) {
   if (chapterId && language) throw new Error('Choose either --chapter or --language, not both');
   const chapters = plan.chapters.filter(c => chapterId ? c.id === chapterId : language ? c.lang === language : true);
   if (!chapters.length) throw new Error(chapterId ? `Unknown chapter ${chapterId}` : `Unknown language ${language}`);
@@ -310,13 +321,16 @@ export function prepare(plan, { chapter: chapterId, language } = {}) {
   // Merge chapter preparations without dropping other ready chapters. Updating
   // a chapter invalidates that language's old M4B until the language is prepared.
   const previous = existsSync(path('audio/published.json')) ? read('audio/published.json') : { chapters: [], audiobooks: [] };
-  const ready = new Map(previous.chapters.map(c => [c.id, c]));
+  const ready = new Map(previous.chapters.filter(c => outputProcessingValid(c, plan.config.processing)).map(c => [c.id, c]));
   for (const { assembly, ...chapter } of manifest.chapters) ready.set(chapter.id, chapter);
   const affectedLanguages = new Set(chapters.map(c => c.lang));
   // Public manifest deliberately excludes private requests, assets and alignment.
+  const readyChapters = plan.chapters.map(c => ready.get(c.id)).filter(Boolean);
   const publicManifest = { schemaVersion: 1, planHash: manifest.planHash, revision: manifest.revision,
-    chapters: plan.chapters.map(c => ready.get(c.id)).filter(Boolean),
-    audiobooks: [...previous.audiobooks.filter(b => !affectedLanguages.has(b.lang) && hasAudiobookMetadata(plan, b.lang) && b.metadataHash === audiobookMetadataHash(plan, b.lang)), ...manifest.audiobooks] };
+    chapters: readyChapters,
+    audiobooks: [...previous.audiobooks.filter(b => !affectedLanguages.has(b.lang) &&
+      outputProcessingValid(b, plan.config.processing) && audiobookSequenceMatches(b, readyChapters.filter(c => c.lang === b.lang)) &&
+      hasAudiobookMetadata(plan, b.lang) && b.metadataHash === audiobookMetadataHash(plan, b.lang)), ...manifest.audiobooks] };
   const release = releaseInventory(publicManifest);
   // Write the live manifest last; failed preparation never triggers pruning.
   write('audio/release.json', release);

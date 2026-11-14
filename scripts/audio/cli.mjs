@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 // No dotenv import: only explicitly invoked network commands use process.env.
-import { existsSync, readdirSync, writeFileSync, mkdirSync, openSync, closeSync, unlinkSync } from 'node:fs';
+import { existsSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { makePlan, savePlan, report, assets, reusableAlignment, read, write, path } from './plan.mjs';
 import { hash } from './content.mjs';
 import { prepare } from './media.mjs';
 import { preflightFailure } from './api-errors.mjs';
 import { buildProofread } from './proofread.mjs';
+import { acquireAudioLock } from './lock.mjs';
 
 const [command = 'plan', ...args] = process.argv.slice(2);
 const commands = {
@@ -142,8 +143,7 @@ async function generate(plan) {
   const journalPath = `.cache/audio/journals/${hash({ planHash: plan.planHash, budget, unitIds: selected.map(u => u.id).sort(), voiceHashes })}.json`;
   mkdirSync(path('.cache/audio/journals'), { recursive: true });
   // A process lock covers budgeting AND requests. Stale locks require manual reconciliation.
-  const lockPath = path('.cache/audio/generation.lock');
-  const lock = openSync(lockPath, 'wx', 0o600);
+  const releaseLock = acquireAudioLock();
   try {
     checkJournals();
     // Read provider usage only while serialized with other local generators.
@@ -190,7 +190,7 @@ async function generate(plan) {
       console.log(`Retained ${unit.id} (${unit.text.length} characters).`);
     }
     console.log(`Done. ${selected.length - pending.length} cached units reused; ${cost} characters submitted.`);
-  } finally { closeSync(lock); unlinkSync(lockPath); }
+  } finally { releaseLock(); }
 }
 
 try {
