@@ -61,7 +61,7 @@ test('heading footnotes are read in place while source identities and chapter pr
 });
 test('questions inside list items fail with a source location instead of losing quiz narration', () => {
   const question = '<Question question="Why?" options={["Yes"]} answer={0} />';
-  for (const body of [`- ${question}`, `1. ${question}`, `- Prose ${question}`, `- <Accordion title="Details">${question}</Accordion>`, `- Parent\n  - ${question}`]) {
+  for (const body of [`- ${question}`, `1. ${question}`, `- Parent\n  - ${question}`]) {
     assert.throws(() => extract(body), /Question inside a list item at line 5 requires editorial handling/);
   }
   assert.ok(extract(question).some(block => block.kind === 'quiz'));
@@ -179,14 +179,25 @@ test('reference headings exclude deeper subsections until a peer or ancestor hea
     assert.deepEqual(blocks.map(b => b.text), ['Before.', 'Resume', 'Read this.', 'New chapter', 'Read again.'], lang);
   }
 });
-test('narration-only list items retain footnotes and preserve existing prose identities', () => {
-  for (const [body, expected] of [['- <Footnote text="A note." />', 'A note.'], ['1. <Footnote text="A note." />', 'First. A note.']]) {
-    const blocks = extract(body);
-    assert.equal(blocks.length, 1);
-    assert.equal(blocks[0].narration, expected);
-    assert.equal(blocks[0].text, expected);
+test('footnote-only list items are rejected, including nested items', () => {
+  for (const body of ['- <Footnote text="A note." />', '1. <Footnote>A note.</Footnote>', '- Parent\n  - <Footnote text="A note." />']) {
+    assert.throws(() => extract(body), /Footnote-only list item at line \d+ requires editorial handling/);
   }
-  assert.equal(identify(extract('- Prose.<Footnote text="A note." />'))[0].id, identify(extract('- Prose.'))[0].id);
+});
+test('block components inside lists are rejected rather than adapted for narration', () => {
+  for (const name of ['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox', 'TableWrap', 'Slideshow']) {
+    assert.throws(() => extract(`- <${name}>Body.</${name}>`), /Block component inside a list item at line 5 requires editorial handling/);
+  }
+  assert.throws(() => extract('1. Parent\n   - <Accordion>Body.</Accordion>'), /Block component inside a list item at line 5 requires editorial handling/);
+});
+test('ordinary list prose retains inline footnotes and existing identities', () => {
+  for (const marker of ['-', '1.']) {
+    const body = `${marker} Prose.<Footnote text="A note." />`;
+    const block = extract(body)[0];
+    assert.equal(block.text, 'Prose.');
+    assert.equal(block.narration, `${marker === '1.' ? 'First. ' : ''}Prose. A note.`);
+    assert.equal(identify([block])[0].id, identify(extract(`${marker} Prose.`))[0].id);
+  }
 });
 test('serialized registry preserves kinds, replacement IDs and keyed overrides', () => {
   const blocks = identify(extract('First.\n\nSecond.'));

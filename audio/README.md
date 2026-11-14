@@ -33,6 +33,10 @@ Matching retained audio is reused automatically. Choose a budget from the curren
 plan; the example is not permission to spend.
 Footnotes are read in place, including inline `text` props and flow-level content;
 bibliographies and reference/material sections remain text-only.
+List items must contain ordinary prose: standalone questions, block wrappers
+(such as accordions and pullquotes), and footnote-only items are rejected with
+a source-line diagnostic, including in nested lists. Inline footnotes attached
+to list prose remain supported. Move standalone components outside the list.
 
 - Omit `--chapter` to select the whole book, or use `--units ID,ID` for exact units.
 - Add `--plan HASH` to reject unexpected plan changes.

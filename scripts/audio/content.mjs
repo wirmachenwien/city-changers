@@ -37,7 +37,20 @@ const wrappers = new Set(['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', '
 const blockComponents = new Set([...wrappers, 'Figure', 'Question', 'Glossary', 'Bibliography']);
 const containsFootnote = node => node.name === 'Footnote' || (node.children ?? []).some(containsFootnote);
 const containsQuestion = node => node.name === 'Question' || (node.children ?? []).some(containsQuestion);
+const containsWrapper = node => wrappers.has(node.name) || (node.children ?? []).some(containsWrapper);
 const hasInlineContent = nodes => clean(nodes.map(text).join('')) || nodes.some(containsFootnote);
+
+// Lists are prose, not containers for standalone quizzes or block components.
+// Validate nested items too: recursive narration does not visit walk() again.
+function validateListItems(node) {
+  if (node.type === 'listItem') {
+    const line = node.position.start.line;
+    if (containsQuestion(node)) throw new Error(`Question inside a list item at line ${line} requires editorial handling`);
+    if (containsWrapper(node)) throw new Error(`Block component inside a list item at line ${line} requires editorial handling`);
+    if (containsFootnote(node) && !clean(text(node))) throw new Error(`Footnote-only list item at line ${line} requires editorial handling`);
+  }
+  for (const child of node.children ?? []) validateListItems(child);
+}
 
 // MDX parses adjacent one-line components as JSX *text* elements inside one
 // paragraph. Canonicalize those into genuine blocks in BOTH pipelines, so
@@ -187,11 +200,11 @@ export function extractTree(tree, lang, glossary) {
       return;
     }
     if (node.type === 'list') {
+      validateListItems(node);
       node.children.forEach((item, index) => {
-        if (containsQuestion(item)) throw new Error(`Question inside a list item at line ${item.position.start.line} requires editorial handling`);
         const number = (node.start ?? 1) + index;
         const narration = clean(`${node.ordered ? `${spokenCounter(number, lang)}. ` : ''}${narrationText(item, lang)}`);
-        const identity = clean(text(item)) || narration;
+        const identity = clean(text(item));
         if (narration) add(item, 'list', identity, node.ordered || narration !== identity, { narration, ordered: Boolean(node.ordered), ...(node.ordered ? { counter: number } : {}) });
       });
       return;
