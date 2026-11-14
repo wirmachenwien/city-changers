@@ -9,6 +9,9 @@ import { slugifyTerms } from '../lib/slug';
 import { t } from '../lib/i18n';
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import audioBlocks from '../../audio/blocks.json';
+import audioOverrides from '../../audio/overrides.json';
+import { clean, hash, identify } from '../../scripts/audio/content.mjs';
 
 export interface GlossaryEntry {
   term: string;
@@ -37,10 +40,16 @@ if (displayEntries.length === 0) throw new Error('<Glossary> needs either entrie
 // can never change an anchor target.
 const slugs = slugifyTerms(entries.map((entry) => entry.term));
 const anchorLabel = t(lang ?? 'en', 'headings.link-to-section', 'Link to this section');
+const chapterId = `${lang}/glossary`;
+const registry = audioBlocks.chapters as Record<string, any[]>;
+const bindings = audioOverrides.bindings as Record<string, Record<string, string>>;
+const audioEntries = !explicit && lang ? identify(entries.map((entry, index) => ({
+  kind: 'glossary', fingerprint: hash({ kind: 'glossary', spoken: clean(`${entry.term}. ${entry.definition}`) }), line: index,
+})), registry[chapterId], bindings[chapterId]) : [];
 ---
 <dl class="glossary">
   {displayEntries.map((entry, index) => (
     <dt id={slugs[index]}>{entry.term}<a href={`#${slugs[index]}`} data-heading-anchor aria-label={anchorLabel}>#</a></dt>
-    <dd>{entry.definition}</dd>
+    <dd data-audio-block={audioEntries[index]?.id}>{entry.definition}</dd>
   ))}
 </dl>

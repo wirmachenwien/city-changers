@@ -57,6 +57,11 @@ jobs:
       - name: Check derived config files are in sync
         run: npm run check:config
 
+      - name: Check audio code and committed edition (no generation or uploads)
+        run: |
+          npm run audio:check -- --allow-missing
+          npm run audio:test
+
       - name: Check theme behavior without a browser
         run: node --test scripts/tests/theme.test.mjs
 

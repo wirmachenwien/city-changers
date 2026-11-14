@@ -44,10 +44,10 @@ def build(output):
             path = kit / destination
             path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, path)
-            inventory.append({"file": destination, "source": str(source.relative_to(ROOT)),
+            inventory.append({"file": destination, "source": source.relative_to(ROOT).as_posix(),
                               "bytes": path.stat().st_size,
                               "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
-        text = (kit / "START-HERE.txt").read_text()
+        text = (kit / "START-HERE.txt").read_text(encoding="utf-8")
         (kit / "START-HERE.html").write_text(
             '<!doctype html><html lang="en"><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -55,13 +55,20 @@ def build(output):
             '<style>body{max-width:72ch;margin:3rem auto;padding:0 1rem;'
             f'font:18px/1.6 system-ui;color:{colors["ink"]};background:{colors["paper"]}}}'
             'pre{white-space:pre-wrap;font:inherit}</style><main><h1>City Changers brand kit</h1><pre>'
-            + html.escape(text) + '</pre></main></html>')
-        (kit / "inventory.json").write_text(json.dumps({"assets": inventory}, indent=2) + "\n")
+            + html.escape(text) + '</pre></main></html>', encoding="utf-8", newline="\n")
+        (kit / "inventory.json").write_text(json.dumps({"assets": inventory}, indent=2) + "\n", encoding="utf-8", newline="\n")
         zip_path = Path(temporary) / archive.name
         with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zipped:
             for path in sorted(kit.rglob("*")):
                 if path.is_file():
-                    zipped.write(path, path.relative_to(kit.parent))
+                    # Draft retries must stage identical bytes regardless of local
+                    # timestamps, permissions or the staging directory's lifetime.
+                    member = zipfile.ZipInfo(path.relative_to(kit.parent).as_posix(), date_time=(1980, 1, 1, 0, 0, 0))
+                    member.create_system = 3
+                    member.external_attr = 0o100644 << 16
+                    member.compress_type = zipfile.ZIP_DEFLATED
+                    with path.open("rb") as source, zipped.open(member, "w", force_zip64=True) as destination:
+                        shutil.copyfileobj(source, destination)
         shutil.move(str(kit), target)
         zip_path.replace(archive)
     print(f"Ready to send: {archive}\nFolder: {target}\n{len(files)} assets and documents included.")

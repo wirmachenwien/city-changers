@@ -42,6 +42,8 @@
     "footer-link-hover": { "light": { "value": "#514E4A" }, "dark": { "value": "#D5D0C7" }, "use": "Footer text-link hover: the ink-soft channels brightened by 10%, matching the accent link hover adjustment without switching to green." },
     "accent-ink": { "light": "neutral.white", "dark": "neutral.dark", "use": "Text on the green accent." },
     "accent-soft": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.1 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.14 }, "use": "Subtle green emphasis." },
+    "audio-highlight": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.1 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.14 }, "use": "Active read-along sentence and chapter heading on ordinary page surfaces." },
+    "audio-highlight-on-tint": { "light": "amber.highlight", "dark": { "mix": ["amber.dark", "neutral.dark"], "weight": 0.28 }, "use": "Contrasting warm read-along highlight inside green mascot boxes; paired with mark-ink." },
     "pebble-hover": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.18 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.22 }, "use": "Slightly richer green fill for hovered pebble buttons and dropdowns." },
     "pebble-hover-ink": { "light": { "mix": ["green.light", "neutral.ink"], "weight": 0.85 }, "dark": { "mix": ["green.dark", "neutral.cream"], "weight": 0.9 }, "use": "Green text, icons and underlines on hovered pale pebbles." },
     "pebble-selected-hover": { "light": { "mix": ["green.light", "neutral.ink"], "weight": 0.9 }, "dark": { "mix": ["green.dark", "neutral.cream"], "weight": 0.92 }, "use": "Subtle filled-green hover for the selected language pebble." },
@@ -93,7 +95,8 @@
       ["accent", "paper"], ["accent", "panel"], ["accent", "accent-soft"], ["accent", "warm-soft"],
       ["link-hover", "paper"], ["link-hover", "panel"], ["link-hover", "accent-soft"], ["link-hover", "warm-soft"],
       ["accent-ink", "accent"], ["pebble-hover-ink", "pebble-hover"], ["pebble-selected-hover-ink", "pebble-selected-hover"], ["error", "paper"], ["error", "panel"],
-      ["warm", "warm-soft"], ["mark-ink", "mark"], ["paper", "ink"]
+      ["warm", "warm-soft"], ["mark-ink", "mark"], ["paper", "ink"],
+      ["ink", "audio-highlight"], ["accent", "audio-highlight"], ["mark-ink", "audio-highlight-on-tint"], ["accent", "audio-highlight-on-tint"]
     ],
     "graphics": [["focus", "paper"], ["focus", "panel"], ["popup-link", "ink"], ["control-border", "paper"], ["control-border", "panel"]],
     "qr": [["black", "white"]]

@@ -1,0 +1,33 @@
+{
+  "description": "Pinned provenance for the published 7276202b28980b250ac2 edition only. Do not infer settings or chapter order for other legacy outputs.",
+  "revision": "7276202b28980b250ac2",
+  "processing": { "version": 1, "sampleRate": 44100, "channels": 1, "gainDb": 0, "chapterMp3Bitrate": "128k", "audiobookAacBitrate": "96k" },
+  "chapters": {
+    "de/01": "91414eabf3b8965deced36b1c2c5f2fe493cecee4ae04775347d486611b908cd",
+    "de/02": "8123288bdae68b441e4c2849fa5b839fb6da48bd7747e20d2280d524fdb2ec20",
+    "de/03": "14b0d7ac8294c0e9cbdfcadac6ad59b66840792bb5b582352c74670450db0b9b",
+    "de/04": "4358bb0bb7167585287c6dbe1f12fe3369d139dde2cda8d59ce92fb1e93a084f",
+    "de/05": "56c6d2386b436446a49ef8ce46f65579f135a8a31abcd4a2a996cf262dc5702f",
+    "de/06": "bd64dc090b584155ff2374c0be2e7224a12b8b781c395e5c1ee50c9439d8a449",
+    "de/glossary": "1aa4688b7d33162c64ee9d9666b5611eb2ec5f676ab80af9f58dcdd8d9be194d",
+    "en/01": "e6dcb4f147cd61d2ebf81884fcfacc2de7421c21c09535f91f38177cd4a55d5b",
+    "en/02": "e48fa1bbde321de5091d79558b691c999a62db1d8bfbdd86fc3bb54ddb17b537",
+    "en/03": "3a129e7c1eebe76c6bc70d46708da76b0c9207499e23304fa60569850352a0db",
+    "en/04": "42521c9838a014e627fd931dd8b3ad9612a3b881970a1cbd84b71ed64f02394d",
+    "en/05": "86cace382ef6f291735d7f1b7f1c9b578c1d1b584c45e6bff96cf6d3111193af",
+    "en/06": "0022eb285d46f925c6e44dcc529a1cc25b15bb9467a861fcad4ea7f03a4f4557",
+    "en/glossary": "12afd906840cf7f10dac159f97e6e1ff2a970411d28ea679e449d0121248d1af",
+    "sl/01": "f0b11c95c7711a39d4ab1205c9f5c95031c57f5f49bcc399a7bcd1191dff0fb8",
+    "sl/02": "bc1ed34103f7f894c5dd1b0184a86e76dd39a9e81b3b96e6300e607a8cd87fb5",
+    "sl/03": "15c2641f8f6fe3682c3eb7ab0741f2148c441146fe43c3de12d95b5d6c4565f4",
+    "sl/04": "60e954f2c37e2cdd4fa5dc85018cf979df3e5d6ec61b222515f1fd884c27c9fb",
+    "sl/05": "150d6bf5578c2ba1025c56db3646733a381bc5bddf904f81fcb37cc451eddc57",
+    "sl/06": "530fe7e7c3deb82fab31efa9d9588a77082fa0b35e8d0372951a3c959f61b800",
+    "sl/glossary": "58662c9981b65b123a8c4acc0f593ba407feae4d9735e571ca2dc9159020f6f8"
+  },
+  "audiobooks": {
+    "de": { "sha256": "9d00d19e2f3b1ee4ece13477b6b01994df7d2d972163e0a67e720a9c88787d58", "chapterIds": ["de/01", "de/02", "de/03", "de/04", "de/05", "de/06", "de/glossary"] },
+    "en": { "sha256": "adcb88559589a22453e7000779a1d5e3dd6009f34498a35d9069fce2cad136fe", "chapterIds": ["en/01", "en/02", "en/03", "en/04", "en/05", "en/06", "en/glossary"] },
+    "sl": { "sha256": "9e806b063afc6912610607555de39bb66f68b281510b87ec39e32391a9867477", "chapterIds": ["sl/01", "sl/02", "sl/03", "sl/04", "sl/05", "sl/06", "sl/glossary"] }
+  }
+}
