@@ -35,6 +35,8 @@ test('bitrate-only re-encoding reuses verified legacy narration without rewritin
     timings: { alignment: { characters: [...'Test.'], character_start_times_seconds: [0, .1, .2, .3, .4], character_end_times_seconds: [.1, .2, .3, .4, .5] } } };
   write(`.cache/audio/units/${key}/source.mp3`, source);
   write(`.cache/audio/units/${key}/result.json`, record);
+  const diagnostic = join('b'.repeat(20), 'old-diagnostic.pcm');
+  write(`.cache/audio/release/${diagnostic}`, Buffer.from('Keep failed-run diagnostics'));
   const chapter = { id: 'en/01', lang: 'en', file: '01', title: 'Test', sourceHash: hash('source'), scriptHash: hash('script'),
     blocks: [{ id: 'b', text: 'Test.', spoken: 'Test.', submitted: 'Test.' }], units: [unit] };
   const plan = { planHash: hash('first'), config, chapters: [chapter] };
@@ -42,17 +44,30 @@ test('bitrate-only re-encoding reuses verified legacy narration without rewritin
   write('plan.json', plan);
   run(process.execPath, ['--input-type=module', '-e', script]);
   const first = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  assert.deepEqual(readdirSync(join(temp, '.cache/audio/release'), { recursive: true }).filter(file => file.endsWith('.pcm')), [diagnostic]);
   plan.config.processing.chapterMp3Bitrate = '64k';
   plan.config.processing.audiobookAacBitrate = '48k';
   plan.planHash = hash('second');
   write('plan.json', plan);
   run(process.execPath, ['--input-type=module', '-e', script]);
   const second = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  assert.deepEqual(readdirSync(join(temp, '.cache/audio/release'), { recursive: true }).filter(file => file.endsWith('.pcm')), [diagnostic]);
   assert.notEqual(second.chapters[0].recipeHash, first.chapters[0].recipeHash);
   assert.notEqual(second.audiobooks[0].mediaRecipeHash, first.audiobooks[0].mediaRecipeHash);
   assert.equal(second.chapters[0].assembly[0].audioHash, hash(source));
   assert.deepEqual(readFileSync(join(temp, `.cache/audio/units/${key}/source.mp3`)), source);
   assert.deepEqual(JSON.parse(readFileSync(join(temp, `.cache/audio/units/${key}/result.json`), 'utf8')), record);
+  const previousManifest = readFileSync(join(temp, '.cache/audio/release/manifest.json'));
+  plan.planHash = hash('failed-validation');
+  plan.chapters[0].blocks[0].submitted = 'Different text.';
+  write('plan.json', plan);
+  const failed = spawnSync(process.execPath, ['--input-type=module', '-e', script], { cwd: temp, encoding: 'utf8' });
+  assert.notEqual(failed.status, 0);
+  assert.match(failed.stderr, /Non-contiguous narration unit mapping/);
+  assert.deepEqual(readFileSync(join(temp, '.cache/audio/release/manifest.json')), previousManifest);
+  assert.equal(readdirSync(join(temp, '.cache/audio/release'), { recursive: true }).filter(file => file.endsWith('.source.pcm')).length, 1, 'Failed runs retain decoded diagnostics');
+  assert.equal(existsSync(join(temp, '.cache/audio/release', diagnostic)), true);
+  for (const book of second.audiobooks) assert.equal(existsSync(join(temp, '.cache/audio/release', book.file)), true);
 });
 
 const ffmpeg = spawnSync('ffmpeg', ['-version']).status === 0;
@@ -257,8 +272,10 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   assert.ok(Math.abs(paused.chapters[0].pcmDuration - second.chapters[0].pcmDuration - 3) < .001);
   const cueMap = JSON.parse(readFileSync(join(temp, `.cache/audio/release/${paused.chapters[0].cues.file}`), 'utf8'));
   assert.ok(cueMap.sentenceCues[1].start - cueMap.sentenceCues[0].end >= 3);
-  const pcm = readFileSync(join(temp, `.cache/audio/release/${paused.revision}/en/01.pcm`));
-  assert.deepEqual(pcm.subarray(insertion.sample * 2, (insertion.sample + insertion.frames) * 2), Buffer.alloc(insertion.frames * 2));
+  // Exact zero-filled silence is tested in audio-pauses.mjs; successful assembly
+  // must dispose of its PCM copies after validating timing and encoded outputs.
+  assert.equal(existsSync(join(temp, `.cache/audio/release/${paused.revision}/en/01.pcm`)), false);
+  assert.deepEqual(readdirSync(join(temp, '.cache/audio/release'), { recursive: true }).filter(file => file.endsWith('.pcm')), []);
   // Changing only pause duration rebuilds timing/container boundaries, not TTS.
   plan.chapters[0].blocks[0].pause.seconds = 4;
   plan.config.assembly.reflectionPauseSeconds = 4;

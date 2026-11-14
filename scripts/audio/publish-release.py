@@ -37,10 +37,24 @@ def digest(path):
 
 def require_committed():
     # A release must describe a committed edition, not an unreviewed local run.
+    config = json.loads((ROOT / "audio/config.json").read_text(encoding="utf-8"))
+    metadata = config.get("metadata")
+    cover = metadata.get("cover") if isinstance(metadata, dict) else None
+    if not isinstance(cover, str) or not cover or Path(cover).is_absolute() or ".." in Path(cover).parts:
+        raise ValueError("Set a repository-relative audiobook cover path before publishing/verifying a release")
+    cover_file = ROOT / cover
+    try:
+        resolved_cover = cover_file.resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError as error:
+        raise ValueError("Audiobook cover must remain inside the repository") from error
+    if not cover_file.is_file():
+        raise ValueError("Configured audiobook cover is missing")
+    # Check both the configured path and any in-repository symlink target.
+    covers = list(dict.fromkeys([Path(cover).as_posix(), resolved_cover]))
     paths = ["audio", "public/audio", "scripts/audio", "src/content/book", "src/content/pages",
-             "src/data/glossary.json", "src/data/works.json", "src/data/project.json", "handbook.config.ts", "package.json", "package-lock.json"]
-    checked("git", "ls-files", "--error-unmatch", "audio/release.json", "audio/published.json")
-    if checked("git", "status", "--porcelain", "--untracked-files=all", "--", *paths):
+             "src/data/glossary.json", "src/data/works.json", "src/data/project.json", "handbook.config.ts", "package.json", "package-lock.json", *covers]
+    checked("git", "--literal-pathspecs", "ls-files", "--error-unmatch", "--", "audio/release.json", "audio/published.json", *covers)
+    if checked("git", "--literal-pathspecs", "status", "--porcelain", "--untracked-files=all", "--", *paths):
         raise ValueError("Commit the reviewed audio inputs, inventory and website artifacts before publishing/verifying a release")
     return checked("git", "rev-parse", "HEAD")
 

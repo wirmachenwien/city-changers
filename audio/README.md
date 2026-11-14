@@ -33,11 +33,14 @@ Matching retained audio is reused automatically. Choose a budget from the curren
 plan; the example is not permission to spend.
 Footnotes are read in place, including inline `text` props and flow-level content;
 bibliographies and reference/material sections remain text-only.
-List items must contain ordinary prose: standalone questions, block wrappers
-(such as accordions and pullquotes), and footnote-only items are rejected with
-a source-line diagnostic, including in nested lists. Inline footnotes attached
-to list prose remain supported. Move standalone components outside the list.
-This also applies to standalone `Glossary` components.
+Lists follow a positive, prose-only grammar: items contain paragraphs and nested
+lists; paragraphs support text, inline formatting, code spans, links (including
+reference links), and line breaks. Inline `Footnote` attached to prose is the
+sole JSX exception. Every other node is rejected by default with its type/name
+and source line, before normalization or narration. This includes unknown future
+components and native flow blocks such as tables, not just known component names.
+Move standalone content outside lists; valid MDX syntax is not automatically
+supported audio content. Footnote-only list paragraphs are not supported.
 
 - Omit `--chapter` to select the whole book, or use `--units ID,ID` for exact units.
 - Add `--plan HASH` to reject unexpected plan changes.
@@ -58,7 +61,7 @@ inventory, separate from the lightweight website payload:
 | Location | Contents | Commit? |
 | --- | --- | --- |
 | `.cache/audio/units/` | Private recordings, original alignments, requests and journals | **Never**; back up privately |
-| `.cache/audio/release/` | Assembly intermediates and private provenance | No |
+| `.cache/audio/release/` | Encoded-output reuse cache, private provenance and failed-run diagnostics | No |
 | `public/audio/<revision>/` | Complete local edition: MP3s, M4Bs and cues | Commit only cue JSON (about 0.7 MB); media is ignored |
 | `audio/published.json` | Public frontend catalogue; media URLs point to the immutable GitHub Release | Yes, with the edition |
 | `audio/release.json` | Complete public attachment inventory and checksums | Yes, with the edition |
@@ -97,6 +100,9 @@ managed subfolders** of `public/audio/`. Every revision still referenced by the
 merged catalogue is kept, including partial preparations. Unknown files and
 symlinks are preserved for manual inspection. Current MP3s/M4Bs remain available
 locally. Failed preparation never prunes. Private source clips are never pruned.
+After successful assembly validation and manifest writing, only that run's owned
+PCM intermediates are removed. Encoded artifacts, retained recordings, unknown
+files, historical intermediates and failed-run diagnostics remain untouched.
 
 ### 4. Listen locally
 
@@ -138,6 +144,10 @@ descriptive language-specific filename. Metadata-only upgrades reuse encoded
 AAC streams without quality loss. If Apple Books already imported an older file
 as “book”, remove that library entry and import the corrected download again;
 its cached title is not updated by publishing a replacement edition.
+
+The configured `metadata.cover` must name a tracked, clean, repository-relative
+file. Publication checks follow that configured path (and any in-repository
+symlink target), rather than relying on a fixed cover filename.
 
 Commit the reviewed `audio/` inputs, `audio/release.json`, `audio/published.json`
 and the matching `public/audio/` cue JSON on a review branch. Push that

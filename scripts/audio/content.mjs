@@ -36,20 +36,33 @@ export function text(node) {
 const wrappers = new Set(['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox', 'TableWrap', 'Slideshow']);
 const blockComponents = new Set([...wrappers, 'Figure', 'Question', 'Glossary', 'Bibliography']);
 const containsFootnote = node => node.name === 'Footnote' || (node.children ?? []).some(containsFootnote);
-const unsupportedListComponent = node => ['Question', 'Glossary'].includes(node.name) || wrappers.has(node.name)
-  ? node.name : (node.children ?? []).map(unsupportedListComponent).find(Boolean);
 const hasInlineContent = nodes => clean(nodes.map(text).join('')) || nodes.some(containsFootnote);
 
-// Lists are prose, not containers for standalone quizzes or block components.
-// Validate nested items too: recursive narration does not visit walk() again.
-function validateListItems(node) {
-  if (node.type === 'listItem') {
-    const line = node.position.start.line;
-    const component = unsupportedListComponent(node);
-    if (component) throw new Error(`${wrappers.has(component) ? 'Block component' : component} inside a list item at line ${line} requires editorial handling`);
-    if (containsFootnote(node) && !clean(text(node))) throw new Error(`Footnote-only list item at line ${line} requires editorial handling`);
+// A positive grammar, not a growing blacklist of component names. Lists contain
+// prose paragraphs and nested lists; inline Footnote is the sole JSX exception.
+const listPhrasing = new Set(['text', 'strong', 'emphasis', 'delete', 'inlineCode', 'link', 'linkReference', 'break']);
+function rejectListContent(node) {
+  throw new Error(`Unsupported list content ${node.name ?? node.type} at line ${node.position?.start.line ?? 0}; use prose and nested lists only`);
+}
+function validateList(node) {
+  function inline(child) {
+    if (!listPhrasing.has(child.type) && !(child.type === 'mdxJsxTextElement' && child.name === 'Footnote')) rejectListContent(child);
+    for (const nested of child.children ?? []) inline(nested);
   }
-  for (const child of node.children ?? []) validateListItems(child);
+  for (const item of node.children ?? []) {
+    if (item.type !== 'listItem') rejectListContent(item);
+    for (const child of item.children ?? []) {
+      if (child.type === 'list') validateList(child);
+      else if (child.type === 'paragraph') {
+        if (containsFootnote(child) && !clean(text(child))) rejectListContent(child);
+        for (const phrasing of child.children ?? []) inline(phrasing);
+      } else rejectListContent(child);
+    }
+  }
+}
+function validateLists(node) {
+  if (node.type === 'list') return validateList(node);
+  for (const child of node.children ?? []) validateLists(child);
 }
 
 // MDX parses adjacent one-line components as JSX *text* elements inside one
@@ -136,6 +149,7 @@ export function spokenAttribution(cite, lang) {
 }
 
 export function extractTree(tree, lang, glossary) {
+  validateLists(tree); // Reject unsupported structures before normalization or narration.
   normalizeBlocks(tree);
   const blocks = [];
   let referenceDepth = 0;
@@ -200,7 +214,6 @@ export function extractTree(tree, lang, glossary) {
       return;
     }
     if (node.type === 'list') {
-      validateListItems(node);
       node.children.forEach((item, index) => {
         const number = (node.start ?? 1) + index;
         const narration = clean(`${node.ordered ? `${spokenCounter(number, lang)}. ` : ''}${narrationText(item, lang)}`);

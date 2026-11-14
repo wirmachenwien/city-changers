@@ -59,14 +59,6 @@ test('heading footnotes are read in place while source identities and chapter pr
     }
   }
 });
-test('questions inside list items fail with a source location instead of losing quiz narration', () => {
-  const question = '<Question question="Why?" options={["Yes"]} answer={0} />';
-  for (const body of [`- ${question}`, `1. ${question}`, `- Parent\n  - ${question}`]) {
-    assert.throws(() => extract(body), /Question inside a list item at line 5 requires editorial handling/);
-  }
-  assert.ok(extract(question).some(block => block.kind === 'quiz'));
-  assert.equal(extract('- Ordinary item.')[0].narration, 'Ordinary item.');
-});
 test('adjacent inline MDX components preserve titles and include only the approved semicircle figure', () => {
   const blocks = extract('<Accordion title="First">One.</Accordion>\n<Accordion title="Second">Two.</Accordion>\n\n<Slideshow>\n<Figure alt="Excluded visual." src="x.jpg">Photo: Person.</Figure>\n<Figure alt="Allowed semicircle." src="spectrum-of-allies.png">Photo: Other.</Figure>\n</Slideshow>');
   assert.deepEqual(blocks.map(b => b.text), ['First', 'One.', 'Second', 'Two.', 'Allowed semicircle.']);
@@ -210,18 +202,21 @@ test('reference headings exclude deeper subsections until a peer or ancestor hea
 });
 test('footnote-only list items are rejected, including nested items', () => {
   for (const body of ['- <Footnote text="A note." />', '1. <Footnote>A note.</Footnote>', '- Parent\n  - <Footnote text="A note." />']) {
-    assert.throws(() => extract(body), /Footnote-only list item at line \d+ requires editorial handling/);
+    assert.throws(() => extract(body), /Unsupported list content (Footnote|paragraph) at line \d+/);
   }
 });
-test('block components inside lists are rejected rather than adapted for narration', () => {
-  for (const name of ['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox', 'TableWrap', 'Slideshow']) {
-    assert.throws(() => extract(`- <${name}>Body.</${name}>`), /Block component inside a list item at line 5 requires editorial handling/);
-  }
-  assert.throws(() => extract('1. Parent\n   - <Accordion>Body.</Accordion>'), /Block component inside a list item at line 5 requires editorial handling/);
+test('list grammar accepts prose formatting, reference links, breaks and nested lists', () => {
+  const blocks = extract('- **Bold**, *emphasis*, ~~strike~~, `code`, [link](https://example.com).  \n  More prose.\n\n  2. Nested [reference][guide].\n\n[guide]: https://example.com');
+  assert.equal(blocks[0].narration, 'Bold, emphasis, strike, code, link. More prose. Second. Nested reference.');
 });
-test('standalone glossary components are rejected inside lists', () => {
-  for (const body of ['- <Glossary lang="en" />', '1. Prose <Glossary lang="en" />', '- Parent\n  - <Glossary lang="en" />']) {
-    assert.throws(() => extract(body), /Glossary inside a list item at line 5 requires editorial handling/);
+test('list grammar rejects arbitrary JSX and native block content by default, including nested lists', () => {
+  for (const body of [
+    '- Prose <FutureInline />',
+    '- Parent\n  - <FutureBlock>Body.</FutureBlock>',
+    '- Prose.\n\n  | Name | Value |\n  | --- | --- |\n  | Speed | 30 |',
+    '- Prose.\n\n  ```js\n  code();\n  ```',
+  ]) {
+    assert.throws(() => extract(body), /Unsupported list content \w+ at line \d+; use prose and nested lists only/);
   }
 });
 test('ordinary list prose retains inline footnotes and existing identities', () => {
@@ -347,12 +342,13 @@ test('generation requires an explicit budget', () => {
   assert.match(result.stderr, /--budget/);
 });
 test('rendered chapter hooks cover every narration block (build first)', { skip: !existsSync(path('dist/book/glossary.html')) }, () => {
+  const manifest = audioPublication();
   for (const c of makePlan().chapters) {
     const { document } = parseHTML(readFileSync(path(`dist${c.pageUrl}`), 'utf8'));
     const ids = [...document.querySelectorAll('[data-audio-block]')].flatMap(n => n.getAttribute('data-audio-block').split(' '));
     assert.deepEqual(c.blocks.filter(b => !ids.includes(b.id)).map(b => b.id), [], c.id);
-    const published = existsSync('audio/published.json') ? JSON.parse(readFileSync('audio/published.json', 'utf8')).chapters.find(track => track.id === c.id) : undefined;
-    if (!published || published.sourceHash !== c.sourceHash || published.scriptHash !== c.scriptHash || published.assemblyHash !== c.assemblyHash) {
+    const published = manifest.chapters.find(track => track.id === c.id);
+    if (!published) {
       assert.equal(document.querySelectorAll('audio').length, 0, 'Unpublished or stale tracks must remain hidden');
     } else {
       const player = document.querySelector('[data-chapter-audio]');

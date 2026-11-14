@@ -65,7 +65,7 @@ def publish():
             attachments = output / "attachments"
             attachments.mkdir()
             shutil.copyfile(output / "kit" / KIT_NAME, attachments / KIT_NAME)
-            (attachments / "brand-release.json").write_text(json.dumps(release, indent=2) + "\n")
+            (attachments / "brand-release.json").write_bytes((json.dumps(release, indent=2) + "\n").encode("utf-8"))
             for record in release["assets"]:
                 shutil.copyfile(ROOT / record["source"], attachments / record["releaseAsset"])
             yield [str(path) for path in sorted(attachments.iterdir())]

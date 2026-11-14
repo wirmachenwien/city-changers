@@ -162,6 +162,29 @@ class BrandReleaseTest(unittest.TestCase):
             loader.assert_called_once_with("package-brand-kit")
             gh.assert_not_called()
 
+    def test_staged_metadata_uses_exact_utf8_lf_bytes_even_with_windows_text_newlines(self):
+        release = {"tag": "brand-test", "fingerprint": "fixture", "url": "https://example.com/brand", "title": "Moč superblokov", "assets": []}
+        expected = (json.dumps(release, indent=2) + "\n").encode("utf-8")
+        write_text = Path.write_text
+        def windows_write_text(path, text, *args, **kwargs):
+            if path.name == "brand-release.json":
+                return path.write_bytes(text.replace("\n", "\r\n").encode("utf-8"))
+            return write_text(path, text, *args, **kwargs)
+        def package(output):
+            output.mkdir()
+            (output / BRAND.KIT_NAME).write_bytes(b"test ZIP")
+        def publish(**kwargs):
+            with kwargs["stage"]() as attachments:
+                metadata = next(Path(file) for file in attachments if Path(file).name == "brand-release.json")
+                self.assertEqual(metadata.read_bytes(), expected)
+                self.assertNotIn(b"\r\n", metadata.read_bytes())
+                kwargs["validate"](remote_release(release))
+            return False
+        with patch.object(PUBLISH, "check_artwork"), patch.object(PUBLISH, "inventory", return_value=release), \
+             patch.object(PUBLISH, "load_script", return_value=Mock(build=package)), \
+             patch.object(Path, "write_text", windows_write_text), patch.object(PUBLISH, "publish_release", side_effect=publish):
+            PUBLISH.publish()
+
     def test_existing_release_rejects_wrong_zip_digest_size_or_missing_digest_without_uploading(self):
         release = {"tag": "brand-test", "fingerprint": "fixture", "url": "https://example.com/brand", "assets": []}
         def package(output):

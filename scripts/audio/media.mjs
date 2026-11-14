@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, statSync, unlinkSync } from 'node:fs';
 import { read, write, path, assets } from './plan.mjs';
 import { hash } from './content.mjs';
 import { unitSentenceCues, correctSentenceCues, validateSentenceCues } from './sentence-cues.mjs';
@@ -76,6 +76,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
     bookMetadata, chapters: plan.chapters.map(c => c.id), audiobooks }).slice(0, 20);
   const prefix = `${staging}/${revision}`;
   mkdirSync(path(prefix), { recursive: true });
+  const intermediates = new Set();
   const mediaBase = config.mediaBaseUrl.replace(/\/$/, '');
   if (!mediaBase.startsWith('/') && !mediaBase.startsWith('https://')) throw new Error('Use a root-relative or HTTPS media base URL');
   const manifest = { schemaVersion: 1, cueSchemaVersion: 2, planHash: plan.planHash, revision, chapters: [], audiobooks: [], processing,
@@ -93,6 +94,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
       const source = `.cache/audio/units/${asset.key}/source.mp3`;
       if (asset.sourceAudioHash !== digest(source)) throw new Error(`Retained source hash missing/stale for ${unit.id}`);
       let pcm = `${prefix}/${asset.key}.source.pcm`;
+      intermediates.add(pcm);
       run('ffmpeg', ['-v', 'error', '-y', '-i', path(source), '-f', 's16le', '-ar', '44100', '-ac', '1', path(pcm)]);
       const seconds = statSync(path(pcm)).size / (44100 * 2);
       let validated;
@@ -111,6 +113,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
       let masteredSeconds = seconds;
       if (pauses.length) {
         const padded = `${prefix}/${hash({ assetKey: asset.key, pauses })}.pcm`;
+        intermediates.add(padded);
         masteredSeconds = insertPcmPauses(path(pcm), path(padded), pauses);
         pcm = padded;
       }
@@ -123,6 +126,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
       offset += masteredSeconds;
     }
     const raw = `${dir}/${chapter.file}.pcm`;
+    intermediates.add(raw);
     // Stream each retained decoded unit into the chapter master; do not hold a book in RAM.
     const output = openPcm(raw, pcmFiles);
     const mp3 = `${dir}/${chapter.file}.mp3`;
@@ -187,6 +191,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
       remuxedOutputs++;
     } else {
       const raw = `${prefix}/${lang}/book.pcm`;
+      intermediates.add(raw);
       openPcm(raw, chapters.map(c => `${prefix}/${lang}/${c.file}.pcm`));
       run('ffmpeg', ['-v', 'error', '-y', '-f', 's16le', '-ar', '44100', '-ac', '1', '-i', path(raw), '-i', path(metaFile), '-i', path(metadata.cover),
         '-map', '0:a', '-map', '2:v', '-map_metadata', '1', '-map_chapters', '1', '-c:a', 'aac', '-b:a', processing.audiobookAacBitrate,
@@ -197,6 +202,9 @@ export function assemble(plan, { audiobooks = true } = {}) {
   }
   checkRelease(plan, { candidate: true, strict: true, audiobooks, manifest });
   write(`${staging}/manifest.json`, manifest);
+  // Only scratch paths owned by this successful run, never a recursive cache
+  // sweep. Preserve failed-run diagnostics, unknown files and retained sources.
+  for (const file of intermediates) unlinkSync(path(file));
   const bytes = manifest.chapters.flatMap(c => [c.track, c.cues]).concat(manifest.audiobooks).reduce((sum, a) => sum + a.bytes, 0);
   console.log(`Assembled ${manifest.chapters.length} chapter(s), ${manifest.audiobooks.length} M4B(s) (${bytes} bytes; ${reusedOutputs} unchanged encoded outputs reused; ${remuxedOutputs} metadata-only remuxes).`);
   return manifest;

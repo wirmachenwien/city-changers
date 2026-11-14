@@ -231,6 +231,58 @@ class ReleaseTest(unittest.TestCase):
         with patch.object(AUDIO, "checked", side_effect=["", "?? audio/release.json"]), self.assertRaisesRegex(ValueError, "Commit the reviewed"):
             AUDIO.require_committed()
 
+    def test_committed_guard_checks_the_configured_cover_not_a_fixed_asset(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "audio").mkdir()
+            (root / "covers").mkdir()
+            def git(*args):
+                return subprocess.run(["git", *args], cwd=root, capture_output=True, text=True, check=True).stdout.strip()
+            def configure(cover):
+                (root / "audio/config.json").write_text(json.dumps({"metadata": {"cover": cover}}), encoding="utf-8")
+            def commit(*paths):
+                git("add", "--", *paths)
+                git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.test", "commit", "--quiet", "-m", "fixture")
+            git("init", "--quiet")
+            for name in ["release.json", "published.json"]:
+                (root / "audio" / name).write_text("{}", encoding="utf-8")
+            cover = root / "covers/a cover.png"
+            cover.write_bytes(b"committed fixture")
+            configure("covers/a cover.png")
+            commit("audio", "covers")
+            with patch.object(AUDIO, "ROOT", root):
+                self.assertEqual(AUDIO.require_committed(), git("rev-parse", "HEAD"))
+                cover.write_bytes(b"dirty fixture")
+                with self.assertRaisesRegex(ValueError, "Commit the reviewed"):
+                    AUDIO.require_committed()
+                git("add", "--", "covers/a cover.png")
+                with self.assertRaisesRegex(ValueError, "Commit the reviewed"):
+                    AUDIO.require_committed()
+                commit("covers/a cover.png")
+                alternate = root / "covers/alternate.png"
+                alternate.write_bytes(b"alternate fixture")
+                configure("covers/alternate.png")
+                commit("audio/config.json", "covers/alternate.png")
+                self.assertEqual(AUDIO.require_committed(), git("rev-parse", "HEAD"))
+                alternate.write_bytes(b"uncommitted alternate")
+                with self.assertRaisesRegex(ValueError, "Commit the reviewed"):
+                    AUDIO.require_committed()
+                alternate.write_bytes(b"alternate fixture")
+                for name in ["untracked.png", "ignored.png"]:
+                    configure(f"covers/{name}")
+                    (root / "covers" / name).write_bytes(b"not committed")
+                    if name == "ignored.png":
+                        (root / ".gitignore").write_text("covers/ignored.png\n", encoding="utf-8")
+                        commit("audio/config.json", ".gitignore")
+                    else:
+                        commit("audio/config.json")
+                    with self.subTest(cover=name), self.assertRaises(RuntimeError):
+                        AUDIO.require_committed()
+                for invalid in ["../outside.png", str(root / "covers/alternate.png")]:
+                    configure(invalid)
+                    with self.subTest(cover=invalid), self.assertRaisesRegex(ValueError, "repository-relative"):
+                        AUDIO.require_committed()
+
     def test_verify_never_requires_private_staging_or_uploads(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
