@@ -44,7 +44,7 @@ def build(output):
             path = kit / destination
             path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, path)
-            inventory.append({"file": destination, "source": str(source.relative_to(ROOT)),
+            inventory.append({"file": destination, "source": source.relative_to(ROOT).as_posix(),
                               "bytes": path.stat().st_size,
                               "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
         text = (kit / "START-HERE.txt").read_text(encoding="utf-8")
