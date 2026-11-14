@@ -41,6 +41,7 @@ export function createAudioPublication({ dev = false, loadPlan = makePlan, resol
       const chapter = plan.chapters.find(c => c.id === track.id);
       return chapter && track.cueSchemaVersion === 2 && chapter.sourceHash === track.sourceHash && chapter.scriptHash === track.scriptHash && chapter.assemblyHash === track.assemblyHash &&
         Number.isFinite(track.duration) && track.duration > 0 &&
+        (dev || track.track?.url?.startsWith('https://')) &&
         [track.track, track.cues].every(localArtifactValid);
     });
     if (chapters.length !== plan.chapters.length) console.warn(`[audio] ${plan.chapters.length - chapters.length}/${plan.chapters.length} missing or stale tracks hidden. Run npm run audio:prepare to prepare retained narration.`);
@@ -52,7 +53,7 @@ export function createAudioPublication({ dev = false, loadPlan = makePlan, resol
     };
     current = { ...manifest, chapters: chapters.map(c => ({ ...c, track: localMedia(c.track) })), audiobooks: manifest.audiobooks.filter(book => {
       const expected = plan.chapters.filter(c => c.lang === book.lang);
-      return expected.length > 0 && book.metadataHash === metadataHash(plan, book.lang) && localArtifactValid(book) && expected.every(c => chapters.some(t => t.id === c.id && t.revision === book.revision));
+      return expected.length > 0 && book.metadataHash === metadataHash(plan, book.lang) && (dev || book.url?.startsWith('https://')) && localArtifactValid(book) && expected.every(c => chapters.some(t => t.id === c.id && t.revision === book.revision));
     }).map(localMedia) };
     return current;
   }

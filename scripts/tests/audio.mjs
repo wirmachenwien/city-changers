@@ -29,6 +29,21 @@ test('numbered chapter headings use localized chapter prefixes without changing 
     assert.equal(blocks[2].narration, undefined);
   }
 });
+test('Markdown hard breaks separate narration words without changing source identities', () => {
+  for (const lang of ['en', 'de', 'sl']) {
+    for (const separator of ['  \n', '\\\n']) {
+      for (const body of [`foo${separator}bar`, `- foo${separator}  bar`, `> foo${separator}> bar`, `**foo**${separator}[bar](https://example.com)`]) {
+        const block = parseSource(source(body), lang, {}).blocks[0];
+        assert.equal(block.text, 'foobar');
+        assert.equal(block.narration, 'foo bar');
+        assert.equal(block.adaptation, true);
+        const original = parseSource(source(block.kind === 'list' ? '- foobar' : 'foobar'), lang, {}).blocks[0];
+        assert.equal(block.fingerprint, original.fingerprint);
+        assert.equal(identify([block])[0].id, identify([original])[0].id);
+      }
+    }
+  }
+});
 test('heading footnotes are read in place while source identities and chapter prefixes stay stable', () => {
   for (const [lang, prefix] of [['en', 'Chapter'], ['de', 'Kapitel'], ['sl', 'Poglavje']]) {
     for (const heading of ['# 2. Heading', '## Heading', '# Heading']) {

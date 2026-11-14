@@ -24,6 +24,10 @@ function fixture(dev = true) {
   const chapter = { id: 'en/01', lang: 'en', revision, cueSchemaVersion: 2, sourceHash: 'source', scriptHash: 'script', assemblyHash: 'assembly', duration: 20,
     track: artifact('01.mp3'), cues: artifact('01.cues.json') };
   const book = { lang: 'en', revision, metadataHash: 'metadata', ...artifact('book.m4b') };
+  if (!dev) {
+    chapter.track.url = `https://example.com/releases/${chapter.track.file}`;
+    book.url = `https://example.com/releases/${book.file}`;
+  }
   const manifest = { chapters: [chapter], audiobooks: [book] };
   const plan = { chapters: [{ ...chapter }] };
   write('audio/config.json', { metadata: { cover: 'cover.png' } });
@@ -85,9 +89,45 @@ test('missing or stale chapters hide audiobook downloads using the same readines
   }
 });
 
+test('production requires HTTPS media while development permits verified local media', () => {
+  for (const url of ['/audio/local.mp3', 'http://example.com/audio.mp3', '//example.com/audio.mp3']) {
+    const track = fixture(false);
+    track.chapter.track.url = url;
+    track.write('audio/published.json', track.manifest);
+    assert.equal(track.audioPublication().chapters.length, 0, url);
+    assert.equal(track.audioPublication().audiobooks.length, 0, url);
+    const book = fixture(false);
+    book.book.url = url;
+    book.write('audio/published.json', book.manifest);
+    assert.equal(book.audioPublication().chapters.length, 1, url);
+    assert.equal(book.audioPublication().audiobooks.length, 0, url);
+  }
+  for (const dev of [true, false]) {
+    const f = fixture(dev);
+    const publication = f.audioPublication();
+    assert.equal(publication.chapters.length, 1);
+    assert.equal(publication.audiobooks.length, 1);
+    assert.equal(publication.chapters[0].track.url.startsWith('https://'), !dev);
+    assert.equal(publication.audiobooks[0].url.startsWith('https://'), !dev);
+  }
+});
+
+test('production still validates local cues for HTTPS-hosted media', () => {
+  for (const change of ['missing', 'corrupt']) {
+    const f = fixture(false);
+    const file = `public/audio/${f.chapter.cues.file}`;
+    if (change === 'missing') unlinkSync(f.path(file));
+    else f.write(file, 'corrupt');
+    assert.equal(f.audioPublication().chapters.length, 0, change);
+    assert.equal(f.audioPublication().audiobooks.length, 0, change);
+  }
+});
+
 test('production keeps its per-build cache despite filesystem changes', () => {
   const f = fixture(false);
   const first = f.audioPublication();
+  assert.equal(first.chapters.length, 1);
+  assert.equal(first.audiobooks.length, 1);
   f.write('audio/published.json', { chapters: [], audiobooks: [] });
   assert.equal(f.audioPublication(), first);
   assert.equal(f.plans(), 1);

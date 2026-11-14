@@ -102,6 +102,7 @@ export function spokenCounter(number, lang) {
   return counters[lang][number - 1] ?? `${{ en: 'Number', de: 'Punkt', sl: 'Točka' }[lang]} ${number}`;
 }
 function narrationText(node, lang) {
+  if (node.type === 'break') return ' ';
   if (node.name === 'Figure') return shouldNarrateFigure(node) ? attr(node, 'alt') ?? '' : '';
   if (node.name === 'Bibliography') return '';
   if (node.name === 'Footnote') return ` ${attr(node, 'text') ?? (node.children ?? []).map(child => narrationText(child, lang)).join(' ')} `;
