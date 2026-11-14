@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { parseHTML } from 'linkedom';
-import { clean, hash, parseSource, identify, splitText, spokenCounter } from '../audio/content.mjs';
+import { clean, hash, parseSource, extractTree, identify, splitText, spokenCounter } from '../audio/content.mjs';
 import { makePlan, movedIds, path, registryFor } from '../audio/plan.mjs';
 import { audioPublication } from '../../src/lib/audio-publication.mjs';
 import { validateCues, validateAlignment } from '../audio/media.mjs';
@@ -68,6 +68,26 @@ test('wrapper inline expressions are retained as literals or rejected without ev
   const blocks = extract("Before <Accordion title=\"Details\">Hello {'world'}.</Accordion> after.");
   assert.deepEqual(blocks.map(b => b.narration ?? b.text), ['Before', 'Details', 'Hello world.', 'after.']);
   assert.throws(() => extract('Before <Accordion title="Details">Hello {getWord()}.</Accordion> after.'), /Dynamic MDX expression/);
+});
+test('one shared normalizer preserves nested block semantics across formatting and repeated passes', () => {
+  const inline = '<FeatureBox title="Outer"><Accordion title="Inner"><PullQuote cite="Valentina, Changing Cities">Body.</PullQuote><Question question="Why?" options={["Yes"]} answer={0} /></Accordion></FeatureBox>';
+  const multiline = '<FeatureBox title="Outer">\n\n<Accordion title="Inner">\n\n<PullQuote cite="Valentina, Changing Cities">\n\nBody.\n\n</PullQuote>\n\n<Question question="Why?" options={["Yes"]} answer={0} />\n\n</Accordion>\n\n</FeatureBox>';
+  const project = blocks => identify(blocks).map(({ kind, text, narration, fingerprint, id }) => ({ kind, text, narration, fingerprint, id }));
+  const compact = parseSource(source(inline), 'en', {});
+  const spaced = parseSource(source(multiline), 'en', {});
+  assert.deepEqual(project(compact.blocks), project(spaced.blocks));
+  assert.deepEqual(compact.blocks.map(b => b.kind), ['callout-title', 'callout-title', 'paragraph', 'attribution', 'quiz']);
+  assert.deepEqual(compact.blocks.slice(0, 3).map(b => b.text), ['Outer', 'Inner', 'Body.']);
+  assert.equal(compact.blocks[3].narration, 'says Valentina from Changing Cities.');
+  const before = JSON.stringify(compact.tree);
+  assert.deepEqual(project(extractTree(compact.tree, 'en', {})), project(compact.blocks));
+  assert.equal(JSON.stringify(compact.tree), before, 'Normalization is idempotent and preserves source positions');
+  assert.equal(compact.blocks[2].node.position.start.line, 5);
+  assert.ok(spaced.blocks[2].node.position.start.line > 5);
+});
+test('normalization rejects unknown nested components instead of silently flattening them', () => {
+  assert.throws(() => extract('<FeatureBox title="Outer"><FutureComponent>Body.</FutureComponent></FeatureBox>'), /Unsupported audio component FutureComponent/);
+  assert.throws(() => extract('**<Accordion title="Inner">Body.</Accordion>**'), /Unsupported audio node strong/);
 });
 test('wrapper reference links and strikethrough retain the same narration as ordinary paragraphs', () => {
   for (const inline of ['Read [this guide][guide].', 'Keep ~~this text~~ and **that**.', 'Read [this *guide*][guide] and ~~these notes~~.']) {

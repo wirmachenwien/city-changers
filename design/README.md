@@ -54,7 +54,8 @@ The guide at `/brand` links to the matching GitHub Release for the complete ZIP
 and every individual original. Deployment publishes a new content-addressed
 `brand-YYYY-MM-DD[suffix]` release only when kit inputs change, after all checks and
 before uploading Pages. Unchanged inventories reuse a checksum-verified release
-without repackaging/uploading. Drafts can resume after interrupted uploads;
+without uploads; the ZIP is rebuilt from existing exports to verify its exact
+checksum. Drafts can resume after interrupted uploads;
 published releases are never overwritten and do not replace the repository's
 latest software release. Pull requests do not publish releases. The publisher
 uses `GITHUB_TOKEN` with `contents: write` in the deployment build job.
@@ -88,3 +89,26 @@ python3 design/scripts/package-brand-kit.py --output design/handoff/2026-10-28
 
 Packaging refuses to overwrite an existing release. Human review of artwork,
 animation transparency, permissions and credits is still required before use.
+
+## Portable package contract
+
+Packaging requires Python 3.12 or newer (matching the CI toolchain).
+`scripts/package_format.py` defines versioned package serialization: asset globs
+are explicitly case-sensitive; inventory paths and archive names use POSIX
+separators and case-sensitive ordering; generated
+JSON is key-sorted UTF-8 with LF endings; generated HTML also uses UTF-8/LF. ZIP
+members have fixed timestamps, permissions and creator metadata. Members are
+stored rather than deflated so archive bytes do not depend on the local zlib
+version; this trades some compression for reproducible checksums. Existing media
+bytes are copied unchanged and streamed, not loaded as one archive in memory.
+
+The shared asset inventory, kit builder and release metadata writer use this
+same contract. Targeted `.gitattributes` rules keep byte-fingerprinted text inputs
+and packaged text stable in CRLF checkouts without converting binary assets.
+A small stdlib-only CI job compares the complete fixture ZIP checksum and release
+inventory fingerprint on Windows and Linux, in addition to testing path ordering,
+newline conversion and Git checkout behavior. It never renders production assets.
+
+Format changes require a new reviewed brand edition before publication. Never
+replace a published ZIP merely to adopt the new format; existing immutable
+release attachments stay untouched.

@@ -13,6 +13,7 @@ from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import brand_release as BRAND
+from package_format import json_bytes
 
 PREPARE = BRAND.load_script("prepare-brand-site")
 PUBLISH = BRAND.load_script("publish-brand-release")
@@ -22,7 +23,7 @@ PACKAGE = BRAND.load_script("package-brand-kit")
 def remote_release(release, draft=False):
     assets = [{"name": record["releaseAsset"], "size": record["bytes"],
                "digest": f"sha256:{record['sha256']}"} for record in release["assets"]]
-    metadata = (json.dumps(release, indent=2) + "\n").encode()
+    metadata = json_bytes(release)
     assets += [{"name": "brand-release.json", "size": len(metadata), "digest": "sha256:" + hashlib.sha256(metadata).hexdigest()},
                {"name": BRAND.KIT_NAME, "size": len(b"test ZIP"), "digest": "sha256:" + hashlib.sha256(b"test ZIP").hexdigest()}]
     return {"draft": draft, "body": f"Brand inventory SHA-256: {release['fingerprint']}", "assets": assets}
@@ -98,7 +99,7 @@ class BrandReleaseTest(unittest.TestCase):
                 remote = {"draft": True, "body": "Brand inventory SHA-256: fixture", "assets": [
                     {"name": BRAND.KIT_NAME, "size": len(archive), "digest": "sha256:" + hashlib.sha256(archive).hexdigest()}]}
                 completed = copy.deepcopy(remote)
-                metadata = (json.dumps(release, indent=2) + "\n").encode("utf-8")
+                metadata = json_bytes(release)
                 completed["assets"].append({"name": "brand-release.json", "size": len(metadata),
                                             "digest": "sha256:" + hashlib.sha256(metadata).hexdigest()})
                 os.utime(source, (1700000000, 1700000000))
@@ -137,8 +138,7 @@ class BrandReleaseTest(unittest.TestCase):
         records = [{"file": "START-HERE.txt", "source": "design/docs/handoff/START-HERE.txt", "title": "Start here", "bytes": 1, "sha256": "original"}]
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            for file in ["design/edition.json", "design/manifest.json", "design/scripts/package-brand-kit.py",
-                         "design/scripts/asset_library.py", "design/scripts/brand_release.py", "scripts/color_registry.py", "src/data/colors.generated.json"]:
+            for file in BRAND.PACKAGING_INPUTS:
                 (root / file).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(BRAND.ROOT / file, root / file)
             with patch.object(BRAND, "ROOT", root), patch.object(BRAND, "DESIGN", root / "design"), \
@@ -196,7 +196,7 @@ class BrandReleaseTest(unittest.TestCase):
 
     def test_staged_metadata_uses_exact_utf8_lf_bytes_even_with_windows_text_newlines(self):
         release = {"tag": "brand-test", "fingerprint": "fixture", "url": "https://example.com/brand", "title": "Moč superblokov", "assets": []}
-        expected = (json.dumps(release, indent=2) + "\n").encode("utf-8")
+        expected = json_bytes(release)
         write_text = Path.write_text
         def windows_write_text(path, text, *args, **kwargs):
             if path.name == "brand-release.json":

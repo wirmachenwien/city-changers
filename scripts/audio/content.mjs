@@ -65,47 +65,48 @@ function validateLists(node) {
   for (const child of node.children ?? []) validateLists(child);
 }
 
-// MDX parses adjacent one-line components as JSX *text* elements inside one
-// paragraph. Canonicalize those into genuine blocks in BOTH pipelines, so
-// component titles are not lost and hooks survive Astro's paragraph unwrapping.
+// One classifier and splitter for paragraphs AND wrapper children. Promote
+// component blocks before recursion so formatting never hides their metadata.
+const phrasingTypes = new Set(['text', 'strong', 'emphasis', 'delete', 'link', 'linkReference', 'image', 'imageReference', 'inlineCode', 'break', 'mdxTextExpression']);
+const flowTypes = new Set(['paragraph', 'heading', 'list', 'table', 'blockquote', 'thematicBreak', 'definition', 'mdxjsEsm', 'mdxFlowExpression']);
+const inlineComponents = new Set(['Footnote', 'Spoiler']);
+const isPhrasing = node => (phrasingTypes.has(node.type) || (node.type === 'mdxJsxTextElement' && inlineComponents.has(node.name))) &&
+  (node.children ?? []).every(isPhrasing);
+function splitBlocks(children) {
+  const result = [];
+  let inline = [];
+  const flush = () => {
+    if (inline.length && hasInlineContent(inline)) result.push({ type: 'paragraph', children: inline, position: { start: inline[0].position.start, end: inline.at(-1).position.end } });
+    inline = [];
+  };
+  for (const child of children) {
+    if (blockComponents.has(child.name)) {
+      flush();
+      child.type = 'mdxJsxFlowElement';
+      result.push(child);
+    } else if (isPhrasing(child)) inline.push(child);
+    else {
+      flush();
+      // Unknown JSX must fail rather than become a paragraph that silently
+      // narrates its children while discarding component semantics.
+      if (['mdxJsxFlowElement', 'mdxJsxTextElement'].includes(child.type) && !inlineComponents.has(child.name)) {
+        throw new Error(`Unsupported audio component ${child.name ?? 'fragment'} at line ${child.position?.start.line ?? 0}`);
+      }
+      if (!flowTypes.has(child.type) && !['mdxJsxFlowElement', 'mdxJsxTextElement'].includes(child.type)) {
+        throw new Error(`Unsupported audio node ${child.type} at line ${child.position?.start.line ?? 0}`);
+      }
+      result.push(child);
+    }
+  }
+  flush();
+  return result;
+}
 function normalizeBlocks(parent) {
   if (!parent.children) return;
-  parent.children = parent.children.flatMap(node => {
-    if (node.type === 'paragraph' && node.children.some(c => blockComponents.has(c.name))) {
-      const result = [];
-      let inline = [];
-      const flush = () => {
-        if (inline.length && hasInlineContent(inline)) result.push({ type: 'paragraph', children: inline, position: { start: inline[0].position.start, end: inline.at(-1).position.end } });
-        inline = [];
-      };
-      for (const child of node.children) {
-        if (blockComponents.has(child.name)) {
-          flush();
-          child.type = 'mdxJsxFlowElement';
-          result.push(child);
-        } else inline.push(child);
-      }
-      flush();
-      result.forEach(normalizeBlocks);
-      return result;
-    }
-    normalizeBlocks(node);
-    return [node];
-  });
-  if (parent.type === 'mdxJsxFlowElement' && wrappers.has(parent.name)) {
-    const result = [];
-    let inline = [];
-    const flush = () => {
-      if (inline.length && hasInlineContent(inline)) result.push({ type: 'paragraph', children: inline, position: { start: inline[0].position.start, end: inline.at(-1).position.end } });
-      inline = [];
-    };
-    for (const child of parent.children) {
-      if (['text', 'strong', 'emphasis', 'delete', 'link', 'linkReference', 'image', 'inlineCode', 'break', 'mdxJsxTextElement', 'mdxTextExpression'].includes(child.type)) inline.push(child);
-      else { flush(); result.push(child); }
-    }
-    flush();
-    parent.children = result;
-  }
+  parent.children = parent.children.flatMap(node => node.type === 'paragraph' && node.children.some(child => !isPhrasing(child))
+    ? splitBlocks(node.children) : [node]);
+  if (parent.type === 'mdxJsxFlowElement' && wrappers.has(parent.name)) parent.children = splitBlocks(parent.children);
+  for (const child of parent.children) normalizeBlocks(child);
 }
 const referenceHeadings = /^(materials|sources|references|bibliography|video|materialien|quellen|literatur|materiali|viri|literatura|gradiva|videoposnetek)$/iu;
 const reflection = {

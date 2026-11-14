@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Publish committed brand exports once per inventory, before Pages deployment."""
 import hashlib
-import json
 import os
 from pathlib import Path
 import shutil
@@ -12,6 +11,7 @@ from contextlib import contextmanager
 
 from asset_library import ROOT
 from brand_release import KIT_NAME, REPOSITORY, check_artwork, inventory, load_script
+from package_format import json_bytes
 sys.path.insert(0, str(ROOT / "scripts"))
 from github_release import find_release as shared_find_release
 from github_release import publish_release
@@ -39,7 +39,7 @@ def validate_release(remote, release, kit=None):
         asset = assets[record["releaseAsset"]]
         if asset["size"] != record["bytes"] or asset.get("digest") != f"sha256:{record['sha256']}":
             raise ValueError(f"Brand release checksum mismatch: {record['file']}")
-    metadata = (json.dumps(release, indent=2) + "\n").encode()
+    metadata = json_bytes(release)
     if assets["brand-release.json"].get("digest") != "sha256:" + hashlib.sha256(metadata).hexdigest():
         raise ValueError("Brand release metadata checksum mismatch")
     if kit is None or kit["bytes"] <= 0 or assets[KIT_NAME].get("size") != kit["bytes"] or assets[KIT_NAME].get("digest") != f"sha256:{kit['sha256']}":
@@ -65,7 +65,7 @@ def publish():
             attachments = output / "attachments"
             attachments.mkdir()
             shutil.copyfile(output / "kit" / KIT_NAME, attachments / KIT_NAME)
-            (attachments / "brand-release.json").write_bytes((json.dumps(release, indent=2) + "\n").encode("utf-8"))
+            (attachments / "brand-release.json").write_bytes(json_bytes(release))
             for record in release["assets"]:
                 shutil.copyfile(ROOT / record["source"], attachments / record["releaseAsset"])
             yield [str(path) for path in sorted(attachments.iterdir())]

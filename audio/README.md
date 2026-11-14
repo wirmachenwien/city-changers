@@ -42,6 +42,13 @@ components and native flow blocks such as tables, not just known component names
 Move standalone content outside lists; valid MDX syntax is not automatically
 supported audio content. Footnote-only list paragraphs are not supported.
 
+Paragraphs and wrapper children share one block-classification and normalization
+path before extraction and rendered audio hooks. Supported nested components keep
+their titles, attributions and adaptations whether authored on one line or across
+multiple lines. Normalization preserves source positions and is idempotent;
+unknown component names fail instead of silently losing their semantics. This
+does not expand the prose-only list grammar above.
+
 - Omit `--chapter` to select the whole book, or use `--units ID,ID` for exact units.
 - Add `--plan HASH` to reject unexpected plan changes.
 - Interactive runs ask for confirmation; non-interactive runs need `--yes`.

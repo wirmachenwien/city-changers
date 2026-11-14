@@ -5,13 +5,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import html
-import json
 from pathlib import Path
 import shutil
 import sys
 import tempfile
 import zipfile
 from asset_library import asset_records
+from package_format import KIT_FORMAT_VERSION, ZIP_COMPRESSION, archive_members, json_bytes, posix_name, text_bytes, zip_member
 
 ROOT = Path(__file__).resolve().parents[2]
 DESIGN = ROOT / "design"
@@ -44,31 +44,25 @@ def build(output):
             path = kit / destination
             path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, path)
-            inventory.append({"file": destination, "source": source.relative_to(ROOT).as_posix(),
+            inventory.append({"file": destination, "source": posix_name(source.relative_to(ROOT)),
                               "bytes": path.stat().st_size,
                               "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
         text = (kit / "START-HERE.txt").read_text(encoding="utf-8")
-        (kit / "START-HERE.html").write_text(
+        (kit / "START-HERE.html").write_bytes(text_bytes(
             '<!doctype html><html lang="en"><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>City Changers — Start here</title>'
             '<style>body{max-width:72ch;margin:3rem auto;padding:0 1rem;'
             f'font:18px/1.6 system-ui;color:{colors["ink"]};background:{colors["paper"]}}}'
             'pre{white-space:pre-wrap;font:inherit}</style><main><h1>City Changers brand kit</h1><pre>'
-            + html.escape(text) + '</pre></main></html>', encoding="utf-8", newline="\n")
-        (kit / "inventory.json").write_text(json.dumps({"assets": inventory}, indent=2) + "\n", encoding="utf-8", newline="\n")
+            + html.escape(text) + '</pre></main></html>'))
+        (kit / "inventory.json").write_bytes(json_bytes({"format": KIT_FORMAT_VERSION, "assets": inventory}))
         zip_path = Path(temporary) / archive.name
-        with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zipped:
-            for path in sorted(kit.rglob("*")):
-                if path.is_file():
-                    # Draft retries must stage identical bytes regardless of local
-                    # timestamps, permissions or the staging directory's lifetime.
-                    member = zipfile.ZipInfo(path.relative_to(kit.parent).as_posix(), date_time=(1980, 1, 1, 0, 0, 0))
-                    member.create_system = 3
-                    member.external_attr = 0o100644 << 16
-                    member.compress_type = zipfile.ZIP_DEFLATED
-                    with path.open("rb") as source, zipped.open(member, "w", force_zip64=True) as destination:
-                        shutil.copyfileobj(source, destination)
+        with zipfile.ZipFile(zip_path, "w", compression=ZIP_COMPRESSION) as zipped:
+            for path in archive_members(kit):
+                member = zip_member(posix_name(path.relative_to(kit.parent)))
+                with path.open("rb") as source, zipped.open(member, "w", force_zip64=True) as destination:
+                    shutil.copyfileobj(source, destination)
         shutil.move(str(kit), target)
         zip_path.replace(archive)
     print(f"Ready to send: {archive}\nFolder: {target}\n{len(files)} assets and documents included.")
