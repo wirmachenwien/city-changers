@@ -182,6 +182,17 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   const publicationFile = readFileSync(join(temp, 'audio/published.json'));
   const releaseFile = readFileSync(join(temp, 'audio/release.json'));
   const assemblyFile = readFileSync(join(temp, '.cache/audio/release/manifest.json'));
+  delete works.de.title;
+  write('src/data/works.json', works);
+  run(process.execPath, ['--input-type=module', '-e', prepare({ chapter: 'en/01' })]);
+  const untitled = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
+  assert.equal(untitled.chapters.length, 21);
+  assert.deepEqual(untitled.audiobooks.map(b => b.lang), ['sl']);
+  const missingTitle = spawnSync(process.execPath, ['--input-type=module', '-e', prepare({})], { cwd: temp, encoding: 'utf8' });
+  assert.notEqual(missingTitle.status, 0);
+  assert.match(missingTitle.stderr, /Set audiobook titles, narrator, author, rights and existing cover artwork/);
+  works.de.title = 'Test de';
+  write('src/data/works.json', works);
   // Missing metadata invalidates preserved books rather than blocking a
   // chapter-only workflow; supplied-but-broken artwork must still fail.
   for (const metadata of [undefined, {}, { ...config.metadata, narrator: { en: config.metadata.narrator } }]) {

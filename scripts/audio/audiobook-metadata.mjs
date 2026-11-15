@@ -5,7 +5,8 @@ import { path, read } from './plan.mjs';
 export function hasAudiobookMetadata(plan, lang) {
   const metadata = plan.config.metadata;
   const narrator = typeof metadata?.narrator === 'string' ? metadata.narrator : metadata?.narrator?.[lang];
-  return Boolean(narrator && metadata?.author && metadata?.rights && metadata?.cover);
+  const title = read('src/data/works.json')[lang]?.title;
+  return Boolean(title && narrator && metadata?.author && metadata?.rights && metadata?.cover);
 }
 
 export function audiobookMetadata(plan, lang) {
