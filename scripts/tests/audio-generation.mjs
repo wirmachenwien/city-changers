@@ -32,9 +32,25 @@ test('speech keys ignore offline processing but pin generation inputs and preser
   assert.notEqual(narrationKey(config, 'Test.', 'de'), key);
   const retainedConfig = { ...config, voiceHashes: { ...config.voiceHashes, en: hash('fixture-voice') } };
   const record = { config: retainedConfig, unit: { lang: 'en', text: 'Test.', cacheKey: legacyNarrationKey(retainedConfig, 'Test.', 'en') },
-    request: { inputs: [{ voice_id: 'fixture-voice' }] } };
+    request: { language_code: 'en', inputs: [{ voice_id: 'fixture-voice' }] } };
   assert.equal(retainedNarrationKey(record), narrationKey(retainedConfig, 'Test.', 'en'));
   assert.equal(retainedNarrationKey({ ...record, request: { inputs: [{ voice_id: 'another-voice' }] } }), null);
+  for (const unit of [undefined, null, {}, { ...record.unit, text: null }, { ...record.unit, text: 42 }]) {
+    assert.equal(retainedNarrationKey({ ...record, unit }), null);
+    assert.equal(retainedNarrationKey({ unit }), null);
+  }
+  for (const field of ['modelId', 'endpoint', 'outputFormat', 'normalization', 'settings', 'seed', 'pronunciation', 'voices', 'voiceHashes']) {
+    const damaged = structuredClone(retainedConfig);
+    delete damaged[field];
+    assert.equal(retainedNarrationKey({ ...record, config: damaged }), null, field);
+  }
+  for (const pronunciation of [null, {}, { version: 1 }, { dictionaries: [] }]) {
+    assert.equal(retainedNarrationKey({ ...record, config: { ...retainedConfig, pronunciation } }), null);
+  }
+  assert.equal(retainedNarrationKey({ unit: record.unit }), record.unit.cacheKey);
+  assert.equal(retainedNarrationKey({ ...record, unit: { ...record.unit, cacheKey: narrationKey(retainedConfig, 'Test.', 'en') } }),
+    narrationKey(retainedConfig, 'Test.', 'en'));
+
 });
 
 test('preparation shares the generation lock and releases it after failure', async () => {
@@ -253,7 +269,7 @@ test('mocked API: explicit budget, pinned voice, resumable reuse, and uncertain-
   }
 });
 
-for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-under-lock', 'missing-alignment', 'invalid-alignment', 'legacy-incomplete', 'uncertain-complete', 'malformed-preflight-json', 'malformed-generation-json']) {
+for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-under-lock', 'missing-alignment', 'invalid-alignment', 'empty-audio', 'invalid-base64', 'legacy-incomplete', 'uncertain-complete', 'malformed-preflight-json', 'malformed-generation-json']) {
   test(`generation safety: ${scenario}`, () => {
     const directory = join(tmpdir(), 'opencode');
     mkdirSync(directory, { recursive: true });
@@ -293,6 +309,7 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-u
             const text=JSON.parse(options.body).inputs[0].text;
             data.alignment={characters:[...text],character_start_times_seconds:[...text].map((_,i)=>i*.01),character_end_times_seconds:[...text].map((_,i)=>(i+1)*.01)};
           }
+          if(['empty-audio','invalid-base64'].includes(scenario)){data.audio_base64=scenario==='empty-audio'?'   ':'!!!';data.alignment=alignment;}
           if(scenario==='invalid-alignment')data.alignment={...alignment,character_end_times_seconds:[]};
         }else if(url.endsWith('/v1/user/subscription')){
           if(scenario==='malformed-preflight-json')return new Response('private-response-fixture',{status:200});
@@ -319,11 +336,20 @@ for (const scenario of ['preflight-race', 'preflight-partial-race', 'allowance-u
     } else {
       assert.notEqual(result.status, 0);
       if (scenario === 'allowance-under-lock') assert.match(result.stderr, /remaining account allowance/);
-      assert.equal(state.posts, ['missing-alignment', 'invalid-alignment', 'malformed-generation-json'].includes(scenario) ? 1 : 0);
+      assert.equal(state.posts, ['missing-alignment', 'invalid-alignment', 'empty-audio', 'invalid-base64', 'malformed-generation-json'].includes(scenario) ? 1 : 0);
       if (scenario !== 'uncertain-complete') assert.equal(state.reusable, 0);
-      if (scenario.endsWith('-alignment')) {
+      if (scenario.endsWith('-alignment') || ['empty-audio', 'invalid-base64'].includes(scenario)) {
         assert.equal(state.result, false);
         assert.equal(state.incomplete, true);
+        if (['empty-audio', 'invalid-base64'].includes(scenario)) {
+          const journalFile = readdirSync(join(temp, '.cache/audio/journals'))[0];
+          const journal = JSON.parse(readFileSync(join(temp, '.cache/audio/journals', journalFile), 'utf8'));
+          assert.equal(journal.requests[0].state, 'uncertain');
+          assert.equal(journal.reservedCharacters, journal.requests[0].characters);
+          const unitDir = join(temp, '.cache/audio/units', readdirSync(join(temp, '.cache/audio/units'))[0]);
+          assert.equal(existsSync(join(unitDir, 'source.mp3')), false);
+          assert.equal(JSON.parse(readFileSync(join(unitDir, 'incomplete.json'), 'utf8')).sourceAudioHash, null);
+        }
         const resumed = run();
         assert.notEqual(resumed.status, 0);
         assert.equal(JSON.parse(resumed.stdout.trim().split('\n').at(-1)).posts, 0);

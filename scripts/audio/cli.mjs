@@ -183,10 +183,11 @@ async function generate(plan) {
       const dir = `.cache/audio/units/${unit.assetKey}`;
       mkdirSync(path(dir), { recursive: true, mode: 0o700 });
       const { audio_base64, ...timings } = result;
-      if (audio_base64) writeFileSync(path(`${dir}/source.mp3`), Buffer.from(audio_base64, 'base64'), { mode: 0o600 });
-      const complete = Boolean(audio_base64 && reusableAlignment(result.alignment, unit.text));
+      const audio = typeof audio_base64 === 'string' ? Buffer.from(audio_base64, 'base64') : Buffer.alloc(0);
+      if (audio.length) writeFileSync(path(`${dir}/source.mp3`), audio, { mode: 0o600 });
+      const complete = Boolean(audio.length && reusableAlignment(result.alignment, unit.text));
       write(`${dir}/${complete ? 'result' : 'incomplete'}.json`, { schemaVersion: 1, unit, request, timings, requestId: response.headers.get('request-id') ?? response.headers.get('x-request-id'),
-        config: plan.config, sourceAudioHash: audio_base64 ? hash(Buffer.from(audio_base64, 'base64')) : null,
+        config: plan.config, sourceAudioHash: audio.length ? hash(audio) : null,
         generatedAt: new Date().toISOString() });
       if (!complete) throw new Error('Missing audio/alignment: available response/audio retained privately; investigate the reserved request, do not retry blindly');
       reservation.state = 'complete';

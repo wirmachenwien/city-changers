@@ -19,8 +19,13 @@ export const publicationNarrationKey = (config, submitted, lang) => hash(inputs(
 
 export function retainedNarrationKey(result) {
   const { config, unit, request } = result;
-  if (!config) return unit?.cacheKey; // Synthetic/legacy records without provenance cannot be remapped.
-  const lang = unit?.lang ?? request?.language_code;
+  if (!unit || typeof unit.text !== 'string') return null;
+  if (!config) return unit.cacheKey; // Synthetic/legacy records without provenance cannot be remapped.
+  if (!['modelId', 'endpoint', 'outputFormat', 'normalization'].every(field => typeof config[field] === 'string') ||
+    !config.settings || typeof config.settings !== 'object' || Array.isArray(config.settings) ||
+    !Number.isFinite(config.seed) || !Number.isFinite(config.pronunciation?.version) ||
+    !Array.isArray(config.pronunciation?.dictionaries)) return null;
+  const lang = unit.lang ?? request?.language_code;
   if (!lang || !config.voices?.[lang] || !config.voiceHashes?.[lang] || !request?.inputs?.[0]?.voice_id) return null;
   if (hash(request.inputs[0].voice_id) !== config.voiceHashes[lang]) return null;
   const key = narrationKey(config, unit.text, lang);
