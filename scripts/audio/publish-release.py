@@ -77,7 +77,8 @@ def run(*, publish=False, verify=False, allow_missing=False):
     inventory_file = ROOT / "audio/release.json"
     if not inventory_file.exists():
         return
-    release = json.loads(inventory_file.read_text(encoding="utf-8"))
+    metadata_bytes = inventory_file.read_bytes()
+    release = json.loads(metadata_bytes)
     if not (publish or verify):
         for asset in release["assets"]:
             source = ROOT / "public/audio" / asset["file"]
@@ -87,7 +88,6 @@ def run(*, publish=False, verify=False, allow_missing=False):
         return
     target = require_committed()
     repository, tag = release["repository"], release["tag"]
-    metadata_bytes = inventory_file.read_bytes()
     expected = {a["releaseAsset"]: a for a in release["assets"]}
     expected[METADATA] = {"bytes": len(metadata_bytes), "sha256": hashlib.sha256(metadata_bytes).hexdigest()}
     marker = f"Audio inventory SHA-256: {release['fingerprint']}"

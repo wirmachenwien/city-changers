@@ -325,11 +325,17 @@ class ReleaseTest(unittest.TestCase):
             def publish(**kwargs):
                 with kwargs["stage"]() as attachments:
                     self.assertEqual(len(attachments), 2)
+                    self.assertEqual(next(Path(p) for p in attachments if p.endswith(AUDIO.METADATA)).read_bytes(), metadata)
                     self.assertEqual(next(Path(p) for p in attachments if p.endswith(".mp3")).read_bytes(), source.read_bytes())
                 return True
 
+            def change_inventory():
+                # Simulate an inventory change after parsing but before staging.
+                (root / "audio/release.json").write_bytes(b'{"assets": []}')
+                return "commit"
+
             with patch.object(AUDIO, "ROOT", root), patch.object(AUDIO, "checked", return_value="valid"), \
-                 patch.object(AUDIO, "require_committed", return_value="commit"), patch.object(AUDIO, "find_release", return_value=remote), \
+                 patch.object(AUDIO, "require_committed", side_effect=change_inventory), patch.object(AUDIO, "find_release", return_value=remote), \
                  patch.object(AUDIO, "range_check"), patch.object(AUDIO, "publish_release", side_effect=publish) as upload:
                 AUDIO.run(publish=True)
                 upload.assert_called_once()

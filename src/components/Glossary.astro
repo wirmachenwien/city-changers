@@ -45,7 +45,7 @@ const registry = audioBlocks.chapters as Record<string, any[]>;
 const bindings = audioOverrides.bindings as Record<string, Record<string, string>>;
 const audioEntries = !explicit && lang ? identify(entries.map((entry, index) => ({
   kind: 'glossary', fingerprint: hash({ kind: 'glossary', spoken: clean(`${entry.term}. ${entry.definition}`) }), line: index,
-})), registry[chapterId], bindings[chapterId]) : [];
+})), registry[chapterId]?.filter((block) => block.kind === 'glossary'), bindings[chapterId]) : [];
 ---
 <dl class="glossary">
   {displayEntries.map((entry, index) => (

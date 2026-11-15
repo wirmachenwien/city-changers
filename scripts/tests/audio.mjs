@@ -98,7 +98,7 @@ test('wrapper reference links and strikethrough retain the same narration as ord
     assert.equal(wrapped[2].fingerprint, ordinary.fingerprint);
   }
 });
-test('glossary component and extractor retain matching IDs after whitespace edits', () => {
+test('glossary component and full chapter retain matching IDs after whitespace and definition edits', () => {
   const component = readFileSync('src/components/Glossary.astro', 'utf8');
   const expression = component.match(/const audioEntries = ([\s\S]*? : \[\]);/)[1];
   const renderEntries = new Function('entries', 'lang', 'explicit', 'registry', 'bindings', 'clean', 'hash', 'identify', 'chapterId', `return ${expression}`);
@@ -106,11 +106,17 @@ test('glossary component and extractor retain matching IDs after whitespace edit
   const registry = JSON.parse(readFileSync('audio/blocks.json', 'utf8')).chapters;
   const bindings = JSON.parse(readFileSync('audio/overrides.json', 'utf8')).bindings;
   for (const lang of ['en', 'de', 'sl']) {
-    const entries = structuredClone(glossary[lang]);
-    entries[0].definition = ` ${entries[0].definition.replace(' ', '  ')} `;
-    const rendered = renderEntries(entries, lang, false, registry, bindings, clean, hash, identify, `${lang}/glossary`);
-    const extracted = identify(parseSource(source(`<Glossary lang="${lang}" />`), lang, { ...glossary, [lang]: entries }).blocks, registry[`${lang}/glossary`], bindings[`${lang}/glossary`]);
-    assert.deepEqual(rendered.map(e => e.id), extracted.map(e => e.id), lang);
+    const chapterId = `${lang}/glossary`;
+    const chapterSource = readFileSync(`src/content/book/${chapterId}.mdx`, 'utf8');
+    for (const edited of [[], [0], [glossary[lang].length - 1], glossary[lang].map((_, i) => i)]) {
+      const entries = structuredClone(glossary[lang]);
+      entries[0].definition = ` ${entries[0].definition.replace(' ', '  ')} `;
+      for (const index of edited) entries[index].definition += ' Updated definition.';
+      const rendered = renderEntries(entries, lang, false, registry, bindings, clean, hash, identify, chapterId);
+      const extracted = identify(parseSource(chapterSource, lang, { ...glossary, [lang]: entries }).blocks, registry[chapterId], bindings[chapterId])
+        .filter(block => block.kind === 'glossary');
+      assert.deepEqual(rendered.map(e => e.id), extracted.map(e => e.id), `${lang}: edits ${edited}`);
+    }
   }
 });
 test('ordered lists speak localized counters including starts/nesting without changing source identity', () => {
