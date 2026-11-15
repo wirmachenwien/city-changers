@@ -17,6 +17,12 @@ SPEC.loader.exec_module(BUILD)
 
 
 class DesignPipelineTest(unittest.TestCase):
+    def test_committed_artwork_freshness_is_current_without_generation(self):
+        with patch.object(BUILD, "run") as run, patch.object(BUILD, "publish") as publish:
+            BUILD.build(check=True)
+            run.assert_not_called()
+            publish.assert_not_called()
+
     def test_one_manifest_for_delivery_and_site(self):
         records = asset_records()
         self.assertEqual(len({r["file"] for r in records}), len(records))
