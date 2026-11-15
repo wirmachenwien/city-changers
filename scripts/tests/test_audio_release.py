@@ -36,7 +36,7 @@ class FakeGitHub:
 
     def record(self, name):
         record = self.expected[name]
-        return {"name": name, "size": record["bytes"], "digest": "sha256:" + record["sha256"]}
+        return {"name": name, "state": "uploaded", "size": record["bytes"], "digest": "sha256:" + record["sha256"]}
 
     def command(self, *args):
         self.calls.append(args)
@@ -124,6 +124,20 @@ class ReleaseTest(unittest.TestCase):
             upload = next(args for args in github.calls if args[1] == "upload")
             self.assertEqual([Path(file).name for file in upload[5:]], ["audio-release.json"])
             self.assertNotIn("--clobber", upload)
+
+    def test_resume_requires_manual_deletion_of_unfinished_attachments(self):
+        for state in ["starter", "uploading", None]:
+            with self.subTest(state=state), tempfile.TemporaryDirectory() as directory:
+                github = FakeGitHub(directory)
+                asset = {**github.record("01.mp3"), "state": state}
+                github.remote = {"body": "managed", "draft": True, "assets": [asset]}
+                before = copy.deepcopy(github.remote)
+                with patch.object(RELEASE, "validate_assets") as validate:
+                    with self.assertRaisesRegex(ValueError, "01.mp3.*manually delete.*resuming"):
+                        github.publish()
+                    validate.assert_not_called()
+                self.assertEqual(github.calls, [])
+                self.assertEqual(github.remote, before)
 
     def test_draft_mismatches_are_never_deleted_or_replaced(self):
         with tempfile.TemporaryDirectory() as directory:

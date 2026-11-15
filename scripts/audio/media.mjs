@@ -131,7 +131,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
     const output = openPcm(raw, pcmFiles);
     const mp3 = `${dir}/${chapter.file}.mp3`;
     const recipeHash = hash({ processing, title: chapter.title, audio: offsets.map(a => ({ assetKey: a.assetKey, duration: a.duration, audioHash: a.audioHash, ...(a.insertedPauses.length ? { pauses: a.insertedPauses } : {}) })) });
-    const old = previous.chapters.find(c => c.id === chapter.id && c.recipeHash === recipeHash);
+    const old = [...previous.chapters, ...(previous.reusable?.chapters ?? [])].find(c => c.id === chapter.id && c.recipeHash === recipeHash);
     if (old && existsSync(path(`${staging}/${old.track.file}`)) && digest(`${staging}/${old.track.file}`) === old.track.sha256) {
       if (path(`${staging}/${old.track.file}`) !== path(mp3)) copyFileSync(path(`${staging}/${old.track.file}`), path(mp3));
       reusedOutputs++;
@@ -168,7 +168,7 @@ export function assemble(plan, { audiobooks = true } = {}) {
       chapters: chapters.map(c => ({ title: c.title, duration: c.pcmDuration, audio: c.assembly.map(a => a.insertedPauses.length ? { hash: a.audioHash, pauses: a.insertedPauses } : a.audioHash) })) };
     const mediaRecipeHash = hash(mediaRecipe);
     const recipeHash = hash({ mediaRecipeHash, metadataVersion: 2, chapterTimescale: 1000, filename });
-    const old = previous.audiobooks.find(b => {
+    const old = [...previous.audiobooks, ...(previous.reusable?.audiobooks ?? [])].find(b => {
       const source = `${staging}/${b.file}`;
       if (b.lang !== lang || !existsSync(path(source)) || digest(source) !== b.sha256) return false;
       if (b.recipeHash === recipeHash || b.recipeHash === mediaRecipeHash || b.mediaRecipeHash === mediaRecipeHash) return true;
@@ -201,6 +201,14 @@ export function assemble(plan, { audiobooks = true } = {}) {
     manifest.audiobooks.push({ lang, revision, processingHash: outputProcessingHash(processing), chapterIds: chapters.map(c => c.id), title, recipeHash, mediaRecipeHash, metadataVersion: 2, metadataHash: hash(bookMetadata[lang]), duration: duration(m4b), ...artifact(m4b, `${mediaBase}/${revision}/${lang}/${filename}`) });
   }
   checkRelease(plan, { candidate: true, strict: true, audiobooks, manifest });
+  // Partial preparations keep other encoded outputs available for future reuse.
+  // They are not part of this run's candidate or public release inventory.
+  manifest.reusable = {
+    chapters: [...previous.chapters, ...(previous.reusable?.chapters ?? [])]
+      .filter(c => !manifest.chapters.some(current => current.id === c.id)),
+    audiobooks: [...previous.audiobooks, ...(previous.reusable?.audiobooks ?? [])]
+      .filter(b => !manifest.audiobooks.some(current => current.lang === b.lang)),
+  };
   write(`${staging}/manifest.json`, manifest);
   // Only scratch paths owned by this successful run, never a recursive cache
   // sweep. Preserve failed-run diagnostics, unknown files and retained sources.

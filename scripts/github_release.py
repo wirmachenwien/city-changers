@@ -133,6 +133,9 @@ def _publish_release(*, repository, tag, target, title, notes, marker, lookup, v
             command("release", "create", tag, "--repo", repository, "--draft", "--latest=false",
                     "--target", target() if callable(target) else target, "--title", title, "--notes", notes + "\n\n" + marker)
         existing = (remote or {}).get("assets", [])
+        for asset in existing:
+            if asset.get("state") != "uploaded":
+                raise ValueError(f"Attachment {asset['name']} is not uploaded; manually delete it before resuming")
         names = {asset["name"] for asset in existing}
         if len(names) != len(existing) or not names <= expected.keys():
             raise ValueError("Draft contains unexpected or duplicate attachments; no files replaced")

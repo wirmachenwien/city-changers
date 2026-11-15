@@ -158,15 +158,25 @@ test('synthetic 21-track assembly, three M4Bs and partial edit repackage without
   // A chapter is a finalized frontend artifact, not a private preview. It needs
   // no audiobook metadata, and preparing another chapter preserves it.
   write('fixture-plan.json', { ...plan, config: { ...config, metadata: {} } });
-  run(process.execPath, ['--input-type=module', '-e', prepare({ chapter: 'en/01' })]);
+  assert.match(run(process.execPath, ['--input-type=module', '-e', prepare({ chapter: 'en/01' })]), /1 unchanged encoded outputs reused/);
+  let cached = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  assert.equal(cached.reusable.chapters.length, 20);
+  assert.equal(cached.reusable.audiobooks.length, 3);
   let ready = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
   assert.deepEqual(ready.chapters.map(c => c.id), ['en/01']);
   assert.deepEqual(ready.audiobooks, []);
-  run(process.execPath, ['--input-type=module', '-e', prepare({ chapter: 'de/01' })]);
+  assert.match(run(process.execPath, ['--input-type=module', '-e', prepare({ chapter: 'de/01' })]), /1 unchanged encoded outputs reused/);
+  cached = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  assert.equal(cached.reusable.chapters.length, 20);
+  assert.ok(cached.reusable.chapters.every(c => c.id !== 'de/01'));
+  assert.equal(cached.reusable.audiobooks.length, 3);
   ready = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
   assert.deepEqual(ready.chapters.map(c => c.id), ['en/01', 'de/01']);
   write('fixture-plan.json', plan);
-  run(process.execPath, ['--input-type=module', '-e', prepare({ language: 'en' })]);
+  assert.match(run(process.execPath, ['--input-type=module', '-e', prepare({ language: 'en' })]), /8 unchanged encoded outputs reused/);
+  cached = JSON.parse(readFileSync(join(temp, '.cache/audio/release/manifest.json'), 'utf8'));
+  assert.equal(cached.reusable.chapters.length, 14);
+  assert.deepEqual(cached.reusable.audiobooks.map(b => b.lang), ['de', 'sl']);
   ready = JSON.parse(readFileSync(join(temp, 'audio/published.json'), 'utf8'));
   assert.equal(ready.chapters.length, 8);
   assert.deepEqual(ready.audiobooks.map(b => b.lang), ['en']);

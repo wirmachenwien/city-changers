@@ -97,7 +97,7 @@ class BrandReleaseTest(unittest.TestCase):
                 PACKAGE.build(root / "earlier-attempt")
                 archive = (root / "earlier-attempt" / BRAND.KIT_NAME).read_bytes()
                 remote = {"draft": True, "body": "Brand inventory SHA-256: fixture", "assets": [
-                    {"name": BRAND.KIT_NAME, "size": len(archive), "digest": "sha256:" + hashlib.sha256(archive).hexdigest()}]}
+                    {"name": BRAND.KIT_NAME, "state": "uploaded", "size": len(archive), "digest": "sha256:" + hashlib.sha256(archive).hexdigest()}]}
                 completed = copy.deepcopy(remote)
                 metadata = json_bytes(release)
                 completed["assets"].append({"name": "brand-release.json", "size": len(metadata),
