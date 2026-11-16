@@ -1,19 +1,21 @@
 ---
 // Visual shell only: callers own labels, navigation and no-JS fallbacks.
 import Icon from './Icon.astro';
+import type { HTMLAttributes } from 'astro/types';
 
 interface Props {
   id: string;
-  options: { label: string; href: string; selected?: boolean }[];
+  options: ({ label: string; selected?: boolean } & ({ href: string; value?: never } | { value: string; href?: never }))[];
+  selectAttributes?: HTMLAttributes<'select'> & { 'data-speed'?: boolean };
 }
 
-const { id, options } = Astro.props;
+const { id, options, selectAttributes } = Astro.props;
 const selected = options.find(option => option.selected) ?? options[0];
 ---
 <span class="drawn-select">
-  <select id={id} data-select>
+  <select id={id} data-select {...selectAttributes}>
     {options.map(option => (
-      <option value={option.href} selected={option.selected || undefined}>{option.label}</option>
+      <option value={option.value ?? option.href} selected={option.selected || undefined}>{option.label}</option>
     ))}
   </select>
   <span class="drawn-select__value" data-select-value aria-hidden="true">{selected?.label ?? ''}</span>

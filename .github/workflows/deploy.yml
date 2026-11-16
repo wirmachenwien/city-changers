@@ -72,6 +72,11 @@ jobs:
       - name: Check color registry, generated outputs and contrast
         run: npm run colors:check && node --test scripts/tests/colors.test.mjs
 
+      - name: Check audio code and committed edition (no generation or uploads)
+        run: |
+          npm run audio:check -- --allow-missing
+          npm run audio:test
+
       - name: Build static site, PDFs, EPUBs and search index
         run: npm run build
         env:
@@ -92,6 +97,11 @@ jobs:
 
       - name: Publish or reuse matching brand release
         run: python3 design/scripts/publish-brand-release.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify referenced audio release before deployment (no uploads)
+        run: npm run audio:release -- --verify --allow-missing
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

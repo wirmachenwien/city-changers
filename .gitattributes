@@ -1,0 +1,22 @@
+/audio/release.json text eol=lf
+/.gitattributes text eol=lf
+
+# Byte-fingerprinted brand inputs and packaged text must match Git blobs even
+# when core.autocrlf=true. Do not apply text conversion to binary artwork/media.
+/design/scripts/*.py text eol=lf
+/scripts/color_registry.py text eol=lf
+/design/edition.json text eol=lf
+/design/manifest.json text eol=lf
+/design/colors.json text eol=lf
+/design/brand-guide.mdx text eol=lf
+/design/colors-reference.md text eol=lf
+/design/docs/handoff/*.txt text eol=lf
+/src/data/colors.generated.json text eol=lf
+/src/assets/site/*.svg text eol=lf
+/src/assets/book/*.svg text eol=lf
+/src/assets/mascot/static/**/*.svg text eol=lf
+/src/assets/mascot/lottie/green-fix-*.json text eol=lf
+/src/assets/fonts/OFL-*.txt text eol=lf
+/public/favicon.svg text eol=lf
+/public/site.webmanifest text eol=lf
+/LICENSE text eol=lf

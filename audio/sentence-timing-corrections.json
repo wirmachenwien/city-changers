@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "corrections": [
+    {
+      "chapterId": "sl/glossary",
+      "unitId": "sl/glossary/b-87c6efb22deee7ff/0",
+      "sourceAudioHash": "77ba1dd441b3654fe2fa7b4fceecc529feaf972a7f28ee3d344f8a6b02f440cf",
+      "reason": "User audition confirmed both occurrences of Zgodba; first ends at 0.74s, second starts at 1.05s. Times are relative to the retained source clip. First sentence starts at the original 0s boundary.",
+      "sentences": [
+        { "sentenceId": "b-87c6efb22deee7ff-s1", "text": "Zgodba.", "start": 0, "end": 0.74 },
+        { "sentenceId": "b-87c6efb22deee7ff-s2", "text": "Zgodba angažiranja, ki jasno pove cilj, priložnost, zavezništva in želeno spremembo.", "start": 1.05 }
+      ]
+    }
+  ]
+}

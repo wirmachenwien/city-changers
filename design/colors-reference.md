@@ -21,6 +21,8 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--footer-link-hover` | `#514E4A` | `#D5D0C7` | `#514E4A` | Footer text-link hover: the ink-soft channels brightened by 10%, matching the accent link hover adjustment without switching to green. |
 | `--accent-ink` | `#FFFFFF` | `#161511` | `#FFFFFF` | Text on the green accent. |
 | `--accent-soft` | `#E5EEE6` | `#1E2D22` | `#E5EEE6` | Subtle green emphasis. |
+| `--audio-highlight` | `#E5EEE6` | `#1E2D22` | `#E5EEE6` | Active read-along sentence and chapter heading on ordinary page surfaces. |
+| `--audio-highlight-on-tint` | `#FFE08A` | `#513D1D` | `#FFE08A` | Contrasting warm read-along highlight inside green mascot boxes; paired with mark-ink. |
 | `--pebble-hover` | `#D2E2D7` | `#223B2C` | `#D2E2D7` | Slightly richer green fill for hovered pebble buttons and dropdowns. |
 | `--pebble-hover-ink` | `#0F5F36` | `#5DC793` | `#0F5F36` | Green text, icons and underlines on hovered pale pebbles. |
 | `--pebble-selected-hover` | `#0E6338` | `#59C691` | `#0E6338` | Subtle filled-green hover for the selected language pebble. |
@@ -45,6 +47,8 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | link-hover | #0D7642 | #54D798 |
 | footer-link-hover | #514E4A | #D5D0C7 |
 | accent-soft | green.light 10% + neutral.paper 90% (sRGB) | green.dark 14.000000000000002% + neutral.dark 86% (sRGB) |
+| audio-highlight | green.light 10% + neutral.paper 90% (sRGB) | green.dark 14.000000000000002% + neutral.dark 86% (sRGB) |
+| audio-highlight-on-tint | amber.highlight | amber.dark 28.000000000000004% + neutral.dark 72% (sRGB) |
 | pebble-hover | green.light 18% + neutral.paper 82% (sRGB) | green.dark 22% + neutral.dark 78% (sRGB) |
 | pebble-hover-ink | green.light 85% + neutral.ink 15% (sRGB) | green.dark 90% + neutral.cream 10% (sRGB) |
 | pebble-selected-hover | green.light 90% + neutral.ink 10% (sRGB) | green.dark 92% + neutral.cream 8% (sRGB) |

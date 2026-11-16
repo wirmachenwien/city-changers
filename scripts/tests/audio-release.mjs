@@ -1,0 +1,180 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, readFileSync, symlinkSync, copyFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { pathToFileURL, fileURLToPath } from 'node:url';
+import { hash } from '../audio/content.mjs';
+import { releaseInventory, validateReleaseInventory } from '../audio/release.mjs';
+import { prunePublicAudio } from '../audio/prune.mjs';
+import audioSite, { copySitePublic } from '../lib/audio-site.mjs';
+import { navigationOptionLinks } from '../lib/site-links.mjs';
+import { datedReleaseTag } from '../lib/release-tag.mjs';
+import { outputProcessingHash, outputProcessingValid, audiobookSequenceMatches } from '../audio/output-identity.mjs';
+import legacy from '../../audio/legacy-output.json' with { type: 'json' };
+import { makePlan } from '../audio/plan.mjs';
+import { spawnSync } from 'node:child_process';
+
+const revision = 'a'.repeat(20);
+const artifact = extension => ({ file: `${revision}/en/01.${extension}`, bytes: 10, sha256: hash(extension), url: `/audio/${revision}/en/01.${extension}` });
+const publication = () => ({ schemaVersion: 1, revision, planHash: hash('plan'),
+  chapters: [{ id: 'en/01', revision, track: artifact('mp3'), cues: artifact('cues.json') }], audiobooks: [] });
+const temporary = () => { const root = join(tmpdir(), 'opencode'); mkdirSync(root, { recursive: true }); return mkdtempSync(join(root, 'audio-release-')); };
+const write = (root, file, content) => { const target = join(root, file); mkdirSync(join(target, '..'), { recursive: true }); writeFileSync(target, content); };
+
+test('only pinned legacy outputs inherit known processing and book chapter order', () => {
+  const processing = legacy.processing;
+  const track = { id: 'en/01', revision: legacy.revision, track: { sha256: legacy.chapters['en/01'] } };
+  assert.equal(outputProcessingValid(track, processing), true);
+  assert.equal(outputProcessingValid({ ...track, track: { sha256: hash('unknown bytes') } }, processing), false);
+  assert.equal(outputProcessingValid({ ...track, revision: 'unknown' }, processing), false);
+  assert.equal(outputProcessingValid({ id: 'unknown', revision: legacy.revision, track: {} }, processing), false);
+  assert.equal(outputProcessingValid(track, { ...processing, chapterMp3Bitrate: '64k' }), false);
+  assert.equal(outputProcessingValid({ ...track, processingHash: hash('stale') }, processing), false);
+  assert.equal(outputProcessingValid({ ...track, processingHash: outputProcessingHash(processing) }, processing), true);
+  const book = { lang: 'en', revision: legacy.revision, sha256: legacy.audiobooks.en.sha256 };
+  const chapters = legacy.audiobooks.en.chapterIds.map(id => ({ id, revision: legacy.revision }));
+  assert.equal(audiobookSequenceMatches(book, chapters), true);
+  assert.equal(audiobookSequenceMatches(book, [...chapters].reverse()), false);
+  assert.equal(audiobookSequenceMatches({ ...book, sha256: hash('unknown book') }, chapters), false);
+});
+
+test('release gate rejects stale encoders even after a global plan-hash update', () => {
+  const plan = makePlan();
+  const published = JSON.parse(readFileSync('audio/published.json', 'utf8'));
+  const root = temporary();
+  for (const file of ['audio/config.json', 'audio/blocks.json', 'audio/overrides.json', 'audio/sentence-timing-corrections.json',
+    'src/data/works.json', 'src/data/glossary.json', plan.config.metadata.cover,
+    ...plan.chapters.map(c => `src/content/book/${c.id}.mdx`), ...published.chapters.map(c => `public/audio/${c.cues.file}`)]) {
+    mkdirSync(join(root, file, '..'), { recursive: true });
+    copyFileSync(file, join(root, file));
+  }
+  const config = structuredClone(plan.config);
+  config.processing.chapterMp3Bitrate = config.processing.chapterMp3Bitrate === '64k' ? '96k' : '64k';
+  write(root, 'audio/config.json', JSON.stringify(config));
+  write(root, 'audio/published.json', JSON.stringify(published));
+  const script = `
+    import{makePlan,read,write}from${JSON.stringify(new URL('../audio/plan.mjs', import.meta.url).href)};
+    import{releaseInventory}from${JSON.stringify(new URL('../audio/release.mjs', import.meta.url).href)};
+    import{checkAudioRelease}from${JSON.stringify(new URL('../audio/check-release.mjs', import.meta.url).href)};
+    import assert from'node:assert/strict';
+    const pub=read('audio/published.json');pub.planHash=makePlan().planHash;
+    const release=releaseInventory(pub);write('audio/release.json',release);write('audio/published.json',release.publication);
+    assert.throws(()=>checkAudioRelease(),/stale.incomplete audio release/);
+  `;
+  const result = spawnSync(process.execPath, ['--input-type=module', '-e', script], { cwd: root, encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test('site checker validates navigation options, not audio playback speed values', () => {
+  assert.deepEqual(navigationOptionLinks('<div data-select-list><select data-select><option value="/book.html">Book</option></select></div><select data-select data-speed><option value="1.5">1.5×</option></select>'), ['/book.html']);
+});
+test('future release tags use the date and same-day ordinal without a digest suffix', () => {
+  for (const kind of ['audio', 'brand']) {
+    for (const [revision, suffix] of [[0, ''], [1, 'a'], [2, 'b'], [26, 'z'], [27, 'aa']]) {
+      assert.equal(datedReleaseTag(kind, { date: '2026-11-13', revision }), `${kind}-2026-11-13${suffix}`);
+    }
+    assert.equal(datedReleaseTag(kind, { date: '2026-11-14' }), `${kind}-2026-11-14`);
+    for (const edition of [{ date: '2026-02-30' }, { date: '20261113' }, { date: 'bad' }, { date: '2026-11-13', revision: -1 }, { date: '2026-11-13', revision: 1.5 }, { date: '2026-11-13', revision: true }]) {
+      assert.throws(() => datedReleaseTag(kind, edition), /edition date/);
+    }
+  }
+});
+
+test('audio release fingerprints are deterministic, portable and include complete outputs', () => {
+  const input = publication();
+  const original = structuredClone(input);
+  const release = releaseInventory(input);
+  assert.deepEqual(input, original);
+  assert.deepEqual(validateReleaseInventory(release), release);
+  assert.deepEqual(releaseInventory(release.publication), release, 'Remote URLs do not change identity');
+  assert.equal(release.assets.length, 2);
+  assert.equal(release.publication.chapters[0].cues.url, input.chapters[0].cues.url);
+  assert.equal('transcript' in release.publication.chapters[0], false);
+  const edition = JSON.parse(readFileSync('audio/edition.json', 'utf8'));
+  assert.deepEqual(release.edition, edition);
+  assert.equal(release.tag, Object.hasOwn(edition, 'date') ? datedReleaseTag('audio', edition) : `audiobook-${edition.name}-${release.fingerprint.slice(0, 12)}`);
+  assert.ok(release.publication.chapters[0].track.url.includes(`/releases/download/${release.tag}/`));
+  assert.ok(release.assets.every(a => a.download.includes(a.releaseAsset) && !a.releaseAsset.includes('/')));
+  input.chapters[0].cues.sha256 = hash('corrected cues');
+  assert.notEqual(releaseInventory(input).fingerprint, release.fingerprint);
+  const corrupt = structuredClone(release);
+  corrupt.assets[0].sha256 = hash('corrupt');
+  assert.throws(() => validateReleaseInventory(corrupt), /inconsistent/);
+  input.chapters[0].track.file = '../../private/source.mp3';
+  assert.throws(() => releaseInventory(input), /Invalid public audio artifact/);
+});
+test('dated audio inventories round-trip and changed bytes require a new date/revision instead of an overwrite', () => {
+  const input = publication(), edition = { date: '2026-11-13', revision: 1 };
+  const release = releaseInventory(input, edition);
+  assert.equal(release.tag, 'audio-2026-11-13a');
+  assert.deepEqual(validateReleaseInventory(release, edition), release);
+  assert.ok(release.publication.chapters[0].track.url.includes('/download/audio-2026-11-13a/'));
+  input.chapters[0].cues.sha256 = hash('changed cues');
+  const changed = releaseInventory(input, edition);
+  assert.equal(changed.tag, release.tag);
+  assert.notEqual(changed.fingerprint, release.fingerprint, 'The publisher rejects a conflicting fingerprint at an existing tag');
+  assert.equal(releaseInventory(input, { ...edition, revision: 2 }).tag, 'audio-2026-11-13b');
+});
+
+test('partial preparations remove legacy transcript references from publication and release inventories', () => {
+  const input = publication();
+  input.chapters[0].transcript = artifact('transcript.html');
+  const release = releaseInventory(input);
+  assert.equal('transcript' in release.publication.chapters[0], false);
+  assert.equal(release.assets.length, 2);
+  assert.equal(release.assets.some(a => a.file.endsWith('.html')), false);
+});
+
+test('pruning retains every referenced revision and unknown user files, removing only managed stale folders', () => {
+  const root = temporary(), directory = join(root, 'public/audio'), staging = join(root, '.cache/audio/release');
+  const live = publication(), old = 'b'.repeat(20), other = 'c'.repeat(20), symlink = 'd'.repeat(20);
+  write(directory, `${old}/en/01.mp3`, 'old');
+  write(directory, `${other}/en/notes.txt`, 'user notes');
+  write(directory, `${revision}/en/01.cues.json`, 'live cues');
+  write(directory, `${revision}/en/01.transcript.html`, 'obsolete live transcript');
+  write(directory, `${old}/en/01.transcript.html`, 'obsolete old transcript');
+  write(directory, 'notes.txt', 'user notes');
+  mkdirSync(join(directory, symlink));
+  symlinkSync(join(directory, other, 'en'), join(directory, symlink, 'en'));
+  const data = Buffer.from('retained media');
+  live.chapters[0].track = { ...live.chapters[0].track, bytes: data.length, sha256: hash(data) };
+  write(directory, live.chapters[0].track.file, data);
+  write(staging, live.chapters[0].track.file, data);
+  assert.deepEqual(prunePublicAudio(directory, live, staging), [old]);
+  assert.equal(existsSync(join(directory, old)), false);
+  assert.equal(existsSync(join(directory, `${revision}/en/01.transcript.html`)), false, 'Remove obsolete HTML from retained revisions too');
+  assert.equal(existsSync(join(directory, live.chapters[0].track.file)), true, 'Current local media stays available');
+  assert.deepEqual(readFileSync(join(staging, live.chapters[0].track.file)), data);
+  for (const file of [`${revision}/en/01.cues.json`, `${other}/en/notes.txt`, `${symlink}/en/notes.txt`, 'notes.txt']) assert.equal(existsSync(join(directory, file)), true);
+  // A partial preparation can reference several revision directories.
+  live.chapters.push({ ...live.chapters[0], id: 'en/02', track: { ...artifact('mp3'), file: `${old}/en/02.mp3` } });
+  write(directory, `${old}/en/02.cues.json`, 'keep');
+  assert.deepEqual(prunePublicAudio(directory, live, staging), []);
+  assert.equal(existsSync(join(directory, old)), true);
+});
+
+test('production public mirror excludes all audio media without changing local dev files', () => {
+  const root = temporary(), source = join(root, 'public'), target = join(root, 'site-public');
+  for (const file of [`audio/${revision}/en/01.mp3`, `audio/${revision}/en/book.m4b`, 'audio/unmanaged.MP3', `audio/${revision}/en/01.transcript.html`]) write(source, file, 'omit');
+  for (const file of [`audio/${revision}/en/01.cues.json`, 'brand-assets/catalog.json', 'robots.txt', 'elsewhere/example.mp3']) write(source, file, 'keep');
+  copySitePublic(source, target);
+  for (const file of [`audio/${revision}/en/01.mp3`, `audio/${revision}/en/book.m4b`, 'audio/unmanaged.MP3']) {
+    assert.equal(existsSync(join(source, file)), true, 'Never remove local media');
+    assert.equal(existsSync(join(target, file)), false, 'Never include audio media in production');
+  }
+  assert.equal(existsSync(join(target, `audio/${revision}/en/01.transcript.html`)), false);
+  for (const file of [`audio/${revision}/en/01.cues.json`, 'brand-assets/catalog.json', 'robots.txt', 'elsewhere/example.mp3']) assert.equal(existsSync(join(target, file)), true);
+  const integration = audioSite();
+  integration.hooks['astro:config:setup']({ command: 'dev', updateConfig: () => assert.fail('Dev public directory must remain unchanged') });
+  const codegen = join(root, 'codegen');
+  mkdirSync(codegen);
+  let buildPublic;
+  integration.hooks['astro:config:setup']({ command: 'build', config: { publicDir: pathToFileURL(source) },
+    createCodegenDir: () => pathToFileURL(codegen), updateConfig: config => { buildPublic = fileURLToPath(config.publicDir); } });
+  assert.equal(existsSync(join(buildPublic, `audio/${revision}/en/01.mp3`)), false);
+  assert.equal(existsSync(join(buildPublic, 'robots.txt')), true);
+  integration.hooks['astro:build:done']();
+  assert.equal(existsSync(buildPublic), false, 'Only the disposable build mirror is removed');
+  assert.equal(existsSync(join(source, `audio/${revision}/en/01.mp3`)), true);
+});

@@ -1810,7 +1810,8 @@ html:not(.js-fold) .accordion-content {
 
 /* Native selects share the share-action palette, typography and soft shape. */
 .lang-menu select,
-.select-list select {
+.select-list select,
+.audio-speed select {
   font: inherit;
   cursor: pointer;
   min-block-size: 2.75rem;
@@ -1827,20 +1828,23 @@ html:not(.js-fold) .accordion-content {
 }
 
 .lang-menu option,
-.select-list option {
+.select-list option,
+.audio-speed option {
   background: var(--paper);
   color: var(--ink);
 }
 
 .lang-menu select:hover,
-.select-list select:hover {
+.select-list select:hover,
+.audio-speed select:hover {
   background: var(--pebble-hover);
   color: var(--pebble-hover-ink);
 }
 
 @media (forced-colors: active) {
   .lang-menu select,
-  .select-list select { border-color: ButtonText; }
+  .select-list select,
+  .audio-speed select { border-color: ButtonText; }
 }
 
 /* ---------- Tables ---------- */

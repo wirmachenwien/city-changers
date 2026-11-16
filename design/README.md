@@ -52,12 +52,29 @@ CI restores no artwork cache and makes no bot commits.
 
 The guide at `/brand` links to the matching GitHub Release for the complete ZIP
 and every individual original. Deployment publishes a new content-addressed
-`brand-kit-<sha256>` release only when kit inputs change, after all checks and
+`brand-YYYY-MM-DD[suffix]` release only when kit inputs change, after all checks and
 before uploading Pages. Unchanged inventories reuse a checksum-verified release
-without repackaging/uploading. Drafts can resume after interrupted uploads;
+without uploads; the ZIP is rebuilt from existing exports to verify its exact
+checksum. Drafts can resume after interrupted uploads;
 published releases are never overwritten and do not replace the repository's
 latest software release. Pull requests do not publish releases. The publisher
 uses `GITHUB_TOKEN` with `contents: write` in the deployment build job.
+Paginated lookup and the draft/upload/verify/publish lifecycle share
+`scripts/github_release.py` with the audio
+publisher. The inventories and generation workflows stay independent; see
+[`audio/README.md`](../audio/README.md) for the explicit local audio handoff.
+Set the date and same-day revision in `design/edition.json`: revision `0` has no
+suffix, `1` is `a` (the second edition that day), `2` is `b`, and so on. Titles
+are exactly **City Changers brand**. These committed values keep builds stable;
+advance them for changed kit inputs before publication. A conflicting inventory
+fails closed instead of replacing an existing tag. The full inventory digest is
+still validated. Existing tags are not renamed, because download links use them.
+The shared publisher locks the full local transaction across checkouts, skips
+verified existing attachments and uploads only missing ones without clobbering.
+Corrupt or unexpected draft attachments fail closed; nothing is deleted to retry.
+Native GitHub immutability protects new publications. Do not delete releases
+still referenced by deployed pages; even immutable releases can be deleted as
+a whole, after which their tag cannot be reused.
 
 `public/brand-assets/` contains only a catalogue, release links, SVG previews and
 small responsive WebP previews, not the ZIP, MOVs, fonts or original photos.
@@ -72,3 +89,26 @@ python3 design/scripts/package-brand-kit.py --output design/handoff/2026-10-28
 
 Packaging refuses to overwrite an existing release. Human review of artwork,
 animation transparency, permissions and credits is still required before use.
+
+## Portable package contract
+
+Packaging requires Python 3.12 or newer (matching the CI toolchain).
+`scripts/package_format.py` defines versioned package serialization: asset globs
+are explicitly case-sensitive; inventory paths and archive names use POSIX
+separators and case-sensitive ordering; generated
+JSON is key-sorted UTF-8 with LF endings; generated HTML also uses UTF-8/LF. ZIP
+members have fixed timestamps, permissions and creator metadata. Members are
+stored rather than deflated so archive bytes do not depend on the local zlib
+version; this trades some compression for reproducible checksums. Existing media
+bytes are copied unchanged and streamed, not loaded as one archive in memory.
+
+The shared asset inventory, kit builder and release metadata writer use this
+same contract. Targeted `.gitattributes` rules keep byte-fingerprinted text inputs
+and packaged text stable in CRLF checkouts without converting binary assets.
+Local stdlib-only regression tests cover complete fixture ZIP checksums and release
+inventory fingerprints, path ordering, newline conversion and Git checkout behavior.
+They never render production assets.
+
+Format changes require a new reviewed brand edition before publication. Never
+replace a published ZIP merely to adopt the new format; existing immutable
+release attachments stay untouched.

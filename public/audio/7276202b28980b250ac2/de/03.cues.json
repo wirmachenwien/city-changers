@@ -1,0 +1,918 @@
+{
+  "schemaVersion": 2,
+  "granularity": "sentence",
+  "revision": "7276202b28980b250ac2",
+  "chapterId": "de/03",
+  "cues": [
+    {
+      "start": 0,
+      "end": 4,
+      "blockIds": [
+        "b-3e4e0cef0abd739b"
+      ]
+    },
+    {
+      "start": 4,
+      "end": 26.72,
+      "blockIds": [
+        "b-096d7e07d50588e4"
+      ]
+    },
+    {
+      "start": 26.72,
+      "end": 28.32,
+      "blockIds": [
+        "b-0c6a71ee1ec1fb5c"
+      ]
+    },
+    {
+      "start": 28.32,
+      "end": 33.6,
+      "blockIds": [
+        "b-abde34706f79d06d"
+      ]
+    },
+    {
+      "start": 33.6,
+      "end": 38,
+      "blockIds": [
+        "b-a112a73024075dc2"
+      ]
+    },
+    {
+      "start": 38,
+      "end": 41.2,
+      "blockIds": [
+        "b-3b127f4ac04bb00d"
+      ]
+    },
+    {
+      "start": 41.2,
+      "end": 44.720000000000006,
+      "blockIds": [
+        "b-d7b26a5ef924bc44"
+      ]
+    },
+    {
+      "start": 44.720000000000006,
+      "end": 50.56,
+      "blockIds": [
+        "b-b0f2b60fa9f27124"
+      ]
+    },
+    {
+      "start": 50.56,
+      "end": 57.36,
+      "blockIds": [
+        "b-cee9d8ff9a7803b1"
+      ]
+    },
+    {
+      "start": 57.36,
+      "end": 59.76,
+      "blockIds": [
+        "b-f4b62de5d52e87ae"
+      ]
+    },
+    {
+      "start": 59.76,
+      "end": 69.03999999999999,
+      "blockIds": [
+        "b-98c000a3a4954722"
+      ]
+    },
+    {
+      "start": 69.03999999999999,
+      "end": 70.39999999999999,
+      "blockIds": [
+        "b-8412cae2c04ef39e"
+      ]
+    },
+    {
+      "start": 70.39999999999999,
+      "end": 76.16,
+      "blockIds": [
+        "b-5b6c56e309c524ce"
+      ]
+    },
+    {
+      "start": 76.16,
+      "end": 80.64,
+      "blockIds": [
+        "b-b7de46221faf3456"
+      ]
+    },
+    {
+      "start": 80.64,
+      "end": 83.04,
+      "blockIds": [
+        "b-04e55071f5cdd51e"
+      ]
+    },
+    {
+      "start": 83.04,
+      "end": 84.24000000000001,
+      "blockIds": [
+        "b-50b48479ca64de20"
+      ]
+    },
+    {
+      "start": 84.24000000000001,
+      "end": 86.64000000000001,
+      "blockIds": [
+        "b-56884da579807242"
+      ]
+    },
+    {
+      "start": 86.64000000000001,
+      "end": 88.64000000000001,
+      "blockIds": [
+        "b-925547059cfdeb04"
+      ]
+    },
+    {
+      "start": 88.64000000000001,
+      "end": 90.08000000000001,
+      "blockIds": [
+        "b-0b242bebc3825edd"
+      ]
+    },
+    {
+      "start": 90.08000000000001,
+      "end": 102.80000000000001,
+      "blockIds": [
+        "b-70584292c88dfcc8"
+      ]
+    },
+    {
+      "start": 102.80000000000001,
+      "end": 107.68,
+      "blockIds": [
+        "b-d3d67425ce567ca8"
+      ]
+    },
+    {
+      "start": 107.68,
+      "end": 109.52000000000001,
+      "blockIds": [
+        "b-02927327de9f5579"
+      ]
+    },
+    {
+      "start": 109.52000000000001,
+      "end": 113.12,
+      "blockIds": [
+        "b-031707fc15a560c6"
+      ]
+    },
+    {
+      "start": 113.12,
+      "end": 127.84,
+      "blockIds": [
+        "b-a1489e93414f3480"
+      ]
+    },
+    {
+      "start": 127.84,
+      "end": 133.12,
+      "blockIds": [
+        "b-1bb149241b811e04"
+      ]
+    },
+    {
+      "start": 133.12,
+      "end": 150.56,
+      "blockIds": [
+        "b-f5278100bfc161ea"
+      ]
+    },
+    {
+      "start": 150.56,
+      "end": 154.72,
+      "blockIds": [
+        "b-ae17cb6c833a1512"
+      ]
+    },
+    {
+      "start": 154.72,
+      "end": 176.72,
+      "blockIds": [
+        "b-7c8e058d56015de4"
+      ]
+    },
+    {
+      "start": 176.72,
+      "end": 180.56,
+      "blockIds": [
+        "b-6358ffc9c980176a"
+      ]
+    },
+    {
+      "start": 180.56,
+      "end": 200.48000000000002,
+      "blockIds": [
+        "b-74c603126930ac72"
+      ]
+    },
+    {
+      "start": 200.48000000000002,
+      "end": 204.00000000000003,
+      "blockIds": [
+        "b-156ac7b6f07dec2a"
+      ]
+    },
+    {
+      "start": 204.00000000000003,
+      "end": 219.12000000000003,
+      "blockIds": [
+        "b-efe0fd118f20e502"
+      ]
+    },
+    {
+      "start": 219.12000000000003,
+      "end": 222.24000000000004,
+      "blockIds": [
+        "b-35b7d6d3e68bb17c"
+      ]
+    },
+    {
+      "start": 222.24000000000004,
+      "end": 254.24000000000004,
+      "blockIds": [
+        "b-c85edbad8659c507"
+      ]
+    },
+    {
+      "start": 254.24000000000004,
+      "end": 271.6,
+      "blockIds": [
+        "b-b9839056cf073ced"
+      ]
+    },
+    {
+      "start": 271.6,
+      "end": 273.36,
+      "blockIds": [
+        "b-b91eb5f078c7d07c"
+      ]
+    },
+    {
+      "start": 273.36,
+      "end": 303.6,
+      "blockIds": [
+        "b-d0bff774d5c0de50"
+      ]
+    }
+  ],
+  "sentenceCues": [
+    {
+      "sentenceId": "b-3e4e0cef0abd739b-s1",
+      "blockIds": [
+        "b-3e4e0cef0abd739b"
+      ],
+      "start": 0,
+      "end": 4,
+      "startOffset": 0,
+      "endOffset": 46,
+      "text": "Kapitel 3: Tactical Urbanism und Street Design"
+    },
+    {
+      "sentenceId": "b-096d7e07d50588e4-s1",
+      "blockIds": [
+        "b-096d7e07d50588e4"
+      ],
+      "start": 4,
+      "end": 10.8,
+      "startOffset": 0,
+      "endOffset": 101,
+      "text": "Tactical Urbanism umfasst kostengünstige, meist temporäre Eingriffe an der Oberfläche des Stadtraums."
+    },
+    {
+      "sentenceId": "b-096d7e07d50588e4-s2",
+      "blockIds": [
+        "b-096d7e07d50588e4"
+      ],
+      "start": 11.04,
+      "end": 18.72,
+      "startOffset": 102,
+      "endOffset": 235,
+      "text": "Sie machen Alternativen sichtbar und können dauerhaft werden, indem sie politischen Druck für eine dauerhafte Neugestaltung aufbauen."
+    },
+    {
+      "sentenceId": "b-096d7e07d50588e4-s3",
+      "blockIds": [
+        "b-096d7e07d50588e4"
+      ],
+      "start": 18.8,
+      "end": 26.72,
+      "startOffset": 236,
+      "endOffset": 369,
+      "text": "Sie können Gespräche anstoßen, Gemeinschaften beim Testen von Ideen helfen und Unterstützung für langfristige Veränderungen aufbauen."
+    },
+    {
+      "sentenceId": "b-0c6a71ee1ec1fb5c-s1",
+      "blockIds": [
+        "b-0c6a71ee1ec1fb5c"
+      ],
+      "start": 26.72,
+      "end": 28.32,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Grundprinzipien"
+    },
+    {
+      "sentenceId": "b-abde34706f79d06d-s1",
+      "blockIds": [
+        "b-abde34706f79d06d"
+      ],
+      "start": 28.32,
+      "end": 33.6,
+      "startOffset": 0,
+      "endOffset": 83,
+      "text": "Tactical Urbanism funktioniert besonders gut, wenn fünf Bedingungen zusammenkommen:"
+    },
+    {
+      "sentenceId": "b-a112a73024075dc2-s1",
+      "blockIds": [
+        "b-a112a73024075dc2"
+      ],
+      "start": 33.6,
+      "end": 38,
+      "startOffset": 0,
+      "endOffset": 64,
+      "text": "Die Maßnahme ist lokal verankert und löst ein konkretes Problem."
+    },
+    {
+      "sentenceId": "b-3b127f4ac04bb00d-s1",
+      "blockIds": [
+        "b-3b127f4ac04bb00d"
+      ],
+      "start": 38,
+      "end": 41.2,
+      "startOffset": 0,
+      "endOffset": 42,
+      "text": "Sie ist kurzfristig machbar und risikoarm."
+    },
+    {
+      "sentenceId": "b-d7b26a5ef924bc44-s1",
+      "blockIds": [
+        "b-d7b26a5ef924bc44"
+      ],
+      "start": 41.2,
+      "end": 44.720000000000006,
+      "startOffset": 0,
+      "endOffset": 53,
+      "text": "Sie zeigt eine längerfristige Veränderung im Kleinen."
+    },
+    {
+      "sentenceId": "b-b0f2b60fa9f27124-s1",
+      "blockIds": [
+        "b-b0f2b60fa9f27124"
+      ],
+      "start": 44.720000000000006,
+      "end": 50.56,
+      "startOffset": 0,
+      "endOffset": 85,
+      "text": "Sie baut Beziehungen zwischen Nachbarschaft, Initiativen, Verwaltung und Politik auf."
+    },
+    {
+      "sentenceId": "b-cee9d8ff9a7803b1-s1",
+      "blockIds": [
+        "b-cee9d8ff9a7803b1"
+      ],
+      "start": 50.56,
+      "end": 57.36,
+      "startOffset": 0,
+      "endOffset": 101,
+      "text": "Sie erzeugt verwertbare Erfahrungen: Was funktioniert, was muss angepasst werden, wer nutzt den Raum?"
+    },
+    {
+      "sentenceId": "b-f4b62de5d52e87ae-s1",
+      "blockIds": [
+        "b-f4b62de5d52e87ae"
+      ],
+      "start": 57.36,
+      "end": 59.76,
+      "startOffset": 0,
+      "endOffset": 26,
+      "text": "Prüffrage vor jeder Aktion"
+    },
+    {
+      "sentenceId": "b-98c000a3a4954722-s1",
+      "blockIds": [
+        "b-98c000a3a4954722"
+      ],
+      "start": 59.76,
+      "end": 69.03999999999999,
+      "startOffset": 0,
+      "endOffset": 156,
+      "text": "Kann eine Person, die zufällig vorbeikommt, innerhalb von einer Minute erkennen, welches Problem die Aktion zeigt und welche bessere Nutzung sie vorschlägt?"
+    },
+    {
+      "sentenceId": "b-8412cae2c04ef39e-s1",
+      "blockIds": [
+        "b-8412cae2c04ef39e"
+      ],
+      "start": 69.03999999999999,
+      "end": 70.39999999999999,
+      "startOffset": 0,
+      "endOffset": 9,
+      "text": "Werkzeuge"
+    },
+    {
+      "sentenceId": "b-5b6c56e309c524ce-s1",
+      "blockIds": [
+        "b-5b6c56e309c524ce"
+      ],
+      "start": 70.39999999999999,
+      "end": 75.11999999999999,
+      "startOffset": 0,
+      "endOffset": 67,
+      "text": "Tactical-Urbanism-Werkzeuge verändern die Straße an der Oberfläche."
+    },
+    {
+      "sentenceId": "b-5b6c56e309c524ce-s2",
+      "blockIds": [
+        "b-5b6c56e309c524ce"
+      ],
+      "start": 75.22699999999999,
+      "end": 76.16,
+      "startOffset": 68,
+      "endOffset": 81,
+      "text": "Dazu gehören:"
+    },
+    {
+      "sentenceId": "b-b7de46221faf3456-s1",
+      "blockIds": [
+        "b-b7de46221faf3456"
+      ],
+      "start": 76.16,
+      "end": 80.64,
+      "startOffset": 0,
+      "endOffset": 52,
+      "text": "Barrieren wie Poller, Betonelemente oder Pflanzringe"
+    },
+    {
+      "sentenceId": "b-04e55071f5cdd51e-s1",
+      "blockIds": [
+        "b-04e55071f5cdd51e"
+      ],
+      "start": 80.64,
+      "end": 83.04,
+      "startOffset": 0,
+      "endOffset": 28,
+      "text": "Begrünung und Pflanzelemente"
+    },
+    {
+      "sentenceId": "b-50b48479ca64de20-s1",
+      "blockIds": [
+        "b-50b48479ca64de20"
+      ],
+      "start": 83.04,
+      "end": 84.24000000000001,
+      "startOffset": 0,
+      "endOffset": 10,
+      "text": "Möblierung"
+    },
+    {
+      "sentenceId": "b-56884da579807242-s1",
+      "blockIds": [
+        "b-56884da579807242"
+      ],
+      "start": 84.24000000000001,
+      "end": 86.64000000000001,
+      "startOffset": 0,
+      "endOffset": 31,
+      "text": "Oberflächengestaltung mit Farbe"
+    },
+    {
+      "sentenceId": "b-925547059cfdeb04-s1",
+      "blockIds": [
+        "b-925547059cfdeb04"
+      ],
+      "start": 86.64000000000001,
+      "end": 88.64000000000001,
+      "startOffset": 0,
+      "endOffset": 25,
+      "text": "Zeichen und Beschilderung"
+    },
+    {
+      "sentenceId": "b-0b242bebc3825edd-s1",
+      "blockIds": [
+        "b-0b242bebc3825edd"
+      ],
+      "start": 88.64000000000001,
+      "end": 90.08000000000001,
+      "startOffset": 0,
+      "endOffset": 15,
+      "text": "Veranstaltungen"
+    },
+    {
+      "sentenceId": "b-70584292c88dfcc8-s1",
+      "blockIds": [
+        "b-70584292c88dfcc8"
+      ],
+      "start": 90.08000000000001,
+      "end": 102.80000000000001,
+      "startOffset": 0,
+      "endOffset": 201,
+      "text": "Die Qualität liegt nicht im Objekt selbst, sondern im passenden Einsatz: Eine bemalte Fläche ist nur dann gut, wenn sie Verhalten verändert, Orientierung schafft oder eine neue Nutzung plausibel macht."
+    },
+    {
+      "sentenceId": "b-d3d67425ce567ca8-s1",
+      "blockIds": [
+        "b-d3d67425ce567ca8"
+      ],
+      "start": 102.80000000000001,
+      "end": 107.68,
+      "startOffset": 0,
+      "endOffset": 60,
+      "text": "Tactical Urbanism in der Praxis: Beispiele aus Graz und Wien"
+    },
+    {
+      "sentenceId": "b-02927327de9f5579-s1",
+      "blockIds": [
+        "b-02927327de9f5579"
+      ],
+      "start": 107.68,
+      "end": 109.52000000000001,
+      "startOffset": 0,
+      "endOffset": 22,
+      "text": "Ein praktischer Ablauf"
+    },
+    {
+      "sentenceId": "b-031707fc15a560c6-s1",
+      "blockIds": [
+        "b-031707fc15a560c6"
+      ],
+      "start": 109.52000000000001,
+      "end": 110.16000000000001,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "1."
+    },
+    {
+      "sentenceId": "b-031707fc15a560c6-s2",
+      "blockIds": [
+        "b-031707fc15a560c6"
+      ],
+      "start": 110.64000000000001,
+      "end": 113.12,
+      "startOffset": 3,
+      "endOffset": 45,
+      "text": "Mit den Erfahrungen der Menschen beginnen."
+    },
+    {
+      "sentenceId": "b-a1489e93414f3480-s1",
+      "blockIds": [
+        "b-a1489e93414f3480"
+      ],
+      "start": 113.12,
+      "end": 117.68,
+      "startOffset": 0,
+      "endOffset": 61,
+      "text": "Fragt, was eine Straße einladend, sicher oder nützlich macht."
+    },
+    {
+      "sentenceId": "b-a1489e93414f3480-s2",
+      "blockIds": [
+        "b-a1489e93414f3480"
+      ],
+      "start": 117.92,
+      "end": 127.84,
+      "startOffset": 62,
+      "endOffset": 236,
+      "text": "Persönliche Erinnerungen – etwa an die Straßen, in denen Menschen als Kinder gespielt haben – können ein Gespräch darüber eröffnen, was öffentlicher Raum heute bieten könnte."
+    },
+    {
+      "sentenceId": "b-1bb149241b811e04-s1",
+      "blockIds": [
+        "b-1bb149241b811e04"
+      ],
+      "start": 127.84,
+      "end": 128.48,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "2."
+    },
+    {
+      "sentenceId": "b-1bb149241b811e04-s2",
+      "blockIds": [
+        "b-1bb149241b811e04"
+      ],
+      "start": 128.8,
+      "end": 133.12,
+      "startOffset": 3,
+      "endOffset": 70,
+      "text": "Herausfinden, wer die Straße nutzt und was diese Menschen brauchen."
+    },
+    {
+      "sentenceId": "b-f5278100bfc161ea-s1",
+      "blockIds": [
+        "b-f5278100bfc161ea"
+      ],
+      "start": 133.12,
+      "end": 143.6,
+      "startOffset": 0,
+      "endOffset": 142,
+      "text": "Denkt an Kinder, ältere Menschen, Rollstuhlnutzer:innen, Radfahrer:innen, Fußgänger:innen, lokale Geschäfte, Lieferdienste und Anrainer:innen."
+    },
+    {
+      "sentenceId": "b-f5278100bfc161ea-s2",
+      "blockIds": [
+        "b-f5278100bfc161ea"
+      ],
+      "start": 143.84,
+      "end": 150.56,
+      "startOffset": 143,
+      "endOffset": 251,
+      "text": "Auch Bäume und andere Elemente der städtischen Umwelt haben Bedürfnisse, etwa ausreichend Platz zum Wachsen."
+    },
+    {
+      "sentenceId": "b-ae17cb6c833a1512-s1",
+      "blockIds": [
+        "b-ae17cb6c833a1512"
+      ],
+      "start": 150.56,
+      "end": 151.04,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "3."
+    },
+    {
+      "sentenceId": "b-ae17cb6c833a1512-s2",
+      "blockIds": [
+        "b-ae17cb6c833a1512"
+      ],
+      "start": 151.44,
+      "end": 154.72,
+      "startOffset": 3,
+      "endOffset": 48,
+      "text": "Die Straße gemeinsam beobachten und bewerten."
+    },
+    {
+      "sentenceId": "b-7c8e058d56015de4-s1",
+      "blockIds": [
+        "b-7c8e058d56015de4"
+      ],
+      "start": 154.72,
+      "end": 159.84,
+      "startOffset": 0,
+      "endOffset": 82,
+      "text": "Ein einfacher Straßencheck hilft, Fragen zu besprechen: Gibt es Sitzgelegenheiten?"
+    },
+    {
+      "sentenceId": "b-7c8e058d56015de4-s2",
+      "blockIds": [
+        "b-7c8e058d56015de4"
+      ],
+      "start": 160.16,
+      "end": 161.16,
+      "startOffset": 83,
+      "endOffset": 95,
+      "text": "Ist es laut?"
+    },
+    {
+      "sentenceId": "b-7c8e058d56015de4-s3",
+      "blockIds": [
+        "b-7c8e058d56015de4"
+      ],
+      "start": 161.35999999999999,
+      "end": 163.76,
+      "startOffset": 96,
+      "endOffset": 136,
+      "text": "Wie leicht lässt sich die Straße queren?"
+    },
+    {
+      "sentenceId": "b-7c8e058d56015de4-s4",
+      "blockIds": [
+        "b-7c8e058d56015de4"
+      ],
+      "start": 163.84,
+      "end": 166.84,
+      "startOffset": 137,
+      "endOffset": 191,
+      "text": "Wie ist der Platz zwischen den Verkehrsarten verteilt?"
+    },
+    {
+      "sentenceId": "b-7c8e058d56015de4-s5",
+      "blockIds": [
+        "b-7c8e058d56015de4"
+      ],
+      "start": 167.12,
+      "end": 176.72,
+      "startOffset": 192,
+      "endOffset": 344,
+      "text": "Der von Wir machen Wien vorgestellte Leiwande Straßen Radar ist ein Beispiel für ein Werkzeug, das eine Straße anhand verschiedener Kategorien bewertet."
+    },
+    {
+      "sentenceId": "b-6358ffc9c980176a-s1",
+      "blockIds": [
+        "b-6358ffc9c980176a"
+      ],
+      "start": 176.72,
+      "end": 177.52,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "4."
+    },
+    {
+      "sentenceId": "b-6358ffc9c980176a-s2",
+      "blockIds": [
+        "b-6358ffc9c980176a"
+      ],
+      "start": 177.76,
+      "end": 180.56,
+      "startOffset": 3,
+      "endOffset": 42,
+      "text": "Eine gemeinsame Vision greifbar machen."
+    },
+    {
+      "sentenceId": "b-74c603126930ac72-s1",
+      "blockIds": [
+        "b-74c603126930ac72"
+      ],
+      "start": 180.56,
+      "end": 189.76,
+      "startOffset": 0,
+      "endOffset": 144,
+      "text": "Mit einem maßstabsgetreuen Modell oder einem Gestaltungstisch können Teilnehmende eine Straße neu anordnen und gemeinsam Möglichkeiten erkunden."
+    },
+    {
+      "sentenceId": "b-74c603126930ac72-s2",
+      "blockIds": [
+        "b-74c603126930ac72"
+      ],
+      "start": 190.32,
+      "end": 200.48000000000002,
+      "startOffset": 145,
+      "endOffset": 296,
+      "text": "Temporäre Farbe, bewegliche Sitzgelegenheiten, Pflanzkübel oder Banner in Originalgröße zeigen, wie sich eine andere Straßenaufteilung anfühlen könnte."
+    },
+    {
+      "sentenceId": "b-156ac7b6f07dec2a-s1",
+      "blockIds": [
+        "b-156ac7b6f07dec2a"
+      ],
+      "start": 200.48000000000002,
+      "end": 200.88000000000002,
+      "startOffset": 0,
+      "endOffset": 2,
+      "text": "5."
+    },
+    {
+      "sentenceId": "b-156ac7b6f07dec2a-s2",
+      "blockIds": [
+        "b-156ac7b6f07dec2a"
+      ],
+      "start": 201.04000000000002,
+      "end": 204.00000000000003,
+      "startOffset": 3,
+      "endOffset": 35,
+      "text": "Testen, zuhören und dranbleiben."
+    },
+    {
+      "sentenceId": "b-efe0fd118f20e502-s1",
+      "blockIds": [
+        "b-efe0fd118f20e502"
+      ],
+      "start": 204.00000000000003,
+      "end": 209.60000000000002,
+      "startOffset": 0,
+      "endOffset": 93,
+      "text": "Sammelt mit einer temporären Intervention Rückmeldungen von Anrainer:innen und Passant:innen."
+    },
+    {
+      "sentenceId": "b-efe0fd118f20e502-s2",
+      "blockIds": [
+        "b-efe0fd118f20e502"
+      ],
+      "start": 210.08000000000004,
+      "end": 219.12000000000003,
+      "startOffset": 94,
+      "endOffset": 255,
+      "text": "Teilt eure Erkenntnisse, erklärt den Einfluss der Rückmeldungen auf die nächsten Schritte und verknüpft das Experiment mit Gesprächen mit der lokalen Verwaltung."
+    },
+    {
+      "sentenceId": "b-35b7d6d3e68bb17c-s1",
+      "blockIds": [
+        "b-35b7d6d3e68bb17c"
+      ],
+      "start": 219.12000000000003,
+      "end": 222.24000000000004,
+      "startOffset": 0,
+      "endOffset": 46,
+      "text": "Was kann eine temporäre Intervention bewirken?"
+    },
+    {
+      "sentenceId": "b-c85edbad8659c507-s1",
+      "blockIds": [
+        "b-c85edbad8659c507"
+      ],
+      "start": 222.24000000000004,
+      "end": 234.08000000000004,
+      "startOffset": 0,
+      "endOffset": 173,
+      "text": "Die Beispiele von Prostorož aus Ljubljana zeigen, wie einfache Materialien und vorübergehende Veränderungen neue Orte zum Sitzen, Begegnen oder Verweilen im Freien schaffen."
+    },
+    {
+      "sentenceId": "b-c85edbad8659c507-s2",
+      "blockIds": [
+        "b-c85edbad8659c507"
+      ],
+      "start": 234.40000000000003,
+      "end": 241.84000000000003,
+      "startOffset": 174,
+      "endOffset": 294,
+      "text": "In einem Projekt wurde eine Straße mit Sitzgelegenheiten, Farbe und Pflanzen als kleiner öffentlicher Platz neu gedacht."
+    },
+    {
+      "sentenceId": "b-c85edbad8659c507-s3",
+      "blockIds": [
+        "b-c85edbad8659c507"
+      ],
+      "start": 242.32000000000005,
+      "end": 254.24000000000004,
+      "startOffset": 295,
+      "endOffset": 503,
+      "text": "In einem anderen schuf eine temporäre Umgestaltung in der Nähe von Schulen eine sicherere Route und einen Aufenthaltsort für Kinder nach der Schule, während noch über eine dauerhafte Lösung entschieden wurde."
+    },
+    {
+      "sentenceId": "b-b9839056cf073ced-s1",
+      "blockIds": [
+        "b-b9839056cf073ced"
+      ],
+      "start": 254.24000000000004,
+      "end": 258.64000000000004,
+      "startOffset": 0,
+      "endOffset": 68,
+      "text": "Die Beispiele zeigen auch, dass temporär trotzdem lange dauern kann."
+    },
+    {
+      "sentenceId": "b-b9839056cf073ced-s2",
+      "blockIds": [
+        "b-b9839056cf073ced"
+      ],
+      "start": 259.20000000000005,
+      "end": 271.6,
+      "startOffset": 69,
+      "endOffset": 262,
+      "text": "Wählt Materialien passend zum Zweck: Leichte Elemente eignen sich für einen kurzen Test, während ein Pilotprojekt, das vielleicht jahrelang bleibt, robuste und reparierbare Materialien braucht."
+    },
+    {
+      "sentenceId": "b-b91eb5f078c7d07c-s1",
+      "blockIds": [
+        "b-b91eb5f078c7d07c"
+      ],
+      "start": 271.6,
+      "end": 273.36,
+      "startOffset": 0,
+      "endOffset": 24,
+      "text": "Was ihr beachten solltet"
+    },
+    {
+      "sentenceId": "b-d0bff774d5c0de50-s1",
+      "blockIds": [
+        "b-d0bff774d5c0de50"
+      ],
+      "start": 273.36,
+      "end": 277.36,
+      "startOffset": 0,
+      "endOffset": 62,
+      "text": "Der Prozess ist genauso wichtig wie die bauliche Intervention."
+    },
+    {
+      "sentenceId": "b-d0bff774d5c0de50-s2",
+      "blockIds": [
+        "b-d0bff774d5c0de50"
+      ],
+      "start": 277.44,
+      "end": 286.28000000000003,
+      "startOffset": 63,
+      "endOffset": 221,
+      "text": "Wenn Menschen nur nach ihrer Meinung gefragt werden und dann nie erfahren, wie ihre Rückmeldungen genutzt wurden, kann Beteiligung wie eine Alibiübung wirken."
+    },
+    {
+      "sentenceId": "b-d0bff774d5c0de50-s3",
+      "blockIds": [
+        "b-d0bff774d5c0de50"
+      ],
+      "start": 286.56,
+      "end": 293.2,
+      "startOffset": 222,
+      "endOffset": 345,
+      "text": "Seid transparent darüber, was sich verändern lässt, bindet Betroffene früh ein und informiert sie über die weitere Planung."
+    },
+    {
+      "sentenceId": "b-d0bff774d5c0de50-s4",
+      "blockIds": [
+        "b-d0bff774d5c0de50"
+      ],
+      "start": 293.68,
+      "end": 303.6,
+      "startOffset": 346,
+      "endOffset": 504,
+      "text": "Tactical Urbanism wirkt am besten, wenn ein Experiment zu Erkenntnissen führt – und diese einen klaren Weg zu dauerhaften, inklusiven Verbesserungen eröffnen."
+    }
+  ]
+}

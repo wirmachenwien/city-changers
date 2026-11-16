@@ -1,5 +1,5 @@
 {
-  "registrySha256": "a5a219d70dd487427ea25db628317c7825d2ca663e38192d477bcedae03b0859",
+  "registrySha256": "2ce3241c4f4e32639061402aae1aff8d12125821ff5934ebc73a3db348a16fb6",
   "themes": {
     "light": {
       "paper": "#fdfcf9",
@@ -10,6 +10,8 @@
       "footer-link-hover": "#514e4a",
       "accent-ink": "#ffffff",
       "accent-soft": "#e5eee6",
+      "audio-highlight": "#e5eee6",
+      "audio-highlight-on-tint": "#ffe08a",
       "pebble-hover": "#d2e2d7",
       "pebble-hover-ink": "#0f5f36",
       "pebble-selected-hover": "#0e6338",
@@ -35,6 +37,8 @@
       "footer-link-hover": "#d5d0c7",
       "accent-ink": "#161511",
       "accent-soft": "#1e2d22",
+      "audio-highlight": "#1e2d22",
+      "audio-highlight-on-tint": "#513d1d",
       "pebble-hover": "#223b2c",
       "pebble-hover-ink": "#5dc793",
       "pebble-selected-hover": "#59c691",
@@ -60,6 +64,8 @@
       "footer-link-hover": "#514e4a",
       "accent-ink": "#ffffff",
       "accent-soft": "#e5eee6",
+      "audio-highlight": "#e5eee6",
+      "audio-highlight-on-tint": "#ffe08a",
       "pebble-hover": "#d2e2d7",
       "pebble-hover-ink": "#0f5f36",
       "pebble-selected-hover": "#0e6338",

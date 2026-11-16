@@ -17,6 +17,14 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.*.local
+
+# Private narration assets, API responses, journals and staged releases.
+.cache/audio/
+
+# Assembled audio belongs in immutable GitHub Releases, never in Pages/Git.
+public/audio/**/*.mp3
+public/audio/**/*.m4b
 
 # python bytecode (scripts/handbook/ is imported by the builders in scripts/bin/)
 __pycache__/

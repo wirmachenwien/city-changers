@@ -8,6 +8,7 @@ import { buildGlossaryMatcher } from '../data/glossary.ts';
 import { iconSvg } from './icons.ts';
 import { enhanceExternalLinks } from './external-links.mjs';
 import { enhanceTextLinks } from './text-link-underlines.mjs';
+import { markSentenceHooks } from './audio-sentences.mjs';
 
 const SKIP_TAGS = new Set(['a', 'button', 'code', 'pre', 'dfn', 'dt', 'dd', 'script', 'style']);
 const textContent = node => node.type === 'text' ? node.value
@@ -73,11 +74,26 @@ function highlightGlossary(tree, lang) {
 /**
  * @param {string} html
  * @param {{ lang: import('../data/locales').Language, glossary?: boolean,
- *   anchorLabel?: string, external?: { site: string, notice: string } }} options
+ *   anchorLabel?: string, audioBlocks?: any[], external?: { site: string, notice: string } }} options
  */
-export function renderProse(html, { lang, glossary = false, anchorLabel = 'Link to this section', external }) {
+export function renderProse(html, { lang, glossary = false, anchorLabel = 'Link to this section', external, audioBlocks }) {
   const processor = unified().use(rehypeParse, { fragment: true }).use(rehypeStringify);
   const tree = processor.parse(html);
+  // Transfer compiler-only audio wrappers to the actual rendered component
+  // root. Preserve existing layout selectors, sibling relationships and markup.
+  function unwrapAudio(parent) {
+    if (!parent.children) return;
+    parent.children = parent.children.flatMap(node => {
+      unwrapAudio(node);
+      if (node.type !== 'element' || node.properties.dataAudioWrapper === undefined) return [node];
+      const target = node.children.find(child => child.type === 'element' && !['script', 'style'].includes(child.tagName));
+      if (!target) throw new Error('Narration component has no rendered hook target');
+      target.properties.dataAudioBlock = [target.properties.dataAudioBlock, node.properties.dataAudioBlock].filter(Boolean).join(' ');
+      return node.children;
+    });
+  }
+  unwrapAudio(tree);
+  if (audioBlocks) markSentenceHooks(tree, audioBlocks, lang);
   if (glossary) highlightGlossary(tree, lang);
   visit(tree, 'element', node => {
     if (!['h2', 'h3'].includes(node.tagName) || node.properties.id === undefined) return;

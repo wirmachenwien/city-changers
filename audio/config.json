@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "modelId": "eleven_v4",
+  "endpoint": "/v1/text-to-dialogue/with-timestamps",
+  "outputFormat": "mp3_44100_128",
+  "maxCharacters": 2000,
+  "settings": { "stability": 0.5, "similarity": 0.75 },
+  "normalization": "auto",
+  "seed": 42,
+  "voices": { "en": "ELEVENLABS_VOICE_ID", "de": "ELEVENLABS_VOICE_ID", "sl": "ELEVENLABS_VOICE_ID" },
+  "voiceHashes": {
+    "en": "a93066b129b3df51dbc1ce9458747a39a01f3d0db737413074d856bb8f70bff6",
+    "de": "a93066b129b3df51dbc1ce9458747a39a01f3d0db737413074d856bb8f70bff6",
+    "sl": "a93066b129b3df51dbc1ce9458747a39a01f3d0db737413074d856bb8f70bff6"
+  },
+  "pronunciation": { "version": 1, "replacements": { "en": {}, "de": {}, "sl": {} }, "dictionaries": [] },
+  "continuity": "independent-units",
+  "processing": { "version": 1, "sampleRate": 44100, "channels": 1, "gainDb": 0, "chapterMp3Bitrate": "128k", "audiobookAacBitrate": "96k" },
+  "assembly": { "version": 1, "reflectionPauseSeconds": 3 },
+  "mediaBaseUrl": "/audio",
+  "metadata": {
+    "author": "Wir machen Wien, Changing Cities & Prostorož",
+    "narrator": "City Changer (ElevenLabs AI voice)",
+    "rights": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). By Wir machen Wien, Changing Cities & Prostorož. AI narration: City Changer voice by ElevenLabs, used with commercial publishing rights. Cover photo: Simon Gostentschnigg.",
+    "cover": "src/assets/book/lendplatz-graz-tactical-urbanism.jpg"
+  }
+}
