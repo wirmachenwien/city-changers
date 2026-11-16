@@ -33,7 +33,9 @@ export function enhanceExternalLinks(tree, processor, site, notice) {
     node.properties.rel = [...rel];
     if (node.properties.dataExternalLink !== undefined) return;
     node.properties.dataExternalLink = '';
-    node.children.push({
+    const classes = Array.isArray(node.properties.className) ? node.properties.className : String(node.properties.className ?? '').split(/\s+/);
+    const isButton = classes.includes('button-link') || node.properties.role === 'button';
+    if (!isButton) node.children.push({
       type: 'element', tagName: 'span',
       properties: { className: ['external-link-icon'], ariaHidden: 'true' },
       children: processor.parse(iconSvg('external-link')).children,

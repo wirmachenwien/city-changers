@@ -18,6 +18,17 @@ test('external content links receive an arrow, safe new-tab attributes and a not
   }
 });
 
+test('external buttons omit the arrow but retain safe new-tab attributes and notice', () => {
+  for (const attributes of ['class="button-link"', 'class="extra button-link" download', 'role="button"', 'class="button-link" aria-label="Download audiobook"']) {
+    const html = enhance(`<a href="https://example.org/book.m4b" ${attributes}>Download audiobook</a>`);
+    assert.doesNotMatch(html, /external-link-icon/);
+    assert.match(html, /target="_blank"/);
+    assert.match(html, /rel="noopener noreferrer"/);
+    assert.match(html, /External link, opens in a new tab/);
+    assert.equal(enhance(html), html);
+  }
+});
+
 test('internal links, anchors, emails and non-web protocols remain unchanged', () => {
   for (const href of ['/book/chapter.html', '#section', '../about.html', `${site}/book/`, '//toolbox.wirmachen.wien/book/', 'mailto:hello@example.org', 'tel:+431234', 'ftp://example.org', 'https://[invalid']) {
     const html = enhance(`<a href="${href}">Link</a>`);
