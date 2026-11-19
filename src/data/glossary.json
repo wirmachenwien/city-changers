@@ -403,7 +403,7 @@
     },
     {
       "term": "Modalni filter",
-      "definition": "Ovira, kot so stebriček, sadilni obroč ali betonski element, ki ustavi tranzitni promet, dostopnemu in dostavnemu prometu pa omogoči prehod.",
+      "definition": "Ovire, kot so stebrički, korita za rastline ali betonski elementi, ki ustavijo tranzitni promet, dostopnemu in dostavnemu prometu pa omogočijo prehod.",
       "forms": [
         "Modalni filter",
         "Modalni filtri",
@@ -417,7 +417,7 @@
     },
     {
       "term": "Oblikovanje ulic",
-      "definition": "Skupno oblikovanje ulic s preprostimi moduli, kot so načrt ulice, transparent ali vizualizacija dreves.",
+      "definition": "Vključujoče oblikovanje ulic, ki uporablja preprosta orodja, kot so načrt ulice, transparenti ali vizualizacije dreves.",
       "forms": [
         "Oblikovanje ulic",
         "Oblikovanja ulic",
@@ -436,11 +436,10 @@
       ]
     },
     {
-      "term": "Postavljanje teme na dnevni red",
-      "definition": "Taktika, s katero temo naredimo javno vidno, na primer z akcijo, peticijo ali medijsko sliko.",
+      "term": "Ozaveščanje javnosti",
+      "definition": "Taktika, s katero temo javno izpostavimo, na primer z akcijo, peticijo ali udarno sliko za medije.",
       "forms": [
-        "Postavljanje teme na dnevni red",
-        "Postavljati teme na dnevni red"
+        "Ozaveščanje javnosti"
       ]
     },
     {
@@ -491,7 +490,7 @@
     },
     {
       "term": "Taktični urbanizem",
-      "definition": "Začasni, poceni posegi v mestni prostor, s katerimi preizkušamo spremembe in jih pokažemo.",
+      "definition": "Začasni, poceni posegi v mestni prostor, s katerimi pokažemo in testiramo spremembe.",
       "forms": [
         "Taktični urbanizem",
         "Taktičnega urbanizma",
@@ -534,7 +533,7 @@
     },
     {
       "term": "Zgodba",
-      "definition": "Zgodba angažiranja, ki jasno pove cilj, priložnost, zavezništva in želeno spremembo.",
+      "definition": "Zgodba, s katero se iniciativa predstavlja navzven. Ta jasno pove cilj, priložnost, zavezništva in želeno spremembo.",
       "forms": [
         "Zgodba",
         "Zgodbe",
@@ -566,9 +565,9 @@
       "forms": ["Tree Love Set"]
     },
     {
-      "term": "načrt za uspeh",
-      "definition": "Predstava vaše pobude o tem, kako boste dosegli spremembo, na primer zbrati 1.000 podpisov in jih predati lokalnim politikom.",
-      "forms": ["načrt za uspeh"]
+      "term": "Načrt za zmago",
+      "definition": "Načrt za doseganje spremembe, na primer zbrati 1.000 podpisov in jih predati lokalnim politikom.",
+      "forms": ["načrt za zmago", "načrtu za zmago", "načrt za uspeh"]
     },
     {
       "term": "izhlapevanje prometa",
