@@ -9,6 +9,7 @@ import { once } from 'node:events';
 import { makePlan } from '../audio/plan.mjs';
 import { hash } from '../audio/content.mjs';
 import { preflightFailure } from '../audio/api-errors.mjs';
+import { preflightGet } from '../audio/preflight-get.mjs';
 import { narrationKey, legacyNarrationKey, publicationNarrationKey, retainedNarrationKey } from '../audio/narration-key.mjs';
 
 test('speech keys ignore offline processing but pin generation inputs and preserve published fingerprints', () => {
@@ -115,6 +116,97 @@ test('401 diagnostics distinguish permissions from invalid keys without leaking 
   for (const error of [missing, invalid, unknown, nonJson]) {
     assert.doesNotMatch(error.message, /never-log-this|private-voice/);
     assert.match(error.message, /exported ELEVENLABS_API_KEY overrides/);
+  }
+});
+
+test('read-only preflight retries transient failures with redacted, labelled diagnostics', async () => {
+  const check = { label: 'Subscription/allowance', permission: 'User: Read (user_read)' };
+  for (const failure of [new DOMException('private-voice private-key', 'TimeoutError'), new TypeError('private-key')]) {
+    let calls = 0;
+    const messages = [];
+    const options = { retryDelayMs: 0, onRetry: message => messages.push(message), fetchImpl: async (_url, options) => {
+      assert.equal(options.method, undefined);
+      assert.ok(options.signal instanceof AbortSignal);
+      calls++;
+      throw failure;
+    } };
+    await assert.rejects(preflightGet('/v1/user/subscription', 'private-key', check, options), error => {
+      assert.match(error.message, /Subscription\/allowance preflight.*2 attempts/);
+      assert.match(error.message, /network\/VPN\/proxy/);
+      assert.doesNotMatch(error.message, /private-key|private-voice/);
+      return true;
+    });
+    assert.equal(calls, 2);
+    assert.equal(messages.length, 1);
+    assert.doesNotMatch(messages[0], /private-key|private-voice/);
+  }
+  let calls = 0;
+  const result = await preflightGet('/v1/models', 'fixture-key', check, { retryDelayMs: 0, fetchImpl: async () => {
+    if (++calls === 1) throw new DOMException('timeout', 'TimeoutError');
+    return Response.json({ recovered: true });
+  } });
+  assert.deepEqual(result, { recovered: true });
+  assert.equal(calls, 2);
+});
+
+test('preflight does not retry permission failures or malformed JSON', async () => {
+  const check = { label: 'Models', permission: 'Models: Read (models_read)' };
+  for (const response of [new Response('private-body', { status: 401 }), new Response('private-body')]) {
+    let calls = 0;
+    await assert.rejects(preflightGet('/v1/models', 'fixture-key', check, { fetchImpl: async () => {
+      calls++;
+      return response;
+    } }), error => {
+      assert.doesNotMatch(error.message, /private-body/);
+      assert.match(error.message, /HTTP 401|could not be decoded as JSON/);
+      return true;
+    });
+    assert.equal(calls, 1);
+  }
+});
+
+test('preflight also retries a timeout while reading the response body', async () => {
+  let calls = 0;
+  const result = await preflightGet('/v1/models', 'fixture-key', { label: 'Models' }, {
+    retryDelayMs: 0,
+    fetchImpl: async () => {
+      calls++;
+      if (calls === 1) return { ok: true, json: async () => { throw new DOMException('private-body', 'TimeoutError'); } };
+      return Response.json([]);
+    },
+  });
+  assert.deepEqual(result, []);
+  assert.equal(calls, 2);
+});
+
+test('preflight retries connection failures while reading an HTTP 200 body', async () => {
+  for (const recover of [true, false]) {
+    let calls = 0;
+    const messages = [];
+    const result = preflightGet('/v1/models', 'fixture-key', { label: 'Models' }, {
+      retryDelayMs: 0,
+      onRetry: message => messages.push(message),
+      fetchImpl: async () => {
+        calls++;
+        if (recover && calls === 2) return Response.json([]);
+        return new Response(new ReadableStream({
+          pull(controller) { controller.error(new TypeError('private-body private-key')); },
+        }), { status: 200 });
+      },
+    });
+    if (recover) {
+      assert.deepEqual(await result, []);
+    } else {
+      await assert.rejects(result, error => {
+        assert.match(error.message, /Models preflight could not connect \(2 attempts\)/);
+        assert.doesNotMatch(error.message, /private-body|private-key/);
+        return true;
+      });
+    }
+    assert.equal(calls, 2);
+    assert.equal(messages.length, 1);
+    assert.match(messages[0], /could not connect; retrying read-only check/);
+    assert.doesNotMatch(messages[0], /private-body|private-key/);
   }
 });
 

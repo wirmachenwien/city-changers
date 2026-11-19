@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "repository": "wirmachenwien/city-changers",
   "edition": {
-    "name": "2026-11-13-en-de-sl-footnotes",
-    "title": "City Changers audiobooks · 2026-11-13 · English, German & Slovenian · footnotes included"
+    "date": "2026-11-19",
+    "revision": 0
   },
-  "fingerprint": "4eba4425216c740d39900cb84a36b85e57444e9ec8f266587a74ffbd5c55974f",
-  "tag": "audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c",
-  "url": "https://github.com/wirmachenwien/city-changers/releases/tag/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c",
+  "fingerprint": "aa984020f1bc6e8bf1b2ca4c2fb1369aa8f1e72e6e0796dcd1686f667149ea67",
+  "tag": "audio-2026-11-19",
+  "url": "https://github.com/wirmachenwien/city-changers/releases/tag/audio-2026-11-19",
   "publication": {
     "schemaVersion": 1,
-    "planHash": "34f0d021c89f1faf8bf6bcbbe22fa2913d0d96285ed745cbd51683c13e629e83",
-    "revision": "55e0d8c8334fbab32662",
+    "planHash": "108cef824bd9f0ec604778300255a301bbc5081781a5e5865eb55bab483118b4",
+    "revision": "59ff0cc2bbada592da67",
     "chapters": [
       {
         "id": "de/01",
@@ -29,7 +29,7 @@
         "duration": 229.6,
         "pcmDuration": 229.6,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--01.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--01.mp3",
           "file": "55e0d8c8334fbab32662/de/01.mp3",
           "bytes": 3674774,
           "sha256": "91414eabf3b8965deced36b1c2c5f2fe493cecee4ae04775347d486611b908cd"
@@ -80,7 +80,7 @@
         "duration": 437.08,
         "pcmDuration": 437.0800000000001,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--02.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--02.mp3",
           "file": "55e0d8c8334fbab32662/de/02.mp3",
           "bytes": 6994212,
           "sha256": "8123288bdae68b441e4c2849fa5b839fb6da48bd7747e20d2280d524fdb2ec20"
@@ -146,7 +146,7 @@
         "duration": 303.6,
         "pcmDuration": 303.6,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--03.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--03.mp3",
           "file": "55e0d8c8334fbab32662/de/03.mp3",
           "bytes": 4858868,
           "sha256": "14b0d7ac8294c0e9cbdfcadac6ad59b66840792bb5b582352c74670450db0b9b"
@@ -213,7 +213,7 @@
         "duration": 762.16,
         "pcmDuration": 762.1599999999995,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--04.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--04.mp3",
           "file": "55e0d8c8334fbab32662/de/04.mp3",
           "bytes": 12195726,
           "sha256": "4358bb0bb7167585287c6dbe1f12fe3369d139dde2cda8d59ce92fb1e93a084f"
@@ -323,7 +323,7 @@
         "duration": 595.24,
         "pcmDuration": 595.2399999999999,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--05.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--05.mp3",
           "file": "55e0d8c8334fbab32662/de/05.mp3",
           "bytes": 9524964,
           "sha256": "56c6d2386b436446a49ef8ce46f65579f135a8a31abcd4a2a996cf262dc5702f"
@@ -414,7 +414,7 @@
         "duration": 500.44,
         "pcmDuration": 500.43999999999977,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--06.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--06.mp3",
           "file": "55e0d8c8334fbab32662/de/06.mp3",
           "bytes": 8008179,
           "sha256": "bd64dc090b584155ff2374c0be2e7224a12b8b781c395e5c1ee50c9439d8a449"
@@ -497,7 +497,7 @@
         "duration": 251.2,
         "pcmDuration": 251.2,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--glossary.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--glossary.mp3",
           "file": "55e0d8c8334fbab32662/de/glossary.mp3",
           "bytes": 4020414,
           "sha256": "1aa4688b7d33162c64ee9d9666b5611eb2ec5f676ab80af9f58dcdd8d9be194d"
@@ -557,7 +557,7 @@
         "duration": 212,
         "pcmDuration": 212,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--01.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--01.mp3",
           "file": "55e0d8c8334fbab32662/en/01.mp3",
           "bytes": 3393067,
           "sha256": "e6dcb4f147cd61d2ebf81884fcfacc2de7421c21c09535f91f38177cd4a55d5b"
@@ -609,7 +609,7 @@
         "duration": 419.8,
         "pcmDuration": 419.80000000000007,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--02.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--02.mp3",
           "file": "55e0d8c8334fbab32662/en/02.mp3",
           "bytes": 6717940,
           "sha256": "e48fa1bbde321de5091d79558b691c999a62db1d8bfbdd86fc3bb54ddb17b537"
@@ -675,7 +675,7 @@
         "duration": 282.96,
         "pcmDuration": 282.96000000000004,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--03.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--03.mp3",
           "file": "55e0d8c8334fbab32662/en/03.mp3",
           "bytes": 4528680,
           "sha256": "3a129e7c1eebe76c6bc70d46708da76b0c9207499e23304fa60569850352a0db"
@@ -742,7 +742,7 @@
         "duration": 722.56,
         "pcmDuration": 722.5599999999998,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--04.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--04.mp3",
           "file": "55e0d8c8334fbab32662/en/04.mp3",
           "bytes": 11562098,
           "sha256": "42521c9838a014e627fd931dd8b3ad9612a3b881970a1cbd84b71ed64f02394d"
@@ -852,7 +852,7 @@
         "duration": 554.52,
         "pcmDuration": 554.5200000000002,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--05.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--05.mp3",
           "file": "55e0d8c8334fbab32662/en/05.mp3",
           "bytes": 8873364,
           "sha256": "86cace382ef6f291735d7f1b7f1c9b578c1d1b584c45e6bff96cf6d3111193af"
@@ -944,7 +944,7 @@
         "duration": 442.76,
         "pcmDuration": 442.76,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--06.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--06.mp3",
           "file": "55e0d8c8334fbab32662/en/06.mp3",
           "bytes": 7085323,
           "sha256": "0022eb285d46f925c6e44dcc529a1cc25b15bb9467a861fcad4ea7f03a4f4557"
@@ -1024,7 +1024,7 @@
         "duration": 233.68,
         "pcmDuration": 233.68,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--glossary.mp3",
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--glossary.mp3",
           "file": "55e0d8c8334fbab32662/en/glossary.mp3",
           "bytes": 3739964,
           "sha256": "12afd906840cf7f10dac159f97e6e1ff2a970411d28ea679e449d0121248d1af"
@@ -1074,26 +1074,26 @@
         "file": "01",
         "title": "1. Zakaj ta zbirka orodij?",
         "pageUrl": "/book/sl/01-zakaj-ta-zbirka-orodij.html",
-        "revision": "55e0d8c8334fbab32662",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "cueSchemaVersion": 2,
-        "recipeHash": "112a79e1b1e536a87cbdbb3c601635780a62b361aa2a35939be8218e587905a8",
-        "sourceHash": "b8369759c0bb5215da6fa1bd63b38f44e6561c474e9aa538e5ca4cbcc443029b",
-        "scriptHash": "b81f1b5d9fe6014f4dabd4a622328be0ec233cbf1d878c7c2397ef5203c914e4",
+        "recipeHash": "fb8198e091ab66460f5e45d6ac855449b97cc54717df387283ff0beb25c96417",
+        "sourceHash": "8bd1e149d5cba60d6970d17ecc1ee845d5b3a8058d139de50ee072150bc7d410",
+        "scriptHash": "6ef5c2585b53cddce0f0b7a7774ab316079834bebddab468c962185d29f8cc63",
         "assemblyHash": "3aee2cfd07368486ac34cf39500f4c7af751c19ab777a5a948800e9aed72be69",
-        "duration": 239.04,
-        "pcmDuration": 239.04,
+        "duration": 235.92,
+        "pcmDuration": 235.92,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--01.mp3",
-          "file": "55e0d8c8334fbab32662/sl/01.mp3",
-          "bytes": 3825661,
-          "sha256": "f0b11c95c7711a39d4ab1205c9f5c95031c57f5f49bcc399a7bcd1191dff0fb8"
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--01.mp3",
+          "file": "59ff0cc2bbada592da67/sl/01.mp3",
+          "bytes": 3775924,
+          "sha256": "a7ac2dec9a499136c7ba9d6ef429af170bfda3a7321428c948738d19883f8d31"
         },
         "cues": {
-          "url": "/audio/55e0d8c8334fbab32662/sl/01.cues.json",
-          "file": "55e0d8c8334fbab32662/sl/01.cues.json",
-          "bytes": 12709,
-          "sha256": "d0ccae4fc5150734ce88c17eabdd7f6dbae48278ce9bb56b67488452ff89e12c"
+          "url": "/audio/59ff0cc2bbada592da67/sl/01.cues.json",
+          "file": "59ff0cc2bbada592da67/sl/01.cues.json",
+          "bytes": 13266,
+          "sha256": "4ecfd1bcce8ffb0291824d5cc0df0c1ebf281ed8178062eda5a7ba63d6b95227"
         },
         "blockIds": [
           "b-cd52bbb50e3520f1",
@@ -1125,26 +1125,26 @@
         "file": "02",
         "title": "2. Moč superblokov",
         "pageUrl": "/book/sl/02-moc-superblokov.html",
-        "revision": "55e0d8c8334fbab32662",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "cueSchemaVersion": 2,
-        "recipeHash": "e9658630d3afeb4b11d5c81cd7d2dd7c26ef6186ebb883c333be17c790b46b86",
-        "sourceHash": "45e4d26e72bea1f4f065d18c99b04d9eedf3116f567ebc7ab0f3ae7902d4f0bd",
-        "scriptHash": "c1f81fff7281041bd707607ce76182aa35b052f338521fd1442aa089dc57186c",
+        "recipeHash": "9a1ef5cdde802a4d8184007d819fdb58e176785dcb6ed5af03502a7461b5ee8f",
+        "sourceHash": "e498356961de071210ee337f7c69af16f8955fc99e7e45b4647601dae9843cec",
+        "scriptHash": "e1816116e15bb6faea6f1eea9175ddc668af359d38dcbc50b83f97e76e52df77",
         "assemblyHash": "30911c988cbfa6992f1941cd7097d88cd03f3951a750a64da149e33443cd9bef",
-        "duration": 454.52,
-        "pcmDuration": 454.52000000000004,
+        "duration": 456.360249,
+        "pcmDuration": 456.36000000000007,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--02.mp3",
-          "file": "55e0d8c8334fbab32662/sl/02.mp3",
-          "bytes": 7273399,
-          "sha256": "bc1ed34103f7f894c5dd1b0184a86e76dd39a9e81b3b96e6300e607a8cd87fb5"
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--02.mp3",
+          "file": "59ff0cc2bbada592da67/sl/02.mp3",
+          "bytes": 7303074,
+          "sha256": "748cfd146e84e7896f9de05db7158bc6c4efddf0089ba4de16d3c5781875d0dd"
         },
         "cues": {
-          "url": "/audio/55e0d8c8334fbab32662/sl/02.cues.json",
-          "file": "55e0d8c8334fbab32662/sl/02.cues.json",
-          "bytes": 33774,
-          "sha256": "3b42151ed522c12ff99e9a623c042f844d2903a1fa8d5e797fd40d68f26bf95b"
+          "url": "/audio/59ff0cc2bbada592da67/sl/02.cues.json",
+          "file": "59ff0cc2bbada592da67/sl/02.cues.json",
+          "bytes": 33614,
+          "sha256": "ca00627fb2cfdea35a2bb49102fdfedee13ecfad6fb2eec02aec12b5fe8352ca"
         },
         "blockIds": [
           "b-f997b8af83d57a21",
@@ -1191,26 +1191,26 @@
         "file": "03",
         "title": "3. Taktični urbanizem in oblikovanje ulic",
         "pageUrl": "/book/sl/03-takticni-urbanizem-in-oblikovanje-ulic.html",
-        "revision": "55e0d8c8334fbab32662",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "cueSchemaVersion": 2,
-        "recipeHash": "ecf8f4212248d8b3302ebee2fd672a3395cbdcfe7b3842403bf389b912c977b7",
-        "sourceHash": "860a70abb88745781c8e38299d28304dd9af7bd4e25f45f8cdc660949e502a0e",
-        "scriptHash": "6d2178089e4674778a9d5e6a7392920f0edd6d5e0bd105ea425c4c39b17e5fec",
+        "recipeHash": "81c832608bacf8976b9a67cc19b745a639dee58739ab0d7dcdbac40bdcda3af8",
+        "sourceHash": "01d7193569c26f2c9d3d8be8dfb56835d80f88162a33261fb14e57b5982fd27d",
+        "scriptHash": "b03496dd5b8242b0ad011b934eb2f2bfec6af60c6d1a282eed6b300f458b54ab",
         "assemblyHash": "3aee2cfd07368486ac34cf39500f4c7af751c19ab777a5a948800e9aed72be69",
-        "duration": 294.96,
-        "pcmDuration": 294.96000000000004,
+        "duration": 294,
+        "pcmDuration": 294,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--03.mp3",
-          "file": "55e0d8c8334fbab32662/sl/03.mp3",
-          "bytes": 4720528,
-          "sha256": "15c2641f8f6fe3682c3eb7ab0741f2148c441146fe43c3de12d95b5d6c4565f4"
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--03.mp3",
+          "file": "59ff0cc2bbada592da67/sl/03.mp3",
+          "bytes": 4705063,
+          "sha256": "92fca518379317e7dec04af5233911ced1cfc87d31a39b6ac1588ec11b1b67ad"
         },
         "cues": {
-          "url": "/audio/55e0d8c8334fbab32662/sl/03.cues.json",
-          "file": "55e0d8c8334fbab32662/sl/03.cues.json",
-          "bytes": 22660,
-          "sha256": "4d5c9b46a3305647eeb82734fde24c13dff3759ee6f93f6a0c8589638eee09eb"
+          "url": "/audio/59ff0cc2bbada592da67/sl/03.cues.json",
+          "file": "59ff0cc2bbada592da67/sl/03.cues.json",
+          "bytes": 22946,
+          "sha256": "d8b6fe0cbad96d0b5c87827889c75a3ba412fad9c1855fe5f2890b3b1ca1e5eb"
         },
         "blockIds": [
           "b-80f47e49bd67788f",
@@ -1256,28 +1256,28 @@
         "id": "sl/04",
         "lang": "sl",
         "file": "04",
-        "title": "4. Organiziranje in strategije sprememb",
-        "pageUrl": "/book/sl/04-organiziranje-in-strategije-sprememb.html",
-        "revision": "55e0d8c8334fbab32662",
+        "title": "4. Aktivacija skupnosti in strategije za spremembe",
+        "pageUrl": "/book/sl/04-aktivacija-skupnosti-in-strategije-za-spremembe.html",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "cueSchemaVersion": 2,
-        "recipeHash": "578e4fd0a011cc4c17bea56b6cf2d2a6088ce28f2b12fb97fc5281106318e907",
-        "sourceHash": "d96895002f03eee6752ed18b7e587dfaf2b7ba753fa866c8b4bf46f3049cf2bf",
-        "scriptHash": "ed63d6c64e4a77e13302b12d845eae5f502ea8c356b9c119bfe511935ae2105f",
+        "recipeHash": "d5328509f5236d0dca95edd74032e200b899566c3f0a4ca3da53d36fefc9775f",
+        "sourceHash": "d99adb1eb49c55189950bbb96f2573077480962362e072380757520c06b77f4f",
+        "scriptHash": "2ef6914e173902f55c4675e18354f5e3b9c779872d8bd4d52e5a701a122050cb",
         "assemblyHash": "87838c3bedb3f84f0b4da34fa51569c2f7c932d300351dcf9079dccdd1010a38",
-        "duration": 778.8,
-        "pcmDuration": 778.8000000000002,
+        "duration": 780.72,
+        "pcmDuration": 780.72,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--04.mp3",
-          "file": "55e0d8c8334fbab32662/sl/04.mp3",
-          "bytes": 12461965,
-          "sha256": "60e954f2c37e2cdd4fa5dc85018cf979df3e5d6ec61b222515f1fd884c27c9fb"
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--04.mp3",
+          "file": "59ff0cc2bbada592da67/sl/04.mp3",
+          "bytes": 12492487,
+          "sha256": "b58cd569c3a4f2e56aab8480c67f343148e4de53a1c010d4272ba3e388fc6253"
         },
         "cues": {
-          "url": "/audio/55e0d8c8334fbab32662/sl/04.cues.json",
-          "file": "55e0d8c8334fbab32662/sl/04.cues.json",
-          "bytes": 61404,
-          "sha256": "c7a76a029df59493697ec17cf61ebb7dc972538c629ddeda52334717b245b853"
+          "url": "/audio/59ff0cc2bbada592da67/sl/04.cues.json",
+          "file": "59ff0cc2bbada592da67/sl/04.cues.json",
+          "bytes": 61043,
+          "sha256": "b26a42d389d81d9aa508638e0506c6c113650a88eeb8ef2b3dcd3294c951b9be"
         },
         "blockIds": [
           "b-bdb70424d55e1eeb",
@@ -1366,28 +1366,28 @@
         "id": "sl/05",
         "lang": "sl",
         "file": "05",
-        "title": "5. Spremljanje: pokažimo učinek",
-        "pageUrl": "/book/sl/05-spremljanje-pokazimo-ucinek.html",
-        "revision": "55e0d8c8334fbab32662",
+        "title": "5. Spremljanje: dokumentiranje in prikaz učinkov",
+        "pageUrl": "/book/sl/05-spremljanje-dokumentiranje-in-prikaz-ucinkov.html",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "cueSchemaVersion": 2,
-        "recipeHash": "def740904fe93c286c4037f8ccf2f038b00eb06e190acc24f6c2436a35b1f508",
-        "sourceHash": "323aae34a33440816406f5237a390e14b130e32f6d576abe014558b5f2f618a0",
-        "scriptHash": "d8f5fb63c30149bd090935fee804383a763b67a959ffbf31fb364f0e38f4cfc5",
-        "assemblyHash": "f1afc6d1d6e7d69ceac5dec58a22068025a7fa2e598fd91492086984f82644ca",
-        "duration": 608.92,
-        "pcmDuration": 608.92,
+        "recipeHash": "6f6d023834aacc69dbd256104ed0fb1c98a22810f0cfe7e6c81a5fd38cf7af7a",
+        "sourceHash": "d34e54d1b41ca56764c754e8d3fc6de60e50e734a3de14927c09f02559a48cd6",
+        "scriptHash": "ffabb7b7be58004dd877115f0f03f74abf2333dbb44664e9210beb379d42b803",
+        "assemblyHash": "be67a376153d882fad369741803f6b3736e74d27776455f49cf2a805a1be816a",
+        "duration": 612.68,
+        "pcmDuration": 612.68,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--05.mp3",
-          "file": "55e0d8c8334fbab32662/sl/05.mp3",
-          "bytes": 9743970,
-          "sha256": "150d6bf5578c2ba1025c56db3646733a381bc5bddf904f81fcb37cc451eddc57"
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--05.mp3",
+          "file": "59ff0cc2bbada592da67/sl/05.mp3",
+          "bytes": 9804172,
+          "sha256": "932baad178d6d32583d9dec364275269c0b1fb5374234e88c31ff1773e74198d"
         },
         "cues": {
-          "url": "/audio/55e0d8c8334fbab32662/sl/05.cues.json",
-          "file": "55e0d8c8334fbab32662/sl/05.cues.json",
-          "bytes": 45923,
-          "sha256": "8ab26bbb7b86ecd916bab4ba29179a7ad86b548ee58da0933cc0079e7646afc1"
+          "url": "/audio/59ff0cc2bbada592da67/sl/05.cues.json",
+          "file": "59ff0cc2bbada592da67/sl/05.cues.json",
+          "bytes": 45471,
+          "sha256": "72e0714deaeb60a996865458510063ccbb75693a2abb6138af1446d98e34a345"
         },
         "blockIds": [
           "b-490b3902fff5fb6e",
@@ -1459,26 +1459,26 @@
         "file": "06",
         "title": "6. Delovni načrt in viri",
         "pageUrl": "/book/sl/06-delovni-nacrt-in-viri.html",
-        "revision": "55e0d8c8334fbab32662",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "cueSchemaVersion": 2,
-        "recipeHash": "29f26080459c380ce34f5bd2e19cf0d63ec263e3ed88cfda21cf3d5d69394845",
-        "sourceHash": "58174668cd87172c2bf72189489e496819a93f5714c2228dd4f144f38ff68fad",
-        "scriptHash": "2f460b28a297833ae6c1cebd770d7aac9fd949ddb054d99ca3567c269a7ef271",
+        "recipeHash": "5d634fc93afa00812595dcae7ed2f44535f52fecd4c9201d457a9efa7776fccb",
+        "sourceHash": "14357e4ca154524edcf20cdfc4d3ea0d566141328e6394c1f30958ffc7858f27",
+        "scriptHash": "ebfdb62e268cf98c646e93fbffddcc3f1959450c703c4c78500aee595f3c78b6",
         "assemblyHash": "59cb69672c47d7f473516a02ee3cef62ae03861c46242c4a83a238f9bb682d68",
-        "duration": 492.68,
-        "pcmDuration": 492.6799999999999,
+        "duration": 493.4,
+        "pcmDuration": 493.3999999999999,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--06.mp3",
-          "file": "55e0d8c8334fbab32662/sl/06.mp3",
-          "bytes": 7884044,
-          "sha256": "530fe7e7c3deb82fab31efa9d9588a77082fa0b35e8d0372951a3c959f61b800"
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--06.mp3",
+          "file": "59ff0cc2bbada592da67/sl/06.mp3",
+          "bytes": 7895329,
+          "sha256": "02bda7ca618240e32fd471becca5ae9255e6acb958eaa26865f74ffb1b20ac1b"
         },
         "cues": {
-          "url": "/audio/55e0d8c8334fbab32662/sl/06.cues.json",
-          "file": "55e0d8c8334fbab32662/sl/06.cues.json",
-          "bytes": 38182,
-          "sha256": "01fe55f49e628fe3621341e800d9153127ca7f4297cd26a6a0d47772b478c731"
+          "url": "/audio/59ff0cc2bbada592da67/sl/06.cues.json",
+          "file": "59ff0cc2bbada592da67/sl/06.cues.json",
+          "bytes": 38177,
+          "sha256": "1d2d426392b87ed39b4f5356d445996ac5b07654faaf4004060cdd1f2b5595fa"
         },
         "blockIds": [
           "b-f50429431accffcf",
@@ -1540,28 +1540,28 @@
         "id": "sl/glossary",
         "lang": "sl",
         "file": "glossary",
-        "title": "7. Glosar",
+        "title": "7. Slovar",
         "pageUrl": "/book/sl/glossary.html",
-        "revision": "55e0d8c8334fbab32662",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "cueSchemaVersion": 2,
-        "recipeHash": "d9a319d060c8f95556a3136fdf93bb11faa6a6705d9a1f170164cf2d963727a1",
-        "sourceHash": "c8d6102292b2ecbc7530ea670c835ef4950f86a5c2bf0d646278e58e5d27e843",
-        "scriptHash": "7ed651d192bfe2f92dc5572b9e185a897efee9fc009d190728e7d438c0ad19c4",
-        "assemblyHash": "836f41a7ab3b1559dee21c83c0920bb0a6f9cc1119d0e6ee8e176e9c7f0ca23b",
-        "duration": 254.88,
-        "pcmDuration": 254.87999999999997,
+        "recipeHash": "0eaaa811d4833465629b27a18f7c59bb79cc4165cd80409c92d51c161dbd4c81",
+        "sourceHash": "482e61a0081a5ea4d52058ded257a511c3493888151285bfcb3989060d90e4a3",
+        "scriptHash": "f2af9b2b27f907a9ea759b70ada6aa940387e3acb837f0d18876272dae290a52",
+        "assemblyHash": "2154ace63ada144b55c5f35725c49fdbc9a5bc02755577912fa3f7ea05763049",
+        "duration": 257.6,
+        "pcmDuration": 257.59999999999997,
         "track": {
-          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--glossary.mp3",
-          "file": "55e0d8c8334fbab32662/sl/glossary.mp3",
-          "bytes": 4079345,
-          "sha256": "58662c9981b65b123a8c4acc0f593ba407feae4d9735e571ca2dc9159020f6f8"
+          "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--glossary.mp3",
+          "file": "59ff0cc2bbada592da67/sl/glossary.mp3",
+          "bytes": 4122813,
+          "sha256": "e9d7d824b30ab1233eda65362ae264ce38d4c34f60d7e1720eefa7a673034470"
         },
         "cues": {
-          "url": "/audio/55e0d8c8334fbab32662/sl/glossary.cues.json",
-          "file": "55e0d8c8334fbab32662/sl/glossary.cues.json",
-          "bytes": 20674,
-          "sha256": "59b7a1955f94822229fff00c929d6fbaebf4e3c0cccc8ab5220867242eb3a5cd"
+          "url": "/audio/59ff0cc2bbada592da67/sl/glossary.cues.json",
+          "file": "59ff0cc2bbada592da67/sl/glossary.cues.json",
+          "bytes": 21283,
+          "sha256": "315b43afbfd56d8ccdde63689694c5c4e55e91609d377fb4f4156900cee1a6d5"
         },
         "blockIds": [
           "b-24b5b92e64a06b10",
@@ -1617,7 +1617,7 @@
         "metadataVersion": 2,
         "metadataHash": "03dbc97b1998b89997c309f3b8a7085202059ddd647c8ca15d8b01fbbd1007e0",
         "duration": 3079.32,
-        "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--toolbox-fur-city-changer-de.m4b",
+        "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--toolbox-fur-city-changer-de.m4b",
         "file": "55e0d8c8334fbab32662/de/toolbox-fur-city-changer-de.m4b",
         "bytes": 40018003,
         "sha256": "9d00d19e2f3b1ee4ece13477b6b01994df7d2d972163e0a67e720a9c88787d58"
@@ -1641,14 +1641,14 @@
         "metadataVersion": 2,
         "metadataHash": "8b1bdf34d4d6f9f8cd618a0b108a9a117ef5abb0f20d0b3c6214e2f019c3866d",
         "duration": 2868.28,
-        "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--toolbox-for-city-changers-en.m4b",
+        "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--toolbox-for-city-changers-en.m4b",
         "file": "55e0d8c8334fbab32662/en/toolbox-for-city-changers-en.m4b",
         "bytes": 37402818,
         "sha256": "adcb88559589a22453e7000779a1d5e3dd6009f34498a35d9069fce2cad136fe"
       },
       {
         "lang": "sl",
-        "revision": "55e0d8c8334fbab32662",
+        "revision": "59ff0cc2bbada592da67",
         "processingHash": "db92faaaabd62f32d9a317ea6c00e5c9da31621596945c3a78293aec5ec09925",
         "chapterIds": [
           "sl/01",
@@ -1660,21 +1660,21 @@
           "sl/glossary"
         ],
         "title": "Zbirka orodij za spreminjanje mest",
-        "recipeHash": "b16d6507a7a5b55a924c925557b3f9fe7d758396acf98ae8b7b2ced6b36763df",
-        "mediaRecipeHash": "7430829a07051b31fbfefd8aca75e317b279e6e8e82c4fd1cd3b85c818c279f0",
+        "recipeHash": "5ff43afe8993d4c6acc569cf4cf8637a4be121dd1e0c01304bd4820a31ee3040",
+        "mediaRecipeHash": "47f0ebc0af43ef4fb8813d0fa7618fa32c6c96d7e6fea6cac0521e7188ba5b65",
         "metadataVersion": 2,
         "metadataHash": "552ead1d27d4606f43f72cd1925957540affa660046fd22b18c12c3724c9169f",
-        "duration": 3123.8,
-        "url": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--zbirka-orodij-za-spreminjanje-mest-sl.m4b",
-        "file": "55e0d8c8334fbab32662/sl/zbirka-orodij-za-spreminjanje-mest-sl.m4b",
-        "bytes": 40692211,
-        "sha256": "9e806b063afc6912610607555de39bb66f68b281510b87ec39e32391a9867477"
+        "duration": 3130.68,
+        "url": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--zbirka-orodij-za-spreminjanje-mest-sl.m4b",
+        "file": "59ff0cc2bbada592da67/sl/zbirka-orodij-za-spreminjanje-mest-sl.m4b",
+        "bytes": 40792620,
+        "sha256": "0f37b0a8e1e639a365833a943a4c3886987bbfafe1856608fe863a558af8c07c"
       }
     ],
     "release": {
-      "fingerprint": "4eba4425216c740d39900cb84a36b85e57444e9ec8f266587a74ffbd5c55974f",
-      "tag": "audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c",
-      "url": "https://github.com/wirmachenwien/city-changers/releases/tag/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c"
+      "fingerprint": "aa984020f1bc6e8bf1b2ca4c2fb1369aa8f1e72e6e0796dcd1686f667149ea67",
+      "tag": "audio-2026-11-19",
+      "url": "https://github.com/wirmachenwien/city-changers/releases/tag/audio-2026-11-19"
     }
   },
   "assets": [
@@ -1684,7 +1684,7 @@
       "sha256": "91414eabf3b8965deced36b1c2c5f2fe493cecee4ae04775347d486611b908cd",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--de--01.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--01.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--01.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/de/01.cues.json",
@@ -1692,7 +1692,7 @@
       "sha256": "a6f80e16fd5bea75430157f7a18bf05ffa9e1f2a4e37d56c099ee7ffa321dfd7",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--de--01.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--01.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--01.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/de/02.mp3",
@@ -1700,7 +1700,7 @@
       "sha256": "8123288bdae68b441e4c2849fa5b839fb6da48bd7747e20d2280d524fdb2ec20",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--de--02.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--02.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--02.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/de/02.cues.json",
@@ -1708,7 +1708,7 @@
       "sha256": "e562ee939f3383ca2669c1201e4b34cf2dd79315e501c2979e90321ea2933dfb",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--de--02.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--02.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--02.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/de/03.mp3",
@@ -1716,7 +1716,7 @@
       "sha256": "14b0d7ac8294c0e9cbdfcadac6ad59b66840792bb5b582352c74670450db0b9b",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--de--03.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--03.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--03.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/de/03.cues.json",
@@ -1724,7 +1724,7 @@
       "sha256": "1e23876ec58a09a671b7b075e9c4365170424a86b756c7cd79b60a63869a1841",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--de--03.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--03.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--03.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/de/04.mp3",
@@ -1732,7 +1732,7 @@
       "sha256": "4358bb0bb7167585287c6dbe1f12fe3369d139dde2cda8d59ce92fb1e93a084f",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--de--04.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--04.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--04.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/de/04.cues.json",
@@ -1740,7 +1740,7 @@
       "sha256": "fc31170ea84d317fd86c8b5fd8e868bb278876ba65e510ce48fcf34636d5d412",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--de--04.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--04.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--04.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/de/05.mp3",
@@ -1748,7 +1748,7 @@
       "sha256": "56c6d2386b436446a49ef8ce46f65579f135a8a31abcd4a2a996cf262dc5702f",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--de--05.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--05.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--05.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/de/05.cues.json",
@@ -1756,7 +1756,7 @@
       "sha256": "ea3e4bd272ef7c0a2e74f99cb5889158e0e0fecba72065b65fc129bf6dfc13e2",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--de--05.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--05.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--05.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/de/06.mp3",
@@ -1764,7 +1764,7 @@
       "sha256": "bd64dc090b584155ff2374c0be2e7224a12b8b781c395e5c1ee50c9439d8a449",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--de--06.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--06.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--06.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/de/06.cues.json",
@@ -1772,7 +1772,7 @@
       "sha256": "67802a7061866ed4365e81858b1dbf861355cf0e9fa2bb8a313c72909b9ba4a4",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--de--06.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--06.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--06.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/de/glossary.mp3",
@@ -1780,7 +1780,7 @@
       "sha256": "1aa4688b7d33162c64ee9d9666b5611eb2ec5f676ab80af9f58dcdd8d9be194d",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--de--glossary.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--glossary.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--glossary.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/de/glossary.cues.json",
@@ -1788,7 +1788,7 @@
       "sha256": "6ce91fb226490509d8002fe81259aac82d691b80f22983edacaea7676392fa59",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--de--glossary.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--glossary.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--glossary.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/en/01.mp3",
@@ -1796,7 +1796,7 @@
       "sha256": "e6dcb4f147cd61d2ebf81884fcfacc2de7421c21c09535f91f38177cd4a55d5b",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--en--01.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--01.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--01.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/en/01.cues.json",
@@ -1804,7 +1804,7 @@
       "sha256": "e43b39ee46ab3c08745050baf5561b2b3a986ea6e1b1eef0450ad6174edc65fd",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--en--01.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--01.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--01.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/en/02.mp3",
@@ -1812,7 +1812,7 @@
       "sha256": "e48fa1bbde321de5091d79558b691c999a62db1d8bfbdd86fc3bb54ddb17b537",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--en--02.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--02.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--02.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/en/02.cues.json",
@@ -1820,7 +1820,7 @@
       "sha256": "61b6234384baed403e4fc861f9bf4423503614254cf0019afa657b25e7cfe3e2",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--en--02.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--02.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--02.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/en/03.mp3",
@@ -1828,7 +1828,7 @@
       "sha256": "3a129e7c1eebe76c6bc70d46708da76b0c9207499e23304fa60569850352a0db",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--en--03.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--03.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--03.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/en/03.cues.json",
@@ -1836,7 +1836,7 @@
       "sha256": "1d23b05244f2423c638bfa42aa67a6e984a37626bb6eeb7b462c8c9b09c682d9",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--en--03.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--03.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--03.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/en/04.mp3",
@@ -1844,7 +1844,7 @@
       "sha256": "42521c9838a014e627fd931dd8b3ad9612a3b881970a1cbd84b71ed64f02394d",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--en--04.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--04.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--04.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/en/04.cues.json",
@@ -1852,7 +1852,7 @@
       "sha256": "7b66022f6fa079adfa2756015b25beab07746bd961cca1ca5b381f734981ee9c",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--en--04.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--04.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--04.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/en/05.mp3",
@@ -1860,7 +1860,7 @@
       "sha256": "86cace382ef6f291735d7f1b7f1c9b578c1d1b584c45e6bff96cf6d3111193af",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--en--05.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--05.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--05.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/en/05.cues.json",
@@ -1868,7 +1868,7 @@
       "sha256": "002994591f05b389a63ba442995bd02f36259b2bc50344eefe52ace048db118b",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--en--05.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--05.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--05.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/en/06.mp3",
@@ -1876,7 +1876,7 @@
       "sha256": "0022eb285d46f925c6e44dcc529a1cc25b15bb9467a861fcad4ea7f03a4f4557",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--en--06.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--06.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--06.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/en/06.cues.json",
@@ -1884,7 +1884,7 @@
       "sha256": "7cca30b67e01fbc8eec066028ece45b71769f26088102b123bb98c01533ff95f",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--en--06.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--06.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--06.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/en/glossary.mp3",
@@ -1892,7 +1892,7 @@
       "sha256": "12afd906840cf7f10dac159f97e6e1ff2a970411d28ea679e449d0121248d1af",
       "kind": "mp3",
       "releaseAsset": "55e0d8c8334fbab32662--en--glossary.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--glossary.mp3"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--glossary.mp3"
     },
     {
       "file": "55e0d8c8334fbab32662/en/glossary.cues.json",
@@ -1900,119 +1900,119 @@
       "sha256": "7c09d7e09035c5ff9f8c4de52b535e6308959b6c8e8fe653f043cea5412919af",
       "kind": "cues",
       "releaseAsset": "55e0d8c8334fbab32662--en--glossary.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--glossary.cues.json"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--glossary.cues.json"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/01.mp3",
-      "bytes": 3825661,
-      "sha256": "f0b11c95c7711a39d4ab1205c9f5c95031c57f5f49bcc399a7bcd1191dff0fb8",
+      "file": "59ff0cc2bbada592da67/sl/01.mp3",
+      "bytes": 3775924,
+      "sha256": "a7ac2dec9a499136c7ba9d6ef429af170bfda3a7321428c948738d19883f8d31",
       "kind": "mp3",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--01.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--01.mp3"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--01.mp3",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--01.mp3"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/01.cues.json",
-      "bytes": 12709,
-      "sha256": "d0ccae4fc5150734ce88c17eabdd7f6dbae48278ce9bb56b67488452ff89e12c",
+      "file": "59ff0cc2bbada592da67/sl/01.cues.json",
+      "bytes": 13266,
+      "sha256": "4ecfd1bcce8ffb0291824d5cc0df0c1ebf281ed8178062eda5a7ba63d6b95227",
       "kind": "cues",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--01.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--01.cues.json"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--01.cues.json",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--01.cues.json"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/02.mp3",
-      "bytes": 7273399,
-      "sha256": "bc1ed34103f7f894c5dd1b0184a86e76dd39a9e81b3b96e6300e607a8cd87fb5",
+      "file": "59ff0cc2bbada592da67/sl/02.mp3",
+      "bytes": 7303074,
+      "sha256": "748cfd146e84e7896f9de05db7158bc6c4efddf0089ba4de16d3c5781875d0dd",
       "kind": "mp3",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--02.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--02.mp3"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--02.mp3",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--02.mp3"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/02.cues.json",
-      "bytes": 33774,
-      "sha256": "3b42151ed522c12ff99e9a623c042f844d2903a1fa8d5e797fd40d68f26bf95b",
+      "file": "59ff0cc2bbada592da67/sl/02.cues.json",
+      "bytes": 33614,
+      "sha256": "ca00627fb2cfdea35a2bb49102fdfedee13ecfad6fb2eec02aec12b5fe8352ca",
       "kind": "cues",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--02.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--02.cues.json"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--02.cues.json",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--02.cues.json"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/03.mp3",
-      "bytes": 4720528,
-      "sha256": "15c2641f8f6fe3682c3eb7ab0741f2148c441146fe43c3de12d95b5d6c4565f4",
+      "file": "59ff0cc2bbada592da67/sl/03.mp3",
+      "bytes": 4705063,
+      "sha256": "92fca518379317e7dec04af5233911ced1cfc87d31a39b6ac1588ec11b1b67ad",
       "kind": "mp3",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--03.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--03.mp3"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--03.mp3",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--03.mp3"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/03.cues.json",
-      "bytes": 22660,
-      "sha256": "4d5c9b46a3305647eeb82734fde24c13dff3759ee6f93f6a0c8589638eee09eb",
+      "file": "59ff0cc2bbada592da67/sl/03.cues.json",
+      "bytes": 22946,
+      "sha256": "d8b6fe0cbad96d0b5c87827889c75a3ba412fad9c1855fe5f2890b3b1ca1e5eb",
       "kind": "cues",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--03.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--03.cues.json"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--03.cues.json",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--03.cues.json"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/04.mp3",
-      "bytes": 12461965,
-      "sha256": "60e954f2c37e2cdd4fa5dc85018cf979df3e5d6ec61b222515f1fd884c27c9fb",
+      "file": "59ff0cc2bbada592da67/sl/04.mp3",
+      "bytes": 12492487,
+      "sha256": "b58cd569c3a4f2e56aab8480c67f343148e4de53a1c010d4272ba3e388fc6253",
       "kind": "mp3",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--04.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--04.mp3"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--04.mp3",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--04.mp3"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/04.cues.json",
-      "bytes": 61404,
-      "sha256": "c7a76a029df59493697ec17cf61ebb7dc972538c629ddeda52334717b245b853",
+      "file": "59ff0cc2bbada592da67/sl/04.cues.json",
+      "bytes": 61043,
+      "sha256": "b26a42d389d81d9aa508638e0506c6c113650a88eeb8ef2b3dcd3294c951b9be",
       "kind": "cues",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--04.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--04.cues.json"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--04.cues.json",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--04.cues.json"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/05.mp3",
-      "bytes": 9743970,
-      "sha256": "150d6bf5578c2ba1025c56db3646733a381bc5bddf904f81fcb37cc451eddc57",
+      "file": "59ff0cc2bbada592da67/sl/05.mp3",
+      "bytes": 9804172,
+      "sha256": "932baad178d6d32583d9dec364275269c0b1fb5374234e88c31ff1773e74198d",
       "kind": "mp3",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--05.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--05.mp3"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--05.mp3",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--05.mp3"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/05.cues.json",
-      "bytes": 45923,
-      "sha256": "8ab26bbb7b86ecd916bab4ba29179a7ad86b548ee58da0933cc0079e7646afc1",
+      "file": "59ff0cc2bbada592da67/sl/05.cues.json",
+      "bytes": 45471,
+      "sha256": "72e0714deaeb60a996865458510063ccbb75693a2abb6138af1446d98e34a345",
       "kind": "cues",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--05.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--05.cues.json"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--05.cues.json",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--05.cues.json"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/06.mp3",
-      "bytes": 7884044,
-      "sha256": "530fe7e7c3deb82fab31efa9d9588a77082fa0b35e8d0372951a3c959f61b800",
+      "file": "59ff0cc2bbada592da67/sl/06.mp3",
+      "bytes": 7895329,
+      "sha256": "02bda7ca618240e32fd471becca5ae9255e6acb958eaa26865f74ffb1b20ac1b",
       "kind": "mp3",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--06.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--06.mp3"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--06.mp3",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--06.mp3"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/06.cues.json",
-      "bytes": 38182,
-      "sha256": "01fe55f49e628fe3621341e800d9153127ca7f4297cd26a6a0d47772b478c731",
+      "file": "59ff0cc2bbada592da67/sl/06.cues.json",
+      "bytes": 38177,
+      "sha256": "1d2d426392b87ed39b4f5356d445996ac5b07654faaf4004060cdd1f2b5595fa",
       "kind": "cues",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--06.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--06.cues.json"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--06.cues.json",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--06.cues.json"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/glossary.mp3",
-      "bytes": 4079345,
-      "sha256": "58662c9981b65b123a8c4acc0f593ba407feae4d9735e571ca2dc9159020f6f8",
+      "file": "59ff0cc2bbada592da67/sl/glossary.mp3",
+      "bytes": 4122813,
+      "sha256": "e9d7d824b30ab1233eda65362ae264ce38d4c34f60d7e1720eefa7a673034470",
       "kind": "mp3",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--glossary.mp3",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--glossary.mp3"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--glossary.mp3",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--glossary.mp3"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/glossary.cues.json",
-      "bytes": 20674,
-      "sha256": "59b7a1955f94822229fff00c929d6fbaebf4e3c0cccc8ab5220867242eb3a5cd",
+      "file": "59ff0cc2bbada592da67/sl/glossary.cues.json",
+      "bytes": 21283,
+      "sha256": "315b43afbfd56d8ccdde63689694c5c4e55e91609d377fb4f4156900cee1a6d5",
       "kind": "cues",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--glossary.cues.json",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--glossary.cues.json"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--glossary.cues.json",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--glossary.cues.json"
     },
     {
       "file": "55e0d8c8334fbab32662/de/toolbox-fur-city-changer-de.m4b",
@@ -2020,7 +2020,7 @@
       "sha256": "9d00d19e2f3b1ee4ece13477b6b01994df7d2d972163e0a67e720a9c88787d58",
       "kind": "m4b",
       "releaseAsset": "55e0d8c8334fbab32662--de--toolbox-fur-city-changer-de.m4b",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--de--toolbox-fur-city-changer-de.m4b"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--de--toolbox-fur-city-changer-de.m4b"
     },
     {
       "file": "55e0d8c8334fbab32662/en/toolbox-for-city-changers-en.m4b",
@@ -2028,15 +2028,15 @@
       "sha256": "adcb88559589a22453e7000779a1d5e3dd6009f34498a35d9069fce2cad136fe",
       "kind": "m4b",
       "releaseAsset": "55e0d8c8334fbab32662--en--toolbox-for-city-changers-en.m4b",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--en--toolbox-for-city-changers-en.m4b"
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/55e0d8c8334fbab32662--en--toolbox-for-city-changers-en.m4b"
     },
     {
-      "file": "55e0d8c8334fbab32662/sl/zbirka-orodij-za-spreminjanje-mest-sl.m4b",
-      "bytes": 40692211,
-      "sha256": "9e806b063afc6912610607555de39bb66f68b281510b87ec39e32391a9867477",
+      "file": "59ff0cc2bbada592da67/sl/zbirka-orodij-za-spreminjanje-mest-sl.m4b",
+      "bytes": 40792620,
+      "sha256": "0f37b0a8e1e639a365833a943a4c3886987bbfafe1856608fe863a558af8c07c",
       "kind": "m4b",
-      "releaseAsset": "55e0d8c8334fbab32662--sl--zbirka-orodij-za-spreminjanje-mest-sl.m4b",
-      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audiobook-2026-11-13-en-de-sl-footnotes-4eba4425216c/55e0d8c8334fbab32662--sl--zbirka-orodij-za-spreminjanje-mest-sl.m4b"
+      "releaseAsset": "59ff0cc2bbada592da67--sl--zbirka-orodij-za-spreminjanje-mest-sl.m4b",
+      "download": "https://github.com/wirmachenwien/city-changers/releases/download/audio-2026-11-19/59ff0cc2bbada592da67--sl--zbirka-orodij-za-spreminjanje-mest-sl.m4b"
     }
   ]
 }

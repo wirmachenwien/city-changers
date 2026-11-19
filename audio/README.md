@@ -19,6 +19,10 @@ npm run audio:preflight
 Open `.cache/audio/proofread/index.html` to compare source and exact narration.
 Filter **Needs generation** to review changes and available previous scripts.
 Preflight checks account allowance and voice access without generating speech.
+Each read-only check has a 30-second timeout and retries once on a timeout or
+connection failure. Diagnostics name the failing check without exposing credentials
+or voice IDs. Persistent timeouts require checking ElevenLabs service status and
+your network/VPN/proxy; paid generation requests are never automatically retried.
 
 ### 2. Generate only what you need
 

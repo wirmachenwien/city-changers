@@ -65,7 +65,8 @@ const formerChapterSlugs = {
   },
   sl: {
     '02': ['02-kako-zaceti-s-superbloki'],
-    '04': ['04-mobilizacija-in-strategije-sprememb'],
+    '04': ['04-mobilizacija-in-strategije-sprememb', '04-organiziranje-in-strategije-sprememb'],
+    '05': ['05-spremljanje-pokazimo-ucinek'],
   },
 };
 for (const lang of languages) {
