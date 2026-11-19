@@ -14,7 +14,7 @@ export async function preflightGet(endpoint, key, check, {
       if (!response.ok) throw await preflightFailure(response, check);
       try { return await response.json(); }
       catch (error) {
-        if (signal.aborted || error.name === 'TimeoutError' || error.name === 'AbortError') throw error;
+        if (error instanceof TypeError || signal.aborted || error.name === 'TimeoutError' || error.name === 'AbortError') throw error;
         throw new Error('Provider preflight response could not be decoded as JSON. Response content was not logged.');
       }
     } catch (error) {

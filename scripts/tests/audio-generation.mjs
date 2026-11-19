@@ -179,6 +179,37 @@ test('preflight also retries a timeout while reading the response body', async (
   assert.equal(calls, 2);
 });
 
+test('preflight retries connection failures while reading an HTTP 200 body', async () => {
+  for (const recover of [true, false]) {
+    let calls = 0;
+    const messages = [];
+    const result = preflightGet('/v1/models', 'fixture-key', { label: 'Models' }, {
+      retryDelayMs: 0,
+      onRetry: message => messages.push(message),
+      fetchImpl: async () => {
+        calls++;
+        if (recover && calls === 2) return Response.json([]);
+        return new Response(new ReadableStream({
+          pull(controller) { controller.error(new TypeError('private-body private-key')); },
+        }), { status: 200 });
+      },
+    });
+    if (recover) {
+      assert.deepEqual(await result, []);
+    } else {
+      await assert.rejects(result, error => {
+        assert.match(error.message, /Models preflight could not connect \(2 attempts\)/);
+        assert.doesNotMatch(error.message, /private-body|private-key/);
+        return true;
+      });
+    }
+    assert.equal(calls, 2);
+    assert.equal(messages.length, 1);
+    assert.match(messages[0], /could not connect; retrying read-only check/);
+    assert.doesNotMatch(messages[0], /private-body|private-key/);
+  }
+});
+
 test('npm workflow commands offer offline help and reject invalid arguments before loading a plan', () => {
   const tempRoot = join(tmpdir(), 'opencode');
   mkdirSync(tempRoot, { recursive: true });
