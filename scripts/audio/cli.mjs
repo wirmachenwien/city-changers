@@ -4,7 +4,7 @@ import { existsSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { makePlan, savePlan, report, assets, reusableAlignment, read, write, path } from './plan.mjs';
 import { hash } from './content.mjs';
 import { prepare } from './media.mjs';
-import { preflightFailure } from './api-errors.mjs';
+import { preflightGet } from './preflight-get.mjs';
 import { buildProofread } from './proofread.mjs';
 import { acquireAudioLock } from './lock.mjs';
 
@@ -55,9 +55,7 @@ async function providerJson(response, diagnostic) {
   catch { throw new Error(diagnostic); } // JSON parser errors can quote private response content.
 }
 async function get(endpoint, key, check) {
-  const response = await fetch(`https://api.elevenlabs.io${endpoint}`, { headers: { 'xi-api-key': key }, signal: AbortSignal.timeout(30000) });
-  if (!response.ok) throw await preflightFailure(response, check);
-  return providerJson(response, 'Provider preflight response could not be decoded as JSON. Response content was not logged.');
+  return preflightGet(endpoint, key, check, { onRetry: message => console.error(`Audio: ${message}`) });
 }
 async function preflight(config, langs) {
   const { key } = credentials(config, langs[0]);
