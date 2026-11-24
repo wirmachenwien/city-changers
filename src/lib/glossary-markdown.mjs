@@ -1,13 +1,14 @@
 // Glossary definitions support inline Markdown, never executable HTML/MDX.
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
+import { narratedChildren } from './audio-downloads.mjs';
 
 const parser = unified().use(remarkParse);
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
   .replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const safeUrl = url => !/^[\s\u0000-\u0020]*(?:javascript|data|vbscript):/i.test(url.replace(/[\u0000-\u0020]/g, ''));
 
-function render(source, transform, html) {
+function render(source, transform, html, narration = false) {
   const tree = parser.parse(source);
   const definitions = new Map();
   function collect(node) {
@@ -24,7 +25,7 @@ function render(source, transform, html) {
       if (!html) return value;
       return node.type === 'inlineCode' ? `<code>${escape(value)}</code>` : escape(value);
     }
-    const content = (node.children ?? []).map(walk).join(node.type === 'root' ? ' ' : '');
+    const content = (narration ? narratedChildren(node) : node.children ?? []).map(walk).join(node.type === 'root' ? ' ' : '');
     if (!html) return content;
     if (node.type === 'strong') return `<strong>${content}</strong>`;
     if (node.type === 'emphasis') return `<em>${content}</em>`;
@@ -42,3 +43,4 @@ function render(source, transform, html) {
 
 export const glossaryMarkdown = (source, transform = value => value) => render(source, transform, true);
 export const glossaryText = source => render(source, value => value, false);
+export const glossaryNarrationText = source => render(source, value => value, false, true).trim();

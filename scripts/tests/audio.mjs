@@ -8,7 +8,7 @@ import { makePlan, movedIds, path, registryFor } from '../audio/plan.mjs';
 import { audioPublication } from '../../src/lib/audio-publication.mjs';
 import { validateCues, validateAlignment } from '../audio/media.mjs';
 import remarkAudioBlocks from '../../src/lib/remark-audio-blocks.mjs';
-import { glossaryText } from '../../src/lib/glossary-markdown.mjs';
+import { glossaryNarrationText } from '../../src/lib/glossary-markdown.mjs';
 const source = body => `---\ntitle: Test\nlang: en\n---\n${body}`;
 const extract = body => parseSource(source(body), 'en', { en: [{ term: 'Test', definition: 'A definition.' }] }).blocks;
 
@@ -102,7 +102,7 @@ test('wrapper reference links and strikethrough retain the same narration as ord
 test('glossary component and full chapter retain matching IDs after whitespace and definition edits', () => {
   const component = readFileSync('src/components/Glossary.astro', 'utf8');
   const expression = component.match(/const audioEntries = ([\s\S]*? : \[\]);/)[1];
-  const renderEntries = new Function('entries', 'lang', 'explicit', 'registry', 'bindings', 'clean', 'hash', 'identify', 'chapterId', 'glossaryText', `return ${expression}`);
+  const renderEntries = new Function('entries', 'lang', 'explicit', 'registry', 'bindings', 'clean', 'hash', 'identify', 'chapterId', 'glossaryNarrationText', `return ${expression}`);
   const glossary = JSON.parse(readFileSync('src/data/glossary.json', 'utf8'));
   const registry = JSON.parse(readFileSync('audio/blocks.json', 'utf8')).chapters;
   const bindings = JSON.parse(readFileSync('audio/overrides.json', 'utf8')).bindings;
@@ -113,7 +113,7 @@ test('glossary component and full chapter retain matching IDs after whitespace a
       const entries = structuredClone(glossary[lang]);
       entries[0].definition = ` ${entries[0].definition.replace(' ', '  ')} `;
       for (const index of edited) entries[index].definition += ' Updated definition.';
-      const rendered = renderEntries(entries, lang, false, registry, bindings, clean, hash, identify, chapterId, glossaryText);
+      const rendered = renderEntries(entries, lang, false, registry, bindings, clean, hash, identify, chapterId, glossaryNarrationText);
       const extracted = identify(parseSource(chapterSource, lang, { ...glossary, [lang]: entries }).blocks, registry[chapterId], bindings[chapterId])
         .filter(block => block.kind === 'glossary');
       assert.deepEqual(rendered.map(e => e.id), extracted.map(e => e.id), `${lang}: edits ${edited}`);
@@ -122,10 +122,28 @@ test('glossary component and full chapter retain matching IDs after whitespace a
 });
 test('glossary narration speaks Markdown link labels, not their syntax or destinations', () => {
   const blocks = parseSource(source('<Glossary lang={"en"} />'), 'en', {
-    en: [{ term: 'Radar', definition: 'A **tool**. [Download PDF](/resources/radar.pdf).' }],
+    en: [{ term: 'Radar', definition: 'A **tool** for [street assessment](/resources/radar.pdf).' }],
   }).blocks;
-  assert.equal(blocks[0].text, 'Radar. A tool. Download PDF.');
+  assert.equal(blocks[0].text, 'Radar. A tool for street assessment.');
 });
+test('screen-only resource prompts preserve narration and fingerprints without removing rendered links', () => {
+  for (const prompt of ['Download PDF', 'Download the Awesome Street Radar (PDF, English)', 'Herunterladen', 'Prenesi PDF']) {
+    const original = extract('1. Use the tool.')[0];
+    const changed = extract(`1. Use the tool. [${prompt}](/resources/radar.pdf).`)[0];
+    assert.equal(changed.text, original.text);
+    assert.equal(changed.narration, original.narration);
+    assert.equal(changed.fingerprint, original.fingerprint);
+    assert.ok(changed.node.children[0].children.some(node => node.type === 'link'), 'website link survives extraction');
+    const glossary = parseSource(source('<Glossary lang={"en"} />'), 'en', {
+      en: [{ term: 'Radar', definition: `A tool. [${prompt}](/resources/radar.pdf).` }],
+    }).blocks[0];
+    assert.equal(glossary.text, 'Radar. A tool.');
+  }
+  assert.equal(extract('See [the PDF](/resources/radar.pdf).')[0].text, 'See the PDF.');
+  assert.equal(extract('A sentence. [Download PDF](/resources/radar.pdf) to learn more.')[0].text, 'A sentence. Download PDF to learn more.');
+  assert.equal(extract('A sentence. [Download PDF](https://example.com/radar.pdf).')[0].text, 'A sentence. Download PDF.');
+});
+
 test('ordered lists speak localized counters including starts/nesting without changing source identity', () => {
   for (const [lang, first, second] of [['en', 'First', 'Second'], ['de', 'Erstens', 'Zweitens'], ['sl', 'Prvič', 'Drugič']]) {
     const parsed = parseSource(source('1. One\n2. Two\n\n5. Five\n6. Six'), lang, {});
