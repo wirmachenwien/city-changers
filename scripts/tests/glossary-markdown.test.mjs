@@ -17,6 +17,7 @@ test('quotes are localised in labels, not link destinations', () => {
 });
 
 test('reference links work and raw HTML and unsafe URLs cannot execute', () => {
+  assert.equal(glossaryMarkdown('[Guide][pdf]\n\n[pdf]: /first.pdf\n[pdf]: /second.pdf').trim(), '<a href="/first.pdf">Guide</a>');
   assert.equal(glossaryMarkdown('[Guide][pdf]\n\n[pdf]: /resources/guide.pdf').trim(), '<a href="/resources/guide.pdf">Guide</a>');
   assert.equal(glossaryMarkdown('[Bad](javascript:alert) [Bad](data:text/html,test)'), 'Bad Bad');
   assert.equal(glossaryMarkdown('<script>alert(1)</script>'), '&lt;script&gt;alert(1)&lt;/script&gt;');

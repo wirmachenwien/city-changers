@@ -13,7 +13,7 @@ function render(source, transform, html, narration = false) {
   if (narration) resolveNarrationLinks(tree);
   const definitions = new Map();
   function collect(node) {
-    if (node.type === 'definition') definitions.set(node.identifier, node);
+    if (node.type === 'definition' && !definitions.has(node.identifier)) definitions.set(node.identifier, node);
     node.children?.forEach(collect);
   }
   collect(tree);

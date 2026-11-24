@@ -152,6 +152,12 @@ test('screen-only resource prompts preserve narration and fingerprints without r
     en: [{ term: 'Radar', definition: 'A tool. [Download PDF][pdf].\n\n[pdf]: /resources/radar.pdf' }],
   }).blocks[0];
   assert.equal(glossary.text, 'Radar. A tool.');
+  for (const [first, second, expected] of [
+    ['https://example.com/radar.pdf', '/resources/radar.pdf', 'Use the tool. Download PDF.'],
+    ['/resources/radar.pdf', 'https://example.com/radar.pdf', 'Use the tool.'],
+  ]) {
+    assert.equal(extract(`Use the tool. [Download PDF][r].\n\n[r]: ${first}\n[r]: ${second}`)[0].text, expected);
+  }
 });
 
 test('ordered lists speak localized counters including starts/nesting without changing source identity', () => {

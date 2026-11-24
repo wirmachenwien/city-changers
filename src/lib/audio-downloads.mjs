@@ -9,7 +9,7 @@ export function resolveNarrationLinks(tree) {
     node.children?.forEach(child => visit(child, action));
   }
   visit(tree, node => {
-    if (node.type === 'definition') definitions.set(node.identifier, node.url);
+    if (node.type === 'definition' && !definitions.has(node.identifier)) definitions.set(node.identifier, node.url);
   });
   visit(tree, node => {
     if (node.type === 'linkReference' && definitions.has(node.identifier)) referenceDestinations.set(node, definitions.get(node.identifier));
