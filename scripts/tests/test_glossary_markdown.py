@@ -20,6 +20,9 @@ class GlossaryMarkdownTest(unittest.TestCase):
         self.assertEqual(glossary_markdown('<script>alert(1)</script>'), '&lt;script&gt;alert(1)&lt;/script&gt;')
         self.assertEqual(glossary_markdown('[Bad](javascript:alert)'), 'Bad')
 
+    def test_code_spans_escape_literal_characters_only_once(self):
+        self.assertEqual(glossary_markdown('`<x>` and `a & b`'), '<code>&lt;x&gt;</code> and <code>a &amp; b</code>')
+
     def test_shared_glossary_uses_markdown(self):
         rendered = glossary_lang_html('en', {'en': [{'term': 'Radar', 'definition': '[Download](/resources/radar.pdf)'}]})
         self.assertIn('<dd><a href="/resources/radar.pdf">Download</a></dd>', rendered)

@@ -1,7 +1,7 @@
 // Glossary definitions support inline Markdown, never executable HTML/MDX.
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
-import { narratedChildren } from './audio-downloads.mjs';
+import { narratedChildren, resolveNarrationLinks } from './audio-downloads.mjs';
 
 const parser = unified().use(remarkParse);
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
@@ -10,6 +10,7 @@ const safeUrl = url => !/^[\s\u0000-\u0020]*(?:javascript|data|vbscript):/i.test
 
 function render(source, transform, html, narration = false) {
   const tree = parser.parse(source);
+  if (narration) resolveNarrationLinks(tree);
   const definitions = new Map();
   function collect(node) {
     if (node.type === 'definition') definitions.set(node.identifier, node);

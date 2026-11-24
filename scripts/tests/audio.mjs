@@ -142,6 +142,16 @@ test('screen-only resource prompts preserve narration and fingerprints without r
   assert.equal(extract('See [the PDF](/resources/radar.pdf).')[0].text, 'See the PDF.');
   assert.equal(extract('A sentence. [Download PDF](/resources/radar.pdf) to learn more.')[0].text, 'A sentence. Download PDF to learn more.');
   assert.equal(extract('A sentence. [Download PDF](https://example.com/radar.pdf).')[0].text, 'A sentence. Download PDF.');
+  assert.equal(extract('Click **[Download PDF](/resources/radar.pdf)** to continue.')[0].text, 'Click Download PDF to continue.');
+  const reference = extract('Use the tool. [Download PDF][radar].\n\n[radar]: /resources/radar.pdf')[0];
+  assert.equal(reference.text, 'Use the tool.');
+  assert.equal(reference.fingerprint, extract('Use the tool.')[0].fingerprint);
+  assert.equal(extract('See [the PDF][radar].\n\n[radar]: /resources/radar.pdf')[0].text, 'See the PDF.');
+  assert.equal(extract('Use the tool. [Download PDF][radar].\n\n[radar]: https://example.com/radar.pdf')[0].text, 'Use the tool. Download PDF.');
+  const glossary = parseSource(source('<Glossary lang={"en"} />'), 'en', {
+    en: [{ term: 'Radar', definition: 'A tool. [Download PDF][pdf].\n\n[pdf]: /resources/radar.pdf' }],
+  }).blocks[0];
+  assert.equal(glossary.text, 'Radar. A tool.');
 });
 
 test('ordered lists speak localized counters including starts/nesting without changing source identity', () => {

@@ -39,6 +39,10 @@ def glossary_markdown(source: str) -> str:
     import markdown
 
     parser = InlineMarkdown()
-    # Escape author HTML before parsing Markdown; only generated inline tags survive.
-    parser.feed(markdown.markdown(escape(source, quote=False)))
+    # Disable author HTML handling, letting Markdown's serializer escape raw
+    # tags and code contents exactly once. Only generated inline tags survive.
+    processor = markdown.Markdown()
+    processor.preprocessors.deregister('html_block')
+    processor.inlinePatterns.deregister('html')
+    parser.feed(processor.convert(source))
     return "".join(parser.parts)

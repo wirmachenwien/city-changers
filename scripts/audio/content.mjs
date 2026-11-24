@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm';
 import { parse as parseYaml } from 'yaml';
 import { createHash } from 'node:crypto';
 import { glossaryNarrationText } from '../../src/lib/glossary-markdown.mjs';
-import { narratedChildren } from '../../src/lib/audio-downloads.mjs';
+import { narratedChildren, resolveNarrationLinks } from '../../src/lib/audio-downloads.mjs';
 
 export const hash = value => createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)).digest('hex');
 export const clean = text => text.replace(/\s+/gu, ' ').trim();
@@ -154,6 +154,7 @@ export function spokenAttribution(cite, lang) {
 export function extractTree(tree, lang, glossary) {
   validateLists(tree); // Reject unsupported structures before normalization or narration.
   normalizeBlocks(tree);
+  resolveNarrationLinks(tree);
   const blocks = [];
   let referenceDepth = 0;
   const add = (node, kind, spoken, adaptation = false, extra = {}) => {
