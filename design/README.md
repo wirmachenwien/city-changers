@@ -11,10 +11,12 @@ It is not authenticated: anyone with its URL can access it.
   the website and included unchanged as `BRAND-GUIDE.md` in the downloadable kit.
 - **`assets/`** — the sole logo master (`logo/logo-lockup.svg`) and mascot pose
   definitions. Derived logos live in `src/assets/site/`, mascot media in
-  `src/assets/mascot/`, fonts in `src/assets/fonts/`, supporting images in
-  `src/assets/book/` and `src/assets/site/`, and web icons in `public/`.
+   `src/assets/mascot/`, fonts in `src/assets/fonts/`, supporting marks in
+   `src/assets/site/`, and web icons in `public/`.
   Edit the design logo master, not its generated application copy.
 - **`manifest.json`** — one inventory for website downloads and recipient kits.
+  Handbook images in `src/assets/book/` are editorial assets, excluded from the
+  brand kit and release fingerprint. Adding or replacing them needs no new brand edition.
 - **`motion/`** — the editable animation project, with independent Studio rigs.
 - **`icons/`** — [hand-drawn icon library and old archive](icons/index.html).
   Generous idea sparks are selected for lists. `npm run icons:build` exports the

@@ -30,6 +30,12 @@ def remote_release(release, draft=False):
 
 
 class BrandReleaseTest(unittest.TestCase):
+    def test_handbook_images_are_not_brand_release_inputs(self):
+        release = BRAND.inventory()
+        self.assertFalse(any(record["source"].startswith("src/assets/book/") for record in release["assets"]))
+        self.assertFalse(any(record["file"].startswith("05-supporting-images/handbook/") for record in release["assets"]))
+        self.assertFalse(any(path.startswith("src/assets/book") for path in BRAND.PACKAGING_INPUTS))
+
     def test_packaging_normalizes_zip_metadata_and_bytes_across_staging_attempts(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
