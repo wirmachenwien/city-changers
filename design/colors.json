@@ -58,11 +58,13 @@
     "mark": { "light": "amber.highlight", "dark": { "mix": ["amber.dark", "neutral.dark"], "weight": 0.3 }, "use": "Search-result highlighting." },
     "mark-ink": { "light": "neutral.ink", "dark": "neutral.cream", "use": "Text on search highlighting." },
     "focus": { "light": "green.light", "dark": "green.dark", "use": "Focus rings on ordinary UI surfaces." },
-    "popup-link": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.6 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.6 }, "use": "Icons and focus rings on inverse popup surfaces." }
+    "popup-link": { "light": { "mix": ["green.light", "neutral.paper"], "weight": 0.6 }, "dark": { "mix": ["green.dark", "neutral.dark"], "weight": 0.6 }, "use": "Icons and focus rings on inverse popup surfaces." },
+    "popup-accent": { "light": "green.dark", "dark": "green.light", "use": "Text links on inverse popup backgrounds: bright green on dark ink, deep green on light cream." },
+    "popup-link-hover": { "light": { "value": "#54D798" }, "dark": { "value": "#0D7642" }, "use": "Inverse-surface text-link hover and focus, matching the opposite surface's standard link hover." }
   },
   "linkUnderlines": {
     "description": "CSS inline-fragment backgrounds use the Quiet rule with registry-resolved text colors; no mascot artwork is changed.",
-    "tokens": ["accent", "link-hover", "ink-soft", "footer-link-hover"]
+    "tokens": ["accent", "link-hover", "ink-soft", "footer-link-hover", "popup-accent", "popup-link-hover"]
   },
   "utilities": {
     "white": "neutral.white",
@@ -95,7 +97,7 @@
       ["accent", "paper"], ["accent", "panel"], ["accent", "accent-soft"], ["accent", "warm-soft"],
       ["link-hover", "paper"], ["link-hover", "panel"], ["link-hover", "accent-soft"], ["link-hover", "warm-soft"],
       ["accent-ink", "accent"], ["pebble-hover-ink", "pebble-hover"], ["pebble-selected-hover-ink", "pebble-selected-hover"], ["error", "paper"], ["error", "panel"],
-      ["warm", "warm-soft"], ["mark-ink", "mark"], ["paper", "ink"],
+      ["warm", "warm-soft"], ["mark-ink", "mark"], ["paper", "ink"], ["popup-accent", "ink"], ["popup-link-hover", "ink"],
       ["ink", "audio-highlight"], ["accent", "audio-highlight"], ["mark-ink", "audio-highlight-on-tint"], ["accent", "audio-highlight-on-tint"]
     ],
     "graphics": [["focus", "paper"], ["focus", "panel"], ["popup-link", "ink"], ["control-border", "paper"], ["control-border", "panel"]],

@@ -5,6 +5,8 @@ import remarkMdx from 'remark-mdx';
 import remarkGfm from 'remark-gfm';
 import { parse as parseYaml } from 'yaml';
 import { createHash } from 'node:crypto';
+import { glossaryNarrationText } from '../../src/lib/glossary-markdown.mjs';
+import { narratedChildren, resolveNarrationLinks } from '../../src/lib/audio-downloads.mjs';
 
 export const hash = value => createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)).digest('hex');
 export const clean = text => text.replace(/\s+/gu, ' ').trim();
@@ -31,7 +33,7 @@ export function text(node) {
     return String(literal(node.data.estree.body[0].expression));
   }
   const blockContainer = ['root', 'list', 'listItem', 'blockquote', 'mdxJsxFlowElement'].includes(node.type);
-  return (node.children ?? []).map(text).join(blockContainer ? ' ' : '');
+  return narratedChildren(node).map(text).join(blockContainer ? ' ' : '');
 }
 const wrappers = new Set(['FeatureBox', 'MascotBox', 'Accordion', 'PullQuote', 'ExpandableBox', 'TableWrap', 'Slideshow']);
 const blockComponents = new Set([...wrappers, 'Figure', 'Question', 'Glossary', 'Bibliography']);
@@ -137,7 +139,7 @@ function narrationText(node, lang) {
   if (node.type === 'list') return node.children.map((item, index) => `${node.ordered ? `${spokenCounter((node.start ?? 1) + index, lang)}. ` : ''}${narrationText(item, lang)}`).join(' ');
   if (node.children) {
     const separator = ['root', 'listItem', 'blockquote', 'mdxJsxFlowElement'].includes(node.type) ? ' ' : '';
-    return node.children.map(child => narrationText(child, lang)).join(separator);
+    return narratedChildren(node).map(child => narrationText(child, lang)).join(separator);
   }
   return text(node);
 }
@@ -152,6 +154,7 @@ export function spokenAttribution(cite, lang) {
 export function extractTree(tree, lang, glossary) {
   validateLists(tree); // Reject unsupported structures before normalization or narration.
   normalizeBlocks(tree);
+  resolveNarrationLinks(tree);
   const blocks = [];
   let referenceDepth = 0;
   const add = (node, kind, spoken, adaptation = false, extra = {}) => {
@@ -182,7 +185,7 @@ export function extractTree(tree, lang, glossary) {
       return;
     }
     if (node.name === 'Glossary') {
-      for (const entry of glossary[lang] ?? []) add(node, 'glossary', `${entry.term}. ${entry.definition}`, false, { term: entry.term });
+      for (const entry of glossary[lang] ?? []) add(node, 'glossary', `${entry.term}. ${glossaryNarrationText(entry.definition)}`, false, { term: entry.term });
       return;
     }
     if (node.name === 'Figure') {

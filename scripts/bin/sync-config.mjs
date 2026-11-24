@@ -421,6 +421,7 @@ function glossary(lang) {
                 required: true
               - name: definition
                 label: Definition
+                description: 'Supports inline Markdown, including [link text](/resources/filename.pdf). Upload PDFs in Documents.'
                 type: text
                 required: true
               - name: forms
@@ -705,6 +706,12 @@ media:
     input: src/assets/site
     output: src/assets/site
     categories: [image]
+    rename: safe
+  - name: documents
+    label: Documents
+    input: public/resources
+    output: /resources
+    extensions: [pdf]
     rename: safe
 
 settings:

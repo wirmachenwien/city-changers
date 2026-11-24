@@ -1,5 +1,5 @@
 {
-  "registrySha256": "2ce3241c4f4e32639061402aae1aff8d12125821ff5934ebc73a3db348a16fb6",
+  "registrySha256": "2ad34aa5eb42b78d0511ac42025a2805e4952c292b1be59f108c127ed55ca285",
   "themes": {
     "light": {
       "paper": "#fdfcf9",
@@ -26,7 +26,9 @@
       "mark": "#ffe08a",
       "mark-ink": "#1d1a16",
       "focus": "#0c6b3c",
-      "popup-link": "#6ca588"
+      "popup-link": "#6ca588",
+      "popup-accent": "#4cc38a",
+      "popup-link-hover": "#54d798"
     },
     "dark": {
       "paper": "#161511",
@@ -53,7 +55,9 @@
       "mark": "#55401e",
       "mark-ink": "#f2ede3",
       "focus": "#4cc38a",
-      "popup-link": "#367d5a"
+      "popup-link": "#367d5a",
+      "popup-accent": "#0c6b3c",
+      "popup-link-hover": "#0d7642"
     },
     "print": {
       "paper": "#ffffff",
@@ -80,7 +84,9 @@
       "mark": "#ffe08a",
       "mark-ink": "#1d1a16",
       "focus": "#0c6b3c",
-      "popup-link": "#6ca588"
+      "popup-link": "#6ca588",
+      "popup-accent": "#4cc38a",
+      "popup-link-hover": "#54d798"
     }
   },
   "utilities": {

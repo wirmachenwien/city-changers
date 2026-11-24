@@ -37,6 +37,9 @@ Matching retained audio is reused automatically. Choose a budget from the curren
 plan; the example is not permission to spend.
 Footnotes are read in place, including inline `text` props and flow-level content;
 bibliographies and reference/material sections remain text-only.
+Standalone download prompts such as `[Download PDF](/resources/radar.pdf)`
+after a prose sentence are screen-only, including in glossary definitions.
+They do not invalidate retained narration; ordinary prose link labels are still read.
 Lists follow a positive, prose-only grammar: items contain paragraphs and nested
 lists; paragraphs support text, inline formatting, code spans, links (including
 reference links), and line breaks. Inline `Footnote` attached to prose is the

@@ -125,16 +125,29 @@ for (const lang of languages.filter(lang => lang !== SOURCE_LANG)) {
       .map(href => {
         const url = new URL(href, site);
         if (url.origin === new URL(site).origin) {
+          // Download translations can arrive independently. These are checked
+          // for existence by check-site, not for cross-language source parity.
+          if (url.pathname.startsWith(`${base}resources/`)) return null;
           const chapter = url.pathname.match(/\/book\/(?:de\/|sl\/|en\/)?(\d+)-[^/]+\.html$/)?.[1];
           if (chapter) return `chapter:${chapter}`;
         }
         return url.href;
-      }).sort();
+      }).filter(Boolean).sort();
     for (const chapter of sourceChapters) {
       assert.deepEqual(targets(page(lang, chapter)), targets(page(SOURCE_LANG, chapter)), `${chapter}: reference targets`);
     }
   });
 }
+
+test('English Radar download is linked from chapter two and the rendered glossary', () => {
+  const href = '/resources/awesome-street-radar-en.pdf';
+  assert.ok(existsSync(new URL(`../../dist${href}`, import.meta.url)));
+  for (const chapter of ['02', 'glossary']) {
+    const link = page('en', chapter).querySelector(`a[href="${href}"]`);
+    assert.ok(link, `${chapter}: clickable Radar download`);
+    assert.match(link.textContent, /PDF/);
+  }
+});
 
 test('downloads publish only final PDF/EPUB files', () => {
   const dir = new URL('../../dist/downloads/', import.meta.url);

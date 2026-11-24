@@ -20,7 +20,7 @@ WHICH FOLDER DO I NEED?
 02-mascot-stills     Six poses as transparent PNG and scalable SVG pictures.
 03-animation        Moving mascots: video for editors, Lottie for compatible apps.
 04-fonts            Brand fonts and their licence notices.
-05-supporting-images Handbook photos, diagrams, partner and credit marks.
+05-supporting-images Partner and credit marks, plus the link preview image.
 06-web-icons        Small website/app icons. Usually not needed for social posts.
 07-rights           Repository licence. See the rights notes below too.
 BRAND-GUIDE.md       Colors, fonts and basic layout rules (open in any text editor).
@@ -104,9 +104,9 @@ BEFORE YOU POST
 RIGHTS AND PERMISSIONS
 
 The inclusion of an image does not establish permission for every new use.
-The supporting images are reference material from the handbook. Before publishing
-them, confirm the photographer/creator credit, permission and any required
-licence wording with the project team. Partner and Erasmus+ marks may have
+Handbook photos and diagrams are not included in this brand kit. For any photos
+you add to your designs, confirm the photographer/creator credit, permission and
+any required licence wording with the project team. Partner and Erasmus+ marks may have
 separate usage rules; do not imply endorsement. A CC BY badge alone does not
 tell you which files it applies to. Font permissions are in the included OFL
 notices. The repository licence is included for reference, not as proof that

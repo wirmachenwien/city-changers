@@ -13,6 +13,12 @@ media:
     output: src/assets/site
     categories: [image]
     rename: safe
+  - name: documents
+    label: Documents
+    input: public/resources
+    output: /resources
+    extensions: [pdf]
+    rename: safe
 
 settings:
   content:
@@ -570,6 +576,7 @@ content:
                 required: true
               - name: definition
                 label: Definition
+                description: 'Supports inline Markdown, including [link text](/resources/filename.pdf). Upload PDFs in Documents.'
                 type: text
                 required: true
               - name: forms
@@ -961,6 +968,7 @@ content:
                 required: true
               - name: definition
                 label: Definition
+                description: 'Supports inline Markdown, including [link text](/resources/filename.pdf). Upload PDFs in Documents.'
                 type: text
                 required: true
               - name: forms
@@ -1352,6 +1360,7 @@ content:
                 required: true
               - name: definition
                 label: Definition
+                description: 'Supports inline Markdown, including [link text](/resources/filename.pdf). Upload PDFs in Documents.'
                 type: text
                 required: true
               - name: forms

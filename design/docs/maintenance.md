@@ -12,7 +12,7 @@
 | `design/assets/mascot/source/static-poses.json` | Static-only overrides and additional poses; never consumed by motion |
 | `src/assets/mascot/` | Stills, preview sheet, Lottie and transparent MOV exports |
 | `src/assets/fonts/` | Fonts with their OFL notices |
-| `src/assets/book/` | Handbook reference images |
+| `src/assets/book/` | Editorial handbook images; excluded from the brand kit and release inventory |
 | `public/` | Generated web icons and `site.webmanifest` derived from handbook config |
 | `design/motion/` | Editable animation code and Studio defaults |
 | `design/docs/handoff/START-HERE.txt` | Recipient workflow instructions, not a second brand guide |
@@ -23,6 +23,8 @@ marks are edited in `src/assets/`, including through the CMS. Logos, mascot medi
 and web icons are generated there (or in `public/`) from their design sources.
 `public/brand-assets/` contains disposable release-link metadata and lightweight
 website previews, not original downloads or an independent source library.
+Handbook photo uploads do not change the brand inventory or require an edition
+bump. Changes to actual kit assets, instructions, colors or packaging still do.
 
 `design/assets/logo/logo-lockup.svg` is the sole editable logo master and the
 source for every derived logo and web icon. Generation copies it unchanged to

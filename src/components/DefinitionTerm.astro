@@ -3,6 +3,8 @@
 // enhancement from src/scripts/definitions.ts).
 import { smartQuotes } from '../lib/smart-quotes';
 import type { Language } from '../data/locales';
+import { glossaryMarkdown, glossaryText } from '../lib/glossary-markdown.mjs';
+import { textLinkMarkup } from '../lib/text-link-underlines.mjs';
 
 interface Props {
   term: string;
@@ -14,8 +16,9 @@ const { term, definition, lang } = Astro.props;
 // localised here to match the hast-transformed prose (only when lang is
 // known).
 const displayTerm = lang ? smartQuotes(term, lang) : term;
-const displayDefinition = lang ? smartQuotes(definition, lang) : definition;
+const displayDefinition = lang ? smartQuotes(glossaryText(definition), lang) : glossaryText(definition);
+const definitionHtml = textLinkMarkup(glossaryMarkdown(definition, (text: string) => lang ? smartQuotes(text, lang) : text));
 ---
 <dfn>
-  <button type="button" class="definition-term" data-definition={displayDefinition} title={displayDefinition}>{displayTerm}</button>
+  <button type="button" class="definition-term" data-definition={displayDefinition} data-definition-html={definitionHtml} title={displayDefinition}>{displayTerm}</button>
 </dfn>

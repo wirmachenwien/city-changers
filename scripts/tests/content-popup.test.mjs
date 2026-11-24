@@ -67,12 +67,12 @@ function environment() {
   for (const [key, value] of Object.entries(globals)) Object.defineProperty(globalThis, key, { value, configurable: true });
   return {
     document, window, frames,
-    trigger: (describedBy, action) => {
+    trigger: (describedBy, action, interactive) => {
       const trigger = new Element('button');
       trigger.setAttribute('title', 'Native duplicate');
       if (describedBy) trigger.setAttribute('aria-describedby', describedBy);
       document.body.append(trigger);
-      bindContentPopup(trigger, { content: () => 'Definition', label: 'Term', closeLabel: 'Close', action });
+      bindContentPopup(trigger, { content: () => 'Definition', label: 'Term', closeLabel: 'Close', action, interactive });
       return trigger;
     },
     popup: () => document.body.children.find(child => child.className?.split(' ').includes('content-popup')),
@@ -90,6 +90,25 @@ function environment() {
     },
   };
 }
+
+test('definition links use dialog semantics and stay open when keyboard focus enters', () => {
+  const env = environment();
+  try {
+    const trigger = env.trigger(undefined, undefined, true);
+    trigger.emit('pointerenter', { pointerType: 'mouse' });
+    const popup = env.popup();
+    assert.equal(popup.getAttribute('role'), 'dialog');
+    assert.equal(popup.getAttribute('aria-label'), 'Term');
+    assert.equal(trigger.getAttribute('aria-controls'), popup.id);
+    assert.equal(trigger.getAttribute('aria-describedby'), null);
+    env.document.activeElement = 'download-link';
+    popup.emit('focusin');
+    assert.equal(popup.children[0].hidden, false);
+    assert.equal(env.document.activeElement, 'download-link', 'pinning preserves focus on the link');
+    popup.emit('pointerleave');
+    assert.equal(env.popup(), popup);
+  } finally { env.cleanup(); }
+});
 
 test('pinned popup follows the trigger precisely and remains open offscreen without sticking', () => {
   const env = environment();

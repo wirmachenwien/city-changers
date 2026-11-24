@@ -38,6 +38,8 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | `--mark-ink` | `#1D1A16` | `#F2EDE3` | `#1D1A16` | Text on search highlighting. |
 | `--focus` | `#0C6B3C` | `#4CC38A` | `#0C6B3C` | Focus rings on ordinary UI surfaces. |
 | `--popup-link` | `#6CA588` | `#367D5A` | `#6CA588` | Icons and focus rings on inverse popup surfaces. |
+| `--popup-accent` | `#4CC38A` | `#0C6B3C` | `#4CC38A` | Text links on inverse popup backgrounds: bright green on dark ink, deep green on light cream. |
+| `--popup-link-hover` | `#54D798` | `#0D7642` | `#54D798` | Inverse-surface text-link hover and focus, matching the opposite surface's standard link hover. |
 
 ## Supporting recipes
 
@@ -60,6 +62,7 @@ explicit so contrast is not left to arbitrary automatic mixing.
 | warm-soft | amber.highlight 22% + neutral.paper 78% (sRGB) | amber.dark 14.000000000000002% + neutral.dark 86% (sRGB) |
 | mark | amber.highlight | amber.dark 30% + neutral.dark 70% (sRGB) |
 | popup-link | green.light 60% + neutral.paper 40% (sRGB) | green.dark 60% + neutral.dark 40% (sRGB) |
+| popup-link-hover | #54D798 | #0D7642 |
 
 ## Utilities
 

@@ -8,6 +8,7 @@ import { glossaryTerms } from '../data/glossary';
 import { slugifyTerms } from '../lib/slug';
 import { t } from '../lib/i18n';
 import { smartQuotes } from '../lib/smart-quotes';
+import { glossaryMarkdown, glossaryNarrationText } from '../lib/glossary-markdown.mjs';
 import type { Language } from '../data/locales';
 import audioBlocks from '../../audio/blocks.json';
 import audioOverrides from '../../audio/overrides.json';
@@ -27,14 +28,11 @@ const entries: GlossaryEntry[] =
   (lang
     ? glossaryTerms[lang].map(({ term, definition }) => ({ term, definition }))
     : []);
-// Entries bypass the markdown pipeline, so quotes are localised here to
-// match the hast-transformed prose (only when lang is known).
-const displayEntries = lang
-  ? entries.map((entry) => ({
-      term: smartQuotes(entry.term, lang),
-      definition: smartQuotes(entry.definition, lang),
-    }))
-  : entries;
+// Localise visible text only, never Markdown destinations or delimiters.
+const displayEntries = entries.map((entry) => ({
+  term: lang ? smartQuotes(entry.term, lang) : entry.term,
+  definition: glossaryMarkdown(entry.definition, (text: string) => lang ? smartQuotes(text, lang) : text),
+}));
 if (displayEntries.length === 0) throw new Error('<Glossary> needs either entries or lang');
 // Slugs derive from the raw terms so display transforms (smart quotes)
 // can never change an anchor target.
@@ -44,12 +42,12 @@ const chapterId = `${lang}/glossary`;
 const registry = audioBlocks.chapters as Record<string, any[]>;
 const bindings = audioOverrides.bindings as Record<string, Record<string, string>>;
 const audioEntries = !explicit && lang ? identify(entries.map((entry, index) => ({
-  kind: 'glossary', fingerprint: hash({ kind: 'glossary', spoken: clean(`${entry.term}. ${entry.definition}`) }), line: index,
+  kind: 'glossary', fingerprint: hash({ kind: 'glossary', spoken: clean(`${entry.term}. ${glossaryNarrationText(entry.definition)}`) }), line: index,
 })), registry[chapterId]?.filter((block) => block.kind === 'glossary'), bindings[chapterId]) : [];
 ---
 <dl class="glossary">
   {displayEntries.map((entry, index) => (
     <dt id={slugs[index]}>{entry.term}<a href={`#${slugs[index]}`} data-heading-anchor aria-label={anchorLabel}>#</a></dt>
-    <dd data-audio-block={audioEntries[index]?.id}>{entry.definition}</dd>
+    <dd data-audio-block={audioEntries[index]?.id} set:html={entry.definition} />
   ))}
 </dl>

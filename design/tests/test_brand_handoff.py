@@ -18,6 +18,8 @@ SPEC.loader.exec_module(PACKAGE)
 class BrandHandoffTest(unittest.TestCase):
     def test_allowlist_is_complete_and_safe(self):
         files = PACKAGE.asset_map()
+        self.assertFalse(any(source.is_relative_to(PACKAGE.ROOT / "src/assets/book") for source in files.values()))
+        self.assertFalse(any(path.startswith("05-supporting-images/handbook/") for path in files))
         self.assertEqual(len([p for p in files if p.endswith(".mov")]), 12)
         self.assertEqual(len([p for p in files if p.startswith("03-animation/lottie/")]), 12)
         self.assertEqual(len([p for p in files if p.startswith("02-mascot-stills/")]), 28)
