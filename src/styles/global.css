@@ -1926,6 +1926,20 @@ html:not(.js-fold) .accordion-content {
   overflow: auto;
 }
 
+.content-popup-body a:not(.content-popup-action) {
+  /* The popup paints --ink, not the page's --paper background. Keep the
+     shared text-link colors and Quiet rules tied to that inverse surface. */
+  --accent: var(--popup-accent);
+  --link-hover: var(--popup-link-hover);
+  --link-rule-accent: var(--link-rule-popup-accent);
+  --link-rule-link-hover: var(--link-rule-popup-link-hover);
+}
+
+.content-popup-body a:not(.content-popup-action):focus-visible {
+  --text-link-rule: var(--link-rule-popup-link-hover);
+  color: var(--popup-link-hover);
+}
+
 .content-popup-action {
   display: inline-flex;
   align-items: center;

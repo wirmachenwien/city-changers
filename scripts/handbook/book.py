@@ -186,6 +186,11 @@ def markdown_to_html(converted_md: str, lang: str) -> str:
     import markdown  # pip: markdown
 
     body = markdown.markdown(converted_md, extensions=["extra"])
+    # Public resource downloads stay online, not relative to a local PDF/EPUB.
+    config = load_config()
+    resource_base = config["site"].rstrip("/") + "/" + config["base"].strip("/")
+    resource_base = resource_base.rstrip("/")
+    body = body.replace('href="/resources/', f'href="{escape(resource_base, quote=True)}/resources/')
     return marker_hints(smart_quotes_html(body, lang))
 
 

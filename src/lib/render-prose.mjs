@@ -7,8 +7,9 @@ import { visit } from 'unist-util-visit';
 import { buildGlossaryMatcher } from '../data/glossary.ts';
 import { iconSvg } from './icons.ts';
 import { enhanceExternalLinks } from './external-links.mjs';
-import { enhanceTextLinks } from './text-link-underlines.mjs';
+import { enhanceTextLinks, textLinkMarkup } from './text-link-underlines.mjs';
 import { markSentenceHooks } from './audio-sentences.mjs';
+import { glossaryMarkdown, glossaryText } from './glossary-markdown.mjs';
 
 const SKIP_TAGS = new Set(['a', 'button', 'code', 'pre', 'dfn', 'dt', 'dd', 'script', 'style']);
 const textContent = node => node.type === 'text' ? node.value
@@ -56,7 +57,8 @@ function highlightGlossary(tree, lang) {
             type: 'element', tagName: 'button',
             properties: {
               type: 'button', className: ['definition-term'],
-              dataDefinition: entry.definition, title: entry.definition,
+              dataDefinition: glossaryText(entry.definition), title: glossaryText(entry.definition),
+              dataDefinitionHtml: textLinkMarkup(glossaryMarkdown(entry.definition)),
             },
             children: [{ type: 'text', value: match[0] }],
           }],

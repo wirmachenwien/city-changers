@@ -5,6 +5,7 @@ import remarkMdx from 'remark-mdx';
 import remarkGfm from 'remark-gfm';
 import { parse as parseYaml } from 'yaml';
 import { createHash } from 'node:crypto';
+import { glossaryText } from '../../src/lib/glossary-markdown.mjs';
 
 export const hash = value => createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)).digest('hex');
 export const clean = text => text.replace(/\s+/gu, ' ').trim();
@@ -182,7 +183,7 @@ export function extractTree(tree, lang, glossary) {
       return;
     }
     if (node.name === 'Glossary') {
-      for (const entry of glossary[lang] ?? []) add(node, 'glossary', `${entry.term}. ${entry.definition}`, false, { term: entry.term });
+      for (const entry of glossary[lang] ?? []) add(node, 'glossary', `${entry.term}. ${glossaryText(entry.definition)}`, false, { term: entry.term });
       return;
     }
     if (node.name === 'Figure') {

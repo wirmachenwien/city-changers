@@ -32,6 +32,7 @@ from html import escape
 from functools import lru_cache
 from pathlib import Path
 from typing import Callable
+from handbook.glossary import glossary_markdown
 
 EscapeFn = Callable[[str], str]
 
@@ -285,7 +286,7 @@ def math_md(attr_source: str | None) -> str:
 def glossary_html(source: str, escape_fn: EscapeFn = _identity) -> str:
     seen: dict[str, int] = {}
     items = ''.join(
-        f'<dt id="{glossary_slug(term, seen)}">{escape_fn(term)}</dt><dd>{escape_fn(definition)}</dd>'
+        f'<dt id="{glossary_slug(term, seen)}">{escape_fn(term)}</dt><dd>{glossary_markdown(definition)}</dd>'
         for term, definition in object_entries(source)
     )
     return f'\n\n<dl class="glossary">{items}</dl>\n'
@@ -295,7 +296,7 @@ def glossary_lang_html(lang: str, data: dict, escape_fn: EscapeFn = _identity) -
     """Full shared glossary for a language (data = parsed glossary.json)."""
     seen: dict[str, int] = {}
     items = ''.join(
-        f'<dt id="{glossary_slug(entry["term"], seen)}">{escape_fn(entry["term"])}</dt><dd>{escape_fn(entry["definition"])}</dd>'
+        f'<dt id="{glossary_slug(entry["term"], seen)}">{escape_fn(entry["term"])}</dt><dd>{glossary_markdown(entry["definition"])}</dd>'
         for entry in data.get(lang, [])
     )
     return f'\n\n<dl class="glossary">{items}</dl>\n'

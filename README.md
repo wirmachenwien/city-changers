@@ -40,6 +40,11 @@ Normal dev/build commands never regenerate artwork or narration.
 - **Colors:** `design/colors.json` is the source of truth. Use semantic CSS
   variables; after registry edits, run `npm run colors:generate` and
   `npm run colors:check`. Never hand-edit generated color files.
+- **Resource PDFs:** upload and replace files in Pages CMS → Documents
+  (`public/resources/`). Link to `/resources/filename.pdf` from chapter Markdown
+  or glossary definitions. Glossary definitions support inline Markdown links,
+  emphasis and code; PDFs themselves must be edited in their source application.
+  PDF/EPUB handbook exports link to the online resource files.
 
 ## Design assets
 

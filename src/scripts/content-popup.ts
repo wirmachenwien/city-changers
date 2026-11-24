@@ -7,6 +7,7 @@ interface PopupOptions {
   label: string;
   closeLabel: string;
   action?: { href: string; label: string };
+  interactive?: boolean;
   onToggle?: (open: boolean) => void;
 }
 
@@ -23,6 +24,7 @@ const openPopups = new Map<HTMLElement, PopupState>();
 let preview: PopupState | undefined;
 
 export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): { open: () => void } {
+  const interactive = options.interactive || Boolean(options.action);
   const id = `content-popup-${++nextId}`;
   const describedBy = trigger.getAttribute('aria-describedby');
   trigger.removeAttribute('title');
@@ -62,8 +64,8 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): {
     popup.className = pinned ? 'content-popup' : 'content-popup content-popup--preview';
     // Hover cards with a navigation action are non-modal dialogs rather
     // than ARIA tooltips, which must not contain interactive controls.
-    popup.setAttribute('role', pinned || options.action ? 'dialog' : 'tooltip');
-    if (pinned || options.action) popup.setAttribute('aria-label', options.label);
+    popup.setAttribute('role', pinned || interactive ? 'dialog' : 'tooltip');
+    if (pinned || interactive) popup.setAttribute('aria-label', options.label);
     const closer = document.createElement('button');
     closer.type = 'button';
     closer.className = 'content-popup-close';
@@ -106,7 +108,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): {
       // Bridge the gap between the trigger and popup so the text is hoverable.
       dismissTimer = setTimeout(() => close(), 150);
     }
-    function pin(): void {
+    function pin(moveFocus = true): void {
       cancelDismiss();
       if (pinned) return;
       pinned = true;
@@ -121,7 +123,7 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): {
       trigger.setAttribute('aria-controls', id);
       options.onToggle?.(true);
       position();
-      if (popup.isConnected) closer.focus({ preventScroll: true });
+      if (moveFocus && popup.isConnected) closer.focus({ preventScroll: true });
     }
     function close(restoreFocus = false): void {
       cancelDismiss();
@@ -214,15 +216,17 @@ export function bindContentPopup(trigger: HTMLElement, options: PopupOptions): {
     const state = { trigger, pinned, close, pin, cancelDismiss, dismissPreview };
     openPopups.set(trigger, state);
     if (!pinned) preview = state;
-    if (pinned || options.action) {
+    if (pinned || interactive) {
       trigger.setAttribute('aria-expanded', 'true');
       trigger.setAttribute('aria-controls', id);
       if (pinned) options.onToggle?.(true);
     }
-    if (!pinned) {
+    if (!pinned && !interactive) {
       trigger.setAttribute('aria-describedby', [describedBy, id].filter(Boolean).join(' '));
     }
     popup.addEventListener('pointerenter', cancelDismiss);
+    // Keep a keyboard-focused download link open without moving focus away.
+    if (interactive) popup.addEventListener('focusin', () => pin(false));
     popup.addEventListener('pointerleave', dismissPreview);
     closer.addEventListener('click', () => close(true));
     window.addEventListener('scroll', onScroll, { capture: true, passive: true });

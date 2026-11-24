@@ -26,3 +26,14 @@ test('footer hover brightens its own muted color by the same 10%, not to green',
   }
   assert.match(read('src/styles/global.css'), /\.site-footer a:hover \{\s*color: var\(--footer-link-hover\);/);
 });
+
+test('popup links use the green and hover shade for their actual inverse background', () => {
+  const { themes } = resolveRegistry(JSON.parse(read('design/colors.json')));
+  for (const [theme, opposite] of [['light', 'dark'], ['dark', 'light']]) {
+    assert.equal(themes[theme]['popup-accent'], themes[opposite].accent);
+    assert.equal(themes[theme]['popup-link-hover'], themes[opposite]['link-hover']);
+  }
+  const css = read('src/styles/global.css');
+  assert.match(css, /\.content-popup-body a:not\(\.content-popup-action\) \{[^}]*--accent: var\(--popup-accent\);[^}]*--link-hover: var\(--popup-link-hover\);[^}]*--link-rule-accent: var\(--link-rule-popup-accent\);[^}]*--link-rule-link-hover: var\(--link-rule-popup-link-hover\);/);
+  assert.match(css, /\.content-popup-body a:not\(\.content-popup-action\):focus-visible \{[^}]*--text-link-rule: var\(--link-rule-popup-link-hover\);[^}]*color: var\(--popup-link-hover\);/);
+});

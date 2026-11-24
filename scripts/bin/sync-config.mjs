@@ -421,6 +421,7 @@ function glossary(lang) {
                 required: true
               - name: definition
                 label: Definition
+                description: 'Supports inline Markdown, including [link text](/resources/filename.pdf). Upload PDFs in Documents.'
                 type: text
                 required: true
               - name: forms
