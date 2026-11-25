@@ -139,11 +139,13 @@ for (const lang of languages.filter(lang => lang !== SOURCE_LANG)) {
   });
 }
 
-test('English Radar download is linked from chapter two and the rendered glossary', () => {
-  const href = '/resources/awesome-street-radar-en.pdf';
+for (const [lang, href] of [
+  ['en', '/resources/awesome-street-radar-en.pdf'],
+  ['de', '/resources/leiwande-strassenradar.pdf'],
+]) test(`${lang}: Radar download is linked from chapter two and the rendered glossary`, () => {
   assert.ok(existsSync(new URL(`../../dist${href}`, import.meta.url)));
   for (const chapter of ['02', 'glossary']) {
-    const link = page('en', chapter).querySelector(`a[href="${href}"]`);
+    const link = page(lang, chapter).querySelector(`a[href="${href}"]`);
     assert.ok(link, `${chapter}: clickable Radar download`);
     assert.match(link.textContent, /PDF/);
   }
