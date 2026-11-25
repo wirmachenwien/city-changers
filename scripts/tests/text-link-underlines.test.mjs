@@ -38,8 +38,16 @@ test('rendered component links receive CSS labels after external-link enhancemen
   });
   const { document } = parseHTML(html);
   assert.equal(document.querySelector('[data-text-link-label]').textContent, 'Component link');
+  assert.equal(document.querySelector('.external-link-icon').firstChild.textContent, '\u2060');
   assert.equal(document.querySelector('[data-text-link-label] .external-link-icon'), null);
   assert.equal(document.querySelector('a').getAttribute('target'), '_blank');
+});
+
+test('external arrow CSS keeps the joiner with the SVG while leaving link labels wrappable', () => {
+  const css = read('src/styles/global.css');
+  const rule = css.match(/^\.external-link-icon \{([^}]+)\}/m)?.[1];
+  assert.match(rule, /display: inline;/);
+  assert.match(rule, /white-space: nowrap;/);
 });
 
 test('icons nested inside formatted link labels are also excluded without flattening formatting', () => {

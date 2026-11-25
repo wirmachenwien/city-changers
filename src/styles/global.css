@@ -898,8 +898,9 @@ body.drawer-open {
 }
 
 .external-link-icon {
-  display: inline-block;
-  margin-inline-start: 0.08rem;
+  display: inline;
+  /* Keep the joiner and SVG together without preventing link text wrapping. */
+  white-space: nowrap;
   font-family: var(--font-ui);
   font-size: 0.75rem;
   line-height: 1;
@@ -908,6 +909,7 @@ body.drawer-open {
 }
 
 .external-link-icon .icon {
+  margin-inline-start: 0.08rem;
   inline-size: 0.75rem;
   block-size: 0.75rem;
 }
@@ -926,23 +928,27 @@ a[data-external-link]:has(img) > .external-link-icon {
   margin: 0;
 }
 
+a[data-external-link]:has(img) > .external-link-icon .icon {
+  margin: 0;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .external-link-icon {
+  .external-link-icon .icon {
     transition: transform 180ms ease-out;
   }
 
-  a[data-external-link]:focus-visible > .external-link-icon {
+  a[data-external-link]:focus-visible > .external-link-icon .icon {
     transform: translate(0.12rem, -0.12rem);
   }
 
   @media (hover: hover) {
-    a[data-external-link]:hover > .external-link-icon {
+    a[data-external-link]:hover > .external-link-icon .icon {
       transform: translate(0.12rem, -0.12rem);
     }
   }
 
-  a[data-external-link]:active:hover > .external-link-icon,
-  a[data-external-link]:active:focus-visible > .external-link-icon {
+  a[data-external-link]:active:hover > .external-link-icon .icon,
+  a[data-external-link]:active:focus-visible > .external-link-icon .icon {
     transform: translate(-0.04rem, 0.04rem) scale(0.88);
     transition-duration: 80ms;
   }

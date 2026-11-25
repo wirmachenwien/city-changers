@@ -11,7 +11,7 @@ test('external content links receive an arrow, safe new-tab attributes and a not
     const html = enhance(`<p><a href="${href}"><em>Resource</em></a></p>`);
     assert.match(html, /target="_blank"/);
     assert.match(html, /rel="noopener noreferrer"/);
-    assert.match(html, /class="external-link-icon" aria-hidden="true"><svg/);
+    assert.match(html, /class="external-link-icon" aria-hidden="true">\u2060<svg/);
     assert.match(html, /stroke-width="1.9"/);
     assert.match(html, /External link, opens in a new tab/);
     assert.match(html, /<em>Resource<\/em>/);
@@ -27,6 +27,19 @@ test('external buttons omit the arrow but retain safe new-tab attributes and not
     assert.match(html, /External link, opens in a new tab/);
     assert.equal(enhance(html), html);
   }
+});
+
+test('external arrows are joined to the preceding link text without disabling wrapping', () => {
+  for (const label of ['A longer resource title', '<em>Resource</em>', 'Resource ']) {
+    const html = enhance(`<a href="https://example.org">${label}</a>`);
+    assert.ok(html.includes(`${label.trimEnd()}<span class="external-link-icon" aria-hidden="true">\u2060<svg`));
+    assert.equal(enhance(html), html, 'enhancing twice does not duplicate the joiner');
+  }
+});
+
+test('trailing whitespace inside formatted labels cannot separate text from the arrow', () => {
+  const html = enhance('<a href="https://example.org">A <em>formatted ending \n</em> \n</a>');
+  assert.ok(html.includes('A <em>formatted ending</em><span class="external-link-icon" aria-hidden="true">\u2060<svg'));
 });
 
 test('internal links, anchors, emails and non-web protocols remain unchanged', () => {

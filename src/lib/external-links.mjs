@@ -4,6 +4,21 @@ import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 import { iconSvg } from './icons.ts';
 
+// Trailing collapsible whitespace would separate the joiner from visible text,
+// including when the final word is inside emphasis or another inline element.
+function trimTrailingWhitespace(node) {
+  if (node.type === 'text') {
+    node.value = node.value.replace(/[\t\n\f\r ]+$/, '');
+    return node.value.length === 0;
+  }
+  if (node.type === 'comment') return true;
+  if (!node.children?.length) return false;
+  for (let i = node.children.length - 1; i >= 0; i--) {
+    if (!trimTrailingWhitespace(node.children[i])) return false;
+  }
+  return true;
+}
+
 /** Enhance rendered content, including links inside embedded Astro components. */
 export function externalLinks(html, site, notice) {
   const processor = unified().use(rehypeParse, { fragment: true }).use(rehypeStringify);
@@ -35,10 +50,15 @@ export function enhanceExternalLinks(tree, processor, site, notice) {
     node.properties.dataExternalLink = '';
     const classes = Array.isArray(node.properties.className) ? node.properties.className : String(node.properties.className ?? '').split(/\s+/);
     const isButton = classes.includes('button-link') || node.properties.role === 'button';
+    if (!isButton) trimTrailingWhitespace(node);
     if (!isButton) node.children.push({
       type: 'element', tagName: 'span',
       properties: { className: ['external-link-icon'], ariaHidden: 'true' },
-      children: processor.parse(iconSvg('external-link')).children,
+      children: [
+        // Keep the joiner directly before the SVG in the same inline context.
+        { type: 'text', value: '\u2060' },
+        ...processor.parse(iconSvg('external-link')).children,
+      ],
     });
     // An existing aria-label overrides child text, so extend it directly.
     if (node.properties.ariaLabel) {
